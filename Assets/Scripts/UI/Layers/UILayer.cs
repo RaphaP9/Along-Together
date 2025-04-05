@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class UILayer : MonoBehaviour
 {
-    [Header("BaseUI Settings")]
+    [Header("UILayer Settings")]
     [SerializeField] private bool canCloseFromUI;
 
     protected enum State { Closed, Opening, Open, Closing }
