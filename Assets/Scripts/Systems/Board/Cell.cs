@@ -32,7 +32,7 @@ public class Cell : MonoBehaviour
     private void SetOccuppant(Transform occupant) => this.occupant = occupant;
     private void ClearOccupant() => occupant = null;
 
-    public virtual bool CanBeOccupied() => occupant != null;
+    public virtual bool CanBeOccupied() => occupant == null;
     public virtual bool CanBeStepped()
     {
         return occupant == null;

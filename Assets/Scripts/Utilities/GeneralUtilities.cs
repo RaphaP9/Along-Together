@@ -44,6 +44,36 @@ public static class GeneralUtilities
     }
     #endregion
 
+    #region VectorInts
+
+    public static Vector3 Vector2IntToVector3(Vector2Int vector2) => new Vector3(vector2.x, vector2.y, 0f);
+
+    public static bool CheckVectorIntsAreSameDirection(Vector2Int vectorA, Vector2Int vectorB)
+    {
+        if(vectorA == Vector2Int.zero) return false;
+        if(vectorB == Vector2Int.zero) return false;
+
+        if(!CheckVectorIntsCollinear(vectorA, vectorB)) return false;
+        if(!CheckVectorIntsSameOrientation(vectorA, vectorB)) return false;
+
+        return true;
+    }
+
+    public static bool CheckVectorIntsCollinear(Vector2Int vectorA, Vector2Int vectorB)
+    {
+        if (vectorA.x * vectorB.y == vectorA.y * vectorB.x) return true;
+        
+        return false;
+    }
+
+    public static bool CheckVectorIntsSameOrientation(Vector2Int vectorA, Vector2Int vectorB) //Same sing in X and Y
+    {
+        if (vectorA.x * vectorB.x + vectorA.y * vectorB.y > 0) return true;
+
+        return false;
+    }
+    #endregion
+
     #region Floats
     public static float RoundToNDecimalPlaces(float number, int decimalPlaces) => Mathf.Round(number * Mathf.Pow(10, decimalPlaces)) / Mathf.Pow(10, decimalPlaces);
 
