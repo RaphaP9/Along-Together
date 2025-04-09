@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
@@ -30,4 +31,10 @@ public class Cell : MonoBehaviour
 
     private void SetOccuppant(Transform occupant) => this.occupant = occupant;
     private void ClearOccupant() => occupant = null;
+
+    public virtual bool CanBeOccupied() => occupant != null;
+    public virtual bool CanBeStepped()
+    {
+        return occupant == null;
+    }
 }

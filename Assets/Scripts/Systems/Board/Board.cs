@@ -76,4 +76,34 @@ public class Board : MonoBehaviour
         if(debug) Debug.Log($"No cells found with Coordinates: {specificCoordinate}");
         return null;
     }
+
+    public bool ExistCellsWithYCoordinate(int yCoordinate)
+    {
+        foreach (Cell cell in cells)
+        {
+            if (cell.Position.y == yCoordinate) return true;
+        }
+
+        return false;
+    }
+
+    public bool ExistCellsWithXCoordinate(int xCoordinate)
+    {
+        foreach (Cell cell in cells)
+        {
+            if (cell.Position.x == xCoordinate) return true;
+        }
+
+        return false;
+    }
+
+    public bool ExistCellsWithSpecificCoordinate(Vector2Int specificCoordinate)
+    {
+        foreach (Cell cell in cells)
+        {
+            if (cell.Position == specificCoordinate) return cell;
+        }
+
+        return false;
+    }
 }
