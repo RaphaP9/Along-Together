@@ -24165,8 +24165,8 @@ Transform:
   - {fileID: 466426377}
   - {fileID: 108442885}
   - {fileID: 1413287014}
-  - {fileID: 1246634860}
   - {fileID: 1503478493}
+  - {fileID: 1246634860}
   - {fileID: 537435854}
   - {fileID: 1950169594}
   - {fileID: 1327707967}
@@ -24641,7 +24641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812a712adfa173643b16694a67198fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementTypeSO: {fileID: 11400000, guid: 97120cb17d3cb7747be73afb8d9028f7, type: 2}
+  movementTypeSO: {fileID: 11400000, guid: 64c15c1f3019356429b12830d741496c, type: 2}
   temporalTestObjectPrefab: {fileID: 4856747442855202126, guid: 4b3bfe1b03d00b1438deadbe401c0623, type: 3}
   currentPos: {x: 0, y: 0}
 --- !u!4 &1773330767

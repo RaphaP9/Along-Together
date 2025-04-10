@@ -23,8 +23,8 @@ public enum MovementType
     BishopObstructed, //AnyCells: Diagonals
     BishopJump, //AnyCells: Diagonals
 
-    Knight, //L type movement
-
     QueenObstructed, //AnyCells: Up,Down,Left,Right,Diagonals
-    QueenJump //AnyCells: Up,Down,Left,Right,Diagonals
+    QueenJump, //AnyCells: Up,Down,Left,Right,Diagonals
+
+    Knight //L type movement
 }

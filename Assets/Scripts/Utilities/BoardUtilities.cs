@@ -5,6 +5,7 @@ using UnityEngine;
 
 public static class BoardUtilities
 {
+    #region Directional Vector2Ints
     public static readonly Vector2Int Up = new(0,1);
     public static readonly Vector2Int Down = new(0,-1);
     public static readonly Vector2Int Left = new(-1,0);
@@ -14,6 +15,18 @@ public static class BoardUtilities
     public static readonly Vector2Int DownRightDiagonal = new(1, -1);
     public static readonly Vector2Int UpLeftDiagonal = new(-1, 1);
     public static readonly Vector2Int DownLeftDiagonal = new(-1, -1);
+    #endregion
+
+    #region Knight RelativePositions Vector2Ints
+    public static readonly Vector2Int KnightA = new(1, 2);
+    public static readonly Vector2Int KnightB = new(1, -2);
+    public static readonly Vector2Int KnightC = new(-1, 2);
+    public static readonly Vector2Int KnightD = new(-1, -2);
+    public static readonly Vector2Int KnightE = new(2, 1);
+    public static readonly Vector2Int KnightF = new(2, -1);
+    public static readonly Vector2Int KnightG = new(-2, 1);
+    public static readonly Vector2Int KnightH = new(-2, -1);
+    #endregion
 
     private const bool DEBUG = true;
 
@@ -197,5 +210,35 @@ public static class BoardUtilities
         }
 
         return movementAvailableCells;
+    }
+
+    public static HashSet<Cell> GetAvailableMovementCellsByRelativePositions(Vector2Int currentPosition, Board board, HashSet<Vector2Int> relativePositions)
+    {
+        HashSet<Cell> movementAvailableCells = new HashSet<Cell>();
+
+        foreach (Vector2Int relativePosition in relativePositions)
+        {
+            Cell cell = GetAvailableMovementCellByRelativePosition(currentPosition, board, relativePosition);
+
+            if (cell == null) continue;
+
+            movementAvailableCells.Add(cell);
+        }
+
+        return movementAvailableCells;
+    }
+
+    public static Cell GetAvailableMovementCellByRelativePosition(Vector2Int currentPosition, Board board, Vector2Int relativePosition)
+    {
+        Vector2Int seekedPosition = currentPosition + relativePosition;
+
+        if (!board.ExistCellsWithSpecificCoordinate(seekedPosition)) return null;
+        
+        Cell seekedCell = board.GetCellWithSpecificCoordinate(seekedPosition);
+
+        if(!seekedCell.CanBeOccupied()) return null;
+        if(!seekedCell.CanBeStepped()) return null;
+
+        return seekedCell;
     }
 }
