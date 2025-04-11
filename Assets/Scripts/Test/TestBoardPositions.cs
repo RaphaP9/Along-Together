@@ -17,6 +17,21 @@ public class TestBoardPositions : MonoBehaviour
         {
             Test();
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            GameLogManager.Instance.Log("Test");
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            GameLogManager.Instance.Log("Start");
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            GameLogManager.Instance.Log("End");
+        }
     }
 
     private void Test()

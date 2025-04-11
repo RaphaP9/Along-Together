@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,44 +44,44 @@ public class CameraShakeHandler : MonoBehaviour
         }
     }
 
-    public void ShakeCamera(float amplitude, float frequency, float shakeTime, float fadeInTime, float fadeOutTime)
+    public void ShakeCamera(CameraShake cameraShake)
     {
         if (shakeReplacementCondition == ShakeReplacementCondition.WaitForCurrentShakeEnd && currentShakeAmplitude != 0) return;
-        if (shakeReplacementCondition == ShakeReplacementCondition.OnlyGreaterAmplitudes && currentShakeAmplitude > amplitude) return;
+        if (shakeReplacementCondition == ShakeReplacementCondition.OnlyGreaterAmplitudes && currentShakeAmplitude > cameraShake.amplitude) return;
 
         StopAllCoroutines();
-        StartCoroutine(ShakeCameraCoroutine(amplitude, frequency, shakeTime, fadeInTime, fadeOutTime));
+        StartCoroutine(ShakeCameraCoroutine(cameraShake));
     }
 
-    private IEnumerator ShakeCameraCoroutine(float amplitude, float frequency, float shakeTime, float fadeInTime, float fadeOutTime)
+    private IEnumerator ShakeCameraCoroutine(CameraShake cameraShake)
     {
-        SetCurrentShakeAmplitude(amplitude);
+        SetCurrentShakeAmplitude(cameraShake.amplitude);
 
         cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0f;
         cinemachineBasicMultiChannelPerlin.m_FrequencyGain = 0f;
 
         float time = 0f;
 
-        while (time <= fadeInTime)
+        while (time <= cameraShake.shakeFadeInTime)
         {
-            cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = Mathf.Lerp(0f, amplitude, time / fadeInTime);
-            cinemachineBasicMultiChannelPerlin.m_FrequencyGain = Mathf.Lerp(0f, frequency, time / fadeInTime);
+            cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = Mathf.Lerp(0f, cameraShake.amplitude, time / cameraShake.shakeFadeInTime);
+            cinemachineBasicMultiChannelPerlin.m_FrequencyGain = Mathf.Lerp(0f, cameraShake.frequency, time / cameraShake.shakeFadeInTime);
 
             time += Time.unscaledDeltaTime;
             yield return null;
         }
 
-        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = amplitude;
-        cinemachineBasicMultiChannelPerlin.m_FrequencyGain = frequency;
+        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = cameraShake.amplitude;
+        cinemachineBasicMultiChannelPerlin.m_FrequencyGain = cameraShake.frequency;
 
-        yield return new WaitForSecondsRealtime(shakeTime);
+        yield return new WaitForSecondsRealtime(cameraShake.shakeTime);
 
         time = 0f;
 
-        while (time <= fadeOutTime)
+        while (time <= cameraShake.shakeFadeOutTime)
         {
-            cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = Mathf.Lerp(amplitude, 0f, time / fadeOutTime);
-            cinemachineBasicMultiChannelPerlin.m_FrequencyGain = Mathf.Lerp(frequency, 0f, time / fadeOutTime);
+            cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = Mathf.Lerp(cameraShake.amplitude, 0f, time / cameraShake.shakeFadeOutTime);
+            cinemachineBasicMultiChannelPerlin.m_FrequencyGain = Mathf.Lerp(cameraShake.frequency, 0f, time / cameraShake.shakeFadeOutTime);
 
             time += Time.unscaledDeltaTime;
             yield return null;
@@ -94,4 +95,18 @@ public class CameraShakeHandler : MonoBehaviour
 
     private void SetCurrentShakeAmplitude(float value) => currentShakeAmplitude = value;
     private void ClearCurrentShakeAmplitude() => currentShakeAmplitude = 0f;
+}
+
+[Serializable]
+public class CameraShake
+{
+    public int id;
+    public string logToShake;
+    [Range(0, 10f)] public float amplitude;
+    [Range(0, 5f)] public float frequency;
+    [Range(0.1f, 10f)] public float shakeTime;
+    [Range(0f, 10f)] public float shakeFadeInTime;
+    [Range(0f, 10f)] public float shakeFadeOutTime;
+    [Space]
+    public bool enabled;
 }
