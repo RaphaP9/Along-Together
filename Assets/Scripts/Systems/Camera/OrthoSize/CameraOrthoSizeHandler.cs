@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System;
 
 public class CameraOrthoSizeHandler : MonoBehaviour
 {
@@ -14,17 +15,17 @@ public class CameraOrthoSizeHandler : MonoBehaviour
 
     public float Distance { get; private set; }
 
-    private float desiredDistance;
-    private float smoothInput;
-
-    private float refVelocity;
-
-    public float ScrollFactor { get; private set; }
+    public float OrthoSizeFactor;
 
     private void Awake()
     {
         SetSingleton();
         SetOrthoSizeRefferences();
+    }
+
+    private void Update()
+    {
+        CalculateOrthoSizeFactor();
     }
 
     private void LateUpdate()
@@ -49,6 +50,11 @@ public class CameraOrthoSizeHandler : MonoBehaviour
     {
         OrthoSizeDefault = CMVCam.m_Lens.OrthographicSize;
         Distance = OrthoSizeDefault;
+    }
+
+    private void CalculateOrthoSizeFactor()
+    {
+        OrthoSizeFactor = Distance / OrthoSizeDefault;
     }
 
     private void ApplyDistance() => CMVCam.m_Lens.OrthographicSize = Distance;

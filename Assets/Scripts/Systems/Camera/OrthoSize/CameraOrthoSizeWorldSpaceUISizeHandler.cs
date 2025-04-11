@@ -3,20 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraScrollWorldSpaceUIHandler : MonoBehaviour
+public class CameraOrthoSizeWorldSpaceUISizeHandler : MonoBehaviour
 {
-    public static CameraScrollWorldSpaceUIHandler Instance;
+    public static CameraOrthoSizeWorldSpaceUISizeHandler Instance;
 
     [Header("Components")]
-    [SerializeField] private CameraOrthoSizeHandler cameraScroll;
+    [SerializeField] private CameraOrthoSizeHandler cameraOrthoSizeHandler;
     [SerializeField] private Camera mainCamera;
 
     [Header("Settings")]
     [SerializeField, Range(1f, 2f)] private float scaleFactorMin;
     [SerializeField, Range(1f, 2f)] private float scaleFactorMax;
     [SerializeField, Range(0.01f, 150f)] private float smoothScaleFactor;
-
-    private float ScrollFactor => cameraScroll.ScrollFactor;
 
     private Vector3 desiredFactor;
     public Vector3 WorldSpaceUIScaleFactor { get; private set; }
@@ -47,20 +45,17 @@ public class CameraScrollWorldSpaceUIHandler : MonoBehaviour
 
     private void CalculateWorldSpaceUIScaleFactor()
     {
-        float orthographicSize = mainCamera.orthographicSize;
-        float scaleFactor = orthographicSize / cameraScroll.OrthoSizeDefault;
+        desiredFactor = CalculateUIFixedFactor() * cameraOrthoSizeHandler.OrthoSizeFactor * Vector3.one;
+    }
 
-        desiredFactor = CalculateUIFixedFactor() * scaleFactor * Vector3.one;
+    private float CalculateUIFixedFactor()
+    {
+        float fixedFactor = Mathf.Lerp(scaleFactorMin, scaleFactorMax, cameraOrthoSizeHandler.OrthoSizeFactor);
+        return fixedFactor;
     }
 
     private void SmoothFactor()
     {
         WorldSpaceUIScaleFactor = Vector3.Lerp(WorldSpaceUIScaleFactor, desiredFactor, smoothScaleFactor * Time.deltaTime);
     }
-
-    private float CalculateUIFixedFactor()
-    {
-        float fixedFactor = Mathf.Lerp(scaleFactorMin, scaleFactorMax, cameraScroll.ScrollFactor);
-        return fixedFactor;
-    } 
 }
