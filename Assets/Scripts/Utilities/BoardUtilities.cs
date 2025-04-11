@@ -30,6 +30,17 @@ public static class BoardUtilities
 
     private const bool DEBUG = true;
 
+    #region Positions
+    public static Vector2Int GetIntPositionDueToWorldPosition(Transform transform)
+    {
+        Vector2 rawPosition = GeneralUtilities.SupressZComponent(transform.position);
+        Vector2Int intPosition = GeneralUtilities.Vector2ToVector2Int(rawPosition);
+        return intPosition;
+    }
+
+    #endregion
+
+    #region Cells
     public static Cell GetFurthestCellInDirection(Vector2Int currentPosition, Board board, Vector2Int direction)
     {
         if(direction == Vector2.zero)
@@ -61,6 +72,21 @@ public static class BoardUtilities
         return furthestCell;
     }
 
+    public static HashSet<Cell> SynthesizeAvailableCells(Vector2Int currentPosition, Board board, List<MovementTypeSO> movementTypes)
+    {
+        HashSet<Cell> availableCells = new HashSet<Cell>();
+
+        foreach(MovementTypeSO movementTypeSO in movementTypes)
+        {
+            HashSet<Cell> availableMovementTypeCells = movementTypeSO.GetMovementAvailableCells(currentPosition, board);
+            availableCells.AddRange(availableMovementTypeCells);
+        }
+
+        return availableCells;
+    }
+    #endregion
+
+    #region AvailableMovementCells
     public static HashSet<Cell> GetAvailableMovementCellsByDirections(Vector2Int currentPosition, Board board, HashSet<Vector2Int> directions, int cellDistance, bool obstructDirection)
     {
         HashSet<Cell> movementAvailableCells = new HashSet<Cell>();
@@ -241,4 +267,5 @@ public static class BoardUtilities
 
         return seekedCell;
     }
+    #endregion
 }

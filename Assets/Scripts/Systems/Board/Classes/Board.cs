@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    //We can afford making this class a Singleton because each game only does one thing
     public static Board Instance {  get; private set; }
 
     [Header("Lists")]

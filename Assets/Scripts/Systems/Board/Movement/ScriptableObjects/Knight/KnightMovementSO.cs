@@ -11,6 +11,7 @@ public class KnightMovementSO : MovementTypeSO
         HashSet<Vector2Int> relativePositions = new HashSet<Vector2Int>();
         relativePositions.Add(BoardUtilities.KnightA);
         relativePositions.Add(BoardUtilities.KnightB);
+        relativePositions.Add(BoardUtilities.KnightC);
         relativePositions.Add(BoardUtilities.KnightD);
         relativePositions.Add(BoardUtilities.KnightE);
         relativePositions.Add(BoardUtilities.KnightF);
