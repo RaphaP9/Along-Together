@@ -14,6 +14,9 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     protected const int INSTA_KILL_DAMAGE = 999;
 
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityStatsInitialized;
+    public event EventHandler<OnEntityStatsEventArgs> OnEntityStatsInitialized;
+
     public static event EventHandler<OnEntityDodgeEventArgs> OnAnyEntityDodge;
     public event EventHandler<OnEntityDodgeEventArgs> OnEntityDodge;
 
@@ -33,7 +36,11 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     public class OnEntityStatsEventArgs : EventArgs
     {
         public int maxHealth;
+        public int currentHealth;
+
         public int maxShield;
+        public int currentShield;
+
         public int armor;
         public float dodgeChance;
     }
@@ -95,11 +102,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         InitializeStats();
     }
 
-    private void InitializeStats()
-    {
-
-    }
-
+    protected abstract void InitializeStats();
     protected abstract int CalculateMaxHealth();
     protected abstract int CalculateMaxShield();
     protected abstract int CalculateArmor();
@@ -228,6 +231,17 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     #endregion
 
     #region Abstract Methods
+    
+    protected virtual void OnEntityStatsInitializedMethod()
+    {
+        OnEntityStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
+        armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
+
+        OnAnyEntityStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
+        armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
+    }
+
+
     protected virtual void OnEntityDodgeMethod(int damage, bool isCrit, IDamageSource damageSource)
     {
         OnEntityDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damage, isCrit = isCrit, damageSource = damageSource });
