@@ -12,8 +12,11 @@ public abstract class EntitySO : ScriptableObject
 
     [Header("Entity Stats")]
     [Range(0, 20)] public int healthPoints;
-    [Range(0, 20)] public float shieldPoints;
-    [Range(0, 20)] public float armorPoints;
+    [Range(0, 20)] public int shieldPoints;
+    [Range(0, 20)] public int armorPoints;
     [Space]
     [Range(0, 1)] public float dodgeChance;
+
+    [Header("Movement Types")]
+    [SerializeField] private List<MovementTypeSO> movementTypes;
 }

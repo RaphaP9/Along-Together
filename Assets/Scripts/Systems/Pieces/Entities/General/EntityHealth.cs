@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static HittableObjectHealth;
 
 public abstract class EntityHealth : MonoBehaviour, IHasHealth
 {
@@ -112,11 +113,18 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         InitializeStats();
     }
 
-    protected abstract void InitializeStats();
+    protected virtual void InitializeStats()
+    {
+        currentHealth = CalculateMaxHealth();
+        currentShield = CalculateMaxShield();
+
+        OnEntityStatsInitializedMethod();
+    }
+
     protected abstract int CalculateMaxHealth();
     protected abstract int CalculateMaxShield();
     protected abstract int CalculateArmor();
-    protected abstract int CalculateDodgeChance();
+    protected abstract float CalculateDodgeChance();
 
 
     #region Interface Methods
@@ -156,7 +164,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         }
 
         currentShield = currentShield < damageTakenByShield ? 0 : currentShield - damageTakenByShield;
-        currentHealth = currentHealth < damageTakenByHealth ? 0 : currentShield - damageTakenByHealth;
+        currentHealth = currentHealth < damageTakenByHealth ? 0 : currentHealth - damageTakenByHealth;
 
         if(damageTakenByShield > 0)
         {

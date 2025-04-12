@@ -96,9 +96,18 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
     }
     #endregion
 
+    protected void Start()
+    {
+        InitializeStats();
+    }
+
     protected virtual void InitializeStats()
     {
+        currentHealth = CalculateMaxHealth();
+        currentShield = CalculateMaxShield();
 
+        OnHittableObjectStatsInitialized?.Invoke(this, new OnHittableObjectStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxShield(), currentShield = currentShield });
+        OnAnyHittableObjectStatsInitialized?.Invoke(this, new OnHittableObjectStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxShield(), currentShield = currentShield });
     }
 
     protected virtual int CalculateMaxHealth() => hittableObjectSO.health;
@@ -124,7 +133,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         damageTakenByHealth = HasShield() ? 0 : 1;
 
         currentShield = currentShield < damageTakenByShield ? 0 : currentShield - damageTakenByShield;
-        currentHealth = currentHealth < damageTakenByHealth ? 0 : currentShield - damageTakenByHealth;
+        currentHealth = currentHealth < damageTakenByHealth ? 0 : currentHealth - damageTakenByHealth;
 
         if (damageTakenByShield > 0)
         {
