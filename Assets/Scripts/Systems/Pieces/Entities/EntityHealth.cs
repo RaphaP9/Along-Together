@@ -12,16 +12,17 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     public int CurrentHealth => currentHealth;
     public int CurrentShield => currentShield;
 
-    protected const int INSTA_KILL_DAMAGE = 999;
-
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityStatsInitialized;
     public event EventHandler<OnEntityStatsEventArgs> OnEntityStatsInitialized;
 
     public static event EventHandler<OnEntityDodgeEventArgs> OnAnyEntityDodge;
     public event EventHandler<OnEntityDodgeEventArgs> OnEntityDodge;
 
-    public static event EventHandler<OnEntityTakeDamageEventArgs> OnAnyEntityTakeDamage;
-    public event EventHandler<OnEntityTakeDamageEventArgs> OnEntityTakeDamage;
+    public static event EventHandler<OnEntityHealthTakeDamageEventArgs> OnAnyEntityHealthTakeDamage;
+    public event EventHandler<OnEntityHealthTakeDamageEventArgs> OnEntityHealthTakeDamage;
+
+    public static event EventHandler<OnEntityShieldTakeDamageEventArgs> OnAnyEntityShieldTakeDamage;
+    public event EventHandler<OnEntityShieldTakeDamageEventArgs> OnEntityShieldTakeDamage;
 
     public static event EventHandler<OnEntityHealEventArgs> OnAnyEntityHeal;
     public event EventHandler<OnEntityHealEventArgs> OnEntityHeal;
@@ -53,18 +54,27 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         public IDamageSource damageSource;
     }
 
-    public class OnEntityTakeDamageEventArgs : EventArgs
+    public class OnEntityShieldTakeDamageEventArgs : EventArgs
     {
-        public int damageTakenByHealth;
         public int damageTakenByShield;
-
-        public int previousHealth;
-        public int newHealth;
-        public int maxHealth;
 
         public int previousShield;
         public int newShield;
         public int maxShield;
+
+        public bool isCrit;
+
+        public IDamageSource damageSource;
+        public IHasHealth damageReceiver;
+    }
+
+    public class OnEntityHealthTakeDamageEventArgs : EventArgs
+    {
+        public int damageTakenByHealth;
+
+        public int previousHealth;
+        public int newHealth;
+        public int maxHealth;
 
         public bool isCrit;
 
@@ -114,7 +124,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     public abstract bool CanTakeDamage();
     public abstract bool CanHeal();
     public abstract bool CanRestoreShield();
-    public void TakeDamage(int damage, bool isCrit, IDamageSource damageSource)
+    public void TakeDamage(DamageData damageData)
     {
         if(!CanTakeDamage()) return;
         if (!IsAlive()) return;
@@ -123,11 +133,11 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         if (dodged)
         {
-            OnEntityDodgeMethod(damage, isCrit, damageSource);
+            OnEntityDodgeMethod(damageData);
             return;
         }
 
-        int mitigatedDamage = MechanicsUtilities.MitigateDamageByArmor(damage, CalculateArmor());
+        int armorMitigatedDamage = MechanicsUtilities.MitigateDamageByArmor(damageData.damage, CalculateArmor());
 
         int previousHealth = currentHealth;
         int previousShield = currentShield;
@@ -136,24 +146,32 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         if (HasShield())
         {
-            damageTakenByShield = currentShield < damage ? currentShield : damage; //Shield Absorbs all Damage, Ex: if an entity has 3 Shield and would take 10 damage, it destroys all shield and health does not receive damage at all
+            damageTakenByShield = currentShield < armorMitigatedDamage ? currentShield : armorMitigatedDamage; //Shield Absorbs all Damage, Ex: if an entity has 3 Shield and would take 10 damage, it destroys all shield and health does not receive damage at all
             damageTakenByHealth = 0;
         }
         else
         {
             damageTakenByShield = 0;
-            damageTakenByHealth = currentHealth < damage ? currentHealth : damage;
+            damageTakenByHealth = currentHealth < armorMitigatedDamage ? currentHealth : armorMitigatedDamage;
         }
 
         currentShield = currentShield < damageTakenByShield ? 0 : currentShield - damageTakenByShield;
         currentHealth = currentHealth < damageTakenByHealth ? 0 : currentShield - damageTakenByHealth;
 
-        OnEntityTakeDamageMethod(damageTakenByHealth, damageTakenByShield, previousHealth, previousShield, isCrit, damageSource);
+        if(damageTakenByShield > 0)
+        {
+            OnEntityShieldTakeDamageMethod(damageTakenByShield, previousShield, damageData.isCrit, damageData.damageSource);
+        }
 
-        if (!IsAlive()) OnDeathMethod();
+        if(damageTakenByHealth > 0)
+        {
+            OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, damageData.isCrit, damageData.damageSource);
+        }
+
+        if (!IsAlive()) OnEntityDeathMethod();
     }
 
-    public void InstaKill(IDamageSource damageSource)
+    public void Excecute(IDamageSource damageSource)
     {
         if (!CanTakeDamage()) return;
         if (!IsAlive()) return;
@@ -161,28 +179,36 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         int previousHealth = currentHealth;
         int previousShield = currentShield;
 
-        int damageTakenByShield = INSTA_KILL_DAMAGE;
-        int damageTakenByHealth = INSTA_KILL_DAMAGE;
+        int damageTakenByShield = HasShield()? MechanicsUtilities.GetExecuteDamage() : 0;
+        int damageTakenByHealth = MechanicsUtilities.GetExecuteDamage();
 
         currentShield = 0;
         currentHealth = 0;
          
-        OnEntityTakeDamageMethod(damageTakenByHealth, damageTakenByShield, previousHealth, previousShield, true, damageSource);
+        if(damageTakenByShield > 0)
+        {
+            OnEntityShieldTakeDamageMethod(damageTakenByShield, previousShield, true, damageSource);
+        }
 
-        if (!IsAlive()) OnDeathMethod(); //Will certainly execute
+        if(damageTakenByHealth > 0)
+        {
+            OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, true, damageSource);
+        }
+
+        OnEntityDeathMethod();
     }
 
-    public void Heal(int healAmount, IHealSource healSource)
+    public void Heal(HealData healData)
     {
         if (!CanHeal()) return;
         if(!IsAlive()) return;
 
         int previousHealth = currentHealth;
 
-        int effectiveHealAmount = currentHealth + healAmount > CalculateMaxHealth() ? CalculateMaxHealth() - currentHealth : healAmount;
+        int effectiveHealAmount = currentHealth + healData.healAmount > CalculateMaxHealth() ? CalculateMaxHealth() - currentHealth : healData.healAmount;
         currentHealth = currentHealth + effectiveHealAmount > CalculateMaxHealth()? CalculateMaxHealth() : currentHealth + effectiveHealAmount;
 
-        OnEntityHealMethod(effectiveHealAmount, previousHealth, healSource);
+        OnEntityHealMethod(effectiveHealAmount, previousHealth, healData.healSource);
     }
     public void HealCompletely(IHealSource healSource)
     {
@@ -197,17 +223,17 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnEntityHealMethod(healAmount, previousHealth, healSource);
     }
 
-    public void RestoreShield(int shieldAmount, IShieldSource shieldSource)
+    public void RestoreShield(ShieldData shieldData)
     {
         if (!CanRestoreShield()) return;
         if (!IsAlive()) return;
 
         int previousShield = currentShield;
 
-        int effectiveShieldRestored = currentShield + shieldAmount > CalculateMaxShield() ? CalculateMaxShield() - currentShield : shieldAmount;
+        int effectiveShieldRestored = currentShield + shieldData.shieldAmount > CalculateMaxShield() ? CalculateMaxShield() - currentShield : shieldData.shieldAmount;
         currentShield = currentShield + effectiveShieldRestored > CalculateMaxShield() ? CalculateMaxShield() : currentShield + effectiveShieldRestored;
 
-        OnEntityShieldRestoredMethod(effectiveShieldRestored, previousShield, shieldSource);
+        OnEntityShieldRestoredMethod(effectiveShieldRestored, previousShield, shieldData.shieldSource);
     }
 
     public void RestoreShieldCompletely(IShieldSource shieldSource)
@@ -230,7 +256,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     #endregion
 
-    #region Abstract Methods
+    #region Virtual Methods
     
     protected virtual void OnEntityStatsInitializedMethod()
     {
@@ -242,21 +268,29 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     }
 
 
-    protected virtual void OnEntityDodgeMethod(int damage, bool isCrit, IDamageSource damageSource)
+    protected virtual void OnEntityDodgeMethod(DamageData damageData)
     {
-        OnEntityDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damage, isCrit = isCrit, damageSource = damageSource });
-        OnAnyEntityDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damage, isCrit = isCrit, damageSource = damageSource });
+        OnEntityDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damageData.damage, isCrit = damageData.isCrit, damageSource = damageData.damageSource });
+        OnAnyEntityDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damageData.damage, isCrit = damageData.isCrit, damageSource = damageData.damageSource });
     }
 
-    protected virtual void OnEntityTakeDamageMethod(int damageTakenByHealth, int damageTakenByShield, int previousHealth, int previousShield, bool isCrit, IDamageSource damageSource)
+    protected virtual void OnEntityHealthTakeDamageMethod(int damageTakenByHealth, int previousHealth, bool isCrit, IDamageSource damageSource)
     {
-        OnEntityTakeDamage?.Invoke(this, new OnEntityTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, damageTakenByShield = damageTakenByShield, previousHealth = previousHealth, 
-        newHealth = currentHealth, maxHealth = CalculateMaxHealth(), previousShield = previousShield, newShield = currentShield, maxShield = CalculateMaxShield(), isCrit = isCrit,
-        damageSource = damageSource, damageReceiver = this});
+        OnEntityHealthTakeDamage?.Invoke(this, new OnEntityHealthTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, previousHealth = previousHealth, 
+        newHealth = currentHealth, maxHealth = CalculateMaxHealth(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
 
-        OnAnyEntityTakeDamage?.Invoke(this, new OnEntityTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, damageTakenByShield = damageTakenByShield, previousHealth = previousHealth, 
-        newHealth = currentHealth, maxHealth = CalculateMaxHealth(), previousShield = previousShield, newShield = currentShield, maxShield = CalculateMaxShield(), isCrit = isCrit,
-        damageSource = damageSource, damageReceiver = this});
+        OnAnyEntityHealthTakeDamage?.Invoke(this, new OnEntityHealthTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, previousHealth = previousHealth, 
+        newHealth = currentHealth, maxHealth = CalculateMaxHealth(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
+    }
+
+    protected virtual void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSource damageSource)
+    {
+        OnEntityShieldTakeDamage?.Invoke(this, new OnEntityShieldTakeDamageEventArgs {damageTakenByShield = damageTakenByShield, previousShield = previousShield, 
+        newShield = currentShield, maxShield = CalculateMaxShield(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
+
+        OnAnyEntityShieldTakeDamage?.Invoke(this, new OnEntityShieldTakeDamageEventArgs {damageTakenByShield = damageTakenByShield, previousShield = previousShield, 
+        newShield = currentShield, maxShield = CalculateMaxShield(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
+
     }
 
     protected virtual void OnEntityHealMethod(int healAmount, int previousHealth, IHealSource healSource)
@@ -271,7 +305,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnAnyEntityShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = CalculateMaxShield(), shieldSource = shieldSource, shieldReceiver = this });
     }
 
-    protected virtual void OnDeathMethod()
+    protected virtual void OnEntityDeathMethod()
     {
         OnEntityDeath?.Invoke(this, EventArgs.Empty);
         OnAnyEntityDeath?.Invoke(this, EventArgs.Empty);

@@ -10,11 +10,11 @@ public interface IHasHealth
     public bool CanHeal();
     public bool CanRestoreShield();
 
-    public void TakeDamage(int damage, bool isCrit, IDamageSource damageSource);
-    public void Heal(int healAmount, IHealSource healSource);
-    public void RestoreShield(int shieldAmount, IShieldSource healSource);
+    public void TakeDamage(DamageData damageData);
+    public void Heal(HealData healData);
+    public void RestoreShield(ShieldData shieldData);
 
-    public void InstaKill(IDamageSource damageSource);
+    public void Excecute(IDamageSource damageSource);
     public void HealCompletely(IHealSource healSource);
     public void RestoreShieldCompletely(IShieldSource shieldSource);
 

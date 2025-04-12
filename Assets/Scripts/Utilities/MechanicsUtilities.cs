@@ -5,6 +5,7 @@ using UnityEngine;
 public static class MechanicsUtilities
 {
     private const int ARMOR_THRESHOLD_50_PERCENT = 10;
+    private const int EXECUTE_DAMAGE = 999;
 
     #region DamageTakenProcessing
     public static bool EvaluateDodgeChance(float dodgeChance)
@@ -24,5 +25,10 @@ public static class MechanicsUtilities
 
         return roundedResultingDamage;
     }
+    #endregion
+
+    #region Const GetMethods
+    public static int GetArmor50PercentThreshold() => ARMOR_THRESHOLD_50_PERCENT;
+    public static int GetExecuteDamage() => EXECUTE_DAMAGE;
     #endregion
 }

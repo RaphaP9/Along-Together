@@ -12,6 +12,6 @@ public class HittableObjectSO : ScriptableObject
     public Sprite sprite;
 
     [Header("Entity Stats")]
-    [Range(0, 5)] public int hitPoints;
-    [Range(0, 5)] public float shieldHitPoints;
+    [Range(0, 5)] public int health;
+    [Range(0, 5)] public int shield;
 }
