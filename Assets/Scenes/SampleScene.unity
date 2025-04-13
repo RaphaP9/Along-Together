@@ -4916,6 +4916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 874266221}
   - component: {fileID: 874266222}
+  - component: {fileID: 874266223}
   m_Layer: 0
   m_Name: PlayerFollowCamera
   m_TagString: Untagged
@@ -4978,6 +4979,22 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 861593621}
+--- !u!114 &874266223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874266220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BoundingShape2D: {fileID: 1028830456}
+  m_Damping: 0.5
+  m_MaxWindowSize: -1
+  m_Padding: 0
 --- !u!1 &884084225
 GameObject:
   m_ObjectHideFlags: 0
@@ -5545,11 +5562,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 1}
-      - {x: -0.95105654, y: 0.30901697}
-      - {x: -0.5877852, y: -0.80901706}
-      - {x: 0.58778536, y: -0.80901694}
-      - {x: 0.9510565, y: 0.30901712}
+    - - {x: -10, y: 10}
+      - {x: -10, y: -10}
+      - {x: 10, y: -10}
+      - {x: 10, y: 10}
   m_UseDelaunayMesh: 0
 --- !u!4 &1054164226 stripped
 Transform:
@@ -7826,7 +7842,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellOccupant: {fileID: 1552798944}
-  testCell: {fileID: 1978520135}
   cellMovementState: 0
   debug: 1
 --- !u!1001 &1567578754
@@ -7945,8 +7960,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1578331485}
-  - component: {fileID: 1578331486}
   - component: {fileID: 1578331487}
+  - component: {fileID: 1578331486}
   m_Layer: 0
   m_Name: TestHittableObject
   m_TagString: Untagged
@@ -7982,7 +7997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b968a4a51dbd7074cbf9cd2cd0a4afce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hittableObjectSO: {fileID: 11400000, guid: f02c0e0af344e144ba13dfe9bb3d4b11, type: 2}
+  hittableObjectIdentifier: {fileID: 1578331487}
   currentHealth: 0
   currentShield: 0
 --- !u!114 &1578331487
@@ -7994,10 +8009,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1578331484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 605b3176ae8d67746a9eaae166e53c32, type: 3}
+  m_Script: {fileID: 11500000, guid: b003c09f0a844084092db7152bb3b3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: {fileID: 501935333}
+  hittableObjectSO: {fileID: 11400000, guid: f02c0e0af344e144ba13dfe9bb3d4b11, type: 2}
 --- !u!1001 &1597549904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9196,6 +9211,7 @@ GameObject:
   - component: {fileID: 1773330767}
   - component: {fileID: 1773330766}
   - component: {fileID: 1773330768}
+  - component: {fileID: 1773330769}
   m_Layer: 0
   m_Name: TestObject
   m_TagString: Untagged
@@ -9217,7 +9233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementTypeSO: {fileID: 11400000, guid: 64c15c1f3019356429b12830d741496c, type: 2}
   temporalTestObjectPrefab: {fileID: 4856747442855202126, guid: 4b3bfe1b03d00b1438deadbe401c0623, type: 3}
-  currentPos: {x: 0, y: 0}
+  currentPos: {x: 2, y: 2}
 --- !u!4 &1773330767
 Transform:
   m_ObjectHideFlags: 0
@@ -9246,6 +9262,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hittableObjectHealth: {fileID: 1578331486}
+--- !u!114 &1773330769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773330765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605b3176ae8d67746a9eaae166e53c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealth: {fileID: 501935333}
 --- !u!4 &1795448533 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2737980428002477982, guid: c9adf4dd3ac51e24280167cf2b036ff9, type: 3}

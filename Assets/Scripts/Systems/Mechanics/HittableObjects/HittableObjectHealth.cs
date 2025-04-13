@@ -6,7 +6,7 @@ using UnityEngine;
 public class HittableObjectHealth : MonoBehaviour, IHasHealth
 {
     [Header("Components")]
-    [SerializeField] private HittableObjectSO hittableObjectSO;
+    [SerializeField] private HittableObjectIdentifier hittableObjectIdentifier;
 
     [Header("Runtime Filled")]
     [SerializeField] protected int currentHealth;
@@ -110,8 +110,8 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         OnAnyHittableObjectStatsInitialized?.Invoke(this, new OnHittableObjectStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxShield(), currentShield = currentShield });
     }
 
-    protected virtual int CalculateMaxHealth() => hittableObjectSO.health;
-    protected virtual int CalculateMaxShield() => hittableObjectSO.shield;
+    protected virtual int CalculateMaxHealth() => hittableObjectIdentifier.HittableObjectSO.health;
+    protected virtual int CalculateMaxShield() => hittableObjectIdentifier.HittableObjectSO.shield;
 
     #region Interface Methods
 

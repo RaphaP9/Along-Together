@@ -26,5 +26,7 @@ public enum MovementType
     QueenObstructed, //AnyCells: Up,Down,Left,Right,Diagonals
     QueenJump, //AnyCells: Up,Down,Left,Right,Diagonals
 
-    Knight //L type movement
+    Knight, //L type movement
+
+    Immovable
 }

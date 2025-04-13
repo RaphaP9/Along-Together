@@ -7,7 +7,6 @@ public class CellMovement : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private CellOccupant cellOccupant;
-    [SerializeField] private Cell testCell;
 
     [Header("States")]
     [SerializeField] private CellMovementState cellMovementState;
@@ -38,19 +37,6 @@ public class CellMovement : MonoBehaviour
     private void Start()
     {
         SetCellMovementState(CellMovementState.NotMoving);
-    }
-
-    private void Update()
-    {
-        Test();
-    }
-
-    private void Test()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            MoveToCell(testCell);
-        }
     }
 
     public void MoveToCell(Cell cell)
