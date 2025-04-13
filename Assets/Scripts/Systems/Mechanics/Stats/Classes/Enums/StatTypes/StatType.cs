@@ -2,12 +2,12 @@ public enum StatType
 {
     MaxHealth,
     MaxShield,
-    DodgeChance,
     Armor,
+    DodgeChance,
     HealthRegen,
-    AttackDamageMultiplier,
+    AttackDamage,
     AttackCritChance,
-    AttackCritDamageMultiplier,
+    AttackCritDamage,
     MovementType
 }
 

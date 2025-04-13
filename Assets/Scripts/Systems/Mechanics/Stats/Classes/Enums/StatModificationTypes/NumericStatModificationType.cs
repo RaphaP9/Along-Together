@@ -1,4 +1,4 @@
-public enum StatModificationType
+public enum NumericStatModificationType
 {
     Value,
     Percentage,
