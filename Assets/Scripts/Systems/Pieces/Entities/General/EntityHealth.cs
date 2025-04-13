@@ -129,9 +129,10 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     #region Interface Methods
 
-    public abstract bool CanTakeDamage();
-    public abstract bool CanHeal();
-    public abstract bool CanRestoreShield();
+    public virtual bool CanTakeDamage() => IsAlive();
+    public virtual bool CanHeal() => IsAlive();
+    public virtual bool CanRestoreShield() => IsAlive();
+
     public void TakeDamage(DamageData damageData)
     {
         if(!CanTakeDamage()) return;

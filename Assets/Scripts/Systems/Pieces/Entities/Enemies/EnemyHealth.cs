@@ -33,6 +33,7 @@ public class EnemyHealth : EntityHealth
     {
         return enemyIdentifier.EnemySO.healthPoints;
     }
+
     protected override int CalculateMaxShield()
     {
         return enemyIdentifier.EnemySO.shieldPoints;
@@ -47,23 +48,6 @@ public class EnemyHealth : EntityHealth
     {
         return enemyIdentifier.EnemySO.dodgeChance;
     }
-
-    #region Interface Methods
-    public override bool CanHeal()
-    {
-        return true;
-    }
-
-    public override bool CanRestoreShield()
-    {
-        return true;
-    }
-
-    public override bool CanTakeDamage()
-    {
-        return true;
-    }
-    #endregion
 
     #region Virtual Methods
     
