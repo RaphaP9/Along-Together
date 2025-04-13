@@ -22,7 +22,7 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
     private string dirPath;
     private IDataService dataService;
     private T persistentData;
-    private List<IDataPersistence<T>> dataPersistenceObjects;
+    private List<IDataSaveLoader<T>> dataSaveLoaderObjects;
 
     protected void Awake()
     {
@@ -37,17 +37,17 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
         if (useEncryption) dataService = new JSONNewtonSoftDataServiceEncryption(dirPath, fileName);
         else dataService = new JSONNewtonsoftDataServiceNoEncryption(dirPath, fileName);
 
-        dataPersistenceObjects = FindAllDataPersistencesObjects();
+        dataSaveLoaderObjects = FindAllDataSaveLoaderObjects();
         LoadGameData();
     }
 
 
-    protected List<IDataPersistence<T>> FindAllDataPersistencesObjects()
+    protected List<IDataSaveLoader<T>> FindAllDataSaveLoaderObjects()
     {
-        IEnumerable<IDataPersistence<T>> dataPersistenceObjectsNumerable = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence<T>>();
-        List<IDataPersistence<T>> dataPersistenceObjectsList = new List<IDataPersistence<T>>(dataPersistenceObjectsNumerable);
+        IEnumerable<IDataSaveLoader<T>> dataSaveLoaderObjectsNumerable = FindObjectsOfType<MonoBehaviour>().OfType<IDataSaveLoader<T>>();
+        List<IDataSaveLoader<T>> dataSaveLoaderObjectsList = new List<IDataSaveLoader<T>>(dataSaveLoaderObjectsNumerable);
 
-        return dataPersistenceObjectsList;
+        return dataSaveLoaderObjectsList;
     }
 
     protected virtual void SetSingleton() { }
@@ -65,9 +65,9 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
             NewGameData();
         }
 
-        foreach (IDataPersistence<T> dataPersistenceObject in dataPersistenceObjects) //Push loaded data to scripts that need it
+        foreach (IDataSaveLoader<T> dataSaveLoaderObject in dataSaveLoaderObjects) //Push loaded data to scripts that need it
         {
-            dataPersistenceObject.LoadData(persistentData);
+            dataSaveLoaderObject.LoadData(persistentData);
         }
 
         if (enableDataSaveOnStart) SaveGameData();
@@ -77,9 +77,9 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
     {
         if (!enableDataPersistence) return;
 
-        foreach (IDataPersistence<T> dataPersistenceObject in dataPersistenceObjects) //Pass data to other scripts so they can update it
+        foreach (IDataSaveLoader<T> dataSaveLoaderObject in dataSaveLoaderObjects) //Pass data to other scripts so they can update it
         {
-            dataPersistenceObject.SaveData(ref persistentData);
+            dataSaveLoaderObject.SaveData(ref persistentData);
         }
 
         dataService.SaveData(persistentData); //Save data to file using data handler 

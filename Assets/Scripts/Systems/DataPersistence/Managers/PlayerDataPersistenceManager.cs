@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDataPersistenceManager : DataPersistenceManager<PlayerData>
+public class PlayerDataPersistenceManager : DataPersistenceManager<RunData>
 {
     public static PlayerDataPersistenceManager Instance { get; private set; }
 

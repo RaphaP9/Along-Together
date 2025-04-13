@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerData
+public class RunData
 {
+    public int roomID;
+
+    public int characterID;
+
     public int currentHealth;
-    public int maxHealth;
-
     public int currentShield;
-    public int maxShield;
-
     public int armor;
     public float dodgeChance;
 
-    public PlayerData()
+    public RunData()
     {
+        roomID = 1;
+
         currentHealth = 0;
-        maxHealth = 0;
 
         currentShield = 0;
-        maxShield = 0;
 
         armor = 0;
         dodgeChance = 0f;
