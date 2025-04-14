@@ -7,7 +7,7 @@ public enum StatType
     HealthRegen,
     AttackDamage,
     AttackCritChance,
-    AttackCritDamage,
+    AttackCritDamageMultiplier,
 
     MovementType
 }

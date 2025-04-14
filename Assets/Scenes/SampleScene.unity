@@ -325,6 +325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 37110870}
+  - component: {fileID: 37110871}
   m_Layer: 0
   m_Name: AttackDamage
   m_TagString: Untagged
@@ -347,6 +348,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &37110871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37110869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c98772f60165b464ca7fece0c30715d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  permanentValueStatModifiers: []
+  permanentPercentageStatModifiers: []
+  permanentReplacementStatModifiers: []
+  temporalValueStatModifiers: []
+  temporalPercentageStatModifiers: []
+  temporalReplacementStatModifiers: []
 --- !u!1 &42321873
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,8 +887,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 115889861}
+  - component: {fileID: 115889862}
   m_Layer: 0
-  m_Name: CritDamage
+  m_Name: AttackCritDamageMultiplier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -889,6 +910,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &115889862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115889860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac744281c897cee4aa94cee3f6d2f807, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &139269170
 GameObject:
   m_ObjectHideFlags: 0
@@ -9780,8 +9813,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1832335218}
+  - component: {fileID: 1832335219}
   m_Layer: 0
-  m_Name: CritChance
+  m_Name: AttackCritChance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9802,6 +9836,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1832335219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832335217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc904c814e44e045b625d29f969e2ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  permanentValueStatModifiers: []
+  permanentPercentageStatModifiers: []
+  permanentReplacementStatModifiers: []
+  temporalValueStatModifiers: []
+  temporalPercentageStatModifiers: []
+  temporalReplacementStatModifiers: []
 --- !u!4 &1834801935 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2737980428002477982, guid: c9adf4dd3ac51e24280167cf2b036ff9, type: 3}
