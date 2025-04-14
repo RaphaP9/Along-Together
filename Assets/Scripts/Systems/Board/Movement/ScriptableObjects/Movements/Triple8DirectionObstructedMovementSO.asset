@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7527ca9ac3a91bd409800acb521bd5d1, type: 3}
   m_Name: Triple8DirectionObstructedMovementSO
   m_EditorClassIdentifier: 
+  id: 6

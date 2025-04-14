@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d8bfd9f2d0ca54f978ee924eb442e9, type: 3}
   m_Name: BishopJumpMovementSO
   m_EditorClassIdentifier: 
+  id: 14

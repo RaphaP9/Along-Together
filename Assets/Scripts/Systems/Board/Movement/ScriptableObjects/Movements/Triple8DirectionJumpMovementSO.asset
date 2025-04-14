@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7a16c060e6a2ff4fa131cc1b3883e14, type: 3}
   m_Name: Triple8DirectionJumpMovementSO
   m_EditorClassIdentifier: 
+  id: 10

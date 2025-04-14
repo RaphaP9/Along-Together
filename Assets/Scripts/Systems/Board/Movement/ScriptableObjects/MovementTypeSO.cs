@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class MovementTypeSO : ScriptableObject
 {
+    [Header("Identifiers")]
+    public int id;
+
     public abstract MovementType GetMovementType();
 
     public abstract HashSet<Cell> GetMovementAvailableCells(Vector2Int currentPosition, Board board);

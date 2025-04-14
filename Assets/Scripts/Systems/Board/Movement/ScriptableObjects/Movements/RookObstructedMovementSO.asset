@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561f84732e422574fbdaa6b8d251a75b, type: 3}
   m_Name: RookObstructedMovementSO
   m_EditorClassIdentifier: 
+  id: 11

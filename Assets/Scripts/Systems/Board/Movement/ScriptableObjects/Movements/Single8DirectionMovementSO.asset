@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb412adcaa55cf14e8907cfbcc899e41, type: 3}
   m_Name: Single8DirectionMovementSO
   m_EditorClassIdentifier: 
+  id: 2

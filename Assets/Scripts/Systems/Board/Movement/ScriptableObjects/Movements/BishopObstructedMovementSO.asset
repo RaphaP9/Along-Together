@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c3863f964c8ae45a4f139cd7e36a3b, type: 3}
   m_Name: BishopObstructedMovementSO
   m_EditorClassIdentifier: 
+  id: 13

@@ -18,5 +18,5 @@ public abstract class EntitySO : ScriptableObject
     [Range(0, 1)] public float dodgeChance;
 
     [Header("Movement Types")]
-    [SerializeField] private List<MovementTypeSO> movementTypes;
+    public List<MovementTypeSO> movementTypes;
 }

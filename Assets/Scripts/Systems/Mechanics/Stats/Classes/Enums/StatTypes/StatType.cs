@@ -8,6 +8,7 @@ public enum StatType
     AttackDamage,
     AttackCritChance,
     AttackCritDamage,
+
     MovementType
 }
 

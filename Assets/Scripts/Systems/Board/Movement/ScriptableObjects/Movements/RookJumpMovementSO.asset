@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434c68c726c2db346b60be698829db6c, type: 3}
   m_Name: RookJumpMovementSO
   m_EditorClassIdentifier: 
+  id: 12

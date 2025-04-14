@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa95bd0b2087616458f7da861a97509d, type: 3}
   m_Name: ImmovableMovementSO
   m_EditorClassIdentifier: 
+  id: 18

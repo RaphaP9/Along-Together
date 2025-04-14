@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d08ef54b55e4b4c9b1a8d9e918de1e, type: 3}
   m_Name: QueenJumpMovementSO
   m_EditorClassIdentifier: 
+  id: 16

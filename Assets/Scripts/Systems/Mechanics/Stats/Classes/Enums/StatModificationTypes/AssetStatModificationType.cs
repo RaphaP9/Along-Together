@@ -1,5 +1,5 @@
 public enum AssetStatModificationType
 {
-    Addition,
+    Union,
     Replacement
 }
