@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDataPersistenceManager : DataPersistenceManager<RunData>
+public class RunDataPersistenceManager : DataPersistenceManager<RunData>
 {
-    public static PlayerDataPersistenceManager Instance { get; private set; }
+    public static RunDataPersistenceManager Instance { get; private set; }
 
     private void OnEnable()
     {
@@ -24,7 +24,7 @@ public class PlayerDataPersistenceManager : DataPersistenceManager<RunData>
         }
         else
         {
-            Debug.LogWarning("There is more than one PlayerDataPersistenceManager instance, proceding to destroy duplicate");
+            Debug.LogWarning("There is more than one RunDataPersistenceManager instance, proceding to destroy duplicate");
             Destroy(gameObject);
         }
     }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public abstract class NumericStatModificationManager : StatModificationManager
 {
-    [Header("Permanent Lists")]
+    [Header("Permanent Lists - Runtime Filled")]
     [SerializeField] protected List<NumericStatModifier> permanentValueStatModifiers;
     [SerializeField] protected List<NumericStatModifier> permanentPercentageStatModifiers;
     [SerializeField] protected List<NumericStatModifier> permanentReplacementStatModifiers;
 
-    [Header("Temporal Lists")]
+    [Header("Temporal Lists - Runtime Filled")]
     [SerializeField] protected List<NumericStatModifier> temporalValueStatModifiers;
     [SerializeField] protected List<NumericStatModifier> temporalPercentageStatModifiers;
     [SerializeField] protected List<NumericStatModifier> temporalReplacementStatModifiers;

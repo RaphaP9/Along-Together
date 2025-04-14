@@ -25,6 +25,11 @@ public class ScenesManager : MonoBehaviour
 
     private string sceneToLoad;
 
+    public float LoadProgress { get; private set; }
+
+    private const float SCENE_READY_PERCENT = 0.9f;
+    private const float SCENE_READY_PAUSE_TIME = 0.5f;
+
     public class OnSceneLoadEventArgs : EventArgs
     {
         public string originScene;
@@ -135,10 +140,21 @@ public class ScenesManager : MonoBehaviour
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(targetScene);
 
+        asyncLoad.allowSceneActivation = false;
+        LoadProgress = 0f;
+
         OnSceneLoadStart?.Invoke(this, new OnSceneLoadEventArgs { originScene = originScene, targetScene = targetScene });
 
         while (!asyncLoad.isDone)
         {
+            LoadProgress = Mathf.Clamp01(asyncLoad.progress / SCENE_READY_PERCENT);
+
+            if(asyncLoad.progress >= SCENE_READY_PERCENT)
+            {
+                yield return new WaitForSeconds(SCENE_READY_PAUSE_TIME);
+                asyncLoad.allowSceneActivation = true;
+            }
+
             yield return null;
         }
 

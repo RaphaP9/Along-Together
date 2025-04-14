@@ -8,5 +8,7 @@ public class CharacterIdentifier : MonoBehaviour
     [SerializeField] private CharacterSO characterSO;
 
     public CharacterSO CharacterSO => characterSO;
+
+    public void SetCharacterSO(CharacterSO characterSO) => this.characterSO = characterSO;
 }
 

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class AssetStatModificationManager<T> : StatModificationManager where T : ScriptableObject
 {
-    [Header("Permanent Lists")]
+    [Header("Permanent Lists - Runtime Filled")]
     [SerializeField] protected List<AssetStatModifier> permanentUnionStatModifiers;
     [SerializeField] protected List<AssetStatModifier> permanentReplacementStatModifiers;
 
-    [Header("Temporal Lists")]
+    [Header("Temporal Lists - Runtime Filled")]
     [SerializeField] protected List<AssetStatModifier> temporalUnionStatModifiers;
     [SerializeField] protected List<AssetStatModifier> temporalReplacementStatModifiers;
 

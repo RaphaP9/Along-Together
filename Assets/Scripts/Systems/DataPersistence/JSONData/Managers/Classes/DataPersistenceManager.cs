@@ -9,7 +9,7 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
 {
     [Header("Enablers")]
     [SerializeField] private bool enableDataPersistence;
-    [SerializeField] private bool enableDataSaveOnStart;
+    [SerializeField] private bool enableDataSaveAfterLoad;
     [SerializeField] private bool enableDataSaveOnQuit;
 
     [Header("File Storage Config")]
@@ -24,6 +24,12 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
     private T persistentData;
     private List<IDataSaveLoader<T>> dataSaveLoaderObjects;
 
+    public static event EventHandler OnDataLoadStart;
+    public static event EventHandler OnDataLoadCompleted;
+
+    public static event EventHandler OnDataSaveStart;
+    public static event EventHandler OnDataSaveCompleted;
+
     protected void Awake()
     {
         SetSingleton();
@@ -34,11 +40,11 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
     {
         dirPath = Application.persistentDataPath;
 
-        if (useEncryption) dataService = new JSONNewtonSoftDataServiceEncryption(dirPath, fileName);
+        if (useEncryption) dataService = new JSONNewtonSoftDataServiceEncryption(dirPath, fileName); //NewtonSoft Services
         else dataService = new JSONNewtonsoftDataServiceNoEncryption(dirPath, fileName);
 
         dataSaveLoaderObjects = FindAllDataSaveLoaderObjects();
-        LoadGameData();
+        LoadGameData(); //Always load game data on Awake() (or wherever this method is in)
     }
 
 
@@ -56,6 +62,8 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
     {
         if (!enableDataPersistence) return;
 
+        OnDataLoadStart?.Invoke(this, EventArgs.Empty);
+
         persistentData = dataService.LoadData<T>(); //Load data from file using data handler
 
         if (persistentData == default || persistentData == null)
@@ -70,12 +78,18 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
             dataSaveLoaderObject.LoadData(persistentData);
         }
 
-        if (enableDataSaveOnStart) SaveGameData();
+        OnDataLoadCompleted?.Invoke(this, EventArgs.Empty);
+
+        if (enableDataSaveAfterLoad) SaveGameData(); 
+        //Saves To JSON the T persistenData object, Which has either the loaded values (if data existed previously and was load),
+        //or the default values (if there was no data before and was created just before)
     }
 
     public void SaveGameData()
     {
         if (!enableDataPersistence) return;
+
+        OnDataSaveStart?.Invoke(this, EventArgs.Empty);
 
         foreach (IDataSaveLoader<T> dataSaveLoaderObject in dataSaveLoaderObjects) //Pass data to other scripts so they can update it
         {
@@ -83,6 +97,8 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
         }
 
         dataService.SaveData(persistentData); //Save data to file using data handler 
+
+        OnDataSaveCompleted?.Invoke(this, EventArgs.Empty);
     }
 
     protected void NewGameData() => persistentData = new T();

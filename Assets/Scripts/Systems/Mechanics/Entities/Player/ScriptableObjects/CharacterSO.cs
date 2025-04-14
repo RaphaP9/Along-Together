@@ -9,8 +9,7 @@ public class CharacterSO : EntitySO
     [Header("Character Settings")]
     [Range(0, 10)] public int healthRegen;
     [Space]
-    [Range(1f, 2f)] public float attackDamageMultiplier;
-    [Space]
+    [Range(1f, 2f)] public int attackDamage;
     [Range(0f, 1f)] public float attackCritChance;
     [Range(0.5f, 2f)] public float attackCritDamageMultiplier;
 

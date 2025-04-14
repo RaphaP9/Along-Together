@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: DataPaths
   m_EditorClassIdentifier: 
   dataPaths:
-  - playerData.atdata
+  - gameData.atdata
+  - runData.atdata
