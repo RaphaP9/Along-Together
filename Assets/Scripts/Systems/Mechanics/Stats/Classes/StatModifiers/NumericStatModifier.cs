@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class NumericStatModifier : StatModifier
 {
+    public NumericStatType numericStatType;
     public NumericStatModificationType numericStatModificationType;
     public float value;
 

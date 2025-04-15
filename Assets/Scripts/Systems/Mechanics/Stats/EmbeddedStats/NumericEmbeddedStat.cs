@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class NumericEmbeddedStat : EmbeddedStat
 {
+    public NumericStatType numericStatType;
     public NumericStatModificationType numericStatModificationType;
     public float value;
 

@@ -72,7 +72,7 @@ public static class BoardUtilities
         return furthestCell;
     }
 
-    public static HashSet<Cell> SynthesizeAvailableCells(Vector2Int currentPosition, Board board, List<MovementTypeSO> movementTypes)
+    public static HashSet<Cell> ResolveAvailableCells(Vector2Int currentPosition, Board board, List<MovementTypeSO> movementTypes)
     {
         HashSet<Cell> availableCells = new HashSet<Cell>();
 

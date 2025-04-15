@@ -5,7 +5,5 @@ using UnityEngine;
 public abstract class StatModifier 
 {
     public string originGUID;
-    public StatType statType;
-
     public abstract StatValueType GetStatValueType();
 }

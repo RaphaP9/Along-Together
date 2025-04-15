@@ -4,7 +4,5 @@ using UnityEngine;
 
 public abstract class EmbeddedStat
 {
-    public StatType statType;
-
     public abstract StatValueType GetStatValueType();
 }
