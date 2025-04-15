@@ -5,44 +5,29 @@ using UnityEngine;
 public abstract class AssetStatModificationManager<T> : StatModificationManager where T : ScriptableObject
 {
     [Header("Permanent Lists - Runtime Filled")]
-    [SerializeField] protected List<AssetStatModifier> permanentUnionStatModifiers;
-    [SerializeField] protected List<AssetStatModifier> permanentReplacementStatModifiers;
+    [SerializeField] protected List<AssetStatModifier> unionStatModifiers;
+    [SerializeField] protected List<AssetStatModifier> replacementStatModifiers;
 
-    [Header("Temporal Lists - Runtime Filled")]
-    [SerializeField] protected List<AssetStatModifier> temporalUnionStatModifiers;
-    [SerializeField] protected List<AssetStatModifier> temporalReplacementStatModifiers;
+    public List<AssetStatModifier> UnionStatModifiers => unionStatModifiers;
+    public List<AssetStatModifier> ReplacementStatModifiers => replacementStatModifiers;
 
-    public List<AssetStatModifier> PermanentUnionStatModifiers => permanentUnionStatModifiers;
-    public List<AssetStatModifier> PermanentReplacementStatModifiers => permanentReplacementStatModifiers;
-
-    public List<AssetStatModifier> TemporalUnionStatModifiers => temporalUnionStatModifiers;
-    public List<AssetStatModifier> TemporalReplacementStatModifiers => temporalReplacementStatModifiers;
 
     #region In-Line Methods
-    public bool HasPermanentUnionStatModifiers() => permanentUnionStatModifiers.Count > 0;
-    public bool HasPermanentReplacementStatModifiers() => permanentReplacementStatModifiers.Count > 0;
+    public bool HasUnionStatModifiers() => unionStatModifiers.Count > 0;
+    public bool HasReplacementStatModifiers() => replacementStatModifiers.Count > 0;
 
-    public int GetPermanentUnionStatModifiersQuantity() => permanentUnionStatModifiers.Count;
-    public int GetPermanentReplacementStatModifiersQuantity() => permanentReplacementStatModifiers.Count;
+    public int GetUnionStatModifiersQuantity() => unionStatModifiers.Count;
+    public int GetReplacementStatModifiersQuantity() => replacementStatModifiers.Count;
 
-    public bool HasTemporalUnionStatModifiers() => temporalUnionStatModifiers.Count > 0;
-    public bool HasTemporalReplacementStatModifiers() => temporalReplacementStatModifiers.Count > 0;
-
-    public int GetTemporalUnionStatModifiersQuantity() => temporalUnionStatModifiers.Count;
-    public int GetTemporalReplacementStatModifiersQuantity() => temporalReplacementStatModifiers.Count;
-
-    public override bool HasPermanentStatModifiers() => GetPermanentStatModifiersQuantity() > 0;
-    public override int GetPermanentStatModifiersQuantity() => permanentUnionStatModifiers.Count + permanentReplacementStatModifiers.Count;
-
-    public override bool HasTemporalStatModifiers() => GetTemporalStatModifiersQuantity() > 0;
-    public override int GetTemporalStatModifiersQuantity() => temporalUnionStatModifiers.Count + temporalReplacementStatModifiers.Count;
+    public override bool HasStatModifiers() => GetStatModifiersQuantity() > 0;
+    public override int GetStatModifiersQuantity() => unionStatModifiers.Count + replacementStatModifiers.Count;
 
     protected override StatValueType GetStatValueType() => StatValueType.Asset;
 
     #endregion
 
     #region Permanent Stat Modifiers
-    public override void AddPermanentStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder)
+    public override void AddStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder)
     {
         if (originGUID == "")
         {
@@ -50,22 +35,26 @@ public abstract class AssetStatModificationManager<T> : StatModificationManager 
             return;
         }
 
+        int statsAdded = 0;
+
         foreach (AssetEmbeddedStat assetEmbeddedStat in embeddedStatsHolder.GetAssetEmbeddedStats())
         {
-            AddPermanentAssetStatModifier(originGUID, assetEmbeddedStat);
+            if (AddAssetStatModifier(originGUID, assetEmbeddedStat)) statsAdded++;
         }
+
+        if (statsAdded > 0) UpdateStat();
     }
 
-    protected void AddPermanentAssetStatModifier(string originGUID, AssetEmbeddedStat assetEmbeddedStat)
+    protected bool AddAssetStatModifier(string originGUID, AssetEmbeddedStat assetEmbeddedStat)
     {
         if (assetEmbeddedStat == null)
         {
             if (debug) Debug.Log("AssetEmbeddedStat is null. StatModifier will not be added");
-            return;
+            return false;
         }
 
-        if (assetEmbeddedStat.GetStatValueType() != GetStatValueType()) return;
-        if (assetEmbeddedStat.statType != GetStatType()) return;
+        if (assetEmbeddedStat.GetStatValueType() != GetStatValueType()) return false;
+        if (assetEmbeddedStat.statType != GetStatType()) return false;
 
         AssetStatModifier assetStatModifier = new AssetStatModifier { originGUID = originGUID, statType = assetEmbeddedStat.statType, assetStatModificationType = assetEmbeddedStat.assetStatModificationType, asset = assetEmbeddedStat.asset };
 
@@ -73,17 +62,17 @@ public abstract class AssetStatModificationManager<T> : StatModificationManager 
         {
             case AssetStatModificationType.Union:
             default:
-                permanentUnionStatModifiers.Add(assetStatModifier);
+                unionStatModifiers.Add(assetStatModifier);
                 break;
             case AssetStatModificationType.Replacement:
-                permanentReplacementStatModifiers.Add(assetStatModifier);
+                replacementStatModifiers.Add(assetStatModifier);
                 break;
         }
 
-        UpdateStat();
+        return true;
     }
 
-    public override void RemovePermanentStatModifiersByGUID(string originGUID)
+    public override void RemoveStatModifiersByGUID(string originGUID)
     {
         if (originGUID == "")
         {
@@ -91,67 +80,12 @@ public abstract class AssetStatModificationManager<T> : StatModificationManager 
             return;
         }
 
-        permanentUnionStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
-        permanentReplacementStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
+        int removedFromValue = unionStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
+        int removedFromReplacement = replacementStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
 
-        UpdateStat();
-    }
-    #endregion
+        int totalRemoved = removedFromValue + removedFromReplacement;
 
-    #region Temporal Stat Modifiers
-    public override void AddTemporalStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder)
-    {
-        if (originGUID == "")
-        {
-            if (debug) Debug.Log("GUID is empty. StatModifiers will not be added");
-            return;
-        }
-
-        foreach (AssetEmbeddedStat assetEmbeddedStat in embeddedStatsHolder.GetAssetEmbeddedStats())
-        {
-            AddTemporalAssetStatModifier(originGUID, assetEmbeddedStat);
-        }
-    }
-
-    protected void AddTemporalAssetStatModifier(string originGUID, AssetEmbeddedStat assetEmbeddedStat)
-    {
-        if (assetEmbeddedStat == null)
-        {
-            if (debug) Debug.Log("AssetEmbeddedStat is null. StatModifier will not be added");
-            return;
-        }
-
-        if (assetEmbeddedStat.GetStatValueType() != GetStatValueType()) return;
-        if (assetEmbeddedStat.statType != GetStatType()) return;
-
-        AssetStatModifier assetStatModifier = new AssetStatModifier { originGUID = originGUID, statType = assetEmbeddedStat.statType, assetStatModificationType = assetEmbeddedStat.assetStatModificationType, asset = assetEmbeddedStat.asset };
-
-        switch (assetEmbeddedStat.assetStatModificationType)
-        {
-            case AssetStatModificationType.Union:
-            default:
-                temporalUnionStatModifiers.Add(assetStatModifier);
-                break;
-            case AssetStatModificationType.Replacement:
-                temporalReplacementStatModifiers.Add(assetStatModifier);
-                break;
-        }
-
-        UpdateStat();
-    }
-
-    public override void RemoveTemporalStatModifiersByGUID(string originGUID)
-    {
-        if (originGUID == "")
-        {
-            if (debug) Debug.Log("GUID is empty. StatModifiers will not be removed");
-            return;
-        }
-
-        temporalUnionStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
-        temporalReplacementStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
-
-        UpdateStat();
+        if (totalRemoved > 0) UpdateStat();
     }
     #endregion
 

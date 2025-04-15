@@ -17,31 +17,30 @@ public abstract class StatModificationManager : MonoBehaviour
 
     }
 
+    protected void Awake()
+    {
+        SetSingleton();
+    }
+
     protected virtual void Start()
     {
+        LoadRuntimeData();
         InitializeStat();
     }
 
     protected abstract void SetSingleton();
+    protected abstract void LoadRuntimeData();
     protected abstract void InitializeStat();
     protected abstract void UpdateStat();
 
-    public abstract bool HasPermanentStatModifiers();
-    public abstract bool HasTemporalStatModifiers();
-    public abstract int GetPermanentStatModifiersQuantity();
-    public abstract int GetTemporalStatModifiersQuantity();
-    public bool HasStatModifiers() => GetStatModifiersQuantity()>0;
-    public int GetStatModifiersQuantity() => GetPermanentStatModifiersQuantity() + GetTemporalStatModifiersQuantity();
-
+    public abstract bool HasStatModifiers();
+    public abstract int GetStatModifiersQuantity();
 
     protected abstract StatType GetStatType();
     protected abstract StatValueType GetStatValueType();
 
-    public abstract void AddPermanentStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder);
-    public abstract void RemovePermanentStatModifiersByGUID(string originGUID);
-
-    public abstract void AddTemporalStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder);
-    public abstract void RemoveTemporalStatModifiersByGUID(string originGUID);
+    public abstract void AddStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder);
+    public abstract void RemoveStatModifiersByGUID(string originGUID);
 
     #region Subscriptions
 

@@ -5,52 +5,33 @@ using UnityEngine;
 public abstract class NumericStatModificationManager : StatModificationManager
 {
     [Header("Permanent Lists - Runtime Filled")]
-    [SerializeField] protected List<NumericStatModifier> permanentValueStatModifiers;
-    [SerializeField] protected List<NumericStatModifier> permanentPercentageStatModifiers;
-    [SerializeField] protected List<NumericStatModifier> permanentReplacementStatModifiers;
+    [SerializeField] protected List<NumericStatModifier> valueStatModifiers;
+    [SerializeField] protected List<NumericStatModifier> percentageStatModifiers;
+    [SerializeField] protected List<NumericStatModifier> replacementStatModifiers;
 
-    [Header("Temporal Lists - Runtime Filled")]
-    [SerializeField] protected List<NumericStatModifier> temporalValueStatModifiers;
-    [SerializeField] protected List<NumericStatModifier> temporalPercentageStatModifiers;
-    [SerializeField] protected List<NumericStatModifier> temporalReplacementStatModifiers;
+    public List<NumericStatModifier> ValueStatModifiers => valueStatModifiers;
+    public List<NumericStatModifier> PercentageStatModifiers => percentageStatModifiers;
+    public List<NumericStatModifier> ReplacementStatModifiers => replacementStatModifiers;
 
-    public List<NumericStatModifier> PermanentValueStatModifiers => permanentValueStatModifiers;
-    public List<NumericStatModifier> PermanentPercentageStatModifiers => permanentPercentageStatModifiers;
-    public List<NumericStatModifier> PermanentReplacementStatModifiers => permanentReplacementStatModifiers;
-
-    public List<NumericStatModifier> TemporalValueStatModifiers => temporalValueStatModifiers;
-    public List<NumericStatModifier> TemporalPercentageStatModifiers => temporalPercentageStatModifiers;
-    public List<NumericStatModifier> TemporalReplacementStatModifiers => temporalReplacementStatModifiers; 
 
     #region In-Line Methods
-    public bool HasPermanentValueStatModifiers() => permanentValueStatModifiers.Count > 0;
-    public bool HasPermanentPercentageStatModifiers() => permanentPercentageStatModifiers.Count > 0;
-    public bool HasPermanentReplacementStatModifiers() => permanentReplacementStatModifiers.Count > 0;
+    public bool HasValueStatModifiers() => valueStatModifiers.Count > 0;
+    public bool HasPercentageStatModifiers() => percentageStatModifiers.Count > 0;
+    public bool HasReplacementStatModifiers() => replacementStatModifiers.Count > 0;
 
-    public int GetPermanentValueStatModifiersQuantity() => permanentValueStatModifiers.Count;
-    public int GetPermanentPercentageStatModifiersQuantity() => permanentPercentageStatModifiers.Count;
-    public int GetPermanentReplacementStatModifiersQuantity() => permanentReplacementStatModifiers.Count;
+    public int GetValueStatModifiersQuantity() => valueStatModifiers.Count;
+    public int GetPercentageStatModifiersQuantity() => percentageStatModifiers.Count;
+    public int GetReplacementStatModifiersQuantity() => replacementStatModifiers.Count;
 
-    public bool HasTemporalValueStatModifiers() => temporalValueStatModifiers.Count > 0;
-    public bool HasTemporalPercentageStatModifiers() => temporalPercentageStatModifiers.Count > 0;
-    public bool HasTemporalReplacementStatModifiers() => temporalReplacementStatModifiers.Count > 0;
-
-    public int GetTemporalValueStatModifiersQuantity() => temporalValueStatModifiers.Count;
-    public int GetTemporalPercentageStatModifiersQuantity() => temporalPercentageStatModifiers.Count;
-    public int GetTemporalReplacementStatModifiersQuantity() => temporalReplacementStatModifiers.Count;
-
-    public override bool HasPermanentStatModifiers() => GetPermanentStatModifiersQuantity() > 0;
-    public override int GetPermanentStatModifiersQuantity() => permanentValueStatModifiers.Count + permanentPercentageStatModifiers.Count + permanentReplacementStatModifiers.Count;
-
-    public override bool HasTemporalStatModifiers() => GetTemporalStatModifiersQuantity() > 0;
-    public override int GetTemporalStatModifiersQuantity() => temporalValueStatModifiers.Count + temporalPercentageStatModifiers.Count + temporalReplacementStatModifiers.Count;
+    public override bool HasStatModifiers() => GetStatModifiersQuantity() > 0;
+    public override int GetStatModifiersQuantity() => valueStatModifiers.Count + percentageStatModifiers.Count + replacementStatModifiers.Count;
 
     protected override StatValueType GetStatValueType() => StatValueType.Numeric;
 
     #endregion
 
-    #region Permanent Stat Modifiers
-    public override void AddPermanentStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder)
+    #region Add/Remove Stat Modifiers
+    public override void AddStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder)
     {
         if (originGUID == "")
         {
@@ -58,22 +39,26 @@ public abstract class NumericStatModificationManager : StatModificationManager
             return;
         }
 
+        int statsAdded = 0;
+
         foreach (NumericEmbeddedStat numericEmbeddedStat in embeddedStatsHolder.GetNumericEmbeddedStats())
         {
-            AddPermanentNumericStatModifier(originGUID, numericEmbeddedStat);
+            if (AddNumericStatModifier(originGUID, numericEmbeddedStat)) statsAdded++;
         }
+
+        if (statsAdded > 0) UpdateStat();
     }
 
-    protected void AddPermanentNumericStatModifier(string originGUID, NumericEmbeddedStat numericEmbeddedStat)
+    protected bool AddNumericStatModifier(string originGUID, NumericEmbeddedStat numericEmbeddedStat)
     {
         if (numericEmbeddedStat == null)
         {
             if (debug) Debug.Log("NumericEmbeddedStat is null. StatModifier will not be added");
-            return;
+            return false;
         }
 
-        if (numericEmbeddedStat.GetStatValueType() != GetStatValueType()) return;
-        if (numericEmbeddedStat.statType != GetStatType()) return; 
+        if (numericEmbeddedStat.GetStatValueType() != GetStatValueType()) return false;
+        if (numericEmbeddedStat.statType != GetStatType()) return false; 
 
         NumericStatModifier numericStatModifier = new NumericStatModifier {originGUID = originGUID, statType = numericEmbeddedStat.statType, numericStatModificationType = numericEmbeddedStat.numericStatModificationType, value = numericEmbeddedStat.value};
         
@@ -81,20 +66,20 @@ public abstract class NumericStatModificationManager : StatModificationManager
         {
             case NumericStatModificationType.Value:
             default:
-                permanentValueStatModifiers.Add(numericStatModifier);
+                valueStatModifiers.Add(numericStatModifier);
                 break;
             case NumericStatModificationType.Percentage:
-                permanentPercentageStatModifiers.Add(numericStatModifier);
+                percentageStatModifiers.Add(numericStatModifier);
                 break;
             case NumericStatModificationType.Replacement:
-                permanentReplacementStatModifiers.Add(numericStatModifier);
+                replacementStatModifiers.Add(numericStatModifier);
                 break;
         }
 
-        UpdateStat();
+        return true;
     }
 
-    public override void RemovePermanentStatModifiersByGUID(string originGUID)
+    public override void RemoveStatModifiersByGUID(string originGUID)
     {
         if (originGUID == "")
         {
@@ -102,72 +87,13 @@ public abstract class NumericStatModificationManager : StatModificationManager
             return;
         }
 
-        permanentValueStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
-        permanentPercentageStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
-        permanentReplacementStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
+        int removedFromValue = valueStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
+        int removedFromPercentage = percentageStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
+        int removedFromReplacement = replacementStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
 
-        UpdateStat();
-    }
-    #endregion
+        int totalRemoved = removedFromValue + removedFromPercentage + removedFromReplacement;
 
-    #region Temporal Stat Modifiers
-    public override void AddTemporalStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder)
-    {
-        if (originGUID == "")
-        {
-            if (debug) Debug.Log("GUID is empty. StatModifiers will not be added");
-            return;
-        }
-
-        foreach (NumericEmbeddedStat numericEmbeddedStat in embeddedStatsHolder.GetNumericEmbeddedStats())
-        {
-            AddTemporalNumericStatModifier(originGUID, numericEmbeddedStat);
-        }
-    }
-
-    protected void AddTemporalNumericStatModifier(string originGUID, NumericEmbeddedStat numericEmbeddedStat)
-    {
-        if (numericEmbeddedStat == null)
-        {
-            if (debug) Debug.Log("NumericEmbeddedStat is null. StatModifier will not be added");
-            return;
-        }
-
-        if (numericEmbeddedStat.GetStatValueType() != GetStatValueType()) return;
-        if (numericEmbeddedStat.statType != GetStatType()) return;
-
-        NumericStatModifier numericStatModifier = new NumericStatModifier { originGUID = originGUID, statType = numericEmbeddedStat.statType, numericStatModificationType = numericEmbeddedStat.numericStatModificationType, value = numericEmbeddedStat.value };
-
-        switch (numericEmbeddedStat.numericStatModificationType)
-        {
-            case NumericStatModificationType.Value:
-            default:
-                temporalValueStatModifiers.Add(numericStatModifier);
-                break;
-            case NumericStatModificationType.Percentage:
-                temporalPercentageStatModifiers.Add(numericStatModifier);
-                break;
-            case NumericStatModificationType.Replacement:
-                temporalReplacementStatModifiers.Add(numericStatModifier);
-                break;
-        }
-
-        UpdateStat();
-    }
-
-    public override void RemoveTemporalStatModifiersByGUID(string originGUID)
-    {
-        if (originGUID == "")
-        {
-            if (debug) Debug.Log("GUID is empty. StatModifiers will not be removed");
-            return;
-        }
-
-        temporalValueStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
-        temporalPercentageStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
-        temporalReplacementStatModifiers.RemoveAll(statModifier => statModifier.originGUID == originGUID);
-
-        UpdateStat();
+        if (totalRemoved > 0) UpdateStat();
     }
     #endregion
 }

@@ -186,6 +186,54 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &15728810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 15728811}
+  - component: {fileID: 15728812}
+  m_Layer: 0
+  m_Name: Temporal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &15728811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15728810}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1001510476}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &15728812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15728810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6f7009382640541a4023b03a141a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  valueStatModifiers: []
+  percentageStatModifiers: []
+  replacementStatModifiers: []
 --- !u!1001 &20771736
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -325,7 +373,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 37110870}
-  - component: {fileID: 37110871}
   m_Layer: 0
   m_Name: AttackDamage
   m_TagString: Untagged
@@ -348,25 +395,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &37110871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 37110869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c98772f60165b464ca7fece0c30715d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  permanentValueStatModifiers: []
-  permanentPercentageStatModifiers: []
-  permanentReplacementStatModifiers: []
-  temporalValueStatModifiers: []
-  temporalPercentageStatModifiers: []
-  temporalReplacementStatModifiers: []
 --- !u!1 &42321873
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,7 +915,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 115889861}
-  - component: {fileID: 115889862}
   m_Layer: 0
   m_Name: AttackCritDamageMultiplier
   m_TagString: Untagged
@@ -910,18 +937,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &115889862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 115889860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac744281c897cee4aa94cee3f6d2f807, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &139269170
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,7 +1479,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 255282060}
-  - component: {fileID: 255282061}
   m_Layer: 0
   m_Name: HealthRegen
   m_TagString: Untagged
@@ -1487,25 +1501,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &255282061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 255282059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5a998a47475c704ebc75af1e96b8a87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  permanentValueStatModifiers: []
-  permanentPercentageStatModifiers: []
-  permanentReplacementStatModifiers: []
-  temporalValueStatModifiers: []
-  temporalPercentageStatModifiers: []
-  temporalReplacementStatModifiers: []
 --- !u!4 &255894886 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2737980428002477982, guid: c9adf4dd3ac51e24280167cf2b036ff9, type: 3}
@@ -3172,6 +3167,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &493952221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 493952222}
+  - component: {fileID: 493952223}
+  m_Layer: 0
+  m_Name: Resolver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &493952222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493952221}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1001510476}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &493952223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493952221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9ef4d1e4e07604aa53904898dc3d30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealthStatModificationManagers:
+  - {fileID: 1144433851}
+  - {fileID: 15728812}
 --- !u!1001 &501259774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3477,7 +3519,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 527784053}
-  - component: {fileID: 527784054}
   m_Layer: 0
   m_Name: Armor
   m_TagString: Untagged
@@ -3500,25 +3541,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &527784054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 527784052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 736225acb984c1142a86515ad660080d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  permanentValueStatModifiers: []
-  permanentPercentageStatModifiers: []
-  permanentReplacementStatModifiers: []
-  temporalValueStatModifiers: []
-  temporalPercentageStatModifiers: []
-  temporalReplacementStatModifiers: []
 --- !u!1 &536130801
 GameObject:
   m_ObjectHideFlags: 0
@@ -4825,7 +4847,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 802272036}
-  - component: {fileID: 802272037}
   m_Layer: 0
   m_Name: MaxShield
   m_TagString: Untagged
@@ -4848,25 +4869,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &802272037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 802272035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0400cb869d41274ba60a1bba9789e42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  permanentValueStatModifiers: []
-  permanentPercentageStatModifiers: []
-  permanentReplacementStatModifiers: []
-  temporalValueStatModifiers: []
-  temporalPercentageStatModifiers: []
-  temporalReplacementStatModifiers: []
 --- !u!1 &837502380
 GameObject:
   m_ObjectHideFlags: 0
@@ -5674,7 +5676,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1001510476}
-  - component: {fileID: 1001510477}
   m_Layer: 0
   m_Name: MaxHealth
   m_TagString: Untagged
@@ -5694,28 +5695,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1144433850}
+  - {fileID: 15728811}
+  - {fileID: 493952222}
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1001510477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001510475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 138112d7a00ff7c438c0194bbb8dcf73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  permanentValueStatModifiers: []
-  permanentPercentageStatModifiers: []
-  permanentReplacementStatModifiers: []
-  temporalValueStatModifiers: []
-  temporalPercentageStatModifiers: []
-  temporalReplacementStatModifiers: []
 --- !u!1 &1026542808
 GameObject:
   m_ObjectHideFlags: 0
@@ -6243,6 +6228,54 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9adf4dd3ac51e24280167cf2b036ff9, type: 3}
+--- !u!1 &1144433849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1144433850}
+  - component: {fileID: 1144433851}
+  m_Layer: 0
+  m_Name: Permanent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1144433850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144433849}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1001510476}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1144433851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144433849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b781ad7d049f624182965193b4a419a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  valueStatModifiers: []
+  percentageStatModifiers: []
+  replacementStatModifiers: []
 --- !u!1001 &1161574732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6508,7 +6541,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1261265632}
-  - component: {fileID: 1261265633}
   m_Layer: 0
   m_Name: DodgeChance
   m_TagString: Untagged
@@ -6531,25 +6563,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1261265633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1261265631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce7767359c884494f8cd59355f84d599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  permanentValueStatModifiers: []
-  permanentPercentageStatModifiers: []
-  permanentReplacementStatModifiers: []
-  temporalValueStatModifiers: []
-  temporalPercentageStatModifiers: []
-  temporalReplacementStatModifiers: []
 --- !u!1 &1290765737
 GameObject:
   m_ObjectHideFlags: 0
@@ -6559,7 +6572,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1290765738}
-  - component: {fileID: 1290765739}
   m_Layer: 0
   m_Name: MovementType
   m_TagString: Untagged
@@ -6582,23 +6594,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1290765739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1290765737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dad5810252f73ca43b19a4a26eee158b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  permanentUnionStatModifiers: []
-  permanentReplacementStatModifiers: []
-  temporalUnionStatModifiers: []
-  temporalReplacementStatModifiers: []
 --- !u!1 &1294229261
 GameObject:
   m_ObjectHideFlags: 0
@@ -9813,7 +9808,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1832335218}
-  - component: {fileID: 1832335219}
   m_Layer: 0
   m_Name: AttackCritChance
   m_TagString: Untagged
@@ -9836,25 +9830,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1832335219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832335217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cc904c814e44e045b625d29f969e2ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  permanentValueStatModifiers: []
-  permanentPercentageStatModifiers: []
-  permanentReplacementStatModifiers: []
-  temporalValueStatModifiers: []
-  temporalPercentageStatModifiers: []
-  temporalReplacementStatModifiers: []
 --- !u!4 &1834801935 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2737980428002477982, guid: c9adf4dd3ac51e24280167cf2b036ff9, type: 3}
