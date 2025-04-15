@@ -63,7 +63,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c34248f5f62eaba42899697c97a1ecfa, type: 2}
   - {fileID: 11400000, guid: 64c15c1f3019356429b12830d741496c, type: 2}
   - {fileID: 11400000, guid: d5ce502fd33829243bfe58bc4a79c684, type: 2}
-  debug: 0
+  debug: 1
 --- !u!1 &7571815221204173663
 GameObject:
   m_ObjectHideFlags: 0

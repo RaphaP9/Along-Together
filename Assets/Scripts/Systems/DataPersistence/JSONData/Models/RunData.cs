@@ -5,12 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class RunData
 {
-    public List<DataPersistentAssetStat> dataPersistentAssetStats;
-    public List<DataPersistentNumericStat> dataPersistentNumericStats;
+    public List<DataPersistentAssetStat> assetStats;
+    public List<DataPersistentNumericStat> numericStats;
 
     public RunData()
     {
-        dataPersistentNumericStats = new List<DataPersistentNumericStat>();
-        dataPersistentAssetStats = new List<DataPersistentAssetStat>(); 
+        numericStats = new List<DataPersistentNumericStat>();
+        assetStats = new List<DataPersistentAssetStat>(); 
     }
 }

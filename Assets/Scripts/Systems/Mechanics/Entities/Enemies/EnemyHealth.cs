@@ -29,6 +29,16 @@ public class EnemyHealth : EntityHealth
     public static event EventHandler OnAnyEnemyDeath;
     public event EventHandler OnEnemyDeath;
 
+    protected override int CalculateCurrentHealth()
+    {
+        return enemyIdentifier.EnemySO.healthPoints;
+    }
+
+    protected override int CalculateCurrentShield()
+    {
+        return enemyIdentifier.EnemySO.shieldPoints;
+    }
+
     protected override int CalculateMaxHealth()
     {
         return enemyIdentifier.EnemySO.healthPoints;

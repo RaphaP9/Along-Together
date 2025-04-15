@@ -29,6 +29,16 @@ public class NeutralEntityHealth : EntityHealth
     public static event EventHandler OnAnyNeutralEntityDeath;
     public event EventHandler OnNeutralEntityDeath;
 
+    protected override int CalculateCurrentHealth()
+    {
+        return neutralEntityIdentifier.NeutralEntitySO.healthPoints;
+    }
+
+    protected override int CalculateCurrentShield()
+    {
+        return neutralEntityIdentifier.NeutralEntitySO.shieldPoints;
+    }
+
     protected override int CalculateMaxHealth()
     {
         return neutralEntityIdentifier.NeutralEntitySO.healthPoints;

@@ -2,16 +2,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static HittableObjectHealth;
 
 public abstract class EntityHealth : MonoBehaviour, IHasHealth
 {
     [Header("Runtime Filled")]
     [SerializeField] protected int currentHealth;
     [SerializeField] protected int currentShield;
+    [Space]
+    [SerializeField] protected int maxHealth;
+    [SerializeField] protected int maxShield;
+    [SerializeField] protected int armor;
+    [SerializeField] protected float dodgeChance;
 
     public int CurrentHealth => currentHealth;
     public int CurrentShield => currentShield;
+
+
+    public int MaxHealth => maxHealth;
+    public int MaxShield => maxShield;
+    public int Armor => armor;
+    public float DodgeChance => dodgeChance;
+
 
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityStatsInitialized;
     public event EventHandler<OnEntityStatsEventArgs> OnEntityStatsInitialized;
@@ -33,6 +44,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     public static event EventHandler OnAnyEntityDeath;
     public event EventHandler OnEntityDeath;
+
+    protected bool hasInitialized = false;
 
     #region EventArgs Classes
     public class OnEntityStatsEventArgs : EventArgs
@@ -108,19 +121,34 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     }
     #endregion
 
-    protected void Start()
+    protected void Update()
     {
-        InitializeStats();
+        FirstUpdateInitialization();
     }
 
-    protected virtual void InitializeStats()
+    protected virtual void FirstUpdateInitialization()
     {
-        currentHealth = CalculateMaxHealth();
-        currentShield = CalculateMaxShield();
+        if (hasInitialized) return;
+
+        Initialize();
+        hasInitialized = true;
+    }
+
+    protected virtual void Initialize()
+    {
+        currentHealth = CalculateCurrentHealth();
+        currentShield = CalculateCurrentShield();
+
+        maxHealth = CalculateMaxHealth();
+        maxShield = CalculateMaxShield();
+        armor = CalculateArmor();
+        dodgeChance = CalculateDodgeChance();
 
         OnEntityStatsInitializedMethod();
     }
 
+    protected abstract int CalculateCurrentHealth();
+    protected abstract int CalculateCurrentShield();
     protected abstract int CalculateMaxHealth();
     protected abstract int CalculateMaxShield();
     protected abstract int CalculateArmor();

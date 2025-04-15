@@ -16,7 +16,7 @@ public abstract class NumericStatResolver : StatResolver
 
         foreach (NumericStatModifierManager numericStatModifierManager in numericStatModifierManagers)
         {
-            foreach(NumericStatModifier numericStatModifier in numericStatModifierManager.NumericStatModifiers)
+            foreach (NumericStatModifier numericStatModifier in numericStatModifierManager.NumericStatModifiers)
             {
                 if (numericStatModifier.numericStatType != GetNumericStatType()) continue;
 

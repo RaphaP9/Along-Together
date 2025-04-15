@@ -21,6 +21,6 @@ public class RunNumericStatModifierManager : NumericStatModifierManager
 
     protected override void LoadRuntimeData()
     {
-        //
+        numericStatModifiers = DataUtilities.TranslateNumericStatModifiersData(RuntimeRunData.runtimeNumericStats);
     }
 }

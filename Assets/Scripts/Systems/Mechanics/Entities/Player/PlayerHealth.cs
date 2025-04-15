@@ -29,32 +29,34 @@ public class PlayerHealth : EntityHealth
     public static event EventHandler OnPlayerEntityDeath;
     public event EventHandler OnThisPlayerEntityDeath;
 
-    protected override void InitializeStats() //Should Include Load from JSON logic or at least make refference to JSON load script
+    protected override int CalculateCurrentHealth()
     {
-        currentHealth = CalculateMaxHealth();
-        currentShield = CalculateMaxShield();
+        return MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.healthPoints); //Load Value from Static RuntimeData
+    }
 
-        OnEntityStatsInitializedMethod();
+    protected override int CalculateCurrentShield()
+    {
+        return MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.shieldPoints); //Load Value from Static RuntimeData
     }
 
     protected override int CalculateMaxHealth()
     {
-        return characterIdentifier.CharacterSO.healthPoints;
+        return MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.healthPoints);
     }
 
     protected override int CalculateMaxShield()
     {
-        return characterIdentifier.CharacterSO.shieldPoints;
+        return MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.shieldPoints);
     }
 
     protected override int CalculateArmor()
     {
-        return characterIdentifier.CharacterSO.armorPoints;
+        return ArmorStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.armorPoints);
     }
 
     protected override float CalculateDodgeChance()
     {
-        return characterIdentifier.CharacterSO.dodgeChance;
+        return DodgeChanceStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.dodgeChance);
     }
 
     #region Virtual Methods
