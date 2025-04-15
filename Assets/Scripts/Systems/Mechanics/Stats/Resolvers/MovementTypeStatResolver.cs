@@ -32,9 +32,24 @@ public class MovementTypeStatResolver : StatResolver
         {
             if (statManager.ReplacementStatModifiers.Count > 0)
             {
-                float rawValue = statManager.ReplacementStatModifiers[^1].value; //Return the first 
-                return Mathf.CeilToInt(rawValue);
+                resolvedMovementTypes.Add(statManager.ReplacementStatModifiers[^1].asset as MovementTypeSO); //Return the first 
+                return resolvedMovementTypes;
             }
         }
+
+        foreach (MovementTypeSO movementType in characterSO.movementTypes)
+        {
+            resolvedMovementTypes.Add(movementType);
+        }
+
+        foreach(MovementTypeStatModificationManager statManager in movementTypeStatModificationManagers)
+        {
+            foreach (AssetStatModifier statModifier in statManager.UnionStatModifiers)
+            {
+                resolvedMovementTypes.Add(statModifier.asset as MovementTypeSO);
+            }
+        }
+
+        return resolvedMovementTypes;
     }
 }
