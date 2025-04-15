@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class RuntimeRunData
 {
-    public static List<DataPersistentAssetStat> runtimeAssetStats = new();
-    public static List<DataPersistentNumericStat> runtimeNumericStats = new();
+    public static List<DataPersistentAssetStat> RuntimeAssetStats = new();
+    public static List<DataPersistentNumericStat> RuntimeNumericStats = new();
+
 }

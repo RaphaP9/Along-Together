@@ -22,6 +22,11 @@ public class PersistentNumericStatModifierManager : NumericStatModifierManager
 
     protected override void LoadRuntimeData()
     {
-        numericStatModifiers = DataUtilities.TranslateNumericStatModifiersData(RuntimeGameData.runtimeNumericStats);
+        numericStatModifiers = DataUtilities.TranslateNumericStatModifiersData(RuntimeGameData.RuntimeNumericStats);
+    }
+
+    protected override void SaveRuntimeData()
+    {
+        //
     }
 }

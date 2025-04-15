@@ -34,6 +34,7 @@ public abstract class StatModifierManager : MonoBehaviour
 
     protected abstract void SetSingleton();
     protected abstract void LoadRuntimeData();
+    protected abstract void SaveRuntimeData();
     public abstract bool HasStatModifiers();
     public abstract int GetStatModifiersQuantity();
 
@@ -44,6 +45,7 @@ public abstract class StatModifierManager : MonoBehaviour
 
     protected virtual void UpdateStats()
     {
+        SaveRuntimeData();
         OnStatModifierManagerUpdated?.Invoke(this, new EventArgs());
     }
 

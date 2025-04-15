@@ -20,9 +20,9 @@ MonoBehaviour:
   shieldPoints: 10
   armorPoints: 5
   dodgeChance: 0
+  movementTypes: []
   healthRegen: 2
-  attackDamageMultiplier: 1
+  attackDamage: 1
   attackCritChance: 0
   attackCritDamageMultiplier: 2
-  movementTypes: []
   characterVisualTransform: {fileID: 0}

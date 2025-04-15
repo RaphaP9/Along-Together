@@ -21,7 +21,12 @@ public class PersistentAssetStatModifierManager : AssetStatModifierManager
 
     protected override void LoadRuntimeData()
     {
-        assetStatModifiers = DataUtilities.TranslateAssetStatModifiersData(RuntimeGameData.runtimeAssetStats);
+        assetStatModifiers = DataUtilities.TranslateAssetStatModifiersData(RuntimeGameData.RuntimeAssetStats);
+    }
+
+    protected override void SaveRuntimeData()
+    {
+        //
     }
 }
 
