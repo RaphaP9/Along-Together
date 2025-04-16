@@ -50,38 +50,15 @@ public class EnemyHealth : EntityHealth
     public event EventHandler<OnEntityStatsEventArgs> OnEnemyCurrentShieldClamped;
     #endregion
 
-    protected override int CalculateStartingCurrentHealth()
-    {
-        return enemyIdentifier.EnemySO.healthPoints;
-    }
+    protected override int CalculateStartingCurrentHealth() => enemyIdentifier.EnemySO.healthPoints;
+    protected override int CalculateStartingCurrentShield() => enemyIdentifier.EnemySO.shieldPoints;
+    protected override int CalculateMaxHealth() => enemyIdentifier.EnemySO.healthPoints;
+    protected override int CalculateMaxShield() => enemyIdentifier.EnemySO.shieldPoints;
+    protected override int CalculateArmor() => enemyIdentifier.EnemySO.armorPoints;
+    protected override float CalculateDodgeChance() => enemyIdentifier.EnemySO.dodgeChance;
 
-    protected override int CalculateStartingCurrentShield()
-    {
-        return enemyIdentifier.EnemySO.shieldPoints;
-    }
+    #region Virtual Event Methods
 
-    protected override int CalculateMaxHealth()
-    {
-        return enemyIdentifier.EnemySO.healthPoints;
-    }
-
-    protected override int CalculateMaxShield()
-    {
-        return enemyIdentifier.EnemySO.shieldPoints;
-    }
-
-    protected override int CalculateArmor()
-    {
-        return enemyIdentifier.EnemySO.armorPoints;
-    }
-
-    protected override float CalculateDodgeChance()
-    {
-        return enemyIdentifier.EnemySO.dodgeChance;
-    }
-
-    #region Virtual Methods
-    
     protected override void OnEntityStatsInitializedMethod()
     {
         base.OnEntityStatsInitializedMethod();

@@ -14,13 +14,14 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     [SerializeField] protected int armor;
     [SerializeField] protected float dodgeChance;
 
+    #region Properties
     public int CurrentHealth => currentHealth;
     public int CurrentShield => currentShield;
-
     public int MaxHealth => maxHealth;
     public int MaxShield => maxShield;
     public int Armor => armor;
     public float DodgeChance => dodgeChance;
+    #endregion
 
     #region Events
 
@@ -177,57 +178,6 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnEntityStatsInitializedMethod();
     }
 
-    protected virtual void CheckStatChanges()
-    {
-        int previousMaxHealth = maxHealth;
-        int newMaxHealth = CalculateMaxHealth();
-
-        int previousMaxShield = maxShield;
-        int newMaxShield = CalculateMaxShield();
-
-        int previousArmor = armor;
-        int newArmor = CalculateArmor();
-
-        float previousDodgeChance = dodgeChance;
-        float newDodgeChance = CalculateDodgeChance();
-
-        if (previousMaxHealth != newMaxHealth)
-        {
-            maxHealth = newMaxHealth;
-            OnEntityMaxHealthChangedMethod();
-        }
-
-        if (previousMaxShield != newMaxShield)
-        {
-            maxShield = newMaxShield;
-            OnEntityMaxShieldChangedMethod();
-        }
-
-        if (previousArmor != newArmor)
-        {
-            armor = newArmor;
-            OnEntityArmorChangedMethod();
-        }
-
-        if (previousDodgeChance != newDodgeChance)
-        {
-            dodgeChance = newDodgeChance;
-            OnEntityDodgeChanceChangedMethod();
-        }
-
-        if(currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth;
-            OnEntityCurrentHealthClampedMethod();   
-        }
-
-        if(currentShield > maxShield)
-        {
-            currentShield = maxShield;
-            OnEntityCurrentShieldClampedMethod();
-        }
-    }
-
     protected abstract int CalculateStartingCurrentHealth();
     protected abstract int CalculateStartingCurrentShield();
     protected abstract int CalculateMaxHealth();
@@ -235,6 +185,75 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     protected abstract int CalculateArmor();
     protected abstract float CalculateDodgeChance();
 
+    #region Check Stat Changes
+
+    protected virtual void CheckMaxHealthChanged()
+    {
+        int previousMaxHealth = maxHealth;
+        int newMaxHealth = CalculateMaxHealth();
+
+        if (previousMaxHealth != newMaxHealth)
+        {
+            maxHealth = newMaxHealth;
+            OnEntityMaxHealthChangedMethod();
+        }
+    }
+
+    protected virtual void CheckMaxShieldChanged()
+    {
+        int previousMaxShield = maxShield;
+        int newMaxShield = CalculateMaxShield();
+
+        if (previousMaxShield != newMaxShield)
+        {
+            maxShield = newMaxShield;
+            OnEntityMaxShieldChangedMethod();
+        }
+    }
+
+    protected virtual void CheckArmorChanged()
+    {
+        int previousArmor = armor;
+        int newArmor = CalculateArmor();
+
+        if (previousArmor != newArmor)
+        {
+            armor = newArmor;
+            OnEntityArmorChangedMethod();
+        }
+    }
+
+    protected virtual void CheckDodgeChanceChanged()
+    {
+        float previousDodgeChance = dodgeChance;
+        float newDodgeChance = CalculateDodgeChance();
+
+        if (previousDodgeChance != newDodgeChance)
+        {
+            dodgeChance = newDodgeChance;
+            OnEntityDodgeChanceChangedMethod();
+        }
+    }
+
+    protected virtual void CheckCurrentHealthClamped()
+    {
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+            OnEntityCurrentHealthClampedMethod();
+        }
+    }
+
+    protected virtual void CheckCurrentShieldClamped()
+    {
+        if(currentShield > maxShield)
+        {
+            currentShield = maxShield;
+            OnEntityCurrentShieldClampedMethod();
+        }
+    }
+
+    #endregion
 
     #region Interface Methods
 
@@ -376,7 +395,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     #endregion
 
-    #region Virtual Methods
+    #region Virtual Event Methods
     
     protected virtual void OnEntityStatsInitializedMethod()
     {
@@ -501,7 +520,13 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     #region Subscriptions
     private void StatModifierManager_OnStatModifierManagerUpdated(object sender, EventArgs e)
     {
-        CheckStatChanges();
+        CheckMaxHealthChanged();
+        CheckMaxShieldChanged();
+        CheckArmorChanged();
+        CheckDodgeChanceChanged();
+
+        CheckCurrentHealthClamped();
+        CheckMaxShieldChanged();
     }
     #endregion
 }

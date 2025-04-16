@@ -50,37 +50,15 @@ public class NeutralEntityHealth : EntityHealth
     public event EventHandler<OnEntityStatsEventArgs> OnNeutralEntityCurrentShieldClamped;
 
     #endregion
-    protected override int CalculateStartingCurrentHealth()
-    {
-        return neutralEntityIdentifier.NeutralEntitySO.healthPoints;
-    }
 
-    protected override int CalculateStartingCurrentShield()
-    {
-        return neutralEntityIdentifier.NeutralEntitySO.shieldPoints;
-    }
+    protected override int CalculateStartingCurrentHealth() => neutralEntityIdentifier.NeutralEntitySO.healthPoints;
+    protected override int CalculateStartingCurrentShield() => neutralEntityIdentifier.NeutralEntitySO.shieldPoints;
+    protected override int CalculateMaxHealth() => neutralEntityIdentifier.NeutralEntitySO.healthPoints;
+    protected override int CalculateMaxShield() => neutralEntityIdentifier.NeutralEntitySO.shieldPoints;
+    protected override int CalculateArmor() => neutralEntityIdentifier.NeutralEntitySO.armorPoints;
+    protected override float CalculateDodgeChance() => neutralEntityIdentifier.NeutralEntitySO.dodgeChance;
 
-    protected override int CalculateMaxHealth()
-    {
-        return neutralEntityIdentifier.NeutralEntitySO.healthPoints;
-    }
-
-    protected override int CalculateMaxShield()
-    {
-        return neutralEntityIdentifier.NeutralEntitySO.shieldPoints;
-    }
-
-    protected override int CalculateArmor()
-    {
-        return neutralEntityIdentifier.NeutralEntitySO.armorPoints;
-    }
-
-    protected override float CalculateDodgeChance()
-    {
-        return neutralEntityIdentifier.NeutralEntitySO.dodgeChance;
-    }
-
-    #region Virtual Methods
+    #region Virtual Event Methods
     
     protected override void OnEntityStatsInitializedMethod()
     {

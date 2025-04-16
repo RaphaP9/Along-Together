@@ -19,7 +19,7 @@ MonoBehaviour:
   healthPoints: 10
   shieldPoints: 10
   armorPoints: 5
-  dodgeChance: 0
+  dodgeChance: 0.3
   movementTypes: []
   healthRegen: 2
   attackDamage: 1

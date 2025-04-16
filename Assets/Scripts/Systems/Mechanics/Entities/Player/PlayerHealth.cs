@@ -50,13 +50,6 @@ public class PlayerHealth : EntityHealth
     public event EventHandler<OnEntityStatsEventArgs> OnThisPlayerCurrentShieldClamped;
     #endregion
 
-    protected override void CheckStatChanges()
-    {
-        base.CheckStatChanges();
-
-        SaveStaticData();
-    }
-
     protected override int CalculateStartingCurrentHealth()
     {
         if(RuntimeRunData.CurrentHealth > 0) return RuntimeRunData.CurrentHealth; //If data is O, JSON did not load any health value or health value was default. Should initialize by resolving the MaxHealthStat
@@ -69,28 +62,19 @@ public class PlayerHealth : EntityHealth
         else return MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.shieldPoints); //Load Value from Static RuntimeData
     }
 
-    protected override int CalculateMaxHealth()
+    protected override int CalculateMaxHealth() => MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.healthPoints);
+    protected override int CalculateMaxShield() => MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.shieldPoints);
+    protected override int CalculateArmor() => ArmorStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.armorPoints);
+    protected override float CalculateDodgeChance() => DodgeChanceStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.dodgeChance);
+
+    protected void SaveStaticData()
     {
-        return MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.healthPoints);
+        RuntimeRunData.CurrentHealth = currentHealth;
+        RuntimeRunData.CurrentShield = currentShield;
     }
 
-    protected override int CalculateMaxShield()
-    {
-        return MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.shieldPoints);
-    }
+    #region Virtual Event Methods
 
-    protected override int CalculateArmor()
-    {
-        return ArmorStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.armorPoints);
-    }
-
-    protected override float CalculateDodgeChance()
-    {
-        return DodgeChanceStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.dodgeChance);
-    }
-
-    #region Virtual Methods
-    
     protected override void OnEntityStatsInitializedMethod()
     {
         base.OnEntityStatsInitializedMethod();
@@ -231,6 +215,8 @@ public class PlayerHealth : EntityHealth
     {
         base.OnEntityCurrentHealthClampedMethod();
 
+        SaveStaticData();
+
         OnThisPlayerCurrentHealthClamped?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
 
@@ -242,6 +228,8 @@ public class PlayerHealth : EntityHealth
     {
         base.OnEntityCurrentShieldClampedMethod();
 
+        SaveStaticData();
+
         OnThisPlayerCurrentShieldClamped?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
 
@@ -249,10 +237,4 @@ public class PlayerHealth : EntityHealth
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
     }
     #endregion
-
-    protected void SaveStaticData()
-    {
-        RuntimeRunData.CurrentHealth = currentHealth; 
-        RuntimeRunData.CurrentShield = currentShield;
-    }
 }
