@@ -17,15 +17,18 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     public int CurrentHealth => currentHealth;
     public int CurrentShield => currentShield;
 
-
     public int MaxHealth => maxHealth;
     public int MaxShield => maxShield;
     public int Armor => armor;
     public float DodgeChance => dodgeChance;
 
+    #region Events
 
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityStatsInitialized;
     public event EventHandler<OnEntityStatsEventArgs> OnEntityStatsInitialized;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityStatsUpdated;
+    public event EventHandler<OnEntityStatsEventArgs> OnEntityStatsUpdated;
 
     public static event EventHandler<OnEntityDodgeEventArgs> OnAnyEntityDodge;
     public event EventHandler<OnEntityDodgeEventArgs> OnEntityDodge;
@@ -46,6 +49,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     public event EventHandler OnEntityDeath;
 
     protected bool hasInitialized = false;
+
+    #endregion
 
     #region EventArgs Classes
     public class OnEntityStatsEventArgs : EventArgs
@@ -136,8 +141,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     protected virtual void Initialize()
     {
-        currentHealth = CalculateCurrentHealth();
-        currentShield = CalculateCurrentShield();
+        currentHealth = CalculateStartingCurrentHealth();
+        currentShield = CalculateStartingCurrentShield();
 
         maxHealth = CalculateMaxHealth();
         maxShield = CalculateMaxShield();
@@ -147,8 +152,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnEntityStatsInitializedMethod();
     }
 
-    protected abstract int CalculateCurrentHealth();
-    protected abstract int CalculateCurrentShield();
+    protected abstract int CalculateStartingCurrentHealth();
+    protected abstract int CalculateStartingCurrentShield();
     protected abstract int CalculateMaxHealth();
     protected abstract int CalculateMaxShield();
     protected abstract int CalculateArmor();
@@ -161,17 +166,17 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     public virtual bool CanHeal() => IsAlive();
     public virtual bool CanRestoreShield() => IsAlive();
 
-    public void TakeDamage(DamageData damageData)
+    public bool TakeDamage(DamageData damageData)
     {
-        if(!CanTakeDamage()) return;
-        if (!IsAlive()) return;
+        if(!CanTakeDamage()) return true;
+        if (!IsAlive()) return false;
 
         bool dodged = MechanicsUtilities.EvaluateDodgeChance(CalculateDodgeChance());
 
         if (dodged)
         {
             OnEntityDodgeMethod(damageData);
-            return;
+            return false;
         }
 
         int armorMitigatedDamage = MechanicsUtilities.MitigateDamageByArmor(damageData.damage, CalculateArmor());
@@ -206,6 +211,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         }
 
         if (!IsAlive()) OnEntityDeathMethod();
+
+        return true;
     }
 
     public void Excecute(IDamageSource damageSource)
@@ -301,6 +308,15 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
 
         OnAnyEntityStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
+        armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
+    }
+
+    protected virtual void OnEntityStatsUpdatedMethod()
+    {
+        OnEntityStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
+        armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
+
+        OnAnyEntityStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
     }
 

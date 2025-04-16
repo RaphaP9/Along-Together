@@ -9,22 +9,21 @@ public static class DataUtilities
 {
     private const bool DEBUG = true;
 
-    #region NumericStatModifierData
-    public static List<NumericStatModifier> TranslateNumericStatModifiersData(List<DataPersistentNumericStat> dataPersistentNumericStats)
+    #region Numeric Stat Translation
+    public static List<NumericStatModifier> TranslateDataPersistentNumericStatsToNumericStatModifiers(List<DataPersistentNumericStat> dataPersistentNumericStats)
     {
         List<NumericStatModifier> numericStatModifiers = new List<NumericStatModifier>();
 
         foreach(DataPersistentNumericStat dataPersistentNumericStat in dataPersistentNumericStats)
         {
-            NumericStatModifier numericStatModifier = TranslateNumericStatModifierData(dataPersistentNumericStat);
+            NumericStatModifier numericStatModifier = TranslateDataPersistentNumericStatToNumericStatModifier(dataPersistentNumericStat);
             if (numericStatModifier == null) continue;
             numericStatModifiers.Add(numericStatModifier);  
         }
 
         return numericStatModifiers;
     }
-
-    public static NumericStatModifier TranslateNumericStatModifierData(DataPersistentNumericStat dataPersistentNumericStat)
+    public static NumericStatModifier TranslateDataPersistentNumericStatToNumericStatModifier(DataPersistentNumericStat dataPersistentNumericStat)
     {
         NumericStatModifier numericStatModifier = new NumericStatModifier();
 
@@ -48,24 +47,51 @@ public static class DataUtilities
 
         return numericStatModifier;
     }
+
+    //
+
+    public static List<DataPersistentNumericStat> TranslateNumericStatModifiersToDataPersistentNumericStats(List<NumericStatModifier> numericStatModifiers)
+    {
+        List<DataPersistentNumericStat> dataPersistentNumericStats = new List<DataPersistentNumericStat>();
+
+        foreach(NumericStatModifier numericStatModifier in numericStatModifiers)
+        {
+            DataPersistentNumericStat dataPersistentNumericStat = TranslateNumericStatModifierToDataPersistentNumericStat(numericStatModifier);
+            if (dataPersistentNumericStat == null) continue;
+            dataPersistentNumericStats.Add(dataPersistentNumericStat);
+        }
+
+        return dataPersistentNumericStats;
+    }
+
+    public static DataPersistentNumericStat TranslateNumericStatModifierToDataPersistentNumericStat(NumericStatModifier numericStatModifier)
+    {
+        string originGUID = numericStatModifier.originGUID;
+        string numericStatType = numericStatModifier.numericStatType.ToString();
+        string numericStatModificationType = numericStatModifier.numericStatModificationType.ToString();
+        float value = numericStatModifier.value;    
+
+        DataPersistentNumericStat dataPersistentNumericStat = new DataPersistentNumericStat(originGUID,numericStatType,numericStatModificationType,value);
+        return dataPersistentNumericStat;
+    }
+
     #endregion
 
-    #region AssetStatModifierData
-    public static List<AssetStatModifier> TranslateAssetStatModifiersData(List<DataPersistentAssetStat> dataPersistentAssetStats)
+    #region Asset Stat Translation
+    public static List<AssetStatModifier> TranslateDataPersistentAssetStatsToAssetStatModifiers(List<DataPersistentAssetStat> dataPersistentAssetStats)
     {
         List<AssetStatModifier> assetStatModifiers = new List<AssetStatModifier>();
 
         foreach (DataPersistentAssetStat dataPersistentAssetStat in dataPersistentAssetStats)
         {
-            AssetStatModifier assetStatModifier = TranslateAssetStatModifierData(dataPersistentAssetStat);
+            AssetStatModifier assetStatModifier = TranslateDataPersistentAssetStatToAssetStatModifier(dataPersistentAssetStat);
             if (assetStatModifier == null) continue;
             assetStatModifiers.Add(assetStatModifier);
         }
 
         return assetStatModifiers;
     }
-
-    public static AssetStatModifier TranslateAssetStatModifierData(DataPersistentAssetStat dataPersistentAssetStat)
+    public static AssetStatModifier TranslateDataPersistentAssetStatToAssetStatModifier(DataPersistentAssetStat dataPersistentAssetStat)
     {
         AssetStatModifier assetStatModifier = new AssetStatModifier();
 
@@ -109,6 +135,33 @@ public static class DataUtilities
         }
 
         return assetStatModifier;
+    }
+
+    //
+
+    public static List<DataPersistentAssetStat> TranslateAssetStatModifiersToDataPersistentAssetStats(List<AssetStatModifier> assetStatModifiers)
+    {
+        List<DataPersistentAssetStat> dataPersistentAssetStats = new List<DataPersistentAssetStat>();
+
+        foreach (AssetStatModifier assetStatModifier in assetStatModifiers)
+        {
+            DataPersistentAssetStat dataPersistentAssetStat = TranslateAssetStatModifierToDataPersistentAssetStat(assetStatModifier);
+            if (dataPersistentAssetStat == null) continue;
+            dataPersistentAssetStats.Add(dataPersistentAssetStat);
+        }
+
+        return dataPersistentAssetStats;
+    }
+
+    public static DataPersistentAssetStat TranslateAssetStatModifierToDataPersistentAssetStat(AssetStatModifier assetStatModifier)
+    {
+        string originGUID = assetStatModifier.originGUID;
+        string numericStatType = assetStatModifier.assetStatType.ToString();
+        string numericStatModificationType = assetStatModifier.assetStatModificationType.ToString();
+        int assetID = assetStatModifier.asset.id;
+
+        DataPersistentAssetStat dataPersistentAssetStat = new DataPersistentAssetStat(originGUID, numericStatType, numericStatModificationType, assetID);
+        return dataPersistentAssetStat;
     }
     #endregion
 }

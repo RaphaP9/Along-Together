@@ -8,8 +8,13 @@ public class PlayerHealth : EntityHealth
     [Header("PlayerHealth Components")]
     [SerializeField] private CharacterIdentifier characterIdentifier;
 
+    #region Events
+
     public static event EventHandler<OnEntityStatsEventArgs> OnPlayerStatsInitialized;
     public event EventHandler<OnEntityStatsEventArgs> OnThisPlayerStatsInitialized;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnPlayerStatsUpdated;
+    public event EventHandler<OnEntityStatsEventArgs> OnThisPlayerStatsUpdated;
 
     public static event EventHandler<OnEntityDodgeEventArgs> OnPlayerDodge;
     public event EventHandler<OnEntityDodgeEventArgs> OnThisPlayerEntityDodge;
@@ -29,14 +34,20 @@ public class PlayerHealth : EntityHealth
     public static event EventHandler OnPlayerEntityDeath;
     public event EventHandler OnThisPlayerEntityDeath;
 
-    protected override int CalculateCurrentHealth()
+    #endregion
+
+
+
+    protected override int CalculateStartingCurrentHealth()
     {
-        return MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.healthPoints); //Load Value from Static RuntimeData
+        if(RuntimeRunData.CurrentHealth > 0) return RuntimeRunData.CurrentHealth; //If data is O, JSON did not load any health value or health value was default. Should initialize by resolving the MaxHealthStat
+        else return MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.healthPoints); 
     }
 
-    protected override int CalculateCurrentShield()
+    protected override int CalculateStartingCurrentShield()
     {
-        return MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.shieldPoints); //Load Value from Static RuntimeData
+        if (RuntimeRunData.CurrentShield > 0) return RuntimeRunData.CurrentShield;
+        else return MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.shieldPoints); //Load Value from Static RuntimeData
     }
 
     protected override int CalculateMaxHealth()
@@ -65,10 +76,25 @@ public class PlayerHealth : EntityHealth
     {
         base.OnEntityStatsInitializedMethod();
 
+        SaveStaticData();
+
         OnThisPlayerStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
 
         OnPlayerStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
+        armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
+    }
+
+    protected override void OnEntityStatsUpdatedMethod()
+    {
+        base.OnEntityStatsUpdatedMethod();
+
+        SaveStaticData();
+
+        OnThisPlayerStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
+        armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
+
+        OnPlayerStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
     }
 
@@ -85,6 +111,8 @@ public class PlayerHealth : EntityHealth
     {
         base.OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, isCrit, damageSource);
 
+        SaveStaticData(); //Whenever there is a change, save Static Data
+
         OnThisPlayerHealthTakeDamage?.Invoke(this, new OnEntityHealthTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, previousHealth = previousHealth, 
         newHealth = currentHealth, maxHealth = CalculateMaxHealth(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
 
@@ -95,6 +123,8 @@ public class PlayerHealth : EntityHealth
     protected override void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSource damageSource)
     {
         base.OnEntityShieldTakeDamageMethod(damageTakenByShield, previousShield, isCrit, damageSource);
+
+        SaveStaticData();
 
         OnThisPlayerShieldTakeDamage?.Invoke(this, new OnEntityShieldTakeDamageEventArgs {damageTakenByShield = damageTakenByShield, previousShield = previousShield, 
         newShield = currentShield, maxShield = CalculateMaxShield(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
@@ -108,6 +138,8 @@ public class PlayerHealth : EntityHealth
     {
         base.OnEntityHealMethod(healAmount, previousHealth, healSource);
 
+        SaveStaticData();
+
         OnThisPlayerHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = CalculateMaxHealth(), healSource = healSource, healReceiver = this});
         OnPlayerEntityHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = CalculateMaxHealth(), healSource = healSource, healReceiver = this});
     }
@@ -115,6 +147,8 @@ public class PlayerHealth : EntityHealth
     protected override void OnEntityShieldRestoredMethod(int shieldAmount, int previousShield, IShieldSource shieldSource)
     {
         base.OnEntityShieldRestoredMethod(shieldAmount, previousShield, shieldSource);
+
+        SaveStaticData();
 
         OnThisPlayerShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = CalculateMaxShield(), shieldSource = shieldSource, shieldReceiver = this });
         OnPlayerShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = CalculateMaxShield(), shieldSource = shieldSource, shieldReceiver = this });
@@ -128,4 +162,10 @@ public class PlayerHealth : EntityHealth
         OnPlayerEntityDeath?.Invoke(this, EventArgs.Empty);
     }
     #endregion
+
+    protected void SaveStaticData()
+    {
+        RuntimeRunData.CurrentHealth = currentHealth; 
+        RuntimeRunData.CurrentShield = currentShield;
+    }
 }

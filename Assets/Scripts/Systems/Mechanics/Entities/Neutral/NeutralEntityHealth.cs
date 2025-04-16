@@ -8,8 +8,13 @@ public class NeutralEntityHealth : EntityHealth
     [Header("NeutralEntityHealth Components")]
     [SerializeField] private NeutralEntityIdentifier neutralEntityIdentifier;
 
+    #region Events
+
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyNeutralEntityStatsInitialized;
     public event EventHandler<OnEntityStatsEventArgs> OnNeutralEntityStatsInitialized;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyNeutralEntityStatsUpdated;
+    public event EventHandler<OnEntityStatsEventArgs> OnNeutralEntityStatsUpdated;
 
     public static event EventHandler<OnEntityDodgeEventArgs> OnAnyNeutralEntityDodge;
     public event EventHandler<OnEntityDodgeEventArgs> OnNeutralEntityDodge;
@@ -29,12 +34,13 @@ public class NeutralEntityHealth : EntityHealth
     public static event EventHandler OnAnyNeutralEntityDeath;
     public event EventHandler OnNeutralEntityDeath;
 
-    protected override int CalculateCurrentHealth()
+    #endregion
+    protected override int CalculateStartingCurrentHealth()
     {
         return neutralEntityIdentifier.NeutralEntitySO.healthPoints;
     }
 
-    protected override int CalculateCurrentShield()
+    protected override int CalculateStartingCurrentShield()
     {
         return neutralEntityIdentifier.NeutralEntitySO.shieldPoints;
     }
@@ -72,6 +78,16 @@ public class NeutralEntityHealth : EntityHealth
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
     }
 
+    protected override void OnEntityStatsUpdatedMethod()
+    {
+        base.OnEntityStatsUpdatedMethod();
+
+        OnNeutralEntityStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
+        armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
+
+        OnAnyNeutralEntityStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
+        armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
+    }
 
     protected override void OnEntityDodgeMethod(DamageData damageData)
     {

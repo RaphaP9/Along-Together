@@ -8,8 +8,13 @@ public class EnemyHealth : EntityHealth
     [Header("EnemyHealth Components")]
     [SerializeField] private EnemyIdentifier enemyIdentifier;
 
+    #region Events
+
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyStatsInitialized;
     public event EventHandler<OnEntityStatsEventArgs> OnEnemyStatsInitialized;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyStatsUpdated;
+    public event EventHandler<OnEntityStatsEventArgs> OnEnemyStatsUpdated;
 
     public static event EventHandler<OnEntityDodgeEventArgs> OnAnyEnemyDodge;
     public event EventHandler<OnEntityDodgeEventArgs> OnEnemyDodge;
@@ -29,12 +34,14 @@ public class EnemyHealth : EntityHealth
     public static event EventHandler OnAnyEnemyDeath;
     public event EventHandler OnEnemyDeath;
 
-    protected override int CalculateCurrentHealth()
+    #endregion
+
+    protected override int CalculateStartingCurrentHealth()
     {
         return enemyIdentifier.EnemySO.healthPoints;
     }
 
-    protected override int CalculateCurrentShield()
+    protected override int CalculateStartingCurrentShield()
     {
         return enemyIdentifier.EnemySO.shieldPoints;
     }
@@ -72,6 +79,16 @@ public class EnemyHealth : EntityHealth
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
     }
 
+    protected override void OnEntityStatsUpdatedMethod()
+    {
+        base.OnEntityStatsInitializedMethod();
+
+        OnEnemyStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
+        armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
+
+        OnAnyEnemyStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
+        armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
+    }
 
     protected override void OnEntityDodgeMethod(DamageData damageData)
     {

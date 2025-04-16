@@ -3581,6 +3581,8 @@ GameObject:
   - component: {fileID: 550185576}
   - component: {fileID: 550185577}
   - component: {fileID: 550185578}
+  - component: {fileID: 550185580}
+  - component: {fileID: 550185579}
   m_Layer: 0
   m_Name: RunDataSaveLoaders
   m_TagString: Untagged
@@ -3625,6 +3627,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4856d00951aff4a4facbc0515d8250d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &550185579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550185575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a74654196bc64f409e62125a638f3e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &550185580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550185575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74d87bdb0e2c7242a6540e37ece9136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &560445582

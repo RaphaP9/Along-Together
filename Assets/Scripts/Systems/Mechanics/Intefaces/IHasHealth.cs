@@ -10,7 +10,7 @@ public interface IHasHealth
     public bool CanHeal();
     public bool CanRestoreShield();
 
-    public void TakeDamage(DamageData damageData);
+    public bool TakeDamage(DamageData damageData); //True when attack landed/ projectile impacted, false otherwise (Is not alive or has dodged)
     public void Heal(HealData healData);
     public void RestoreShield(ShieldData shieldData);
 

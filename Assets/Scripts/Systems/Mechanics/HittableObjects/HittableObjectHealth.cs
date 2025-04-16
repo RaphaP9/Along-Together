@@ -119,10 +119,10 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
     public virtual bool CanHeal() => true;
     public virtual bool CanRestoreShield() => true;
 
-    public void TakeDamage(DamageData damageData) //Any damage taken By a HittableObject is 1
+    public bool TakeDamage(DamageData damageData) //Any damage taken By a HittableObject is 1
     {
-        if (!CanTakeDamage()) return;
-        if (!IsAlive()) return;
+        if (!CanTakeDamage()) return true;
+        if (!IsAlive()) return false;
 
         int previousHealth = currentHealth;
         int previousShield = currentShield;
@@ -146,6 +146,8 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         }
 
         if (!IsAlive()) OnHittableObjectDeathMethod();
+
+        return true;
     }
 
     public void Excecute(IDamageSource damageSource)
