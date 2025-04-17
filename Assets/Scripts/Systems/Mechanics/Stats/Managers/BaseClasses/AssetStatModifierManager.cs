@@ -67,4 +67,6 @@ public abstract class AssetStatModifierManager : StatModifierManager
         if (removedStats > 0) UpdateStats();
     }
     #endregion
+
+    public void SetStatList(List<AssetStatModifier> setterList) => assetStatModifiers.AddRange(setterList);
 }

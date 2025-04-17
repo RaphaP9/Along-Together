@@ -5,13 +5,15 @@ using System;
 
 public class RunJSONDataSaveLoader : JSONDataSaveLoader<RunData>
 {
+    [Header("Data Containers")]
+    [SerializeField] private SessionRunDataContainer sessionRunDataContainer;
     public override void LoadData(RunData data)
     {
-        SessionRunDataContainer.Instance.RunData = data;
+        sessionRunDataContainer.RunData = data;
     }
 
     public override void SaveData(ref RunData data)
     {
-        data = SessionRunDataContainer.Instance.RunData;
+        data = sessionRunDataContainer.RunData;
     }
 }

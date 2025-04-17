@@ -18,16 +18,6 @@ public class RunAssetStatModifierManager : AssetStatModifierManager
             Destroy(gameObject);
         }
     }
-
-    protected override void LoadRuntimeData()
-    {
-        assetStatModifiers = DataUtilities.TranslateDataPersistentAssetStatsToAssetStatModifiers(SessionRunDataContainer.Instance.RunData.assetStats);
-    }
-
-    protected override void SaveRuntimeData()
-    {
-        SessionRunDataContainer.Instance.RunData.assetStats = DataUtilities.TranslateAssetStatModifiersToDataPersistentAssetStats(assetStatModifiers);
-    }
 }
 
 

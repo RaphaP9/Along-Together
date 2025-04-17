@@ -50,36 +50,19 @@ public class PlayerHealth : EntityHealth
     public event EventHandler<OnEntityStatsEventArgs> OnThisPlayerCurrentShieldClamped;
     #endregion
 
-    protected override int CalculateStartingCurrentHealth()
-    {
-        if(SessionRunDataContainer.Instance.RunData.currentHealth > 0) return SessionRunDataContainer.Instance.RunData.currentHealth; //If data is O, JSON did not load any health value or health value was default. Should initialize by resolving the MaxHealthStat
-        else return MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.healthPoints); 
-    }
-
-    protected override int CalculateStartingCurrentShield()
-    {
-        if (SessionRunDataContainer.Instance.RunData.currentShield > 0) return SessionRunDataContainer.Instance.RunData.currentShield;
-        else return MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.shieldPoints); //Load Value from Static RuntimeData
-    }
-
     protected override int CalculateMaxHealth() => MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.healthPoints);
     protected override int CalculateMaxShield() => MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.shieldPoints);
     protected override int CalculateArmor() => ArmorStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.armorPoints);
     protected override float CalculateDodgeChance() => DodgeChanceStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.dodgeChance);
 
-    protected void SaveStaticData()
-    {
-        SessionRunDataContainer.Instance.RunData.currentHealth = currentHealth;
-        SessionRunDataContainer.Instance.RunData.currentShield = currentShield;
-    }
+    public void SetCurrentHealth(int setterHealth) => currentHealth = setterHealth;
+    public void SetCurrentShield(int setterShield) => currentShield = setterShield;
 
     #region Virtual Event Methods
 
     protected override void OnEntityStatsInitializedMethod()
     {
         base.OnEntityStatsInitializedMethod();
-
-        SaveStaticData();
 
         OnThisPlayerStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
@@ -91,8 +74,6 @@ public class PlayerHealth : EntityHealth
     protected override void OnEntityStatsUpdatedMethod()
     {
         base.OnEntityStatsUpdatedMethod();
-
-        SaveStaticData();
 
         OnThisPlayerStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
@@ -114,8 +95,6 @@ public class PlayerHealth : EntityHealth
     {
         base.OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, isCrit, damageSource);
 
-        SaveStaticData(); //Whenever there is a change, save Static Data
-
         OnThisPlayerHealthTakeDamage?.Invoke(this, new OnEntityHealthTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, previousHealth = previousHealth, 
         newHealth = currentHealth, maxHealth = CalculateMaxHealth(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
 
@@ -126,8 +105,6 @@ public class PlayerHealth : EntityHealth
     protected override void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSource damageSource)
     {
         base.OnEntityShieldTakeDamageMethod(damageTakenByShield, previousShield, isCrit, damageSource);
-
-        SaveStaticData();
 
         OnThisPlayerShieldTakeDamage?.Invoke(this, new OnEntityShieldTakeDamageEventArgs {damageTakenByShield = damageTakenByShield, previousShield = previousShield, 
         newShield = currentShield, maxShield = CalculateMaxShield(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
@@ -141,8 +118,6 @@ public class PlayerHealth : EntityHealth
     {
         base.OnEntityHealMethod(healAmount, previousHealth, healSource);
 
-        SaveStaticData();
-
         OnThisPlayerHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = CalculateMaxHealth(), healSource = healSource, healReceiver = this});
         OnPlayerEntityHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = CalculateMaxHealth(), healSource = healSource, healReceiver = this});
     }
@@ -150,8 +125,6 @@ public class PlayerHealth : EntityHealth
     protected override void OnEntityShieldRestoredMethod(int shieldAmount, int previousShield, IShieldSource shieldSource)
     {
         base.OnEntityShieldRestoredMethod(shieldAmount, previousShield, shieldSource);
-
-        SaveStaticData();
 
         OnThisPlayerShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = CalculateMaxShield(), shieldSource = shieldSource, shieldReceiver = this });
         OnPlayerShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = CalculateMaxShield(), shieldSource = shieldSource, shieldReceiver = this });
@@ -215,8 +188,6 @@ public class PlayerHealth : EntityHealth
     {
         base.OnEntityCurrentHealthClampedMethod();
 
-        SaveStaticData();
-
         OnThisPlayerCurrentHealthClamped?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
 
@@ -227,8 +198,6 @@ public class PlayerHealth : EntityHealth
     protected override void OnEntityCurrentShieldClampedMethod()
     {
         base.OnEntityCurrentShieldClampedMethod();
-
-        SaveStaticData();
 
         OnThisPlayerCurrentShieldClamped?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});

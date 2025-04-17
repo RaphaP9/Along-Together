@@ -152,23 +152,15 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         StatModifierManager.OnStatModifierManagerUpdated -= StatModifierManager_OnStatModifierManagerUpdated;
     }
 
-    protected void Update()
+    protected virtual void Start()
     {
-        FirstUpdateInitialization();
-    }
-
-    protected virtual void FirstUpdateInitialization()
-    {
-        if (hasInitialized) return;
-
         Initialize();
-        hasInitialized = true;
     }
 
     protected virtual void Initialize()
     {
-        currentHealth = CalculateStartingCurrentHealth();
-        currentShield = CalculateStartingCurrentShield();
+        currentHealth = currentHealth <= 0 ? CalculateMaxHealth() : currentHealth;
+        currentShield = currentShield <= 0 ? CalculateMaxShield() : currentShield;
 
         maxHealth = CalculateMaxHealth();
         maxShield = CalculateMaxShield();
@@ -178,8 +170,6 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnEntityStatsInitializedMethod();
     }
 
-    protected abstract int CalculateStartingCurrentHealth();
-    protected abstract int CalculateStartingCurrentShield();
     protected abstract int CalculateMaxHealth();
     protected abstract int CalculateMaxShield();
     protected abstract int CalculateArmor();

@@ -51,8 +51,6 @@ public class NeutralEntityHealth : EntityHealth
 
     #endregion
 
-    protected override int CalculateStartingCurrentHealth() => neutralEntityIdentifier.NeutralEntitySO.healthPoints;
-    protected override int CalculateStartingCurrentShield() => neutralEntityIdentifier.NeutralEntitySO.shieldPoints;
     protected override int CalculateMaxHealth() => neutralEntityIdentifier.NeutralEntitySO.healthPoints;
     protected override int CalculateMaxShield() => neutralEntityIdentifier.NeutralEntitySO.shieldPoints;
     protected override int CalculateArmor() => neutralEntityIdentifier.NeutralEntitySO.armorPoints;

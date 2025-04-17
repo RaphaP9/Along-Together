@@ -28,24 +28,20 @@ public abstract class StatModifierManager : MonoBehaviour
 
     protected virtual void Start()
     {
-        LoadRuntimeData();
-        InitializeStat();
+        InitializeManager();
     }
 
     protected abstract void SetSingleton();
-    protected abstract void LoadRuntimeData();
-    protected abstract void SaveRuntimeData();
     public abstract bool HasStatModifiers();
     public abstract int GetStatModifiersQuantity();
 
-    protected virtual void InitializeStat()
+    protected virtual void InitializeManager()
     {
         OnStatModifierManagerInitialized?.Invoke(this, new EventArgs());    
     }
 
     protected virtual void UpdateStats()
     {
-        SaveRuntimeData();
         OnStatModifierManagerUpdated?.Invoke(this, new EventArgs());
     }
 

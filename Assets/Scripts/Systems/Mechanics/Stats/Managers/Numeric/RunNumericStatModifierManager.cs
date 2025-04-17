@@ -18,13 +18,4 @@ public class RunNumericStatModifierManager : NumericStatModifierManager
             Destroy(gameObject);
         }
     }
-
-    protected override void LoadRuntimeData()
-    {
-        numericStatModifiers = DataUtilities.TranslateDataPersistentNumericStatsToNumericStatModifiers(SessionRunDataContainer.Instance.RunData.numericStats);
-    }
-    protected override void SaveRuntimeData()
-    {
-        SessionRunDataContainer.Instance.RunData.numericStats = DataUtilities.TranslateNumericStatModifiersToDataPersistentNumericStats(numericStatModifiers);
-    }
 }

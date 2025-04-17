@@ -18,15 +18,5 @@ public class PerpetualAssetStatModifierManager : AssetStatModifierManager
             Destroy(gameObject);
         }
     }
-
-    protected override void LoadRuntimeData()
-    {
-        assetStatModifiers = DataUtilities.TranslateDataPersistentAssetStatsToAssetStatModifiers(SessionPerpetualDataContainer.Instance.PerpetualData.assetStats); ;
-    }
-
-    protected override void SaveRuntimeData()
-    {
-        SessionPerpetualDataContainer.Instance.PerpetualData.assetStats = DataUtilities.TranslateAssetStatModifiersToDataPersistentAssetStats(assetStatModifiers);
-    }
 }
 

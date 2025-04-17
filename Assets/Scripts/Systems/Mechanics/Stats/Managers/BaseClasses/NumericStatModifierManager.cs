@@ -67,4 +67,6 @@ public abstract class NumericStatModifierManager : StatModifierManager
         if (removedStats > 0) UpdateStats();
     }
     #endregion
+
+    public void SetStatList(List<NumericStatModifier> setterList) => numericStatModifiers.AddRange(setterList);
 }

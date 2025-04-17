@@ -19,14 +19,4 @@ public class PerpetualNumericStatModifierManager : NumericStatModifierManager
             Destroy(gameObject);
         }
     }
-
-    protected override void LoadRuntimeData()
-    {
-        numericStatModifiers = DataUtilities.TranslateDataPersistentNumericStatsToNumericStatModifiers(SessionPerpetualDataContainer.Instance.PerpetualData.numericStats);
-    }
-
-    protected override void SaveRuntimeData()
-    {
-        SessionPerpetualDataContainer.Instance.PerpetualData.numericStats = DataUtilities.TranslateNumericStatModifiersToDataPersistentNumericStats(numericStatModifiers);
-    }
 }
