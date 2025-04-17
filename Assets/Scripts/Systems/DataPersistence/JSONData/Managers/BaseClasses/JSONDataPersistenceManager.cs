@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.IO;
+using System.Threading.Tasks;
 
 public abstract class JSONDataPersistenceManager<T> : MonoBehaviour, IDataPersistenceManager where T : class, new()
 {
@@ -57,6 +58,42 @@ public abstract class JSONDataPersistenceManager<T> : MonoBehaviour, IDataPersis
 
     protected virtual void SetSingleton() { }
 
+    #region Save Data
+    public void SaveData()
+    {
+        if (!enableDataPersistence) return;
+
+        OnDataSaveStartMethod();
+
+        foreach (IDataSaveLoader<T> dataSaveLoaderObject in dataSaveLoaderObjects) //Pass data to other scripts so they can update it
+        {
+            dataSaveLoaderObject.SaveData(ref persistentData);
+        }
+
+        dataService.SaveData(persistentData); //Save data to file using data handler 
+
+        OnDataSaveCompletedMethod();
+    }
+
+    public async Task SaveDataAsync()
+    {
+        if (!enableDataPersistence) return;
+
+        OnDataSaveStartMethod();
+
+        foreach (IDataSaveLoader<T> dataSaveLoaderObject in dataSaveLoaderObjects) //Pass data to other scripts so they can update it
+        {
+            dataSaveLoaderObject.SaveData(ref persistentData);
+        }
+
+        await dataService.SaveDataAsync(persistentData); //Save data to file using data handler 
+
+        OnDataSaveCompletedMethod();
+    }
+
+    #endregion
+
+    #region Load Data
     public void LoadData()
     {
         if (!enableDataPersistence) return;
@@ -80,21 +117,30 @@ public abstract class JSONDataPersistenceManager<T> : MonoBehaviour, IDataPersis
         OnDataLoadCompletedMethod();
     }
 
-    public void SaveData()
+    public async Task LoadDataAsync()
     {
         if (!enableDataPersistence) return;
 
-        OnDataSaveStartMethod();
+        OnDataLoadStartMethod();
 
-        foreach (IDataSaveLoader<T> dataSaveLoaderObject in dataSaveLoaderObjects) //Pass data to other scripts so they can update it
+        persistentData = await dataService.LoadDataAsync<T>(); //Load data from file using data handler
+
+        if (persistentData == default || persistentData == null)
         {
-            dataSaveLoaderObject.SaveData(ref persistentData);
+            if (debug) Debug.Log("No data was found. Initializing data to defaults");
+
+            NewData();
         }
 
-        dataService.SaveData(persistentData); //Save data to file using data handler 
+        foreach (IDataSaveLoader<T> dataSaveLoaderObject in dataSaveLoaderObjects) //Push loaded data to scripts that need it
+        {
+            dataSaveLoaderObject.LoadData(persistentData);
+        }
 
-        OnDataSaveCompletedMethod();
+        OnDataLoadCompletedMethod();
     }
+
+    #endregion
 
     protected void NewData() => persistentData = new T();
 
@@ -115,6 +161,7 @@ public abstract class JSONDataPersistenceManager<T> : MonoBehaviour, IDataPersis
     }
 
     ////////////////////////////////////////////////////////////////////////
+   
     protected virtual void OnDataLoadStartMethod()
     {
         OnDataLoadStart?.Invoke(this, EventArgs.Empty);
