@@ -6,11 +6,11 @@ public class RunCurrentShieldSaveLoader : MonoBehaviour, IDataSaveLoader<RunData
 {
     public void LoadData(RunData data)
     {
-        RuntimeRunData.CurrentShield = data.currentShield;
+        SessionDataManager.Instance.RunData.currentShield = data.currentShield;
     }
 
     public void SaveData(ref RunData data)
     {
-        data.currentShield = RuntimeRunData.CurrentShield;
+        data.currentShield = SessionDataManager.Instance.RunData.currentShield;
     }
 }

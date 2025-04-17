@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(GameDataPersistenceManager))]
-public class GameDataPersistenceManagerEditor : Editor
+[CustomEditor(typeof(PerpetualDataPersistenceManager))]
+public class PerpetualDataPersistenceManagerEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        GameDataPersistenceManager gameDataPersistenceManager = (GameDataPersistenceManager)target;
+        PerpetualDataPersistenceManager gameDataPersistenceManager = (PerpetualDataPersistenceManager)target;
 
         if (GUILayout.Button("Delete Data File"))
         {

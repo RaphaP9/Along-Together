@@ -6,11 +6,11 @@ public class RunNumericStatsSaveLoader : MonoBehaviour, IDataSaveLoader<RunData>
 {
     public void LoadData(RunData data)
     {
-        RuntimeRunData.RuntimeNumericStats = data.numericStats;
+        SessionDataManager.Instance.RunData.numericStats = data.numericStats;
     }
 
     public void SaveData(ref RunData data)
     {
-        data.numericStats = RuntimeRunData.RuntimeNumericStats;
+        data.numericStats = SessionDataManager.Instance.RunData.numericStats;
     }
 }

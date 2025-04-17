@@ -6,11 +6,11 @@ public class RunAssetStatsSaveLoader : MonoBehaviour, IDataSaveLoader<RunData>
 {
     public void LoadData(RunData data)
     {
-        RuntimeRunData.RuntimeAssetStats = data.assetStats;
+        SessionDataManager.Instance.RunData.assetStats = data.assetStats;
     }
 
     public void SaveData(ref RunData data)
     {
-        data.assetStats = RuntimeRunData.RuntimeAssetStats;
+        data.assetStats = SessionDataManager.Instance.RunData.assetStats;
     }
 }

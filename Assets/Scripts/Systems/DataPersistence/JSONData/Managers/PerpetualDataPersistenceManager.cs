@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameDataPersistenceManager : DataPersistenceManager<GameData>
+public class PerpetualDataPersistenceManager : DataPersistenceManager<PerpetualData>
 {
-    public static GameDataPersistenceManager Instance { get; private set; }
+    public static PerpetualDataPersistenceManager Instance { get; private set; }
 
     private void OnEnable()
     {
