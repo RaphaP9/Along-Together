@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 using System.IO;
 
-public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class, new()
+public abstract class JSONDataPersistenceManager<T> : MonoBehaviour where T : class, new()
 {
     [Header("Enablers")]
     [SerializeField] private bool enableDataPersistence;
@@ -62,7 +62,7 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
     {
         if (!enableDataPersistence) return;
 
-        OnDataLoadStart?.Invoke(this, EventArgs.Empty);
+        OnDataLoadStartMethod();
 
         persistentData = dataService.LoadData<T>(); //Load data from file using data handler
 
@@ -78,7 +78,7 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
             dataSaveLoaderObject.LoadData(persistentData);
         }
 
-        OnDataLoadCompleted?.Invoke(this, EventArgs.Empty);
+        OnDataLoadCompletedMethod();
 
         if (enableDataSaveAfterLoad) SaveGameData(); 
         //Saves To JSON the T persistenData object, Which has either the loaded values (if data existed previously and was load),
@@ -89,7 +89,7 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
     {
         if (!enableDataPersistence) return;
 
-        OnDataSaveStart?.Invoke(this, EventArgs.Empty);
+        OnDataSaveStartMethod();
 
         foreach (IDataSaveLoader<T> dataSaveLoaderObject in dataSaveLoaderObjects) //Pass data to other scripts so they can update it
         {
@@ -98,7 +98,7 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
 
         dataService.SaveData(persistentData); //Save data to file using data handler 
 
-        OnDataSaveCompleted?.Invoke(this, EventArgs.Empty);
+        OnDataSaveCompletedMethod();
     }
 
     protected void NewGameData() => persistentData = new T();
@@ -123,5 +123,26 @@ public abstract class DataPersistenceManager<T> : MonoBehaviour where T : class,
     {
         if (!enableDataSaveOnQuit) return;
         SaveGameData();
+    }
+
+    ////////////////////////////////////////////////////////////////////////
+    protected virtual void OnDataLoadStartMethod()
+    {
+        OnDataLoadStart?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected virtual void OnDataLoadCompletedMethod()
+    {
+        OnDataLoadCompleted?.Invoke(this, EventArgs.Empty);
+    }
+    
+    protected virtual void OnDataSaveStartMethod()
+    {
+        OnDataSaveStart?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected virtual void OnDataSaveCompletedMethod()
+    {
+        OnDataSaveCompleted?.Invoke(this, EventArgs.Empty); 
     }
 }

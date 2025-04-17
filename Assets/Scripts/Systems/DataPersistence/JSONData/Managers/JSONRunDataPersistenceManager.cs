@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunDataPersistenceManager : DataPersistenceManager<RunData>
+public class JSONRunDataPersistenceManager : JSONDataPersistenceManager<RunData>
 {
-    public static RunDataPersistenceManager Instance { get; private set; }
+    public static JSONRunDataPersistenceManager Instance { get; private set; }
 
     private void OnEnable()
     {

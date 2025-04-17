@@ -52,13 +52,13 @@ public class PlayerHealth : EntityHealth
 
     protected override int CalculateStartingCurrentHealth()
     {
-        if(RuntimeRunData.CurrentHealth > 0) return RuntimeRunData.CurrentHealth; //If data is O, JSON did not load any health value or health value was default. Should initialize by resolving the MaxHealthStat
+        if(SessionRunDataContainer.Instance.RunData.currentHealth > 0) return SessionRunDataContainer.Instance.RunData.currentHealth; //If data is O, JSON did not load any health value or health value was default. Should initialize by resolving the MaxHealthStat
         else return MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.healthPoints); 
     }
 
     protected override int CalculateStartingCurrentShield()
     {
-        if (RuntimeRunData.CurrentShield > 0) return RuntimeRunData.CurrentShield;
+        if (SessionRunDataContainer.Instance.RunData.currentShield > 0) return SessionRunDataContainer.Instance.RunData.currentShield;
         else return MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.shieldPoints); //Load Value from Static RuntimeData
     }
 
@@ -69,8 +69,8 @@ public class PlayerHealth : EntityHealth
 
     protected void SaveStaticData()
     {
-        RuntimeRunData.CurrentHealth = currentHealth;
-        RuntimeRunData.CurrentShield = currentShield;
+        SessionRunDataContainer.Instance.RunData.currentHealth = currentHealth;
+        SessionRunDataContainer.Instance.RunData.currentShield = currentShield;
     }
 
     #region Virtual Event Methods

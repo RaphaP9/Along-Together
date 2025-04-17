@@ -22,11 +22,11 @@ public class PerpetualNumericStatModifierManager : NumericStatModifierManager
 
     protected override void LoadRuntimeData()
     {
-        numericStatModifiers = DataUtilities.TranslateDataPersistentNumericStatsToNumericStatModifiers(RuntimePerpetualData.RuntimeNumericStats);
+        numericStatModifiers = DataUtilities.TranslateDataPersistentNumericStatsToNumericStatModifiers(SessionPerpetualDataContainer.Instance.PerpetualData.numericStats);
     }
 
     protected override void SaveRuntimeData()
     {
-        RuntimePerpetualData.RuntimeNumericStats = DataUtilities.TranslateNumericStatModifiersToDataPersistentNumericStats(numericStatModifiers);
+        SessionPerpetualDataContainer.Instance.PerpetualData.numericStats = DataUtilities.TranslateNumericStatModifiersToDataPersistentNumericStats(numericStatModifiers);
     }
 }

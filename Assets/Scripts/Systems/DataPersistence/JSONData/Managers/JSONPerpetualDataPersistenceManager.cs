@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PerpetualDataPersistenceManager : DataPersistenceManager<PerpetualData>
+public class JSONPerpetualDataPersistenceManager : JSONDataPersistenceManager<PerpetualData>
 {
-    public static PerpetualDataPersistenceManager Instance { get; private set; }
+    public static JSONPerpetualDataPersistenceManager Instance { get; private set; }
 
     private void OnEnable()
     {

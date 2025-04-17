@@ -21,12 +21,12 @@ public class RunAssetStatModifierManager : AssetStatModifierManager
 
     protected override void LoadRuntimeData()
     {
-        assetStatModifiers = DataUtilities.TranslateDataPersistentAssetStatsToAssetStatModifiers(RuntimeRunData.RuntimeAssetStats);
+        assetStatModifiers = DataUtilities.TranslateDataPersistentAssetStatsToAssetStatModifiers(SessionRunDataContainer.Instance.RunData.assetStats);
     }
 
     protected override void SaveRuntimeData()
     {
-        RuntimeRunData.RuntimeAssetStats = DataUtilities.TranslateAssetStatModifiersToDataPersistentAssetStats(assetStatModifiers);
+        SessionRunDataContainer.Instance.RunData.assetStats = DataUtilities.TranslateAssetStatModifiersToDataPersistentAssetStats(assetStatModifiers);
     }
 }
 

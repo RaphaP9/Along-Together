@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(PerpetualDataPersistenceManager))]
+[CustomEditor(typeof(JSONPerpetualDataPersistenceManager))]
 public class PerpetualDataPersistenceManagerEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        PerpetualDataPersistenceManager gameDataPersistenceManager = (PerpetualDataPersistenceManager)target;
+        JSONPerpetualDataPersistenceManager gameDataPersistenceManager = (JSONPerpetualDataPersistenceManager)target;
 
         if (GUILayout.Button("Delete Data File"))
         {
