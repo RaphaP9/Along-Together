@@ -5,12 +5,10 @@ using UnityEngine;
 using System.Linq;
 using System.IO;
 
-public abstract class JSONDataPersistenceManager<T> : MonoBehaviour where T : class, new()
+public abstract class JSONDataPersistenceManager<T> : MonoBehaviour, IDataPersistenceManager where T : class, new()
 {
     [Header("Enablers")]
     [SerializeField] private bool enableDataPersistence;
-    [SerializeField] private bool enableDataSaveAfterLoad;
-    [SerializeField] private bool enableDataSaveOnQuit;
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
@@ -44,7 +42,8 @@ public abstract class JSONDataPersistenceManager<T> : MonoBehaviour where T : cl
         else dataService = new JSONNewtonsoftDataServiceNoEncryption(dirPath, fileName);
 
         dataSaveLoaderObjects = FindAllDataSaveLoaderObjects();
-        LoadGameData(); //Always load game data on Awake() (or wherever this method is in)
+
+        //LoadData(); Responsability delegated to General DataSaveLoader
     }
 
 
@@ -58,7 +57,7 @@ public abstract class JSONDataPersistenceManager<T> : MonoBehaviour where T : cl
 
     protected virtual void SetSingleton() { }
 
-    protected void LoadGameData()
+    public void LoadData()
     {
         if (!enableDataPersistence) return;
 
@@ -70,7 +69,7 @@ public abstract class JSONDataPersistenceManager<T> : MonoBehaviour where T : cl
         {
             if(debug) Debug.Log("No data was found. Initializing data to defaults");
 
-            NewGameData();
+            NewData();
         }
 
         foreach (IDataSaveLoader<T> dataSaveLoaderObject in dataSaveLoaderObjects) //Push loaded data to scripts that need it
@@ -79,13 +78,9 @@ public abstract class JSONDataPersistenceManager<T> : MonoBehaviour where T : cl
         }
 
         OnDataLoadCompletedMethod();
-
-        if (enableDataSaveAfterLoad) SaveGameData(); 
-        //Saves To JSON the T persistenData object, Which has either the loaded values (if data existed previously and was load),
-        //or the default values (if there was no data before and was created just before)
     }
 
-    public void SaveGameData()
+    public void SaveData()
     {
         if (!enableDataPersistence) return;
 
@@ -101,7 +96,7 @@ public abstract class JSONDataPersistenceManager<T> : MonoBehaviour where T : cl
         OnDataSaveCompletedMethod();
     }
 
-    protected void NewGameData() => persistentData = new T();
+    protected void NewData() => persistentData = new T();
 
     public void DeleteGameData()
     {
@@ -117,12 +112,6 @@ public abstract class JSONDataPersistenceManager<T> : MonoBehaviour where T : cl
 
         File.Delete(path);
         Debug.Log("Data Deleted");
-    }
-
-    private void OnApplicationQuit() 
-    {
-        if (!enableDataSaveOnQuit) return;
-        SaveGameData();
     }
 
     ////////////////////////////////////////////////////////////////////////

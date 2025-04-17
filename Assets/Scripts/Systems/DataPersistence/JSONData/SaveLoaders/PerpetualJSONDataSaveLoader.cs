@@ -17,4 +17,6 @@ public class PerpetualJSONDataSaveLoader : JSONDataSaveLoader<PerpetualData>
     {
         data = sessionPerpetualDataContainer.PerpetualData;
     }
+
+
 }

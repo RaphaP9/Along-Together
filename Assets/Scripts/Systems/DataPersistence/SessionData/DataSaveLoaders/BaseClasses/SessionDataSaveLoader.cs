@@ -4,11 +4,6 @@ using UnityEngine;
 
 public abstract class SessionDataSaveLoader : MonoBehaviour
 {
-    protected virtual void Awake()
-    {
-        LoadRuntimeData();
-    }
-
-    protected abstract void LoadRuntimeData();
-    protected abstract void SaveRuntimeData();
+    public abstract void LoadRuntimeData();
+    public abstract void SaveRuntimeData();
 }

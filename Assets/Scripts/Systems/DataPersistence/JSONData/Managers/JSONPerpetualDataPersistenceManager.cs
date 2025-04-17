@@ -7,15 +7,6 @@ public class JSONPerpetualDataPersistenceManager : JSONDataPersistenceManager<Pe
 {
     public static JSONPerpetualDataPersistenceManager Instance { get; private set; }
 
-    private void OnEnable()
-    {
-        //CheckpointManager.OnCheckpointReached += CheckpointManager_OnCheckpointReached;
-    }
-    private void OnDisable()
-    {
-        //CheckpointManager.OnCheckpointReached -= CheckpointManager_OnCheckpointReached;
-    }
-
     protected override void SetSingleton()
     {
         if (Instance == null)
@@ -29,11 +20,4 @@ public class JSONPerpetualDataPersistenceManager : JSONDataPersistenceManager<Pe
         }
     }
 
-    #region Subscriptions
-
-    private void CheckpointManager_OnCheckpointReached(object sender, EventArgs e)
-    {
-        SaveGameData();
-    }
-    #endregion
 }
