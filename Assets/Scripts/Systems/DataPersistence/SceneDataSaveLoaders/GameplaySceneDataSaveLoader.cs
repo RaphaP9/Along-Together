@@ -6,10 +6,14 @@ public class GameplaySceneDataSaveLoader : MonoBehaviour
 {
     public static GameplaySceneDataSaveLoader Instance {  get; private set; }
 
+    [Header("Settings")]
+    [SerializeField] private bool loadDataOnAwake;
+    [SerializeField] private bool saveDataOnQuit;
+
     private void Awake()
     {
         SetSingleton();
-        GeneralDataSaveLoader.Instance.CompleteDataLoad();
+        if (loadDataOnAwake) GeneralDataSaveLoader.Instance.CompleteDataLoad();
     }
 
     private void SetSingleton()
@@ -26,6 +30,6 @@ public class GameplaySceneDataSaveLoader : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        GeneralDataSaveLoader.Instance.CompleteDataSave();
+        if(saveDataOnQuit) GeneralDataSaveLoader.Instance.CompleteDataSave();
     }
 }
