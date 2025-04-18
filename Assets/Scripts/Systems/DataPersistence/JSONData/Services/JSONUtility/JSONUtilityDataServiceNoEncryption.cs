@@ -19,46 +19,64 @@ public class JSONUtilityDataServiceNoEncryption : IDataService
     #region SaveData
     public bool SaveData<T>(T data)
     {
-        string path = Path.Combine(dirPath, filePath);
+        string finalPath = Path.Combine(dirPath, filePath);
+        string tempPath = finalPath + ".tmp";
 
         try
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            Directory.CreateDirectory(Path.GetDirectoryName(finalPath));
 
             string dataToStore = JsonUtility.ToJson(data, true);
 
-            using FileStream stream = new FileStream(path, FileMode.Create);
+            using FileStream stream = new FileStream(tempPath, FileMode.Create);
             using StreamWriter writer = new StreamWriter(stream);
             writer.Write(dataToStore);
+            writer.Close();
+
+            if (File.Exists(finalPath)) File.Delete(finalPath);
+
+            File.Move(tempPath, finalPath);
 
             return true;
         }
         catch (Exception e)
         {
             Debug.LogError($"Unable to save data due to: {e.Message} {e.StackTrace}");
+
+            if (File.Exists(tempPath)) File.Delete(tempPath);
+
             return false;
         }
     }
 
     public async Task<bool> SaveDataAsync<T>(T data)
     {
-        string path = Path.Combine(dirPath, filePath);
+        string finalPath = Path.Combine(dirPath, filePath);
+        string tempPath = finalPath + ".tmp";
 
         try
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            Directory.CreateDirectory(Path.GetDirectoryName(finalPath));
 
             string dataToStore = JsonUtility.ToJson(data, true);
 
-            using FileStream stream = new FileStream(path, FileMode.Create);
+            using FileStream stream = new FileStream(tempPath, FileMode.Create);
             using StreamWriter writer = new StreamWriter(stream);
             await writer.WriteAsync(dataToStore);
+            writer.Close();
+
+            if (File.Exists(finalPath)) File.Delete(finalPath);
+
+            File.Move(tempPath, finalPath);
 
             return true;
         }
         catch (Exception e)
         {
             Debug.LogError($"Unable to save data due to: {e.Message} {e.StackTrace}");
+
+            if (File.Exists(tempPath)) File.Delete(tempPath);
+
             return false;
         }
     }

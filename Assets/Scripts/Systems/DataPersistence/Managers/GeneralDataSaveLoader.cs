@@ -129,7 +129,7 @@ public class GeneralDataSaveLoader : MonoBehaviour
 
         foreach (IDataPersistenceManager dataPersistenceManager in dataPersistenceManagers)
         {
-            saveTasks.Add(dataPersistenceManager.LoadDataAsync());
+            saveTasks.Add(dataPersistenceManager.SaveDataAsync());
         }
 
         await Task.WhenAll(saveTasks);

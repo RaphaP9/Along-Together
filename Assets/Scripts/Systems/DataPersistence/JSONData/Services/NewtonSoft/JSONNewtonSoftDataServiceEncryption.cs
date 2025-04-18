@@ -23,18 +23,28 @@ public class JSONNewtonSoftDataServiceEncryption : IDataService
     #region Save Data
     public bool SaveData<T>(T data)
     {
-        string path = Path.Combine(dirPath, filePath);
+        string finalPath = Path.Combine(dirPath, filePath);
+        string tempPath = finalPath + ".tmp";
 
         try
         {
-            FileStream stream = File.Create(path);        
+            Directory.CreateDirectory(Path.GetDirectoryName(finalPath));
+
+            FileStream stream = File.Create(tempPath);        
             WriteEncryptedData(data, stream);
-          
+
+            if (File.Exists(finalPath)) File.Delete(finalPath);
+
+            File.Move(tempPath, finalPath);
+
             return true;
         }
         catch (Exception e)
         {
             Debug.LogError($"Unable to save data due to: {e.Message} {e.StackTrace}");
+
+            if (File.Exists(tempPath)) File.Delete(tempPath);
+
             return false;
         }
 
@@ -58,18 +68,28 @@ public class JSONNewtonSoftDataServiceEncryption : IDataService
 
     public async Task<bool> SaveDataAsync<T>(T data)
     {
-        string path = Path.Combine(dirPath, filePath);
+        string finalPath = Path.Combine(dirPath, filePath);
+        string tempPath = finalPath + ".tmp";
 
         try
         {
-            FileStream stream = File.Create(path);
+            Directory.CreateDirectory(Path.GetDirectoryName(finalPath));
+
+            FileStream stream = File.Create(tempPath);
             await WriteEncryptedDataAsync(data, stream);
+
+            if (File.Exists(finalPath)) File.Delete(finalPath);
+
+            File.Move(tempPath, finalPath);
 
             return true;
         }
         catch (Exception e)
         {
             Debug.LogError($"Unable to save data due to: {e.Message} {e.StackTrace}");
+
+            if (File.Exists(tempPath)) File.Delete(tempPath);
+
             return false;
         }
     }

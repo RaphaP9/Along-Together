@@ -21,11 +21,14 @@ public class JSONNewtonsoftDataServiceNoEncryption : IDataService
 
     public bool SaveData<T>(T data)
     {
-        string path = Path.Combine(dirPath, filePath);
+        string finalPath = Path.Combine(dirPath, filePath);
+        string tempPath = finalPath + ".tmp";
 
         try
         {
-            if (!File.Exists(path))
+            Directory.CreateDirectory(Path.GetDirectoryName(finalPath));
+
+            if (!File.Exists(finalPath))
             {
                 //Debug.Log("Writing file for the first time!");
             }
@@ -35,15 +38,23 @@ public class JSONNewtonsoftDataServiceNoEncryption : IDataService
                 //File.Delete(path);
             }
 
-            FileStream stream = File.Create(path);
+            FileStream stream = File.Create(tempPath);
             stream.Close();
 
-            File.WriteAllText(path, JsonConvert.SerializeObject(data, Formatting.Indented));
+            File.WriteAllText(tempPath, JsonConvert.SerializeObject(data, Formatting.Indented));
+
+            if (File.Exists(finalPath)) File.Delete(finalPath);
+
+            File.Move(tempPath, finalPath);
+
             return true;
         }
         catch (Exception e)
         {
             Debug.LogError($"Unable to save data due to: {e.Message} {e.StackTrace}");
+
+            if (File.Exists(tempPath)) File.Delete(tempPath);
+
             return false;
         }
 
@@ -51,11 +62,14 @@ public class JSONNewtonsoftDataServiceNoEncryption : IDataService
 
     public async Task<bool> SaveDataAsync<T>(T data)
     {
-        string path = Path.Combine(dirPath, filePath);
+        string finalPath = Path.Combine(dirPath, filePath);
+        string tempPath = finalPath + ".tmp";
 
         try
         {
-            if (!File.Exists(path))
+            Directory.CreateDirectory(Path.GetDirectoryName(finalPath));
+
+            if (!File.Exists(finalPath))
             {
                 //Debug.Log("Writing file for the first time!");
             }
@@ -65,15 +79,23 @@ public class JSONNewtonsoftDataServiceNoEncryption : IDataService
                 //File.Delete(path);
             }
 
-            FileStream stream = File.Create(path);
+            FileStream stream = File.Create(tempPath);
             stream.Close();
 
-            await File.WriteAllTextAsync(path, JsonConvert.SerializeObject(data, Formatting.Indented));
+            await File.WriteAllTextAsync(tempPath, JsonConvert.SerializeObject(data, Formatting.Indented));
+
+            if (File.Exists(finalPath)) File.Delete(finalPath);
+
+            File.Move(tempPath, finalPath);
+
             return true;
         }
         catch (Exception e)
         {
             Debug.LogError($"Unable to save data due to: {e.Message} {e.StackTrace}");
+
+            if (File.Exists(tempPath)) File.Delete(tempPath);
+
             return false;
         }
 
