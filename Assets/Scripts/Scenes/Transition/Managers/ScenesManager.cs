@@ -22,11 +22,16 @@ public class ScenesManager : MonoBehaviour
     public static event EventHandler<OnSceneTransitionLoadEventArgs> OnSceneTransitionOutStart;
     public static event EventHandler<OnSceneTransitionLoadEventArgs> OnSceneTransitionInStart;
     public static event EventHandler<OnSceneLoadEventArgs> OnSceneLoadStart;
+    public static event EventHandler<OnSceneLoadEventArgs> OnSceneLoadCompleteReal;
     public static event EventHandler<OnSceneLoadEventArgs> OnSceneLoadComplete;
 
-    private string sceneToLoad;
+    private float loadProgress;
+    private bool isLoadingScene;
 
-    public float LoadProgress { get; private set; }
+    public float LoadProgress => loadProgress;
+    public bool IsLoadingScene => isLoadingScene;
+
+    private string sceneToLoad;
 
     private const float SCENE_READY_PERCENT = 0.9f;
     private const float SCENE_READY_PAUSE_TIME = 0.5f;
@@ -76,7 +81,14 @@ public class ScenesManager : MonoBehaviour
 
     private void Start()
     {
+        InitializeVariables();
         SimulateTransitionIn(TransitionType.Fade);
+    }
+
+    private void InitializeVariables()
+    {
+        isLoadingScene = false;
+        loadProgress = 0f;
     }
 
     private void SimulateTransitionIn(TransitionType transitionType)
@@ -132,7 +144,7 @@ public class ScenesManager : MonoBehaviour
         SetSceneToLoad(targetScene);
     }
 
-    private IEnumerator LoadSceneTransitionInCoroutine(string targetScene, TransitionType transitionType) //Transition In Corroutine
+    private IEnumerator LoadSceneTransitionInCoroutine(string targetScene, TransitionType transitionType) //Transition In Coroutine
     {
         string originScene = SceneManager.GetActiveScene().name;
 
@@ -160,21 +172,27 @@ public class ScenesManager : MonoBehaviour
 
     private IEnumerator LoadSceneAsyncCoroutine(string targetScene)
     {
+        if(isLoadingScene) yield break;
+
+        isLoadingScene = true;
+
         string originScene = SceneManager.GetActiveScene().name;
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(targetScene);
 
         asyncLoad.allowSceneActivation = false;
-        LoadProgress = 0f;
+        loadProgress = 0f;
 
         OnSceneLoadStart?.Invoke(this, new OnSceneLoadEventArgs { originScene = originScene, targetScene = targetScene });
 
         while (!asyncLoad.isDone)
         {
-            LoadProgress = Mathf.Clamp01(asyncLoad.progress / SCENE_READY_PERCENT);
+            loadProgress = Mathf.Clamp01(asyncLoad.progress / SCENE_READY_PERCENT);
 
             if(asyncLoad.progress >= SCENE_READY_PERCENT)
             {
+                OnSceneLoadCompleteReal?.Invoke(this, new OnSceneLoadEventArgs { originScene = originScene, targetScene = targetScene });
+
                 yield return new WaitForSecondsRealtime(SCENE_READY_PAUSE_TIME);
                 asyncLoad.allowSceneActivation = true;
             }
@@ -185,6 +203,8 @@ public class ScenesManager : MonoBehaviour
         OnSceneLoadComplete?.Invoke(this, new OnSceneLoadEventArgs { originScene = originScene, targetScene = targetScene });
 
         ResetTimeScale();
+
+        isLoadingScene = false;
     }
 
     #endregion
