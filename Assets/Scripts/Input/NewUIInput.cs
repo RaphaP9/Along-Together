@@ -25,6 +25,7 @@ public class NewUIInput : UIInput
 
     public override bool CanProcessInput()
     {
+        if (ScenesManager.Instance.SceneState != ScenesManager.State.Idle) return false;
         return true;
     }
 
