@@ -5,6 +5,7 @@ public enum NumericStatType
     Armor,
     DodgeChance,
     HealthRegen,
+    ShieldRegen,
     AttackDamage,
     AttackCritChance,
     AttackCritDamageMultiplier

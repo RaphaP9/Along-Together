@@ -8,6 +8,7 @@ public class CharacterSO : EntitySO
 {
     [Header("Character Settings")]
     [Range(0, 10)] public int healthRegen;
+    [Range(0, 10)] public int shieldRegen;
     [Space]
     [Range(1f, 2f)] public int attackDamage;
     [Range(0f, 1f)] public float attackCritChance;
