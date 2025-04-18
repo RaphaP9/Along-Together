@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2246521901152185813}
   - component: {fileID: 6005996031512800793}
   - component: {fileID: 4187286994058610886}
-  - component: {fileID: 7066429175998586008}
+  - component: {fileID: 3027993008465218101}
   m_Layer: 0
-  m_Name: TransitionUI
+  m_Name: FadeTransitionUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,13 +26,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17214288452675309}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8240597806005583876}
-  m_Father: {fileID: 7605167964314456640}
+  m_Father: {fileID: 5550584808046380508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -72,7 +72,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7066429175998586008
+--- !u!114 &3027993008465218101
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,10 +81,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 17214288452675309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b9e30467d4fa3b42a792fffd38c849b, type: 3}
+  m_Script: {fileID: 11500000, guid: e403b64009909eb46bf69fe6caaa1ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionUIAnimator: {fileID: 4187286994058610886}
+  sceneTransitionUIHandler: {fileID: 7590588904654866150}
 --- !u!1 &582470761310279655
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2246521901152185813}
+  - {fileID: 5550584808046380508}
   m_Father: {fileID: 3885081704148435398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  fadeInInterval: 0.1
+  transitionInInterval: 0.1
 --- !u!1 &4199401478031820499
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,3 +309,58 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6823833494332159352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5550584808046380508}
+  - component: {fileID: 7590588904654866150}
+  m_Layer: 0
+  m_Name: TransitionUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5550584808046380508
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6823833494332159352}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2246521901152185813}
+  m_Father: {fileID: 7605167964314456640}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7590588904654866150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6823833494332159352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b9e30467d4fa3b42a792fffd38c849b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionUIAnimator: {fileID: 4187286994058610886}
+  transitionTypeAnimators:
+  - transitionType: 0
+    animator: {fileID: 4187286994058610886}
+  debug: 1
+  currentTransitionType: 1

@@ -12,6 +12,7 @@ public class BootstrapSceneManager : MonoBehaviour
     [SerializeField] private float timeToWaitAfterLoad;
     [Space]
     [SerializeField] private string nextScene;
+    [SerializeField] private TransitionType nextSceneTransitionType;
 
     private void Awake()
     {
@@ -43,7 +44,7 @@ public class BootstrapSceneManager : MonoBehaviour
 
         yield return new WaitForSeconds(timeToWaitAfterLoad); 
 
-        ScenesManager.Instance.FadeLoadTargetScene(nextScene);
+        ScenesManager.Instance.TransitionLoadTargetScene(nextScene, nextSceneTransitionType);
     }
 
     private IEnumerator WaitForDataLoad()

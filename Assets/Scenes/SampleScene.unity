@@ -11971,6 +11971,7 @@ MonoBehaviour:
   inGameOptionsButton: {fileID: 190906483}
   backToMenuButton: {fileID: 650900905}
   mainMenuScene: MainMenu
+  menuTransitionType: 0
 --- !u!1 &2034874574
 GameObject:
   m_ObjectHideFlags: 0

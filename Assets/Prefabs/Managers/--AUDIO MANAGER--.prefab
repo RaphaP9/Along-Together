@@ -187,8 +187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ef79876e7c8234fa65a4f00ecf0acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeFadeInTime: 0.5
-  volumeFadeOutTime: 0.5
+  volumeFadeInTime: 0.3
+  volumeFadeOutTime: 0.3
   exceptionTransitions: []
 --- !u!1 &1636284014592437063
 GameObject:
@@ -300,8 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1601c3b69e673bc4e8b755484a9a2a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeFadeInTime: 0.5
-  volumeFadeOutTime: 0.5
+  volumeFadeInTime: 0.3
+  volumeFadeOutTime: 0.3
   exceptionTransitions: []
 --- !u!1 &2339726621385923253
 GameObject:

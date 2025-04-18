@@ -44,14 +44,14 @@ public abstract class SceneVolumeFadeHandler : MonoBehaviour
 
     #region SceneManager Subscriptions
 
-    private void ScenesManager_OnSceneTransitionInStart(object sender, ScenesManager.OnSceneLoadEventArgs e)
+    private void ScenesManager_OnSceneTransitionInStart(object sender, ScenesManager.OnSceneTransitionLoadEventArgs e)
     {
         if (!volumeFadeManager) return;
         if (IsExceptionTransition(e.originScene, e.targetScene)) return;
         volumeFadeManager.FadeInVolume(volumeFadeInTime);
     }
 
-    private void ScenesManager_OnSceneTransitionOutStart(object sender, ScenesManager.OnSceneLoadEventArgs e)
+    private void ScenesManager_OnSceneTransitionOutStart(object sender, ScenesManager.OnSceneTransitionLoadEventArgs e)
     {
         if (!volumeFadeManager) return;
         if (IsExceptionTransition(e.originScene, e.targetScene)) return;

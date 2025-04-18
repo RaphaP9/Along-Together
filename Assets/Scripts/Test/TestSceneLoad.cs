@@ -11,7 +11,7 @@ public class TestSceneLoad : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            ScenesManager.Instance.FadeLoadTargetScene(scene);
+            ScenesManager.Instance.TransitionLoadTargetScene(scene, TransitionType.Fade);
         }
     }
 }

@@ -15,6 +15,7 @@ public class PauseUIMainContentButtonsHandler : MonoBehaviour
     [Header("BackToMenu Button")]
     [SerializeField] private Button backToMenuButton;
     [SerializeField] private string mainMenuScene;
+    [SerializeField] private TransitionType menuTransitionType;
 
     private void Awake()
     {
@@ -32,6 +33,6 @@ public class PauseUIMainContentButtonsHandler : MonoBehaviour
 
     private void BackToMenu()
     {
-        ScenesManager.Instance.FadeLoadTargetScene(mainMenuScene);
+        ScenesManager.Instance.TransitionLoadTargetScene(mainMenuScene, menuTransitionType);
     }
 }

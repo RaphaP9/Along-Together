@@ -24,12 +24,12 @@ public class MusicManager : MonoBehaviour
 
     private void OnEnable()
     {
-        ScenesManager.OnSceneLoad += ScenesManager_OnSceneLoad;
+        ScenesManager.OnSceneLoadComplete += ScenesManager_OnSceneLoad;
     }
 
     private void OnDisable()
     {
-        ScenesManager.OnSceneLoad -= ScenesManager_OnSceneLoad;
+        ScenesManager.OnSceneLoadComplete -= ScenesManager_OnSceneLoad;
     }
 
     private void Awake()
