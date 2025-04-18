@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -7,7 +8,7 @@ public class Board : MonoBehaviour
     //We can afford making this class a Singleton because each game only does one thing
     public static Board Instance {  get; private set; }
 
-    [Header("Lists")]
+    [Header("Lists - Runtime Filled")]
     [SerializeField] private List<Cell> cells;
 
     [Header("Debug")]
@@ -18,6 +19,7 @@ public class Board : MonoBehaviour
     private void Awake()
     {
         SetSingleton();
+        FillCellsList();
     }
 
     private void SetSingleton()
@@ -31,6 +33,11 @@ public class Board : MonoBehaviour
             Debug.LogWarning("There is more than one Board instance, proceding to destroy duplicate");
             Destroy(gameObject);
         }
+    }
+
+    private void FillCellsList()
+    {
+        cells = FindObjectsOfType<Cell>().ToList();
     }
 
     public List<Cell> GetCellsWithYCoordinate(int yCoordinate)

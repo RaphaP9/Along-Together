@@ -15,22 +15,22 @@ public class TestBoardPositions : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Test();
+            Test(); //CheckAvailableMovementPositions
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            GameLogManager.Instance.Log("Test");
+            GameLogManager.Instance.Log("Test"); //Shake
         }
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            GameLogManager.Instance.Log("Start");
+            GameLogManager.Instance.Log("Start"); //TransitionStart
         }
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            GameLogManager.Instance.Log("End");
+            GameLogManager.Instance.Log("End"); //TransitionEnd
         }
     }
 

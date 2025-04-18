@@ -15,7 +15,7 @@ public class JSONPerpetualDataPersistenceManager : JSONDataPersistenceManager<Pe
         }
         else
         {
-            Debug.LogWarning("There is more than one GameDataPersistenceManager instance, proceding to destroy duplicate");
+            //Debug.LogWarning("There is more than one GameDataPersistenceManager instance, proceding to destroy duplicate");
             Destroy(gameObject);
         }
     }

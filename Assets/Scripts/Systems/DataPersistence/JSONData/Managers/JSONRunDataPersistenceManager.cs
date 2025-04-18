@@ -15,7 +15,7 @@ public class JSONRunDataPersistenceManager : JSONDataPersistenceManager<RunData>
         }
         else
         {
-            Debug.LogWarning("There is more than one RunDataPersistenceManager instance, proceding to destroy duplicate");
+            //Debug.LogWarning("There is more than one RunDataPersistenceManager instance, proceding to destroy duplicate");
             Destroy(gameObject);
         }
     }
