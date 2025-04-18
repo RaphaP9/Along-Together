@@ -98,6 +98,7 @@ public class ScenesManager : MonoBehaviour
     private void SetSceneToLoad(string sceneToLoad) => this.sceneToLoad = sceneToLoad;
     private void ClearSceneToLoad() => sceneToLoad = "";
 
+    private void ResetTimeScale() => Time.timeScale = 1f; //Ex. for transitioning to MainMenu from the Gameplay Pause Menu
 
     #region SimpleLoad
     public void SimpleReloadCurrentScene()
@@ -153,6 +154,8 @@ public class ScenesManager : MonoBehaviour
 
         SceneManager.LoadSceneAsync(targetScene);
         OnSceneLoadComplete?.Invoke(this, new OnSceneLoadEventArgs { originScene = originScene, targetScene = targetScene });
+
+        ResetTimeScale();
     }
 
     private IEnumerator LoadSceneAsyncCoroutine(string targetScene)
@@ -172,7 +175,7 @@ public class ScenesManager : MonoBehaviour
 
             if(asyncLoad.progress >= SCENE_READY_PERCENT)
             {
-                yield return new WaitForSeconds(SCENE_READY_PAUSE_TIME);
+                yield return new WaitForSecondsRealtime(SCENE_READY_PAUSE_TIME);
                 asyncLoad.allowSceneActivation = true;
             }
 
@@ -180,6 +183,8 @@ public class ScenesManager : MonoBehaviour
         }
 
         OnSceneLoadComplete?.Invoke(this, new OnSceneLoadEventArgs { originScene = originScene, targetScene = targetScene });
+
+        ResetTimeScale();
     }
 
     #endregion
