@@ -17,7 +17,7 @@ public class ScenesManager : MonoBehaviour
     public State SceneState => state;
 
     [Header("Settings")]
-    [SerializeField, Range(0.1f, 0.5f)] private float transitionInInterval;
+    [SerializeField, Range(0.05f, 0.5f)] private float transitionInInterval;
 
     public static event EventHandler<OnSceneTransitionLoadEventArgs> OnSceneTransitionOutStart;
     public static event EventHandler<OnSceneTransitionLoadEventArgs> OnSceneTransitionInStart;
@@ -149,7 +149,7 @@ public class ScenesManager : MonoBehaviour
         string originScene = SceneManager.GetActiveScene().name;
 
         yield return StartCoroutine(LoadSceneAsyncCoroutine(targetScene)); //Async Scene Load happens here
-        yield return new WaitForSeconds(transitionInInterval);
+        yield return new WaitForSecondsRealtime(transitionInInterval);
 
         OnSceneTransitionInStart?.Invoke(this, new OnSceneTransitionLoadEventArgs { originScene = originScene, targetScene = targetScene, transitionType = transitionType });
 

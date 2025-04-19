@@ -6,12 +6,13 @@ public class TestSceneLoad : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private string scene;
+    [SerializeField] private TransitionType transitionType;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            ScenesManager.Instance.TransitionLoadTargetScene(scene, TransitionType.Fade);
+            ScenesManager.Instance.TransitionLoadTargetScene(scene, transitionType);
         }
     }
 }

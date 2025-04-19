@@ -10467,6 +10467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: Test
+  transitionType: 1
 --- !u!1001 &1792457018
 PrefabInstance:
   m_ObjectHideFlags: 0
