@@ -12,8 +12,6 @@ public abstract class VolumeUIHandler : MonoBehaviour
     [Header("Components")]
     [SerializeField] List<OptionBarUI> optionBarUIs;
 
-    protected VolumeManager volumeManager;
-
     protected const float VOLUME_BUTTON_CHANGE = 0.1f;
 
     private void Awake()
@@ -31,54 +29,45 @@ public abstract class VolumeUIHandler : MonoBehaviour
 
     private void Start()
     {
-        InitializeUI();
+        UpdateVisual();
     }
+
+    protected abstract VolumeManager GetVolumeManager();
 
     protected void IntializeOptionBarUIs()
     {
         foreach(OptionBarUI optionBarUI in optionBarUIs)
         {
-            optionBarUI.BackgroundButton.onClick.AddListener(() => volumeManager.ChangeVolume(optionBarUI.BarValue));
+            optionBarUI.BackgroundButton.onClick.AddListener(() => GetVolumeManager().ChangeVolume(optionBarUI.BarValue));
         }
-    }
-
-    protected abstract void SetVolumeManager();
-
-    protected void InitializeUI()
-    {
-        SetVolumeManager();
-
-        if (!volumeManager) return;
-
-        UpdateVisual();
     }
 
     private void IncreaseVolumeByButton()
     {
-        float currentVolume = volumeManager.GetLinearVolume();
+        float currentVolume = GetVolumeManager().GetLinearVolume();
         float desiredVolume = currentVolume + VOLUME_BUTTON_CHANGE;
 
-        if (desiredVolume > volumeManager.GetMaxVolume()) return;
+        if (desiredVolume > GetVolumeManager().GetMaxVolume()) return;
 
         desiredVolume = GeneralUtilities.RoundToNDecimalPlaces(desiredVolume, 1);
-        volumeManager.ChangeVolume(desiredVolume);
+        GetVolumeManager().ChangeVolume(desiredVolume);
     }
 
     private void DecreaseVolumeByButton()
     {
-        float currentVolume = volumeManager.GetLinearVolume();
+        float currentVolume = GetVolumeManager().GetLinearVolume();
         float desiredVolume = currentVolume - VOLUME_BUTTON_CHANGE;
 
         if (desiredVolume < 0f) return;
 
         desiredVolume = GeneralUtilities.RoundToNDecimalPlaces(desiredVolume, 1);
-        volumeManager.ChangeVolume(desiredVolume);
+        GetVolumeManager().ChangeVolume(desiredVolume);
     }
 
     protected void UpdateVisual()
     {
         HideAllOptionBars();
-        float currentValue = GeneralUtilities.RoundToNDecimalPlaces(volumeManager.GetLinearVolume(),1);
+        float currentValue = GeneralUtilities.RoundToNDecimalPlaces(GetVolumeManager().GetLinearVolume(),1);
 
         foreach (OptionBarUI optionBarUI in optionBarUIs)
         {

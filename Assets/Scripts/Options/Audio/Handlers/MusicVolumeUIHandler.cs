@@ -16,15 +16,15 @@ public class MusicVolumeUIHandler : VolumeUIHandler
         MusicVolumeManager.OnMusicVolumeChanged -= MusicVolumeManager_OnMusicVolumeChanged;
     }
 
-    protected override void SetVolumeManager() => volumeManager = MusicVolumeManager.Instance;
+    protected override VolumeManager GetVolumeManager() => MusicVolumeManager.Instance;
+
     private void MusicVolumeManager_OnMusicVolumeManagerInitialized(object sender, System.EventArgs e)
     {
-        SetVolumeManager();
+        UpdateVisual();
     }
 
     private void MusicVolumeManager_OnMusicVolumeChanged(object sender, VolumeManager.OnVolumeChangedEventArgs e)
     {
-        if (!volumeManager) return;
         UpdateVisual();
     }
 }

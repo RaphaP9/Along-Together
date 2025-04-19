@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class PostProcessingUIHandler : MonoBehaviour
+public abstract class PostProcessingLinearValueUIHandler : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] protected Button increaseIntensityButton;
@@ -11,8 +11,6 @@ public abstract class PostProcessingUIHandler : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] List<OptionBarUI> optionBarUIs;
-
-    protected PostProcessingLinearValueManager postProcessingManager;
 
     protected const float INTENSITY_BUTTON_CHANGE = 0.1f;
 
@@ -31,56 +29,47 @@ public abstract class PostProcessingUIHandler : MonoBehaviour
 
     private void Start()
     {
-        InitializeUI();
+        UpdateVisual();
     }
+
+    protected abstract PostProcessingLinearValueManager GetPostProcessingManager();
 
     protected void IntializeOptionBarUIs()
     {
         foreach (OptionBarUI optionBarUI in optionBarUIs)
         {
-            optionBarUI.BackgroundButton.onClick.AddListener(() => postProcessingManager.ChangeIntensity(optionBarUI.BarValue));
+            optionBarUI.BackgroundButton.onClick.AddListener(() => GetPostProcessingManager().ChangeIntensity(optionBarUI.BarValue));
         }
-    }
-
-    protected abstract void SetPostProcessingManager();
-
-    protected void InitializeUI()
-    {
-        SetPostProcessingManager();
-
-        if (!postProcessingManager) return;
-
-        UpdateVisual();
     }
 
     private void IncreaseIntensityByButton()
     {
-        float currentIntensity = postProcessingManager.GetNormalizedIntensity();
+        float currentIntensity = GetPostProcessingManager().GetNormalizedIntensity();
         float desiredIntensity = currentIntensity + INTENSITY_BUTTON_CHANGE;
 
         desiredIntensity = GeneralUtilities.RoundToNDecimalPlaces(desiredIntensity, 1);
 
-        if (desiredIntensity > postProcessingManager.GetMaxNormalizedIntensity()) return;
+        if (desiredIntensity > GetPostProcessingManager().GetMaxNormalizedIntensity()) return;
 
-        postProcessingManager.ChangeIntensity(desiredIntensity);
+        GetPostProcessingManager().ChangeIntensity(desiredIntensity);
     }
 
     private void DecreaseIntensityByButton()
     {
-        float currentIntensity = postProcessingManager.GetNormalizedIntensity();
+        float currentIntensity = GetPostProcessingManager().GetNormalizedIntensity();
         float desiredIntensity = currentIntensity - INTENSITY_BUTTON_CHANGE;
 
         desiredIntensity = GeneralUtilities.RoundToNDecimalPlaces(desiredIntensity, 1);
 
-        if (desiredIntensity < postProcessingManager.GetMinNormalizedIntensity()) return;
+        if (desiredIntensity < GetPostProcessingManager().GetMinNormalizedIntensity()) return;
 
-        postProcessingManager.ChangeIntensity(desiredIntensity);
+        GetPostProcessingManager().ChangeIntensity(desiredIntensity);
     }
 
     protected void UpdateVisual()
     {
         HideAllOptionBars();
-        float currentValue = GeneralUtilities.RoundToNDecimalPlaces(postProcessingManager.GetNormalizedIntensity(), 1);
+        float currentValue = GeneralUtilities.RoundToNDecimalPlaces(GetPostProcessingManager().GetNormalizedIntensity(), 1);
 
         foreach (OptionBarUI optionBarUI in optionBarUIs)
         {

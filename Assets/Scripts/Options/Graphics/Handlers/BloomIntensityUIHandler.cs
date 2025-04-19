@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BloomIntensityUIHandler : PostProcessingUIHandler
+public class BloomIntensityUIHandler : PostProcessingLinearValueUIHandler
 {
     private void OnEnable()
     {
@@ -16,16 +16,15 @@ public class BloomIntensityUIHandler : PostProcessingUIHandler
         BloomIntensityManager.OnBloomIntensityChanged -= BloomIntensityManager_OnBloomIntensityChanged;
     }
 
-    protected override void SetPostProcessingManager() => postProcessingManager = BloomIntensityManager.Instance;
+    protected override PostProcessingLinearValueManager GetPostProcessingManager() => BloomIntensityManager.Instance;
 
     private void BloomIntensityManager_OnBloomIntensityManagerInitialized(object sender, System.EventArgs e)
     {
-        InitializeUI();
+        UpdateVisual();
     }
 
     private void BloomIntensityManager_OnBloomIntensityChanged(object sender, BloomIntensityManager.OnIntensityChangedEventArgs e)
     {
-        if (!postProcessingManager) return;
         UpdateVisual();
     }
 }

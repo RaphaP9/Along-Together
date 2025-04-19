@@ -16,14 +16,14 @@ public class MasterVolumeUIHandler : VolumeUIHandler
         MasterVolumeManager.OnMasterVolumeChanged -= MasterVolumeManager_OnMasterVolumeChanged;
     }
 
-    protected override void SetVolumeManager() => volumeManager = MasterVolumeManager.Instance;
+    protected override VolumeManager GetVolumeManager() => MasterVolumeManager.Instance;
+
     private void MasterVolumeManager_OnMasterVolumeManagerInitialized(object sender, System.EventArgs e)
     {
-        InitializeUI();
+        UpdateVisual();
     }
     private void MasterVolumeManager_OnMasterVolumeChanged(object sender, VolumeManager.OnVolumeChangedEventArgs e)
     {
-        if (!volumeManager) return;
         UpdateVisual();
     }
 }
