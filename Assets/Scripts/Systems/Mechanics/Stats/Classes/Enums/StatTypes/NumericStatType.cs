@@ -8,6 +8,8 @@ public enum NumericStatType
     ShieldRegen,
     AttackDamage,
     AttackCritChance,
-    AttackCritDamageMultiplier
+    AttackCritDamageMultiplier,
+    MovementDistance,
+    ObstructionJumps
 }
 

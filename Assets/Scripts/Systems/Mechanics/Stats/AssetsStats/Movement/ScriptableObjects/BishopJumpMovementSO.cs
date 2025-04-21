@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BishopJumpMovementSO", menuName = "ScriptableObjects/Movement/Bishop/BishopJumpMovement", order = 2)]
 public class BishopJumpMovementSO : MovementTypeSO
 {
-    public override HashSet<Cell> GetMovementAvailableCells(Vector2Int currentPosition, Board board)
+    public override HashSet<Cell> GetMovementAvailableCells(Vector2Int currentPosition, Board board, int movementDistance, int obstructionJumps)
     {
         HashSet<Cell> movementAvailableCells = new HashSet<Cell>();
 
@@ -14,11 +14,9 @@ public class BishopJumpMovementSO : MovementTypeSO
         directions.Add(BoardUtilities.UpLeftDiagonal);
         directions.Add(BoardUtilities.DownLeftDiagonal);
 
-        movementAvailableCells = BoardUtilities.GetAvailableMovementCellsByDirectionsUnlimited(currentPosition, board, directions, JumpObstructions());
+        movementAvailableCells = BoardUtilities.GetAvailableMovementCellsByDirections(currentPosition, board, directions, movementDistance, obstructionJumps);
         return movementAvailableCells;
     }
 
-    public override MovementType GetMovementType() => MovementType.BishopJump;
-
-    public override bool JumpObstructions() => true;
+    public override MovementType GetMovementType() => MovementType.Bishop;
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "KnightMovementSO", menuName = "ScriptableObjects/Movement/KnightMovement")]
 public class KnightMovementSO : MovementTypeSO
 {
-    public override HashSet<Cell> GetMovementAvailableCells(Vector2Int currentPosition, Board board)
+    public override HashSet<Cell> GetMovementAvailableCells(Vector2Int currentPosition, Board board, int movementDistance, int obstructionJumps)
     {
         HashSet<Cell> movementAvailableCells = new HashSet<Cell>();
 
@@ -23,6 +23,4 @@ public class KnightMovementSO : MovementTypeSO
     }
 
     public override MovementType GetMovementType() => MovementType.Knight;
-
-    public override bool JumpObstructions() => true; //Not really needed
 }

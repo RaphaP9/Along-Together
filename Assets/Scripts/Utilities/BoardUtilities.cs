@@ -72,13 +72,13 @@ public static class BoardUtilities
         return furthestCell;
     }
 
-    public static HashSet<Cell> ResolveAvailableCells(Vector2Int currentPosition, Board board, List<MovementTypeSO> movementTypes)
+    public static HashSet<Cell> ResolveAvailableCells(Vector2Int currentPosition, Board board, List<MovementTypeSO> movementTypes,int movementDistance, int obstructionJumps)
     {
         HashSet<Cell> availableCells = new HashSet<Cell>();
 
         foreach(MovementTypeSO movementTypeSO in movementTypes)
         {
-            HashSet<Cell> availableMovementTypeCells = movementTypeSO.GetMovementAvailableCells(currentPosition, board);
+            HashSet<Cell> availableMovementTypeCells = movementTypeSO.GetMovementAvailableCells(currentPosition, board, movementDistance, obstructionJumps);
             availableCells.AddRange(availableMovementTypeCells);
         }
 
@@ -87,26 +87,26 @@ public static class BoardUtilities
     #endregion
 
     #region AvailableMovementCells
-    public static HashSet<Cell> GetAvailableMovementCellsByDirections(Vector2Int currentPosition, Board board, HashSet<Vector2Int> directions, int cellDistance, bool obstructDirection)
+    public static HashSet<Cell> GetAvailableMovementCellsByDirections(Vector2Int currentPosition, Board board, HashSet<Vector2Int> directions, int cellDistance, int obstructionJumps)
     {
         HashSet<Cell> movementAvailableCells = new HashSet<Cell>();
 
         foreach (Vector2Int direction in directions)
         {
-            HashSet<Cell> cells = GetAvailableMovementCellsByDirection(currentPosition, board, direction, cellDistance, obstructDirection);
+            HashSet<Cell> cells = GetAvailableMovementCellsByDirection(currentPosition, board, direction, cellDistance, obstructionJumps);
             movementAvailableCells.AddRange(cells);
         }
 
         return movementAvailableCells;
     }
 
-    public static HashSet<Cell> GetAvailableMovementCellsByDirection(Vector2Int currentPosition, Board board, Vector2Int direction, int cellDistance, bool jumpObstructions)
+    public static HashSet<Cell> GetAvailableMovementCellsByDirection(Vector2Int currentPosition, Board board, Vector2Int direction, int cellDistance, int obstructionJumps)
     {
         HashSet<Cell> movementAvailableCells = new HashSet<Cell>();
 
         if (direction == Vector2Int.zero) return movementAvailableCells;
 
-        int numberOfObstructions = 0;
+        int obstructionsJumped = 0;
 
         for (int i = 1; i <= cellDistance; i++)
         {
@@ -114,10 +114,10 @@ public static class BoardUtilities
 
             if (!board.ExistCellsWithSpecificCoordinate(posiblePosition))
             {
-                if (!jumpObstructions) return movementAvailableCells; //Any other possible further cell is discarded
+                if (obstructionsJumped >= obstructionJumps) return movementAvailableCells; //Any other possible further cell is discarded
                 else
                 {
-                    numberOfObstructions++;
+                    obstructionsJumped++;
                     continue;
                 }
             }
@@ -126,20 +126,20 @@ public static class BoardUtilities
 
             if (!posibleCell.CanBeOccupied())
             {
-                if (!jumpObstructions) return movementAvailableCells;
+                if (obstructionsJumped >= obstructionJumps) return movementAvailableCells;
                 else
                 {
-                    numberOfObstructions++;
+                    obstructionsJumped++;
                     continue;
                 }
             }
 
             if (!posibleCell.CanBeStepped())
             {
-                if (!jumpObstructions) return movementAvailableCells;
+                if (obstructionsJumped >= obstructionJumps) return movementAvailableCells;
                 else
                 {
-                    numberOfObstructions++;
+                    obstructionsJumped++;
                     continue;
                 }
             }
@@ -150,20 +150,20 @@ public static class BoardUtilities
         return movementAvailableCells;
     }
 
-    public static HashSet<Cell> GetAvailableMovementCellsByDirectionsUnlimited(Vector2Int currentPosition, Board board, HashSet<Vector2Int> directions, bool obstructDirection)
+    public static HashSet<Cell> GetAvailableMovementCellsByDirectionsUnlimited(Vector2Int currentPosition, Board board, HashSet<Vector2Int> directions, int obstructionJumps)
     {
         HashSet<Cell> movementAvailableCells = new HashSet<Cell>();
 
         foreach (Vector2Int direction in directions)
         {
-            HashSet<Cell> cells = GetAvailableMovementCellsByDirectionUnlimited(currentPosition, board, direction, obstructDirection);
+            HashSet<Cell> cells = GetAvailableMovementCellsByDirectionUnlimited(currentPosition, board, direction, obstructionJumps);
             movementAvailableCells.AddRange(cells);
         }
 
         return movementAvailableCells;
     }
 
-    public static HashSet<Cell> GetAvailableMovementCellsByDirectionUnlimited(Vector2Int currentPosition, Board board, Vector2Int direction, bool jumpObstructions)
+    public static HashSet<Cell> GetAvailableMovementCellsByDirectionUnlimited(Vector2Int currentPosition, Board board, Vector2Int direction, int obstructionJumps)
     {
         HashSet<Cell> movementAvailableCells = new HashSet<Cell>();
 
@@ -174,7 +174,7 @@ public static class BoardUtilities
         if(furthestCellInDirection == null) return movementAvailableCells; //If there are no cells in that direction, we return an empty list
 
         int distanceToCover = 0;
-        int numberOfObstructions = 0;
+        int obstructionsJumped = 0;
 
         bool conditionToBreak = false;
 
@@ -185,13 +185,13 @@ public static class BoardUtilities
 
             if (!board.ExistCellsWithSpecificCoordinate(posiblePosition)) //If a cell does not exist there, it is considered an obstruction
             {
-                if (!jumpObstructions) //It can not jump obstructions, the condition to break is covered and the while loop concludes
+                if (obstructionsJumped >= obstructionJumps) //If obstructionJumps reached, the condition to break is covered and the while loop concludes
                 {
                     conditionToBreak = true;
                 }
                 else //Otherwise, keep count on the number of obstructions
                 {
-                    numberOfObstructions++;
+                    obstructionsJumped++;
                 }
 
                 continue; //Go to next while loop
@@ -206,13 +206,13 @@ public static class BoardUtilities
 
             if (!possibleCell.CanBeOccupied()) //Same logic with Occupation
             {
-                if (!jumpObstructions) 
+                if (obstructionsJumped >= obstructionJumps)
                 {
                     conditionToBreak = true;
                 }
                 else 
                 {
-                    numberOfObstructions++;
+                    obstructionsJumped++;
                 }
 
                 continue;
@@ -220,13 +220,13 @@ public static class BoardUtilities
 
             if (!possibleCell.CanBeStepped()) //Same logic with Stepped
             {
-                if (!jumpObstructions)
+                if (obstructionsJumped >= obstructionJumps)
                 {
                     conditionToBreak = true;
                 }
                 else
                 {
-                    numberOfObstructions++;
+                    obstructionsJumped++;
                 }
 
                 continue;

@@ -19,4 +19,6 @@ public abstract class EntitySO : ScriptableObject
 
     [Header("Movement Types")]
     public List<MovementTypeSO> movementTypes;
+    [Range(0f, 10f)] public int movementDistance;
+    [Range(0f, 5f)] public int obstructionJumps;
 }

@@ -7,6 +7,8 @@ public class TestBoardPositions : MonoBehaviour
     [Header("Components")]
     [SerializeField] private MovementTypeSO movementTypeSO;
     [SerializeField] private Transform temporalTestObjectPrefab;
+    [SerializeField] private int movementDistance;
+    [SerializeField] private int obstructionJumps;
 
     [Header("Settings")]
     [SerializeField] private Vector2Int currentPos;
@@ -36,7 +38,7 @@ public class TestBoardPositions : MonoBehaviour
 
     private void Test()
     {
-        HashSet<Cell> cells = movementTypeSO.GetMovementAvailableCells(currentPos,Board.Instance);
+        HashSet<Cell> cells = movementTypeSO.GetMovementAvailableCells(currentPos,Board.Instance,movementDistance, obstructionJumps);
 
         foreach (Cell cell in cells)
         {

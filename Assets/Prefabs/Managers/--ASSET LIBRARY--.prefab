@@ -45,21 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementTypes:
-  - {fileID: 11400000, guid: 2ac263616b2f2a94baf66227af59bee4, type: 2}
-  - {fileID: 11400000, guid: ebbd329094ad80d4ba3f21709b641d1e, type: 2}
-  - {fileID: 11400000, guid: 2b9977bd2273d364dabe688943d9c6d2, type: 2}
-  - {fileID: 11400000, guid: ab0614923c25b7d47a4d5a1568b73a3e, type: 2}
-  - {fileID: 11400000, guid: b36da5221e580fe4591a9bfce65d4fcc, type: 2}
-  - {fileID: 11400000, guid: c7c2eb44338d77e499e21d00149917b3, type: 2}
-  - {fileID: 11400000, guid: aee50e5dec1c0a04f9e160b946d7f0a0, type: 2}
-  - {fileID: 11400000, guid: 22a6f9718957010479d42bec68b5fe4c, type: 2}
-  - {fileID: 11400000, guid: 8386cb5ee71d33c4e9ccc75d4c56ee56, type: 2}
-  - {fileID: 11400000, guid: 81bc175249a7daf42ad9652e89e46b4d, type: 2}
-  - {fileID: 11400000, guid: 5846df85671f2ee4fa77818f257976b0, type: 2}
   - {fileID: 11400000, guid: faafbcd708ac0774a88bdff50e343dd9, type: 2}
-  - {fileID: 11400000, guid: b1d7e47bf30be894fb03601cda1d0fbb, type: 2}
   - {fileID: 11400000, guid: 97120cb17d3cb7747be73afb8d9028f7, type: 2}
-  - {fileID: 11400000, guid: c9d5400780102974eab67f691a29d716, type: 2}
   - {fileID: 11400000, guid: c34248f5f62eaba42899697c97a1ecfa, type: 2}
   - {fileID: 11400000, guid: 64c15c1f3019356429b12830d741496c, type: 2}
   - {fileID: 11400000, guid: d5ce502fd33829243bfe58bc4a79c684, type: 2}
@@ -89,7 +76,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7571815221204173663}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

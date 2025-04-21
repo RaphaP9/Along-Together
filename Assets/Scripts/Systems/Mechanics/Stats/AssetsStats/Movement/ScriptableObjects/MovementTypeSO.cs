@@ -6,9 +6,7 @@ public abstract class MovementTypeSO : AssetStatSO
 {
     public abstract MovementType GetMovementType();
 
-    public abstract HashSet<Cell> GetMovementAvailableCells(Vector2Int currentPosition, Board board);
-
-    public abstract bool JumpObstructions(); //Jump or not Jump, move similar to Knight in chess, where you can jump other pieces on the way
+    public abstract HashSet<Cell> GetMovementAvailableCells(Vector2Int currentPosition, Board board, int movementDistance, int obstructionJumps);
 
     public override AssetStatType GetAssetStatType() => AssetStatType.MovementType;
 }
