@@ -1,7 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PerpetualJSONDataSaveLoader : JSONDataSaveLoader<PerpetualData>
 {
@@ -10,13 +10,11 @@ public class PerpetualJSONDataSaveLoader : JSONDataSaveLoader<PerpetualData>
 
     public override void LoadData(PerpetualData data)
     {
-        sessionPerpetualDataContainer.PerpetualData = data;
+        sessionPerpetualDataContainer.SetPerpetualData(data);
     }
 
     public override void SaveData(ref PerpetualData data)
     {
         data = sessionPerpetualDataContainer.PerpetualData;
     }
-
-
 }

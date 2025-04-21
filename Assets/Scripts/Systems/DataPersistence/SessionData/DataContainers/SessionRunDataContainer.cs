@@ -6,8 +6,12 @@ public class SessionRunDataContainer : MonoBehaviour
 {
     public static SessionRunDataContainer Instance { get; private set; }
 
-    public RunData RunData = new();
+    [Header("Data")]
+    [SerializeField] private RunData runData = new();
 
+    public RunData RunData => runData;
+
+    #region Singleton Initialization
     private void Awake()
     {
         SetSingleton();
@@ -24,4 +28,15 @@ public class SessionRunDataContainer : MonoBehaviour
             Instance = this;
         }
     }
+    #endregion
+
+    public void SetRunData(RunData runData) => this.runData = runData;
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void SetCurrentHealth(int currentHealth) => runData.currentHealth = currentHealth;
+    public void SetCurrentShield(int currentShield) => runData.currentShield = currentShield;
+
+    public void SetNumericStats(List<DataModeledNumericStat> dataModeledNumericStats) => runData.numericStats = dataModeledNumericStats;
+    public void SetAssetStats(List<DataModeledAssetStat> dataModeledAssetStats) => runData.assetStats = dataModeledAssetStats;
 }

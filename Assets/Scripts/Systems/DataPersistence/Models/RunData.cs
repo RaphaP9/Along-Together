@@ -8,15 +8,15 @@ public class RunData
     public int currentHealth;
     public int currentShield;
 
-    public List<DataPersistentAssetStat> assetStats;
-    public List<DataPersistentNumericStat> numericStats;
+    public List<DataModeledAssetStat> assetStats;
+    public List<DataModeledNumericStat> numericStats;
 
     public RunData()
     {
         currentHealth = 0;
         currentShield = 0;
 
-        numericStats = new List<DataPersistentNumericStat>();
-        assetStats = new List<DataPersistentAssetStat>(); 
+        numericStats = new List<DataModeledNumericStat>();
+        assetStats = new List<DataModeledAssetStat>(); 
     }
 }

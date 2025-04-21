@@ -56,25 +56,25 @@ public class SessionRunDataSaveLoader : SessionDataSaveLoader
     private void SaveCurrentHealth()
     {
         if (playerHealth == null) return;
-        SessionRunDataContainer.Instance.RunData.currentHealth = playerHealth.CurrentHealth;
+        SessionRunDataContainer.Instance.SetCurrentHealth(playerHealth.CurrentHealth);
     }
 
     private void SaveCurrentShield()
     {
         if (playerHealth == null) return;
-        SessionRunDataContainer.Instance.RunData.currentShield = playerHealth.CurrentShield;
+        SessionRunDataContainer.Instance.SetCurrentShield(playerHealth.CurrentShield);
     }
 
     private void SaveRunNumericStats()
     {
         if (runNumericStatModifierManager == null) return;
-        SessionRunDataContainer.Instance.RunData.numericStats = DataUtilities.TranslateNumericStatModifiersToDataPersistentNumericStats(runNumericStatModifierManager.NumericStatModifiers);
+        SessionRunDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataPersistentNumericStats(runNumericStatModifierManager.NumericStatModifiers));
     }
 
     private void SaveRunAssetStats()
     {
         if (runAssetStatModifierManager == null) return;
-        SessionRunDataContainer.Instance.RunData.assetStats = DataUtilities.TranslateAssetStatModifiersToDataPersistentAssetStats(runAssetStatModifierManager.AssetStatModifiers);
+        SessionRunDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataPersistentAssetStats(runAssetStatModifierManager.AssetStatModifiers));
     }
 
 

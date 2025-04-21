@@ -5,12 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class PerpetualData 
 {
-    public List<DataPersistentAssetStat> assetStats;
-    public List<DataPersistentNumericStat> numericStats;
+    public List<DataModeledAssetStat> assetStats;
+    public List<DataModeledNumericStat> numericStats;
 
     public PerpetualData()
     {
-        numericStats = new List<DataPersistentNumericStat>();
-        assetStats = new List<DataPersistentAssetStat>();
+        numericStats = new List<DataModeledNumericStat>();
+        assetStats = new List<DataModeledAssetStat>();
     }
 }

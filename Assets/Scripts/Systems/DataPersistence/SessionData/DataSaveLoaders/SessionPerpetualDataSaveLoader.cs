@@ -40,13 +40,13 @@ public class SessionPerpetualDataSaveLoader : SessionDataSaveLoader
     private void SaveRunNumericStats()
     {
         if (perpetualNumericStatModifierManager == null) return;
-        SessionPerpetualDataContainer.Instance.PerpetualData.numericStats = DataUtilities.TranslateNumericStatModifiersToDataPersistentNumericStats(perpetualNumericStatModifierManager.NumericStatModifiers);
+        SessionPerpetualDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataPersistentNumericStats(perpetualNumericStatModifierManager.NumericStatModifiers));
     }
 
     private void SaveRunAssetStats()
     {
         if (perpetualAssetStatModifierManager == null) return;
-        SessionPerpetualDataContainer.Instance.PerpetualData.assetStats = DataUtilities.TranslateAssetStatModifiersToDataPersistentAssetStats(perpetualAssetStatModifierManager.AssetStatModifiers);
+        SessionPerpetualDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataPersistentAssetStats(perpetualAssetStatModifierManager.AssetStatModifiers));
     }
     #endregion
 }

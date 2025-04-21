@@ -10,11 +10,11 @@ public static class DataUtilities
     private const bool DEBUG = true;
 
     #region Numeric Stat Translation
-    public static List<NumericStatModifier> TranslateDataPersistentNumericStatsToNumericStatModifiers(List<DataPersistentNumericStat> dataPersistentNumericStats)
+    public static List<NumericStatModifier> TranslateDataPersistentNumericStatsToNumericStatModifiers(List<DataModeledNumericStat> dataPersistentNumericStats)
     {
         List<NumericStatModifier> numericStatModifiers = new List<NumericStatModifier>();
 
-        foreach(DataPersistentNumericStat dataPersistentNumericStat in dataPersistentNumericStats)
+        foreach(DataModeledNumericStat dataPersistentNumericStat in dataPersistentNumericStats)
         {
             NumericStatModifier numericStatModifier = TranslateDataPersistentNumericStatToNumericStatModifier(dataPersistentNumericStat);
             if (numericStatModifier == null) continue;
@@ -23,7 +23,7 @@ public static class DataUtilities
 
         return numericStatModifiers;
     }
-    public static NumericStatModifier TranslateDataPersistentNumericStatToNumericStatModifier(DataPersistentNumericStat dataPersistentNumericStat)
+    public static NumericStatModifier TranslateDataPersistentNumericStatToNumericStatModifier(DataModeledNumericStat dataPersistentNumericStat)
     {
         NumericStatModifier numericStatModifier = new NumericStatModifier();
 
@@ -50,13 +50,13 @@ public static class DataUtilities
 
     //
 
-    public static List<DataPersistentNumericStat> TranslateNumericStatModifiersToDataPersistentNumericStats(List<NumericStatModifier> numericStatModifiers)
+    public static List<DataModeledNumericStat> TranslateNumericStatModifiersToDataPersistentNumericStats(List<NumericStatModifier> numericStatModifiers)
     {
-        List<DataPersistentNumericStat> dataPersistentNumericStats = new List<DataPersistentNumericStat>();
+        List<DataModeledNumericStat> dataPersistentNumericStats = new List<DataModeledNumericStat>();
 
         foreach(NumericStatModifier numericStatModifier in numericStatModifiers)
         {
-            DataPersistentNumericStat dataPersistentNumericStat = TranslateNumericStatModifierToDataPersistentNumericStat(numericStatModifier);
+            DataModeledNumericStat dataPersistentNumericStat = TranslateNumericStatModifierToDataPersistentNumericStat(numericStatModifier);
             if (dataPersistentNumericStat == null) continue;
             dataPersistentNumericStats.Add(dataPersistentNumericStat);
         }
@@ -64,25 +64,25 @@ public static class DataUtilities
         return dataPersistentNumericStats;
     }
 
-    public static DataPersistentNumericStat TranslateNumericStatModifierToDataPersistentNumericStat(NumericStatModifier numericStatModifier)
+    public static DataModeledNumericStat TranslateNumericStatModifierToDataPersistentNumericStat(NumericStatModifier numericStatModifier)
     {
         string originGUID = numericStatModifier.originGUID;
         string numericStatType = numericStatModifier.numericStatType.ToString();
         string numericStatModificationType = numericStatModifier.numericStatModificationType.ToString();
         float value = numericStatModifier.value;    
 
-        DataPersistentNumericStat dataPersistentNumericStat = new DataPersistentNumericStat(originGUID,numericStatType,numericStatModificationType,value);
+        DataModeledNumericStat dataPersistentNumericStat = new DataModeledNumericStat(originGUID,numericStatType,numericStatModificationType,value);
         return dataPersistentNumericStat;
     }
 
     #endregion
 
     #region Asset Stat Translation
-    public static List<AssetStatModifier> TranslateDataPersistentAssetStatsToAssetStatModifiers(List<DataPersistentAssetStat> dataPersistentAssetStats)
+    public static List<AssetStatModifier> TranslateDataPersistentAssetStatsToAssetStatModifiers(List<DataModeledAssetStat> dataPersistentAssetStats)
     {
         List<AssetStatModifier> assetStatModifiers = new List<AssetStatModifier>();
 
-        foreach (DataPersistentAssetStat dataPersistentAssetStat in dataPersistentAssetStats)
+        foreach (DataModeledAssetStat dataPersistentAssetStat in dataPersistentAssetStats)
         {
             AssetStatModifier assetStatModifier = TranslateDataPersistentAssetStatToAssetStatModifier(dataPersistentAssetStat);
             if (assetStatModifier == null) continue;
@@ -91,7 +91,7 @@ public static class DataUtilities
 
         return assetStatModifiers;
     }
-    public static AssetStatModifier TranslateDataPersistentAssetStatToAssetStatModifier(DataPersistentAssetStat dataPersistentAssetStat)
+    public static AssetStatModifier TranslateDataPersistentAssetStatToAssetStatModifier(DataModeledAssetStat dataPersistentAssetStat)
     {
         AssetStatModifier assetStatModifier = new AssetStatModifier();
 
@@ -139,13 +139,13 @@ public static class DataUtilities
 
     //
 
-    public static List<DataPersistentAssetStat> TranslateAssetStatModifiersToDataPersistentAssetStats(List<AssetStatModifier> assetStatModifiers)
+    public static List<DataModeledAssetStat> TranslateAssetStatModifiersToDataPersistentAssetStats(List<AssetStatModifier> assetStatModifiers)
     {
-        List<DataPersistentAssetStat> dataPersistentAssetStats = new List<DataPersistentAssetStat>();
+        List<DataModeledAssetStat> dataPersistentAssetStats = new List<DataModeledAssetStat>();
 
         foreach (AssetStatModifier assetStatModifier in assetStatModifiers)
         {
-            DataPersistentAssetStat dataPersistentAssetStat = TranslateAssetStatModifierToDataPersistentAssetStat(assetStatModifier);
+            DataModeledAssetStat dataPersistentAssetStat = TranslateAssetStatModifierToDataPersistentAssetStat(assetStatModifier);
             if (dataPersistentAssetStat == null) continue;
             dataPersistentAssetStats.Add(dataPersistentAssetStat);
         }
@@ -153,14 +153,14 @@ public static class DataUtilities
         return dataPersistentAssetStats;
     }
 
-    public static DataPersistentAssetStat TranslateAssetStatModifierToDataPersistentAssetStat(AssetStatModifier assetStatModifier)
+    public static DataModeledAssetStat TranslateAssetStatModifierToDataPersistentAssetStat(AssetStatModifier assetStatModifier)
     {
         string originGUID = assetStatModifier.originGUID;
         string numericStatType = assetStatModifier.assetStatType.ToString();
         string numericStatModificationType = assetStatModifier.assetStatModificationType.ToString();
         int assetID = assetStatModifier.asset.id;
 
-        DataPersistentAssetStat dataPersistentAssetStat = new DataPersistentAssetStat(originGUID, numericStatType, numericStatModificationType, assetID);
+        DataModeledAssetStat dataPersistentAssetStat = new DataModeledAssetStat(originGUID, numericStatType, numericStatModificationType, assetID);
         return dataPersistentAssetStat;
     }
     #endregion

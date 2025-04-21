@@ -1,12 +1,12 @@
 [System.Serializable]
-public class DataPersistentNumericStat 
+public class DataModeledNumericStat 
 {
     public string originGUID;
     public string numericStatType;
     public string numericStatModificationType;
     public float value;
 
-    public DataPersistentNumericStat(string originGUID, string numericStatType, string numericStatModificationType, float value)
+    public DataModeledNumericStat(string originGUID, string numericStatType, string numericStatModificationType, float value)
     {
         this.originGUID = originGUID;
         this.numericStatType = numericStatType;
