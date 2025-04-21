@@ -29,13 +29,13 @@ public class SessionRunDataSaveLoader : SessionDataSaveLoader
     private void LoadRunAssetStats()
     {
         if (runAssetStatModifierManager == null) return;
-        runAssetStatModifierManager.SetStatList(DataUtilities.TranslateDataPersistentAssetStatsToAssetStatModifiers(SessionRunDataContainer.Instance.RunData.assetStats));
+        runAssetStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledAssetStatsToAssetStatModifiers(SessionRunDataContainer.Instance.RunData.assetStats));
     }
 
     private void LoadRunNumericStats()
     {
         if(runNumericStatModifierManager == null) return;
-        runNumericStatModifierManager.SetStatList(DataUtilities.TranslateDataPersistentNumericStatsToNumericStatModifiers(SessionRunDataContainer.Instance.RunData.numericStats));
+        runNumericStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledNumericStatsToNumericStatModifiers(SessionRunDataContainer.Instance.RunData.numericStats));
     }
 
     private void LoadCurrentHealth()
@@ -68,13 +68,13 @@ public class SessionRunDataSaveLoader : SessionDataSaveLoader
     private void SaveRunNumericStats()
     {
         if (runNumericStatModifierManager == null) return;
-        SessionRunDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataPersistentNumericStats(runNumericStatModifierManager.NumericStatModifiers));
+        SessionRunDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataModeledNumericStats(runNumericStatModifierManager.NumericStatModifiers));
     }
 
     private void SaveRunAssetStats()
     {
         if (runAssetStatModifierManager == null) return;
-        SessionRunDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataPersistentAssetStats(runAssetStatModifierManager.AssetStatModifiers));
+        SessionRunDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataModeledAssetStats(runAssetStatModifierManager.AssetStatModifiers));
     }
 
 

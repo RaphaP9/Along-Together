@@ -10,104 +10,104 @@ public static class DataUtilities
     private const bool DEBUG = true;
 
     #region Numeric Stat Translation
-    public static List<NumericStatModifier> TranslateDataPersistentNumericStatsToNumericStatModifiers(List<DataModeledNumericStat> dataPersistentNumericStats)
+    public static List<NumericStatModifier> TranslateDataModeledNumericStatsToNumericStatModifiers(List<DataModeledNumericStat> dataModeledNumericStats)
     {
         List<NumericStatModifier> numericStatModifiers = new List<NumericStatModifier>();
 
-        foreach(DataModeledNumericStat dataPersistentNumericStat in dataPersistentNumericStats)
+        foreach(DataModeledNumericStat dataModeledNumericStat in dataModeledNumericStats)
         {
-            NumericStatModifier numericStatModifier = TranslateDataPersistentNumericStatToNumericStatModifier(dataPersistentNumericStat);
+            NumericStatModifier numericStatModifier = TranslateDataModeledNumericStatToNumericStatModifier(dataModeledNumericStat);
             if (numericStatModifier == null) continue;
             numericStatModifiers.Add(numericStatModifier);  
         }
 
         return numericStatModifiers;
     }
-    public static NumericStatModifier TranslateDataPersistentNumericStatToNumericStatModifier(DataModeledNumericStat dataPersistentNumericStat)
+    public static NumericStatModifier TranslateDataModeledNumericStatToNumericStatModifier(DataModeledNumericStat dataModeledNumericStat)
     {
         NumericStatModifier numericStatModifier = new NumericStatModifier();
 
-        numericStatModifier.originGUID = dataPersistentNumericStat.originGUID;
+        numericStatModifier.originGUID = dataModeledNumericStat.originGUID;
 
-        if (Enum.TryParse<NumericStatType>(dataPersistentNumericStat.numericStatType, true, out var numericStatType)) numericStatModifier.numericStatType = numericStatType;
+        if (Enum.TryParse<NumericStatType>(dataModeledNumericStat.numericStatType, true, out var numericStatType)) numericStatModifier.numericStatType = numericStatType;
         else
         {
-            if (DEBUG) Debug.Log($"Can not resolve enum from string:{dataPersistentNumericStat.numericStatType}");
+            if (DEBUG) Debug.Log($"Can not resolve enum from string:{dataModeledNumericStat.numericStatType}");
             return null;
         }
 
-        if (Enum.TryParse<NumericStatModificationType>(dataPersistentNumericStat.numericStatModificationType, true, out var numericStatModificationType)) numericStatModifier.numericStatModificationType = numericStatModificationType;
+        if (Enum.TryParse<NumericStatModificationType>(dataModeledNumericStat.numericStatModificationType, true, out var numericStatModificationType)) numericStatModifier.numericStatModificationType = numericStatModificationType;
         else
         {
-            if (DEBUG) Debug.Log($"Can not resolve enum from string:{dataPersistentNumericStat.numericStatModificationType}");
+            if (DEBUG) Debug.Log($"Can not resolve enum from string:{dataModeledNumericStat.numericStatModificationType}");
             return null;
         }
 
-        numericStatModifier.value = dataPersistentNumericStat.value;
+        numericStatModifier.value = dataModeledNumericStat.value;
 
         return numericStatModifier;
     }
 
     //
 
-    public static List<DataModeledNumericStat> TranslateNumericStatModifiersToDataPersistentNumericStats(List<NumericStatModifier> numericStatModifiers)
+    public static List<DataModeledNumericStat> TranslateNumericStatModifiersToDataModeledNumericStats(List<NumericStatModifier> numericStatModifiers)
     {
-        List<DataModeledNumericStat> dataPersistentNumericStats = new List<DataModeledNumericStat>();
+        List<DataModeledNumericStat> dataModeledNumericStats = new List<DataModeledNumericStat>();
 
         foreach(NumericStatModifier numericStatModifier in numericStatModifiers)
         {
-            DataModeledNumericStat dataPersistentNumericStat = TranslateNumericStatModifierToDataPersistentNumericStat(numericStatModifier);
-            if (dataPersistentNumericStat == null) continue;
-            dataPersistentNumericStats.Add(dataPersistentNumericStat);
+            DataModeledNumericStat dataModeledNumericStat = TranslateNumericStatModifierToDataModeledNumericStat(numericStatModifier);
+            if (dataModeledNumericStat == null) continue;
+            dataModeledNumericStats.Add(dataModeledNumericStat);
         }
 
-        return dataPersistentNumericStats;
+        return dataModeledNumericStats;
     }
 
-    public static DataModeledNumericStat TranslateNumericStatModifierToDataPersistentNumericStat(NumericStatModifier numericStatModifier)
+    public static DataModeledNumericStat TranslateNumericStatModifierToDataModeledNumericStat(NumericStatModifier numericStatModifier)
     {
         string originGUID = numericStatModifier.originGUID;
         string numericStatType = numericStatModifier.numericStatType.ToString();
         string numericStatModificationType = numericStatModifier.numericStatModificationType.ToString();
         float value = numericStatModifier.value;    
 
-        DataModeledNumericStat dataPersistentNumericStat = new DataModeledNumericStat(originGUID,numericStatType,numericStatModificationType,value);
-        return dataPersistentNumericStat;
+        DataModeledNumericStat dataModeledNumericStat = new DataModeledNumericStat(originGUID,numericStatType,numericStatModificationType,value);
+        return dataModeledNumericStat;
     }
 
     #endregion
 
     #region Asset Stat Translation
-    public static List<AssetStatModifier> TranslateDataPersistentAssetStatsToAssetStatModifiers(List<DataModeledAssetStat> dataPersistentAssetStats)
+    public static List<AssetStatModifier> TranslateDataModeledAssetStatsToAssetStatModifiers(List<DataModeledAssetStat> dataModeledAssetStats)
     {
         List<AssetStatModifier> assetStatModifiers = new List<AssetStatModifier>();
 
-        foreach (DataModeledAssetStat dataPersistentAssetStat in dataPersistentAssetStats)
+        foreach (DataModeledAssetStat dataModeledAssetStat in dataModeledAssetStats)
         {
-            AssetStatModifier assetStatModifier = TranslateDataPersistentAssetStatToAssetStatModifier(dataPersistentAssetStat);
+            AssetStatModifier assetStatModifier = TranslateDataModeledAssetStatToAssetStatModifier(dataModeledAssetStat);
             if (assetStatModifier == null) continue;
             assetStatModifiers.Add(assetStatModifier);
         }
 
         return assetStatModifiers;
     }
-    public static AssetStatModifier TranslateDataPersistentAssetStatToAssetStatModifier(DataModeledAssetStat dataPersistentAssetStat)
+    public static AssetStatModifier TranslateDataModeledAssetStatToAssetStatModifier(DataModeledAssetStat dataModeledAssetStat)
     {
         AssetStatModifier assetStatModifier = new AssetStatModifier();
 
-        assetStatModifier.originGUID = dataPersistentAssetStat.originGUID;
+        assetStatModifier.originGUID = dataModeledAssetStat.originGUID;
 
-        if (Enum.TryParse<AssetStatType>(dataPersistentAssetStat.assetStatType, true, out var assetStatType)) assetStatModifier.assetStatType = assetStatType;
+        if (Enum.TryParse<AssetStatType>(dataModeledAssetStat.assetStatType, true, out var assetStatType)) assetStatModifier.assetStatType = assetStatType;
         else
         {
-            if (DEBUG) Debug.Log($"Can not resolve enum from string:{dataPersistentAssetStat.assetStatType}");
+            if (DEBUG) Debug.Log($"Can not resolve enum from string:{dataModeledAssetStat.assetStatType}");
             return null;
         }
 
-        if (Enum.TryParse<AssetStatModificationType>(dataPersistentAssetStat.assetStatModificationType, true, out var assetStatModificationType)) assetStatModifier.assetStatModificationType = assetStatModificationType;
+        if (Enum.TryParse<AssetStatModificationType>(dataModeledAssetStat.assetStatModificationType, true, out var assetStatModificationType)) assetStatModifier.assetStatModificationType = assetStatModificationType;
         else
         {
-            if (DEBUG) Debug.Log($"Can not resolve enum from string:{dataPersistentAssetStat.assetStatModificationType}");
+            if (DEBUG) Debug.Log($"Can not resolve enum from string:{dataModeledAssetStat.assetStatModificationType}");
             return null;
         }
 
@@ -123,7 +123,7 @@ public static class DataUtilities
                     if (DEBUG) Debug.Log("MovementTypeAssetLibrary is null. Can not resolve MovementTypeSO Asset");
                     return null;
                 }
-                assetStatModifier.asset = MovementTypeAssetLibrary.Instance.GetMovementTypeSOByID(dataPersistentAssetStat.assetID);
+                assetStatModifier.asset = MovementTypeAssetLibrary.Instance.GetMovementTypeSOByID(dataModeledAssetStat.assetID);
                 #endregion
                 break;
         }
@@ -139,29 +139,29 @@ public static class DataUtilities
 
     //
 
-    public static List<DataModeledAssetStat> TranslateAssetStatModifiersToDataPersistentAssetStats(List<AssetStatModifier> assetStatModifiers)
+    public static List<DataModeledAssetStat> TranslateAssetStatModifiersToDataModeledAssetStats(List<AssetStatModifier> assetStatModifiers)
     {
-        List<DataModeledAssetStat> dataPersistentAssetStats = new List<DataModeledAssetStat>();
+        List<DataModeledAssetStat> dataModeledAssetStats = new List<DataModeledAssetStat>();
 
         foreach (AssetStatModifier assetStatModifier in assetStatModifiers)
         {
-            DataModeledAssetStat dataPersistentAssetStat = TranslateAssetStatModifierToDataPersistentAssetStat(assetStatModifier);
-            if (dataPersistentAssetStat == null) continue;
-            dataPersistentAssetStats.Add(dataPersistentAssetStat);
+            DataModeledAssetStat dataModeledAssetStat = TranslateAssetStatModifierToDataModeledAssetStat(assetStatModifier);
+            if (dataModeledAssetStat == null) continue;
+            dataModeledAssetStats.Add(dataModeledAssetStat);
         }
 
-        return dataPersistentAssetStats;
+        return dataModeledAssetStats;
     }
 
-    public static DataModeledAssetStat TranslateAssetStatModifierToDataPersistentAssetStat(AssetStatModifier assetStatModifier)
+    public static DataModeledAssetStat TranslateAssetStatModifierToDataModeledAssetStat(AssetStatModifier assetStatModifier)
     {
         string originGUID = assetStatModifier.originGUID;
         string numericStatType = assetStatModifier.assetStatType.ToString();
         string numericStatModificationType = assetStatModifier.assetStatModificationType.ToString();
         int assetID = assetStatModifier.asset.id;
 
-        DataModeledAssetStat dataPersistentAssetStat = new DataModeledAssetStat(originGUID, numericStatType, numericStatModificationType, assetID);
-        return dataPersistentAssetStat;
+        DataModeledAssetStat dataModeledAssetStat = new DataModeledAssetStat(originGUID, numericStatType, numericStatModificationType, assetID);
+        return dataModeledAssetStat;
     }
     #endregion
 }

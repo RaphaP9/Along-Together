@@ -25,13 +25,13 @@ public class SessionPerpetualDataSaveLoader : SessionDataSaveLoader
     private void LoadRunAssetStats()
     {
         if (perpetualAssetStatModifierManager == null) return;
-        perpetualAssetStatModifierManager.SetStatList(DataUtilities.TranslateDataPersistentAssetStatsToAssetStatModifiers(SessionPerpetualDataContainer.Instance.PerpetualData.assetStats));
+        perpetualAssetStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledAssetStatsToAssetStatModifiers(SessionPerpetualDataContainer.Instance.PerpetualData.assetStats));
     }
 
     private void LoadRunNumericStats()
     {
         if(perpetualNumericStatModifierManager == null) return;
-        perpetualNumericStatModifierManager.SetStatList(DataUtilities.TranslateDataPersistentNumericStatsToNumericStatModifiers(SessionPerpetualDataContainer.Instance.PerpetualData.numericStats));
+        perpetualNumericStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledNumericStatsToNumericStatModifiers(SessionPerpetualDataContainer.Instance.PerpetualData.numericStats));
     }
     #endregion
 
@@ -40,13 +40,13 @@ public class SessionPerpetualDataSaveLoader : SessionDataSaveLoader
     private void SaveRunNumericStats()
     {
         if (perpetualNumericStatModifierManager == null) return;
-        SessionPerpetualDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataPersistentNumericStats(perpetualNumericStatModifierManager.NumericStatModifiers));
+        SessionPerpetualDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataModeledNumericStats(perpetualNumericStatModifierManager.NumericStatModifiers));
     }
 
     private void SaveRunAssetStats()
     {
         if (perpetualAssetStatModifierManager == null) return;
-        SessionPerpetualDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataPersistentAssetStats(perpetualAssetStatModifierManager.AssetStatModifiers));
+        SessionPerpetualDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataModeledAssetStats(perpetualAssetStatModifierManager.AssetStatModifiers));
     }
     #endregion
 }
