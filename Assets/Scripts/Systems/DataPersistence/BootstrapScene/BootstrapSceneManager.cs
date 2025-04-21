@@ -47,9 +47,10 @@ public class BootstrapSceneManager : MonoBehaviour
         ScenesManager.Instance.TransitionLoadTargetScene(nextScene, nextSceneTransitionType);
     }
 
-    private IEnumerator WaitForDataLoad()
+    private IEnumerator WaitForDataLoad() //Async Method!
     {
         Task loadTask = GeneralDataSaveLoader.Instance.CompleteDataLoadAsync();
+
         while (!loadTask.IsCompleted)
         {
             yield return null;

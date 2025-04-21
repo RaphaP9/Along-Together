@@ -17,7 +17,8 @@ public class ScenesManager : MonoBehaviour
     public State SceneState => state;
 
     [Header("Settings")]
-    [SerializeField, Range(0.05f, 0.5f)] private float transitionInInterval;
+    [SerializeField] private TransitionType openingTransitionType;
+    [SerializeField, Range (0.05f, 0.5f)] private float transitionInInterval; //Value > 0 to avoid stutter on scene transition
 
     public static event EventHandler<OnSceneTransitionLoadEventArgs> OnSceneTransitionOutStart;
     public static event EventHandler<OnSceneTransitionLoadEventArgs> OnSceneTransitionInStart;
@@ -82,7 +83,7 @@ public class ScenesManager : MonoBehaviour
     private void Start()
     {
         InitializeVariables();
-        SimulateTransitionIn(TransitionType.Fade);
+        SimulateTransitionIn(openingTransitionType);
     }
 
     private void InitializeVariables()

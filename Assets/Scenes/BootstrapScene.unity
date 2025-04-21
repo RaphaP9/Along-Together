@@ -226,6 +226,7 @@ MonoBehaviour:
   timeToLoadData: 2
   timeToWaitAfterLoad: 2
   nextScene: SampleScene
+  nextSceneTransitionType: 0
 --- !u!1001 &990673811
 PrefabInstance:
   m_ObjectHideFlags: 0

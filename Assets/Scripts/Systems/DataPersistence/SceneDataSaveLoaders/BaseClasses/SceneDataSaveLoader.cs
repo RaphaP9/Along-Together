@@ -19,7 +19,7 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
 
     protected abstract void SetSingleton();
 
-    private void HandleDataLoadOnAwake()
+    private void HandleDataLoadOnAwake() //Synchronous Methods!
     {
         switch (awakeLoadMode)
         {
@@ -38,7 +38,7 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
         }
     }
 
-    private void HandleDataSaveOnQuit()
+    private void HandleDataSaveOnQuit() //Synchronous Methods!
     {
         switch (applicationQuitSaveMode)
         {
