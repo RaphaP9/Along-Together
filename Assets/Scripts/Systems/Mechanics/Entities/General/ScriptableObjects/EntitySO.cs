@@ -17,8 +17,12 @@ public abstract class EntitySO : ScriptableObject
     [Space]
     [Range(0, 1)] public float dodgeChance;
 
-    [Header("Movement Types")]
+    [Header("Movement")]
     public List<MovementTypeSO> movementTypes;
     [Range(0f, 10f)] public int movementDistance;
     [Range(0f, 5f)] public int obstructionJumps;
+
+    [Header("Attack")] //Attack Type is custom for each entity
+    [Range(0f, 10f)] public int attackDistance;
+    [Range(0f, 5f)] public int attackArea;
 }

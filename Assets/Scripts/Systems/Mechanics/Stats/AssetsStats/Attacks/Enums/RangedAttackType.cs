@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AttackType
+public enum RangedAttackType
 {
-    Melee,
-    Ranged
+    Projectile,
+    Beam
 }

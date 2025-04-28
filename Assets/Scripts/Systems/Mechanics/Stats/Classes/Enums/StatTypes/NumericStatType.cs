@@ -4,12 +4,18 @@ public enum NumericStatType
     MaxShield,
     Armor,
     DodgeChance,
+
     HealthRegen,
     ShieldRegen,
+
     AttackDamage,
     AttackCritChance,
     AttackCritDamageMultiplier,
+
     MovementDistance,
-    ObstructionJumps
+    ObstructionJumps,
+
+    AttackDistance,
+    AttackArea
 }
 
