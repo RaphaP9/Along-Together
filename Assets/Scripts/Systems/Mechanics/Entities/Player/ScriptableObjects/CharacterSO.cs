@@ -16,6 +16,6 @@ public class CharacterSO : EntitySO
 
     //Potentialy more stuff
 
-    [Header("Visual")]
-    public Transform characterVisualTransform;
+    [Header("Prefab")]
+    public Transform characterPrefab;
 }

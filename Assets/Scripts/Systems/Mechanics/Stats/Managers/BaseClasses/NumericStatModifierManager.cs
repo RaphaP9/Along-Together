@@ -68,5 +68,5 @@ public abstract class NumericStatModifierManager : StatModifierManager
     }
     #endregion
 
-    public void SetStatList(List<NumericStatModifier> setterList) => numericStatModifiers.AddRange(setterList);
+    public void SetStatList(List<NumericStatModifier> setterList) => numericStatModifiers.AddRange(setterList); //Add, NOT Replace!
 }

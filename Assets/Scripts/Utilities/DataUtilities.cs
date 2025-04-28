@@ -2,12 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Cinemachine.CinemachineFreeLook;
-using UnityEngine.Windows;
 
 public static class DataUtilities 
 {
     private const bool DEBUG = true;
+
+    #region CharacterSO Translation
+    public static CharacterSO TranslateCharacterIDToCharacterSO(int characterID)
+    {
+        if(CharacterAssetLibrary.Instance == null)
+        {
+            if (DEBUG) Debug.Log("CharacterAssetLibrary is null. Can not resolve CharacterSO Asset");
+            return null;
+        }
+
+        CharacterSO characterSO = CharacterAssetLibrary.Instance.GetCharacterSOByID(characterID);
+
+        return characterSO;
+    }
+    #endregion
 
     #region Numeric Stat Translation
     public static List<NumericStatModifier> TranslateDataModeledNumericStatsToNumericStatModifiers(List<DataModeledNumericStat> dataModeledNumericStats)

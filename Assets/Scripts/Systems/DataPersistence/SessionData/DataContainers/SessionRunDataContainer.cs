@@ -34,6 +34,8 @@ public class SessionRunDataContainer : MonoBehaviour
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public void SetCurrentCharacterID(int characterID) => runData.currentCharacterID = characterID;
+
     public void SetCurrentHealth(int currentHealth) => runData.currentHealth = currentHealth;
     public void SetCurrentShield(int currentShield) => runData.currentShield = currentShield;
 

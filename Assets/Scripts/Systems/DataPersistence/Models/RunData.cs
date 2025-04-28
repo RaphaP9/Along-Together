@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class RunData
 {
+    public int currentCharacterID;
+
     public int currentHealth;
     public int currentShield;
 
@@ -13,6 +15,8 @@ public class RunData
 
     public RunData()
     {
+        currentCharacterID = 0;
+
         currentHealth = 0;
         currentShield = 0;
 

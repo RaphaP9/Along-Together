@@ -6,6 +6,9 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private LoadMode awakeLoadMode;
+    [SerializeField] private bool allowDynamicLoad; //Only Session Data Loads Dinamically
+    [Space]
+    [SerializeField] private SaveMode dynamicSaveMode;
     [SerializeField] private SaveMode applicationQuitSaveMode;
 
     private enum LoadMode {CompleteDataLoad, JSONDataLoad, SessionDataLoad, NoLoad}
@@ -34,6 +37,27 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
                 GeneralDataSaveLoader.Instance.LoadSessionData();
                 break;
             case LoadMode.NoLoad:
+                break;
+        }
+    }
+
+    public bool CanLoadDataDynamically() => allowDynamicLoad;
+
+    public async void HandleDynamicDataSave() //Synchronous Methods!
+    {
+        switch (dynamicSaveMode)
+        {
+            case SaveMode.CompleteDataSave:
+                await GeneralDataSaveLoader.Instance.CompleteDataLoadAsync();
+                break;
+            case SaveMode.JSONDataSave:
+                await GeneralDataSaveLoader.Instance.SavePersistentDataAsync();
+                break;
+            case SaveMode.SessionDataSave:
+            default:
+                GeneralDataSaveLoader.Instance.SaveSessionData();
+                break;
+            case SaveMode.NoSave:
                 break;
         }
     }

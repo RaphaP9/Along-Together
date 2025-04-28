@@ -1,0 +1,149 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
+{
+    [Header("Data Scripts - Already On Scene")]
+    [SerializeField] private PlayerInstantiatorManager playerInstantiatorManager;
+    [Space]
+    [SerializeField] private RunAssetStatModifierManager runAssetStatModifierManager;
+    [SerializeField] private RunNumericStatModifierManager runNumericStatModifierManager;
+
+    //Runtime Filled
+    private Transform playerTransform;
+
+    private void OnEnable()
+    {
+        PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
+    }
+
+    #region Abstract Methods
+
+    public override void LoadRuntimeData()
+    {
+        LoadCurrentCharacter();
+
+        LoadPlayerCurrentHealth();
+        LoadPlayerCurrentShield();
+
+        LoadRunNumericStats();
+        LoadRunAssetStats();
+    }
+
+    public override void SaveRuntimeData()
+    {
+        SavePlayerCurrentCharacter();
+
+        SavePlayerCurrentHealth();
+        SavePlayerCurrentShield();
+
+        SaveRunNumericStats();
+        SaveRunAssetStats();
+    }
+
+    #endregion
+
+    #region LoadMethods
+    private void LoadCurrentCharacter()
+    {
+        if (playerInstantiatorManager == null) return;
+        playerInstantiatorManager.SetCharacterSO(DataUtilities.TranslateCharacterIDToCharacterSO(SessionRunDataContainer.Instance.RunData.currentCharacterID));
+    }
+
+    private void LoadRunAssetStats()
+    {
+        if (runAssetStatModifierManager == null) return;
+        runAssetStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledAssetStatsToAssetStatModifiers(SessionRunDataContainer.Instance.RunData.assetStats));
+    }
+
+    private void LoadRunNumericStats()
+    {
+        if(runNumericStatModifierManager == null) return;
+        runNumericStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledNumericStatsToNumericStatModifiers(SessionRunDataContainer.Instance.RunData.numericStats));
+    }
+
+    private void LoadPlayerCurrentHealth()
+    {
+        if(playerTransform == null) return;
+
+        PlayerHealth playerHealth =  playerTransform.GetComponentInChildren<PlayerHealth>();
+
+        if (playerHealth == null) return;   
+
+        playerHealth.SetCurrentHealth(SessionRunDataContainer.Instance.RunData.currentHealth);
+    }
+
+    private void LoadPlayerCurrentShield()
+    {
+        if (playerTransform == null) return;
+
+        PlayerHealth playerHealth = playerTransform.GetComponentInChildren<PlayerHealth>();
+
+        if (playerHealth == null) return;
+
+        playerHealth.SetCurrentShield(SessionRunDataContainer.Instance.RunData.currentShield);
+    }
+    #endregion
+
+    #region SaveMethods
+
+    private void SavePlayerCurrentCharacter()
+    {
+        if (playerInstantiatorManager == null) return;
+        SessionRunDataContainer.Instance.SetCurrentCharacterID(playerInstantiatorManager.CharacterSO.id);
+    }
+
+    private void SavePlayerCurrentHealth()
+    {
+        if (playerTransform == null) return;
+
+        PlayerHealth playerHealth = playerTransform.GetComponentInChildren<PlayerHealth>();
+
+        if (playerHealth == null) return;
+
+        SessionRunDataContainer.Instance.SetCurrentHealth(playerHealth.CurrentHealth);
+    }
+
+    private void SavePlayerCurrentShield()
+    {
+        if (playerTransform == null) return;
+
+        PlayerHealth playerHealth = playerTransform.GetComponentInChildren<PlayerHealth>();
+
+        if (playerHealth == null) return;
+
+        SessionRunDataContainer.Instance.SetCurrentShield(playerHealth.CurrentShield);
+    }
+
+    private void SaveRunNumericStats()
+    {
+        if (runNumericStatModifierManager == null) return;
+        SessionRunDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataModeledNumericStats(runNumericStatModifierManager.NumericStatModifiers));
+    }
+
+    private void SaveRunAssetStats()
+    {
+        if (runAssetStatModifierManager == null) return;
+        SessionRunDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataModeledAssetStats(runAssetStatModifierManager.AssetStatModifiers));
+    }
+    #endregion
+
+
+    #region PlayerSubscriptions
+    private void PlayerInstantiationHandler_OnPlayerInstantiation(object sender, PlayerInstantiationHandler.OnPlayerInstantiationEventArgs e)
+    {
+        playerTransform = e.playerTransform;
+
+        if (!sceneDataSaveLoader.CanLoadDataDynamically()) return;
+
+        LoadPlayerCurrentHealth();
+        LoadPlayerCurrentShield();
+    }
+    #endregion
+}
