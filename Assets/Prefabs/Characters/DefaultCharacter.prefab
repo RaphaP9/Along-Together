@@ -217,6 +217,7 @@ MonoBehaviour:
   characterIdentifier: {fileID: 1965199428449930878}
   playerHealth: {fileID: 6586126778679378193}
   checkWall: {fileID: 1462229981353037001}
+  FinalMoveValue: {x: 0, y: 0}
 --- !u!1 &3069412420397820189
 GameObject:
   m_ObjectHideFlags: 0
