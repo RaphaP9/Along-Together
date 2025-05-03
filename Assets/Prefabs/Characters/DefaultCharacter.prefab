@@ -126,7 +126,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.75
+  m_Radius: 0.5
 --- !u!50 &3125651546402793068
 Rigidbody2D:
   serializedVersion: 4
@@ -142,7 +142,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: bd18dc8553303ea4ebc6d6c73ccb988c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -217,7 +217,6 @@ MonoBehaviour:
   characterIdentifier: {fileID: 1965199428449930878}
   playerHealth: {fileID: 6586126778679378193}
   checkWall: {fileID: 1462229981353037001}
-  FinalMoveValue: {x: 0, y: 0}
 --- !u!1 &3069412420397820189
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +244,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6543428868650559586}
