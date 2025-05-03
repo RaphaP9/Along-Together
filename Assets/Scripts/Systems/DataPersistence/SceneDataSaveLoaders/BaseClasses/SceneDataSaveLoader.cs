@@ -43,7 +43,7 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
 
     public bool CanLoadDataDynamically() => allowDynamicLoad;
 
-    public async void HandleDynamicDataSave() //Synchronous Methods!
+    public async void HandleDynamicDataSave() //Async Methods!, Public (Called by other classes)
     {
         switch (dynamicSaveMode)
         {

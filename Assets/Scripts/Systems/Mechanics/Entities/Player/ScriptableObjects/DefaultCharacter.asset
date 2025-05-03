@@ -20,10 +20,9 @@ MonoBehaviour:
   shieldPoints: 10
   armorPoints: 5
   dodgeChance: 0.3
-  movementTypes:
-  - {fileID: 11400000, guid: 97120cb17d3cb7747be73afb8d9028f7, type: 2}
-  movementDistance: 1
-  obstructionJumps: 2
+  movementSpeed: 5
+  attackDistance: 0
+  attackArea: 0
   healthRegen: 2
   shieldRegen: 0
   attackDamage: 1

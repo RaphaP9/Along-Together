@@ -12,10 +12,8 @@ public enum NumericStatType
     AttackCritChance,
     AttackCritDamageMultiplier,
 
-    MovementDistance,
-    ObstructionJumps,
+    MovementSpeed,
 
-    AttackDistance,
-    AttackArea
+    Lifesteal,
 }
 

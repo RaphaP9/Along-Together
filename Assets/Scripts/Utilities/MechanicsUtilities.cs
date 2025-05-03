@@ -4,8 +4,19 @@ using UnityEngine;
 
 public static class MechanicsUtilities
 {
+    public const float PERSPECTIVE_SCALE_X = 1f;
+    public const float PERSPECTIVE_SCALE_Y = 1f;
+
     private const int ARMOR_THRESHOLD_50_PERCENT = 10;
     private const int EXECUTE_DAMAGE = 999;
+
+    #region Perspective
+    public static Vector2 ScaleVector2ToPerspective(Vector2 baseVector)
+    {
+        Vector2 scaledVector = new Vector2(baseVector.x * PERSPECTIVE_SCALE_X, baseVector.y * PERSPECTIVE_SCALE_Y);
+        return scaledVector;
+    }
+    #endregion
 
     #region DamageTakenProcessing
     public static bool EvaluateDodgeChance(float dodgeChance)

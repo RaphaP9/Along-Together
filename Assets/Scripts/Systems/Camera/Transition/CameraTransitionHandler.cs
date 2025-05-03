@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CameraTransitionHandler : MonoBehaviour
 {
@@ -11,12 +10,14 @@ public class CameraTransitionHandler : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private CinemachineVirtualCamera CMVCam;
-    [SerializeField] private Transform playerCameraFollowPoint;
 
     [Header("States")]
     [SerializeField] private State state;
 
-    public enum State {FollowingPlayer, StallingIn, MovingIn, LookingTarget, MovingOut, StallingOut}
+    [Header("Runtime Filled")]
+    [SerializeField] private Transform playerCameraFollowPoint;
+
+    public enum State {NotInitialized, FollowingPlayer, StallingIn, MovingIn, LookingTarget, MovingOut, StallingOut}
 
     public State CameraState => state;
 
@@ -25,7 +26,6 @@ public class CameraTransitionHandler : MonoBehaviour
 
     private const float POSITION_DIFFERENCE_THRESHOLD = 0.2f;
 
-    private Vector3 originalPlayerCameraFollowPointPosition;
     private Transform currentCameraFollowTransform;
     private float previousCameraDistance;
 
@@ -39,16 +39,20 @@ public class CameraTransitionHandler : MonoBehaviour
         public CameraTransition cameraTransition;
     }
 
+    private void OnEnable()
+    {
+        CameraFollowHandler.OnCameraFollowPointSet += CameraFollowHandler_OnCameraFollowPointSet;
+    }
+
+    private void OnDisable()
+    {
+        CameraFollowHandler.OnCameraFollowPointSet -= CameraFollowHandler_OnCameraFollowPointSet;
+    }
+
     private void Awake()
     {
         SetSingleton();
-    }
-
-    private void Start()
-    {
-        InitializeVariables();
-        SetCameraState(State.FollowingPlayer);
-        SetCurrentCameraFollowTransform(playerCameraFollowPoint);
+        SetCameraState(State.NotInitialized);
     }
 
     private void SetSingleton()
@@ -64,11 +68,6 @@ public class CameraTransitionHandler : MonoBehaviour
         }
     }
 
-    private void InitializeVariables()
-    {
-        originalPlayerCameraFollowPointPosition = playerCameraFollowPoint.localPosition;
-    }
-
     private void SetCameraState(State state) => this.state = state;
     private void SetCurrentCameraFollowTransform(Transform transform) => currentCameraFollowTransform = transform;
     private void ClearCurrentCameraFollowTransform() => currentCameraFollowTransform = null;
@@ -76,6 +75,7 @@ public class CameraTransitionHandler : MonoBehaviour
 
     public void TransitionMoveCamera(CameraTransition cameraTransition)
     {
+        if (state == State.NotInitialized) return;
         if (state == State.MovingIn) return;
 
         StopAllCoroutines();
@@ -194,6 +194,18 @@ public class CameraTransitionHandler : MonoBehaviour
 
         OnCameraTransitionOutEnd?.Invoke(this, new OnCameraTransitionEventArgs {cameraTransition = cameraTransition});
     }
+
+    #region Subscriptions
+
+    private void CameraFollowHandler_OnCameraFollowPointSet(object sender, CameraFollowHandler.OnCameraFollowPointEventArgs e)
+    {
+        playerCameraFollowPoint = e.cameraFollowPoint;
+
+        SetCurrentCameraFollowTransform(e.cameraFollowPoint);
+        SetCameraState(State.FollowingPlayer);
+    }
+
+    #endregion
 }
 
 [Serializable]

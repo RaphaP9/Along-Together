@@ -130,6 +130,7 @@ public static class DataUtilities
         {
             case AssetStatType.MovementType:
             default:
+                /* EXAMPLE:
                 #region MovementType Translation
                 if (MovementTypeAssetLibrary.Instance == null)
                 {
@@ -138,6 +139,7 @@ public static class DataUtilities
                 }
                 assetStatModifier.asset = MovementTypeAssetLibrary.Instance.GetMovementTypeSOByID(dataModeledAssetStat.assetID);
                 #endregion
+                */
                 break;
         }
 
