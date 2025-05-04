@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: DefaultCharacter
   m_EditorClassIdentifier: 
   id: 0
-  entityName: 
+  entityName: DefaultCharacter
   description: DefaultCharacter
   sprite: {fileID: 0}
-  healthPoints: 10
-  shieldPoints: 10
-  armorPoints: 5
-  dodgeChance: 0.3
-  movementSpeed: 5
-  attackDistance: 0
-  attackArea: 0
-  healthRegen: 2
-  shieldRegen: 0
-  attackDamage: 1
-  attackCritChance: 0
-  attackCritDamageMultiplier: 2
-  characterPrefab: {fileID: 6380853313663446174, guid: a4901a14439d2ae4ebcbbdb0772c2191, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  prefab: {fileID: 6380853313663446174, guid: a4901a14439d2ae4ebcbbdb0772c2191, type: 3}
+  baseHealth: 10
+  baseShield: 10
+  baseArmor: 0
+  baseDodgeChance: 0
+  baseMovementSpeed: 3
+  baseHealthRegen: 0
+  baseShieldRegen: 0
+  basicAttackDamage: 3
+  damageColor: {r: 0, g: 0, b: 0, a: 0}
+  baseAttackCritChance: 0
+  baseAttackCritDamageMultiplier: 0

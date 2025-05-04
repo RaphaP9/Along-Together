@@ -31,7 +31,7 @@ public class PlayerInstantiatorManager : MonoBehaviour
             if (debug) Debug.Log("CharacterSO is null. Loading Default Character");
         }
 
-        Transform instantiatedCharacter = Instantiate(characterSO.characterPrefab, GeneralUtilities.Vector2IntToVector3(position), Quaternion.identity); 
+        Transform instantiatedCharacter = Instantiate(characterSO.prefab, GeneralUtilities.Vector2IntToVector3(position), Quaternion.identity); 
     }
 
     public void SetCharacterSO(CharacterSO setterCharacterSO) => characterSO = setterCharacterSO;

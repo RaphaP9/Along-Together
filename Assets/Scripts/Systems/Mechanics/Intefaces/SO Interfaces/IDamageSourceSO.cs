@@ -1,0 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public interface IDamageSourceSO 
+{
+    public string GetDamageSourceName();
+    public string GetDamageSourceDescription();
+    public Sprite GetDamageSourceSprite();
+    public Color GetDamageSourceColor();
+}

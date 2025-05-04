@@ -86,7 +86,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         public int damageDodged;
         public bool isCrit;
 
-        public IDamageSource damageSource;
+        public IDamageSourceSO damageSource;
     }
 
     public class OnEntityShieldTakeDamageEventArgs : EventArgs
@@ -99,7 +99,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         public bool isCrit;
 
-        public IDamageSource damageSource;
+        public IDamageSourceSO damageSource;
         public IHasHealth damageReceiver;
     }
 
@@ -113,7 +113,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         public bool isCrit;
 
-        public IDamageSource damageSource;
+        public IDamageSourceSO damageSource;
         public IHasHealth damageReceiver;
     }
 
@@ -125,7 +125,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         public int newHealth;
         public int maxHealth;
 
-        public IHealSource healSource;
+        public IHealSourceSO healSource;
         public IHasHealth healReceiver;
     }
 
@@ -137,7 +137,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         public int newShield;
         public int maxShield;
 
-        public IShieldSource shieldSource;
+        public IShieldSourceSO shieldSource;
         public IHasHealth shieldReceiver;
     }
     #endregion
@@ -300,7 +300,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         return true;
     }
 
-    public void Excecute(IDamageSource damageSource)
+    public void Excecute(IDamageSourceSO damageSource)
     {
         if (!CanTakeDamage()) return;
         if (!IsAlive()) return;
@@ -339,7 +339,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         OnEntityHealMethod(effectiveHealAmount, previousHealth, healData.healSource);
     }
-    public void HealCompletely(IHealSource healSource)
+    public void HealCompletely(IHealSourceSO healSource)
     {
         if (!CanHeal()) return;
         if (!IsAlive()) return;
@@ -365,7 +365,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnEntityShieldRestoredMethod(effectiveShieldRestored, previousShield, shieldData.shieldSource);
     }
 
-    public void RestoreShieldCompletely(IShieldSource shieldSource)
+    public void RestoreShieldCompletely(IShieldSourceSO shieldSource)
     {
         if (!CanRestoreShield()) return;
         if (!IsAlive()) return;
@@ -412,7 +412,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnAnyEntityDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damageData.damage, isCrit = damageData.isCrit, damageSource = damageData.damageSource });
     }
 
-    protected virtual void OnEntityHealthTakeDamageMethod(int damageTakenByHealth, int previousHealth, bool isCrit, IDamageSource damageSource)
+    protected virtual void OnEntityHealthTakeDamageMethod(int damageTakenByHealth, int previousHealth, bool isCrit, IDamageSourceSO damageSource)
     {
         OnEntityHealthTakeDamage?.Invoke(this, new OnEntityHealthTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, previousHealth = previousHealth, 
         newHealth = currentHealth, maxHealth = CalculateMaxHealth(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
@@ -421,7 +421,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         newHealth = currentHealth, maxHealth = CalculateMaxHealth(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
     }
 
-    protected virtual void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSource damageSource)
+    protected virtual void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSourceSO damageSource)
     {
         OnEntityShieldTakeDamage?.Invoke(this, new OnEntityShieldTakeDamageEventArgs {damageTakenByShield = damageTakenByShield, previousShield = previousShield, 
         newShield = currentShield, maxShield = CalculateMaxShield(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
@@ -431,13 +431,13 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     }
 
-    protected virtual void OnEntityHealMethod(int healAmount, int previousHealth, IHealSource healSource)
+    protected virtual void OnEntityHealMethod(int healAmount, int previousHealth, IHealSourceSO healSource)
     {
         OnEntityHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = CalculateMaxHealth(), healSource = healSource, healReceiver = this});
         OnAnyEntityHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = CalculateMaxHealth(), healSource = healSource, healReceiver = this});
     }
 
-    protected virtual void OnEntityShieldRestoredMethod(int shieldAmount, int previousShield, IShieldSource shieldSource)
+    protected virtual void OnEntityShieldRestoredMethod(int shieldAmount, int previousShield, IShieldSourceSO shieldSource)
     {
         OnEntityShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = CalculateMaxShield(), shieldSource = shieldSource, shieldReceiver = this });
         OnAnyEntityShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = CalculateMaxShield(), shieldSource = shieldSource, shieldReceiver = this });

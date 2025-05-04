@@ -53,7 +53,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
 
         public bool isCrit;
 
-        public IDamageSource damageSource;
+        public IDamageSourceSO damageSource;
         public IHasHealth damageReceiver;
     }
 
@@ -67,7 +67,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
 
         public bool isCrit;
 
-        public IDamageSource damageSource;
+        public IDamageSourceSO damageSource;
         public IHasHealth damageReceiver;
     }
 
@@ -79,7 +79,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         public int newHealth;
         public int maxHealth;
 
-        public IHealSource healSource;
+        public IHealSourceSO healSource;
         public IHasHealth healReceiver;
     }
 
@@ -91,7 +91,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         public int newShield;
         public int maxShield;
 
-        public IShieldSource shieldSource;
+        public IShieldSourceSO shieldSource;
         public IHasHealth shieldReceiver;
     }
     #endregion
@@ -150,7 +150,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         return true;
     }
 
-    public void Excecute(IDamageSource damageSource)
+    public void Excecute(IDamageSourceSO damageSource)
     {
         if (!CanTakeDamage()) return;
         if (!IsAlive()) return;
@@ -189,7 +189,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
 
         OnHittableObjectHealMethod(effectiveHealAmount, previousHealth, healData.healSource);
     }
-    public void HealCompletely(IHealSource healSource)
+    public void HealCompletely(IHealSourceSO healSource)
     {
         if (!CanHeal()) return;
         if (!IsAlive()) return;
@@ -215,7 +215,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         OnHittableObjectShieldRestoredMethod(effectiveShieldRestored, previousShield, shieldData.shieldSource);
     }
 
-    public void RestoreShieldCompletely(IShieldSource shieldSource)
+    public void RestoreShieldCompletely(IShieldSourceSO shieldSource)
     {
         if (!CanRestoreShield()) return;
         if (!IsAlive()) return;
@@ -243,7 +243,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         OnAnyHittableObjectStatsInitialized?.Invoke(this, new OnHittableObjectStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield });
     }
 
-    protected virtual void OnHittableObjectHealthTakeDamageMethod(int damageTakenByHealth, int previousHealth, bool isCrit, IDamageSource damageSource)
+    protected virtual void OnHittableObjectHealthTakeDamageMethod(int damageTakenByHealth, int previousHealth, bool isCrit, IDamageSourceSO damageSource)
     {
         OnHittableObjectHealthTakeDamage?.Invoke(this, new OnHittableObjectHealthTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, previousHealth = previousHealth, 
         newHealth = currentHealth, maxHealth = CalculateMaxHealth(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
@@ -252,7 +252,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         newHealth = currentHealth, maxHealth = CalculateMaxHealth(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
     }
 
-    protected virtual void OnHittableObjectShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSource damageSource)
+    protected virtual void OnHittableObjectShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSourceSO damageSource)
     {
         OnHittableObjectShieldTakeDamage?.Invoke(this, new OnHittableObjectShieldTakeDamageEventArgs {damageTakenByShield = damageTakenByShield, previousShield = previousShield, 
         newShield = currentShield, maxShield = CalculateMaxShield(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
@@ -261,13 +261,13 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         newShield = currentShield, maxShield = CalculateMaxShield(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
     }
 
-    protected virtual void OnHittableObjectHealMethod(int healAmount, int previousHealth, IHealSource healSource)
+    protected virtual void OnHittableObjectHealMethod(int healAmount, int previousHealth, IHealSourceSO healSource)
     {
         OnHittableObjectHeal?.Invoke(this, new OnHittableObjectHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = CalculateMaxHealth(), healSource = healSource, healReceiver = this});
         OnAnyHittableObjectHeal?.Invoke(this, new OnHittableObjectHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = CalculateMaxHealth(), healSource = healSource, healReceiver = this});
     }
 
-    protected virtual void OnHittableObjectShieldRestoredMethod(int shieldAmount, int previousShield, IShieldSource shieldSource)
+    protected virtual void OnHittableObjectShieldRestoredMethod(int shieldAmount, int previousShield, IShieldSourceSO shieldSource)
     {
         OnHittableObjectShieldRestored?.Invoke(this, new OnHittableObjectShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = CalculateMaxShield(), shieldSource = shieldSource, shieldReceiver = this });
         OnAnyHittableObjectShieldRestored?.Invoke(this, new OnHittableObjectShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = CalculateMaxShield(), shieldSource = shieldSource, shieldReceiver = this });

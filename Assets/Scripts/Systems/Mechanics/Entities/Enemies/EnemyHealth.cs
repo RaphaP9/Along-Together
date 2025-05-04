@@ -50,10 +50,10 @@ public class EnemyHealth : EntityHealth
     public event EventHandler<OnEntityStatsEventArgs> OnEnemyCurrentShieldClamped;
     #endregion
 
-    protected override int CalculateMaxHealth() => enemyIdentifier.EnemySO.healthPoints;
-    protected override int CalculateMaxShield() => enemyIdentifier.EnemySO.shieldPoints;
-    protected override int CalculateArmor() => enemyIdentifier.EnemySO.armorPoints;
-    protected override float CalculateDodgeChance() => enemyIdentifier.EnemySO.dodgeChance;
+    protected override int CalculateMaxHealth() => enemyIdentifier.EnemySO.baseHealth;
+    protected override int CalculateMaxShield() => enemyIdentifier.EnemySO.baseShield;
+    protected override int CalculateArmor() => enemyIdentifier.EnemySO.baseArmor;
+    protected override float CalculateDodgeChance() => enemyIdentifier.EnemySO.baseDodgeChance;
 
     #region Virtual Event Methods
 
@@ -87,7 +87,7 @@ public class EnemyHealth : EntityHealth
         OnAnyEnemyDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damageData.damage, isCrit = damageData.isCrit, damageSource = damageData.damageSource });
     }
 
-    protected override void OnEntityHealthTakeDamageMethod(int damageTakenByHealth, int previousHealth, bool isCrit, IDamageSource damageSource)
+    protected override void OnEntityHealthTakeDamageMethod(int damageTakenByHealth, int previousHealth, bool isCrit, IDamageSourceSO damageSource)
     {
         base.OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, isCrit, damageSource);
 
@@ -98,7 +98,7 @@ public class EnemyHealth : EntityHealth
         newHealth = currentHealth, maxHealth = CalculateMaxHealth(), isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
     }
 
-    protected override void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSource damageSource)
+    protected override void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSourceSO damageSource)
     {
         base.OnEntityShieldTakeDamageMethod(damageTakenByShield, previousShield, isCrit, damageSource);
 
@@ -110,7 +110,7 @@ public class EnemyHealth : EntityHealth
 
     }
 
-    protected override void OnEntityHealMethod(int healAmount, int previousHealth, IHealSource healSource)
+    protected override void OnEntityHealMethod(int healAmount, int previousHealth, IHealSourceSO healSource)
     {
         base.OnEntityHealMethod(healAmount, previousHealth, healSource);
 
@@ -118,7 +118,7 @@ public class EnemyHealth : EntityHealth
         OnAnyEnemyHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = CalculateMaxHealth(), healSource = healSource, healReceiver = this});
     }
 
-    protected override void OnEntityShieldRestoredMethod(int shieldAmount, int previousShield, IShieldSource shieldSource)
+    protected override void OnEntityShieldRestoredMethod(int shieldAmount, int previousShield, IShieldSourceSO shieldSource)
     {
         base.OnEntityShieldRestoredMethod(shieldAmount, previousShield, shieldSource);
 

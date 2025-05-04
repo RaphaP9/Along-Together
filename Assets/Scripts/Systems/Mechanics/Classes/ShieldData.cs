@@ -1,5 +1,5 @@
 public class ShieldData
 {
     public int shieldAmount;
-    public IShieldSource shieldSource;
+    public IShieldSourceSO shieldSource;
 }

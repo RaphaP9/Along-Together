@@ -3,24 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewEnemySO", menuName = "ScriptableObjects/Entities/Enemy")]
-public class EnemySO : EntitySO, IDamageSource
+public class EnemySO : EntitySO, IDamageSourceSO, IOreSourceSO
 {
-    [Header("Enemy Settings")]
-    [Range(0, 10)] public int oreDrop;
+    [Header("Enemy Damage Settings")]
+    [Range(0, 10)] public int basicAttackDamage;
+    [ColorUsage(true, true)] public Color damageColor;
     [Space]
-    [Range(0f, 1f)] public float critChance;
-    [Range(0f, 1f)] public float critDamageMultiplier;
+    [Range(0f, 1f)] public float baseAttackCritChance;
+    [Range(0f, 1f)] public float baseAttackCritDamageMultiplier;
+
+    [Header("Enemy Extra Settings")]
+    [Range(0, 10)] public int oreDrop;
     [Space]
     [Range(1f, 5f)] public float spawnDuration;
     [Range(1f, 10f)] public float cleanupTime;
-    [Space]
-    public Transform enemyPrefab;
 
-    [Header("Damage Settings")]
-    [ColorUsage(true, true)] public Color damageColor;
+    #region IDamageSourceSO Methods
+    public string GetDamageSourceName() => entityName;
+    public Sprite GetDamageSourceSprite() => sprite;
+    public string GetDamageSourceDescription() => description;
+    public Color GetDamageSourceColor() => damageColor;
+    #endregion
 
-    public string GetName() => name;
-    public Sprite GetSprite() => sprite;
-    public string GetDescription() => description;
-    public Color GetDamageColor() => damageColor;
+    #region IOreSourceSO Methods
+    public Color GetOreSourceColor() => color;
+    public string GetOreSourceName() => entityName;
+    public string GetOreSourceDescription() => description;
+    public Sprite GetOreSourceSprite() => sprite;
+    #endregion
 }

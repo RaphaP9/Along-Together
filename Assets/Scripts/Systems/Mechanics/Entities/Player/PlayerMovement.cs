@@ -73,7 +73,7 @@ public class PlayerMovement : EntityMovement
             Destroy(gameObject);
         }
     }
-    protected override float CalculateMovementSpeed() => MovementSpeedStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.movementSpeed);
+    protected override float CalculateMovementSpeed() => MovementSpeedStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseMovementSpeed);
 
     #region Logic
     private void HandleMovement()

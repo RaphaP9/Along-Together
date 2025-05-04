@@ -1,5 +1,5 @@
 public class HealData
 {
     public int healAmount;
-    public IHealSource healSource;
+    public IHealSourceSO healSource;
 }
