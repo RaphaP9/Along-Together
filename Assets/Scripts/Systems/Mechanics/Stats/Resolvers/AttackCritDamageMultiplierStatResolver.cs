@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine;
 public class AttackCritDamageMultiplierStatResolver : NumericStatResolver
 {
     public static AttackCritDamageMultiplierStatResolver Instance { get; private set; }
+
+    public static event EventHandler<OnNumericResolverEventArgs> OnAttackCritDamageMultiplierResolverInitialized;
+    public static event EventHandler<OnNumericResolverEventArgs> OnAttackCritDamageMultiplierResolverUpdated;
 
     protected override void SetSingleton()
     {
@@ -20,4 +24,16 @@ public class AttackCritDamageMultiplierStatResolver : NumericStatResolver
     }
 
     protected override NumericStatType GetNumericStatType() => NumericStatType.AttackCritDamageMultiplier;
+
+    #region Abstract Methods
+    protected override void OnResolverInitializedMethod()
+    {
+        OnAttackCritDamageMultiplierResolverInitialized?.Invoke(this, new OnNumericResolverEventArgs { additiveValue = additiveValue, multiplierValue = multiplierValue, replacementValue = replacementValue });
+    }
+
+    protected override void OnResolverUpdatedMethod()
+    {
+        OnAttackCritDamageMultiplierResolverUpdated?.Invoke(this, new OnNumericResolverEventArgs { additiveValue = additiveValue, multiplierValue = multiplierValue, replacementValue = replacementValue });
+    }
+    #endregion
 }

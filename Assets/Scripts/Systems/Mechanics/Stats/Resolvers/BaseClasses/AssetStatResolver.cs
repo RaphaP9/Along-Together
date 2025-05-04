@@ -40,4 +40,6 @@ public abstract class AssetStatResolver<T> : StatResolver where T : AssetStatSO
 
     protected bool CheckAssetIsT(AssetStatSO assetStatSO) => assetStatSO is T;
     protected abstract AssetStatType GetAssetStatType();
+
+  
 }

@@ -68,5 +68,5 @@ public abstract class AssetStatModifierManager : StatModifierManager
     }
     #endregion
 
-    public void SetStatList(List<AssetStatModifier> setterList) => assetStatModifiers.AddRange(setterList);
+    public void SetStatList(List<AssetStatModifier> setterList) => assetStatModifiers.AddRange(setterList); //Add, NOT Replace!
 }

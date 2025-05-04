@@ -7,10 +7,12 @@ public class EnemySO : EntitySO, IDamageSourceSO, IOreSourceSO
 {
     [Header("Enemy Damage Settings")]
     [Range(0, 10)] public int basicAttackDamage;
-    [ColorUsage(true, true)] public Color damageColor;
+    [Range(0.5f, 3f)] public float basicAttackSpeed;
     [Space]
     [Range(0f, 1f)] public float baseAttackCritChance;
     [Range(0f, 1f)] public float baseAttackCritDamageMultiplier;
+    [Space]
+    [ColorUsage(true, true)] public Color damageColor;
 
     [Header("Enemy Extra Settings")]
     [Range(0, 10)] public int oreDrop;

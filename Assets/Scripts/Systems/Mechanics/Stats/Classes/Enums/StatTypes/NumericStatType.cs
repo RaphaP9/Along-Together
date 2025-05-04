@@ -9,6 +9,7 @@ public enum NumericStatType
     ShieldRegen,
 
     AttackDamage,
+    AttackSpeed,
     AttackCritChance,
     AttackCritDamageMultiplier,
 
