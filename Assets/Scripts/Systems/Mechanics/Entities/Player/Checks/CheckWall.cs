@@ -18,7 +18,7 @@ public class CheckWall : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool drawRaycasts;
 
-    private Vector2 MoveDirection => playerMovement.LastNonZeroInput;
+    private Vector2 MoveDirection => MovementInput.Instance.GetLastNonZeroMovementInputNormalized();
 
     public bool HitWall; //{ get; private set; }
 

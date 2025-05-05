@@ -23,6 +23,7 @@ public abstract class NumericStatResolver : StatResolver
         public float multiplierValue;
         public float replacementValue;
     }
+    protected abstract NumericStatType GetNumericStatType();
 
     public virtual float ResolveStatFloat(float baseValue)
     {
@@ -44,7 +45,7 @@ public abstract class NumericStatResolver : StatResolver
         return resolvedValueInt;
     }
 
-    public virtual float ResolveAdditiveValue()
+    protected virtual float ResolveAdditiveValue()
     {
         float accumulatedAdditiveValue = 0f;
 
@@ -63,7 +64,7 @@ public abstract class NumericStatResolver : StatResolver
 
         return accumulatedAdditiveValue;
     }
-    public virtual float ResolveMultiplierValue()
+    protected virtual float ResolveMultiplierValue()
     {
         float accumulatedMultiplierValue = 1f;
 
@@ -82,7 +83,7 @@ public abstract class NumericStatResolver : StatResolver
 
         return accumulatedMultiplierValue;
     }
-    public virtual float ResolveReplacementValue()
+    protected virtual float ResolveReplacementValue()
     {
         foreach (NumericStatModifierManager numericStatModifierManager in numericStatModifierManagers)
         {
@@ -100,8 +101,6 @@ public abstract class NumericStatResolver : StatResolver
         return NON_EXISTENT_REPLACEMENT_VALUE;
     }
 
-
-    protected abstract NumericStatType GetNumericStatType();
 
     protected override void InitializeResolver()
     {

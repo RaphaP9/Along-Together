@@ -39,11 +39,20 @@ public class PlayerMovement : EntityMovement
     public float SmoothCurrentSpeed { get; private set; }
 
     public Vector2 SmoothDirectionInput { get; private set; }
-    public Vector2 LastNonZeroInput  { get; private set; }
     public Vector2 FinalMoveValue { get; private set; }
 
     public Vector2 ScaledMovementVector { get; private set; }
     public bool MovementEnabled => movementEnabled;
+
+    private void OnEnable()
+    {
+        MovementSpeedStatResolver.OnMovementSpeedResolverUpdated += MovementSpeedStatResolver_OnMovementSpeedResolverUpdated;
+    }
+
+    private void OnDisable()
+    {
+        MovementSpeedStatResolver.OnMovementSpeedResolverUpdated -= MovementSpeedStatResolver_OnMovementSpeedResolverUpdated;
+    }
 
     private void Awake()
     {
@@ -83,7 +92,6 @@ public class PlayerMovement : EntityMovement
         CalculateDesiredSpeed();
         SmoothSpeed();
 
-        CalculateLastNonZeroDirection();
         SmoothDirection();
 
         CalculateFinalMovement();
@@ -109,7 +117,6 @@ public class PlayerMovement : EntityMovement
         SmoothCurrentSpeed = Mathf.Lerp(SmoothCurrentSpeed, DesiredSpeed, Time.deltaTime * smoothVelocityFactor);
     }
 
-    private void CalculateLastNonZeroDirection() => LastNonZeroInput = DirectionInput != Vector2.zero ? DirectionInput : LastNonZeroInput;
     private void SmoothDirection() => SmoothDirectionInput = Vector2.Lerp(SmoothDirectionInput, DirectionInput, Time.deltaTime * smoothDirectionFactor);
 
     private void CalculateFinalMovement()
@@ -160,6 +167,13 @@ public class PlayerMovement : EntityMovement
 
         OnThisPlayerMovementSpeedChanged?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
         OnPlayerMovementSpeedChanged?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
+    }
+    #endregion
+
+    #region Subscriptions
+    private void MovementSpeedStatResolver_OnMovementSpeedResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateMovementSpeed();
     }
     #endregion
 }

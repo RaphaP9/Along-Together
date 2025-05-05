@@ -1898,6 +1898,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &448386992
 GameObject:
   m_ObjectHideFlags: 0
@@ -2911,6 +2914,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &564501478
 GameObject:
   m_ObjectHideFlags: 0
@@ -3361,6 +3367,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &650900903
 GameObject:
   m_ObjectHideFlags: 0
@@ -3959,6 +3968,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &742407963
 GameObject:
   m_ObjectHideFlags: 0
@@ -4085,6 +4097,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &811104806
 GameObject:
   m_ObjectHideFlags: 0
@@ -4941,6 +4956,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &972315485
 GameObject:
   m_ObjectHideFlags: 0
@@ -5165,6 +5183,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &1026542808
 GameObject:
   m_ObjectHideFlags: 0
@@ -5427,6 +5448,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &1079989612
 GameObject:
   m_ObjectHideFlags: 0
@@ -5608,6 +5632,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &1193925666
 GameObject:
   m_ObjectHideFlags: 0
@@ -7777,6 +7804,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &1673298607
 GameObject:
   m_ObjectHideFlags: 0
@@ -8081,6 +8111,7 @@ GameObject:
   - component: {fileID: 1773330767}
   - component: {fileID: 1773330770}
   - component: {fileID: 1773330771}
+  - component: {fileID: 1773330772}
   m_Layer: 0
   m_Name: TestObject
   m_TagString: Untagged
@@ -8129,6 +8160,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749e5460e4e36a3468c3b5a8d8bf8782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1773330772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773330765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018464e538ba89e45bc7a230b9b46e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numericStatModifierManager: {fileID: 1673298609}
+  numericEmbeddedStats: []
 --- !u!1 &1798261950
 GameObject:
   m_ObjectHideFlags: 0
@@ -9025,6 +9070,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &2029519488
 GameObject:
   m_ObjectHideFlags: 0
@@ -9164,6 +9212,9 @@ MonoBehaviour:
   numericStatModifierManagers:
   - {fileID: 1673298609}
   - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &2074105904
 GameObject:
   m_ObjectHideFlags: 0

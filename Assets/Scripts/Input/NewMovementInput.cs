@@ -5,6 +5,8 @@ public class NewMovementInput : MovementInput
 {
     private PlayerInputActions playerInputActions;
 
+    private Vector2 LastNonZeroMovementInput = new Vector2(1f, 0f); //Default Value Assigned
+
     protected override void Awake()
     {
         base.Awake();
@@ -22,6 +24,19 @@ public class NewMovementInput : MovementInput
         playerInputActions.Movement.Disable();
     }
 
+    private void Update()
+    {
+        CalculateLastNonZeroInput();
+    }
+
+    private void CalculateLastNonZeroInput()
+    {
+        if (GetMovementInputNormalized() == Vector2.zero) return;
+        
+        LastNonZeroMovementInput = GetMovementInputNormalized();
+        
+    }
+
     public override bool CanProcessInput()
     {
         //if (GameManager.Instance.GameState != GameManager.State.OnWave) return false;
@@ -36,4 +51,6 @@ public class NewMovementInput : MovementInput
 
         return input;
     }
+
+    public override Vector2 GetLastNonZeroMovementInputNormalized() => LastNonZeroMovementInput;
 }

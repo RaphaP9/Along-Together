@@ -23,4 +23,5 @@ public abstract class MovementInput : MonoBehaviour
 
     public abstract bool CanProcessInput();
     public abstract Vector2 GetMovementInputNormalized();
+    public abstract Vector2 GetLastNonZeroMovementInputNormalized();
 }

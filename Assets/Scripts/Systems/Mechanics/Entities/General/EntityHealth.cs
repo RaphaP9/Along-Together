@@ -142,16 +142,6 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     }
     #endregion
 
-    protected virtual void OnEnable()
-    {
-        StatModifierManager.OnStatModifierManagerUpdated += StatModifierManager_OnStatModifierManagerUpdated;
-    }
-
-    protected virtual void OnDisable()
-    {
-        StatModifierManager.OnStatModifierManagerUpdated -= StatModifierManager_OnStatModifierManagerUpdated;
-    }
-
     protected virtual void Start()
     {
         Initialize();
@@ -175,56 +165,38 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     protected abstract int CalculateArmor();
     protected abstract float CalculateDodgeChance();
 
-    #region Check Stat Changes
+    #region Recalculate Stats
 
-    protected virtual void CheckMaxHealthChanged()
+    protected virtual void RecalculateMaxHealth()
     {
-        int previousMaxHealth = maxHealth;
-        int newMaxHealth = CalculateMaxHealth();
+        maxHealth = CalculateMaxHealth();
+        OnEntityMaxHealthChangedMethod();
 
-        if (previousMaxHealth != newMaxHealth)
-        {
-            maxHealth = newMaxHealth;
-            OnEntityMaxHealthChangedMethod();
-        }
+        CheckCurrentHealthClamped();
     }
 
-    protected virtual void CheckMaxShieldChanged()
+    protected virtual void RecalculateMaxShield()
     {
-        int previousMaxShield = maxShield;
-        int newMaxShield = CalculateMaxShield();
+        maxShield = CalculateMaxShield();
+        OnEntityMaxShieldChangedMethod();
 
-        if (previousMaxShield != newMaxShield)
-        {
-            maxShield = newMaxShield;
-            OnEntityMaxShieldChangedMethod();
-        }
+        CheckCurrentShieldClamped();
     }
 
-    protected virtual void CheckArmorChanged()
+    protected virtual void RecalculateArmor()
     {
-        int previousArmor = armor;
-        int newArmor = CalculateArmor();
-
-        if (previousArmor != newArmor)
-        {
-            armor = newArmor;
-            OnEntityArmorChangedMethod();
-        }
+        armor = CalculateArmor();
+        OnEntityArmorChangedMethod();
     }
 
-    protected virtual void CheckDodgeChanceChanged()
+    protected virtual void RecalculateDodgeChance()
     {
-        float previousDodgeChance = dodgeChance;
-        float newDodgeChance = CalculateDodgeChance();
-
-        if (previousDodgeChance != newDodgeChance)
-        {
-            dodgeChance = newDodgeChance;
-            OnEntityDodgeChanceChangedMethod();
-        }
+        dodgeChance = CalculateDodgeChance();
+        OnEntityDodgeChanceChangedMethod();
     }
+    #endregion
 
+    #region Stats Clamping
     protected virtual void CheckCurrentHealthClamped()
     {
         if (currentHealth > maxHealth)
@@ -242,7 +214,6 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
             OnEntityCurrentShieldClampedMethod();
         }
     }
-
     #endregion
 
     #region Interface Methods
@@ -505,18 +476,5 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
     }
 
-    #endregion
-
-    #region Subscriptions
-    private void StatModifierManager_OnStatModifierManagerUpdated(object sender, EventArgs e)
-    {
-        CheckMaxHealthChanged();
-        CheckMaxShieldChanged();
-        CheckArmorChanged();
-        CheckDodgeChanceChanged();
-
-        CheckCurrentHealthClamped();
-        CheckMaxShieldChanged();
-    }
     #endregion
 }

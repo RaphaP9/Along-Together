@@ -32,16 +32,6 @@ public abstract class EntityMovement : MonoBehaviour
     }
     #endregion
 
-    protected virtual void OnEnable()
-    {
-        StatModifierManager.OnStatModifierManagerUpdated += StatModifierManager_OnStatModifierManagerUpdated;
-    }
-
-    protected virtual void OnDisable()
-    {
-        StatModifierManager.OnStatModifierManagerUpdated -= StatModifierManager_OnStatModifierManagerUpdated;
-    }
-
     protected virtual void Start()
     {
         Initialize();
@@ -56,20 +46,16 @@ public abstract class EntityMovement : MonoBehaviour
 
     protected abstract float CalculateMovementSpeed();
 
-    protected virtual void CheckMovementSpeedChanged()
+    #region Recalculate Stats
+    protected virtual void RecalculateMovementSpeed()
     {
-        float previousMovementSpeed = movementSpeed;
-        float newMovementSpeed = CalculateMovementSpeed();
-
-        if (previousMovementSpeed != newMovementSpeed)
-        {
-            movementSpeed = newMovementSpeed;
-            OnEntityMovementSpeedChangedMethod();
-        }
+        movementSpeed = CalculateMovementSpeed();
+        OnEntityMovementSpeedChangedMethod();
     }
+    #endregion
 
     #region Virtual Event Methods
-    
+
     protected virtual void OnEntityStatsInitializedMethod()
     {
         OnEntityStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
@@ -88,9 +74,4 @@ public abstract class EntityMovement : MonoBehaviour
         OnAnyEntityMovementSpeedChanged?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
     }
     #endregion
-
-    private void StatModifierManager_OnStatModifierManagerUpdated(object sender, EventArgs e)
-    {
-        CheckMovementSpeedChanged();
-    }
 }

@@ -50,6 +50,22 @@ public class PlayerHealth : EntityHealth
     public event EventHandler<OnEntityStatsEventArgs> OnThisPlayerCurrentShieldClamped;
     #endregion
 
+    private void OnEnable()
+    {
+        MaxHealthStatResolver.OnMaxHealthResolverUpdated += MaxHealthStatResolver_OnMaxHealthResolverUpdated;
+        MaxShieldStatResolver.OnMaxShieldResolverUpdated += MaxShieldStatResolver_OnMaxShieldResolverUpdated;
+        ArmorStatResolver.OnArmorResolverUpdated += ArmorStatResolver_OnArmorResolverUpdated;
+        DodgeChanceStatResolver.OnDodgeChanceResolverUpdated += DodgeChanceStatResolver_OnDodgeChanceResolverUpdated;
+    }
+
+    private void OnDisable()
+    {
+        MaxHealthStatResolver.OnMaxHealthResolverUpdated -= MaxHealthStatResolver_OnMaxHealthResolverUpdated;
+        MaxShieldStatResolver.OnMaxShieldResolverUpdated -= MaxShieldStatResolver_OnMaxShieldResolverUpdated;
+        ArmorStatResolver.OnArmorResolverUpdated -= ArmorStatResolver_OnArmorResolverUpdated;
+        DodgeChanceStatResolver.OnDodgeChanceResolverUpdated -= DodgeChanceStatResolver_OnDodgeChanceResolverUpdated;
+    }
+
     protected override int CalculateMaxHealth() => MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseHealth);
     protected override int CalculateMaxShield() => MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseShield);
     protected override int CalculateArmor() => ArmorStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseArmor);
@@ -59,7 +75,6 @@ public class PlayerHealth : EntityHealth
     public void SetCurrentShield(int setterShield) => currentShield = setterShield;
 
     #region Virtual Event Methods
-
     protected override void OnEntityStatsInitializedMethod()
     {
         base.OnEntityStatsInitializedMethod();
@@ -204,6 +219,26 @@ public class PlayerHealth : EntityHealth
 
         OnPlayerCurrentShieldClamped?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = CalculateMaxHealth(), currentHealth = currentHealth, maxShield = CalculateMaxHealth(), currentShield = currentShield, 
         armor = CalculateArmor(), dodgeChance = CalculateDodgeChance()});
+    }
+    #endregion
+
+    #region Subscriptions
+    private void MaxHealthStatResolver_OnMaxHealthResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateMaxHealth();
+    }
+    private void MaxShieldStatResolver_OnMaxShieldResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateMaxShield();
+    }
+    private void ArmorStatResolver_OnArmorResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateArmor();
+    }
+
+    private void DodgeChanceStatResolver_OnDodgeChanceResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateDodgeChance();
     }
     #endregion
 }
