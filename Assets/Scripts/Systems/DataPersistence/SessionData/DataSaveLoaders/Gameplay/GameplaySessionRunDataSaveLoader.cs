@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 {
     [Header("Data Scripts - Already On Scene")]
-    [SerializeField] private PlayerInstantiatorManager playerInstantiatorManager;
+    [SerializeField] private PlayerCharacterManager playerCharacterManager;
     [Space]
     [SerializeField] private RunAssetStatModifierManager runAssetStatModifierManager;
     [SerializeField] private RunNumericStatModifierManager runNumericStatModifierManager;
@@ -52,8 +52,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     #region LoadMethods
     private void LoadCurrentCharacter()
     {
-        if (playerInstantiatorManager == null) return;
-        playerInstantiatorManager.SetCharacterSO(DataUtilities.TranslateCharacterIDToCharacterSO(SessionRunDataContainer.Instance.RunData.currentCharacterID));
+        if (playerCharacterManager == null) return;
+        playerCharacterManager.SetCharacterSO(DataUtilities.TranslateCharacterIDToCharacterSO(SessionRunDataContainer.Instance.RunData.currentCharacterID));
     }
 
     private void LoadRunAssetStats()
@@ -95,8 +95,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
     private void SavePlayerCurrentCharacter()
     {
-        if (playerInstantiatorManager == null) return;
-        SessionRunDataContainer.Instance.SetCurrentCharacterID(playerInstantiatorManager.CharacterSO.id);
+        if (playerCharacterManager == null) return;
+        SessionRunDataContainer.Instance.SetCurrentCharacterID(playerCharacterManager.CharacterSO.id);
     }
 
     private void SavePlayerCurrentHealth()

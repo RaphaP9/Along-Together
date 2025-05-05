@@ -23,6 +23,7 @@ public abstract class NumericStatResolver : StatResolver
         public float multiplierValue;
         public float replacementValue;
     }
+
     protected abstract NumericStatType GetNumericStatType();
 
     public virtual float ResolveStatFloat(float baseValue)

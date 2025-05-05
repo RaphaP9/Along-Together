@@ -13,12 +13,14 @@ public abstract class AttackInput : MonoBehaviour
 
     private void SetSingleton()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
-            Debug.LogError("There is more than one AttackInput instance");
+            Instance = this;
         }
-
-        Instance = this;
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public abstract bool CanProcessInput();

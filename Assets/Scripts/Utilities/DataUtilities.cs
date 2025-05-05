@@ -17,7 +17,6 @@ public static class DataUtilities
         }
 
         CharacterSO characterSO = CharacterAssetLibrary.Instance.GetCharacterSOByID(characterID);
-
         return characterSO;
     }
     #endregion

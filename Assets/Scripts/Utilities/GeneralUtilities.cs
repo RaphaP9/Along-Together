@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public static class GeneralUtilities
 {
@@ -161,6 +162,11 @@ public static class GeneralUtilities
         }
 
         return appendedList;
+    }
+
+    public static bool ListsAreExactlyEqual<T>(List<T> listA, List<T> listB)
+    {
+        return listA.SequenceEqual(listB);
     }
 
     #endregion

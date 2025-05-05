@@ -10,6 +10,8 @@ public static class MechanicsUtilities
     private const int ARMOR_THRESHOLD_50_PERCENT = 10;
     private const int EXECUTE_DAMAGE = 999;
 
+    private const string PERCENTAGE_CHARACTER = "%";
+
     #region Perspective
     public static Vector2 ScaleVector2ToPerspective(Vector2 baseVector)
     {
@@ -41,5 +43,43 @@ public static class MechanicsUtilities
     #region Const GetMethods
     public static int GetArmor50PercentThreshold() => ARMOR_THRESHOLD_50_PERCENT;
     public static int GetExecuteDamage() => EXECUTE_DAMAGE;
+    #endregion
+
+    #region StatUIProcessing
+    public static string ProcessCurrentValueToSimpleString(float currentValue)
+    {
+        int intValue = Mathf.RoundToInt(currentValue);
+        string stringValue = intValue.ToString();
+        return stringValue;
+    }
+
+    public static string ProcessCurrentValueToSimpleFloat(float currentValue, int decimalPlaces)
+    {
+        float floatValue = GeneralUtilities.RoundToNDecimalPlaces(currentValue, decimalPlaces);
+        string stringValue = floatValue.ToString();
+        return stringValue;
+    }
+
+    public static string ProcessCurrentValueToPercentage(float currentValue, int decimalPlaces)
+    {
+        float floatValue = GeneralUtilities.RoundToNDecimalPlaces(currentValue, decimalPlaces);
+        string stringValue = TransformToPercentage(floatValue);
+        return stringValue;
+    }
+
+    public static string ProcessCurrentValueToExcessPercentage(float currentValue, int decimalPlaces)
+    {
+        float floatValue = GeneralUtilities.RoundToNDecimalPlaces(currentValue, decimalPlaces);
+        floatValue = floatValue - 1;
+        string stringValue = TransformToPercentage(floatValue);
+        return stringValue;
+    }
+
+    public static string TransformToPercentage(float value)
+    {
+        float percentageValue = value * 100;
+        string stringValue = percentageValue.ToString() + PERCENTAGE_CHARACTER;
+        return stringValue;
+    }
     #endregion
 }

@@ -27,16 +27,19 @@ public abstract class UIInput : MonoBehaviour
 
     private void SetSingleton()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
-            Debug.LogError("There is more than one MovementInput instance");
+            Instance = this;
         }
-
-        Instance = this;
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public abstract bool CanProcessInput();
     public abstract bool GetPauseDown();
+    public abstract bool GetStatsDown();
 
     public void SetInputOnCooldown() => MaxInputCooldownTimer();
 
