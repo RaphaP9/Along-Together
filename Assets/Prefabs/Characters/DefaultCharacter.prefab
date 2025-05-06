@@ -395,6 +395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3296231075715405042}
   - component: {fileID: 7573232495966570463}
+  - component: {fileID: 1263218695718187337}
   m_Layer: 6
   m_Name: DashTest
   m_TagString: Untagged
@@ -435,10 +436,24 @@ MonoBehaviour:
   movementDirectionHandler: {fileID: 4053781653671632281}
   playerHealth: {fileID: 6586126778679378193}
   _rigidbody2D: {fileID: 3125651546402793068}
+  abilityCooldownHandler: {fileID: 1263218695718187337}
   directionMode: 1
   interruptMovement: 1
   interruptDamageTaking: 1
   currentDashDirection: {x: 0, y: 0}
+--- !u!114 &1263218695718187337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279207625108799617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9e4b77cad7ab7f4cab7f2eaa3c6363e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTimer: 0
 --- !u!1 &7556025860753867530
 GameObject:
   m_ObjectHideFlags: 0

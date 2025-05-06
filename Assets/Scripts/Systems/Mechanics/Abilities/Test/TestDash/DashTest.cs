@@ -10,6 +10,8 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
     [SerializeField] private MovementDirectionHandler movementDirectionHandler;
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private Rigidbody2D _rigidbody2D;
+    [Space]
+    [SerializeField] private AbilityCooldownHandler abilityCooldownHandler;
 
     [Header("Settings")]
     [SerializeField] private DirectionMode directionMode;
@@ -20,8 +22,13 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
     [SerializeField] private Vector2 currentDashDirection;
 
     private DashTestSO DashTestSO => AbilitySO as DashTestSO;
+    private AbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
 
     private enum DirectionMode { MousePosition, LastMovementDirection }
+
+    private bool isDashing;
+
+    #region Events
 
     public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDashTest;
     public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDashTestPre;
@@ -30,6 +37,8 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
     public event EventHandler<OnPlayerDashEventArgs> OnThisPlayerDashTest;
     public event EventHandler<OnPlayerDashEventArgs> OnThisPlayerDashTestPre;
     public event EventHandler<OnPlayerDashEventArgs> OnThisPlayerDashTestStopped;
+
+    #endregion
 
     public class OnPlayerDashEventArgs : EventArgs
     {
@@ -40,17 +49,10 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
     #region Interface Methods
     public bool AbilityInput() => GetAssociatedDownInput();
     public bool CanInterruptMovement() => interruptMovement;
-    public bool IsDisplacing()
-    {
-        return false;
-    }
+    public bool IsDisplacing() => isDashing;
 
     public bool CanInterruptDamageTaking() => interruptDamageTaking;
-
-    public bool IsInterruptingDamageTaking()
-    {
-        return false;
-    }
+    public bool IsInterruptingDamageTaking() => isDashing;
 
     #endregion
 }
