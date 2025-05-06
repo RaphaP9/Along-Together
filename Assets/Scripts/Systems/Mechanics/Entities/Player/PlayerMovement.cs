@@ -15,7 +15,8 @@ public class PlayerMovement : EntityMovement
     [SerializeField] private PlayerHealth playerHealth;
     [Space]
     [SerializeField] private CheckWall checkWall;
-    //[SerializeField] private PlayerDash playerDash;
+    [Space]
+    [SerializeField] private List<Component> displacementAbiltiesComponents;
 
     #region Events
 
@@ -32,6 +33,8 @@ public class PlayerMovement : EntityMovement
     #endregion
 
     private Rigidbody2D _rigidbody2D;
+
+    private List<IDisplacementAbility> displacementAbilities;
 
     public Vector2 DirectionInput => MovementInput.Instance.GetMovementInputNormalized();
 
@@ -58,6 +61,7 @@ public class PlayerMovement : EntityMovement
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         SetSingleton();
+        GetDisplacementAbilitiesInterfaces();
     }
 
     private void Update()
@@ -82,7 +86,23 @@ public class PlayerMovement : EntityMovement
             Destroy(gameObject);
         }
     }
+
+    private void GetDisplacementAbilitiesInterfaces()
+    {
+        displacementAbilities = GeneralUtilities.GetInterfacesFromComponents<IDisplacementAbility>(displacementAbiltiesComponents);
+    }
+
     protected override float CalculateMovementSpeed() => MovementSpeedStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseMovementSpeed);
+
+    private bool CanApplyMovement()
+    {
+        foreach(IDisplacementAbility displacementAbility in displacementAbilities)
+        {
+            if (displacementAbility.IsDisplacing() && displacementAbility.InterruptMovement()) return false;
+        }
+
+        return true;
+    }
 
     #region Logic
     private void HandleMovement()
@@ -137,7 +157,7 @@ public class PlayerMovement : EntityMovement
 
     private void ApplyMovement()
     {
-        //if (playerDash.IsDashing) return;
+        if (!CanApplyMovement()) return;
 
         _rigidbody2D.velocity = new Vector2(ScaledMovementVector.x, ScaledMovementVector.y);
     }

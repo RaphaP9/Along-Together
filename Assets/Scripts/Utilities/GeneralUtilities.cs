@@ -6,6 +6,8 @@ using System.Linq;
 
 public static class GeneralUtilities
 {
+    private const bool DEBUG = true;
+
     #region Vectors
     public static Vector2 SupressZComponent(Vector3 vector3) => new Vector2(vector3.x, vector3.y);
 
@@ -169,5 +171,46 @@ public static class GeneralUtilities
         return listA.SequenceEqual(listB);
     }
 
+    #endregion
+
+    #region Generics
+
+    public static List<T> GetGenericsFromComponents<T>(List<Component> components)
+    {
+        List<T> genericList = new List<T>();
+
+        foreach (Component component in components)
+        {      
+            if(component.TryGetComponent(out T generic))
+            {
+                genericList.Add(generic);
+            }
+        }
+
+        return genericList;
+    }
+    #endregion
+
+    #region Interfaces
+    public static List<T> GetInterfacesFromComponents<T>(List<Component> components)
+    {
+        List<T> interfaceList = new List<T>();
+
+        if (!typeof(T).IsInterface)
+        {
+            if (DEBUG) Debug.Log("T is not an Interface!. Returning empty list.");
+            return interfaceList;
+        }
+
+        foreach (Component component in components)
+        {
+            if (component is T @interface)
+            {
+                interfaceList.Add(@interface);
+            }
+        }
+
+        return interfaceList;
+    }
     #endregion
 }
