@@ -25,8 +25,8 @@ public class NewAttackInput : AttackInput
 
     public override bool CanProcessInput()
     {
-        //if (GameManager.Instance.GameState == GameManager.State.OnWave) return true;
-        return false;
+        //if (GameManager.Instance.GameState != GameManager.State.OnWave) return false;
+        return true;
     }
 
     public override bool GetAttackDown()

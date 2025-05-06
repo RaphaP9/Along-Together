@@ -5,8 +5,10 @@ using UnityEngine;
 public abstract class AbilitySO : ScriptableObject
 {
     [Header("Settings")]
-    [SerializeField] private string abilityName;
-    [SerializeField] private Sprite sprite;
+    public string abilityName;
+    public Sprite sprite;
+    [TextArea(3,10)] public string description;
     [Space]
-    [SerializeField] AbilityType abilityType;
+    public AbilityType abilityType;
+    public AbilitySlot abilitySlot;
 }
