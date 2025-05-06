@@ -28,7 +28,7 @@ public abstract class Ability : MonoBehaviour
     }
 
     #region Input Association
-    protected bool GetAsociatedDownInput()
+    protected bool GetAssociatedDownInput()
     {
         switch (abilitySO.abilitySlot)
         {

@@ -204,7 +204,7 @@ public static class GeneralUtilities
 
         foreach (Component component in components)
         {
-            if (component is T @interface)
+            if (component.TryGetComponent(out T @interface))
             {
                 interfaceList.Add(@interface);
             }

@@ -98,7 +98,7 @@ public class PlayerMovement : EntityMovement
     {
         foreach(IDisplacementAbility displacementAbility in displacementAbilities)
         {
-            if (displacementAbility.IsDisplacing() && displacementAbility.InterruptMovement()) return false;
+            if (displacementAbility.IsDisplacing() && displacementAbility.CanInterruptMovement()) return false;
         }
 
         return true;

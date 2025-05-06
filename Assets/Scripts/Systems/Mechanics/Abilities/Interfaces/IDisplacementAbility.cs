@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDisplacementAbility : IPassiveAbility
+public interface IDisplacementAbility
 {
     public bool IsDisplacing();
-    public bool InterruptMovement();
+    public bool CanInterruptMovement();
 }

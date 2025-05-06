@@ -7,6 +7,10 @@ public class PlayerHealth : EntityHealth
 {
     [Header("PlayerHealth Components")]
     [SerializeField] private CharacterIdentifier characterIdentifier;
+    [SerializeField] private List<Component> damageTakingInterruptionAbiltiesComponents;
+
+    private List<IDamageTakingInterruptionAbility> damageTakingInterruptionAbilities;
+
 
     #region Events
 
@@ -66,6 +70,16 @@ public class PlayerHealth : EntityHealth
         DodgeChanceStatResolver.OnDodgeChanceResolverUpdated -= DodgeChanceStatResolver_OnDodgeChanceResolverUpdated;
     }
 
+    private void Awake()
+    {
+        GetDamageTakingInterruptionAbilitiesInterfaces();
+    }
+
+    private void GetDamageTakingInterruptionAbilitiesInterfaces()
+    {
+        damageTakingInterruptionAbilities = GeneralUtilities.GetInterfacesFromComponents<IDamageTakingInterruptionAbility>(damageTakingInterruptionAbiltiesComponents);
+    }
+
     protected override int CalculateMaxHealth() => MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseHealth);
     protected override int CalculateMaxShield() => MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseShield);
     protected override int CalculateArmor() => ArmorStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseArmor);
@@ -73,6 +87,18 @@ public class PlayerHealth : EntityHealth
 
     public void SetCurrentHealth(int setterHealth) => currentHealth = setterHealth;
     public void SetCurrentShield(int setterShield) => currentShield = setterShield;
+
+    public override bool CanTakeDamage()
+    {
+        if(!IsAlive()) return false;
+
+        foreach (IDamageTakingInterruptionAbility damageTakingInterruptionAbility in damageTakingInterruptionAbilities)
+        {
+            if (damageTakingInterruptionAbility.IsInterruptingDamageTaking() && damageTakingInterruptionAbility.CanInterruptDamageTaking()) return false;
+        }
+
+        return true;
+    }
 
     #region Virtual Event Methods
     protected override void OnEntityStatsInitializedMethod()

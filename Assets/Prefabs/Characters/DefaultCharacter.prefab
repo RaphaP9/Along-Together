@@ -89,6 +89,7 @@ Transform:
   m_Children:
   - {fileID: 6082782711582241170}
   - {fileID: 8691113849170376705}
+  - {fileID: 5386565058599454864}
   - {fileID: 6543428868650559586}
   - {fileID: 8522307488823897240}
   m_Father: {fileID: 0}
@@ -199,6 +200,7 @@ MonoBehaviour:
   armor: 0
   dodgeChance: 0
   characterIdentifier: {fileID: 1965199428449930878}
+  damageTakingInterruptionAbiltiesComponents: []
 --- !u!114 &4661234364419359008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +220,8 @@ MonoBehaviour:
   characterIdentifier: {fileID: 1965199428449930878}
   playerHealth: {fileID: 6586126778679378193}
   checkWall: {fileID: 1462229981353037001}
-  displacementAbiltiesComponents: []
+  displacementAbiltiesComponents:
+  - {fileID: 3296231075715405042}
 --- !u!1 &3069412420397820189
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +384,93 @@ MonoBehaviour:
   enemiesLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  enemies: []
+  detectedEnemies: []
+--- !u!1 &7279207625108799617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3296231075715405042}
+  - component: {fileID: 7573232495966570463}
+  m_Layer: 6
+  m_Name: DashTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3296231075715405042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279207625108799617}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5386565058599454864}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7573232495966570463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279207625108799617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ede1ee0cc33f1e43887a114a4fbd563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySO: {fileID: 11400000, guid: 0689710761c5add46b325ddca21e2d61, type: 2}
+  abilityLevel: 0
+  mouseDirectionHandler: {fileID: 4593777764411072900}
+  movementDirectionHandler: {fileID: 4053781653671632281}
+  playerHealth: {fileID: 6586126778679378193}
+  _rigidbody2D: {fileID: 3125651546402793068}
+  directionMode: 1
+  interruptMovement: 1
+  interruptDamageTaking: 1
+  currentDashDirection: {x: 0, y: 0}
+--- !u!1 &7556025860753867530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5386565058599454864}
+  m_Layer: 6
+  m_Name: Abilities
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5386565058599454864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556025860753867530}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3296231075715405042}
+  m_Father: {fileID: 6380853313663446174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8502199646678721002
 GameObject:
   m_ObjectHideFlags: 0
