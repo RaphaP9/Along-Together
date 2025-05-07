@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IActiveAbility
 {
-    public bool AbilityInput();
+    public bool AbilityCastInput();
     public bool CanCastAbility();
 }

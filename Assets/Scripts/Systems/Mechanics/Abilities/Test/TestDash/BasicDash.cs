@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTakingInterruptionAbility
+public class BasicDash : Ability, IActiveAbility, IDisplacementAbility, IDamageTakingInterruptionAbility
 {
     [Header("Specific Components")]
     [SerializeField] private MouseDirectionHandler mouseDirectionHandler;
@@ -21,7 +21,7 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
     [Header("Specific Runtime Filled")]
     [SerializeField] private Vector2 currentDashDirection;
 
-    private DashTestSO DashTestSO => AbilitySO as DashTestSO;
+    private BasicDashSO BasicDashSO => AbilitySO as BasicDashSO;
     public AbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
 
     private enum DirectionMode { MousePosition, LastMovementDirection }
@@ -54,7 +54,7 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
     }
 
     #region Interface Methods
-    public bool AbilityInput() => GetAssociatedDownInput();
+    public bool AbilityCastInput() => GetAssociatedDownInput();
     public bool CanInterruptMovement() => interruptMovement;
     public bool IsDisplacing() => isDashing;
 
@@ -76,8 +76,10 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
         if (!isActiveVariant) return;
         if (!shouldDash) return;
 
+        if (isDashing) StopDash();
+
         Dash();
-        SetDashPerformTimer(DashTestSO.dashTime);
+        SetDashPerformTimer(BasicDashSO.dashTime);
         shouldDash = false;
     }
 
@@ -93,7 +95,7 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
         OnDashCast?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
 
         shouldDash = true;
-        abilityCooldownHandler.SetCooldownTimer(DashTestSO.baseCooldown); //Replace with some resolver method (AbilityCooldownReductionResolver)
+        abilityCooldownHandler.SetCooldownTimer(BasicDashSO.baseCooldown); //Replace with some resolver method (AbilityCooldownReductionResolver)
     }
 
     protected override void OnAbilityCastDeniedMethod()
@@ -130,7 +132,7 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
     {
         currentDashDirection = DefineDashDirection();
 
-        float dashForce = DashTestSO.dashDistance / DashTestSO.dashTime;
+        float dashForce = BasicDashSO.dashDistance / BasicDashSO.dashTime;
         Vector2 dashVector = currentDashDirection * dashForce;
 
         Vector2 scaledDashVector = MechanicsUtilities.ScaleVector2ToPerspective(dashVector);
@@ -174,7 +176,7 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
     {
         if (!isDashing) return;
 
-        Vector2 dashResistanceForce = -currentDashDirection * DashTestSO.dashResistance;
+        Vector2 dashResistanceForce = -currentDashDirection * BasicDashSO.dashResistance;
         _rigidbody2D.AddForce(dashResistanceForce, ForceMode2D.Force);
     }
 

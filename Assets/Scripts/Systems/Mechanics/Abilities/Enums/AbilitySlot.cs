@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum AbilitySlot 
 {
+    Unasigned,
     Passive,
     AbilityA,
     AbilityB,

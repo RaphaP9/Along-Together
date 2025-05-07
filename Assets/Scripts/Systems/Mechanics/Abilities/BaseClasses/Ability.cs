@@ -7,18 +7,20 @@ public abstract class Ability : MonoBehaviour
 {
     [Header("Ability Components")]
     [SerializeField] protected AbilitySO abilitySO;
+    [Space]
     [SerializeField] protected AbilitySlotsVariantsHandler abilitySlotsVariantsHandler;
+    [SerializeField] protected AbilityLevelsHandler abilityLevelsHandler;
     [SerializeField] protected PlayerHealth playerHealth;
 
     [Header("Ability Runtime Filled")]
-    [SerializeField] protected AbilityLevel abilityLevel;
     [SerializeField] protected AbilitySlot abilitySlot;
+    [SerializeField] protected AbilityLevel abilityLevel;
     [SerializeField] protected bool isActiveVariant;
 
     public AbilitySO AbilitySO => abilitySO;
-    public AbilityLevel AbilityLevel => abilityLevel;
     public AbilitySlot AbilitySlot => abilitySlot;
-    protected bool IsUnlocked() => abilityLevel != AbilityLevel.NotLearned;
+    public AbilityLevel AbilityLevel => abilityLevel;
+    public bool IsActiveVariant => isActiveVariant;
 
     #region Events
 
@@ -48,11 +50,13 @@ public abstract class Ability : MonoBehaviour
     protected virtual void OnEnable()
     {
         abilitySlotsVariantsHandler.OnAbilityVariantSelected += AbilityVariantHandler_OnAbilityVariantSelected;
+        abilityLevelsHandler.OnAbilityLevelChanged += AbilityLevelsHandler_OnAbilityLevelChanged;
     }
 
     protected virtual void OnDisable()
     {
         abilitySlotsVariantsHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
+        abilityLevelsHandler.OnAbilityLevelChanged -= AbilityLevelsHandler_OnAbilityLevelChanged;
     }
 
     protected virtual void Start()
@@ -92,6 +96,8 @@ public abstract class Ability : MonoBehaviour
             OnAbilityCastDeniedMethod();
         }
     }
+
+    protected bool IsUnlocked() => abilityLevel != AbilityLevel.NotLearned;
 
     #region Abstract Methods
     protected abstract void HandleUpdateLogic();
@@ -170,10 +176,17 @@ public abstract class Ability : MonoBehaviour
         {
             ActivateAbilityVariant();
         }
-        else if(isActiveVariant && e.previousAbilityVariant == this)
+        else if (isActiveVariant && e.previousAbilityVariant == this)
         {
             DisableAbilityVariant();
         }
+    }
+
+    private void AbilityLevelsHandler_OnAbilityLevelChanged(object sender, AbilityLevelsHandler.OnAbilityLevelChangedEventArgs e)
+    {
+        if (e.abilityLevelGroup.ability != this) return;
+
+        abilityLevel = e.newAbilityLevel;
     }
     #endregion
 }

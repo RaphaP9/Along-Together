@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0857a8a736186e4084cc008a35ea610, type: 3}
-  m_Name: DashTestSO
+  m_Name: BasicDashSO
   m_EditorClassIdentifier: 
-  abilityName: DashTest
+  abilityName: BasicDash
   sprite: {fileID: 0}
   description: 
   abilityType: 1
-  baseCooldown: 2
+  baseCooldown: 0.5
   dashDistance: 3
-  dashTime: 0.2
+  dashTime: 0.25
   dashResistance: 2

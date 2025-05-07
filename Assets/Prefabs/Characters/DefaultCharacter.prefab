@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 3125651546402793068}
-  evaluationMode: 0
+  evaluationMode: 1
   lastMovementDirection: {x: 0, y: 0}
 --- !u!114 &4593777764411072900
 MonoBehaviour:
@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 7573232495966570463}
   - component: {fileID: 1263218695718187337}
   m_Layer: 6
-  m_Name: DashTest
+  m_Name: BasicDash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -557,9 +557,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilitySO: {fileID: 11400000, guid: 0689710761c5add46b325ddca21e2d61, type: 2}
   abilitySlotsVariantsHandler: {fileID: 6695293978895852260}
+  abilityLevelsHandler: {fileID: 8693075421116404059}
   playerHealth: {fileID: 6586126778679378193}
-  abilityLevel: 3
-  abilitySlot: 1
+  abilityLevel: 0
+  abilitySlot: 0
   isActiveVariant: 0
   mouseDirectionHandler: {fileID: 4593777764411072900}
   movementDirectionHandler: {fileID: 4053781653671632281}
@@ -631,6 +632,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd228d1d40d9a49409213a9794e2774a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityLevelGroups:
+  - ability: {fileID: 7573232495966570463}
+    startingAbilityLevel: 1
+    currentAbilityLevel: 0
+  debug: 1
 --- !u!114 &6695293978895852260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,8 +649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4520b7b6f07987b4c90b232157452765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotGroups:
-  - abilitySlot: 1
+  abilitySlotGroups:
+  - abilitySlot: 2
     abilityVariants:
     - {fileID: 7573232495966570463}
     startingAbilityVariant: {fileID: 7573232495966570463}

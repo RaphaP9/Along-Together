@@ -16,7 +16,7 @@ public class AbilitySlotsVariantsHandler : MonoBehaviour
 
     public event EventHandler<OnAbilityVariantSelectionEventArgs> OnAbilityVariantSelected;
 
-    private const AbilitySlot DEFAULT_ABILITY_SLOT = AbilitySlot.Passive;
+    private const AbilitySlot DEFAULT_ABILITY_SLOT = AbilitySlot.Unasigned;
 
     [Serializable]
     public class AbilitySlotGroup
