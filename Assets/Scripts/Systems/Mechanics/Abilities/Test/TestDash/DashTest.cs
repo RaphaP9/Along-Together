@@ -6,19 +6,19 @@ using UnityEngine;
 
 public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTakingInterruptionAbility
 {
-    [Header("Components")]
+    [Header("Specific Components")]
     [SerializeField] private MouseDirectionHandler mouseDirectionHandler;
     [SerializeField] private MovementDirectionHandler movementDirectionHandler;
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [Space]
     [SerializeField] private AbilityCooldownHandler abilityCooldownHandler;
 
-    [Header("Settings")]
+    [Header("Specific Settings")]
     [SerializeField] private DirectionMode directionMode;
     [SerializeField] private bool interruptMovement;
     [SerializeField] private bool interruptDamageTaking;
 
-    [Header("Runtime Filled")]
+    [Header("Specific Runtime Filled")]
     [SerializeField] private Vector2 currentDashDirection;
 
     private DashTestSO DashTestSO => AbilitySO as DashTestSO;

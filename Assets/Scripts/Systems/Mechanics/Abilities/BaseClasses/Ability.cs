@@ -5,18 +5,19 @@ using UnityEngine;
 
 public abstract class Ability : MonoBehaviour
 {
-    [Header("Components")]
+    [Header("Ability Components")]
     [SerializeField] protected AbilitySO abilitySO;
-    [SerializeField] protected AbilityVariantsHandler abilityVariantHandler;
+    [SerializeField] protected AbilitySlotsVariantsHandler abilitySlotsVariantsHandler;
     [SerializeField] protected PlayerHealth playerHealth;
 
-    [Header("Runtime Filled")]
+    [Header("Ability Runtime Filled")]
     [SerializeField] protected AbilityLevel abilityLevel;
+    [SerializeField] protected AbilitySlot abilitySlot;
     [SerializeField] protected bool isActiveVariant;
 
     public AbilitySO AbilitySO => abilitySO;
-    private AbilityLevel AbilityLevel => abilityLevel;
-
+    public AbilityLevel AbilityLevel => abilityLevel;
+    public AbilitySlot AbilitySlot => abilitySlot;
     protected bool IsUnlocked() => abilityLevel != AbilityLevel.NotLearned;
 
     #region Events
@@ -26,9 +27,6 @@ public abstract class Ability : MonoBehaviour
 
     public event EventHandler<OnAbilityCastEventArgs> OnAbilityCastDenied;
     public event EventHandler<OnAbilityCastEventArgs> OnAbilityCast;
-
-    public static event EventHandler<OnAbilityLevelIncreaseEventArgs> OnAnyAbilityLevelIncreased;
-    public event EventHandler<OnAbilityLevelIncreaseEventArgs> OnAbilityLevelIncreased;
 
     #endregion
 
@@ -49,12 +47,17 @@ public abstract class Ability : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        abilityVariantHandler.OnAbilityVariantSelected += AbilityVariantHandler_OnAbilityVariantSelected;
+        abilitySlotsVariantsHandler.OnAbilityVariantSelected += AbilityVariantHandler_OnAbilityVariantSelected;
     }
 
     protected virtual void OnDisable()
     {
-        abilityVariantHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
+        abilitySlotsVariantsHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
+    }
+
+    protected virtual void Start()
+    {
+        AssignAbilitySlot();
     }
 
     protected virtual void Update()
@@ -66,6 +69,11 @@ public abstract class Ability : MonoBehaviour
     protected virtual void FixedUpdate()
     {
         HandleFixedUpdateLogic();
+    }
+
+    private void AssignAbilitySlot()
+    {
+        abilitySlot = abilitySlotsVariantsHandler.GetAbilitySlot(this);
     }
 
     protected virtual void HandleAbilityCasting()
@@ -123,7 +131,7 @@ public abstract class Ability : MonoBehaviour
     #region Input Association
     protected bool GetAssociatedDownInput()
     {
-        switch (abilityVariantHandler.AbilitySlot)
+        switch (abilitySlot)
         {
             case AbilitySlot.Passive:
             default:
@@ -139,7 +147,7 @@ public abstract class Ability : MonoBehaviour
 
     protected bool GetAsociatedHoldInput()
     {
-        switch (abilityVariantHandler.AbilitySlot)
+        switch (abilitySlot)
         {
             case AbilitySlot.Passive:
             default:
@@ -156,7 +164,7 @@ public abstract class Ability : MonoBehaviour
 
 
     #region Subscriptions
-    private void AbilityVariantHandler_OnAbilityVariantSelected(object sender, AbilityVariantsHandler.OnAbilityVariantSelectionEventArgs e)
+    private void AbilityVariantHandler_OnAbilityVariantSelected(object sender, AbilitySlotsVariantsHandler.OnAbilityVariantSelectionEventArgs e)
     {
         if (!isActiveVariant && e.newAbilityVariant == this)
         {

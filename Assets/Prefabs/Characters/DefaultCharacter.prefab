@@ -556,9 +556,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilitySO: {fileID: 11400000, guid: 0689710761c5add46b325ddca21e2d61, type: 2}
-  abilityVariantHandler: {fileID: 0}
+  abilitySlotsVariantsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
-  abilityLevel: 1
+  abilityLevel: 3
+  abilitySlot: 1
   isActiveVariant: 0
   mouseDirectionHandler: {fileID: 4593777764411072900}
   movementDirectionHandler: {fileID: 4053781653671632281}
@@ -591,7 +592,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5386565058599454864}
   - component: {fileID: 8693075421116404059}
-  - component: {fileID: 3662198494041842719}
+  - component: {fileID: 6695293978895852260}
   m_Layer: 6
   m_Name: Abilities
   m_TagString: Untagged
@@ -630,7 +631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd228d1d40d9a49409213a9794e2774a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3662198494041842719
+--- !u!114 &6695293978895852260
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -639,14 +640,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7556025860753867530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e987c8feb1ef2cc449b6990d3409b88e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4520b7b6f07987b4c90b232157452765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityVariants: []
-  abilitySlot: 0
-  startingAbilityVariant: {fileID: 0}
-  selectedAbilityVariant: {fileID: 0}
-  debug: 0
+  slotGroups:
+  - abilitySlot: 1
+    abilityVariants:
+    - {fileID: 7573232495966570463}
+    startingAbilityVariant: {fileID: 7573232495966570463}
+    selectedAbilityVariant: {fileID: 0}
+  debug: 1
 --- !u!1 &8502199646678721002
 GameObject:
   m_ObjectHideFlags: 0

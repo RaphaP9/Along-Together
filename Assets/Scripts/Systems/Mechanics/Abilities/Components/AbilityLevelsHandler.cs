@@ -1,18 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AbilityLevelsHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Lists")]
+    [SerializeField] private List<AbilityLevelGroup> abilityLevelGroups;
 
-    // Update is called once per frame
-    void Update()
+    [Header("Debug")]
+    [SerializeField] private bool debug;
+
+    public List<AbilityLevelGroup> AbilityLevelGroups => abilityLevelGroups;
+
+
+    [Serializable]
+    public class AbilityLevelGroup
     {
-        
+        public Ability ability;
+
+        public AbilityLevel startingAbilityLevel;
+
+        [Header("Runtime Filled")]
+        public AbilityLevel currentAbilityLevel;
     }
 }
