@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityVariantHandler : MonoBehaviour
+public class AbilityVariantsHandler : MonoBehaviour
 {
     [Header("Lists")]
     [SerializeField] private List<Ability> abilityVariants;
@@ -31,7 +31,7 @@ public class AbilityVariantHandler : MonoBehaviour
         public AbilitySlot abilitySlot;
     }
 
-    private void Awake()
+    private void Start()
     {
         SelectAbiltiyVariant(startingAbilityVariant);
     }

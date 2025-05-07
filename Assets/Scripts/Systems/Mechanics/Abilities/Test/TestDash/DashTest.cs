@@ -32,19 +32,19 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
 
     #region Events
 
-    public static event EventHandler<OnAbilityCastEventArgs> OnDashCast;
-    public static event EventHandler<OnAbilityCastEventArgs> OnDashCastDenied;
+    public static event EventHandler<OnAbilityCastEventArgs> OnAnyDashCast;
+    public static event EventHandler<OnAbilityCastEventArgs> OnAnyDashCastDenied;
 
-    public event EventHandler<OnAbilityCastEventArgs> OnThisDashCast;
-    public event EventHandler<OnAbilityCastEventArgs> OnThisDashCastDenied;
+    public event EventHandler<OnAbilityCastEventArgs> OnDashCast;
+    public event EventHandler<OnAbilityCastEventArgs> OnDashCastDenied;
 
-    public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDash;
-    public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDashPre;
-    public static event EventHandler<OnPlayerDashEventArgs> OnPlayerDashStopped;
+    public static event EventHandler<OnPlayerDashEventArgs> OnAnyPlayerDash;
+    public static event EventHandler<OnPlayerDashEventArgs> OnAnyPlayerDashPre;
+    public static event EventHandler<OnPlayerDashEventArgs> OnAnyPlayerDashStopped;
 
-    public event EventHandler<OnPlayerDashEventArgs> OnThisPlayerDash;
-    public event EventHandler<OnPlayerDashEventArgs> OnThisPlayerDashPre;
-    public event EventHandler<OnPlayerDashEventArgs> OnThisPlayerDashStopped;
+    public event EventHandler<OnPlayerDashEventArgs> OnPlayerDash;
+    public event EventHandler<OnPlayerDashEventArgs> OnPlayerDashPre;
+    public event EventHandler<OnPlayerDashEventArgs> OnPlayerDashStopped;
 
     #endregion
 
@@ -73,6 +73,7 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
 
     protected override void HandleFixedUpdateLogic()
     {
+        if (!isActiveVariant) return;
         if (!shouldDash) return;
 
         Dash();
@@ -88,8 +89,8 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
     {
         base.OnAbilityCastMethod();
 
+        OnAnyDashCast?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
         OnDashCast?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
-        OnThisDashCast?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
 
         shouldDash = true;
         abilityCooldownHandler.SetCooldownTimer(DashTestSO.baseCooldown); //Replace with some resolver method (AbilityCooldownReductionResolver)
@@ -99,8 +100,8 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
     {
         base.OnAbilityCastDeniedMethod();
 
+        OnAnyDashCastDenied?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
         OnDashCastDenied?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
-        OnThisDashCastDenied?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
     }
 
     public override bool CanCastAbility()
@@ -110,6 +111,17 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
         if (abilityCooldownHandler.IsOnCooldown()) return false;
 
         return true;
+    }
+
+    protected override void ActivateAbilityVariant()
+    {
+        base.ActivateAbilityVariant();
+    }
+
+    protected override void DisableAbilityVariant()
+    {
+        base.ActivateAbilityVariant();
+        StopDash();
     }
     #endregion
 
@@ -123,14 +135,14 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
 
         Vector2 scaledDashVector = MechanicsUtilities.ScaleVector2ToPerspective(dashVector);
 
+        OnAnyPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection});
         OnPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection});
-        OnThisPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection});
 
         _rigidbody2D.velocity = scaledDashVector;
         isDashing = true;
 
+        OnAnyPlayerDash?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
         OnPlayerDash?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
-        OnThisPlayerDash?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
     }
 
     private void StopDash()
@@ -140,8 +152,8 @@ public class DashTest : Ability, IActiveAbility, IDisplacementAbility, IDamageTa
         _rigidbody2D.velocity = Vector2.zero;
         isDashing = false;
 
+        OnAnyPlayerDashStopped?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
         OnPlayerDashStopped?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
-        OnThisPlayerDashStopped?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
 
         currentDashDirection = Vector2.zero;
     }

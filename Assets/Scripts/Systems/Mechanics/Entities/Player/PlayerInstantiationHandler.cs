@@ -12,7 +12,7 @@ public class PlayerInstantiationHandler : MonoBehaviour
         public Transform playerTransform;
     }
 
-    private void Start()
+    private void Awake()
     {
         OnPlayerInstantiation?.Invoke(this, new OnPlayerInstantiationEventArgs { playerTransform = transform});
     }

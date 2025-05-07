@@ -487,7 +487,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3196710238795072990}
-  - component: {fileID: 9214870456143557977}
   m_Layer: 6
   m_Name: AbilityA
   m_TagString: Untagged
@@ -511,24 +510,6 @@ Transform:
   - {fileID: 3296231075715405042}
   m_Father: {fileID: 5386565058599454864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9214870456143557977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7130031430464041670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e987c8feb1ef2cc449b6990d3409b88e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityVariants:
-  - {fileID: 7573232495966570463}
-  abilitySlot: 1
-  startingAbilityVariant: {fileID: 7573232495966570463}
-  selectedAbilityVariant: {fileID: 0}
-  debug: 1
 --- !u!1 &7279207625108799617
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,11 +556,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilitySO: {fileID: 11400000, guid: 0689710761c5add46b325ddca21e2d61, type: 2}
-  abilityVariantHandler: {fileID: 9214870456143557977}
+  abilityVariantHandler: {fileID: 0}
+  playerHealth: {fileID: 6586126778679378193}
   abilityLevel: 1
+  isActiveVariant: 0
   mouseDirectionHandler: {fileID: 4593777764411072900}
   movementDirectionHandler: {fileID: 4053781653671632281}
-  playerHealth: {fileID: 6586126778679378193}
   _rigidbody2D: {fileID: 3125651546402793068}
   abilityCooldownHandler: {fileID: 1263218695718187337}
   directionMode: 1
@@ -608,6 +590,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5386565058599454864}
+  - component: {fileID: 8693075421116404059}
+  - component: {fileID: 3662198494041842719}
   m_Layer: 6
   m_Name: Abilities
   m_TagString: Untagged
@@ -634,6 +618,35 @@ Transform:
   - {fileID: 7891673171534345979}
   m_Father: {fileID: 6380853313663446174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8693075421116404059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556025860753867530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd228d1d40d9a49409213a9794e2774a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3662198494041842719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556025860753867530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e987c8feb1ef2cc449b6990d3409b88e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityVariants: []
+  abilitySlot: 0
+  startingAbilityVariant: {fileID: 0}
+  selectedAbilityVariant: {fileID: 0}
+  debug: 0
 --- !u!1 &8502199646678721002
 GameObject:
   m_ObjectHideFlags: 0

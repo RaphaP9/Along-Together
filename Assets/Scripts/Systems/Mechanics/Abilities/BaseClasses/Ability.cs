@@ -7,19 +7,32 @@ public abstract class Ability : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] protected AbilitySO abilitySO;
-    [SerializeField] protected AbilityVariantHandler abilityVariantHandler;
+    [SerializeField] protected AbilityVariantsHandler abilityVariantHandler;
     [SerializeField] protected PlayerHealth playerHealth;
 
     [Header("Runtime Filled")]
     [SerializeField] protected AbilityLevel abilityLevel;
+    [SerializeField] protected bool isActiveVariant;
 
     public AbilitySO AbilitySO => abilitySO;
     private AbilityLevel AbilityLevel => abilityLevel;
 
     protected bool IsUnlocked() => abilityLevel != AbilityLevel.NotLearned;
 
-    public static event EventHandler<OnAbilityCastEventArgs> OnAbilityCastDenied;
-    public static event EventHandler<OnAbilityCastEventArgs> OnAbilityCast;
+    #region Events
+
+    public static event EventHandler<OnAbilityCastEventArgs> OnAnyAbilityCastDenied;
+    public static event EventHandler<OnAbilityCastEventArgs> OnAnyAbilityCast;
+
+    public event EventHandler<OnAbilityCastEventArgs> OnAbilityCastDenied;
+    public event EventHandler<OnAbilityCastEventArgs> OnAbilityCast;
+
+    public static event EventHandler<OnAbilityLevelIncreaseEventArgs> OnAnyAbilityLevelIncreased;
+    public event EventHandler<OnAbilityLevelIncreaseEventArgs> OnAbilityLevelIncreased;
+
+    #endregion
+
+    #region EventArgs Classes
 
     public class OnAbilityLevelIncreaseEventArgs : EventArgs
     {
@@ -30,6 +43,18 @@ public abstract class Ability : MonoBehaviour
     public class OnAbilityCastEventArgs : EventArgs
     {
         public AbilitySO abilitySO;
+    }
+
+    #endregion
+
+    protected virtual void OnEnable()
+    {
+        abilityVariantHandler.OnAbilityVariantSelected += AbilityVariantHandler_OnAbilityVariantSelected;
+    }
+
+    protected virtual void OnDisable()
+    {
+        abilityVariantHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
     }
 
     protected virtual void Update()
@@ -45,6 +70,7 @@ public abstract class Ability : MonoBehaviour
 
     protected virtual void HandleAbilityCasting()
     {
+        if (!isActiveVariant) return; //Can not cast if not Active Variant
         if (abilitySO.abilityType == AbilityType.Passive) return; //Can not cast if only passive
 
         if (!GetAssociatedDownInput()) return;
@@ -66,11 +92,13 @@ public abstract class Ability : MonoBehaviour
     protected virtual void OnAbilityCastMethod()
     {
         OnAbilityCast?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
+        OnAnyAbilityCast?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
     }
 
     protected virtual void OnAbilityCastDeniedMethod()
     {
         OnAbilityCastDenied?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
+        OnAnyAbilityCastDenied?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
     }
 
     public virtual bool CanCastAbility()
@@ -80,6 +108,16 @@ public abstract class Ability : MonoBehaviour
 
         return true;
     }
+
+    protected virtual void ActivateAbilityVariant()
+    {
+        isActiveVariant = true;
+    }
+    protected virtual void DisableAbilityVariant()
+    {
+        isActiveVariant = false;
+    }
+
     #endregion
 
     #region Input Association
@@ -112,6 +150,21 @@ public abstract class Ability : MonoBehaviour
                 return AbilitiesInput.Instance.GetAbilityBHold();
             case AbilitySlot.AbilityC:
                 return AbilitiesInput.Instance.GetAbilityCHold();
+        }
+    }
+    #endregion
+
+
+    #region Subscriptions
+    private void AbilityVariantHandler_OnAbilityVariantSelected(object sender, AbilityVariantsHandler.OnAbilityVariantSelectionEventArgs e)
+    {
+        if (!isActiveVariant && e.newAbilityVariant == this)
+        {
+            ActivateAbilityVariant();
+        }
+        else if(isActiveVariant && e.previousAbilityVariant == this)
+        {
+            DisableAbilityVariant();
         }
     }
     #endregion
