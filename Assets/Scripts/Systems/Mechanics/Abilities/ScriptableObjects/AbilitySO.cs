@@ -10,5 +10,4 @@ public abstract class AbilitySO : ScriptableObject
     [TextArea(3,10)] public string description;
     [Space]
     public AbilityType abilityType;
-    public AbilitySlot abilitySlot;
 }

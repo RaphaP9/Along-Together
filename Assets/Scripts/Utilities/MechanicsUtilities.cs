@@ -82,4 +82,23 @@ public static class MechanicsUtilities
         return stringValue;
     }
     #endregion
+
+    #region Abilities
+
+    public static AbilityLevel GetNextAbilityLevel(AbilityLevel previousAbilityLevel)
+    {
+        switch (previousAbilityLevel)
+        {
+            case AbilityLevel.NotLearned:
+            default:
+                return AbilityLevel.Level1;
+            case AbilityLevel.Level1:
+                return AbilityLevel.Level2;
+            case AbilityLevel.Level2:
+                return AbilityLevel.Level3;
+            case AbilityLevel.Level3:
+                return AbilityLevel.Level3;
+        }
+    }
+    #endregion
 }

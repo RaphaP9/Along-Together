@@ -16,8 +16,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   description: 
   abilityType: 1
-  abilitySlot: 1
   baseCooldown: 2
-  dashDistance: 4
-  dashTime: 0.25
+  dashDistance: 3
+  dashTime: 0.2
   dashResistance: 2
