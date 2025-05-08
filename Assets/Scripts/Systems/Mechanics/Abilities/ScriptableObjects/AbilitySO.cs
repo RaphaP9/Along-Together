@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class AbilitySO : ScriptableObject
 {
     [Header("ABility Settings")]
+    public int id;
     public string abilityName;
     public Sprite sprite;
     [TextArea(3,10)] public string description;

@@ -12,6 +12,8 @@ public class CharacterAssetLibrary : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool debug;
 
+    public List<CharacterSO> Characters => characters;
+            
     private void Awake()
     {
         SetSingleton();
@@ -39,6 +41,17 @@ public class CharacterAssetLibrary : MonoBehaviour
         }
 
         if (debug) Debug.Log($"No CharacterSO matches the ID:{id}. Returning null");
+        return null;
+    }
+
+    public CharacterSO GetCharacterSOByName(string name)
+    {
+        foreach (CharacterSO characterSO in characters)
+        {
+            if (characterSO.entityName == name) return characterSO;
+        }
+
+        if (debug) Debug.Log($"No CharacterSO matches the Name:{name}. Returning null");
         return null;
     }
 }

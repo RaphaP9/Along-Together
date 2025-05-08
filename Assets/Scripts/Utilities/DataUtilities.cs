@@ -178,4 +178,68 @@ public static class DataUtilities
         return dataModeledAssetStat;
     }
     #endregion
+
+    #region Ability Level Group Translation
+
+    public static List<PrimitiveAbilityLevelGroup> TranslateDataModeledAbilityLevelGroupsToPrimitiveAbilityLevelGroups(List<DataModeledAbilityLevelGroup> dataModeledAbilityLevelGroups)
+    {
+        List<PrimitiveAbilityLevelGroup> primitiveAbilityLevelGroups = new List<PrimitiveAbilityLevelGroup>();
+
+        foreach (DataModeledAbilityLevelGroup dataModeledAbilityLevelGroup in dataModeledAbilityLevelGroups)
+        {
+            PrimitiveAbilityLevelGroup primitiveAbilityLevelGroup = TranslateDataModeledAbilityLevelGroupToPrimitiveAbilityLevelGroup(dataModeledAbilityLevelGroup);
+            if (primitiveAbilityLevelGroups == null) continue;
+            primitiveAbilityLevelGroups.Add(primitiveAbilityLevelGroup);
+        }
+
+        return primitiveAbilityLevelGroups;
+    }
+
+    private static PrimitiveAbilityLevelGroup TranslateDataModeledAbilityLevelGroupToPrimitiveAbilityLevelGroup(DataModeledAbilityLevelGroup dataModeledAbilityLevelGroup)
+    {
+        PrimitiveAbilityLevelGroup primitiveAbilityLevelGroup = new PrimitiveAbilityLevelGroup();
+
+        if (Enum.TryParse<AbilityLevel>(dataModeledAbilityLevelGroup.abilityLevel, true, out var abilityLevel)) primitiveAbilityLevelGroup.abilityLevel = abilityLevel;
+        else
+        {
+            if (DEBUG) Debug.Log($"Can not resolve enum from string:{dataModeledAbilityLevelGroup.abilityLevel}");
+            return null;
+        }
+
+        if (AbilitiesAssetLibrary.Instance == null)
+        {
+            if (DEBUG) Debug.Log("AbilitiesAssetLibrary is null. Can not resolve AbilitySO Asset.");
+            return null;
+        }
+
+        primitiveAbilityLevelGroup.abilitySO = AbilitiesAssetLibrary.Instance.GetAbilitySOByID(dataModeledAbilityLevelGroup.abilityID);
+
+        return primitiveAbilityLevelGroup;
+    }
+
+    public static List<DataModeledAbilityLevelGroup> TranslatePrimitiveAbilityLevelGroupsToDataModeledAbilityLevelGroups(List<PrimitiveAbilityLevelGroup> primitiveAbilityLevelGroups)
+    {
+        List<DataModeledAbilityLevelGroup> dataModeledAbilityLevelGroups = new List<DataModeledAbilityLevelGroup>();
+
+        foreach (PrimitiveAbilityLevelGroup primitiveAbilityLevelGroup in primitiveAbilityLevelGroups)
+        {
+            DataModeledAbilityLevelGroup dataModeledAbilityLevelGroup = TranslatePrimitiveAbilityLevelGroupToDataModeledAbilityLevelGroup(primitiveAbilityLevelGroup);
+            if (dataModeledAbilityLevelGroup == null) continue;
+            dataModeledAbilityLevelGroups.Add(dataModeledAbilityLevelGroup);
+        }
+
+        return dataModeledAbilityLevelGroups;
+    }
+
+    public static DataModeledAbilityLevelGroup TranslatePrimitiveAbilityLevelGroupToDataModeledAbilityLevelGroup(PrimitiveAbilityLevelGroup primitiveAbilityLevelGroup)
+    {
+        int abilityID = primitiveAbilityLevelGroup.abilitySO.id;
+        string abilityLevel = primitiveAbilityLevelGroup.abilityLevel.ToString();
+
+        DataModeledAbilityLevelGroup dataModeledAbilityLevelGroup = new DataModeledAbilityLevelGroup { abilityID = abilityID, abilityLevel = abilityLevel };
+
+        return dataModeledAbilityLevelGroup;
+    }
+
+    #endregion
 }

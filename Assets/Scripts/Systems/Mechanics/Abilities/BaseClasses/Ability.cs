@@ -8,8 +8,8 @@ public abstract class Ability : MonoBehaviour
     [Header("Ability Components")]
     [SerializeField] protected AbilitySO abilitySO;
     [Space]
-    [SerializeField] protected AbilitySlotsVariantsHandler abilitySlotsVariantsHandler;
-    [SerializeField] protected AbilityLevelsHandler abilityLevelsHandler;
+    [SerializeField] protected PlayerAbilitySlotsVariantsHandler playerAbilitySlotsVariantsHandler;
+    [SerializeField] protected PlayerAbilityLevelsHandler playerAbilityLevelsHandler;
     [SerializeField] protected PlayerHealth playerHealth;
 
     [Header("Ability Runtime Filled")]
@@ -49,14 +49,16 @@ public abstract class Ability : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        abilitySlotsVariantsHandler.OnAbilityVariantSelected += AbilityVariantHandler_OnAbilityVariantSelected;
-        abilityLevelsHandler.OnAbilityLevelChanged += AbilityLevelsHandler_OnAbilityLevelChanged;
+        playerAbilitySlotsVariantsHandler.OnAbilityVariantSelected += AbilityVariantHandler_OnAbilityVariantSelected;
+
+        playerAbilityLevelsHandler.OnAbilityLevelInitialized += PlayerAbilityLevelsHandler_OnAbilityLevelInitialized;
+        playerAbilityLevelsHandler.OnAbilityLevelChanged += AbilityLevelsHandler_OnAbilityLevelChanged;
     }
 
     protected virtual void OnDisable()
     {
-        abilitySlotsVariantsHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
-        abilityLevelsHandler.OnAbilityLevelChanged -= AbilityLevelsHandler_OnAbilityLevelChanged;
+        playerAbilitySlotsVariantsHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
+        playerAbilityLevelsHandler.OnAbilityLevelChanged -= AbilityLevelsHandler_OnAbilityLevelChanged;
     }
 
     protected virtual void Start()
@@ -77,7 +79,7 @@ public abstract class Ability : MonoBehaviour
 
     private void AssignAbilitySlot()
     {
-        abilitySlot = abilitySlotsVariantsHandler.GetAbilitySlot(this);
+        abilitySlot = playerAbilitySlotsVariantsHandler.GetAbilitySlot(this);
     }
 
     protected virtual void HandleAbilityCasting()
@@ -170,7 +172,7 @@ public abstract class Ability : MonoBehaviour
 
 
     #region Subscriptions
-    private void AbilityVariantHandler_OnAbilityVariantSelected(object sender, AbilitySlotsVariantsHandler.OnAbilityVariantSelectionEventArgs e)
+    private void AbilityVariantHandler_OnAbilityVariantSelected(object sender, PlayerAbilitySlotsVariantsHandler.OnAbilityVariantSelectionEventArgs e)
     {
         if (!isActiveVariant && e.newAbilityVariant == this)
         {
@@ -182,11 +184,19 @@ public abstract class Ability : MonoBehaviour
         }
     }
 
-    private void AbilityLevelsHandler_OnAbilityLevelChanged(object sender, AbilityLevelsHandler.OnAbilityLevelChangedEventArgs e)
+    private void AbilityLevelsHandler_OnAbilityLevelChanged(object sender, PlayerAbilityLevelsHandler.OnAbilityLevelChangedEventArgs e)
     {
         if (e.abilityLevelGroup.ability != this) return;
 
         abilityLevel = e.newAbilityLevel;
     }
+
+    private void PlayerAbilityLevelsHandler_OnAbilityLevelInitialized(object sender, PlayerAbilityLevelsHandler.OnAbilityLevelChangedEventArgs e)
+    {
+        if (e.abilityLevelGroup.ability != this) return;
+
+        abilityLevel = e.newAbilityLevel;
+    }
+
     #endregion
 }

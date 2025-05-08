@@ -6,12 +6,15 @@ using UnityEngine;
 public class RunData
 {
     public int currentCharacterID;
-
+    [Space]
     public int currentHealth;
     public int currentShield;
-
+    [Space]
     public List<DataModeledAssetStat> assetStats;
     public List<DataModeledNumericStat> numericStats;
+    [Space]
+    public List<DataModeledAbilityLevelGroup> abilityLevelGroups;
+    public List<DataModeledAbilitySlotGroup> abilitySlotGroups;
 
     public RunData()
     {
@@ -22,5 +25,8 @@ public class RunData
 
         numericStats = new List<DataModeledNumericStat>();
         assetStats = new List<DataModeledAssetStat>(); 
+
+        abilityLevelGroups = new List<DataModeledAbilityLevelGroup>();
+        abilitySlotGroups = new List<DataModeledAbilitySlotGroup>();
     }
 }

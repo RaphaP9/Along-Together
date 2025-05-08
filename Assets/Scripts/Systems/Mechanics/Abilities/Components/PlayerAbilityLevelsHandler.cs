@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static AbilitySlotsVariantsHandler;
-public class AbilityLevelsHandler : MonoBehaviour
+
+public class PlayerAbilityLevelsHandler : MonoBehaviour
 {
     [Header("Lists")]
     [SerializeField] private List<AbilityLevelGroup> abilityLevelGroups;
@@ -15,6 +15,7 @@ public class AbilityLevelsHandler : MonoBehaviour
 
     private const AbilityLevel DEFAULT_ABILITY_LEVEL = AbilityLevel.NotLearned;
 
+    public event EventHandler<OnAbilityLevelChangedEventArgs> OnAbilityLevelInitialized;
     public event EventHandler<OnAbilityLevelChangedEventArgs> OnAbilityLevelChanged;
 
     public class OnAbilityLevelChangedEventArgs : EventArgs
@@ -37,15 +38,31 @@ public class AbilityLevelsHandler : MonoBehaviour
 
     private void Start()
     {
-        ChangeStartingAbilityLevels();
+        InitializeAbilityLevels();
     }
 
-    private void ChangeStartingAbilityLevels()
+    private void InitializeAbilityLevels()
     {
         foreach (AbilityLevelGroup abilityLevelGroup in abilityLevelGroups)
         {
-            ChangeAbilityLevel(abilityLevelGroup.ability, abilityLevelGroup.startingAbilityLevel);
+            InitializeAbilityLevel(abilityLevelGroup.ability, abilityLevelGroup.startingAbilityLevel);
         }
+    }
+
+    private void InitializeAbilityLevel(Ability ability, AbilityLevel abilityLevel)
+    {
+        AbilityLevelGroup abilityLevelGroup = GetAbilitySlotGroupByAbility(ability);
+
+        if (abilityLevelGroup == null)
+        {
+            if (debug) Debug.Log("Ability Level Group is null. Selection will be ignored.");
+            return;
+        }
+
+        AbilityLevel previousAbilityLevel = abilityLevelGroup.currentAbilityLevel;
+        abilityLevelGroup.currentAbilityLevel = abilityLevel;
+
+        OnAbilityLevelInitialized?.Invoke(this, new OnAbilityLevelChangedEventArgs { abilityLevelGroup = abilityLevelGroup, previousAbilityLevel = previousAbilityLevel, newAbilityLevel = abilityLevelGroup.currentAbilityLevel });
     }
 
     private void ChangeAbilityLevel(Ability ability, AbilityLevel abilityLevel)
@@ -109,6 +126,36 @@ public class AbilityLevelsHandler : MonoBehaviour
 
         if (debug) Debug.Log($"Could not find AbilityLevelGroup with Ability: {ability.AbilitySO.abilityName}. Returning default ability level value.");
         return DEFAULT_ABILITY_LEVEL;
+    }
+    #endregion
+
+    #region Set & Get
+
+    public void SetStartingAbilityLevels(List<PrimitiveAbilityLevelGroup> setterPrimitiveAbilityLevelGroups) //To be called By the GameplaySessionDataSaveLoader, before Start()
+    {
+        foreach(PrimitiveAbilityLevelGroup setterPrimitiveAbilityLevelGroup in setterPrimitiveAbilityLevelGroups)
+        {
+            foreach(AbilityLevelGroup abilityLevelGroup in abilityLevelGroups)
+            {
+                if(abilityLevelGroup.ability.AbilitySO == setterPrimitiveAbilityLevelGroup.abilitySO)
+                {
+                    abilityLevelGroup.startingAbilityLevel = setterPrimitiveAbilityLevelGroup.abilityLevel;
+                }
+            }
+        }
+    }
+
+    public List<PrimitiveAbilityLevelGroup> GetPrimitiveAbilityLevelGroups()
+    {
+        List<PrimitiveAbilityLevelGroup> primitiveAbilityLevelGroups = new List<PrimitiveAbilityLevelGroup>();
+
+        foreach(AbilityLevelGroup abilityLevelGroup in abilityLevelGroups)
+        {
+            PrimitiveAbilityLevelGroup primitiveAbilityLevelGroup = new PrimitiveAbilityLevelGroup { abilitySO = abilityLevelGroup.ability.AbilitySO, abilityLevel = abilityLevelGroup.currentAbilityLevel };
+            primitiveAbilityLevelGroups.Add(primitiveAbilityLevelGroup);
+        }
+
+        return primitiveAbilityLevelGroups;
     }
     #endregion
 }

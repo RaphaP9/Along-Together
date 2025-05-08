@@ -556,11 +556,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilitySO: {fileID: 11400000, guid: 0689710761c5add46b325ddca21e2d61, type: 2}
-  abilitySlotsVariantsHandler: {fileID: 6695293978895852260}
-  abilityLevelsHandler: {fileID: 8693075421116404059}
+  playerAbilitySlotsVariantsHandler: {fileID: 8693075421116404059}
+  playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
-  abilityLevel: 0
   abilitySlot: 0
+  abilityLevel: 0
   isActiveVariant: 0
   mouseDirectionHandler: {fileID: 4593777764411072900}
   movementDirectionHandler: {fileID: 4053781653671632281}
@@ -592,8 +592,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5386565058599454864}
-  - component: {fileID: 8693075421116404059}
   - component: {fileID: 6695293978895852260}
+  - component: {fileID: 8693075421116404059}
   m_Layer: 6
   m_Name: Abilities
   m_TagString: Untagged
@@ -620,23 +620,6 @@ Transform:
   - {fileID: 7891673171534345979}
   m_Father: {fileID: 6380853313663446174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8693075421116404059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7556025860753867530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd228d1d40d9a49409213a9794e2774a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityLevelGroups:
-  - ability: {fileID: 7573232495966570463}
-    startingAbilityLevel: 1
-    currentAbilityLevel: 0
-  debug: 1
 --- !u!114 &6695293978895852260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,7 +629,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 7556025860753867530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4520b7b6f07987b4c90b232157452765, type: 3}
+  m_Script: {fileID: 11500000, guid: 305fbec8dfb35b247be6e385512ecd9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityLevelGroups:
+  - ability: {fileID: 7573232495966570463}
+    startingAbilityLevel: 1
+    currentAbilityLevel: 0
+  debug: 0
+--- !u!114 &8693075421116404059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556025860753867530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619fabc211cf1e6439952db9e6291a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abilitySlotGroups:
@@ -655,7 +655,7 @@ MonoBehaviour:
     - {fileID: 7573232495966570463}
     startingAbilityVariant: {fileID: 7573232495966570463}
     selectedAbilityVariant: {fileID: 0}
-  debug: 1
+  debug: 0
 --- !u!1 &8502199646678721002
 GameObject:
   m_ObjectHideFlags: 0

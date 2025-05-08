@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
-public class AbilitySlotsVariantsHandler : MonoBehaviour
+public class PlayerAbilitySlotsVariantsHandler : MonoBehaviour
 {
     [Header("Lists")]
     [SerializeField] private List<AbilitySlotGroup> abilitySlotGroups;

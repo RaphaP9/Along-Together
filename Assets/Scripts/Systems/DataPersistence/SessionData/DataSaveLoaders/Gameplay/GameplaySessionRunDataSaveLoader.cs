@@ -34,6 +34,9 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
         LoadRunNumericStats();
         LoadRunAssetStats();
+
+        LoadCharacterAbilityLevels();
+        LoadCharacterSlotsAbilityVariants();
     }
 
     public override void SaveRuntimeData()
@@ -45,6 +48,9 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
         SaveRunNumericStats();
         SaveRunAssetStats();
+
+        SaveCharacterAbilityLevels();
+        SaveCharacterSlotsAbilityVariants();
     }
 
     #endregion
@@ -89,6 +95,27 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
         playerHealth.SetCurrentShield(SessionRunDataContainer.Instance.RunData.currentShield);
     }
+
+
+    private void LoadCharacterAbilityLevels()
+    {
+        if (playerTransform == null) return;
+
+        PlayerAbilityLevelsHandler playerAbilityLevelsHandler = playerTransform.GetComponentInChildren<PlayerAbilityLevelsHandler>();
+
+        if(playerAbilityLevelsHandler == null) return;
+
+        playerAbilityLevelsHandler.SetStartingAbilityLevels(DataUtilities.TranslateDataModeledAbilityLevelGroupsToPrimitiveAbilityLevelGroups(SessionRunDataContainer.Instance.RunData.abilityLevelGroups));
+    }
+
+    private void LoadCharacterSlotsAbilityVariants()
+    {
+        if (playerTransform == null) return;
+
+        PlayerAbilitySlotsVariantsHandler playerAbilitySlotsVariantsHandler = playerTransform.GetComponentInChildren<PlayerAbilitySlotsVariantsHandler>();
+
+        if(playerAbilitySlotsVariantsHandler == null) return;  
+    }
     #endregion
 
     #region SaveMethods
@@ -97,6 +124,17 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         if (playerCharacterManager == null) return;
         SessionRunDataContainer.Instance.SetCurrentCharacterID(playerCharacterManager.CharacterSO.id);
+    }
+    private void SaveRunNumericStats()
+    {
+        if (runNumericStatModifierManager == null) return;
+        SessionRunDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataModeledNumericStats(runNumericStatModifierManager.NumericStatModifiers));
+    }
+
+    private void SaveRunAssetStats()
+    {
+        if (runAssetStatModifierManager == null) return;
+        SessionRunDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataModeledAssetStats(runAssetStatModifierManager.AssetStatModifiers));
     }
 
     private void SavePlayerCurrentHealth()
@@ -121,16 +159,20 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         SessionRunDataContainer.Instance.SetCurrentShield(playerHealth.CurrentShield);
     }
 
-    private void SaveRunNumericStats()
+    private void SaveCharacterAbilityLevels()
     {
-        if (runNumericStatModifierManager == null) return;
-        SessionRunDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataModeledNumericStats(runNumericStatModifierManager.NumericStatModifiers));
+        if (playerTransform == null) return;
+
+        PlayerAbilityLevelsHandler playerAbilityLevelsHandler = playerTransform.GetComponentInChildren<PlayerAbilityLevelsHandler>();
+
+        if (playerAbilityLevelsHandler == null) return;
+
+        SessionRunDataContainer.Instance.SetAbilityLevels(DataUtilities.TranslatePrimitiveAbilityLevelGroupsToDataModeledAbilityLevelGroups(playerAbilityLevelsHandler.GetPrimitiveAbilityLevelGroups()));
     }
 
-    private void SaveRunAssetStats()
+    private void SaveCharacterSlotsAbilityVariants()
     {
-        if (runAssetStatModifierManager == null) return;
-        SessionRunDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataModeledAssetStats(runAssetStatModifierManager.AssetStatModifiers));
+
     }
     #endregion
 
@@ -144,6 +186,9 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
         LoadPlayerCurrentHealth();
         LoadPlayerCurrentShield();
+
+        LoadCharacterAbilityLevels();
+        LoadCharacterSlotsAbilityVariants();
     }
     #endregion
 }
