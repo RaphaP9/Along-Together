@@ -22,7 +22,7 @@ MonoBehaviour:
   baseShield: 10
   baseArmor: 0
   baseDodgeChance: 0
-  baseMovementSpeed: 5.16
+  baseMovementSpeed: 5
   baseHealthRegen: 0
   baseShieldRegen: 0
   basicAttackDamage: 3

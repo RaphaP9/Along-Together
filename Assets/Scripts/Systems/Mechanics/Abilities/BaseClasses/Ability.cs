@@ -24,7 +24,8 @@ public abstract class Ability : MonoBehaviour
 
     #region Events
 
-    public static event EventHandler<OnAbilityCastEventArgs> OnAnyAbilityCastDenied;
+    //For specific Ability Casts, Sending the AbilitySO As Parammeter. Therefore check abilityID.
+    public static event EventHandler<OnAbilityCastEventArgs> OnAnyAbilityCastDenied; 
     public static event EventHandler<OnAbilityCastEventArgs> OnAnyAbilityCast;
 
     public event EventHandler<OnAbilityCastEventArgs> OnAbilityCastDenied;
@@ -86,10 +87,10 @@ public abstract class Ability : MonoBehaviour
         abilitySlot = playerAbilitySlotsVariantsHandler.GetAbilitySlot(this);
     }
 
+    //All abilities can be cast. If only passive, cast is always denied
     protected virtual void HandleAbilityCasting()
     {
-        if (!isActiveVariant) return; //Can not cast if not Active Variant
-        if (abilitySO.abilityType == AbilityType.Passive) return; //Can not cast if only passive
+        if (!isActiveVariant) return; //Cut logic from the start if not Active Variant
 
         if (!GetAssociatedDownInput()) return;
 
@@ -108,6 +109,8 @@ public abstract class Ability : MonoBehaviour
     #region Abstract Methods
     protected abstract void HandleUpdateLogic();
     protected abstract void HandleFixedUpdateLogic();
+    protected abstract void OnAbilityVariantActivationMethod();
+    protected abstract void OnAbilityVariantDeactivationMethod();
 
     protected virtual void OnAbilityCastMethod()
     {
@@ -123,21 +126,12 @@ public abstract class Ability : MonoBehaviour
 
     public virtual bool CanCastAbility()
     {
+        if (abilitySO.GetAbilityType() == AbilityType.Passive) return false; //Can not cast if only passive
         if (!playerHealth.IsAlive()) return false;
         if (abilityLevel == AbilityLevel.NotLearned) return false;
 
         return true;
     }
-
-    protected virtual void ActivateAbilityVariant()
-    {
-        isActiveVariant = true;
-    }
-    protected virtual void DisableAbilityVariant()
-    {
-        isActiveVariant = false;
-    }
-
     #endregion
 
     #region Input Association
@@ -179,11 +173,13 @@ public abstract class Ability : MonoBehaviour
     {
         if (!isActiveVariant && e.newAbilityVariant == this)
         {
-            ActivateAbilityVariant();
+            isActiveVariant = true;
+            OnAbilityVariantActivationMethod();
         }
         else if (isActiveVariant && e.previousAbilityVariant == this)
         {
-            DisableAbilityVariant();
+            isActiveVariant = false;
+            OnAbilityVariantDeactivationMethod();
         }
     }
 
@@ -191,11 +187,13 @@ public abstract class Ability : MonoBehaviour
     {
         if (!isActiveVariant && e.newAbilityVariant == this)
         {
-            ActivateAbilityVariant();
+            isActiveVariant = true;
+            OnAbilityVariantActivationMethod();
         }
         else if (isActiveVariant && e.previousAbilityVariant == this)
         {
-            DisableAbilityVariant();
+            isActiveVariant = false;
+            OnAbilityVariantDeactivationMethod();
         }
     }
 

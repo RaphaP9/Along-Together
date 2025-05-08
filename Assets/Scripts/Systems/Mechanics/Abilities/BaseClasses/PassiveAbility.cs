@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AbilityType
+public abstract class PassiveAbility : Ability, IPassiveAbility
 {
-    Passive,
-    Active,
-    ActivePassive
+    
 }

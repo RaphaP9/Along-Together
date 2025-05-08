@@ -16,8 +16,7 @@ MonoBehaviour:
   abilityName: BasicDash
   sprite: {fileID: 0}
   description: 
-  abilityType: 1
-  baseCooldown: 0.5
+  baseCooldown: 2
   dashDistance: 3
   dashTime: 0.25
   dashResistance: 2

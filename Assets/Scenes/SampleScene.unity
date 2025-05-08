@@ -3936,6 +3936,56 @@ MonoBehaviour:
   sceneDataSaveLoader: {fileID: 716470182}
   perpetualAssetStatModifierManager: {fileID: 2092187401}
   perpetualNumericStatModifierManager: {fileID: 256441755}
+--- !u!1 &685024019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 685024020}
+  - component: {fileID: 685024021}
+  m_Layer: 0
+  m_Name: Cooldown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &685024020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685024019}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 972315486}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &685024021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685024019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dafbbb30cf5beb49982e07ee081e601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numericStatModifierManagers:
+  - {fileID: 1673298609}
+  - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &690639540
 GameObject:
   m_ObjectHideFlags: 0
@@ -4330,7 +4380,7 @@ GameObject:
   - component: {fileID: 729197761}
   - component: {fileID: 729197762}
   m_Layer: 0
-  m_Name: LifestealResolver
+  m_Name: Lifesteal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5431,6 +5481,7 @@ Transform:
   - {fileID: 442517353}
   - {fileID: 2016939395}
   - {fileID: 729197761}
+  - {fileID: 685024020}
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &972418211
@@ -10251,7 +10302,7 @@ GameObject:
   - component: {fileID: 2016939395}
   - component: {fileID: 2016939396}
   m_Layer: 0
-  m_Name: MovementSpeedResolver
+  m_Name: MovementSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

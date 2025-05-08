@@ -15,7 +15,7 @@ public abstract class NumericStatResolver : StatResolver
 
     public List<NumericStatModifierManager> NumericStatModifierManagers => numericStatModifierManagers;
 
-    private const float NON_EXISTENT_REPLACEMENT_VALUE = -1f;
+    protected const float NON_EXISTENT_REPLACEMENT_VALUE = -1f;
 
     public class OnNumericResolverEventArgs : EventArgs
     {

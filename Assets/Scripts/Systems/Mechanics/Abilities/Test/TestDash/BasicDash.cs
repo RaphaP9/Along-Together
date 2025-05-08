@@ -4,14 +4,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class BasicDash : Ability, IActiveAbility, IDisplacementAbility, IDamageTakingInterruptionAbility
+public class BasicDash : ActiveAbility, IDisplacementAbility, IDamageTakingInterruptionAbility
 {
     [Header("Specific Components")]
     [SerializeField] private MouseDirectionHandler mouseDirectionHandler;
     [SerializeField] private MovementDirectionHandler movementDirectionHandler;
     [SerializeField] private Rigidbody2D _rigidbody2D;
-    [Space]
-    [SerializeField] private AbilityCooldownHandler abilityCooldownHandler;
 
     [Header("Specific Settings")]
     [SerializeField] private DirectionMode directionMode;
@@ -21,8 +19,7 @@ public class BasicDash : Ability, IActiveAbility, IDisplacementAbility, IDamageT
     [Header("Specific Runtime Filled")]
     [SerializeField] private Vector2 currentDashDirection;
 
-    private BasicDashSO BasicDashSO => AbilitySO as BasicDashSO;
-    public AbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
+    private BasicDashSO BasicDashSO => abilitySO as BasicDashSO;
 
     private enum DirectionMode { MousePosition, LastMovementDirection }
 
@@ -31,12 +28,6 @@ public class BasicDash : Ability, IActiveAbility, IDisplacementAbility, IDamageT
     private bool shouldDash = false;
 
     #region Events
-
-    public static event EventHandler<OnAbilityCastEventArgs> OnAnyDashCast;
-    public static event EventHandler<OnAbilityCastEventArgs> OnAnyDashCastDenied;
-
-    public event EventHandler<OnAbilityCastEventArgs> OnDashCast;
-    public event EventHandler<OnAbilityCastEventArgs> OnDashCastDenied;
 
     public static event EventHandler<OnPlayerDashEventArgs> OnAnyPlayerDash;
     public static event EventHandler<OnPlayerDashEventArgs> OnAnyPlayerDashPre;
@@ -54,7 +45,6 @@ public class BasicDash : Ability, IActiveAbility, IDisplacementAbility, IDamageT
     }
 
     #region Interface Methods
-    public bool AbilityCastInput() => GetAssociatedDownInput();
     public bool CanInterruptMovement() => interruptMovement;
     public bool IsDisplacing() => isDashing;
 
@@ -62,11 +52,12 @@ public class BasicDash : Ability, IActiveAbility, IDisplacementAbility, IDamageT
     public bool IsInterruptingDamageTaking() => isDashing;
     #endregion
 
-
     #region Logic
 
     protected override void HandleUpdateLogic()
     {
+        HandleDashResistance();
+
         if (dashPerformTimer > 0) dashPerformTimer -= Time.deltaTime;
         else if (isDashing) StopDash();
     }
@@ -85,48 +76,6 @@ public class BasicDash : Ability, IActiveAbility, IDisplacementAbility, IDamageT
 
     #endregion
 
-
-    #region Abstract Methods
-    protected override void OnAbilityCastMethod()
-    {
-        base.OnAbilityCastMethod();
-
-        OnAnyDashCast?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
-        OnDashCast?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
-
-        shouldDash = true;
-        abilityCooldownHandler.SetCooldownTimer(BasicDashSO.baseCooldown); //Replace with some resolver method (AbilityCooldownReductionResolver)
-    }
-
-    protected override void OnAbilityCastDeniedMethod()
-    {
-        base.OnAbilityCastDeniedMethod();
-
-        OnAnyDashCastDenied?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
-        OnDashCastDenied?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
-    }
-
-    public override bool CanCastAbility()
-    {
-        if (!playerHealth.IsAlive()) return false;
-        if (abilityLevel == AbilityLevel.NotLearned) return false;
-        if (abilityCooldownHandler.IsOnCooldown()) return false;
-
-        return true;
-    }
-
-    protected override void ActivateAbilityVariant()
-    {
-        base.ActivateAbilityVariant();
-    }
-
-    protected override void DisableAbilityVariant()
-    {
-        base.ActivateAbilityVariant();
-        StopDash();
-    }
-    #endregion
-
     #region AbilitySpecifics
     public void Dash()
     {
@@ -137,8 +86,8 @@ public class BasicDash : Ability, IActiveAbility, IDisplacementAbility, IDamageT
 
         Vector2 scaledDashVector = MechanicsUtilities.ScaleVector2ToPerspective(dashVector);
 
-        OnAnyPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection});
-        OnPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection});
+        OnAnyPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
+        OnPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
 
         _rigidbody2D.velocity = scaledDashVector;
         isDashing = true;
@@ -182,5 +131,22 @@ public class BasicDash : Ability, IActiveAbility, IDisplacementAbility, IDamageT
 
     private void SetDashPerformTimer(float time) => dashPerformTimer = time;
 
+    #endregion
+
+    #region Virtual Methods
+    protected override void OnAbilityCastMethod()
+    {
+        base.OnAbilityCastMethod();
+        shouldDash = true;
+    }
+    #endregion
+
+    #region Abstract Methods
+    protected override void OnAbilityVariantActivationMethod() { }
+
+    protected override void OnAbilityVariantDeactivationMethod()
+    {
+        StopDash();
+    }
     #endregion
 }

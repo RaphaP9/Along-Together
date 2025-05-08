@@ -16,5 +16,7 @@ public enum NumericStatType
     MovementSpeed,
 
     Lifesteal,
+
+    Cooldown
 }
 
