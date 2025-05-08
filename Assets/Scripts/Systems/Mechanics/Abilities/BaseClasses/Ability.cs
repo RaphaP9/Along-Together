@@ -49,6 +49,7 @@ public abstract class Ability : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        playerAbilitySlotsVariantsHandler.OnAbilityVariantInitialized += PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized;
         playerAbilitySlotsVariantsHandler.OnAbilityVariantSelected += AbilityVariantHandler_OnAbilityVariantSelected;
 
         playerAbilityLevelsHandler.OnAbilityLevelInitialized += PlayerAbilityLevelsHandler_OnAbilityLevelInitialized;
@@ -57,6 +58,9 @@ public abstract class Ability : MonoBehaviour
 
     protected virtual void OnDisable()
     {
+        playerAbilitySlotsVariantsHandler.OnAbilityVariantInitialized -= PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized;
+        playerAbilitySlotsVariantsHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
+
         playerAbilitySlotsVariantsHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
         playerAbilityLevelsHandler.OnAbilityLevelChanged -= AbilityLevelsHandler_OnAbilityLevelChanged;
     }
@@ -170,8 +174,19 @@ public abstract class Ability : MonoBehaviour
     }
     #endregion
 
-
     #region Subscriptions
+    private void PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized(object sender, PlayerAbilitySlotsVariantsHandler.OnAbilityVariantSelectionEventArgs e)
+    {
+        if (!isActiveVariant && e.newAbilityVariant == this)
+        {
+            ActivateAbilityVariant();
+        }
+        else if (isActiveVariant && e.previousAbilityVariant == this)
+        {
+            DisableAbilityVariant();
+        }
+    }
+
     private void AbilityVariantHandler_OnAbilityVariantSelected(object sender, PlayerAbilitySlotsVariantsHandler.OnAbilityVariantSelectionEventArgs e)
     {
         if (!isActiveVariant && e.newAbilityVariant == this)

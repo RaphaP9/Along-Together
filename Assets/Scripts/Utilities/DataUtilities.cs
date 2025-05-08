@@ -35,7 +35,7 @@ public static class DataUtilities
 
         return numericStatModifiers;
     }
-    public static NumericStatModifier TranslateDataModeledNumericStatToNumericStatModifier(DataModeledNumericStat dataModeledNumericStat)
+    private static NumericStatModifier TranslateDataModeledNumericStatToNumericStatModifier(DataModeledNumericStat dataModeledNumericStat)
     {
         NumericStatModifier numericStatModifier = new NumericStatModifier();
 
@@ -76,7 +76,7 @@ public static class DataUtilities
         return dataModeledNumericStats;
     }
 
-    public static DataModeledNumericStat TranslateNumericStatModifierToDataModeledNumericStat(NumericStatModifier numericStatModifier)
+    private static DataModeledNumericStat TranslateNumericStatModifierToDataModeledNumericStat(NumericStatModifier numericStatModifier)
     {
         string originGUID = numericStatModifier.originGUID;
         string numericStatType = numericStatModifier.numericStatType.ToString();
@@ -103,7 +103,7 @@ public static class DataUtilities
 
         return assetStatModifiers;
     }
-    public static AssetStatModifier TranslateDataModeledAssetStatToAssetStatModifier(DataModeledAssetStat dataModeledAssetStat)
+    private static AssetStatModifier TranslateDataModeledAssetStatToAssetStatModifier(DataModeledAssetStat dataModeledAssetStat)
     {
         AssetStatModifier assetStatModifier = new AssetStatModifier();
 
@@ -167,7 +167,7 @@ public static class DataUtilities
         return dataModeledAssetStats;
     }
 
-    public static DataModeledAssetStat TranslateAssetStatModifierToDataModeledAssetStat(AssetStatModifier assetStatModifier)
+    private static DataModeledAssetStat TranslateAssetStatModifierToDataModeledAssetStat(AssetStatModifier assetStatModifier)
     {
         string originGUID = assetStatModifier.originGUID;
         string numericStatType = assetStatModifier.assetStatType.ToString();
@@ -231,7 +231,7 @@ public static class DataUtilities
         return dataModeledAbilityLevelGroups;
     }
 
-    public static DataModeledAbilityLevelGroup TranslatePrimitiveAbilityLevelGroupToDataModeledAbilityLevelGroup(PrimitiveAbilityLevelGroup primitiveAbilityLevelGroup)
+    private static DataModeledAbilityLevelGroup TranslatePrimitiveAbilityLevelGroupToDataModeledAbilityLevelGroup(PrimitiveAbilityLevelGroup primitiveAbilityLevelGroup)
     {
         int abilityID = primitiveAbilityLevelGroup.abilitySO.id;
         string abilityLevel = primitiveAbilityLevelGroup.abilityLevel.ToString();
@@ -259,7 +259,7 @@ public static class DataUtilities
         return primitiveAbilitySlotGroups;
     }
 
-    public static PrimitiveAbilitySlotGroup TranslateDataModeledAbilitySlotGroupToPrimitiveAbilitySlotGroup(DataModeledAbilitySlotGroup dataModeledAbilitySlotGroup)
+    private static PrimitiveAbilitySlotGroup TranslateDataModeledAbilitySlotGroupToPrimitiveAbilitySlotGroup(DataModeledAbilitySlotGroup dataModeledAbilitySlotGroup)
     {
         PrimitiveAbilitySlotGroup primitiveAbilitySlotGroup = new PrimitiveAbilitySlotGroup();
 
@@ -295,7 +295,7 @@ public static class DataUtilities
         return dataModeledAbilitySlotGroups;
     }
 
-    public static DataModeledAbilitySlotGroup TranslatePrimitiveAbilitySlotGroupToDataModeledAbilitySlotGroup(PrimitiveAbilitySlotGroup primitiveAbilitySlotGroup)
+    private static DataModeledAbilitySlotGroup TranslatePrimitiveAbilitySlotGroupToDataModeledAbilitySlotGroup(PrimitiveAbilitySlotGroup primitiveAbilitySlotGroup)
     {
         string abilitySlot = primitiveAbilitySlotGroup.abilitySlot.ToString();
         int abilityID = primitiveAbilitySlotGroup.abilitySO.id;

@@ -114,7 +114,9 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
         PlayerAbilitySlotsVariantsHandler playerAbilitySlotsVariantsHandler = playerTransform.GetComponentInChildren<PlayerAbilitySlotsVariantsHandler>();
 
-        if(playerAbilitySlotsVariantsHandler == null) return;  
+        if(playerAbilitySlotsVariantsHandler == null) return;
+
+        playerAbilitySlotsVariantsHandler.SetStartingAbilityVariants(DataUtilities.TranslateDataModeledAbilitySlotGroupsToPrimitiveAbilitySlotGroups(SessionRunDataContainer.Instance.RunData.abilitySlotGroups));
     }
     #endregion
 
@@ -172,7 +174,13 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
     private void SaveCharacterSlotsAbilityVariants()
     {
+        if (playerTransform == null) return;
 
+        PlayerAbilitySlotsVariantsHandler playerAbilitySlotsVariantsHandler = playerTransform.GetComponentInChildren<PlayerAbilitySlotsVariantsHandler>();
+
+        if(playerAbilitySlotsVariantsHandler == null) return;
+
+        SessionRunDataContainer.Instance.SetAbilitySlotsVariants(DataUtilities.TranslatePrimitiveAbilitySlotGroupsToDataModeledAbilitySlotGroups(playerAbilitySlotsVariantsHandler.GetPrimitiveAbilitySlotGroups()));
     }
     #endregion
 

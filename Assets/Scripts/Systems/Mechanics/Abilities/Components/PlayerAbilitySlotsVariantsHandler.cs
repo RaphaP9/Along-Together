@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class PlayerAbilitySlotsVariantsHandler : MonoBehaviour
@@ -14,6 +13,7 @@ public class PlayerAbilitySlotsVariantsHandler : MonoBehaviour
 
     public List<AbilitySlotGroup> AbilitySlotGroups => abilitySlotGroups;
 
+    public event EventHandler<OnAbilityVariantSelectionEventArgs> OnAbilityVariantInitialized;
     public event EventHandler<OnAbilityVariantSelectionEventArgs> OnAbilityVariantSelected;
 
     private const AbilitySlot DEFAULT_ABILITY_SLOT = AbilitySlot.Unasigned;
@@ -39,15 +39,31 @@ public class PlayerAbilitySlotsVariantsHandler : MonoBehaviour
 
     private void Start()
     {
-        SelectStartingAbilityVariants();
+        InitializeAbilityVariants();
     }
 
-    private void SelectStartingAbilityVariants()
+    private void InitializeAbilityVariants()
     {
         foreach(AbilitySlotGroup slotAbilityVariant in abilitySlotGroups)
         {
-            SelectAbilityVariant(slotAbilityVariant.startingAbilityVariant);
+            InitializeAbilityVariant(slotAbilityVariant.startingAbilityVariant);
         }
+    }
+
+    private void InitializeAbilityVariant(Ability abilityVariant)
+    {
+        AbilitySlotGroup abilitySlotGroup = GetAbilitySlotGroupByAbilityOnIt(abilityVariant);
+
+        if (abilitySlotGroup == null)
+        {
+            if (debug) Debug.Log("Ability Slot Group is null. Selection will be ignored.");
+            return;
+        }
+
+        Ability previousAbilityVariant = null;
+        abilitySlotGroup.selectedAbilityVariant = abilityVariant;
+
+        OnAbilityVariantInitialized?.Invoke(this, new OnAbilityVariantSelectionEventArgs { abilitySlotGroup = abilitySlotGroup, previousAbilityVariant = previousAbilityVariant, newAbilityVariant = abilitySlotGroup.selectedAbilityVariant });
     }
 
     private void SelectAbilityVariant(Ability abilityVariant)
@@ -131,6 +147,44 @@ public class PlayerAbilitySlotsVariantsHandler : MonoBehaviour
         }
 
         return abilitySlotGroup.abilitySlot;
+    }
+    #endregion
+
+    #region Set & Get
+
+    public void SetStartingAbilityVariants(List<PrimitiveAbilitySlotGroup> setterPrimitiveAbilitySlotGroups) //To be called By the GameplaySessionDataSaveLoader, before Start()
+    {
+        foreach (PrimitiveAbilitySlotGroup setterPrimitiveAbilitySlotGroup in setterPrimitiveAbilitySlotGroups)
+        {
+            foreach (AbilitySlotGroup abilitySlotGroup in abilitySlotGroups)
+            {
+                if (abilitySlotGroup.abilitySlot != setterPrimitiveAbilitySlotGroup.abilitySlot) continue;
+
+                foreach(Ability abilityVariant in abilitySlotGroup.abilityVariants)
+                {
+                    if(abilityVariant.AbilitySO == setterPrimitiveAbilitySlotGroup.abilitySO)
+                    {
+                        abilitySlotGroup.startingAbilityVariant = abilityVariant;
+                        break;
+                    }
+                }
+
+                if (debug) Debug.Log($"Ability with name: {setterPrimitiveAbilitySlotGroup.abilitySO.abilityName} is not found in Slot: {setterPrimitiveAbilitySlotGroup.abilitySlot}");
+            }
+        }
+    }
+
+    public List<PrimitiveAbilitySlotGroup> GetPrimitiveAbilitySlotGroups()
+    {
+        List<PrimitiveAbilitySlotGroup> primitiveAbilitySlotGroups = new List<PrimitiveAbilitySlotGroup>();
+
+        foreach (AbilitySlotGroup abilitySlotGroup in abilitySlotGroups)
+        {
+            PrimitiveAbilitySlotGroup primitiveAbilitySlotGroup = new PrimitiveAbilitySlotGroup { abilitySlot = abilitySlotGroup.abilitySlot, abilitySO = abilitySlotGroup.selectedAbilityVariant.AbilitySO};
+            primitiveAbilitySlotGroups.Add(primitiveAbilitySlotGroup);
+        }
+
+        return primitiveAbilitySlotGroups;
     }
     #endregion
 }
