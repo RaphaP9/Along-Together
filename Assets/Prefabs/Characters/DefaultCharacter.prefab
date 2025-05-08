@@ -275,8 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bb1d3e64f8d5a4299e3d1046917a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothVelocityFactor: 5
-  smoothDirectionFactor: 5
+  smoothVelocityFactor: 100
+  smoothDirectionFactor: 100
   movementSpeed: 0
   movementEnabled: 1
   characterIdentifier: {fileID: 1965199428449930878}

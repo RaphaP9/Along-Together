@@ -30,10 +30,10 @@ public abstract class ActiveAbility : Ability, IActiveAbility
     protected override void Start()
     {
         base.Start();
-        InitializeaActiveAbility();
+        InitializeActiveAbility();
     }
 
-    private void InitializeaActiveAbility()
+    private void InitializeActiveAbility()
     {
         abilityCooldownTime = CalculateAbilityCooldown();
     }
@@ -55,11 +55,28 @@ public abstract class ActiveAbility : Ability, IActiveAbility
     }
     #endregion
 
+    #region Abstract Methods
     protected override void OnAbilityCastMethod()
     {
         base.OnAbilityCastMethod();
         abilityCooldownHandler.SetCooldownTimer(abilityCooldownTime); 
     }
+
+    protected override void OnAbilityCastDeniedMethod()
+    {
+        base.OnAbilityCastDeniedMethod();
+    }
+
+    protected override void OnAbilityVariantActivationMethod()
+    {
+        abilityCooldownHandler.ResetCooldownTimer(); //Reset Cooldown On Activation
+    }
+
+    protected override void OnAbilityVariantDeactivationMethod()
+    {
+        //
+    }
+    #endregion
 
     #region Subscriptions
     private void CooldownStatResolver_OnCooldownResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)

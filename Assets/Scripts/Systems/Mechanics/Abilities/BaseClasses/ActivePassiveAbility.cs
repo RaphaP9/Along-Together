@@ -11,7 +11,8 @@ public abstract class ActivePassiveAbility : Ability, IActiveAbility, IPassiveAb
     [SerializeField] protected float abilityCooldownTime;
 
     public AbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
-    private ActivePassiveAbilitySO ActivePassiveAbilitySO => abilitySO as ActivePassiveAbilitySO;
+    private ActivePassiveAbilitySO ActivePassiveAbilitSO => abilitySO as ActivePassiveAbilitySO;
+
 
     protected override void OnEnable()
     {
@@ -28,10 +29,10 @@ public abstract class ActivePassiveAbility : Ability, IActiveAbility, IPassiveAb
     protected override void Start()
     {
         base.Start();
-        InitializeaActiveAbility();
+        InitializeActiveAbility();
     }
 
-    private void InitializeaActiveAbility()
+    private void InitializeActiveAbility()
     {
         abilityCooldownTime = CalculateAbilityCooldown();
     }
@@ -42,7 +43,7 @@ public abstract class ActivePassiveAbility : Ability, IActiveAbility, IPassiveAb
     }
 
     #region InterfaceMethods
-    public float CalculateAbilityCooldown() => CooldownStatResolver.Instance.ResolveStatFloat(ActivePassiveAbilitySO.baseCooldown);
+    public float CalculateAbilityCooldown() => CooldownStatResolver.Instance.ResolveStatFloat(ActivePassiveAbilitSO.baseCooldown);
     public bool AbilityCastInput() => GetAssociatedDownInput();
     public override bool CanCastAbility()
     {
@@ -53,11 +54,28 @@ public abstract class ActivePassiveAbility : Ability, IActiveAbility, IPassiveAb
     }
     #endregion
 
+    #region Abstract Methods
     protected override void OnAbilityCastMethod()
     {
         base.OnAbilityCastMethod();
         abilityCooldownHandler.SetCooldownTimer(abilityCooldownTime);
     }
+
+    protected override void OnAbilityCastDeniedMethod()
+    {
+        base.OnAbilityCastDeniedMethod();
+    }
+
+    protected override void OnAbilityVariantActivationMethod()
+    {
+        abilityCooldownHandler.ResetCooldownTimer(); //Reset Cooldown On Activation
+    }
+
+    protected override void OnAbilityVariantDeactivationMethod()
+    {
+        //
+    }
+    #endregion
 
     #region Subscriptions
     private void CooldownStatResolver_OnCooldownResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)

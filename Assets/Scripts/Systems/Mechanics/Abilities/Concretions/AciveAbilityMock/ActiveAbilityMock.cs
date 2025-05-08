@@ -10,9 +10,4 @@ public class ActiveAbilityMock : ActiveAbility
     protected override void HandleFixedUpdateLogic() { }
     protected override void HandleUpdateLogic() { }
     #endregion
-
-    #region Abstract Methods
-    protected override void OnAbilityVariantActivationMethod() { }
-    protected override void OnAbilityVariantDeactivationMethod() { }
-    #endregion
 }

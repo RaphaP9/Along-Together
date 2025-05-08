@@ -133,19 +133,16 @@ public class BasicDash : ActiveAbility, IDisplacementAbility, IDamageTakingInter
 
     #endregion
 
-    #region Virtual Methods
+    #region Abstract Methods
     protected override void OnAbilityCastMethod()
     {
         base.OnAbilityCastMethod();
         shouldDash = true;
     }
-    #endregion
-
-    #region Abstract Methods
-    protected override void OnAbilityVariantActivationMethod() { }
 
     protected override void OnAbilityVariantDeactivationMethod()
     {
+        base.OnAbilityVariantDeactivationMethod();
         StopDash();
     }
     #endregion
