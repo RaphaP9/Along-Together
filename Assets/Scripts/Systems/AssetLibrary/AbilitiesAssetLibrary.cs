@@ -42,7 +42,7 @@ public class AbilitiesAssetLibrary : MonoBehaviour
             if (abilitySO.id == id) return abilitySO;
         }
 
-        if (debug) Debug.Log($"No AbilitySO matches the ID:{id}. Returning null");
+        if (debug) Debug.Log($"No AbilitySO matches the ID: {id}. Returning null");
         return null;
     }
 
@@ -53,7 +53,7 @@ public class AbilitiesAssetLibrary : MonoBehaviour
             if (abilitySO.abilityName == name) return abilitySO;
         }
 
-        if (debug) Debug.Log($"No AbilitySO matches the Name:{name}. Returning null");
+        if (debug) Debug.Log($"No AbilitySO matches the Name: {name}. Returning null");
         return null;
     }
 }

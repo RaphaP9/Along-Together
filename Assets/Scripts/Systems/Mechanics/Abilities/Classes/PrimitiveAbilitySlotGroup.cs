@@ -1,5 +1,5 @@
 [System.Serializable]
-public class PrimitiveAbilitySlotVariant
+public class PrimitiveAbilitySlotGroup
 {
     public AbilitySlot abilitySlot;
     public AbilitySO abilitySO;

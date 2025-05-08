@@ -31,6 +31,7 @@ public class SessionPerpetualDataContainer : MonoBehaviour
     #endregion
 
     public void SetPerpetualData(PerpetualData perpetualData) => this.perpetualData = perpetualData;
+    public void ClearPerpetualData() => perpetualData = new();
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

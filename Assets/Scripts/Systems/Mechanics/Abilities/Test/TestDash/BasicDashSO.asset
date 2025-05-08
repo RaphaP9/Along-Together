@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0857a8a736186e4084cc008a35ea610, type: 3}
   m_Name: BasicDashSO
   m_EditorClassIdentifier: 
+  id: 1
   abilityName: BasicDash
   sprite: {fileID: 0}
   description: 

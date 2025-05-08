@@ -242,4 +242,67 @@ public static class DataUtilities
     }
 
     #endregion
+
+    #region Ability Slots Variants Translation
+
+    public static List<PrimitiveAbilitySlotGroup> TranslateDataModeledAbilitySlotGroupsToPrimitiveAbilitySlotGroups(List<DataModeledAbilitySlotGroup> dataModeledAbilitySlotGroups)
+    {
+        List<PrimitiveAbilitySlotGroup> primitiveAbilitySlotGroups = new List<PrimitiveAbilitySlotGroup>();
+
+        foreach (DataModeledAbilitySlotGroup dataModeledAbilitySlotGroup in dataModeledAbilitySlotGroups)
+        {
+            PrimitiveAbilitySlotGroup primitiveAbilitySlotGroup = TranslateDataModeledAbilitySlotGroupToPrimitiveAbilitySlotGroup(dataModeledAbilitySlotGroup);
+            if (primitiveAbilitySlotGroup == null) continue;
+            primitiveAbilitySlotGroups.Add(primitiveAbilitySlotGroup);
+        }
+
+        return primitiveAbilitySlotGroups;
+    }
+
+    public static PrimitiveAbilitySlotGroup TranslateDataModeledAbilitySlotGroupToPrimitiveAbilitySlotGroup(DataModeledAbilitySlotGroup dataModeledAbilitySlotGroup)
+    {
+        PrimitiveAbilitySlotGroup primitiveAbilitySlotGroup = new PrimitiveAbilitySlotGroup();
+
+        if (Enum.TryParse<AbilitySlot>(dataModeledAbilitySlotGroup.abilitySlot, true, out var abilitySlot)) primitiveAbilitySlotGroup.abilitySlot = abilitySlot;
+        else
+        {
+            if (DEBUG) Debug.Log($"Can not resolve enum from string:{dataModeledAbilitySlotGroup.abilitySlot}");
+            return null;
+        }
+
+        if (AbilitiesAssetLibrary.Instance == null)
+        {
+            if (DEBUG) Debug.Log("AbilitiesAssetLibrary is null. Can not resolve AbilitySO Asset.");
+            return null;
+        }
+
+        primitiveAbilitySlotGroup.abilitySO = AbilitiesAssetLibrary.Instance.GetAbilitySOByID(dataModeledAbilitySlotGroup.abilityID);
+
+        return primitiveAbilitySlotGroup;
+    }
+
+    public static List<DataModeledAbilitySlotGroup> TranslatePrimitiveAbilitySlotGroupsToDataModeledAbilitySlotGroups(List<PrimitiveAbilitySlotGroup> primitiveAbilitySlotGroups)
+    {
+        List<DataModeledAbilitySlotGroup> dataModeledAbilitySlotGroups = new List<DataModeledAbilitySlotGroup>();
+
+        foreach (PrimitiveAbilitySlotGroup primitiveAbilitySlotGroup in primitiveAbilitySlotGroups)
+        {
+            DataModeledAbilitySlotGroup dataModeledAbilitySlotGroup = TranslatePrimitiveAbilitySlotGroupToDataModeledAbilitySlotGroup(primitiveAbilitySlotGroup);
+            if (dataModeledAbilitySlotGroup == null) continue;
+            dataModeledAbilitySlotGroups.Add(dataModeledAbilitySlotGroup);
+        }
+
+        return dataModeledAbilitySlotGroups;
+    }
+
+    public static DataModeledAbilitySlotGroup TranslatePrimitiveAbilitySlotGroupToDataModeledAbilitySlotGroup(PrimitiveAbilitySlotGroup primitiveAbilitySlotGroup)
+    {
+        string abilitySlot = primitiveAbilitySlotGroup.abilitySlot.ToString();
+        int abilityID = primitiveAbilitySlotGroup.abilitySO.id;
+
+        DataModeledAbilitySlotGroup dataModeledAbilitySlotGroup = new DataModeledAbilitySlotGroup { abilitySlot = abilitySlot, abilityID = abilityID };
+
+        return dataModeledAbilitySlotGroup;
+    }
+    #endregion
 }
