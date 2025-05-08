@@ -368,6 +368,73 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4330250828371384196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7380819930257380479}
+  - component: {fileID: 1280386860473701626}
+  - component: {fileID: 6423833680700352654}
+  m_Layer: 6
+  m_Name: ActiveAbilityMock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7380819930257380479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330250828371384196}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3196710238795072990}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1280386860473701626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330250828371384196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abf03ba5761832449920c39d3b7aa345, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySO: {fileID: 11400000, guid: 9267755db900af943ad68566a86d6198, type: 2}
+  playerAbilitySlotsVariantsHandler: {fileID: 8693075421116404059}
+  playerAbilityLevelsHandler: {fileID: 6695293978895852260}
+  playerHealth: {fileID: 6586126778679378193}
+  abilitySlot: 0
+  abilityLevel: 0
+  isActiveVariant: 0
+  abilityCooldownHandler: {fileID: 6423833680700352654}
+  abilityCooldownTime: 0
+--- !u!114 &6423833680700352654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330250828371384196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9e4b77cad7ab7f4cab7f2eaa3c6363e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTimer: 0
 --- !u!1 &6462796451184188670
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +575,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3296231075715405042}
+  - {fileID: 7380819930257380479}
   m_Father: {fileID: 5386565058599454864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7279207625108799617
@@ -562,10 +630,11 @@ MonoBehaviour:
   abilitySlot: 0
   abilityLevel: 0
   isActiveVariant: 0
+  abilityCooldownHandler: {fileID: 1263218695718187337}
+  abilityCooldownTime: 0
   mouseDirectionHandler: {fileID: 4593777764411072900}
   movementDirectionHandler: {fileID: 4053781653671632281}
   _rigidbody2D: {fileID: 3125651546402793068}
-  abilityCooldownHandler: {fileID: 1263218695718187337}
   directionMode: 1
   interruptMovement: 1
   interruptDamageTaking: 1
@@ -636,6 +705,9 @@ MonoBehaviour:
   - ability: {fileID: 7573232495966570463}
     startingAbilityLevel: 1
     currentAbilityLevel: 0
+  - ability: {fileID: 1280386860473701626}
+    startingAbilityLevel: 1
+    currentAbilityLevel: 0
   debug: 0
 --- !u!114 &8693075421116404059
 MonoBehaviour:
@@ -653,6 +725,7 @@ MonoBehaviour:
   - abilitySlot: 2
     abilityVariants:
     - {fileID: 7573232495966570463}
+    - {fileID: 1280386860473701626}
     startingAbilityVariant: {fileID: 7573232495966570463}
     selectedAbilityVariant: {fileID: 0}
   debug: 0

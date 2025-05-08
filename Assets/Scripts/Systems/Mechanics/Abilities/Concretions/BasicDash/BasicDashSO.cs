@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BasicDashSO", menuName = "ScriptableObjects/Abilities/Test/BasicDash")]
+[CreateAssetMenu(fileName = "BasicDashSO", menuName = "ScriptableObjects/Abilities/Active/BasicDash")]
 public class BasicDashSO : ActiveAbilitySO
 {
     [Header("Specific Settings")]

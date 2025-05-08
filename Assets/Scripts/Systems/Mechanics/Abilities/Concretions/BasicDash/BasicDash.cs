@@ -52,7 +52,7 @@ public class BasicDash : ActiveAbility, IDisplacementAbility, IDamageTakingInter
     public bool IsInterruptingDamageTaking() => isDashing;
     #endregion
 
-    #region Logic
+    #region Logic Methods
 
     protected override void HandleUpdateLogic()
     {

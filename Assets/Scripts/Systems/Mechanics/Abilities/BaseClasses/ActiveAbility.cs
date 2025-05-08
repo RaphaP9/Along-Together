@@ -43,6 +43,7 @@ public abstract class ActiveAbility : Ability, IActiveAbility
         abilityCooldownTime = CalculateAbilityCooldown();
     }
 
+    #region InterfaceMethods
     public float CalculateAbilityCooldown() => CooldownStatResolver.Instance.ResolveStatFloat(ActiveAbilitySO.baseCooldown);
     public bool AbilityCastInput() => GetAssociatedDownInput();
     public override bool CanCastAbility()
@@ -52,8 +53,7 @@ public abstract class ActiveAbility : Ability, IActiveAbility
 
         return true;
     }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    #endregion
 
     protected override void OnAbilityCastMethod()
     {
