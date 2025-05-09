@@ -8,7 +8,7 @@ public abstract class Ability : MonoBehaviour
     [Header("Ability Components")]
     [SerializeField] protected AbilitySO abilitySO;
     [Space]
-    [SerializeField] protected PlayerAbilitySlotsVariantsHandler playerAbilitySlotsVariantsHandler;
+    [SerializeField] protected AbilitySlotHandler abilitySlotHandler;
     [SerializeField] protected PlayerAbilityLevelsHandler playerAbilityLevelsHandler;
     [SerializeField] protected PlayerHealth playerHealth;
 
@@ -50,8 +50,8 @@ public abstract class Ability : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        playerAbilitySlotsVariantsHandler.OnAbilityVariantInitialized += PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized;
-        playerAbilitySlotsVariantsHandler.OnAbilityVariantSelected += AbilityVariantHandler_OnAbilityVariantSelected;
+        abilitySlotHandler.OnAbilityVariantInitialized += PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized;
+        abilitySlotHandler.OnAbilityVariantSelected += AbilityVariantHandler_OnAbilityVariantSelected;
 
         playerAbilityLevelsHandler.OnAbilityLevelInitialized += PlayerAbilityLevelsHandler_OnAbilityLevelInitialized;
         playerAbilityLevelsHandler.OnAbilityLevelChanged += AbilityLevelsHandler_OnAbilityLevelChanged;
@@ -59,10 +59,10 @@ public abstract class Ability : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        playerAbilitySlotsVariantsHandler.OnAbilityVariantInitialized -= PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized;
-        playerAbilitySlotsVariantsHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
+        abilitySlotHandler.OnAbilityVariantInitialized -= PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized;
+        abilitySlotHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
 
-        playerAbilitySlotsVariantsHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
+        playerAbilityLevelsHandler.OnAbilityLevelInitialized -= PlayerAbilityLevelsHandler_OnAbilityLevelInitialized;
         playerAbilityLevelsHandler.OnAbilityLevelChanged -= AbilityLevelsHandler_OnAbilityLevelChanged;
     }
 
@@ -84,7 +84,7 @@ public abstract class Ability : MonoBehaviour
 
     private void AssignAbilitySlot()
     {
-        abilitySlot = playerAbilitySlotsVariantsHandler.GetAbilitySlot(this);
+        abilitySlot = abilitySlotHandler.AbilitySlot;
     }
 
     //All abilities can be cast. If only passive, cast is always denied
@@ -169,7 +169,7 @@ public abstract class Ability : MonoBehaviour
     #endregion
 
     #region Subscriptions
-    private void PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized(object sender, PlayerAbilitySlotsVariantsHandler.OnAbilityVariantSelectionEventArgs e)
+    private void PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized(object sender, AbilitySlotHandler.OnAbilityVariantSelectionEventArgs e)
     {
         if (!isActiveVariant && e.newAbilityVariant == this)
         {
@@ -183,7 +183,7 @@ public abstract class Ability : MonoBehaviour
         }
     }
 
-    private void AbilityVariantHandler_OnAbilityVariantSelected(object sender, PlayerAbilitySlotsVariantsHandler.OnAbilityVariantSelectionEventArgs e)
+    private void AbilityVariantHandler_OnAbilityVariantSelected(object sender, AbilitySlotHandler.OnAbilityVariantSelectionEventArgs e)
     {
         if (!isActiveVariant && e.newAbilityVariant == this)
         {
