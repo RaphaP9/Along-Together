@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 389461692359508210}
+  - component: {fileID: 4493125982467729595}
   m_Layer: 6
   m_Name: AbilityB
   m_TagString: Untagged
@@ -28,9 +29,96 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4669092448496720726}
   m_Father: {fileID: 5386565058599454864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4493125982467729595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189551306023922880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03bf4002125bf6e40a27f4cfbdf5bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySlot: 3
+  abilityVariants:
+  - {fileID: 8470413022457330166}
+  startingAbilityVariant: {fileID: 8470413022457330166}
+  selectedAbilityVariant: {fileID: 0}
+  debug: 1
+--- !u!1 &1376360663945388064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4669092448496720726}
+  - component: {fileID: 8470413022457330166}
+  - component: {fileID: 8397176443843121625}
+  m_Layer: 6
+  m_Name: TemporalStatsChangeActiveAbility
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4669092448496720726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376360663945388064}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 389461692359508210}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8470413022457330166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376360663945388064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e0a1cedfe3195b4fa1d99c86d790a07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySO: {fileID: 11400000, guid: fa8e30561bdb20d4e832fb1056c8ec1e, type: 2}
+  abilitySlotHandler: {fileID: 4493125982467729595}
+  playerAbilityLevelsHandler: {fileID: 6695293978895852260}
+  playerHealth: {fileID: 6586126778679378193}
+  abilitySlot: 0
+  abilityLevel: 0
+  isActiveVariant: 0
+  abilityCooldownHandler: {fileID: 8397176443843121625}
+  abilityCooldownTime: 0
+  currentGeneratedGUID: 
+--- !u!114 &8397176443843121625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376360663945388064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379cce1a67770d748acde5922930ff03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTimer: 0
 --- !u!1 &1612407981133521685
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +519,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4330250828371384196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9e4b77cad7ab7f4cab7f2eaa3c6363e, type: 3}
+  m_Script: {fileID: 11500000, guid: 379cce1a67770d748acde5922930ff03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTimer: 0
@@ -668,7 +756,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7279207625108799617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9e4b77cad7ab7f4cab7f2eaa3c6363e, type: 3}
+  m_Script: {fileID: 11500000, guid: 379cce1a67770d748acde5922930ff03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTimer: 0
@@ -681,8 +769,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5386565058599454864}
-  - component: {fileID: 6695293978895852260}
   - component: {fileID: 8693075421116404059}
+  - component: {fileID: 6695293978895852260}
   m_Layer: 6
   m_Name: Abilities
   m_TagString: Untagged
@@ -709,6 +797,21 @@ Transform:
   - {fileID: 7891673171534345979}
   m_Father: {fileID: 6380853313663446174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8693075421116404059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556025860753867530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619fabc211cf1e6439952db9e6291a34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySlotHandlers:
+  - {fileID: 8531194546525769567}
+  - {fileID: 4493125982467729595}
 --- !u!114 &6695293978895852260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,21 +831,10 @@ MonoBehaviour:
   - ability: {fileID: 1280386860473701626}
     startingAbilityLevel: 1
     currentAbilityLevel: 0
+  - ability: {fileID: 8470413022457330166}
+    startingAbilityLevel: 1
+    currentAbilityLevel: 0
   debug: 1
---- !u!114 &8693075421116404059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7556025860753867530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 619fabc211cf1e6439952db9e6291a34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilitySlotHandlers:
-  - {fileID: 8531194546525769567}
 --- !u!1 &8502199646678721002
 GameObject:
   m_ObjectHideFlags: 0

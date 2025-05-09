@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IHasEmbeddedStats 
+public interface IHasEmbeddedAssetStats 
 {
-    public List<NumericEmbeddedStat> GetNumericEmbeddedStats();
     public List<AssetEmbeddedStat> GetAssetEmbeddedStats();
 }

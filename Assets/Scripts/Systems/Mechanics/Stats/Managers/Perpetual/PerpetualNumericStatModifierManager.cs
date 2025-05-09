@@ -7,6 +7,16 @@ public class PerpetualNumericStatModifierManager : NumericStatModifierManager
 {
     public static PerpetualNumericStatModifierManager Instance { get; private set; }
 
+    protected virtual void OnEnable()
+    {
+
+    }
+
+    protected virtual void OnDisable()
+    {
+
+    }
+
     protected override void SetSingleton()
     {
         if (Instance == null)

@@ -11,16 +11,6 @@ public abstract class StatModifierManager : MonoBehaviour
     public static event EventHandler OnStatModifierManagerInitialized;
     public static event EventHandler OnStatModifierManagerUpdated;
 
-    protected virtual void OnEnable()
-    {
-
-    }
-
-    protected virtual void OnDisable()
-    {
-
-    }
-
     protected void Awake()
     {
         SetSingleton();
@@ -46,8 +36,6 @@ public abstract class StatModifierManager : MonoBehaviour
     }
 
     protected abstract StatValueType GetStatValueType();
-
-    public abstract void AddStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder);
     public abstract void RemoveStatModifiersByGUID(string originGUID);
 
     #region Subscriptions

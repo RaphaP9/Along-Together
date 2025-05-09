@@ -26,8 +26,8 @@ public class ScenesManager : MonoBehaviour
     public static event EventHandler<OnSceneLoadEventArgs> OnSceneLoadCompleteReal;
     public static event EventHandler<OnSceneLoadEventArgs> OnSceneLoadComplete;
 
-    private float loadProgress;
-    private bool isLoadingScene;
+    public float loadProgress;
+    public bool isLoadingScene;
 
     public float LoadProgress => loadProgress;
     public bool IsLoadingScene => isLoadingScene;
@@ -173,7 +173,9 @@ public class ScenesManager : MonoBehaviour
 
     private IEnumerator LoadSceneAsyncCoroutine(string targetScene)
     {
-        if(isLoadingScene) yield break;
+        //VERY IMPORTANT: If for some reason, the scene fails to load(Ex. Not added to build settings), is LoadingScene never becomes false. Resulting in no further scene loads.
+        //In that context, the line "if(isLoadingScene) yield break;" is commented.
+        //if(isLoadingScene) yield break;
 
         isLoadingScene = true;
 

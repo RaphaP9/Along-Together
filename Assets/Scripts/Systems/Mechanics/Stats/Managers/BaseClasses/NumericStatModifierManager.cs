@@ -19,7 +19,7 @@ public abstract class NumericStatModifierManager : StatModifierManager
     #endregion
 
     #region Add/Remove Stat Modifiers
-    public override void AddStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder)
+    public void AddStatModifiers(string originGUID, IHasEmbeddedNumericStats numericEmbeddedStatsHolder)
     {
         if (originGUID == "")
         {
@@ -29,7 +29,7 @@ public abstract class NumericStatModifierManager : StatModifierManager
 
         int statsAdded = 0;
 
-        foreach (NumericEmbeddedStat numericEmbeddedStat in embeddedStatsHolder.GetNumericEmbeddedStats())
+        foreach (NumericEmbeddedStat numericEmbeddedStat in numericEmbeddedStatsHolder.GetNumericEmbeddedStats())
         {
             if (AddNumericStatModifier(originGUID, numericEmbeddedStat)) statsAdded++;
         }

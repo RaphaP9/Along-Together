@@ -16,7 +16,7 @@ public class MaxHealthStatUI : NumericStatUI
         MaxHealthStatResolver.OnMaxHealthResolverUpdated -= MaxHealthStatResolver_OnMaxHealthResolverUpdated;
     }
 
-    protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleString(currentValue);
+    protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleFloat(currentValue,2);
     protected override float GetBaseValue() => PlayerCharacterManager.Instance.CharacterSO.baseHealth;
     protected override float GetCurrentValue() => MaxHealthStatResolver.Instance.ResolveStatInt(PlayerCharacterManager.Instance.CharacterSO.baseHealth);
 

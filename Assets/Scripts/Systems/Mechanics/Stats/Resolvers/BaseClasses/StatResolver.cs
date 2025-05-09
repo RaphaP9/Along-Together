@@ -4,25 +4,21 @@ using UnityEngine;
 
 public abstract class StatResolver : MonoBehaviour
 {
-
     protected virtual void OnEnable()
     {
+        PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
         StatModifierManager.OnStatModifierManagerUpdated += StatModifierManager_OnStatModifierManagerUpdated;
     }
 
     protected virtual void OnDisable()
     {
+        PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
         StatModifierManager.OnStatModifierManagerUpdated -= StatModifierManager_OnStatModifierManagerUpdated;
     }
 
     protected virtual void Awake()
     {
         SetSingleton();
-    }
-
-    protected virtual void Start()
-    {
-        InitializeResolver();
     }
 
     protected abstract void SetSingleton();
@@ -34,6 +30,10 @@ public abstract class StatResolver : MonoBehaviour
     protected abstract void OnResolverUpdatedMethod();
 
     #region Subscriptions
+    private void PlayerInstantiationHandler_OnPlayerInstantiation(object sender, PlayerInstantiationHandler.OnPlayerInstantiationEventArgs e)
+    {
+        InitializeResolver();
+    }
     private void StatModifierManager_OnStatModifierManagerUpdated(object sender, System.EventArgs e)
     {
         UpdateResolver();

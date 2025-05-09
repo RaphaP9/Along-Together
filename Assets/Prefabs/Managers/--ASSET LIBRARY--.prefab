@@ -94,6 +94,7 @@ MonoBehaviour:
   abilities:
   - {fileID: 11400000, guid: 0689710761c5add46b325ddca21e2d61, type: 2}
   - {fileID: 11400000, guid: 9267755db900af943ad68566a86d6198, type: 2}
+  - {fileID: 11400000, guid: fa8e30561bdb20d4e832fb1056c8ec1e, type: 2}
   debug: 1
 --- !u!1 &7571815221204173663
 GameObject:

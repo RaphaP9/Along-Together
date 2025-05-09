@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestStatAddition : MonoBehaviour, IHasEmbeddedStats
+public class TestStatAddition : MonoBehaviour, IHasEmbeddedNumericStats
 {
     [Header("Components")]
     [SerializeField] private NumericStatModifierManager numericStatModifierManager;
@@ -27,10 +27,5 @@ public class TestStatAddition : MonoBehaviour, IHasEmbeddedStats
     public List<NumericEmbeddedStat> GetNumericEmbeddedStats()
     {
         return numericEmbeddedStats;
-    }
-
-    public List<AssetEmbeddedStat> GetAssetEmbeddedStats()
-    {
-        return new List<AssetEmbeddedStat>();
     }
 }

@@ -46,7 +46,7 @@ public static class MechanicsUtilities
     #endregion
 
     #region StatUIProcessing
-    public static string ProcessCurrentValueToSimpleString(float currentValue)
+    public static string ProcessCurrentValueToSimpleInt(float currentValue)
     {
         int intValue = Mathf.RoundToInt(currentValue);
         string stringValue = intValue.ToString();

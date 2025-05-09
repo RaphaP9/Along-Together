@@ -19,7 +19,7 @@ public abstract class AssetStatModifierManager : StatModifierManager
     #endregion
 
     #region Add/Remove Stat Modifiers
-    public override void AddStatModifiers(string originGUID, IHasEmbeddedStats embeddedStatsHolder)
+    public void AddStatModifiers(string originGUID, IHasEmbeddedAssetStats assetEmbeddedStatsHolder)
     {
         if (originGUID == "")
         {
@@ -29,7 +29,7 @@ public abstract class AssetStatModifierManager : StatModifierManager
 
         int statsAdded = 0;
 
-        foreach (AssetEmbeddedStat assetEmbeddedStat in embeddedStatsHolder.GetAssetEmbeddedStats())
+        foreach (AssetEmbeddedStat assetEmbeddedStat in assetEmbeddedStatsHolder.GetAssetEmbeddedStats())
         {
             if (AddAssetStatModifier(originGUID, assetEmbeddedStat)) statsAdded++;
         }

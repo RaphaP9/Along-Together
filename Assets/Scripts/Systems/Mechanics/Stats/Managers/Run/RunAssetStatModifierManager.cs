@@ -6,6 +6,16 @@ public class RunAssetStatModifierManager : AssetStatModifierManager
 {
     public static RunAssetStatModifierManager Instance { get; private set; }
 
+    protected virtual void OnEnable()
+    {
+
+    }
+
+    protected virtual void OnDisable()
+    {
+
+    }
+
     protected override void SetSingleton()
     {
         if (Instance == null)

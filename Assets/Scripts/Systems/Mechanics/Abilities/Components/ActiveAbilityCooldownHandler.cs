@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityCooldownHandler : MonoBehaviour
+public class ActiveAbilityCooldownHandler : MonoBehaviour
 {
     [Header("Runtime Filled")]
     [SerializeField] private float cooldownTimer;

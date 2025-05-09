@@ -8,8 +8,17 @@ public static class GeneralUtilities
 {
     private const bool DEBUG = true;
 
+    #region GUIDs
+    public static string GenerateGUID()
+    {
+        string generatedGUID = Guid.NewGuid().ToString();
+        return generatedGUID;
+    }
+
+    #endregion
+
     #region Vectors
-    public static Vector2 SupressZComponent(Vector3 vector3) => new Vector2(vector3.x, vector3.y);
+public static Vector2 SupressZComponent(Vector3 vector3) => new Vector2(vector3.x, vector3.y);
 
     public static Vector2Int Vector2ToVector2Int(Vector2 vector2)
     {

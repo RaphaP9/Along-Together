@@ -46,8 +46,8 @@ public class PlayerCharacterManager : MonoBehaviour
     {
         if(characterSO == null)
         {
-            if (debug) Debug.Log("CharacterSO is null. Can not instantiate character.");
-            return;
+            if (debug) Debug.Log("CharacterSO is null on instantiation. Setting Character as Default Character to proceed instantiation.");
+            characterSO = defaultCharacterSO;
         }
 
         Transform instantiatedCharacter = Instantiate(characterSO.prefab, GeneralUtilities.Vector2IntToVector3(position), Quaternion.identity); 
