@@ -88,7 +88,7 @@ public class PlayerHealth : EntityHealth
     public void SetCurrentHealth(int setterHealth) => currentHealth = setterHealth;
     public void SetCurrentShield(int setterShield) => currentShield = setterShield;
 
-    public override bool CanTakeDamage()
+    public override bool CanAvoidDamage()
     {
         if(!IsAlive()) return false;
 

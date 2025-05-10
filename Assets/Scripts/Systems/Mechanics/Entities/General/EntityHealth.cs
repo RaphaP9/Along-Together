@@ -219,12 +219,14 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     #region Interface Methods
 
     public virtual bool CanTakeDamage() => IsAlive();
+    public virtual bool CanAvoidDamage() => IsAlive();
     public virtual bool CanHeal() => IsAlive();
     public virtual bool CanRestoreShield() => IsAlive();
 
-    public bool TakeDamage(DamageData damageData)
+    public bool TakeDamage(DamageData damageData) 
     {
         if(!CanTakeDamage()) return true;
+        if(CanAvoidDamage()) return true;
         if (!IsAlive()) return false;
 
         bool dodged = MechanicsUtilities.EvaluateDodgeChance(CalculateDodgeChance());

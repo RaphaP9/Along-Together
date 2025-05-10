@@ -7,10 +7,11 @@ using UnityEngine.UIElements;
 public interface IHasHealth 
 {
     public bool CanTakeDamage();
+    public bool CanAvoidDamage(); //Ex. Can avoid Damage while dashing (Projectiles do not impact), but technicaly not dodging
     public bool CanHeal();
     public bool CanRestoreShield();
 
-    public bool TakeDamage(DamageData damageData); //True when attack landed/ projectile impacted, false otherwise (Is not alive or has dodged)
+    public bool TakeDamage(DamageData damageData); //True when attack landed/projectile impacted, false otherwise (Is not alive, Can avoid damage or has dodged)
     public void Heal(HealData healData);
     public void RestoreShield(ShieldData shieldData);
 

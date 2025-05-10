@@ -114,8 +114,8 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
     protected virtual int CalculateMaxShield() => hittableObjectIdentifier.HittableObjectSO.shield;
 
     #region Interface Methods
-
     public virtual bool CanTakeDamage() => true;
+    public virtual bool CanAvoidDamage() => false;
     public virtual bool CanHeal() => true;
     public virtual bool CanRestoreShield() => true;
 
