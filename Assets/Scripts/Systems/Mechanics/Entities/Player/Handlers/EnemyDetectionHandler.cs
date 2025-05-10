@@ -11,6 +11,9 @@ public class EnemyDetectionHandler : MonoBehaviour
     [Header("Lists")]
     [SerializeField] private List<Transform> detectedEnemies;
 
+    [Header("Debug")]
+    [SerializeField] private bool debug;    
+
     public List<Transform> Enemies => detectedEnemies;
 
     private void Update()
@@ -50,8 +53,9 @@ public class EnemyDetectionHandler : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
+        if(!debug) return;
 
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
 }

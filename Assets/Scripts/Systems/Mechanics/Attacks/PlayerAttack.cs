@@ -6,7 +6,8 @@ using UnityEngine;
 public abstract class PlayerAttack : MonoBehaviour
 {
     [Header("Attack Components")]
-    [SerializeField] private CharacterIdentifier characterIdentifier;
+    [SerializeField] protected CharacterIdentifier characterIdentifier;
+    [SerializeField] protected Transform attackPoint;
 
     [Header("Attack Settings")]
     [SerializeField] private FireType fireType;
