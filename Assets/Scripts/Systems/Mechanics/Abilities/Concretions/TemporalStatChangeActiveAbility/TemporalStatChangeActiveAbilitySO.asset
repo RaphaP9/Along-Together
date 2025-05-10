@@ -16,6 +16,7 @@ MonoBehaviour:
   abilityName: TemporalStatChangeAA
   sprite: {fileID: 0}
   description: TemporalStatChangeAA
+  abilityClassification: 4
   baseCooldown: 5
   numericEmbeddedStats:
   - numericStatType: 9

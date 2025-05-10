@@ -16,4 +16,5 @@ MonoBehaviour:
   abilityName: Active Ability Mock
   sprite: {fileID: 0}
   description: Active Ability Mock for Testing
+  abilityClassification: 5
   baseCooldown: 1

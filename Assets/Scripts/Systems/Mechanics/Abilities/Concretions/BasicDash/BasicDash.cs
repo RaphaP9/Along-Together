@@ -64,7 +64,7 @@ public class BasicDash : ActiveAbility, IDisplacementAbility, IDamageTakingInter
 
     protected override void HandleFixedUpdateLogic()
     {
-        if (!isActiveVariant) return;
+        if (!IsActiveVariant) return;
         if (!shouldDash) return;
 
         if (isDashing) StopDash();

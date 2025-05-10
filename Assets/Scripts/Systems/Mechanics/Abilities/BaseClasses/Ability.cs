@@ -13,14 +13,12 @@ public abstract class Ability : MonoBehaviour
     [SerializeField] protected PlayerHealth playerHealth;
 
     [Header("Ability Runtime Filled")]
-    [SerializeField] protected AbilitySlot abilitySlot;
     [SerializeField] protected AbilityLevel abilityLevel;
-    [SerializeField] protected bool isActiveVariant;
 
     public AbilitySO AbilitySO => abilitySO;
-    public AbilitySlot AbilitySlot => abilitySlot;
+    public AbilitySlot AbilitySlot => abilitySlotHandler.AbilitySlot;
     public AbilityLevel AbilityLevel => abilityLevel;
-    public bool IsActiveVariant => isActiveVariant;
+    public bool IsActiveVariant => abilitySlotHandler.ActiveAbilityVariant == this;
 
     #region Events
 
@@ -43,7 +41,7 @@ public abstract class Ability : MonoBehaviour
 
     public class OnAbilityCastEventArgs : EventArgs
     {
-        public AbilitySO abilitySO;
+        public Ability ability;
     }
 
     #endregion
@@ -66,14 +64,8 @@ public abstract class Ability : MonoBehaviour
         playerAbilityLevelsHandler.OnAbilityLevelChanged -= AbilityLevelsHandler_OnAbilityLevelChanged;
     }
 
-    protected virtual void Start()
-    {
-        AssignAbilitySlot();
-    }
-
     protected virtual void Update()
     {
-        HandleAbilityCasting();
         HandleUpdateLogic();
     }
 
@@ -82,18 +74,10 @@ public abstract class Ability : MonoBehaviour
         HandleFixedUpdateLogic();
     }
 
-    private void AssignAbilitySlot()
-    {
-        abilitySlot = abilitySlotHandler.AbilitySlot;
-    }
-
     //All abilities can be cast. If only passive, cast is always denied
-    protected virtual void HandleAbilityCasting()
+
+    public void TryCastAbility()
     {
-        if (!isActiveVariant) return; //Cut logic from the start if not Active Variant
-
-        if (!GetAssociatedDownInput()) return;
-
         if (CanCastAbility())
         {
             OnAbilityCastMethod();
@@ -114,14 +98,14 @@ public abstract class Ability : MonoBehaviour
 
     protected virtual void OnAbilityCastMethod()
     {
-        OnAbilityCast?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
-        OnAnyAbilityCast?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
+        OnAbilityCast?.Invoke(this, new OnAbilityCastEventArgs { ability = this });
+        OnAnyAbilityCast?.Invoke(this, new OnAbilityCastEventArgs { ability = this });
     }
 
     protected virtual void OnAbilityCastDeniedMethod()
     {
-        OnAbilityCastDenied?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
-        OnAnyAbilityCastDenied?.Invoke(this, new OnAbilityCastEventArgs { abilitySO = abilitySO });
+        OnAbilityCastDenied?.Invoke(this, new OnAbilityCastEventArgs { ability = this });
+        OnAnyAbilityCastDenied?.Invoke(this, new OnAbilityCastEventArgs { ability = this });
     }
 
     public virtual bool CanCastAbility()
@@ -134,66 +118,31 @@ public abstract class Ability : MonoBehaviour
     }
     #endregion
 
-    #region Input Association
-    protected bool GetAssociatedDownInput()
-    {
-        switch (abilitySlot)
-        {
-            case AbilitySlot.Passive:
-            default:
-                return false;
-            case AbilitySlot.AbilityA:
-                return AbilitiesInput.Instance.GetAbilityADown();
-            case AbilitySlot.AbilityB:
-                return AbilitiesInput.Instance.GetAbilityBDown();
-            case AbilitySlot.AbilityC:
-                return AbilitiesInput.Instance.GetAbilityCDown();
-        }
-    }
-
-    protected bool GetAsociatedHoldInput()
-    {
-        switch (abilitySlot)
-        {
-            case AbilitySlot.Passive:
-            default:
-                return false;
-            case AbilitySlot.AbilityA:
-                return AbilitiesInput.Instance.GetAbilityAHold();
-            case AbilitySlot.AbilityB:
-                return AbilitiesInput.Instance.GetAbilityBHold();
-            case AbilitySlot.AbilityC:
-                return AbilitiesInput.Instance.GetAbilityCHold();
-        }
-    }
-    #endregion
 
     #region Subscriptions
     private void PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized(object sender, AbilitySlotHandler.OnAbilityVariantSelectionEventArgs e)
     {
-        if (!isActiveVariant && e.newAbilityVariant == this)
+        if (e.previousAbilityVariant == this)
         {
-            isActiveVariant = true;
-            OnAbilityVariantActivationMethod();
-        }
-        else if (isActiveVariant && e.previousAbilityVariant == this)
-        {
-            isActiveVariant = false;
             OnAbilityVariantDeactivationMethod();
         }
+
+        if (e.newAbilityVariant == this)
+        {
+            OnAbilityVariantActivationMethod();
+        }      
     }
 
     private void AbilityVariantHandler_OnAbilityVariantSelected(object sender, AbilitySlotHandler.OnAbilityVariantSelectionEventArgs e)
     {
-        if (!isActiveVariant && e.newAbilityVariant == this)
+        if (e.previousAbilityVariant == this)
         {
-            isActiveVariant = true;
-            OnAbilityVariantActivationMethod();
-        }
-        else if (isActiveVariant && e.previousAbilityVariant == this)
-        {
-            isActiveVariant = false;
             OnAbilityVariantDeactivationMethod();
+        }
+
+        if (e.newAbilityVariant == this)
+        {
+            OnAbilityVariantActivationMethod();
         }
     }
 

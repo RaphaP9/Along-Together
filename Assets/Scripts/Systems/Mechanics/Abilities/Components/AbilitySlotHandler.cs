@@ -12,12 +12,13 @@ public class AbilitySlotHandler : MonoBehaviour
     [SerializeField] private Ability startingAbilityVariant;
 
     [Header("Runtime Filled")]
-    [SerializeField] private Ability selectedAbilityVariant;
+    [SerializeField] private Ability activeAbilityVariant;
 
     [Header("Debug")]
     [SerializeField] private bool debug;
 
     public AbilitySlot AbilitySlot => abilitySlot;
+    public Ability ActiveAbilityVariant => activeAbilityVariant;
 
     public event EventHandler<OnAbilityVariantSelectionEventArgs> OnAbilityVariantInitialized;
     public event EventHandler<OnAbilityVariantSelectionEventArgs> OnAbilityVariantSelected;
@@ -34,20 +35,34 @@ public class AbilitySlotHandler : MonoBehaviour
         InitializeAbilityVariant(startingAbilityVariant);
     }
 
+    private void Update()
+    {
+        HandleAbilityCasting();
+    }
+
+    //All abilities can be cast. If only passive, cast is always denied
+    protected virtual void HandleAbilityCasting()
+    {
+        if (!GetAssociatedDownInput()) return;
+
+        activeAbilityVariant.TryCastAbility();
+    }
+
+    #region Ability Variants Selection
     private void InitializeAbilityVariant(Ability abilityVariant)
     {
         Ability previousAbilityVariant = null;
-        selectedAbilityVariant = abilityVariant;
+        activeAbilityVariant = abilityVariant;
 
-        OnAbilityVariantInitialized?.Invoke(this, new OnAbilityVariantSelectionEventArgs { abilitySlot = abilitySlot, previousAbilityVariant = previousAbilityVariant, newAbilityVariant = selectedAbilityVariant });
+        OnAbilityVariantInitialized?.Invoke(this, new OnAbilityVariantSelectionEventArgs { abilitySlot = abilitySlot, previousAbilityVariant = previousAbilityVariant, newAbilityVariant = activeAbilityVariant });
     }
 
     private void SelectAbilityVariant(Ability abilityVariant)
     {
-        Ability previousAbilityVariant = selectedAbilityVariant;
-        selectedAbilityVariant = abilityVariant;
+        Ability previousAbilityVariant = activeAbilityVariant;
+        activeAbilityVariant = abilityVariant;
 
-        OnAbilityVariantSelected?.Invoke(this, new OnAbilityVariantSelectionEventArgs { abilitySlot = abilitySlot, previousAbilityVariant = previousAbilityVariant, newAbilityVariant = selectedAbilityVariant });
+        OnAbilityVariantSelected?.Invoke(this, new OnAbilityVariantSelectionEventArgs { abilitySlot = abilitySlot, previousAbilityVariant = previousAbilityVariant, newAbilityVariant = activeAbilityVariant });
     }
 
     private void SelectAbilityVariantBySO(AbilitySO abilitySO)
@@ -62,6 +77,9 @@ public class AbilitySlotHandler : MonoBehaviour
 
         SelectAbilityVariant(abilityVariant);
     }
+    #endregion
+
+
 
     #region Seekers
 
@@ -84,7 +102,7 @@ public class AbilitySlotHandler : MonoBehaviour
 
         if (ability == null)
         {
-            if (debug) Debug.Log($"Ability with name: {setterPrimitiveAbilitySlotGroup.abilitySO.abilityName} is not found in Slot: {abilitySlot}");
+            if (debug) Debug.Log($"Ability with name: {setterPrimitiveAbilitySlotGroup.abilitySO.abilityName} is not found in Slot: {abilitySlot}. Setting will be ignored and starting variant will be as set in inspector.");
             return;
         }
 
@@ -93,8 +111,42 @@ public class AbilitySlotHandler : MonoBehaviour
 
     public PrimitiveAbilitySlotGroup GetPrimitiveAbilitySlotGroup()
     {
-        PrimitiveAbilitySlotGroup primitiveAbilitySlotGroup = new PrimitiveAbilitySlotGroup { abilitySlot = abilitySlot, abilitySO = selectedAbilityVariant.AbilitySO };
+        PrimitiveAbilitySlotGroup primitiveAbilitySlotGroup = new PrimitiveAbilitySlotGroup { abilitySlot = abilitySlot, abilitySO = activeAbilityVariant.AbilitySO };
         return primitiveAbilitySlotGroup;
+    }
+    #endregion
+
+    #region Input Association
+    public bool GetAssociatedDownInput()
+    {
+        switch (abilitySlot)
+        {
+            case AbilitySlot.Passive:
+            default:
+                return false;
+            case AbilitySlot.AbilityA:
+                return AbilitiesInput.Instance.GetAbilityADown();
+            case AbilitySlot.AbilityB:
+                return AbilitiesInput.Instance.GetAbilityBDown();
+            case AbilitySlot.AbilityC:
+                return AbilitiesInput.Instance.GetAbilityCDown();
+        }
+    }
+
+    public bool GetAsociatedHoldInput()
+    {
+        switch (abilitySlot)
+        {
+            case AbilitySlot.Passive:
+            default:
+                return false;
+            case AbilitySlot.AbilityA:
+                return AbilitiesInput.Instance.GetAbilityAHold();
+            case AbilitySlot.AbilityB:
+                return AbilitiesInput.Instance.GetAbilityBHold();
+            case AbilitySlot.AbilityC:
+                return AbilitiesInput.Instance.GetAbilityCHold();
+        }
     }
     #endregion
 }

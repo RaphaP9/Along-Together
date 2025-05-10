@@ -9,6 +9,7 @@ public abstract class AbilitySO : ScriptableObject
     public string abilityName;
     public Sprite sprite;
     [TextArea(3,10)] public string description;
+    public AbilityClassification abilityClassification;
 
     public abstract AbilityType GetAbilityType();
 }
