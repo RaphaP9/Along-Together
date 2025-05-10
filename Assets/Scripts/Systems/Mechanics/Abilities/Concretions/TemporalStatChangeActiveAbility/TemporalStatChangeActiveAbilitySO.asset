@@ -18,7 +18,7 @@ MonoBehaviour:
   description: TemporalStatChangeAA
   baseCooldown: 5
   numericEmbeddedStats:
-  - numericStatType: 6
-    numericStatModificationType: 1
-    value: 2
+  - numericStatType: 9
+    numericStatModificationType: 0
+    value: 0.5
   changeDuration: 3

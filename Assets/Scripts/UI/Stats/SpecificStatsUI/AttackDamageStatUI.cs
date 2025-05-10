@@ -18,7 +18,7 @@ public class AttackDamageStatUI : NumericStatUI
 
     protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleInt(currentValue);
     protected override float GetBaseValue() => PlayerCharacterManager.Instance.CharacterSO.baseAttackDamage;
-    protected override float GetCurrentValue() => MovementSpeedStatResolver.Instance.ResolveStatFloat(PlayerCharacterManager.Instance.CharacterSO.baseAttackDamage);
+    protected override float GetCurrentValue() => AttackDamageStatResolver.Instance.ResolveStatInt(PlayerCharacterManager.Instance.CharacterSO.baseAttackDamage);
 
 
     #region Subscriptions

@@ -18,7 +18,7 @@ public class AttackSpeedStatUI : NumericStatUI
 
     protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleFloat(currentValue,2);
     protected override float GetBaseValue() => PlayerCharacterManager.Instance.CharacterSO.baseAttackSpeed;
-    protected override float GetCurrentValue() => MovementSpeedStatResolver.Instance.ResolveStatFloat(PlayerCharacterManager.Instance.CharacterSO.baseAttackSpeed);
+    protected override float GetCurrentValue() => AttackSpeedStatResolver.Instance.ResolveStatFloat(PlayerCharacterManager.Instance.CharacterSO.baseAttackSpeed);
 
 
     #region Subscriptions

@@ -93,6 +93,25 @@ public abstract class PlayerAttack : MonoBehaviour
     private float CalculateAttackCritChance() => AttackCritChanceStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackCritChance);
     private float CalculateAttackCritDamageMultiplier() => AttackCritDamageMultiplierStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackCritDamageMultiplier);
 
+    private void RecalculateAttackDamage()
+    {
+        attackDamage = CalculateAttackDamage();
+    }
+
+    private void RecalculateAttackSpeed()
+    {
+        attackSpeed = CalculateAttackSpeed();
+    }
+
+    private void RecalculateAttackCritChance()
+    {
+        attackCritChance = CalculateAttackCritChance();
+    }
+
+    private void RecalculateAttackCritDamageMultiplier()
+    {
+        attackCritDamageMultiplier = CalculateAttackCritDamageMultiplier();
+    }
     #endregion
 
     #region FireType-Input Assignation
@@ -115,19 +134,19 @@ public abstract class PlayerAttack : MonoBehaviour
     #region Subscriptions
     private void AttackDamageStatResolver_OnAttackDamageResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
     {
-        CalculateAttackDamage();
+        RecalculateAttackDamage();
     }
     private void AttackSpeedStatResolver_OnAttackSpeedResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
     {
-        CalculateAttackSpeed();
+        RecalculateAttackSpeed();
     }
     private void AttackCritChanceStatResolver_OnAttackCritChanceResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
     {
-        CalculateAttackCritChance();
+        RecalculateAttackCritChance();
     }
     private void AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
     {
-        CalculateAttackCritDamageMultiplier();
+        RecalculateAttackCritDamageMultiplier();
     }
     #endregion
 }

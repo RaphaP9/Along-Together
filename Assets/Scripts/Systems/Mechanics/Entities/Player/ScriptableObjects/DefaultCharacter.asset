@@ -28,5 +28,5 @@ MonoBehaviour:
   baseAttackDamage: 3
   baseAttackSpeed: 1
   baseAttackCritChance: 0
-  baseAttackCritDamageMultiplier: 0.5
+  baseAttackCritDamageMultiplier: 1.5
   damageColor: {r: 0, g: 0, b: 0, a: 0}
