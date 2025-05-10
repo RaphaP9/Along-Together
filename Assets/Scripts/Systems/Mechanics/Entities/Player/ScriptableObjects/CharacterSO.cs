@@ -11,8 +11,8 @@ public class CharacterSO : EntitySO, IDamageSourceSO
     [Range(0, 10)] public int baseShieldRegen;
 
     [Header("Character Damage Settings")]
-    [Range(0, 10)] public int basicAttackDamage;
-    [Range(0.5f, 3f)] public float basicAttackSpeed;
+    [Range(0, 10)] public int baseAttackDamage;
+    [Range(0.5f, 3f)] public float baseAttackSpeed;
     [Space]
     [Range(0f, 1f)] public float baseAttackCritChance;
     [Range(0.5f, 2f)] public float baseAttackCritDamageMultiplier;
