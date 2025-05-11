@@ -219,7 +219,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     #region Interface Methods
 
     public virtual bool CanTakeDamage() => IsAlive();
-    public virtual bool CanAvoidDamage() => false;
+    public virtual bool CanAvoidDamage() => false; //Technically not an interface method. Only for entities
     public virtual bool CanHeal() => IsAlive();
     public virtual bool CanRestoreShield() => IsAlive();
 

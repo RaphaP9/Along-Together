@@ -94,7 +94,10 @@ public static class MechanicsUtilities
 
     public static void DealDamageToTransform(Transform transform, DamageData damageData)
     {
-        IHasHealth iHasHealth = transform.GetComponent<IHasHealth>();
+        if(GeneralUtilities.TryGetGenericFromTransform<IHasHealth>(transform, out var iHasHealth))
+        {
+            iHasHealth.TakeDamage(damageData);
+        }
     }
 
     #endregion

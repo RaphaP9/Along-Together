@@ -115,12 +115,12 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
 
     #region Interface Methods
     public virtual bool CanTakeDamage() => true;
-    public virtual bool CanAvoidDamage() => false;
     public virtual bool CanHeal() => true;
     public virtual bool CanRestoreShield() => true;
 
     public bool TakeDamage(DamageData damageData) //Any damage taken By a HittableObject is 1
     {
+        //HittableObjects can't dodge
         if (!CanTakeDamage()) return true;
         if (!IsAlive()) return false;
 

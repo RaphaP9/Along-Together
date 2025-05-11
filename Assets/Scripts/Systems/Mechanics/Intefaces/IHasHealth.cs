@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 public interface IHasHealth 
 {
     public bool CanTakeDamage();
-    public bool CanAvoidDamage(); //Ex. Can avoid Damage while dashing (Projectiles do not impact), but technicaly not dodging
     public bool CanHeal();
     public bool CanRestoreShield();
 
