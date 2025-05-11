@@ -20,7 +20,7 @@ public class PlayerMeleeAttack : PlayerAttack
 
         DamageData damageData = new DamageData {damage = damage, isCrit = isCrit, damageSource = characterIdentifier.CharacterSO, canBeDodged = true};
 
-        MechanicsUtilities.DealDamageInArea(positions, attackAreaRadius, damageData, attackLayermask, new List<Transform> {transform});
+        MechanicsUtilities.DealDamageInAreas(positions, attackAreaRadius, damageData, attackLayermask, new List<Transform> {transform});
 
         OnPlayerAttackMethod(isCrit, damage);
     }

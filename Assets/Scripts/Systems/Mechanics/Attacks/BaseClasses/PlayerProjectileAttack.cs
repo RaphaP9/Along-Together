@@ -9,7 +9,7 @@ public class PlayerProjectileAttack : PlayerAttack
 
     [Header("Player Projectile Attack Settings")]
     [SerializeField] protected ProjectileDamageType projectileDamageType;
-    [SerializeField] protected float projectileAreaRadius;
+    [SerializeField, Range(0f,3f)] protected float projectileAreaRadius;
     [Space]
     [SerializeField] protected LayerMask projectileImpactLayerMask;
     [Space]
@@ -17,8 +17,6 @@ public class PlayerProjectileAttack : PlayerAttack
     [SerializeField, Range(0.5f,15f)] protected float projectileLifespan;
     [Space]
     [SerializeField, Range(0f, 15f)] protected float projectileDispersionAngle;
-
-
 
     protected override void Attack()
     {

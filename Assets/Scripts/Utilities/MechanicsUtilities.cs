@@ -64,7 +64,7 @@ public static class MechanicsUtilities
 
     #region Damage Dealing
 
-    public static void DealDamageInArea(List<Vector2> positions, float areaRadius, DamageData damageData , LayerMask layermask)
+    public static void DealDamageInAreas(List<Vector2> positions, float areaRadius, DamageData damageData , LayerMask layermask)
     {
         List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInMultipleRanges(positions, areaRadius, layermask);
         List<IHasHealth> entityHealthsInRange = GeneralUtilities.TryGetGenericsFromTransforms<IHasHealth>(detectedTransforms);
@@ -75,7 +75,7 @@ public static class MechanicsUtilities
         }
     }
 
-    public static void DealDamageInArea(List<Vector2> positions, float areaRadius, DamageData damageData, LayerMask layermask, List<Transform> exeptionTransforms)
+    public static void DealDamageInAreas(List<Vector2> positions, float areaRadius, DamageData damageData, LayerMask layermask, List<Transform> exeptionTransforms)
     {
         List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInMultipleRanges(positions, areaRadius, layermask);
 
@@ -92,12 +92,44 @@ public static class MechanicsUtilities
         }
     }
 
-    public static void DealDamageToTransform(Transform transform, DamageData damageData)
+    public static void DealDamageInArea(Vector2 position, float areaRadius, DamageData damageData, LayerMask layermask)
     {
-        if(GeneralUtilities.TryGetGenericFromTransform<IHasHealth>(transform, out var iHasHealth))
+        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInRange(position, areaRadius, layermask);
+        List<IHasHealth> entityHealthsInRange = GeneralUtilities.TryGetGenericsFromTransforms<IHasHealth>(detectedTransforms);
+
+        foreach (IHasHealth iHasHealth in entityHealthsInRange)
         {
             iHasHealth.TakeDamage(damageData);
         }
+    }
+
+    public static void DealDamageInArea(Vector2 position, float areaRadius, DamageData damageData, LayerMask layermask, List<Transform> exceptionTransforms)
+    {
+        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInRange(position, areaRadius, layermask);
+
+        foreach (Transform exceptionTransform in exceptionTransforms)
+        {
+            detectedTransforms.Remove(exceptionTransform);
+        }
+
+        List<IHasHealth> entityHealthsInRange = GeneralUtilities.TryGetGenericsFromTransforms<IHasHealth>(detectedTransforms);
+
+        foreach (IHasHealth iHasHealth in entityHealthsInRange)
+        {
+            iHasHealth.TakeDamage(damageData);
+        }
+    }
+
+    public static bool DealDamageToTransform(Transform transform, DamageData damageData)
+    {
+        bool damaged = false;
+
+        if(GeneralUtilities.TryGetGenericFromTransform<IHasHealth>(transform, out var iHasHealth))
+        {
+            damaged = iHasHealth.TakeDamage(damageData);
+        }
+
+        return damaged;
     }
 
     #endregion

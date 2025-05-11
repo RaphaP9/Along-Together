@@ -26,7 +26,7 @@ MonoBehaviour:
   baseHealthRegen: 0
   baseShieldRegen: 0
   baseAttackDamage: 4
-  baseAttackSpeed: 1
+  baseAttackSpeed: 3
   baseAttackCritChance: 0
   baseAttackCritDamageMultiplier: 1.5
   damageColor: {r: 0, g: 0, b: 0, a: 0}

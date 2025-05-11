@@ -103,6 +103,58 @@ public class ProjectileHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = damageSource, canBeDodged = true};
 
+        if(GeneralUtilities.CheckGameObjectInLayerMask(collision.gameObject, targetLayerMask))
+        {
+            HandleDamageImpact(collision.transform, damageData);
+            return;
+        }
+
+        if (GeneralUtilities.CheckGameObjectInLayerMask(collision.gameObject, impactLayerMask))
+        {
+            HandleRegularImpact(collision.transform, damageData);
+            return;
+        }
+    }
+
+    private void HandleDamageImpact(Transform impactTransform, DamageData originalDamageData)
+    {
+        bool impacted = false;
+
+        switch (damageType)
+        {
+            case ProjectileDamageType.Singular:
+            default:
+                impacted = MechanicsUtilities.DealDamageToTransform(impactTransform, originalDamageData); //Deal damage only to impact transform
+                    break;
+            case ProjectileDamageType.Area:
+                impacted = MechanicsUtilities.DealDamageToTransform(impactTransform, originalDamageData); //Deal damage to impact transform
+                if(impacted) //If impacted, deal area damage to EACH OTHER transform and CAN'T BE DODGED
+                {
+                    DamageData areaDamageData = new DamageData { damage = originalDamageData.damage, isCrit = originalDamageData.isCrit, damageSource = originalDamageData.damageSource, canBeDodged = false };
+                    MechanicsUtilities.DealDamageInArea(GeneralUtilities.TransformPositionVector2(transform), areaRadius, areaDamageData, targetLayerMask, new List<Transform> {impactTransform}); 
+                }
+                break;         
+        }
+
+        if (impacted) ImpactProjectile();
+    }
+
+    private void HandleRegularImpact(Transform impactTransform, DamageData originalDamageData)
+    {
+        switch (damageType)
+        {
+            case ProjectileDamageType.Singular:
+            default:
+                //Nothing
+                break;
+            case ProjectileDamageType.Area: // Deal area damage to EVERY transform and CAN'T BE DODGED
+                DamageData areaDamageData = new DamageData { damage = originalDamageData.damage, isCrit = originalDamageData.isCrit, damageSource = originalDamageData.damageSource, canBeDodged = false };
+                MechanicsUtilities.DealDamageInArea(GeneralUtilities.TransformPositionVector2(transform), areaRadius, areaDamageData, impactLayerMask);
+                break;
+        }
+
+        ImpactProjectile();
     }
 }
