@@ -211,63 +211,46 @@ public static Vector2 SupressZComponent(Vector3 vector3) => new Vector2(vector3.
 
     #region Generics
 
-    public static List<T> GetGenericsFromComponents<T>(List<Component> components)
+    public static bool TryGetGenericFromTransform<T>(Transform transform, out T foundGeneric) where T : class
     {
-        List<T> genericList = new List<T>();
+        foundGeneric = null;
 
+        Component[] components = transform.GetComponents<Component>();
         foreach (Component component in components)
-        {      
-            if(component.TryGetComponent(out T generic))
+        {
+            if (component is T generic)
             {
-                genericList.Add(generic);
+                foundGeneric = generic;
+                return true;
             }
         }
 
-        return genericList;
+        return false;
+    }
+
+    public static List<T> TryGetGenericsFromTransforms<T>(List<Transform> transforms) where T : class
+    {
+        List<T> foundGenerics = new List<T>();
+
+        foreach (Transform transform in transforms)
+        {
+            Component[] components = transform.GetComponents<Component>();
+
+            foreach (Component component in components)
+            {
+                if (component is T generic)
+                {
+                    foundGenerics.Add(generic);
+                }
+            }
+        }
+
+        return foundGenerics;
     }
     #endregion
 
     #region Interfaces
-    public static List<T> GetInterfacesFromComponents<T>(List<Component> components)
-    {
-        List<T> interfaceList = new List<T>();
 
-        if (!typeof(T).IsInterface)
-        {
-            if (DEBUG) Debug.Log("T is not an Interface!. Returning empty list.");
-            return interfaceList;
-        }
-
-        foreach (Component component in components)
-        {
-            if (component.TryGetComponent(out T @interface))
-            {
-                interfaceList.Add(@interface);
-            }
-        }
-
-        return interfaceList;
-    }
-
-    public static List<T> GetInterfacesFromTransforms<T>(List<Transform> transforms)
-    {
-        List<T> interfaceList = new List<T>();
-
-        if (!typeof(T).IsInterface)
-        {
-            if (DEBUG) Debug.Log("T is not an Interface!. Returning empty list.");
-            return interfaceList;
-        }
-
-        foreach (Transform transform in transforms)
-        {
-            if (transform.TryGetComponent(out T @interface))
-            {
-                interfaceList.Add(@interface);
-            }
-        }
-
-        return interfaceList;
-    }
+   
     #endregion
 }

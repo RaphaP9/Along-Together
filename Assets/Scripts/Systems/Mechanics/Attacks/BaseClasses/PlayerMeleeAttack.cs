@@ -18,7 +18,9 @@ public class PlayerMeleeAttack : PlayerAttack
 
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(attackDamage, attackCritDamageMultiplier) : attackDamage;
 
-        MechanicsUtilities.DealDamageInArea(positions, attackAreaRadius, damage, isCrit, attackLayermask, characterIdentifier.CharacterSO, new List<Transform> {transform});
+        DamageData damageData = new DamageData {damage = damage, isCrit = isCrit, damageSource = characterIdentifier.CharacterSO, canBeDodged = true};
+
+        MechanicsUtilities.DealDamageInArea(positions, attackAreaRadius, damageData, attackLayermask, new List<Transform> {transform});
 
         OnPlayerAttackMethod(isCrit, damage);
     }

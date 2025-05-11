@@ -231,7 +231,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         bool dodged = MechanicsUtilities.EvaluateDodgeChance(CalculateDodgeChance());
 
-        if (dodged)
+        if (dodged && damageData.canBeDodged)
         {
             OnEntityDodgeMethod(damageData);
             return false;

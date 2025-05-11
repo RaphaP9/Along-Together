@@ -7,7 +7,8 @@ public class PlayerHealth : EntityHealth
 {
     [Header("PlayerHealth Components")]
     [SerializeField] private CharacterIdentifier characterIdentifier;
-    [SerializeField] private List<Component> damageTakingInterruptionAbiltiesComponents;
+    [Space]
+    [SerializeField] private List<Transform> damageTakingInterruptionAbiltiesTransforms;
 
     private List<IDamageTakingInterruptionAbility> damageTakingInterruptionAbilities;
 
@@ -77,7 +78,7 @@ public class PlayerHealth : EntityHealth
 
     private void GetDamageTakingInterruptionAbilitiesInterfaces()
     {
-        damageTakingInterruptionAbilities = GeneralUtilities.GetInterfacesFromComponents<IDamageTakingInterruptionAbility>(damageTakingInterruptionAbiltiesComponents);
+        damageTakingInterruptionAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IDamageTakingInterruptionAbility>(damageTakingInterruptionAbiltiesTransforms);
     }
 
     protected override int CalculateMaxHealth() => MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseHealth);

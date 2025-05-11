@@ -16,7 +16,7 @@ public class PlayerMovement : EntityMovement
     [Space]
     [SerializeField] private CheckWall checkWall;
     [Space]
-    [SerializeField] private List<Component> displacementAbiltiesComponents;
+    [SerializeField] private List<Transform> displacementAbiltiesTransforms;
 
     #region Events
 
@@ -89,7 +89,7 @@ public class PlayerMovement : EntityMovement
 
     private void GetDisplacementAbilitiesInterfaces()
     {
-        displacementAbilities = GeneralUtilities.GetInterfacesFromComponents<IDisplacementAbility>(displacementAbiltiesComponents);
+        displacementAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IDisplacementAbility>(displacementAbiltiesTransforms);
     }
 
     protected override float CalculateMovementSpeed() => MovementSpeedStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseMovementSpeed);

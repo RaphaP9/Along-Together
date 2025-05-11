@@ -9,6 +9,7 @@ public class PlayerProjectileAttack : PlayerAttack
 
     [Header("Player Projectile Attack Settings")]
     [SerializeField] protected ProjectileDamageType projectileDamageType;
+    [SerializeField] protected float projectileAreaRadius;
     [Space]
     [SerializeField] protected LayerMask projectileImpactLayerMask;
     [Space]
@@ -27,12 +28,12 @@ public class PlayerProjectileAttack : PlayerAttack
         Vector2 shootDirection = attackPointHandler.AimDirection;
         Vector2 position = attackPoint.position;
 
-        InstantiateProjectile(characterIdentifier.CharacterSO, projectilePrefab, position, shootDirection, damage, isCrit, projectileSpeed, projectileLifespan, projectileDamageType, attackLayermask, projectileImpactLayerMask);
+        InstantiateProjectile(characterIdentifier.CharacterSO, projectilePrefab, position, shootDirection, damage, isCrit, projectileSpeed, projectileLifespan, projectileDamageType, projectileAreaRadius, attackLayermask, projectileImpactLayerMask);
 
         OnPlayerAttackMethod(isCrit, damage);
     }
 
-    protected void InstantiateProjectile(IDamageSourceSO damageSource, Transform projectilePrefab, Vector2 position, Vector2 shootDirection, int damage, bool isCrit, float speed, float lifespan, ProjectileDamageType projectileDamageType , LayerMask targetLayerMask, LayerMask impactLayerMask)
+    protected void InstantiateProjectile(IDamageSourceSO damageSource, Transform projectilePrefab, Vector2 position, Vector2 shootDirection, int damage, bool isCrit, float speed, float lifespan, ProjectileDamageType projectileDamageType , float areaRadius, LayerMask targetLayerMask, LayerMask impactLayerMask)
     {
         Vector3 vector3Position = GeneralUtilities.Vector2ToVector3(position);
         Transform instantiatedProjectile = Instantiate(projectilePrefab, vector3Position, Quaternion.identity);
@@ -47,6 +48,6 @@ public class PlayerProjectileAttack : PlayerAttack
 
         Vector2 processedShootDirection = MechanicsUtilities.DeviateShootDirection(shootDirection, projectileDispersionAngle);
 
-        projectileHandler.SetProjectile(damageSource, processedShootDirection, damage, isCrit, speed, lifespan, projectileDamageType, targetLayerMask, impactLayerMask);
+        projectileHandler.SetProjectile(damageSource, processedShootDirection, damage, isCrit, speed, lifespan, projectileDamageType, areaRadius, targetLayerMask, impactLayerMask);
     }
 }

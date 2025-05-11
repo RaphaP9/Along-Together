@@ -18,6 +18,7 @@ public class ProjectileHandler : MonoBehaviour
     [SerializeField, Range(5f, 10f)] private float lifespan;
     [Space]
     [SerializeField] private ProjectileDamageType damageType;
+    [SerializeField] private float areaRadius;
     [Space]
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private LayerMask impactLayerMask;
@@ -40,6 +41,7 @@ public class ProjectileHandler : MonoBehaviour
         public float speed;
         public float lifespan;  
         public ProjectileDamageType damageType;
+        public float areaRadius;
         public LayerMask targetLayerMask;
         public LayerMask impactLayerMask;
     }
@@ -59,7 +61,7 @@ public class ProjectileHandler : MonoBehaviour
         HandleMovement();
     }
 
-    public void SetProjectile(IDamageSourceSO damageSource, Vector2 direction, int damage, bool isCrit, float speed, float lifespan, ProjectileDamageType damageType, LayerMask targetLayerMask, LayerMask impactLayerMask)
+    public void SetProjectile(IDamageSourceSO damageSource, Vector2 direction, int damage, bool isCrit, float speed, float lifespan, ProjectileDamageType damageType, float areaRadius, LayerMask targetLayerMask, LayerMask impactLayerMask)
     {
         this.damageSource = damageSource;
         this.direction = direction;
@@ -68,10 +70,11 @@ public class ProjectileHandler : MonoBehaviour
         this.speed = speed;
         this.lifespan = lifespan;   
         this.damageType = damageType;
+        this.areaRadius = areaRadius;
         this.targetLayerMask = targetLayerMask;
         this.impactLayerMask = impactLayerMask;
 
-        OnProjectileSet?.Invoke(this, new OnProjectileEventArgs { id = id, damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask });
+        OnProjectileSet?.Invoke(this, new OnProjectileEventArgs { id = id, damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask });
     }
 
     private IEnumerator LifespanCoroutine()
@@ -88,13 +91,18 @@ public class ProjectileHandler : MonoBehaviour
 
     private void ImpactProjectile()
     {
-        OnProjectileImpact?.Invoke(this, new OnProjectileEventArgs { id = id , damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask});
+        OnProjectileImpact?.Invoke(this, new OnProjectileEventArgs { id = id , damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask});
         Destroy(gameObject);
     }
 
     private void EndLifespan()
     {
-        OnProjectileLifespanEnd?.Invoke(this, new OnProjectileEventArgs { id = id, damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask });
+        OnProjectileLifespanEnd?.Invoke(this, new OnProjectileEventArgs { id = id, damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask });
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
     }
 }

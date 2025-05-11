@@ -64,12 +64,10 @@ public static class MechanicsUtilities
 
     #region Damage Dealing
 
-    public static void DealDamageInArea(List<Vector2> positions, float areaRadius, int damage,bool isCrit, LayerMask layermask, IDamageSourceSO damageSource)
+    public static void DealDamageInArea(List<Vector2> positions, float areaRadius, DamageData damageData , LayerMask layermask)
     {
         List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInMultipleRanges(positions, areaRadius, layermask);
-        List<IHasHealth> entityHealthsInRange = GeneralUtilities.GetInterfacesFromTransforms<IHasHealth>(detectedTransforms);
-
-        DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = damageSource };
+        List<IHasHealth> entityHealthsInRange = GeneralUtilities.TryGetGenericsFromTransforms<IHasHealth>(detectedTransforms);
 
         foreach (IHasHealth iHasHealth in entityHealthsInRange)
         {
@@ -77,7 +75,7 @@ public static class MechanicsUtilities
         }
     }
 
-    public static void DealDamageInArea(List<Vector2> positions, float areaRadius, int damage, bool isCrit, LayerMask layermask, IDamageSourceSO damageSource, List<Transform> exeptionTransforms)
+    public static void DealDamageInArea(List<Vector2> positions, float areaRadius, DamageData damageData, LayerMask layermask, List<Transform> exeptionTransforms)
     {
         List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInMultipleRanges(positions, areaRadius, layermask);
 
@@ -86,14 +84,17 @@ public static class MechanicsUtilities
             detectedTransforms.Remove(exceptionTransform);
         }
 
-        List<IHasHealth> entityHealthsInRange = GeneralUtilities.GetInterfacesFromTransforms<IHasHealth>(detectedTransforms);
-
-        DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = damageSource };
+        List<IHasHealth> entityHealthsInRange = GeneralUtilities.TryGetGenericsFromTransforms<IHasHealth>(detectedTransforms);
 
         foreach (IHasHealth iHasHealth in entityHealthsInRange)
         {
             iHasHealth.TakeDamage(damageData);
         }
+    }
+
+    public static void DealDamageToTransform(Transform transform, DamageData damageData)
+    {
+        IHasHealth iHasHealth = transform.GetComponent<IHasHealth>();
     }
 
     #endregion

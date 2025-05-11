@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 1965199428449930878}
   - component: {fileID: 6586126778679378193}
   - component: {fileID: 4661234364419359008}
-  - component: {fileID: 6680342031726478896}
+  - component: {fileID: 1376716078513165331}
   m_Layer: 6
   m_Name: DefaultCharacter
   m_TagString: Untagged
@@ -350,7 +350,8 @@ MonoBehaviour:
   armor: 0
   dodgeChance: 0
   characterIdentifier: {fileID: 1965199428449930878}
-  damageTakingInterruptionAbiltiesComponents: []
+  damageTakingInterruptionAbiltiesTransforms:
+  - {fileID: 3296231075715405042}
 --- !u!114 &4661234364419359008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,9 +371,9 @@ MonoBehaviour:
   characterIdentifier: {fileID: 1965199428449930878}
   playerHealth: {fileID: 6586126778679378193}
   checkWall: {fileID: 1462229981353037001}
-  displacementAbiltiesComponents:
+  displacementAbiltiesTransforms:
   - {fileID: 3296231075715405042}
---- !u!114 &6680342031726478896
+--- !u!114 &1376716078513165331
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -381,7 +382,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1851777789475013426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e528e31e7171ed14499f3e02aeec5ea8, type: 3}
+  m_Script: {fileID: 11500000, guid: 79986bdf9d88fd64c9bc8212b52c8dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterIdentifier: {fileID: 1965199428449930878}
@@ -395,15 +396,10 @@ MonoBehaviour:
   attackSpeed: 0
   attackCritChance: 0
   attackCritDamageMultiplier: 0
-  debug: 1
-  projectilePrefab: {fileID: 8073931636513284674, guid: 2d3a358fa169ae842bec906ece6900ab, type: 3}
-  projectileDamageType: 0
-  projectileImpactLayerMask:
-    serializedVersion: 2
-    m_Bits: 129
-  projectileSpeed: 3
-  projectileLifespan: 2
-  projectileDispersionAngle: 0
+  debug: 0
+  attackPoints:
+  - {fileID: 6248436503809636389}
+  attackAreaRadius: 1
 --- !u!1 &3069412420397820189
 GameObject:
   m_ObjectHideFlags: 0
