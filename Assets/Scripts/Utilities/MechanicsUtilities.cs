@@ -98,6 +98,18 @@ public static class MechanicsUtilities
 
     #endregion
 
+    #region Projectiles
+    public static Vector2 DeviateShootDirection(Vector2 shootDirection, float dispersionAngle)
+    {
+        float randomAngle = Random.Range(-dispersionAngle, dispersionAngle);
+
+        Vector2 deviatedDirection = GeneralUtilities.RotateVector2ByAngleDegrees(shootDirection, randomAngle);
+        deviatedDirection.Normalize();
+
+        return deviatedDirection;
+    }
+    #endregion
+
     #region StatUIProcessing
     public static string ProcessCurrentValueToSimpleInt(float currentValue)
     {

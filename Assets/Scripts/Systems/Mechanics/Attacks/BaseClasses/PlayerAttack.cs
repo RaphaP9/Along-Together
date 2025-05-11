@@ -7,6 +7,7 @@ public abstract class PlayerAttack : MonoBehaviour
 {
     [Header("Attack Components")]
     [SerializeField] protected CharacterIdentifier characterIdentifier;
+    [SerializeField] protected PlayerAttackPointHandler attackPointHandler;
     [SerializeField] protected Transform attackPoint;
 
     [Header("Attack Settings")]
@@ -18,6 +19,9 @@ public abstract class PlayerAttack : MonoBehaviour
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected float attackCritChance;
     [SerializeField] protected float attackCritDamageMultiplier;
+
+    [Header("Debug")]
+    [SerializeField] protected bool debug;
 
     public FireType FireType_ => fireType;
     public enum FireType {Automatic, SemiAutomatic}

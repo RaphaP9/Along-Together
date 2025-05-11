@@ -113,7 +113,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1376360663945388064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 379cce1a67770d748acde5922930ff03, type: 3}
+  m_Script: {fileID: 11500000, guid: 176c42760e5211c4ca39601426df9ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTimer: 0
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 1965199428449930878}
   - component: {fileID: 6586126778679378193}
   - component: {fileID: 4661234364419359008}
-  - component: {fileID: 3136172693025339792}
+  - component: {fileID: 6680342031726478896}
   m_Layer: 6
   m_Name: DefaultCharacter
   m_TagString: Untagged
@@ -372,7 +372,7 @@ MonoBehaviour:
   checkWall: {fileID: 1462229981353037001}
   displacementAbiltiesComponents:
   - {fileID: 3296231075715405042}
---- !u!114 &3136172693025339792
+--- !u!114 &6680342031726478896
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -381,10 +381,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1851777789475013426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79986bdf9d88fd64c9bc8212b52c8dad, type: 3}
+  m_Script: {fileID: 11500000, guid: e528e31e7171ed14499f3e02aeec5ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterIdentifier: {fileID: 1965199428449930878}
+  attackPointHandler: {fileID: 2977175279305093656}
   attackPoint: {fileID: 6248436503809636389}
   fireType: 0
   attackLayermask:
@@ -394,9 +395,15 @@ MonoBehaviour:
   attackSpeed: 0
   attackCritChance: 0
   attackCritDamageMultiplier: 0
-  attackPoints:
-  - {fileID: 6248436503809636389}
-  attackAreaRadius: 1
+  debug: 1
+  projectilePrefab: {fileID: 8073931636513284674, guid: 2d3a358fa169ae842bec906ece6900ab, type: 3}
+  projectileDamageType: 0
+  projectileImpactLayerMask:
+    serializedVersion: 2
+    m_Bits: 129
+  projectileSpeed: 3
+  projectileLifespan: 2
+  projectileDispersionAngle: 0
 --- !u!1 &3069412420397820189
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +549,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4330250828371384196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 379cce1a67770d748acde5922930ff03, type: 3}
+  m_Script: {fileID: 11500000, guid: 176c42760e5211c4ca39601426df9ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTimer: 0
@@ -827,7 +834,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7279207625108799617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 379cce1a67770d748acde5922930ff03, type: 3}
+  m_Script: {fileID: 11500000, guid: 176c42760e5211c4ca39601426df9ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTimer: 0

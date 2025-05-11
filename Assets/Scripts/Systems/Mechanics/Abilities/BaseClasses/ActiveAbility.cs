@@ -6,12 +6,12 @@ using UnityEngine;
 public abstract class ActiveAbility : Ability, IActiveAbility
 {
     [Header("Active Ability Components")]
-    [SerializeField] protected ActiveAbilityCooldownHandler abilityCooldownHandler;
+    [SerializeField] protected AbilityCooldownHandler abilityCooldownHandler;
 
     [Header("Ability Runtime Filled")]
     [SerializeField] protected float abilityCooldownTime;
 
-    public ActiveAbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
+    public AbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
     private ActiveAbilitySO ActiveAbilitySO => abilitySO as ActiveAbilitySO;
 
 

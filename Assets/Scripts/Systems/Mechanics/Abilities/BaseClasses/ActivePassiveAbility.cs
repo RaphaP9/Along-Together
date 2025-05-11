@@ -5,12 +5,12 @@ using UnityEngine;
 public abstract class ActivePassiveAbility : Ability, IActiveAbility, IPassiveAbility
 {
     [Header("Active Ability Components")]
-    [SerializeField] protected ActiveAbilityCooldownHandler abilityCooldownHandler;
+    [SerializeField] protected AbilityCooldownHandler abilityCooldownHandler;
 
     [Header("Ability Runtime Filled")]
     [SerializeField] protected float abilityCooldownTime;
 
-    public ActiveAbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
+    public AbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
     private ActivePassiveAbilitySO ActivePassiveAbilitSO => abilitySO as ActivePassiveAbilitySO;
 
 
