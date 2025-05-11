@@ -94,10 +94,10 @@ public class PlayerHealth : EntityHealth
 
         foreach (IDamageTakingInterruptionAbility damageTakingInterruptionAbility in damageTakingInterruptionAbilities)
         {
-            if (damageTakingInterruptionAbility.IsInterruptingDamageTaking() && damageTakingInterruptionAbility.CanInterruptDamageTaking()) return false;
+            if (damageTakingInterruptionAbility.IsInterruptingDamageTaking() && damageTakingInterruptionAbility.CanInterruptDamageTaking()) return true;
         }
 
-        return true;
+        return false;
     }
 
     #region Virtual Event Methods

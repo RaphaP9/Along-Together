@@ -18,9 +18,9 @@ MonoBehaviour:
   sprite: {fileID: 0}
   color: {r: 0, g: 0, b: 0, a: 0}
   prefab: {fileID: 0}
-  baseHealth: 10
+  baseHealth: 20
   baseShield: 0
-  baseArmor: 0
+  baseArmor: 10
   baseDodgeChance: 0
   baseMovementSpeed: 0
   basicAttackDamage: 0

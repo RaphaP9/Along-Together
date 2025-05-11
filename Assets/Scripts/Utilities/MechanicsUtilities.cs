@@ -90,8 +90,6 @@ public static class MechanicsUtilities
 
         DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = damageSource };
 
-        Debug.Log(detectedTransforms.Count);
-
         foreach (IHasHealth iHasHealth in entityHealthsInRange)
         {
             iHasHealth.TakeDamage(damageData);
