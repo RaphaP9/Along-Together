@@ -129,6 +129,33 @@ public static Vector2 SupressZComponent(Vector3 vector3) => new Vector2(vector3.
     }
 
     public static Transform GetTransformByCollider(Collider2D collider) => collider.transform;
+
+    public static List<Transform> DetectTransformsInMultipleRanges(List<Vector2> positions, float detectionRange, LayerMask layerMask)
+    {
+        HashSet<Transform> uniqueTransforms = new HashSet<Transform>();
+
+        foreach (Vector2 position in positions)
+        {
+            List<Transform> detectedTransforms = DetectTransformsInRange(position, detectionRange, layerMask);
+
+            foreach (Transform transform in detectedTransforms)
+            {
+                uniqueTransforms.Add(transform);
+            }
+        }
+
+        List<Transform> uniqueTransformsList = uniqueTransforms.ToList();
+        return uniqueTransformsList;
+    }
+
+    public static List<Transform> DetectTransformsInRange(Vector2 position, float detectionRange, LayerMask layerMask)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, detectionRange, layerMask);
+
+        List<Transform> detectedTransforms = GetTransformsByColliders(colliders);
+
+        return detectedTransforms;
+    }
     #endregion
 
     #region LayerMasks
@@ -214,6 +241,27 @@ public static Vector2 SupressZComponent(Vector3 vector3) => new Vector2(vector3.
         foreach (Component component in components)
         {
             if (component.TryGetComponent(out T @interface))
+            {
+                interfaceList.Add(@interface);
+            }
+        }
+
+        return interfaceList;
+    }
+
+    public static List<T> GetInterfacesFromTransforms<T>(List<Transform> transforms)
+    {
+        List<T> interfaceList = new List<T>();
+
+        if (!typeof(T).IsInterface)
+        {
+            if (DEBUG) Debug.Log("T is not an Interface!. Returning empty list.");
+            return interfaceList;
+        }
+
+        foreach (Transform transform in transforms)
+        {
+            if (transform.TryGetComponent(out T @interface))
             {
                 interfaceList.Add(@interface);
             }

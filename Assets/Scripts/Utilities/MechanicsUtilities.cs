@@ -20,7 +20,21 @@ public static class MechanicsUtilities
     }
     #endregion
 
-    #region DamageTakenProcessing
+    #region Const GetMethods
+    public static int GetArmor50PercentThreshold() => ARMOR_THRESHOLD_50_PERCENT;
+    public static int GetExecuteDamage() => EXECUTE_DAMAGE;
+    #endregion
+
+    #region Damage Evaluation & Processing
+
+    public static bool EvaluateCritAttack(float critChance)
+    {
+        float randomNumber = Random.Range(0f, 1f);
+
+        if (critChance >= randomNumber) return true;
+        return false;
+    }
+
     public static bool EvaluateDodgeChance(float dodgeChance)
     {
         float randomNumber = Random.Range(0f, 1f);
@@ -38,11 +52,52 @@ public static class MechanicsUtilities
 
         return roundedResultingDamage;
     }
+
+    public static int CalculateCritDamage(int nonCritDamage, float attackCritDamageMultiplier)
+    {
+        float critDamage = nonCritDamage * attackCritDamageMultiplier;
+        int roundedCritDamage = Mathf.CeilToInt(critDamage);
+
+        return roundedCritDamage;
+    }
     #endregion
 
-    #region Const GetMethods
-    public static int GetArmor50PercentThreshold() => ARMOR_THRESHOLD_50_PERCENT;
-    public static int GetExecuteDamage() => EXECUTE_DAMAGE;
+    #region Damage Dealing
+
+    public static void DealDamageInArea(List<Vector2> positions, float areaRadius, int damage,bool isCrit, LayerMask layermask, IDamageSourceSO damageSource)
+    {
+        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInMultipleRanges(positions, areaRadius, layermask);
+        List<IHasHealth> entityHealthsInRange = GeneralUtilities.GetInterfacesFromTransforms<IHasHealth>(detectedTransforms);
+
+        DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = damageSource };
+
+        foreach (IHasHealth iHasHealth in entityHealthsInRange)
+        {
+            iHasHealth.TakeDamage(damageData);
+        }
+    }
+
+    public static void DealDamageInArea(List<Vector2> positions, float areaRadius, int damage, bool isCrit, LayerMask layermask, IDamageSourceSO damageSource, List<Transform> exeptionTransforms)
+    {
+        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInMultipleRanges(positions, areaRadius, layermask);
+
+        foreach(Transform exceptionTransform in exeptionTransforms)
+        {
+            detectedTransforms.Remove(exceptionTransform);
+        }
+
+        List<IHasHealth> entityHealthsInRange = GeneralUtilities.GetInterfacesFromTransforms<IHasHealth>(detectedTransforms);
+
+        DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = damageSource };
+
+        Debug.Log(detectedTransforms.Count);
+
+        foreach (IHasHealth iHasHealth in entityHealthsInRange)
+        {
+            iHasHealth.TakeDamage(damageData);
+        }
+    }
+
     #endregion
 
     #region StatUIProcessing

@@ -10,23 +10,32 @@ public abstract class PlayerAttack : MonoBehaviour
     [SerializeField] protected Transform attackPoint;
 
     [Header("Attack Settings")]
-    [SerializeField] private FireType fireType;
+    [SerializeField] protected FireType fireType;
+    [SerializeField] protected LayerMask attackLayermask;
 
     [Header("Attack Runtime Filled")]
-    [SerializeField] private int attackDamage;
-    [SerializeField] private float attackSpeed;
-    [SerializeField] private float attackCritChance;
-    [SerializeField] private float attackCritDamageMultiplier;
+    [SerializeField] protected int attackDamage;
+    [SerializeField] protected float attackSpeed;
+    [SerializeField] protected float attackCritChance;
+    [SerializeField] protected float attackCritDamageMultiplier;
 
     public FireType FireType_ => fireType;
     public enum FireType {Automatic, SemiAutomatic}
 
     protected float attackTimer = 0f;
 
+    public event EventHandler<OnPlayerAttackEventArgs> OnPlayerAttack;
+    public static event EventHandler<OnPlayerAttackEventArgs> OnAnyPlayerAttack;
+
     public class OnPlayerAttackEventArgs : EventArgs
     {
         public PlayerAttack playerAttack;
         public bool isCrit;
+
+        public int attackDamage;
+        public float attackSpeed;
+        public float attackCritChance;
+        public float attackCritDamageMultiplier;
     }
 
     protected virtual void OnEnable()
@@ -82,6 +91,12 @@ public abstract class PlayerAttack : MonoBehaviour
     }
 
     protected abstract void Attack();
+
+    protected virtual void OnPlayerAttackMethod(bool isCrit, int attackDamage)
+    {
+        OnPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = attackSpeed, attackCritChance = attackCritChance, attackCritDamageMultiplier = attackCritDamageMultiplier });
+        OnAnyPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = attackSpeed, attackCritChance = attackCritChance, attackCritDamageMultiplier = attackCritDamageMultiplier });
+    }
 
     private void ResetAttackTimer() => attackTimer = 0f;
     private bool AttackOnCooldown() => attackTimer > 0f;

@@ -49,7 +49,7 @@ MonoBehaviour:
   abilityVariants:
   - {fileID: 8470413022457330166}
   startingAbilityVariant: {fileID: 8470413022457330166}
-  selectedAbilityVariant: {fileID: 0}
+  activeAbilityVariant: {fileID: 0}
   debug: 1
 --- !u!1 &1376360663945388064
 GameObject:
@@ -100,9 +100,7 @@ MonoBehaviour:
   abilitySlotHandler: {fileID: 4493125982467729595}
   playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
-  abilitySlot: 0
   abilityLevel: 0
-  isActiveVariant: 0
   abilityCooldownHandler: {fileID: 8397176443843121625}
   abilityCooldownTime: 0
   activeAbilityGUIDs: []
@@ -389,10 +387,16 @@ MonoBehaviour:
   characterIdentifier: {fileID: 1965199428449930878}
   attackPoint: {fileID: 6248436503809636389}
   fireType: 0
+  attackLayermask:
+    serializedVersion: 2
+    m_Bits: 128
   attackDamage: 0
   attackSpeed: 0
   attackCritChance: 0
   attackCritDamageMultiplier: 0
+  attackPoints:
+  - {fileID: 6248436503809636389}
+  attackAreaRadius: 1
 --- !u!1 &3069412420397820189
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,9 +530,7 @@ MonoBehaviour:
   abilitySlotHandler: {fileID: 8531194546525769567}
   playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
-  abilitySlot: 0
   abilityLevel: 0
-  isActiveVariant: 0
   abilityCooldownHandler: {fileID: 6423833680700352654}
   abilityCooldownTime: 0
 --- !u!114 &6423833680700352654
@@ -755,7 +757,7 @@ MonoBehaviour:
   - {fileID: 7573232495966570463}
   - {fileID: 1280386860473701626}
   startingAbilityVariant: {fileID: 7573232495966570463}
-  selectedAbilityVariant: {fileID: 0}
+  activeAbilityVariant: {fileID: 0}
   debug: 1
 --- !u!1 &7279207625108799617
 GameObject:
@@ -806,9 +808,7 @@ MonoBehaviour:
   abilitySlotHandler: {fileID: 8531194546525769567}
   playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
-  abilitySlot: 0
   abilityLevel: 0
-  isActiveVariant: 0
   abilityCooldownHandler: {fileID: 1263218695718187337}
   abilityCooldownTime: 0
   mouseDirectionHandler: {fileID: 4593777764411072900}

@@ -110,8 +110,8 @@ public abstract class Ability : MonoBehaviour
 
     public virtual bool CanCastAbility()
     {
-        if (abilitySO.GetAbilityType() == AbilityType.Passive) return false; //Can not cast if only passive
         if (!playerHealth.IsAlive()) return false;
+        if (abilitySO.GetAbilityType() == AbilityType.Passive) return false; //Can not cast if only passive
         if (abilityLevel == AbilityLevel.NotLearned) return false;
 
         return true;

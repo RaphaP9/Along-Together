@@ -37,7 +37,9 @@ public class PlayerAttackPointHandler : MonoBehaviour
         aimDirection = CalculateNormalizedAimDirection();
         aimAngle = GeneralUtilities.GetVector2AngleDegrees(aimDirection);
 
-        UpdateAttackPointPosition();
+        UpdateAttackPointPosition(aimDirection);
+        UpdateRotation(aimAngle);
+
     }
 
     private bool CanAim()
@@ -47,17 +49,22 @@ public class PlayerAttackPointHandler : MonoBehaviour
         return true;
     }
 
-    private void UpdateAttackPointPosition()
-    {
-        Vector3 position = playerTransform.position + GeneralUtilities.Vector2ToVector3(aimDirection) * distanceFromPlayerCenter;
-        transform.position = position;
-    }
-
     private Vector2 CalculateNormalizedAimDirection()
     {
         Vector2 aimVector = ScreenInput.Instance.GetWorldMousePosition() - GeneralUtilities.TransformPositionVector2(playerTransform);
         aimVector.Normalize();
 
         return aimVector;
+    }
+
+    private void UpdateAttackPointPosition(Vector2 aimDirection)
+    {
+        Vector3 position = playerTransform.position + GeneralUtilities.Vector2ToVector3(aimDirection) * distanceFromPlayerCenter;
+        transform.position = position;
+    }
+
+    private void UpdateRotation(float aimAngle)
+    {
+        transform.rotation = Quaternion.Euler(0, 0, aimAngle);
     }
 }
