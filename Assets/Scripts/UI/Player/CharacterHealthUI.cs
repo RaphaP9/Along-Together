@@ -77,6 +77,15 @@ public class CharacterHealthUI : MonoBehaviour
         SetTargetFill(CalculateTargetFill(currentHealth, maxHealth));// Change Target Fill      
     }
 
+    private void UpdateUIByHealthValuesImmediately()
+    {
+        SetHealthBarTexts(currentHealth, maxHealth); 
+        SetTargetFill(CalculateTargetFill(currentHealth, maxHealth));   
+        
+        SetCurrentFill(targetFill);
+        SetHealthBarFill(currentFill);
+    }
+
     private void SetMaxHealth(int maxHealth) => this.maxHealth = maxHealth;
     private void SetCurrentHealth(int currentHealth) => this.currentHealth = currentHealth;
     private void SetTargetFill(float fill) => targetFill = fill;
@@ -100,7 +109,8 @@ public class CharacterHealthUI : MonoBehaviour
     {
         UpdateHealthValues(e.currentHealth, e.maxHealth);
         UpdateUIByHealthValues();
-        //SetCurrentFill(targetFill); //Update Current Fill Immediately
+
+        UpdateUIByHealthValuesImmediately();
     }
 
     private void PlayerHealth_OnPlayerStatsUpdated(object sender, EntityHealth.OnEntityStatsEventArgs e)
