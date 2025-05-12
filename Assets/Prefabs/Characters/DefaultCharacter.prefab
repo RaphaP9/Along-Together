@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterIdentifier: {fileID: 1965199428449930878}
-  aimDirectionerHandler: {fileID: 0}
+  aimDirectionerHandler: {fileID: 2977175279305093656}
   attackTriggerType: 0
   attackLayermask:
     serializedVersion: 2
@@ -754,7 +754,7 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 3125651546402793068}
   aimDirectionerHandler: {fileID: 2977175279305093656}
   entityHealth: {fileID: 6586126778679378193}
-  facingType: 0
+  facingType: 1
   startingFacingDirection: {x: 1, y: 0}
   minimumRigidbodyVelocity: 1
   currentFacingDirection: {x: 0, y: 0}
