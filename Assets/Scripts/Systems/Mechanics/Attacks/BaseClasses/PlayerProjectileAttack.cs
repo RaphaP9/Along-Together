@@ -24,7 +24,7 @@ public class PlayerProjectileAttack : PlayerAttack
         bool isCrit = MechanicsUtilities.EvaluateCritAttack(attackCritChance);
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(attackDamage, attackCritDamageMultiplier) : attackDamage;
 
-        Vector2 shootDirection = attackDirectionerHandler.AimDirection;
+        Vector2 shootDirection = aimDirectionerHandler.AimDirection;
         Vector2 position = firePoint.position;
 
         InstantiateProjectile(characterIdentifier.CharacterSO, projectilePrefab, position, shootDirection, damage, isCrit, projectileSpeed, projectileLifespan, projectileDamageType, projectileAreaRadius, attackLayermask, projectileImpactLayerMask);

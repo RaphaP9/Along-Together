@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterIdentifier: {fileID: 1965199428449930878}
-  attackDirectionerHandler: {fileID: 2977175279305093656}
+  aimDirectionerHandler: {fileID: 0}
   attackTriggerType: 0
   attackLayermask:
     serializedVersion: 2
@@ -620,7 +620,7 @@ GameObject:
   - component: {fileID: 6248436503809636389}
   - component: {fileID: 2977175279305093656}
   m_Layer: 0
-  m_Name: AttackDirectionHandler
+  m_Name: AimDirectionHandler
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6546964152467631905}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37032c5fb0357bc4aa7b5d1e521eb58b, type: 3}
+  m_Script: {fileID: 11500000, guid: cd829a020d1d0a44aac2088cf638672b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mouseDirectionHandler: {fileID: 4593777764411072900}
@@ -748,13 +748,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7063982094058207045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dec3a857d7bc78748ab133cf6a5d1558, type: 3}
+  m_Script: {fileID: 11500000, guid: f22bb2ea0ee70304aa346b26fcc9ab39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 3125651546402793068}
+  aimDirectionerHandler: {fileID: 2977175279305093656}
   entityHealth: {fileID: 6586126778679378193}
+  facingType: 0
   startingFacingDirection: {x: 1, y: 0}
-  minimumVelocity: 1
+  minimumRigidbodyVelocity: 1
   currentFacingDirection: {x: 0, y: 0}
 --- !u!1 &7130031430464041670
 GameObject:

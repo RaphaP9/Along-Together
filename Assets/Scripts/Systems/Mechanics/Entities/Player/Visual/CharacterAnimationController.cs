@@ -7,7 +7,7 @@ public class CharacterAnimationController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private FacingDirectionHandler facingDirectionHandler;
+    [SerializeField] private PlayerFacingDirectionHandler facingDirectionHandler;
 
     private const string SPEED_FLOAT = "Speed";
     private const string FACE_X_FLOAT = "FaceX";

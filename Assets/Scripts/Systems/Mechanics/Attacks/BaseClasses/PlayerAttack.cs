@@ -7,7 +7,7 @@ public abstract class PlayerAttack : MonoBehaviour
 {
     [Header("Attack Components")]
     [SerializeField] protected CharacterIdentifier characterIdentifier;
-    [SerializeField] protected PlayerAttackDirectionerHandler attackDirectionerHandler;
+    [SerializeField] protected PlayerAimDirectionerHandler aimDirectionerHandler;
 
     [Header("Attack Settings")]
     [SerializeField] protected AttackTriggerType attackTriggerType;

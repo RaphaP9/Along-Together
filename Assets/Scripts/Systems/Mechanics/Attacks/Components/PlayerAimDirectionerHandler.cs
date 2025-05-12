@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackDirectionerHandler : MonoBehaviour
+public class PlayerAimDirectionerHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private MouseDirectionHandler mouseDirectionHandler;
