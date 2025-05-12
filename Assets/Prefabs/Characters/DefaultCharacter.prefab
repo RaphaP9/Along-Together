@@ -388,7 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIdentifier: {fileID: 1965199428449930878}
   attackDirectionerHandler: {fileID: 2977175279305093656}
-  fireType: 0
+  attackTriggerType: 0
   attackLayermask:
     serializedVersion: 2
     m_Bits: 128
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37032c5fb0357bc4aa7b5d1e521eb58b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 6380853313663446174}
+  mouseDirectionHandler: {fileID: 4593777764411072900}
   playerHealth: {fileID: 6586126778679378193}
   aimDirection: {x: 0, y: 0}
   aimAngle: 0

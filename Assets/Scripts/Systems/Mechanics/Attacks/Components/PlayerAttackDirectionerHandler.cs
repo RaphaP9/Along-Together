@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttackDirectionerHandler : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private Transform playerTransform;
+    [SerializeField] private MouseDirectionHandler mouseDirectionHandler;
     [SerializeField] private PlayerHealth playerHealth;
 
     [Header("RuntimeFilled")]
@@ -23,7 +23,7 @@ public class PlayerAttackDirectionerHandler : MonoBehaviour
     {
         if (!CanAim()) return;
 
-        aimDirection = CalculateNormalizedAimDirection();
+        aimDirection = mouseDirectionHandler.NormalizedMouseDirection;
         aimAngle = GeneralUtilities.GetVector2AngleDegrees(aimDirection);
 
         UpdateRotation(aimAngle);
@@ -35,14 +35,6 @@ public class PlayerAttackDirectionerHandler : MonoBehaviour
         if (!playerHealth.IsAlive()) return false;
 
         return true;
-    }
-
-    private Vector2 CalculateNormalizedAimDirection()
-    {
-        Vector2 aimVector = ScreenInput.Instance.GetWorldMousePosition() - GeneralUtilities.TransformPositionVector2(playerTransform);
-        aimVector.Normalize();
-
-        return aimVector;
     }
 
     private void UpdateRotation(float aimAngle)
