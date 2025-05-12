@@ -50,11 +50,6 @@ public class CharacterHealthUI : MonoBehaviour
         playerHealth.OnPlayerCurrentHealthClamped -= PlayerHealth_OnPlayerCurrentHealthClamped;
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void Update()
     {
         HandleHealthBarLerping();
@@ -64,8 +59,10 @@ public class CharacterHealthUI : MonoBehaviour
     {
         if (Mathf.Abs(currentFill - targetFill) <= LERP_THRESHOLD) return;
 
-        SetCurrentFillByFill(Mathf.Lerp(currentFill, targetFill, lerpSpeed * Time.deltaTime));
-        SetHealthBarFillAmountByFill(currentFill);
+        float newCurrentFill = (Mathf.Lerp(currentFill, targetFill, lerpSpeed * Time.deltaTime));
+
+        SetCurrentFill(newCurrentFill);
+        SetHealthBarFill(currentFill);
     }
 
     private void UpdateHealthValues(int currentHealth, int maxHealth)
@@ -76,18 +73,18 @@ public class CharacterHealthUI : MonoBehaviour
 
     private void UpdateUIByHealthValues()
     {
-        SetHealthBarTexts(currentHealth, maxHealth);
-        SetTargetFillAmountByHealth(currentHealth, maxHealth);
+        SetHealthBarTexts(currentHealth, maxHealth); //Change Texts
+        SetTargetFill(CalculateTargetFill(currentHealth, maxHealth));// Change Target Fill      
     }
 
     private void SetMaxHealth(int maxHealth) => this.maxHealth = maxHealth;
     private void SetCurrentHealth(int currentHealth) => this.currentHealth = currentHealth;
+    private void SetTargetFill(float fill) => targetFill = fill;
+    private void SetCurrentFill(float fill) => currentFill = fill;
 
-    private void SetTargetFillAmountByHealth(int currentHealth, int maxHealth) => targetFill = (float)currentHealth / maxHealth;
-    private void SetTargetFillAmountByFill(float fill) => targetFill = fill;
+    private float CalculateTargetFill(int currentHealth, int maxHealth) => (float)currentHealth / maxHealth;
 
-    private void SetCurrentFillByFill(float fill) => currentFill = fill;
-    private void SetHealthBarFillAmountByFill(float fillAmount)
+    private void SetHealthBarFill(float fillAmount)
     {
         UIUtilities.SetImageFillRatio(healthBarImage, fillAmount);
     }
@@ -103,6 +100,7 @@ public class CharacterHealthUI : MonoBehaviour
     {
         UpdateHealthValues(e.currentHealth, e.maxHealth);
         UpdateUIByHealthValues();
+        //SetCurrentFill(targetFill); //Update Current Fill Immediately
     }
 
     private void PlayerHealth_OnPlayerStatsUpdated(object sender, EntityHealth.OnEntityStatsEventArgs e)
