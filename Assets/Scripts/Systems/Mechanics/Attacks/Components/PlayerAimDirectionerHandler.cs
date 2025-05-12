@@ -41,4 +41,10 @@ public class PlayerAimDirectionerHandler : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0, 0, aimAngle);
     }
+
+    public bool IsAimingRight()
+    {
+        if (aimDirection.x >= 0) return true;
+        return false;
+    }
 }
