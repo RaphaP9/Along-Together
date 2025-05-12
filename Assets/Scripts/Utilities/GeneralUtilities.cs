@@ -8,6 +8,18 @@ public static class GeneralUtilities
 {
     private const bool DEBUG = true;
 
+    private static readonly Vector2Int[] directions8 = new Vector2Int[]
+    {
+        new Vector2Int(0,  1),  // Up
+        new Vector2Int(1,  1),  // Up-Right
+        new Vector2Int(1,  0),  // Right
+        new Vector2Int(1, -1),  // Down-Right
+        new Vector2Int(0, -1),  // Down
+        new Vector2Int(-1, -1),  // Down-Left
+        new Vector2Int(-1,  0),  // Left
+        new Vector2Int(-1,  1),  // Up-Left
+    };
+
     #region GUIDs
     public static string GenerateGUID()
     {
@@ -18,7 +30,7 @@ public static class GeneralUtilities
     #endregion
 
     #region Vectors
-public static Vector2 SupressZComponent(Vector3 vector3) => new Vector2(vector3.x, vector3.y);
+    public static Vector2 SupressZComponent(Vector3 vector3) => new Vector2(vector3.x, vector3.y);
 
     public static Vector2Int Vector2ToVector2Int(Vector2 vector2)
     {
@@ -58,6 +70,12 @@ public static Vector2 SupressZComponent(Vector3 vector3) => new Vector2(vector3.
 
     #region VectorInts
 
+    public static Vector2 Vector2IntToVector2(Vector2Int vector2Int)
+    {
+        Vector2 vector2 = new Vector2(vector2Int.x, vector2Int.y);
+        return vector2;
+    }
+
     public static Vector3 Vector2IntToVector3(Vector2Int vector2) => new Vector3(vector2.x, vector2.y, 0f);
 
     public static bool CheckVectorIntsAreSameDirection(Vector2Int vectorA, Vector2Int vectorB)
@@ -84,6 +102,29 @@ public static Vector2 SupressZComponent(Vector3 vector3) => new Vector2(vector3.
 
         return false;
     }
+
+    public static Vector2Int ClampVector2To8Direction(Vector2 vector2)
+    {
+        if(vector2 == Vector2Int.zero) return Vector2Int.zero;
+
+        Vector2Int closestDirection = directions8[0];
+        float maxDotProduct = Vector2.Dot(vector2, closestDirection);
+
+        foreach(Vector2Int direction in directions8)
+        {
+            Vector2 floatDirection = Vector2IntToVector2(direction);
+            float dot = Vector2.Dot(vector2, floatDirection.normalized);
+
+            if (dot > maxDotProduct)
+            {
+                maxDotProduct = dot;
+                closestDirection = direction;
+            }
+        }
+
+        return closestDirection;
+    }
+
     #endregion
 
     #region Floats
