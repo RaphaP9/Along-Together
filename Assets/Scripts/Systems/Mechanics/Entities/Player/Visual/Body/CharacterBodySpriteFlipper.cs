@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class CharacterBodySpriteFlipper : MonoBehaviour
     [Header("Components")]
     [SerializeField] private PlayerAimDirectionerHandler aimDirectionerHandler;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [Space]
+    [SerializeField] private CharacterFacingHandler characterFacingHandler;
 
     private bool facingRight = true;
 
@@ -17,6 +20,8 @@ public class CharacterBodySpriteFlipper : MonoBehaviour
 
     private void HandleFacingDueToAim()
     {
+        if (!characterFacingHandler.CanFace()) return;
+
         if (aimDirectionerHandler.IsAimingRight())
         {
             CheckFlipRight();
@@ -55,5 +60,4 @@ public class CharacterBodySpriteFlipper : MonoBehaviour
     {
         spriteRenderer.flipX = true;
     }
-
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class BasicDash : ActiveAbility, IDisplacementAbility, IDamageTakingInterruptionAbility, IAttackInterruptionAbility
+public class BasicDash : ActiveAbility, IDisplacementAbility, IDamageTakingInterruptionAbility, IAttackInterruptionAbility, IFacingInterruptionAbility
 {
     [Header("Specific Components")]
     [SerializeField] private MouseDirectionHandler mouseDirectionHandler;
@@ -46,6 +46,7 @@ public class BasicDash : ActiveAbility, IDisplacementAbility, IDamageTakingInter
     public bool IsDisplacing() => isDashing;
     public bool IsInterruptingDamageTaking() => isDashing;
     public bool IsInterruptingAttack() => isDashing;
+    public bool IsInterruptingFacing() => isDashing;
     #endregion
 
     #region Logic Methods
