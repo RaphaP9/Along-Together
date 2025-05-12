@@ -7,11 +7,10 @@ public abstract class PlayerAttack : MonoBehaviour
 {
     [Header("Attack Components")]
     [SerializeField] protected CharacterIdentifier characterIdentifier;
-    [SerializeField] protected PlayerAttackPointHandler attackPointHandler;
-    [SerializeField] protected Transform attackPoint;
+    [SerializeField] protected PlayerAttackDirectionerHandler attackDirectionerHandler;
 
     [Header("Attack Settings")]
-    [SerializeField] protected FireType fireType;
+    [SerializeField] protected AttackTriggerType attackTriggerType;
     [SerializeField] protected LayerMask attackLayermask;
 
     [Header("Attack Runtime Filled")]
@@ -23,8 +22,8 @@ public abstract class PlayerAttack : MonoBehaviour
     [Header("Debug")]
     [SerializeField] protected bool debug;
 
-    public FireType FireType_ => fireType;
-    public enum FireType {Automatic, SemiAutomatic}
+    public AttackTriggerType AttackTriggerType_ => attackTriggerType;
+    public enum AttackTriggerType {Automatic, SemiAutomatic}
 
     protected float attackTimer = 0f;
 
@@ -133,18 +132,18 @@ public abstract class PlayerAttack : MonoBehaviour
     }
     #endregion
 
-    #region FireType-Input Assignation
+    #region AttackTriggerType-Input Assignation
     protected bool GetSemiAutomaticInputAttack() => AttackInput.Instance.GetAttackDown();
     protected bool GetAutomaticInputAttack() => AttackInput.Instance.GetAttackHold();
 
     protected bool GetAttackInput()
     {
-        switch (fireType)
+        switch (attackTriggerType)
         {
-            case FireType.SemiAutomatic:
+            case AttackTriggerType.SemiAutomatic:
             default:
                 return GetSemiAutomaticInputAttack();
-            case FireType.Automatic:
+            case AttackTriggerType.Automatic:
                 return GetAutomaticInputAttack();
         }
     }

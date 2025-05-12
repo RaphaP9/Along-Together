@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerProjectileAttack : PlayerAttack
 {
     [Header("Player Projectile Attack Components")]
+    [SerializeField] protected Transform firePoint;
     [SerializeField] protected Transform projectilePrefab;
 
     [Header("Player Projectile Attack Settings")]
@@ -23,8 +24,8 @@ public class PlayerProjectileAttack : PlayerAttack
         bool isCrit = MechanicsUtilities.EvaluateCritAttack(attackCritChance);
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(attackDamage, attackCritDamageMultiplier) : attackDamage;
 
-        Vector2 shootDirection = attackPointHandler.AimDirection;
-        Vector2 position = attackPoint.position;
+        Vector2 shootDirection = attackDirectionerHandler.AimDirection;
+        Vector2 position = firePoint.position;
 
         InstantiateProjectile(characterIdentifier.CharacterSO, projectilePrefab, position, shootDirection, damage, isCrit, projectileSpeed, projectileLifespan, projectileDamageType, projectileAreaRadius, attackLayermask, projectileImpactLayerMask);
 
