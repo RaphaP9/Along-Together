@@ -8,12 +8,12 @@ public abstract class PlayerAttack : MonoBehaviour
     [Header("Attack Components")]
     [SerializeField] protected CharacterIdentifier characterIdentifier;
     [SerializeField] protected PlayerAimDirectionerHandler aimDirectionerHandler;
+    [Space]
+    [SerializeField] protected List<Transform> attackInterruptionAbilitiesTransforms;
 
     [Header("Attack Settings")]
     [SerializeField] protected AttackTriggerType attackTriggerType;
     [SerializeField] protected LayerMask attackLayermask;
-    [Space]
-    [SerializeField] protected List<Transform> attackInterruptionAbilitiesTransforms;
 
     [Header("Attack Runtime Filled")]
     [SerializeField] protected int attackDamage;
@@ -121,7 +121,7 @@ public abstract class PlayerAttack : MonoBehaviour
 
         foreach (IAttackInterruptionAbility attackInterruptionAbility in attackInterruptionAbilities)
         {
-            if (attackInterruptionAbility.IsInterruptingAttack() && attackInterruptionAbility.CanInterruptAttack()) return false;
+            if (attackInterruptionAbility.IsInterruptingAttack()) return false;
         }
 
         return true;

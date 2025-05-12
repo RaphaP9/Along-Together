@@ -5,5 +5,4 @@ using UnityEngine;
 public interface IDamageTakingInterruptionAbility
 {
     public bool IsInterruptingDamageTaking();
-    public bool CanInterruptDamageTaking();
 }

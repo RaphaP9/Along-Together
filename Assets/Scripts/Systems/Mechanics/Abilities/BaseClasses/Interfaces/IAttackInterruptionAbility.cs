@@ -5,5 +5,4 @@ using UnityEngine;
 public interface IAttackInterruptionAbility
 {
     public bool IsInterruptingAttack();
-    public bool CanInterruptAttack();
 }

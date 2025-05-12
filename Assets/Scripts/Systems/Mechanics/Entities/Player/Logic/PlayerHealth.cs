@@ -95,7 +95,7 @@ public class PlayerHealth : EntityHealth
 
         foreach (IDamageTakingInterruptionAbility damageTakingInterruptionAbility in damageTakingInterruptionAbilities)
         {
-            if (damageTakingInterruptionAbility.IsInterruptingDamageTaking() && damageTakingInterruptionAbility.CanInterruptDamageTaking()) return true;
+            if (damageTakingInterruptionAbility.IsInterruptingDamageTaking()) return true;
         }
 
         return false;

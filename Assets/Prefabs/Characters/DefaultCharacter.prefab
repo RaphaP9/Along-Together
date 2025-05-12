@@ -388,12 +388,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIdentifier: {fileID: 1965199428449930878}
   aimDirectionerHandler: {fileID: 2977175279305093656}
+  attackInterruptionAbilitiesTransforms:
+  - {fileID: 3296231075715405042}
   attackTriggerType: 0
   attackLayermask:
     serializedVersion: 2
     m_Bits: 128
-  attackInterruptionAbilitiesTransforms:
-  - {fileID: 3296231075715405042}
   attackDamage: 0
   attackSpeed: 0
   attackCritChance: 0
@@ -720,6 +720,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1539104338402781237}
+  - component: {fileID: 1753534425973844098}
   m_Layer: 0
   m_Name: WeaponVisual
   m_TagString: Untagged
@@ -743,6 +744,21 @@ Transform:
   - {fileID: 4207330769636370381}
   m_Father: {fileID: 6248436503809636389}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1753534425973844098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5733256387100246634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffa6e22598889d94fb244b176aa759d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 5668402913487765036}
+  attackInterruptionAbilitiesTransforms:
+  - {fileID: 3296231075715405042}
 --- !u!1 &6462796451184188670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,9 +1049,6 @@ MonoBehaviour:
   movementDirectionHandler: {fileID: 4053781653671632281}
   _rigidbody2D: {fileID: 3125651546402793068}
   directionMode: 1
-  interruptMovement: 1
-  interruptDamageTaking: 1
-  interruptAttack: 1
   currentDashDirection: {x: 0, y: 0}
 --- !u!114 &1263218695718187337
 MonoBehaviour:

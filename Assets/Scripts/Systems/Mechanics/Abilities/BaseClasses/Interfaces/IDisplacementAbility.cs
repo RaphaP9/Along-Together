@@ -5,5 +5,4 @@ using UnityEngine;
 public interface IDisplacementAbility
 {
     public bool IsDisplacing();
-    public bool CanInterruptMovement();
 }
