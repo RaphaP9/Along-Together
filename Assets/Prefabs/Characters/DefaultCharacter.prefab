@@ -392,6 +392,8 @@ MonoBehaviour:
   attackLayermask:
     serializedVersion: 2
     m_Bits: 128
+  attackInterruptionAbilitiesTransforms:
+  - {fileID: 3296231075715405042}
   attackDamage: 0
   attackSpeed: 0
   attackCritChance: 0
@@ -783,7 +785,7 @@ GameObject:
   - component: {fileID: 6248436503809636389}
   - component: {fileID: 2977175279305093656}
   m_Layer: 0
-  m_Name: AimDirectionHandler
+  m_Name: AimDirectioner
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1033,6 +1035,7 @@ MonoBehaviour:
   directionMode: 1
   interruptMovement: 1
   interruptDamageTaking: 1
+  interruptAttack: 1
   currentDashDirection: {x: 0, y: 0}
 --- !u!114 &1263218695718187337
 MonoBehaviour:
@@ -1132,6 +1135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6543428868650559586}
   - component: {fileID: 3243932913206162116}
+  - component: {fileID: 6934482600385633296}
   m_Layer: 6
   m_Name: BodyVisual
   m_TagString: Untagged
@@ -1170,6 +1174,20 @@ MonoBehaviour:
   animator: {fileID: 4069439219325082044}
   playerMovement: {fileID: 4661234364419359008}
   facingDirectionHandler: {fileID: 4295945866100084352}
+--- !u!114 &6934482600385633296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8502199646678721002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d7f8025ddcd164fbec43735e5e694a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aimDirectionerHandler: {fileID: 2977175279305093656}
+  spriteRenderer: {fileID: 1724196336011256719}
 --- !u!1 &8529961401906286131
 GameObject:
   m_ObjectHideFlags: 0

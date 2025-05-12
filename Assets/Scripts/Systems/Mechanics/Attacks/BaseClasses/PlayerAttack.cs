@@ -12,6 +12,8 @@ public abstract class PlayerAttack : MonoBehaviour
     [Header("Attack Settings")]
     [SerializeField] protected AttackTriggerType attackTriggerType;
     [SerializeField] protected LayerMask attackLayermask;
+    [Space]
+    [SerializeField] protected List<Transform> attackInterruptionAbilitiesTransforms;
 
     [Header("Attack Runtime Filled")]
     [SerializeField] protected int attackDamage;
@@ -26,6 +28,7 @@ public abstract class PlayerAttack : MonoBehaviour
     public enum AttackTriggerType {Automatic, SemiAutomatic}
 
     protected float attackTimer = 0f;
+    private List<IAttackInterruptionAbility> attackInterruptionAbilities;
 
     public event EventHandler<OnPlayerAttackEventArgs> OnPlayerAttack;
     public static event EventHandler<OnPlayerAttackEventArgs> OnAnyPlayerAttack;
@@ -57,6 +60,16 @@ public abstract class PlayerAttack : MonoBehaviour
         AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverUpdated -= AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated;
     }
 
+    private void Awake()
+    {
+        GetAttackInterruptionAbilitiesInterfaces();
+    }
+
+    private void GetAttackInterruptionAbilitiesInterfaces()
+    {
+        attackInterruptionAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IAttackInterruptionAbility>(attackInterruptionAbilitiesTransforms);
+    }
+
     protected virtual void Start()
     {
         Initialize();
@@ -79,11 +92,11 @@ public abstract class PlayerAttack : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (AttackOnCooldown()) return;
         if (!GetAttackInput()) return;
+        if (!CanAttack()) return;
 
         Attack();
-        ResetTimer();
+        MaxTimer();
     }
 
     private void HandleAttackCooldown()
@@ -101,9 +114,22 @@ public abstract class PlayerAttack : MonoBehaviour
         OnAnyPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = attackSpeed, attackCritChance = attackCritChance, attackCritDamageMultiplier = attackCritDamageMultiplier });
     }
 
-    private void ResetAttackTimer() => attackTimer = 0f;
+
+    protected virtual bool CanAttack()
+    {
+        if (AttackOnCooldown()) return false;
+
+        foreach (IAttackInterruptionAbility attackInterruptionAbility in attackInterruptionAbilities)
+        {
+            if (attackInterruptionAbility.IsInterruptingAttack() && attackInterruptionAbility.CanInterruptAttack()) return false;
+        }
+
+        return true;
+    }
+
     private bool AttackOnCooldown() => attackTimer > 0f;
-    private void ResetTimer() => attackTimer = 1f / attackSpeed;
+    private void ResetAttackTimer() => attackTimer = 0f;
+    private void MaxTimer() => attackTimer = 1f / attackSpeed;
 
     #region Stat Calculations
     private int CalculateAttackDamage() => AttackDamageStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseAttackDamage);

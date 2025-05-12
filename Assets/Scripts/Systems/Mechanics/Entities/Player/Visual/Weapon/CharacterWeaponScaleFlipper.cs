@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponSpriteFlipper : MonoBehaviour
+public class CharacterWeaponScaleFlipper : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private PlayerAimDirectionerHandler aimDirectionerHandler;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Transform transformToFlip;
 
     private bool facingRight = true;
 
@@ -48,11 +48,11 @@ public class WeaponSpriteFlipper : MonoBehaviour
 
     private void FlipRight()
     {
-        spriteRenderer.flipY = false;
+        transformToFlip.localScale = new Vector3(1f,1f,1f);
     }
 
     private void FlipLeft()
     {
-        spriteRenderer.flipY = true;
+        transformToFlip.localScale = new Vector3(1f, -1f, 1f);
     }
 }
