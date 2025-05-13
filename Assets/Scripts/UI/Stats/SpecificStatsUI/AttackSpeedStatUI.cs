@@ -2,32 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackSpeedStatUI : NumericStatUI
+public class AttackSpeedStatUI : PlayerNumericStatUI
 {
-    private void OnEnable()
+    protected override void SubscribeToEvents()
     {
-        AttackSpeedStatResolver.OnAttackSpeedResolverInitialized += AttackSpeedStatResolver_OnAttackSpeedResolverInitialized;
-        AttackSpeedStatResolver.OnAttackSpeedResolverUpdated += AttackSpeedStatResolver_OnAttackSpeedResolverUpdated;
+        specificPlayerStatsResolver.OnPlayerStatsInitialized += SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
+        specificPlayerStatsResolver.OnPlayerAttackSpeedChanged += SpecificPlayerStatsResolver_OnPlayerAttackSpeedChanged;
     }
 
-    private void OnDisable()
+    protected override void UnSubscribeToEvents()
     {
-        AttackSpeedStatResolver.OnAttackSpeedResolverInitialized -= AttackSpeedStatResolver_OnAttackSpeedResolverInitialized;
-        AttackSpeedStatResolver.OnAttackSpeedResolverUpdated -= AttackSpeedStatResolver_OnAttackSpeedResolverUpdated;
+        if (specificPlayerStatsResolver == null) return;
+
+        specificPlayerStatsResolver.OnPlayerStatsInitialized -= SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
+        specificPlayerStatsResolver.OnPlayerAttackSpeedChanged -= SpecificPlayerStatsResolver_OnPlayerAttackSpeedChanged;
     }
 
-    protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleFloat(currentValue,2);
-    protected override float GetBaseValue() => PlayerCharacterManager.Instance.CharacterSO.baseAttackSpeed;
-    protected override float GetCurrentValue() => AttackSpeedStatResolver.Instance.ResolveStatFloat(PlayerCharacterManager.Instance.CharacterSO.baseAttackSpeed);
+    protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleFloat(currentValue, 2);
+    protected override float GetBaseValue() => characterIdentifier.CharacterSO.baseAttackSpeed;
+    protected override float GetCurrentValue() => specificPlayerStatsResolver.AttackSpeed;
 
 
     #region Subscriptions
-    private void AttackSpeedStatResolver_OnAttackSpeedResolverInitialized(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    private void SpecificPlayerStatsResolver_OnPlayerAttackSpeedChanged(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }
 
-    private void AttackSpeedStatResolver_OnAttackSpeedResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    private void SpecificPlayerStatsResolver_OnPlayerStatsInitialized(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }

@@ -2,32 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaxHealthStatUI : NumericStatUI
+public class MaxHealthStatUI : PlayerNumericStatUI
 {
-    private void OnEnable()
+    protected override void SubscribeToEvents()
     {
-        MaxHealthStatResolver.OnMaxHealtResolverInitialized += MaxHealthStatResolver_OnMaxHealtResolverInitialized;
-        MaxHealthStatResolver.OnMaxHealthResolverUpdated += MaxHealthStatResolver_OnMaxHealthResolverUpdated;
+        specificPlayerStatsResolver.OnPlayerStatsInitialized += SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
+        specificPlayerStatsResolver.OnPlayerMaxHealthChanged += SpecificPlayerStatsResolver_OnPlayerMaxHealthChanged;
     }
 
-    private void OnDisable()
+    protected override void UnSubscribeToEvents()
     {
-        MaxHealthStatResolver.OnMaxHealtResolverInitialized -= MaxHealthStatResolver_OnMaxHealtResolverInitialized;
-        MaxHealthStatResolver.OnMaxHealthResolverUpdated -= MaxHealthStatResolver_OnMaxHealthResolverUpdated;
+        if (specificPlayerStatsResolver == null) return;
+
+        specificPlayerStatsResolver.OnPlayerStatsInitialized -= SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
+        specificPlayerStatsResolver.OnPlayerMaxHealthChanged -= SpecificPlayerStatsResolver_OnPlayerMaxHealthChanged;
     }
 
     protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleFloat(currentValue,2);
-    protected override float GetBaseValue() => PlayerCharacterManager.Instance.CharacterSO.baseHealth;
-    protected override float GetCurrentValue() => MaxHealthStatResolver.Instance.ResolveStatInt(PlayerCharacterManager.Instance.CharacterSO.baseHealth);
+    protected override float GetBaseValue() => characterIdentifier.CharacterSO.baseHealth;
+    protected override float GetCurrentValue() => specificPlayerStatsResolver.MaxHealth;
 
 
     #region Subscriptions
-    private void MaxHealthStatResolver_OnMaxHealtResolverInitialized(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    private void SpecificPlayerStatsResolver_OnPlayerMaxHealthChanged(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }
 
-    private void MaxHealthStatResolver_OnMaxHealthResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    private void SpecificPlayerStatsResolver_OnPlayerStatsInitialized(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }

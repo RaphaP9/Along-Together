@@ -2,32 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackDamageStatUI : NumericStatUI
+public class AttackDamageStatUI : PlayerNumericStatUI
 {
-    private void OnEnable()
+    protected override void SubscribeToEvents()
     {
-        AttackDamageStatResolver.OnAttackDamageResolverInitialized += AttackDamageStatResolver_OnAttackDamageResolverInitialized;
-        AttackDamageStatResolver.OnAttackDamageResolverUpdated += AttackDamageStatResolver_OnAttackDamageResolverUpdated;
+        specificPlayerStatsResolver.OnPlayerStatsInitialized += SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
+        specificPlayerStatsResolver.OnPlayerAttackDamageChanged += SpecificPlayerStatsResolver_OnPlayerAttackDamageChanged;
     }
 
-    private void OnDisable()
+    protected override void UnSubscribeToEvents()
     {
-        AttackDamageStatResolver.OnAttackDamageResolverInitialized -= AttackDamageStatResolver_OnAttackDamageResolverInitialized;
-        AttackDamageStatResolver.OnAttackDamageResolverUpdated -= AttackDamageStatResolver_OnAttackDamageResolverUpdated;
+        if (specificPlayerStatsResolver == null) return;
+
+        specificPlayerStatsResolver.OnPlayerStatsInitialized -= SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
+        specificPlayerStatsResolver.OnPlayerAttackDamageChanged -= SpecificPlayerStatsResolver_OnPlayerAttackDamageChanged;
     }
 
     protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleInt(currentValue);
-    protected override float GetBaseValue() => PlayerCharacterManager.Instance.CharacterSO.baseAttackDamage;
-    protected override float GetCurrentValue() => AttackDamageStatResolver.Instance.ResolveStatInt(PlayerCharacterManager.Instance.CharacterSO.baseAttackDamage);
+    protected override float GetBaseValue() => characterIdentifier.CharacterSO.baseAttackDamage;
+    protected override float GetCurrentValue() => specificPlayerStatsResolver.AttackDamage;
 
 
     #region Subscriptions
-    private void AttackDamageStatResolver_OnAttackDamageResolverInitialized(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    private void SpecificPlayerStatsResolver_OnPlayerAttackDamageChanged(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }
 
-    private void AttackDamageStatResolver_OnAttackDamageResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    private void SpecificPlayerStatsResolver_OnPlayerStatsInitialized(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }

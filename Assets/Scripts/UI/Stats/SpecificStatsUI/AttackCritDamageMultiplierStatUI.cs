@@ -2,32 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackCritDamageMultiplierStatUI : NumericStatUI
+public class AttackCritDamageMultiplierStatUI : PlayerNumericStatUI
 {
-    private void OnEnable()
+    protected override void SubscribeToEvents()
     {
-        AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverInitialized += AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverInitialized;
-        AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverUpdated += AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated;
+        specificPlayerStatsResolver.OnPlayerStatsInitialized += SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
+        specificPlayerStatsResolver.OnPlayerAttackCritDamageMultiplierChanged += SpecificPlayerStatsResolver_OnPlayerAttackCritDamageMultiplierChanged;
     }
 
-    private void OnDisable()
+    protected override void UnSubscribeToEvents()
     {
-        AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverInitialized -= AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverInitialized;
-        AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverUpdated -= AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated;
+        if (specificPlayerStatsResolver == null) return;
+
+        specificPlayerStatsResolver.OnPlayerStatsInitialized -= SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
+        specificPlayerStatsResolver.OnPlayerAttackCritDamageMultiplierChanged -= SpecificPlayerStatsResolver_OnPlayerAttackCritDamageMultiplierChanged;
     }
 
     protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToPercentage(currentValue, 2);
-    protected override float GetBaseValue() => PlayerCharacterManager.Instance.CharacterSO.baseAttackCritDamageMultiplier;
-    protected override float GetCurrentValue() => AttackCritDamageMultiplierStatResolver.Instance.ResolveStatFloat(PlayerCharacterManager.Instance.CharacterSO.baseAttackCritDamageMultiplier);
+    protected override float GetBaseValue() => characterIdentifier.CharacterSO.baseAttackCritDamageMultiplier;
+    protected override float GetCurrentValue() => specificPlayerStatsResolver.AttackCritDamageMultiplier;
 
 
     #region Subscriptions
-    private void AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverInitialized(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    private void SpecificPlayerStatsResolver_OnPlayerAttackCritDamageMultiplierChanged(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }
 
-    private void AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    private void SpecificPlayerStatsResolver_OnPlayerStatsInitialized(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }

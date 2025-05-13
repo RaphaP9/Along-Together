@@ -5811,6 +5811,11 @@ MonoBehaviour:
   maxShield: 0
   armor: 0
   dodgeChance: 0
+  attackDamage: 0
+  attackSpeed: 0
+  attackCritChance: 0
+  attackCritDamageMultiplier: 0
+  movementSpeed: 0
   enemyIdentifier: {fileID: 2100225253}
 --- !u!1 &932844823
 GameObject:
@@ -6292,6 +6297,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40530434, g: 0.8679245, b: 0.5403074, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.9339623, g: 0.36565503, b: 0.36565503, a: 1}
+  debug: 1
 --- !u!1 &983291239
 GameObject:
   m_ObjectHideFlags: 0
@@ -10677,6 +10683,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  debug: 1
 --- !u!1 &1735607567
 GameObject:
   m_ObjectHideFlags: 0
@@ -10989,6 +10996,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  debug: 1
 --- !u!1 &1844467944
 GameObject:
   m_ObjectHideFlags: 0
@@ -11043,6 +11051,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  debug: 1
 --- !u!1 &1854319307
 GameObject:
   m_ObjectHideFlags: 0
@@ -12547,6 +12556,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  debug: 1
 --- !u!1 &2092187399
 GameObject:
   m_ObjectHideFlags: 0
@@ -13446,6 +13456,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  debug: 1
 --- !u!1001 &2048648255796628498
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public abstract class NumericStatUI : MonoBehaviour
+public abstract class PlayerNumericStatUI : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] protected TextMeshProUGUI valueText;
@@ -13,8 +13,25 @@ public abstract class NumericStatUI : MonoBehaviour
     [SerializeField] protected Color neutralColor;
     [SerializeField] protected Color negativeColor;
 
-    protected enum StatState { Positive, Neutral, Negative}
+    [Header("Debug")]
+    [SerializeField] protected bool debug;
 
+    protected enum StatState { Positive, Neutral, Negative}
+    protected SpecificPlayerStatsResolver specificPlayerStatsResolver;
+    protected CharacterIdentifier characterIdentifier;
+
+
+    protected virtual void OnEnable()
+    {
+        PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
+    }
+    protected virtual void OnDisable()
+    {
+        PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
+        UnSubscribeToEvents();
+    }
+
+    #region Logic
     protected void UpdateUIByNewValue(float currentValue, float baseValue)
     {
         StatState statState = GetStatState(currentValue, baseValue);
@@ -50,4 +67,29 @@ public abstract class NumericStatUI : MonoBehaviour
     protected abstract string ProcessCurrentValue(float currentValue);
     protected abstract float GetCurrentValue();
     protected abstract float GetBaseValue();
+    #endregion
+
+    protected virtual void FindPlayerLogic(Transform playerTransform)
+    {
+        characterIdentifier = playerTransform.GetComponentInChildren<CharacterIdentifier>();
+        specificPlayerStatsResolver = playerTransform.GetComponentInChildren<SpecificPlayerStatsResolver>();
+
+        if (specificPlayerStatsResolver == null)
+        {
+            if (debug) Debug.Log("Could not fing SpecificPlayerStatsResolver.");
+            return;
+        }
+
+        SubscribeToEvents();
+    }
+
+    protected abstract void SubscribeToEvents();
+    protected abstract void UnSubscribeToEvents();
+
+    #region Subscriptions
+    private void PlayerInstantiationHandler_OnPlayerInstantiation(object sender, PlayerInstantiationHandler.OnPlayerInstantiationEventArgs e)
+    {
+        FindPlayerLogic(e.playerTransform);
+    }
+    #endregion
 }

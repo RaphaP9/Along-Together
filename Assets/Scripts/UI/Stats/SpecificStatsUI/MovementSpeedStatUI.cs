@@ -2,32 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementSpeedStatUI : NumericStatUI
+public class MovementSpeedStatUI : PlayerNumericStatUI
 {
-    private void OnEnable()
+    protected override void SubscribeToEvents()
     {
-        MovementSpeedStatResolver.OnMovementSpeedResolverInitialized += MovementSpeedStatResolver_OnMovementSpeedResolverInitialized;
-        MovementSpeedStatResolver.OnMovementSpeedResolverUpdated += MovementSpeedStatResolver_OnMovementSpeedResolverUpdated;
+        specificPlayerStatsResolver.OnPlayerStatsInitialized += SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
+        specificPlayerStatsResolver.OnPlayerMovementSpeedChanged += SpecificPlayerStatsResolver_OnPlayerMovementSpeedChanged;
     }
 
-    private void OnDisable()
+    protected override void UnSubscribeToEvents()
     {
-        MovementSpeedStatResolver.OnMovementSpeedResolverInitialized -= MovementSpeedStatResolver_OnMovementSpeedResolverInitialized;
-        MovementSpeedStatResolver.OnMovementSpeedResolverUpdated -= MovementSpeedStatResolver_OnMovementSpeedResolverUpdated;
+        if (specificPlayerStatsResolver == null) return;
+
+        specificPlayerStatsResolver.OnPlayerStatsInitialized -= SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
+        specificPlayerStatsResolver.OnPlayerMovementSpeedChanged -= SpecificPlayerStatsResolver_OnPlayerMovementSpeedChanged;
     }
 
-    protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleInt(currentValue);
-    protected override float GetBaseValue() => PlayerCharacterManager.Instance.CharacterSO.baseMovementSpeed;
-    protected override float GetCurrentValue() => MovementSpeedStatResolver.Instance.ResolveStatFloat(PlayerCharacterManager.Instance.CharacterSO.baseMovementSpeed);
+    protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleFloat(currentValue, 2);
+    protected override float GetBaseValue() => characterIdentifier.CharacterSO.baseMovementSpeed;
+    protected override float GetCurrentValue() => specificPlayerStatsResolver.MovementSpeed;
 
 
     #region Subscriptions
-    private void MovementSpeedStatResolver_OnMovementSpeedResolverInitialized(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    private void SpecificPlayerStatsResolver_OnPlayerMovementSpeedChanged(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }
 
-    private void MovementSpeedStatResolver_OnMovementSpeedResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    private void SpecificPlayerStatsResolver_OnPlayerStatsInitialized(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }
