@@ -9,4 +9,7 @@ public class CharacterSO : EntitySO
     [Header("Character Health Settings")]
     [Range(0, 10)] public int baseHealthRegen;
     [Range(0, 10)] public int baseShieldRegen;
+
+    [Header("Character Cooldown Settings")]
+    [Range(0f, 1f)] public float baseCooldownReduction;
 }

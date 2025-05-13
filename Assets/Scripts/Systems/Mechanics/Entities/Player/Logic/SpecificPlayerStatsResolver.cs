@@ -138,6 +138,29 @@ public class SpecificPlayerStatsResolver : SpecificEntityStatsResolver
         };
     }
 
+    protected override void Initialize()
+    {
+        maxHealth = CalculateMaxHealth();
+        maxShield = CalculateMaxShield();
+        armor = CalculateArmor();
+        dodgeChance = CalculateDodgeChance();
+
+        attackDamage = CalculateAttackDamage();
+        attackSpeed = CalculateAttackSpeed();
+        attackCritChance = CalculateAttackCritChance();
+        attackCritDamageMultiplier = CalculateAttackCritDamageMultiplier();
+
+        movementSpeed = CalculateMovementSpeed();
+
+        lifesteal = CalculateLifesteal();
+
+        healthRegen = CalculateHealthRegen();
+        shieldRegen = CalculateShieldRegen();
+        cooldownReduction = CalculateCooldownReduction();
+
+        OnEntityStatsInitializedMethod();
+    }
+
     #region Stat Calculations
     protected override int CalculateMaxHealth() => MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseHealth);
     protected override int CalculateMaxShield() => MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseShield);
@@ -155,7 +178,7 @@ public class SpecificPlayerStatsResolver : SpecificEntityStatsResolver
 
     protected int CalculateHealthRegen() => HealthRegenStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseHealthRegen);
     protected int CalculateShieldRegen() => ShieldRegenStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseShieldRegen);
-    protected float CalculateCooldownReduction() => CooldownReductionStatResolver.Instance.ResolveStatFloat(0f); //Base cooldown reduction is always 0
+    protected float CalculateCooldownReduction() => CooldownReductionStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseCooldownReduction);
 
     public float GetAbilityCooldown(float abilityOriginalCooldown)
     {
