@@ -26,6 +26,21 @@ public class SpecificEnemyStatResolver : SpecificEntityStatsResolver
 
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyDodgeChanceChanged;
     public event EventHandler<OnEntityStatsEventArgs> OnEnemyDodgeChanceChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyAttackDamageChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEnemyAttackDamageChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyAttackSpeedChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEnemyAttackSpeedChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyAttackCritChanceChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEnemyAttackCritChanceChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyAttackCritDamageMultiplierChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEnemyAttackCritDamageMultiplierChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyMovementSpeedChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEnemyMovementSpeedChanged;
     #endregion
 
     private void OnEnable()
@@ -43,6 +58,13 @@ public class SpecificEnemyStatResolver : SpecificEntityStatsResolver
     protected override int CalculateMaxShield() => enemyIdentifier.EnemySO.baseShield;
     protected override int CalculateArmor() => enemyIdentifier.EnemySO.baseArmor;
     protected override float CalculateDodgeChance() => enemyIdentifier.EnemySO.baseDodgeChance;
+
+    protected override int CalculateAttackDamage() => enemyIdentifier.EnemySO.baseAttackDamage;
+    protected override float CalculateAttackSpeed() => enemyIdentifier.EnemySO.baseAttackSpeed;
+    protected override float CalculateAttackCritChance() => enemyIdentifier.EnemySO.baseAttackCritChance;
+    protected override float CalculateAttackCritDamageMultiplier() => enemyIdentifier.EnemySO.baseAttackCritDamageMultiplier;
+
+    protected override float CalculateMovementSpeed() => enemyIdentifier.EnemySO.baseMovementSpeed;
     #endregion
 
     #region Virtual Event Methods
@@ -50,48 +72,88 @@ public class SpecificEnemyStatResolver : SpecificEntityStatsResolver
     {
         base.OnEntityStatsInitializedMethod();
 
-        OnEnemyStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
-        OnAnyEnemyStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnEnemyStatsInitialized?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyStatsInitialized?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
 
     protected override void OnEntityStatsUpdatedMethod()
     {
         base.OnEntityStatsUpdatedMethod();
 
-        OnEnemyStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
-        OnAnyEnemyStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnEnemyStatsUpdated?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyStatsUpdated?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
 
     protected override void OnEntityMaxHealthChangedMethod()
     {
         base.OnEntityMaxHealthChangedMethod();
 
-        OnEnemyMaxHealthChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
-        OnAnyEnemyMaxHealthChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnEnemyMaxHealthChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyMaxHealthChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
 
     protected override void OnEntityMaxShieldChangedMethod()
     {
         base.OnEntityMaxShieldChangedMethod();
 
-        OnEnemyMaxShieldChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
-        OnAnyEnemyMaxShieldChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnEnemyMaxShieldChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyMaxShieldChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
 
     protected override void OnEntityArmorChangedMethod()
     {
         base.OnEntityArmorChangedMethod();
 
-        OnEnemyArmorChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
-        OnAnyEnemyArmorChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnEnemyArmorChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyArmorChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
 
     protected override void OnEntityDodgeChanceChangedMethod()
     {
         base.OnEntityDodgeChanceChangedMethod();
 
-        OnEnemyDodgeChanceChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
-        OnAnyEnemyDodgeChanceChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnEnemyDodgeChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyDodgeChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected override void OnEntityAttackDamageChangedMethod()
+    {
+        base.OnEntityAttackDamageChangedMethod();
+
+        OnEnemyAttackDamageChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyAttackDamageChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected override void OnEntityAttackSpeedChangedMethod()
+    {
+        base.OnEntityAttackSpeedChangedMethod();
+
+        OnEnemyAttackSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyAttackSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected override void OnEntityAttackCritChanceChangedMethod()
+    {
+        base.OnEntityAttackCritDamageMultiplierChangedMethod();
+
+        OnEnemyAttackCritChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyAttackCritChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected override void OnEntityAttackCritDamageMultiplierChangedMethod()
+    {
+        base.OnEntityAttackCritDamageMultiplierChangedMethod();
+
+        OnEnemyAttackCritDamageMultiplierChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyAttackCritDamageMultiplierChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected override void OnEntityMovementSpeedChangedMethod()
+    {
+        base.OnEntityMovementSpeedChangedMethod();
+
+        OnEnemyMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
     #endregion
 }

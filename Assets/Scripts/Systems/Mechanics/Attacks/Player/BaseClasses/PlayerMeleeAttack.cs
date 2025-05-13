@@ -13,10 +13,10 @@ public class PlayerMeleeAttack : PlayerAttack
 
     protected override void Attack()
     {
-        bool isCrit = MechanicsUtilities.EvaluateCritAttack(attackCritChance);
+        bool isCrit = MechanicsUtilities.EvaluateCritAttack(specificEntityStatsResolver.AttackCritChance);
         List<Vector2> positions = GeneralUtilities.TransformPositionVector2List(attackPoints);
 
-        int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(attackDamage, attackCritDamageMultiplier) : attackDamage;
+        int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(specificEntityStatsResolver.AttackDamage, specificEntityStatsResolver.AttackCritDamageMultiplier) : specificEntityStatsResolver.AttackDamage;
 
         DamageData damageData = new DamageData {damage = damage, isCrit = isCrit, damageSource = characterIdentifier.CharacterSO, canBeDodged = true, canBeImmuned = true};
 

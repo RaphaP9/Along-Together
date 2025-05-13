@@ -21,8 +21,8 @@ public class PlayerProjectileAttack : PlayerAttack
 
     protected override void Attack()
     {
-        bool isCrit = MechanicsUtilities.EvaluateCritAttack(attackCritChance);
-        int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(attackDamage, attackCritDamageMultiplier) : attackDamage;
+        bool isCrit = MechanicsUtilities.EvaluateCritAttack(specificEntityStatsResolver.AttackCritChance);
+        int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(specificEntityStatsResolver.AttackDamage, specificEntityStatsResolver.AttackCritDamageMultiplier) : specificEntityStatsResolver.AttackDamage;
 
         Vector2 shootDirection = aimDirectionerHandler.AimDirection;
         Vector2 position = firePoint.position;

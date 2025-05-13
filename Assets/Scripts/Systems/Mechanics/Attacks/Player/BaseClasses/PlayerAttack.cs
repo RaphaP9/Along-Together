@@ -28,22 +28,6 @@ public abstract class PlayerAttack : EntityAttack
     }
     #endregion
 
-    protected virtual void OnEnable()
-    {
-        AttackDamageStatResolver.OnAttackDamageResolverUpdated += AttackDamageStatResolver_OnAttackDamageResolverUpdated;
-        AttackSpeedStatResolver.OnAttackSpeedResolverUpdated += AttackSpeedStatResolver_OnAttackSpeedResolverUpdated;
-        AttackCritChanceStatResolver.OnAttackCritChanceResolverUpdated += AttackCritChanceStatResolver_OnAttackCritChanceResolverUpdated;
-        AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverUpdated += AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated;
-    }
-
-    protected virtual void OnDisable()
-    {
-        AttackDamageStatResolver.OnAttackDamageResolverUpdated -= AttackDamageStatResolver_OnAttackDamageResolverUpdated;
-        AttackSpeedStatResolver.OnAttackSpeedResolverUpdated -= AttackSpeedStatResolver_OnAttackSpeedResolverUpdated;
-        AttackCritChanceStatResolver.OnAttackCritChanceResolverUpdated -= AttackCritChanceStatResolver_OnAttackCritChanceResolverUpdated;
-        AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverUpdated -= AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated;
-    }
-
     protected override void HandleAttack()
     {
         if (!GetAttackInput()) return;
@@ -58,36 +42,9 @@ public abstract class PlayerAttack : EntityAttack
     {
         base.OnEntityAttackMethod(isCrit, attackDamage);
 
-        OnPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = attackSpeed, attackCritChance = attackCritChance, attackCritDamageMultiplier = attackCritDamageMultiplier });
-        OnAnyPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = attackSpeed, attackCritChance = attackCritChance, attackCritDamageMultiplier = attackCritDamageMultiplier });
+        OnPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = specificEntityStatsResolver.AttackSpeed, attackCritChance = specificEntityStatsResolver.AttackCritChance, attackCritDamageMultiplier = specificEntityStatsResolver.AttackCritDamageMultiplier });
+        OnAnyPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = specificEntityStatsResolver.AttackSpeed, attackCritChance = specificEntityStatsResolver.AttackCritChance, attackCritDamageMultiplier = specificEntityStatsResolver.AttackCritDamageMultiplier });
     }
-
-    #region Stat Calculations
-    protected override int CalculateAttackDamage() => AttackDamageStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseAttackDamage);
-    protected override float CalculateAttackSpeed() => AttackSpeedStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackSpeed);
-    protected override float CalculateAttackCritChance() => AttackCritChanceStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackCritChance);
-    protected override float CalculateAttackCritDamageMultiplier() => AttackCritDamageMultiplierStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackCritDamageMultiplier);
-
-    protected override void RecalculateAttackDamage()
-    {
-        attackDamage = CalculateAttackDamage();
-    }
-
-    protected override void RecalculateAttackSpeed()
-    {
-        attackSpeed = CalculateAttackSpeed();
-    }
-
-    protected override void RecalculateAttackCritChance()
-    {
-        attackCritChance = CalculateAttackCritChance();
-    }
-
-    protected override void RecalculateAttackCritDamageMultiplier()
-    {
-        attackCritDamageMultiplier = CalculateAttackCritDamageMultiplier();
-    }
-    #endregion
 
     #region AttackTriggerType-Input Assignation
     protected bool GetSemiAutomaticInputAttack() => AttackInput.Instance.GetAttackDown();
@@ -103,25 +60,6 @@ public abstract class PlayerAttack : EntityAttack
             case AttackTriggerType.Automatic:
                 return GetAutomaticInputAttack();
         }
-    }
-    #endregion
-
-    #region Subscriptions
-    private void AttackDamageStatResolver_OnAttackDamageResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
-    {
-        RecalculateAttackDamage();
-    }
-    private void AttackSpeedStatResolver_OnAttackSpeedResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
-    {
-        RecalculateAttackSpeed();
-    }
-    private void AttackCritChanceStatResolver_OnAttackCritChanceResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
-    {
-        RecalculateAttackCritChance();
-    }
-    private void AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
-    {
-        RecalculateAttackCritDamageMultiplier();
     }
     #endregion
 }

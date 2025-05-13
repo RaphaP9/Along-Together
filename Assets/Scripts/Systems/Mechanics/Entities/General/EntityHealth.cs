@@ -147,7 +147,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     {
         specificEntityStatsResolver.OnEntityStatsInitialized += SpecificEntityStatsResolver_OnEntityStatsInitialized;
 
-        specificEntityStatsResolver.OnEntityMaxHealthChanged += SpecificEntityStatsResolver_OnEntityMaxHealthChanged;
+        specificEntityStatsResolver.OnEntityMaxHealthChanged += SpecificEntityStatsResolver_OnEntityMaxHealthChanged; //Only to check clampings
         specificEntityStatsResolver.OnEntityMaxShieldChanged += SpecificEntityStatsResolver_OnEntityMaxShieldChanged;
     }
 

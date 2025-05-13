@@ -165,6 +165,11 @@ MonoBehaviour:
   maxShield: 0
   armor: 0
   dodgeChance: 0
+  attackDamage: 0
+  attackSpeed: 0
+  attackCritChance: 0
+  attackCritDamageMultiplier: 0
+  movementSpeed: 0
   characterIdentifier: {fileID: 1965199428449930878}
 --- !u!1 &1612407981133521685
 GameObject:
@@ -398,7 +403,6 @@ MonoBehaviour:
   immuneAbiltiesTransforms: []
   currentHealth: 0
   currentShield: 0
-  characterIdentifier: {fileID: 1965199428449930878}
 --- !u!114 &4661234364419359008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,12 +436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e528e31e7171ed14499f3e02aeec5ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specificEntityStatsResolver: {fileID: 6636574928624340988}
   attackInterruptionAbilitiesTransforms:
   - {fileID: 3296231075715405042}
-  attackDamage: 0
-  attackSpeed: 0
-  attackCritChance: 0
-  attackCritDamageMultiplier: 0
   debug: 1
   characterIdentifier: {fileID: 1965199428449930878}
   aimDirectionerHandler: {fileID: 2977175279305093656}

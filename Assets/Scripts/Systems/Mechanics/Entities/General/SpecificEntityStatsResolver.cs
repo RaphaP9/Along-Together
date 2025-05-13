@@ -10,12 +10,26 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
     [SerializeField] protected int maxShield;
     [SerializeField] protected int armor;
     [SerializeField] protected float dodgeChance;
+    [Space]
+    [SerializeField] protected int attackDamage;
+    [SerializeField] protected float attackSpeed;
+    [SerializeField] protected float attackCritChance;
+    [SerializeField] protected float attackCritDamageMultiplier;
+    [Space]
+    [SerializeField] protected float movementSpeed;
 
     #region Properties
     public int MaxHealth => maxHealth;
     public int MaxShield => maxShield;
     public int Armor => armor;
     public float DodgeChance => dodgeChance;
+
+    public int AttackDamage => attackDamage;
+    public float AttackSpeed => attackSpeed;
+    public float AttackCritChance => attackCritChance;
+    public float AttackCritDamageMultiplier => attackCritDamageMultiplier;
+
+    public float MovementSpeed => movementSpeed;
     #endregion
 
     #region Events
@@ -38,6 +52,20 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityDodgeChanceChanged;
     public event EventHandler<OnEntityStatsEventArgs> OnEntityDodgeChanceChanged;
 
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityAttackDamageChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEntityAttackDamageChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityAttackSpeedChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEntityAttackSpeedChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityAttackCritChanceChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEntityAttackCritChanceChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityAttackCritDamageMultiplierChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEntityAttackCritDamageMultiplierChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityMovementSpeedChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEntityMovementSpeedChanged;
     #endregion
 
     #region EventArgs Classes
@@ -47,6 +75,13 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
         public int maxShield;
         public int armor;
         public float dodgeChance;
+
+        public int attackDamage;
+        public float attackSpeed;
+        public float attackCritChance;
+        public float attackCritDamageMultiplier;
+
+        public float movementSpeed;
     }
     #endregion
 
@@ -62,7 +97,21 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
         armor = CalculateArmor();
         dodgeChance = CalculateDodgeChance();
 
+        attackDamage = CalculateAttackDamage();
+        attackSpeed = CalculateAttackSpeed();
+        attackCritChance = CalculateAttackCritChance();
+        attackCritDamageMultiplier = CalculateAttackCritDamageMultiplier();
+
+        movementSpeed = CalculateMovementSpeed();
+
         OnEntityStatsInitializedMethod();
+    }
+
+    protected OnEntityStatsEventArgs GenerateCurrentEntityStatsEventArgs()
+    {
+        return new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance,
+            attackDamage = attackDamage, attackSpeed = attackSpeed, attackCritChance = attackCritChance, attackCritDamageMultiplier = attackCritDamageMultiplier,
+            movementSpeed = movementSpeed };
     }
 
     #region Stat Calculations
@@ -70,6 +119,13 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
     protected abstract int CalculateMaxShield();
     protected abstract int CalculateArmor();
     protected abstract float CalculateDodgeChance();
+
+    protected abstract int CalculateAttackDamage();
+    protected abstract float CalculateAttackSpeed();
+    protected abstract float CalculateAttackCritChance();
+    protected abstract float CalculateAttackCritDamageMultiplier();
+
+    protected abstract float CalculateMovementSpeed();
     #endregion
 
     #region StatRecalculation
@@ -96,43 +152,103 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
         dodgeChance = CalculateDodgeChance();
         OnEntityDodgeChanceChangedMethod();
     }
+
+    protected virtual void RecalculateAttackDamage()
+    {
+        attackDamage = CalculateAttackDamage();
+        OnEntityAttackDamageChangedMethod();
+    }
+
+    protected virtual void RecalculateAttackSpeed()
+    {
+        attackSpeed = CalculateAttackSpeed();
+        OnEntityAttackSpeedChangedMethod();
+    }
+
+    protected virtual void RecalculateAttackCritChance()
+    {
+        attackCritChance = CalculateAttackCritChance();
+        OnEntityAttackCritChanceChangedMethod();
+    }
+
+    protected virtual void RecalculateAttackCritDamageMultiplier()
+    {
+        attackCritDamageMultiplier = CalculateAttackCritDamageMultiplier();
+        OnEntityAttackCritDamageMultiplierChangedMethod();
+    }
+
+    protected virtual void RecalculateMovementSpeed()
+    {
+        movementSpeed = CalculateMovementSpeed();
+        OnEntityMovementSpeedChangedMethod();
+    }
     #endregion
 
     #region Virtual Events Methods
     protected virtual void OnEntityStatsInitializedMethod()
     {
-        OnEntityStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance});
-        OnAnyEntityStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance});
+        OnEntityStatsInitialized?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityStatsInitialized?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
 
     protected virtual void OnEntityStatsUpdatedMethod()
     {
-        OnEntityStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
-        OnAnyEntityStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnEntityStatsUpdated?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityStatsUpdated?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
 
     protected virtual void OnEntityMaxHealthChangedMethod()
     {
-        OnEntityMaxHealthChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
-        OnAnyEntityMaxHealthChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnEntityMaxHealthChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityMaxHealthChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
 
     protected virtual void OnEntityMaxShieldChangedMethod()
     {
-        OnEntityMaxShieldChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
-        OnAnyEntityMaxShieldChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnEntityMaxShieldChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityMaxShieldChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
 
     protected virtual void OnEntityArmorChangedMethod()
     {
-        OnEntityArmorChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
-        OnAnyEntityArmorChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnEntityArmorChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityArmorChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
 
     protected virtual void OnEntityDodgeChanceChangedMethod()
     {
-        OnEntityDodgeChanceChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
-        OnAnyEntityDodgeChanceChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnEntityDodgeChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityDodgeChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected virtual void OnEntityAttackDamageChangedMethod()
+    {
+        OnEntityAttackDamageChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityAttackDamageChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected virtual void OnEntityAttackSpeedChangedMethod()
+    {
+        OnEntityAttackSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityAttackSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected virtual void OnEntityAttackCritChanceChangedMethod()
+    {
+        OnEntityAttackCritChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityAttackCritChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected virtual void OnEntityAttackCritDamageMultiplierChangedMethod()
+    {
+        OnEntityAttackCritDamageMultiplierChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityAttackCritDamageMultiplierChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected virtual void OnEntityMovementSpeedChangedMethod()
+    {
+        OnEntityMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
     #endregion
 }

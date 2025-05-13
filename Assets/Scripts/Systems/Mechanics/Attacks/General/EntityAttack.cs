@@ -2,18 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static PlayerAttack;
 
 public abstract class EntityAttack : MonoBehaviour
 {
     [Header("Entity Attack Components")]
+    [SerializeField] protected SpecificEntityStatsResolver specificEntityStatsResolver;
+    [Space]
     [SerializeField] protected List<Transform> attackInterruptionAbilitiesTransforms;
-
-    [Header("Entity Attack Runtime Filled")]
-    [SerializeField] protected int attackDamage;
-    [SerializeField] protected float attackSpeed;
-    [SerializeField] protected float attackCritChance;
-    [SerializeField] protected float attackCritDamageMultiplier;
 
     [Header("Debug")]
     [SerializeField] protected bool debug;
@@ -38,8 +33,6 @@ public abstract class EntityAttack : MonoBehaviour
     }
     #endregion
 
-
-
     private void Awake()
     {
         GetAttackInterruptionAbilitiesInterfaces();
@@ -47,7 +40,6 @@ public abstract class EntityAttack : MonoBehaviour
 
     protected virtual void Start()
     {
-        Initialize();
         ResetAttackTimer();
     }
 
@@ -61,14 +53,6 @@ public abstract class EntityAttack : MonoBehaviour
     protected abstract void Attack();
     private void GetAttackInterruptionAbilitiesInterfaces() => attackInterruptionAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IAttackInterruptionAbility>(attackInterruptionAbilitiesTransforms);
 
-    protected virtual void Initialize()
-    {
-        attackDamage = CalculateAttackDamage();
-        attackSpeed = CalculateAttackSpeed();
-        attackCritChance = CalculateAttackCritChance();
-        attackCritDamageMultiplier = CalculateAttackCritDamageMultiplier();
-    }
-
     private void HandleAttackCooldown()
     {
         if (attackTimer < 0) return;
@@ -78,27 +62,15 @@ public abstract class EntityAttack : MonoBehaviour
 
     private bool AttackOnCooldown() => attackTimer > 0f;
     private void ResetAttackTimer() => attackTimer = 0f;
-    protected void MaxTimer() => attackTimer = 1f / attackSpeed;
+    protected void MaxTimer() => attackTimer = 1f / specificEntityStatsResolver.AttackSpeed;
 
-    #region Stat Calculations
-
-    protected abstract int CalculateAttackDamage();
-    protected abstract float CalculateAttackSpeed();
-    protected abstract float CalculateAttackCritChance();
-    protected abstract float CalculateAttackCritDamageMultiplier();
-
-    protected abstract void RecalculateAttackDamage();
-    protected abstract void RecalculateAttackSpeed();
-    protected abstract void RecalculateAttackCritChance();
-    protected abstract void RecalculateAttackCritDamageMultiplier();
-
-    #endregion
-
+    #region Virtual Event Methods
     protected virtual void OnEntityAttackMethod(bool isCrit, int attackDamage)
     {
-        OnEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = attackSpeed, attackCritChance = attackCritChance, attackCritDamageMultiplier = attackCritDamageMultiplier });
-        OnAnyEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = attackSpeed, attackCritChance = attackCritChance, attackCritDamageMultiplier = attackCritDamageMultiplier });
+        OnEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = specificEntityStatsResolver.AttackSpeed, attackCritChance = specificEntityStatsResolver.AttackCritChance, attackCritDamageMultiplier = specificEntityStatsResolver.AttackCritDamageMultiplier });
+        OnAnyEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = specificEntityStatsResolver.AttackSpeed, attackCritChance = specificEntityStatsResolver.AttackCritChance, attackCritDamageMultiplier = specificEntityStatsResolver.AttackCritDamageMultiplier });
     }
+    #endregion
 
     protected virtual bool CanAttack()
     {
