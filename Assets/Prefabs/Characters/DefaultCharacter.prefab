@@ -117,6 +117,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTimer: 0
+--- !u!1 &1520426018347751691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5554819483533937557}
+  - component: {fileID: 6636574928624340988}
+  m_Layer: 0
+  m_Name: Resolver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5554819483533937557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520426018347751691}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6380853313663446174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6636574928624340988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520426018347751691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e307204a8e5395341989af3fb524456b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  currentShield: 0
+  maxHealth: 0
+  maxShield: 0
+  armor: 0
+  dodgeChance: 0
+  characterIdentifier: {fileID: 1965199428449930878}
 --- !u!1 &1612407981133521685
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,11 +287,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5554819483533937557}
   - {fileID: 6082782711582241170}
   - {fileID: 8691113849170376705}
-  - {fileID: 5386565058599454864}
   - {fileID: 6248436503809636389}
   - {fileID: 6543428868650559586}
+  - {fileID: 5386565058599454864}
   - {fileID: 8522307488823897240}
   - {fileID: 7107638275520679583}
   m_Father: {fileID: 0}
@@ -344,6 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c868199e7742cc4290e9f7f730928fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specificEntityStatsResolver: {fileID: 6636574928624340988}
   dodgeAbiltiesTransforms:
   - {fileID: 3296231075715405042}
   immuneAbiltiesTransforms: []
@@ -387,19 +440,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e528e31e7171ed14499f3e02aeec5ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterIdentifier: {fileID: 1965199428449930878}
-  aimDirectionerHandler: {fileID: 2977175279305093656}
   attackInterruptionAbilitiesTransforms:
   - {fileID: 3296231075715405042}
-  attackTriggerType: 0
-  attackLayermask:
-    serializedVersion: 2
-    m_Bits: 128
   attackDamage: 0
   attackSpeed: 0
   attackCritChance: 0
   attackCritDamageMultiplier: 0
   debug: 1
+  characterIdentifier: {fileID: 1965199428449930878}
+  aimDirectionerHandler: {fileID: 2977175279305093656}
+  attackTriggerType: 0
+  attackLayermask:
+    serializedVersion: 2
+    m_Bits: 128
   firePoint: {fileID: 6335867028995148016}
   projectilePrefab: {fileID: 8073931636513284674, guid: 2d3a358fa169ae842bec906ece6900ab, type: 3}
   projectileDamageType: 0
@@ -1205,7 +1258,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1724196336011256719}
-  aimDirectionerHandler: {fileID: 2977175279305093656}
   facingDirectionHandler: {fileID: 4295945866100084352}
 --- !u!1 &8529961401906286131
 GameObject:
@@ -1285,6 +1337,10 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 6586126778679378193}
+    - target: {fileID: 6607938803619685459, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: specificPlayerStatsResolver
+      value: 
+      objectReference: {fileID: 6636574928624340988}
     - target: {fileID: 8657386621253478757, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_Pivot.x
       value: 0

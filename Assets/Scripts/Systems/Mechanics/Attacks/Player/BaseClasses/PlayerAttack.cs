@@ -3,46 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayerAttack : MonoBehaviour
+public abstract class PlayerAttack : EntityAttack
 {
-    [Header("Attack Components")]
+    [Header("Player Attack Components")]
     [SerializeField] protected CharacterIdentifier characterIdentifier;
     [SerializeField] protected PlayerAimDirectionerHandler aimDirectionerHandler;
-    [Space]
-    [SerializeField] protected List<Transform> attackInterruptionAbilitiesTransforms;
 
-    [Header("Attack Settings")]
+    [Header("Player Attack Settings")]
     [SerializeField] protected AttackTriggerType attackTriggerType;
     [SerializeField] protected LayerMask attackLayermask;
-
-    [Header("Attack Runtime Filled")]
-    [SerializeField] protected int attackDamage;
-    [SerializeField] protected float attackSpeed;
-    [SerializeField] protected float attackCritChance;
-    [SerializeField] protected float attackCritDamageMultiplier;
-
-    [Header("Debug")]
-    [SerializeField] protected bool debug;
 
     public AttackTriggerType AttackTriggerType_ => attackTriggerType;
     public enum AttackTriggerType {Automatic, SemiAutomatic}
 
-    protected float attackTimer = 0f;
-    private List<IAttackInterruptionAbility> attackInterruptionAbilities;
-
+    #region Events
     public event EventHandler<OnPlayerAttackEventArgs> OnPlayerAttack;
     public static event EventHandler<OnPlayerAttackEventArgs> OnAnyPlayerAttack;
+    #endregion
 
-    public class OnPlayerAttackEventArgs : EventArgs
+    #region EventArgs Classes
+    public class OnPlayerAttackEventArgs : OnEntityAttackEventArgs
     {
         public PlayerAttack playerAttack;
-        public bool isCrit;
-
-        public int attackDamage;
-        public float attackSpeed;
-        public float attackCritChance;
-        public float attackCritDamageMultiplier;
     }
+    #endregion
 
     protected virtual void OnEnable()
     {
@@ -60,37 +44,7 @@ public abstract class PlayerAttack : MonoBehaviour
         AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverUpdated -= AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated;
     }
 
-    private void Awake()
-    {
-        GetAttackInterruptionAbilitiesInterfaces();
-    }
-
-    private void GetAttackInterruptionAbilitiesInterfaces()
-    {
-        attackInterruptionAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IAttackInterruptionAbility>(attackInterruptionAbilitiesTransforms);
-    }
-
-    protected virtual void Start()
-    {
-        Initialize();
-        ResetAttackTimer();
-    }
-
-    protected virtual void Initialize()
-    {
-        attackDamage = CalculateAttackDamage();
-        attackSpeed = CalculateAttackSpeed();
-        attackCritChance = CalculateAttackCritChance();
-        attackCritDamageMultiplier = CalculateAttackCritDamageMultiplier();
-    }
-
-    protected virtual void Update()
-    {
-        HandleAttack();
-        HandleAttackCooldown();
-    }
-
-    private void HandleAttack()
+    protected override void HandleAttack()
     {
         if (!GetAttackInput()) return;
         if (!CanAttack()) return;
@@ -99,60 +53,37 @@ public abstract class PlayerAttack : MonoBehaviour
         MaxTimer();
     }
 
-    private void HandleAttackCooldown()
+
+    protected override void OnEntityAttackMethod(bool isCrit, int attackDamage)
     {
-        if (attackTimer < 0) return;
+        base.OnEntityAttackMethod(isCrit, attackDamage);
 
-        attackTimer -= Time.deltaTime;
-    }
-
-    protected abstract void Attack();
-
-    protected virtual void OnPlayerAttackMethod(bool isCrit, int attackDamage)
-    {
         OnPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = attackSpeed, attackCritChance = attackCritChance, attackCritDamageMultiplier = attackCritDamageMultiplier });
         OnAnyPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = attackSpeed, attackCritChance = attackCritChance, attackCritDamageMultiplier = attackCritDamageMultiplier });
     }
 
-
-    protected virtual bool CanAttack()
-    {
-        if (AttackOnCooldown()) return false;
-
-        foreach (IAttackInterruptionAbility attackInterruptionAbility in attackInterruptionAbilities)
-        {
-            if (attackInterruptionAbility.IsInterruptingAttack()) return false;
-        }
-
-        return true;
-    }
-
-    private bool AttackOnCooldown() => attackTimer > 0f;
-    private void ResetAttackTimer() => attackTimer = 0f;
-    private void MaxTimer() => attackTimer = 1f / attackSpeed;
-
     #region Stat Calculations
-    private int CalculateAttackDamage() => AttackDamageStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseAttackDamage);
-    private float CalculateAttackSpeed() => AttackSpeedStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackSpeed);
-    private float CalculateAttackCritChance() => AttackCritChanceStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackCritChance);
-    private float CalculateAttackCritDamageMultiplier() => AttackCritDamageMultiplierStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackCritDamageMultiplier);
+    protected override int CalculateAttackDamage() => AttackDamageStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseAttackDamage);
+    protected override float CalculateAttackSpeed() => AttackSpeedStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackSpeed);
+    protected override float CalculateAttackCritChance() => AttackCritChanceStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackCritChance);
+    protected override float CalculateAttackCritDamageMultiplier() => AttackCritDamageMultiplierStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackCritDamageMultiplier);
 
-    private void RecalculateAttackDamage()
+    protected override void RecalculateAttackDamage()
     {
         attackDamage = CalculateAttackDamage();
     }
 
-    private void RecalculateAttackSpeed()
+    protected override void RecalculateAttackSpeed()
     {
         attackSpeed = CalculateAttackSpeed();
     }
 
-    private void RecalculateAttackCritChance()
+    protected override void RecalculateAttackCritChance()
     {
         attackCritChance = CalculateAttackCritChance();
     }
 
-    private void RecalculateAttackCritDamageMultiplier()
+    protected override void RecalculateAttackCritDamageMultiplier()
     {
         attackCritDamageMultiplier = CalculateAttackCritDamageMultiplier();
     }

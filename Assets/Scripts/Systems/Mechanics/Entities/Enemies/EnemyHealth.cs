@@ -9,13 +9,6 @@ public class EnemyHealth : EntityHealth
     [SerializeField] private EnemyIdentifier enemyIdentifier;
 
     #region Events
-
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyStatsInitialized;
-    public event EventHandler<OnEntityStatsEventArgs> OnEnemyStatsInitialized;
-
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyStatsUpdated;
-    public event EventHandler<OnEntityStatsEventArgs> OnEnemyStatsUpdated;
-
     public static event EventHandler<OnEntityDodgeEventArgs> OnAnyEnemyDodge;
     public event EventHandler<OnEntityDodgeEventArgs> OnEnemyDodge;
 
@@ -34,50 +27,14 @@ public class EnemyHealth : EntityHealth
     public static event EventHandler OnAnyEnemyDeath;
     public event EventHandler OnEnemyDeath;
 
-    //
+    public static event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnAnyEnemyCurrentHealthClamped;
+    public event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnEnemyCurrentHealthClamped;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyMaxHealthChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnEnemyMaxHealthChanged;
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyMaxShieldChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnEnemyMaxShieldChanged;
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyArmorChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnEnemyArmorChanged;
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyDodgeChanceChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnEnemyDodgeChanceChanged;
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyCurrentHealthClamped;
-    public event EventHandler<OnEntityStatsEventArgs> OnEnemyCurrentHealthClamped;
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyCurrentShieldClamped;
-    public event EventHandler<OnEntityStatsEventArgs> OnEnemyCurrentShieldClamped;
+    public static event EventHandler<OnEntityCurrentShieldClampedEventArgs> OnAnyEnemyCurrentShieldClamped;
+    public event EventHandler<OnEntityCurrentShieldClampedEventArgs> OnEnemyCurrentShieldClamped;
     #endregion
 
-    protected override int CalculateMaxHealth() => enemyIdentifier.EnemySO.baseHealth;
-    protected override int CalculateMaxShield() => enemyIdentifier.EnemySO.baseShield;
-    protected override int CalculateArmor() => enemyIdentifier.EnemySO.baseArmor;
-    protected override float CalculateDodgeChance() => enemyIdentifier.EnemySO.baseDodgeChance;
-
     #region Virtual Event Methods
-
-    protected override void OnEntityStatsInitializedMethod()
-    {
-        base.OnEntityStatsInitializedMethod();
-
-        OnEnemyStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyEnemyStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-    }
-
-    protected override void OnEntityStatsUpdatedMethod()
-    {
-        base.OnEntityStatsInitializedMethod();
-
-        OnEnemyStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyEnemyStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-    }
 
     protected override void OnEntityDodgeMethod(DamageData damageData)
     {
@@ -134,72 +91,20 @@ public class EnemyHealth : EntityHealth
         OnAnyEnemyDeath?.Invoke(this, EventArgs.Empty);
     }
 
-    //
-
-    protected override void OnEntityMaxHealthChangedMethod()
-    {
-        base.OnEntityMaxHealthChangedMethod();
-
-        OnEnemyMaxHealthChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyEnemyMaxHealthChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-    }
-
-    protected override void OnEntityMaxShieldChangedMethod()
-    {
-        base.OnEntityMaxShieldChangedMethod();
-
-        OnEnemyMaxShieldChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyEnemyMaxShieldChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-    }
-
-    protected override void OnEntityArmorChangedMethod()
-    {
-        base.OnEntityArmorChangedMethod();
-
-        OnEnemyArmorChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyEnemyArmorChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-    }
-
-    protected override void OnEntityDodgeChanceChangedMethod()
-    {
-        base.OnEntityArmorChangedMethod();
-
-        OnEnemyDodgeChanceChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyEnemyDodgeChanceChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-    }
-
     protected override void OnEntityCurrentHealthClampedMethod()
     {
         base.OnEntityCurrentHealthClampedMethod();
 
-        OnEnemyCurrentHealthClamped?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyEnemyCurrentHealthClamped?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
+        OnEnemyCurrentHealthClamped?.Invoke(this, new OnEntityCurrentHealthClampedEventArgs { currentHealth = currentHealth, maxHealth = specificEntityStatsResolver.MaxHealth });
+        OnAnyEnemyCurrentHealthClamped?.Invoke(this, new OnEntityCurrentHealthClampedEventArgs { currentHealth = currentHealth, maxHealth = specificEntityStatsResolver.MaxHealth });
     }
 
     protected override void OnEntityCurrentShieldClampedMethod()
     {
         base.OnEntityCurrentShieldClampedMethod();
 
-        OnEnemyCurrentShieldClamped?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyEnemyCurrentShieldClamped?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
+        OnEnemyCurrentShieldClamped?.Invoke(this, new OnEntityCurrentShieldClampedEventArgs { currentShield = currentShield, maxShield = specificEntityStatsResolver.MaxShield });
+        OnAnyEnemyCurrentShieldClamped?.Invoke(this, new OnEntityCurrentShieldClampedEventArgs { currentShield = currentShield, maxShield = specificEntityStatsResolver.MaxShield });
     }
     #endregion
 }

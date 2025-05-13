@@ -12530,7 +12530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!58 &2100225250
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12594,6 +12594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd3b938f4b88ea4d90f3f2809aa5a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specificEntityStatsResolver: {fileID: 0}
   dodgeAbiltiesTransforms: []
   immuneAbiltiesTransforms: []
   currentHealth: 0

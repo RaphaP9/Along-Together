@@ -29,7 +29,7 @@ public class PlayerProjectileAttack : PlayerAttack
 
         InstantiateProjectile(characterIdentifier.CharacterSO, projectilePrefab, position, shootDirection, damage, isCrit, projectileSpeed, projectileLifespan, projectileDamageType, projectileAreaRadius, attackLayermask, projectileImpactLayerMask);
 
-        OnPlayerAttackMethod(isCrit, damage);
+        OnEntityAttackMethod(isCrit, damage);
     }
 
     protected void InstantiateProjectile(IDamageSourceSO damageSource, Transform projectilePrefab, Vector2 position, Vector2 shootDirection, int damage, bool isCrit, float speed, float lifespan, ProjectileDamageType projectileDamageType , float areaRadius, LayerMask targetLayerMask, LayerMask impactLayerMask)
