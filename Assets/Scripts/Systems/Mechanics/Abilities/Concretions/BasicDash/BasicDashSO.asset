@@ -18,6 +18,6 @@ MonoBehaviour:
   description: 
   abilityClassification: 3
   baseCooldown: 2
-  dashDistance: 3
-  dashTime: 0.25
-  dashResistance: 2
+  dashDistance: 10
+  dashTime: 1
+  dashResistance: 0

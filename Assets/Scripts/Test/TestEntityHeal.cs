@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPlayerHealth : MonoBehaviour
+public class TestEntityHeal : MonoBehaviour
 {
     [Header("Components - Assign On Runtime!")]
-    [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private EntityHealth entityHealth;
 
     private void Update()
     {
@@ -15,9 +15,9 @@ public class TestPlayerHealth : MonoBehaviour
 
     private void TestHeal()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.M))
         {
-            playerHealth.Heal(new HealData { healAmount = 2, healSource = null});
+            entityHealth.Heal(new HealData { healAmount = 2, healSource = null});
         }
     }
 }

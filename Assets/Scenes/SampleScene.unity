@@ -10731,6 +10731,7 @@ GameObject:
   - component: {fileID: 1773330770}
   - component: {fileID: 1773330771}
   - component: {fileID: 1773330772}
+  - component: {fileID: 1773330774}
   - component: {fileID: 1773330773}
   m_Layer: 0
   m_Name: TestObject
@@ -10806,7 +10807,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796dc8d803482a84a8ac6920e1f8cd03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
+  entityHealth: {fileID: 0}
+--- !u!114 &1773330774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773330765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605b3176ae8d67746a9eaae166e53c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityHealth: {fileID: 0}
 --- !u!1 &1798261950
 GameObject:
   m_ObjectHideFlags: 0
@@ -12580,6 +12594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd3b938f4b88ea4d90f3f2809aa5a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dodgeAbiltiesTransforms: []
+  immuneAbiltiesTransforms: []
   currentHealth: 0
   currentShield: 0
   maxHealth: 0
@@ -13486,5 +13502,5 @@ SceneRoots:
   - {fileID: 448386993}
   - {fileID: 2109542994}
   - {fileID: 1773330767}
-  - {fileID: 536130804}
   - {fileID: 2100225251}
+  - {fileID: 536130804}

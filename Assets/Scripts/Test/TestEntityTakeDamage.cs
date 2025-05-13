@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TestEntityTakeDamage : MonoBehaviour
+{
+    [Header("Components - Assign On Runtime!")]
+    [SerializeField] private EntityHealth entityHealth;
+
+    private void Update()
+    {
+        Test();
+    }
+
+    private void Test()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            entityHealth.TakeDamage(new DamageData { damage = 1, isCrit = true, damageSource = null, canBeDodged = true, canBeImmuned = true });
+        }
+    }
+}

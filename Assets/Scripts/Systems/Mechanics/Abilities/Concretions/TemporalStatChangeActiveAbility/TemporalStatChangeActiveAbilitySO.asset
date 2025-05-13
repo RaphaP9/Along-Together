@@ -20,6 +20,6 @@ MonoBehaviour:
   baseCooldown: 5
   numericEmbeddedStats:
   - numericStatType: 0
-    numericStatModificationType: 0
+    numericStatModificationType: 2
     value: 10
   changeDuration: 4
