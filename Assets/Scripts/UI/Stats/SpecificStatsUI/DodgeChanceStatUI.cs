@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaxHealthStatUI : PlayerNumericStatUI
+public class DodgeChanceStatUI : PlayerNumericStatUI
 {
     protected override void SubscribeToEvents()
     {
         specificPlayerStatsResolver.OnPlayerStatsInitialized += SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
-        specificPlayerStatsResolver.OnPlayerMaxHealthChanged += SpecificPlayerStatsResolver_OnPlayerMaxHealthChanged;
+        specificPlayerStatsResolver.OnPlayerDodgeChanceChanged+= SpecificPlayerStatsResolver_OnPlayerDodgeChanceChanged;
     }
 
     protected override void UnSubscribeToEvents()
@@ -15,16 +15,16 @@ public class MaxHealthStatUI : PlayerNumericStatUI
         if (specificPlayerStatsResolver == null) return;
 
         specificPlayerStatsResolver.OnPlayerStatsInitialized -= SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
-        specificPlayerStatsResolver.OnPlayerMaxHealthChanged -= SpecificPlayerStatsResolver_OnPlayerMaxHealthChanged;
+        specificPlayerStatsResolver.OnPlayerDodgeChanceChanged -= SpecificPlayerStatsResolver_OnPlayerDodgeChanceChanged;
     }
 
-    protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleInt(currentValue);
-    protected override float GetBaseValue() => characterIdentifier.CharacterSO.baseHealth;
-    protected override float GetCurrentValue() => specificPlayerStatsResolver.MaxHealth;
+    protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToPercentage(currentValue, 2);
+    protected override float GetBaseValue() => characterIdentifier.CharacterSO.baseDodgeChance;
+    protected override float GetCurrentValue() => specificPlayerStatsResolver.DodgeChance;
 
 
     #region Subscriptions
-    private void SpecificPlayerStatsResolver_OnPlayerMaxHealthChanged(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
+    private void SpecificPlayerStatsResolver_OnPlayerDodgeChanceChanged(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }

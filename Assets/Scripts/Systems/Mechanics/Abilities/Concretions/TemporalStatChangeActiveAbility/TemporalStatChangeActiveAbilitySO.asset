@@ -19,7 +19,7 @@ MonoBehaviour:
   abilityClassification: 4
   baseCooldown: 5
   numericEmbeddedStats:
-  - numericStatType: 12
+  - numericStatType: 3
     numericStatModificationType: 0
-    value: 0.5
+    value: 0.34
   changeDuration: 4
