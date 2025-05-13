@@ -156,6 +156,14 @@ public class SpecificPlayerStatsResolver : SpecificEntityStatsResolver
     protected int CalculateHealthRegen() => HealthRegenStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseHealthRegen);
     protected int CalculateShieldRegen() => ShieldRegenStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseShieldRegen);
     protected float CalculateCooldownReduction() => CooldownReductionStatResolver.Instance.ResolveStatFloat(0f); //Base cooldown reduction is always 0
+
+    public float GetAbilityCooldown(float abilityOriginalCooldown)
+    {
+        float newCooldown = abilityOriginalCooldown * (1 - cooldownReduction);
+        newCooldown = newCooldown <= MechanicsUtilities.GetAbilityCooldownMinValue() ? MechanicsUtilities.GetAbilityCooldownMinValue(): newCooldown;
+
+        return newCooldown;
+    }
     #endregion
 
     #region Stat Recalculations

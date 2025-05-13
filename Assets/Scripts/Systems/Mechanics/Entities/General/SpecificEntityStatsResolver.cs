@@ -151,7 +151,7 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
     protected abstract float CalculateLifesteal();
     #endregion
 
-    #region Stat Recalculation
+    #region Stat Recalculations
     protected virtual void RecalculateMaxHealth()
     {
         maxHealth = CalculateMaxHealth();

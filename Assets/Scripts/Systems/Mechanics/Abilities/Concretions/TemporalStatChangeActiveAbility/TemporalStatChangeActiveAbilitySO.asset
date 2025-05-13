@@ -21,5 +21,5 @@ MonoBehaviour:
   numericEmbeddedStats:
   - numericStatType: 12
     numericStatModificationType: 0
-    value: 0.55
+    value: 0.5
   changeDuration: 4

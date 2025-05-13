@@ -101,6 +101,7 @@ MonoBehaviour:
   playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
   abilityLevel: 0
+  specificPlayerStatsResolver: {fileID: 6636574928624340988}
   abilityCooldownHandler: {fileID: 8397176443843121625}
   abilityCooldownTime: 0
   activeAbilityGUIDs: []
@@ -170,7 +171,11 @@ MonoBehaviour:
   attackCritChance: 0
   attackCritDamageMultiplier: 0
   movementSpeed: 0
+  lifesteal: 0
   characterIdentifier: {fileID: 1965199428449930878}
+  healthRegen: 0
+  shieldRegen: 0
+  cooldownReduction: 0
 --- !u!1 &1612407981133521685
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,6 +748,7 @@ MonoBehaviour:
   playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
   abilityLevel: 0
+  specificPlayerStatsResolver: {fileID: 6636574928624340988}
   abilityCooldownHandler: {fileID: 6423833680700352654}
   abilityCooldownTime: 0
 --- !u!114 &6423833680700352654
@@ -1125,6 +1131,7 @@ MonoBehaviour:
   playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
   abilityLevel: 0
+  specificPlayerStatsResolver: {fileID: 6636574928624340988}
   abilityCooldownHandler: {fileID: 1263218695718187337}
   abilityCooldownTime: 0
   mouseDirectionHandler: {fileID: 4593777764411072900}

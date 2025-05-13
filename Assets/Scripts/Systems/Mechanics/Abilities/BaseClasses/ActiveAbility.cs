@@ -6,44 +6,15 @@ using UnityEngine;
 public abstract class ActiveAbility : Ability, IActiveAbility
 {
     [Header("Active Ability Components")]
+    [SerializeField] protected SpecificPlayerStatsResolver specificPlayerStatsResolver;
     [SerializeField] protected AbilityCooldownHandler abilityCooldownHandler;
-
-    [Header("Ability Runtime Filled")]
-    [SerializeField] protected float abilityCooldownTime;
 
     public AbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
     private ActiveAbilitySO ActiveAbilitySO => abilitySO as ActiveAbilitySO;
-
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        CooldownReductionStatResolver.OnCooldownResolverUpdated += CooldownStatResolver_OnCooldownResolverUpdated;
-    }
-
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-        CooldownReductionStatResolver.OnCooldownResolverUpdated -= CooldownStatResolver_OnCooldownResolverUpdated;
-    }
-
-    protected virtual void Start()
-    {
-        InitializeActiveAbility();
-    }
-
-    private void InitializeActiveAbility()
-    {
-        abilityCooldownTime = CalculateAbilityCooldown();
-    }
-
-    private void RecalculateAbilityCooldownTime()
-    {
-        abilityCooldownTime = CalculateAbilityCooldown();
-    }
+    public float ProcessedAbilityCooldown => specificPlayerStatsResolver.GetAbilityCooldown(ActiveAbilitySO.baseCooldown);
 
     #region InterfaceMethods
-    public float CalculateAbilityCooldown() => CooldownReductionStatResolver.Instance.ResolveStatFloat(ActiveAbilitySO.baseCooldown);
+    public float CalculateAbilityCooldown() => specificPlayerStatsResolver.GetAbilityCooldown(ActiveAbilitySO.baseCooldown);
     public bool AbilityCastInput() => abilitySlotHandler.GetAssociatedDownInput();
     public override bool CanCastAbility()
     {
@@ -58,7 +29,7 @@ public abstract class ActiveAbility : Ability, IActiveAbility
     protected override void OnAbilityCastMethod()
     {
         base.OnAbilityCastMethod();
-        abilityCooldownHandler.SetCooldownTimer(abilityCooldownTime); 
+        abilityCooldownHandler.SetCooldownTimer(ProcessedAbilityCooldown); 
     }
 
     protected override void OnAbilityCastDeniedMethod()
@@ -74,13 +45,6 @@ public abstract class ActiveAbility : Ability, IActiveAbility
     protected override void OnAbilityVariantDeactivationMethod()
     {
         //
-    }
-    #endregion
-
-    #region Subscriptions
-    private void CooldownStatResolver_OnCooldownResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
-    {
-        RecalculateAbilityCooldownTime();
     }
     #endregion
 }
