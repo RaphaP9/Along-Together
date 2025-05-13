@@ -17,6 +17,8 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
     [SerializeField] protected float attackCritDamageMultiplier;
     [Space]
     [SerializeField] protected float movementSpeed;
+    [Space]
+    [SerializeField] protected float lifesteal;
 
     #region Properties
     public int MaxHealth => maxHealth;
@@ -30,6 +32,8 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
     public float AttackCritDamageMultiplier => attackCritDamageMultiplier;
 
     public float MovementSpeed => movementSpeed;
+
+    public float Lifesteal => lifesteal;
     #endregion
 
     #region Events
@@ -66,6 +70,9 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
 
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityMovementSpeedChanged;
     public event EventHandler<OnEntityStatsEventArgs> OnEntityMovementSpeedChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityLifestealChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEntityLifestealChanged;
     #endregion
 
     #region EventArgs Classes
@@ -82,6 +89,8 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
         public float attackCritDamageMultiplier;
 
         public float movementSpeed;
+
+        public float lifesteal;
     }
     #endregion
 
@@ -103,15 +112,27 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
         attackCritDamageMultiplier = CalculateAttackCritDamageMultiplier();
 
         movementSpeed = CalculateMovementSpeed();
+        
+        lifesteal = CalculateLifesteal();
 
         OnEntityStatsInitializedMethod();
     }
 
     protected OnEntityStatsEventArgs GenerateCurrentEntityStatsEventArgs()
     {
-        return new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance,
-            attackDamage = attackDamage, attackSpeed = attackSpeed, attackCritChance = attackCritChance, attackCritDamageMultiplier = attackCritDamageMultiplier,
-            movementSpeed = movementSpeed };
+        return new OnEntityStatsEventArgs
+        {
+            maxHealth = maxHealth,
+            maxShield = maxShield,
+            armor = armor,
+            dodgeChance = dodgeChance,
+            attackDamage = attackDamage,
+            attackSpeed = attackSpeed,
+            attackCritChance = attackCritChance,
+            attackCritDamageMultiplier = attackCritDamageMultiplier,
+            movementSpeed = movementSpeed,
+            lifesteal = lifesteal
+        };
     }
 
     #region Stat Calculations
@@ -126,9 +147,11 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
     protected abstract float CalculateAttackCritDamageMultiplier();
 
     protected abstract float CalculateMovementSpeed();
+
+    protected abstract float CalculateLifesteal();
     #endregion
 
-    #region StatRecalculation
+    #region Stat Recalculation
     protected virtual void RecalculateMaxHealth()
     {
         maxHealth = CalculateMaxHealth();
@@ -181,6 +204,12 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
     {
         movementSpeed = CalculateMovementSpeed();
         OnEntityMovementSpeedChangedMethod();
+    }
+
+    protected virtual void RecalculateLifesteal()
+    {
+        lifesteal = CalculateLifesteal();
+        OnEntityLifestealChangedMethod();
     }
     #endregion
 
@@ -249,6 +278,12 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
     {
         OnEntityMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
         OnAnyEntityMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected virtual void OnEntityLifestealChangedMethod()
+    {
+        OnEntityLifestealChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEntityLifestealChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
     #endregion
 }

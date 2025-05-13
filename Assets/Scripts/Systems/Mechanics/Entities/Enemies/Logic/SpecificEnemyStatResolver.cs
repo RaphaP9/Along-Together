@@ -41,6 +41,9 @@ public class SpecificEnemyStatResolver : SpecificEntityStatsResolver
 
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyMovementSpeedChanged;
     public event EventHandler<OnEntityStatsEventArgs> OnEnemyMovementSpeedChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEnemyLifestealChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnEnemyLifestealChanged;
     #endregion
 
     private void OnEnable()
@@ -65,6 +68,7 @@ public class SpecificEnemyStatResolver : SpecificEntityStatsResolver
     protected override float CalculateAttackCritDamageMultiplier() => enemyIdentifier.EnemySO.baseAttackCritDamageMultiplier;
 
     protected override float CalculateMovementSpeed() => enemyIdentifier.EnemySO.baseMovementSpeed;
+    protected override float CalculateLifesteal() => enemyIdentifier.EnemySO.baseLifesteal;
     #endregion
 
     #region Virtual Event Methods
@@ -154,6 +158,14 @@ public class SpecificEnemyStatResolver : SpecificEntityStatsResolver
 
         OnEnemyMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
         OnAnyEnemyMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected override void OnEntityLifestealChangedMethod()
+    {
+        base.OnEntityLifestealChangedMethod();
+
+        OnEnemyLifestealChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyEnemyLifestealChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
     #endregion
 }

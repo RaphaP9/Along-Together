@@ -1,4 +1,4 @@
-public enum EntityStatusEffect 
+public enum EntityStatusEffectType 
 {
     Slowed,
     SlowedAttack,

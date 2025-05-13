@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldRegenResolver : NumericStatResolver
+public class ShieldRegenStatResolver : NumericStatResolver
 {
-    public static ShieldRegenResolver Instance { get; private set; }
+    public static ShieldRegenStatResolver Instance { get; private set; }
 
     public static event EventHandler<OnNumericResolverEventArgs> OnShieldRegenResolverInitialized;
     public static event EventHandler<OnNumericResolverEventArgs> OnShieldRegenResolverUpdated;

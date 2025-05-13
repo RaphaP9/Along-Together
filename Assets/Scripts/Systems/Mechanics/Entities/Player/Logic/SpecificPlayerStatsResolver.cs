@@ -8,39 +8,71 @@ public class SpecificPlayerStatsResolver : SpecificEntityStatsResolver
     [Header("Components")]
     [SerializeField] private CharacterIdentifier characterIdentifier;
 
+    [Header("Player Runtime Filled")]
+    [SerializeField] protected int healthRegen;
+    [SerializeField] protected int shieldRegen;
+    [SerializeField] protected float cooldownReduction;
+
+    #region Properties
+    public int HealthRegen => healthRegen;
+    public int ShieldRegen => shieldRegen;
+    public float CooldownReduction => cooldownReduction;
+    #endregion
+
     #region Events
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerStatsInitialized;
-    public event EventHandler<OnEntityStatsEventArgs> OnPlayerStatsInitialized;
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerStatsInitialized;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerStatsInitialized;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerStatsUpdated;
-    public event EventHandler<OnEntityStatsEventArgs> OnPlayerStatsUpdated;
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerStatsUpdated;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerStatsUpdated;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerMaxHealthChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnPlayerMaxHealthChanged;
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerMaxHealthChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerMaxHealthChanged;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerMaxShieldChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnPlayerMaxShieldChanged;
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerMaxShieldChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerMaxShieldChanged;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerArmorChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnPlayerArmorChanged;
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerArmorChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerArmorChanged;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerDodgeChanceChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnPlayerDodgeChanceChanged;
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerDodgeChanceChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerDodgeChanceChanged;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerAttackDamageChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnPlayerAttackDamageChanged;
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerAttackDamageChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerAttackDamageChanged;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerAttackSpeedChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnPlayerAttackSpeedChanged;
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerAttackSpeedChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerAttackSpeedChanged;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerAttackCritChanceChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnPlayerAttackCritChanceChanged;
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerAttackCritChanceChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerAttackCritChanceChanged;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerAttackCritDamageMultiplierChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnPlayerAttackCritDamageMultiplierChanged;
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerAttackCritDamageMultiplierChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerAttackCritDamageMultiplierChanged;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerMovementSpeedChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnPlayerMovementSpeedChanged;
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerMovementSpeedChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerMovementSpeedChanged;
+
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerLifestealChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerLifestealChanged;
+
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerHealthRegenChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerHealthRegenChanged;
+
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerShieldRegenChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerShieldRegenChanged;
+
+    public static event EventHandler<OnPlayerStatsEventArgs> OnAnyPlayerCooldownReductionChanged;
+    public event EventHandler<OnPlayerStatsEventArgs> OnPlayerCooldownReductionChanged;
+    #endregion
+
+    #region EventArgs Classes
+    public class OnPlayerStatsEventArgs : OnEntityStatsEventArgs
+    {
+        public int healthRegen;
+        public int shieldRegen;
+        public float cooldownReduction;
+    }
     #endregion
 
     private void OnEnable()
@@ -56,6 +88,12 @@ public class SpecificPlayerStatsResolver : SpecificEntityStatsResolver
         AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverUpdated += AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated;
 
         MovementSpeedStatResolver.OnMovementSpeedResolverUpdated += MovementSpeedStatResolver_OnMovementSpeedResolverUpdated;
+
+        LifestealStatResolver.OnLifestealResolverUpdated += LifestealStatResolver_OnLifestealResolverUpdated;
+
+        HealthRegenStatResolver.OnHealthRegenResolverUpdated += HealthRegenStatResolver_OnHealthRegenResolverUpdated;
+        ShieldRegenStatResolver.OnShieldRegenResolverUpdated += ShieldRegenStatResolver_OnShieldRegenResolverUpdated;
+        CooldownReductionStatResolver.OnCooldownResolverUpdated += CooldownReductionStatResolver_OnCooldownResolverUpdated;
     }
 
     private void OnDisable()
@@ -71,9 +109,36 @@ public class SpecificPlayerStatsResolver : SpecificEntityStatsResolver
         AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverUpdated -= AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated;
 
         MovementSpeedStatResolver.OnMovementSpeedResolverUpdated -= MovementSpeedStatResolver_OnMovementSpeedResolverUpdated;
+
+        LifestealStatResolver.OnLifestealResolverUpdated -= LifestealStatResolver_OnLifestealResolverUpdated;
+
+        HealthRegenStatResolver.OnHealthRegenResolverUpdated -= HealthRegenStatResolver_OnHealthRegenResolverUpdated;
+        ShieldRegenStatResolver.OnShieldRegenResolverUpdated -= ShieldRegenStatResolver_OnShieldRegenResolverUpdated;
+        CooldownReductionStatResolver.OnCooldownResolverUpdated -= CooldownReductionStatResolver_OnCooldownResolverUpdated;
     }
 
-    #region StatCalculation
+    protected OnPlayerStatsEventArgs GenerateCurrentPlayerStatsEventArgs()
+    {
+        return new OnPlayerStatsEventArgs
+        {
+            maxHealth = maxHealth,
+            maxShield = maxShield,
+            armor = armor,
+            dodgeChance = dodgeChance,
+            attackDamage = attackDamage,
+            attackSpeed = attackSpeed,
+            attackCritChance = attackCritChance,
+            attackCritDamageMultiplier = attackCritDamageMultiplier,
+            movementSpeed = movementSpeed,
+            lifesteal = lifesteal,
+
+            healthRegen = healthRegen,
+            shieldRegen = shieldRegen,
+            cooldownReduction = cooldownReduction,
+        };
+    }
+
+    #region Stat Calculations
     protected override int CalculateMaxHealth() => MaxHealthStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseHealth);
     protected override int CalculateMaxShield() => MaxShieldStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseShield);
     protected override int CalculateArmor() => ArmorStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseArmor);
@@ -85,6 +150,32 @@ public class SpecificPlayerStatsResolver : SpecificEntityStatsResolver
     protected override float CalculateAttackCritDamageMultiplier() => AttackCritDamageMultiplierStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseAttackCritDamageMultiplier);
 
     protected override float CalculateMovementSpeed() => MovementSpeedStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseMovementSpeed);
+
+    protected override float CalculateLifesteal() => LifestealStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseLifesteal);
+
+    protected int CalculateHealthRegen() => HealthRegenStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseHealthRegen);
+    protected int CalculateShieldRegen() => ShieldRegenStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseShieldRegen);
+    protected float CalculateCooldownReduction() => CooldownReductionStatResolver.Instance.ResolveStatFloat(0f); //Base cooldown reduction is always 0
+    #endregion
+
+    #region Stat Recalculations
+    protected virtual void RecalculateHealthRegen()
+    {
+        healthRegen = CalculateHealthRegen();
+        OnPlayerHealthRegenChangedMethod();
+    }
+
+    protected virtual void RecalculateShieldRegen()
+    {
+        shieldRegen = CalculateShieldRegen();
+        OnPlayerShieldRegenChangedMethod();
+    }
+
+    protected virtual void RecalculateCooldownReduction()
+    {
+        cooldownReduction = CalculateCooldownReduction();
+        OnPlayerCooldownReductionChangedMethod();
+    }
     #endregion
 
     #region Virtual Event Methods
@@ -92,88 +183,114 @@ public class SpecificPlayerStatsResolver : SpecificEntityStatsResolver
     {
         base.OnEntityStatsInitializedMethod();
 
-        OnPlayerStatsInitialized?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
-        OnAnyPlayerStatsInitialized?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnPlayerStatsInitialized?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerStatsInitialized?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
     }
 
     protected override void OnEntityStatsUpdatedMethod()
     {
         base.OnEntityStatsUpdatedMethod();
 
-        OnPlayerStatsUpdated?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
-        OnAnyPlayerStatsUpdated?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnPlayerStatsUpdated?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerStatsUpdated?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
     }
 
     protected override void OnEntityMaxHealthChangedMethod()
     {
         base.OnEntityMaxHealthChangedMethod();
 
-        OnPlayerMaxHealthChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
-        OnAnyPlayerMaxHealthChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnPlayerMaxHealthChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerMaxHealthChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
     }
 
     protected override void OnEntityMaxShieldChangedMethod()
     {
         base.OnEntityMaxShieldChangedMethod();
 
-        OnPlayerMaxShieldChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
-        OnAnyPlayerMaxShieldChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnPlayerMaxShieldChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerMaxShieldChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
     }
 
     protected override void OnEntityArmorChangedMethod()
     {
         base.OnEntityArmorChangedMethod();
 
-        OnPlayerArmorChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
-        OnAnyPlayerArmorChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnPlayerArmorChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerArmorChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
     }
 
     protected override void OnEntityDodgeChanceChangedMethod()
     {
         base.OnEntityDodgeChanceChangedMethod();
 
-        OnPlayerDodgeChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
-        OnAnyPlayerDodgeChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnPlayerDodgeChanceChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerDodgeChanceChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
     }
 
     protected override void OnEntityAttackDamageChangedMethod()
     {
         base.OnEntityAttackDamageChangedMethod();
 
-        OnPlayerAttackDamageChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
-        OnAnyPlayerAttackDamageChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnPlayerAttackDamageChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerAttackDamageChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
     }
 
     protected override void OnEntityAttackSpeedChangedMethod()
     {
         base.OnEntityAttackSpeedChangedMethod();
 
-        OnPlayerAttackSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
-        OnAnyPlayerAttackSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnPlayerAttackSpeedChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerAttackSpeedChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
     }
 
     protected override void OnEntityAttackCritChanceChangedMethod()
     {
         base.OnEntityAttackCritDamageMultiplierChangedMethod();
 
-        OnPlayerAttackCritChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
-        OnAnyPlayerAttackCritChanceChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnPlayerAttackCritChanceChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerAttackCritChanceChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
     }
 
     protected override void OnEntityAttackCritDamageMultiplierChangedMethod()
     {
         base.OnEntityAttackCritDamageMultiplierChangedMethod();
 
-        OnPlayerAttackCritDamageMultiplierChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
-        OnAnyPlayerAttackCritDamageMultiplierChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnPlayerAttackCritDamageMultiplierChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerAttackCritDamageMultiplierChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
     }
 
     protected override void OnEntityMovementSpeedChangedMethod()
     {
         base.OnEntityMovementSpeedChangedMethod();
 
-        OnPlayerMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
-        OnAnyPlayerMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnPlayerMovementSpeedChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerMovementSpeedChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+    }
+
+    protected override void OnEntityLifestealChangedMethod()
+    {
+        base.OnEntityLifestealChangedMethod();
+
+        OnPlayerLifestealChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerLifestealChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+    }
+
+    protected virtual void OnPlayerHealthRegenChangedMethod()
+    {
+        OnPlayerHealthRegenChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerHealthRegenChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+    }
+
+    protected virtual void OnPlayerShieldRegenChangedMethod()
+    {
+        OnPlayerShieldRegenChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerShieldRegenChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+    }
+
+    protected virtual void OnPlayerCooldownReductionChangedMethod()
+    {
+        OnPlayerCooldownReductionChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
+        OnAnyPlayerCooldownReductionChanged?.Invoke(this, GenerateCurrentPlayerStatsEventArgs());
     }
     #endregion
 
@@ -220,6 +337,25 @@ public class SpecificPlayerStatsResolver : SpecificEntityStatsResolver
     private void MovementSpeedStatResolver_OnMovementSpeedResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
     {
         RecalculateMovementSpeed();
+    }
+
+    private void LifestealStatResolver_OnLifestealResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateLifesteal();
+    }
+
+    private void HealthRegenStatResolver_OnHealthRegenResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateHealthRegen();
+    }
+    private void ShieldRegenStatResolver_OnShieldRegenResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateShieldRegen();
+    }
+
+    private void CooldownReductionStatResolver_OnCooldownResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateCooldownReduction();
     }
     #endregion
 }

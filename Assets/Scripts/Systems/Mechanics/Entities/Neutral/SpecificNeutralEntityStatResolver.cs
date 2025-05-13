@@ -41,6 +41,9 @@ public class SpecificNeutralEntityStatResolver : SpecificEntityStatsResolver
 
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyNeutralEntityMovementSpeedChanged;
     public event EventHandler<OnEntityStatsEventArgs> OnNeutralEntityMovementSpeedChanged;
+
+    public static event EventHandler<OnEntityStatsEventArgs> OnAnyNeutralEntityLifestealChanged;
+    public event EventHandler<OnEntityStatsEventArgs> OnNeutralEntityLifestealChanged;
     #endregion
 
     private void OnEnable()
@@ -65,6 +68,8 @@ public class SpecificNeutralEntityStatResolver : SpecificEntityStatsResolver
     protected override float CalculateAttackCritDamageMultiplier() => neutralEntityIdentifier.NeutralEntitySO.baseAttackCritDamageMultiplier;
 
     protected override float CalculateMovementSpeed() => neutralEntityIdentifier.NeutralEntitySO.baseMovementSpeed;
+
+    protected override float CalculateLifesteal() => neutralEntityIdentifier.NeutralEntitySO.baseLifesteal;
     #endregion
 
     #region Virtual Event Methods
@@ -154,6 +159,14 @@ public class SpecificNeutralEntityStatResolver : SpecificEntityStatsResolver
 
         OnNeutralEntityMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
         OnAnyNeutralEntityMovementSpeedChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+    }
+
+    protected override void OnEntityLifestealChangedMethod()
+    {
+        base.OnEntityLifestealChangedMethod();
+
+        OnNeutralEntityLifestealChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnAnyNeutralEntityLifestealChanged?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
     #endregion
 }

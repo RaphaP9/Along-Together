@@ -18,13 +18,13 @@ public abstract class ActiveAbility : Ability, IActiveAbility
     protected override void OnEnable()
     {
         base.OnEnable();
-        CooldownStatResolver.OnCooldownResolverUpdated += CooldownStatResolver_OnCooldownResolverUpdated;
+        CooldownReductionStatResolver.OnCooldownResolverUpdated += CooldownStatResolver_OnCooldownResolverUpdated;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        CooldownStatResolver.OnCooldownResolverUpdated -= CooldownStatResolver_OnCooldownResolverUpdated;
+        CooldownReductionStatResolver.OnCooldownResolverUpdated -= CooldownStatResolver_OnCooldownResolverUpdated;
     }
 
     protected virtual void Start()
@@ -43,7 +43,7 @@ public abstract class ActiveAbility : Ability, IActiveAbility
     }
 
     #region InterfaceMethods
-    public float CalculateAbilityCooldown() => CooldownStatResolver.Instance.ResolveStatFloat(ActiveAbilitySO.baseCooldown);
+    public float CalculateAbilityCooldown() => CooldownReductionStatResolver.Instance.ResolveStatFloat(ActiveAbilitySO.baseCooldown);
     public bool AbilityCastInput() => abilitySlotHandler.GetAssociatedDownInput();
     public override bool CanCastAbility()
     {

@@ -17,6 +17,6 @@ public enum NumericStatType
 
     Lifesteal,
 
-    Cooldown
+    CooldownReduction
 }
 

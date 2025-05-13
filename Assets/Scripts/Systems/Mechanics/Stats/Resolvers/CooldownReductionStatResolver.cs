@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CooldownStatResolver : NumericStatResolver
+public class CooldownReductionStatResolver : NumericStatResolver
 {
-    public static CooldownStatResolver Instance { get; private set; }
+    public static CooldownReductionStatResolver Instance { get; private set; }
 
     public static event EventHandler<OnNumericResolverEventArgs> OnCooldownResolverInitialized;
     public static event EventHandler<OnNumericResolverEventArgs> OnCooldownResolverUpdated;
@@ -23,7 +23,7 @@ public class CooldownStatResolver : NumericStatResolver
         }
     }
 
-    protected override NumericStatType GetNumericStatType() => NumericStatType.Cooldown;
+    protected override NumericStatType GetNumericStatType() => NumericStatType.CooldownReduction;
 
     #region Abstract Methods
     protected override void OnResolverInitializedMethod()

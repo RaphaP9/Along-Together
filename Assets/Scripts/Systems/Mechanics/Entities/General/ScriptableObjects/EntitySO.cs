@@ -27,6 +27,8 @@ public abstract class EntitySO : ScriptableObject, IAttackableSO, IDamageSourceS
     [Range(0f, 1f)] public float baseAttackCritChance;
     [Range(0.5f, 2f)] public float baseAttackCritDamageMultiplier;
     [Space]
+    [Range(0f, 1f)] public float baseLifesteal;
+    [Space]
     [ColorUsage(true, true)] public Color damageColor;
 
     [Header("Entity Movement Settings")]
