@@ -6,28 +6,24 @@ using UnityEngine;
 public class CharacterBodySpriteFlipper : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private PlayerAimDirectionerHandler aimDirectionerHandler;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [Space]
-    [SerializeField] private CharacterFacingHandler characterFacingHandler;
+    [SerializeField] private PlayerFacingDirectionHandler facingDirectionHandler;
 
     private bool facingRight = true;
 
     private void Update()
     {
-        HandleFacingDueToAim();
+        HandleFlip();
     }
 
-    private void HandleFacingDueToAim()
+    private void HandleFlip()
     {
-        if (!characterFacingHandler.CanFace()) return;
-
-        if (aimDirectionerHandler.IsAimingRight())
+        if (facingDirectionHandler.IsFacingRight())
         {
             CheckFlipRight();
         }
 
-        if (!aimDirectionerHandler.IsAimingRight())
+        if (!facingDirectionHandler.IsFacingRight())
         {
             CheckFlipLeft();
         }

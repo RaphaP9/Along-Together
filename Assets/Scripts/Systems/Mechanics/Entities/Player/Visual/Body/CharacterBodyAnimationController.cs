@@ -8,8 +8,6 @@ public class CharacterBodyAnimationController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerFacingDirectionHandler facingDirectionHandler;
-    [Space]
-    [SerializeField] private CharacterFacingHandler characterFacingHandler;
 
     private const string SPEED_FLOAT = "Speed";
     private const string FACE_X_FLOAT = "FaceX";
@@ -40,8 +38,6 @@ public class CharacterBodyAnimationController : MonoBehaviour
 
     private void HandleFacingBlend()
     {
-        if (!characterFacingHandler.CanFace()) return;
-
         animator.SetFloat(FACE_X_FLOAT, facingDirectionHandler.CurrentFacingDirection.x);
         animator.SetFloat(FACE_Y_FLOAT, facingDirectionHandler.CurrentFacingDirection.y);
     }

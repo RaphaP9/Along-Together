@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IFacingInterruptionAbility 
 {
     public bool IsInterruptingFacing();
+    public Vector2 GetFacingDirection();
 }

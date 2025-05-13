@@ -936,11 +936,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 3125651546402793068}
   aimDirectionerHandler: {fileID: 2977175279305093656}
-  entityHealth: {fileID: 6586126778679378193}
+  playerHealth: {fileID: 6586126778679378193}
+  facingInterruptionAbilitiesTransforms:
+  - {fileID: 3296231075715405042}
   facingType: 1
   startingFacingDirection: {x: 1, y: 0}
   minimumRigidbodyVelocity: 1
   currentFacingDirection: {x: 0, y: 0}
+  isOverridingFacingDirection: 0
+  overridenDirection: {x: 0, y: 0}
 --- !u!1 &7130031430464041670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,7 +1154,6 @@ GameObject:
   - component: {fileID: 6543428868650559586}
   - component: {fileID: 3243932913206162116}
   - component: {fileID: 6934482600385633296}
-  - component: {fileID: 146995852462849865}
   m_Layer: 6
   m_Name: BodyVisual
   m_TagString: Untagged
@@ -1189,7 +1192,6 @@ MonoBehaviour:
   animator: {fileID: 4069439219325082044}
   playerMovement: {fileID: 4661234364419359008}
   facingDirectionHandler: {fileID: 4295945866100084352}
-  characterFacingHandler: {fileID: 146995852462849865}
 --- !u!114 &6934482600385633296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1202,23 +1204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d7f8025ddcd164fbec43735e5e694a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimDirectionerHandler: {fileID: 2977175279305093656}
   spriteRenderer: {fileID: 1724196336011256719}
-  characterFacingHandler: {fileID: 146995852462849865}
---- !u!114 &146995852462849865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8502199646678721002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa461bb04a29344dbbf1a89ae5d8bba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  facingInterruptionAbilitiesTransforms:
-  - {fileID: 3296231075715405042}
+  aimDirectionerHandler: {fileID: 2977175279305093656}
+  facingDirectionHandler: {fileID: 4295945866100084352}
 --- !u!1 &8529961401906286131
 GameObject:
   m_ObjectHideFlags: 0

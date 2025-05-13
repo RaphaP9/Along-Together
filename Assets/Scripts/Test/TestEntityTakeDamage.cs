@@ -9,10 +9,10 @@ public class TestEntityTakeDamage : MonoBehaviour
 
     private void Update()
     {
-        Test();
+        TestTakeDamage();
     }
 
-    private void Test()
+    private void TestTakeDamage()
     {
         if (Input.GetKeyDown(KeyCode.N))
         {

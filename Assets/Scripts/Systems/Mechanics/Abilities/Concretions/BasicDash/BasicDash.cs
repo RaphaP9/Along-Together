@@ -47,6 +47,7 @@ public class BasicDash : ActiveAbility, IDisplacementAbility, IDodgeAbility, IAt
     public bool IsDodging() => isDashing;
     public bool IsInterruptingAttack() => isDashing;
     public bool IsInterruptingFacing() => isDashing;
+    public Vector2 GetFacingDirection() => currentDashDirection;
     #endregion
 
     #region Logic Methods

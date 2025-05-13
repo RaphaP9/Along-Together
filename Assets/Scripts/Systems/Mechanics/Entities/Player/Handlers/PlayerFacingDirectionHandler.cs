@@ -8,7 +8,10 @@ public class PlayerFacingDirectionHandler : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private PlayerAimDirectionerHandler aimDirectionerHandler;
-    [SerializeField] private EntityHealth entityHealth;
+    [SerializeField] private PlayerHealth playerHealth;
+    [Space]
+    [Header("Components")]
+    [SerializeField] private List<Transform> facingInterruptionAbilitiesTransforms;
 
     [Header("Settings")]
     [SerializeField] private FacingType facingType;
@@ -17,10 +20,21 @@ public class PlayerFacingDirectionHandler : MonoBehaviour
 
     [Header("Runtime Filled")]
     [SerializeField] private Vector2Int currentFacingDirection;
+    [Space]
+    [SerializeField] private bool isOverridingFacingDirection;
+    [SerializeField] private Vector2 overridenDirection;
 
     public Vector2Int CurrentFacingDirection => currentFacingDirection;
+    private List<IFacingInterruptionAbility> facingInterruptionAbilities;
 
     private enum FacingType { Rigidbody, Aim };
+    public bool IsOverridingFacingDirection => isOverridingFacingDirection;
+    public Vector2 OverridenDirection => overridenDirection;
+
+    private void Awake()
+    {
+        GetFacingInterruptionAbilitiesInterfaces();
+    }
 
     private void Start()
     {
@@ -29,12 +43,43 @@ public class PlayerFacingDirectionHandler : MonoBehaviour
 
     private void Update()
     {
+        HandleDirectionOverride();
         HandleFacingDirection();
     }
 
+    private void GetFacingInterruptionAbilitiesInterfaces() => facingInterruptionAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IFacingInterruptionAbility>(facingInterruptionAbilitiesTransforms);
+
+    #region FacingDirectionOverride
+
+    private void HandleDirectionOverride()
+    {
+        if (!playerHealth.IsAlive()) return;
+
+        foreach (IFacingInterruptionAbility facingInterruptionAbility in facingInterruptionAbilities)
+        {
+            if (facingInterruptionAbility.IsInterruptingFacing())
+            {
+                isOverridingFacingDirection = true;
+                overridenDirection = facingInterruptionAbility.GetFacingDirection();
+
+                Vector2Int direction = GeneralUtilities.ClampVector2To8Direction(overridenDirection);
+                SetCurrentFacingDirection(direction);
+                return;
+            }
+        }
+
+        isOverridingFacingDirection = false;
+        overridenDirection = Vector2.zero;
+    }
+
+    #endregion
+
+
+    #region Facing Direction Logic
     private void HandleFacingDirection()
     {
-        if (!entityHealth.IsAlive()) return;
+        if (!playerHealth.IsAlive()) return;
+        if (isOverridingFacingDirection) return;
 
         switch (facingType)
         {
@@ -72,5 +117,6 @@ public class PlayerFacingDirectionHandler : MonoBehaviour
     }
 
     private void SetCurrentFacingDirection(Vector2Int facingDirection) => currentFacingDirection = facingDirection;
-
+    public bool IsFacingRight() => currentFacingDirection.x >= 0;
+    #endregion
 }
