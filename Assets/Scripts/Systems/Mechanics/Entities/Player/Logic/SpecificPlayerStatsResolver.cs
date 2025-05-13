@@ -9,7 +9,6 @@ public class SpecificPlayerStatsResolver : SpecificEntityStatsResolver
     [SerializeField] private CharacterIdentifier characterIdentifier;
 
     #region Events
-
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyPlayerStatsInitialized;
     public event EventHandler<OnEntityStatsEventArgs> OnPlayerStatsInitialized;
 
@@ -75,66 +74,48 @@ public class SpecificPlayerStatsResolver : SpecificEntityStatsResolver
     {
         base.OnEntityStatsInitializedMethod();
 
-        OnPlayerStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyPlayerStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
+        OnPlayerStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance});
+        OnAnyPlayerStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance});
     }
 
     protected override void OnEntityStatsUpdatedMethod()
     {
         base.OnEntityStatsUpdatedMethod();
 
-        OnPlayerStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyPlayerStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
+        OnPlayerStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnAnyPlayerStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
     }
 
     protected override void OnEntityMaxHealthChangedMethod()
     {
         base.OnEntityMaxHealthChangedMethod();
 
-        OnPlayerMaxHealthChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyPlayerMaxHealthChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
+        OnPlayerMaxHealthChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnAnyPlayerMaxHealthChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
     }
 
     protected override void OnEntityMaxShieldChangedMethod()
     {
         base.OnEntityMaxShieldChangedMethod();
 
-        OnPlayerMaxShieldChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyPlayerMaxShieldChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
+        OnPlayerMaxShieldChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnAnyPlayerMaxShieldChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
     }
 
     protected override void OnEntityArmorChangedMethod()
     {
         base.OnEntityArmorChangedMethod();
 
-        OnPlayerArmorChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyPlayerArmorChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
+        OnPlayerArmorChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnAnyPlayerArmorChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
     }
 
     protected override void OnEntityDodgeChanceChangedMethod()
     {
         base.OnEntityDodgeChanceChangedMethod();
 
-        OnPlayerDodgeChanceChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
-
-        OnAnyPlayerDodgeChanceChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, currentHealth = currentHealth, maxShield = maxShield, currentShield = currentShield, 
-        armor = armor, dodgeChance = dodgeChance});
+        OnPlayerDodgeChanceChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
+        OnAnyPlayerDodgeChanceChanged?.Invoke(this, new OnEntityStatsEventArgs { maxHealth = maxHealth, maxShield = maxShield, armor = armor, dodgeChance = dodgeChance });
     }
     #endregion
 }

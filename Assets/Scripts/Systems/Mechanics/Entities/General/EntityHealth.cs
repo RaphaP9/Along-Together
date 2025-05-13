@@ -13,11 +13,6 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     [Header("Runtime Filled")]
     [SerializeField] protected int currentHealth;
     [SerializeField] protected int currentShield;
-    [Space]
-    [SerializeField] protected int maxHealth;
-    [SerializeField] protected int maxShield;
-    [SerializeField] protected int armor;
-    [SerializeField] protected float dodgeChance;
 
     protected List<IDodgeAbility> dodgeAbilties;
     protected List<IImmuneAbility> immuneAbilities;
@@ -25,13 +20,12 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     #region Properties
     public int CurrentHealth => currentHealth;
     public int CurrentShield => currentShield;
-    public int MaxHealth => maxHealth;
-    public int MaxShield => maxShield;
-    public int Armor => armor;
-    public float DodgeChance => dodgeChance;
     #endregion
 
     #region Events
+    public static event EventHandler<OnEntityInitializedEventArgs> OnAnyEntityInitialized;
+    public event EventHandler<OnEntityInitializedEventArgs> OnEntityInitialized;
+
     public static event EventHandler<OnEntityDodgeEventArgs> OnAnyEntityDodge;
     public event EventHandler<OnEntityDodgeEventArgs> OnEntityDodge;
 
@@ -62,6 +56,12 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     #endregion
 
     #region EventArgs Classes
+    public class OnEntityInitializedEventArgs : EventArgs
+    {
+        public int currentHealth;
+        public int currentShield;
+    }
+
     public class OnEntityDodgeEventArgs : EventArgs
     {
         public int damageDodged;
@@ -145,12 +145,16 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     protected virtual void OnEnable()
     {
+        specificEntityStatsResolver.OnEntityStatsInitialized += SpecificEntityStatsResolver_OnEntityStatsInitialized;
+
         specificEntityStatsResolver.OnEntityMaxHealthChanged += SpecificEntityStatsResolver_OnEntityMaxHealthChanged;
         specificEntityStatsResolver.OnEntityMaxShieldChanged += SpecificEntityStatsResolver_OnEntityMaxShieldChanged;
     }
 
     protected virtual void OnDisable()
     {
+        specificEntityStatsResolver.OnEntityStatsInitialized -= SpecificEntityStatsResolver_OnEntityStatsInitialized;
+
         specificEntityStatsResolver.OnEntityMaxHealthChanged -= SpecificEntityStatsResolver_OnEntityMaxHealthChanged;
         specificEntityStatsResolver.OnEntityMaxShieldChanged -= SpecificEntityStatsResolver_OnEntityMaxShieldChanged;
     }
@@ -161,6 +165,14 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         GetImmuneAbilitiesInterfaces();
     }
 
+    protected virtual void InitializeEntity()
+    {
+        currentHealth = currentHealth <= 0 ? specificEntityStatsResolver.MaxHealth : currentHealth;
+        currentShield = currentShield <= 0 ? specificEntityStatsResolver.MaxShield : currentShield;
+
+        OnEntityInitializedMethod();
+    }
+
     private void GetDodgeAbilitiesInterfaces() => dodgeAbilties = GeneralUtilities.TryGetGenericsFromTransforms<IDodgeAbility>(dodgeAbiltiesTransforms);
     private void GetImmuneAbilitiesInterfaces() => immuneAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IImmuneAbility>(immuneAbiltiesTransforms);
 
@@ -168,18 +180,18 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     #region Stats Clamping
     protected virtual void CheckCurrentHealthClamped()
     {
-        if (currentHealth > maxHealth)
+        if (currentHealth > specificEntityStatsResolver.MaxHealth)
         {
-            currentHealth = maxHealth;
+            currentHealth = specificEntityStatsResolver.MaxHealth;
             OnEntityCurrentHealthClampedMethod();
         }
     }
 
     protected virtual void CheckCurrentShieldClamped()
     {
-        if(currentShield > maxShield)
+        if(currentShield > specificEntityStatsResolver.MaxShield)
         {
-            currentShield = maxShield;
+            currentShield = specificEntityStatsResolver.MaxShield;
             OnEntityCurrentShieldClampedMethod();
         }
     }
@@ -279,8 +291,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         int previousHealth = currentHealth;
 
-        int effectiveHealAmount = currentHealth + healData.healAmount > maxHealth ? maxHealth - currentHealth : healData.healAmount;
-        currentHealth = currentHealth + effectiveHealAmount > maxHealth ? maxHealth : currentHealth + effectiveHealAmount;
+        int effectiveHealAmount = currentHealth + healData.healAmount > specificEntityStatsResolver.MaxHealth ? specificEntityStatsResolver.MaxHealth - currentHealth : healData.healAmount;
+        currentHealth = currentHealth + effectiveHealAmount > specificEntityStatsResolver.MaxHealth ? specificEntityStatsResolver.MaxHealth : currentHealth + effectiveHealAmount;
 
         OnEntityHealMethod(effectiveHealAmount, previousHealth, healData.healSource);
     }
@@ -291,8 +303,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         int previousHealth = currentHealth;
 
-        int healAmount = maxHealth - currentHealth;
-        currentHealth = maxHealth;
+        int healAmount = specificEntityStatsResolver.MaxHealth - currentHealth;
+        currentHealth = specificEntityStatsResolver.MaxHealth;
 
         OnEntityHealMethod(healAmount, previousHealth, healSource);
     }
@@ -304,8 +316,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         int previousShield = currentShield;
 
-        int effectiveShieldRestored = currentShield + shieldData.shieldAmount > maxShield ? maxShield - currentShield : shieldData.shieldAmount;
-        currentShield = currentShield + effectiveShieldRestored > maxShield ? maxShield : currentShield + effectiveShieldRestored;
+        int effectiveShieldRestored = currentShield + shieldData.shieldAmount > specificEntityStatsResolver.MaxShield ? specificEntityStatsResolver.MaxShield - currentShield : shieldData.shieldAmount;
+        currentShield = currentShield + effectiveShieldRestored > specificEntityStatsResolver.MaxShield ? specificEntityStatsResolver.MaxShield : currentShield + effectiveShieldRestored;
 
         OnEntityShieldRestoredMethod(effectiveShieldRestored, previousShield, shieldData.shieldSource);
     }
@@ -317,20 +329,27 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         int previousShield = currentShield;
 
-        int shieldAmount = maxShield - currentShield;
-        currentShield = maxShield;
+        int shieldAmount = specificEntityStatsResolver.MaxShield - currentShield;
+        currentShield = specificEntityStatsResolver.MaxShield;
 
         OnEntityShieldRestoredMethod(shieldAmount, previousShield, shieldSource);
     }
 
-    public bool IsFullHealth() => currentHealth >= maxHealth;
-    public bool IsFullShield() => currentShield >= maxShield;
+    public bool IsFullHealth() => currentHealth >= specificEntityStatsResolver.MaxHealth;
+    public bool IsFullShield() => currentShield >= specificEntityStatsResolver.MaxShield;
     public bool IsAlive() => currentHealth > 0;
     public bool HasShield() => currentShield > 0;
 
     #endregion
 
     #region Virtual Event Methods
+
+    protected virtual void OnEntityInitializedMethod()
+    {
+        OnEntityInitialized?.Invoke(this, new OnEntityInitializedEventArgs { currentHealth = currentHealth, currentShield = currentShield });
+        OnAnyEntityInitialized?.Invoke(this, new OnEntityInitializedEventArgs { currentHealth = currentHealth, currentShield = currentShield });
+    }
+
     protected virtual void OnEntityDodgeMethod(DamageData damageData)
     {
         OnEntityDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damageData.damage, isCrit = damageData.isCrit, damageSource = damageData.damageSource });
@@ -364,14 +383,14 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     protected virtual void OnEntityHealMethod(int healAmount, int previousHealth, IHealSourceSO healSource)
     {
-        OnEntityHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = maxHealth, healSource = healSource, healReceiver = this});
-        OnAnyEntityHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = maxHealth, healSource = healSource, healReceiver = this});
+        OnEntityHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = specificEntityStatsResolver.MaxHealth, healSource = healSource, healReceiver = this});
+        OnAnyEntityHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = specificEntityStatsResolver.MaxHealth, healSource = healSource, healReceiver = this});
     }
 
     protected virtual void OnEntityShieldRestoredMethod(int shieldAmount, int previousShield, IShieldSourceSO shieldSource)
     {
-        OnEntityShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = maxShield, shieldSource = shieldSource, shieldReceiver = this });
-        OnAnyEntityShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = maxShield, shieldSource = shieldSource, shieldReceiver = this });
+        OnEntityShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = specificEntityStatsResolver.MaxShield, shieldSource = shieldSource, shieldReceiver = this });
+        OnAnyEntityShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = specificEntityStatsResolver.MaxShield, shieldSource = shieldSource, shieldReceiver = this });
     }
 
     protected virtual void OnEntityDeathMethod()
@@ -424,6 +443,12 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     #endregion
 
     #region Subscriptions
+
+    private void SpecificEntityStatsResolver_OnEntityStatsInitialized(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
+    {
+        InitializeEntity();
+    }
+
     private void SpecificEntityStatsResolver_OnEntityMaxHealthChanged(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
     {
         CheckCurrentHealthClamped();
