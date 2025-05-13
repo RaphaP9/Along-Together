@@ -167,8 +167,14 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     protected virtual void InitializeEntity()
     {
-        currentHealth = currentHealth <= 0 ? specificEntityStatsResolver.MaxHealth : currentHealth;
-        currentShield = currentShield <= 0 ? specificEntityStatsResolver.MaxShield : currentShield;
+        currentHealth = currentHealth > specificEntityStatsResolver.MaxHealth ? specificEntityStatsResolver.MaxHealth : currentHealth; //Clamp to Maximums
+        currentShield = currentShield > specificEntityStatsResolver.MaxShield ? specificEntityStatsResolver.MaxShield : currentShield;
+
+        if(currentHealth <= 0) //Default Values if currentHealth == 0, if so, max both stats
+        {
+            currentHealth = specificEntityStatsResolver.MaxHealth;
+            currentShield = specificEntityStatsResolver.MaxShield;
+        }
 
         OnEntityInitializedMethod();
     }

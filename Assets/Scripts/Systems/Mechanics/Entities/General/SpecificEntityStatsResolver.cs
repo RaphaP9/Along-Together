@@ -65,11 +65,14 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
         OnEntityStatsInitializedMethod();
     }
 
+    #region Stat Calculations
     protected abstract int CalculateMaxHealth();
     protected abstract int CalculateMaxShield();
     protected abstract int CalculateArmor();
     protected abstract float CalculateDodgeChance();
+    #endregion
 
+    #region StatRecalculation
     protected virtual void RecalculateMaxHealth()
     {
         maxHealth = CalculateMaxHealth();
@@ -93,6 +96,7 @@ public abstract class SpecificEntityStatsResolver : MonoBehaviour
         dodgeChance = CalculateDodgeChance();
         OnEntityDodgeChanceChangedMethod();
     }
+    #endregion
 
     #region Virtual Events Methods
     protected virtual void OnEntityStatsInitializedMethod()

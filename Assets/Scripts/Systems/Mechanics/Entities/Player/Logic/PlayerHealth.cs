@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class PlayerHealth : EntityHealth
 {
-    [Header("PlayerHealth Components")]
-    [SerializeField] private CharacterIdentifier characterIdentifier;
-
     #region Events
     public static event EventHandler<OnEntityInitializedEventArgs> OnAnyPlayerInitialized;
     public event EventHandler<OnEntityInitializedEventArgs> OnPlayerInitialized;

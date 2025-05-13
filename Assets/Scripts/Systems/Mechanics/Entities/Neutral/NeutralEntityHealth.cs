@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class NeutralEntityHealth : EntityHealth
 {
-    [Header("NeutralEntityHealth Components")]
-    [SerializeField] private NeutralEntityIdentifier neutralEntityIdentifier;
-
     #region Events
     public static event EventHandler<OnEntityInitializedEventArgs> OnAnyNeutralEntityInitialized;
     public event EventHandler<OnEntityInitializedEventArgs> OnNeutralEntityInitialized;

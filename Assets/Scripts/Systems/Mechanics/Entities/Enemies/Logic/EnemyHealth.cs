@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class EnemyHealth : EntityHealth
 {
-    [Header("EnemyHealth Components")]
-    [SerializeField] private EnemyIdentifier enemyIdentifier;
-
     #region Events
     public static event EventHandler<OnEntityInitializedEventArgs> OnAnyEnemyInitialized;
     public event EventHandler<OnEntityInitializedEventArgs> OnEnemyInitialized;
