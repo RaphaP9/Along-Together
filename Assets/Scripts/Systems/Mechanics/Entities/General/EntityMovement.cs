@@ -5,73 +5,24 @@ using UnityEngine;
 
 public abstract class EntityMovement : MonoBehaviour
 {
+    [Header("Entity Movement Components")]
+    [SerializeField] protected SpecificEntityStatsResolver specificEntityStatsResolver;
+    [Space]
+    [SerializeField] protected List<Transform> displacementAbiltiesTransforms;
+
     [Header("Smooth Settings")]
     [SerializeField, Range(1f, 100f)] protected float smoothVelocityFactor = 5f;
     [SerializeField, Range(1f, 100f)] protected float smoothDirectionFactor = 5f;
 
-    [Header("Runtime Filled")]
-    [SerializeField] protected float movementSpeed;
+    protected Rigidbody2D _rigidbody2D;
 
-    #region Events
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityStatsInitialized;
-    public event EventHandler<OnEntityStatsEventArgs> OnEntityStatsInitialized;
+    protected List<IDisplacementAbility> displacementAbilities;
 
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityStatsUpdated;
-    public event EventHandler<OnEntityStatsEventArgs> OnEntityStatsUpdated;
-
-    //
-
-    public static event EventHandler<OnEntityStatsEventArgs> OnAnyEntityMovementSpeedChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnEntityMovementSpeedChanged;
-    #endregion
-
-    #region EventArgs Classes
-    public class OnEntityStatsEventArgs : EventArgs
+    protected virtual void Awake()
     {
-        public float movementSpeed;
-    }
-    #endregion
-
-    protected virtual void Start()
-    {
-        Initialize();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        GetDisplacementAbilitiesInterfaces();
     }
 
-    protected virtual void Initialize()
-    {
-        movementSpeed = CalculateMovementSpeed();
-
-        OnEntityStatsInitializedMethod();
-    }
-
-    protected abstract float CalculateMovementSpeed();
-
-    #region Recalculate Stats
-    protected virtual void RecalculateMovementSpeed()
-    {
-        movementSpeed = CalculateMovementSpeed();
-        OnEntityMovementSpeedChangedMethod();
-    }
-    #endregion
-
-    #region Virtual Event Methods
-
-    protected virtual void OnEntityStatsInitializedMethod()
-    {
-        OnEntityStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
-        OnAnyEntityStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
-    }
-
-    protected virtual void OnEntityStatsUpdatedMethod()
-    {
-        OnEntityStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
-        OnAnyEntityStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
-    }
-
-    protected virtual void OnEntityMovementSpeedChangedMethod()
-    {
-        OnEntityMovementSpeedChanged?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
-        OnAnyEntityMovementSpeedChanged?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
-    }
-    #endregion
+    private void GetDisplacementAbilitiesInterfaces() => displacementAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IDisplacementAbility>(displacementAbiltiesTransforms);
 }

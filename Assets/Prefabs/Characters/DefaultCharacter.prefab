@@ -415,15 +415,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bb1d3e64f8d5a4299e3d1046917a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specificEntityStatsResolver: {fileID: 6636574928624340988}
+  displacementAbiltiesTransforms:
+  - {fileID: 3296231075715405042}
   smoothVelocityFactor: 100
   smoothDirectionFactor: 100
-  movementSpeed: 0
   movementEnabled: 1
   characterIdentifier: {fileID: 1965199428449930878}
   playerHealth: {fileID: 6586126778679378193}
   checkWall: {fileID: 1462229981353037001}
-  displacementAbiltiesTransforms:
-  - {fileID: 3296231075715405042}
 --- !u!114 &8558667477407151034
 MonoBehaviour:
   m_ObjectHideFlags: 0

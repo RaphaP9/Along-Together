@@ -5,8 +5,6 @@ using System;
 
 public class PlayerMovement : EntityMovement
 {
-    public static PlayerMovement Instance {  get; private set; }
-
     [Header("Enabler")]
     [SerializeField] private bool movementEnabled;
 
@@ -15,27 +13,8 @@ public class PlayerMovement : EntityMovement
     [SerializeField] private PlayerHealth playerHealth;
     [Space]
     [SerializeField] private CheckWall checkWall;
-    [Space]
-    [SerializeField] private List<Transform> displacementAbiltiesTransforms;
 
-    #region Events
-
-    public static event EventHandler<OnEntityStatsEventArgs> OnPlayerStatsInitialized;
-    public event EventHandler<OnEntityStatsEventArgs> OnThisPlayerStatsInitialized;
-
-    public static event EventHandler<OnEntityStatsEventArgs> OnPlayerStatsUpdated;
-    public event EventHandler<OnEntityStatsEventArgs> OnThisPlayerStatsUpdated;
-
-    //
-
-    public static event EventHandler<OnEntityStatsEventArgs> OnPlayerMovementSpeedChanged;
-    public event EventHandler<OnEntityStatsEventArgs> OnThisPlayerMovementSpeedChanged;
-    #endregion
-
-    private Rigidbody2D _rigidbody2D;
-
-    private List<IDisplacementAbility> displacementAbilities;
-
+    #region Properties
     public Vector2 DirectionInput => MovementInput.Instance.GetMovementInputNormalized();
 
     public float DesiredSpeed { get; private set; }
@@ -46,23 +25,7 @@ public class PlayerMovement : EntityMovement
 
     public Vector2 ScaledMovementVector { get; private set; }
     public bool MovementEnabled => movementEnabled;
-
-    private void OnEnable()
-    {
-        MovementSpeedStatResolver.OnMovementSpeedResolverUpdated += MovementSpeedStatResolver_OnMovementSpeedResolverUpdated;
-    }
-
-    private void OnDisable()
-    {
-        MovementSpeedStatResolver.OnMovementSpeedResolverUpdated -= MovementSpeedStatResolver_OnMovementSpeedResolverUpdated;
-    }
-
-    private void Awake()
-    {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        SetSingleton();
-        GetDisplacementAbilitiesInterfaces();
-    }
+    #endregion
 
     private void Update()
     {
@@ -72,36 +35,6 @@ public class PlayerMovement : EntityMovement
     private void FixedUpdate()
     {
         ApplyMovement();
-    }
-
-    private void SetSingleton()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Debug.LogWarning("There is more than one PlayerMovement instance, proceding to destroy duplicate");
-            Destroy(gameObject);
-        }
-    }
-
-    private void GetDisplacementAbilitiesInterfaces()
-    {
-        displacementAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IDisplacementAbility>(displacementAbiltiesTransforms);
-    }
-
-    protected override float CalculateMovementSpeed() => MovementSpeedStatResolver.Instance.ResolveStatFloat(characterIdentifier.CharacterSO.baseMovementSpeed);
-
-    private bool CanApplyMovement()
-    {
-        foreach(IDisplacementAbility displacementAbility in displacementAbilities)
-        {
-            if (displacementAbility.IsDisplacing()) return false;
-        }
-
-        return true;
     }
 
     #region Logic
@@ -120,7 +53,7 @@ public class PlayerMovement : EntityMovement
 
     private void CalculateDesiredSpeed()
     {
-        DesiredSpeed = CanMove() ? CalculateMovementSpeed() : 0f;
+        DesiredSpeed = CanMove() ? specificEntityStatsResolver.MovementSpeed : 0f;
     }
 
     private bool CanMove()
@@ -163,37 +96,14 @@ public class PlayerMovement : EntityMovement
     }
     #endregion
 
-    #region Virtual Event Methods
-
-    protected override void OnEntityStatsInitializedMethod()
+    private bool CanApplyMovement()
     {
-        base.OnEntityStatsInitializedMethod();
+        foreach (IDisplacementAbility displacementAbility in displacementAbilities)
+        {
+            if (displacementAbility.IsDisplacing()) return false;
+        }
 
-        OnThisPlayerStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
-        OnPlayerStatsInitialized?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
+        return true;
     }
 
-    protected override void OnEntityStatsUpdatedMethod()
-    {
-        base.OnEntityStatsUpdatedMethod();
-
-        OnThisPlayerStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
-        OnPlayerStatsUpdated?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
-    }
-
-    protected override void OnEntityMovementSpeedChangedMethod()
-    {
-        base.OnEntityMovementSpeedChangedMethod();
-
-        OnThisPlayerMovementSpeedChanged?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
-        OnPlayerMovementSpeedChanged?.Invoke(this, new OnEntityStatsEventArgs { movementSpeed = CalculateMovementSpeed() });
-    }
-    #endregion
-
-    #region Subscriptions
-    private void MovementSpeedStatResolver_OnMovementSpeedResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
-    {
-        RecalculateMovementSpeed();
-    }
-    #endregion
 }
