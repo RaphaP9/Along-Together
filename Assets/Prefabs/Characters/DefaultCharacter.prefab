@@ -344,6 +344,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c868199e7742cc4290e9f7f730928fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dodgeAbiltiesTransforms:
+  - {fileID: 3296231075715405042}
+  immuneAbiltiesTransforms: []
   currentHealth: 0
   currentShield: 0
   maxHealth: 0
@@ -351,8 +354,6 @@ MonoBehaviour:
   armor: 0
   dodgeChance: 0
   characterIdentifier: {fileID: 1965199428449930878}
-  damageTakingInterruptionAbiltiesTransforms:
-  - {fileID: 3296231075715405042}
 --- !u!114 &4661234364419359008
 MonoBehaviour:
   m_ObjectHideFlags: 0

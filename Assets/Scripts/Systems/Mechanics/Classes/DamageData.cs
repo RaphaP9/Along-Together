@@ -4,4 +4,5 @@ public class DamageData
     public bool isCrit;
     public IDamageSourceSO damageSource;
     public bool canBeDodged;
+    public bool canBeImmuned;
 }
