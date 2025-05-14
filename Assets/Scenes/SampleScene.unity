@@ -14976,7 +14976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b055eaee263b8cb409bb95aeaa2baeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 11400000, guid: 134d8ff7fc2807c4694e47e9f8e6d19b, type: 2}
+  entitySO: {fileID: 11400000, guid: 134d8ff7fc2807c4694e47e9f8e6d19b, type: 2}
 --- !u!1001 &2106544399
 PrefabInstance:
   m_ObjectHideFlags: 0

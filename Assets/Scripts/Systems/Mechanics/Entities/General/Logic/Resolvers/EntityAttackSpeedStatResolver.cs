@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class EntityAttackSpeedStatResolver : EntityFloatStatResolver
 {
-    protected override float CalculateStat() => entitySO.baseAttackSpeed;
+    protected override float CalculateStat() => entityIdentifier.EntitySO.baseAttackSpeed;
 }
 

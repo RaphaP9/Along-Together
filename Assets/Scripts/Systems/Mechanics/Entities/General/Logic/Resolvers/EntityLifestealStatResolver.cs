@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EntityLifestealStatResolver : EntityFloatStatResolver
 {
-    protected override float CalculateStat() => entitySO.baseLifesteal;
+    protected override float CalculateStat() => entityIdentifier.EntitySO.baseLifesteal;
 }
 
 

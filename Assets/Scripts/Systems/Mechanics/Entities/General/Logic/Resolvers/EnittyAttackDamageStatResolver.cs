@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class EnittyAttackDamageStatResolver : EntityIntStatResolver
 {
-    protected override int CalculateStat() => entitySO.baseAttackDamage;
+    protected override int CalculateStat() => entityIdentifier.EntitySO.baseAttackDamage;
 }
 

@@ -20,7 +20,7 @@ public abstract class EntitySO : ScriptableObject, IAttackableSO, IDamageSourceS
     [Space]
     [Range(0, 1)] public float baseDodgeChance;
 
-    [Header("Character Damage Settings")]
+    [Header("Entity Damage Settings")]
     [Range(0, 10)] public int baseAttackDamage;
     [Range(0.5f, 3f)] public float baseAttackSpeed;
     [Space]
@@ -47,5 +47,4 @@ public abstract class EntitySO : ScriptableObject, IAttackableSO, IDamageSourceS
     public string GetDamageSourceDescription() => description;
     public Color GetDamageSourceColor() => damageColor;
     #endregion
-
 }

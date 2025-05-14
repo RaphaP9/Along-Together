@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDodgeChanceStatResolver : MonoBehaviour
+public class PlayerDodgeChanceStatResolver : EntityDodgeChanceStatResolver
 {
-    // Start is called before the first frame update
-    void Start()
+    private CharacterIdentifier CharacterIdentifier => entityIdentifier as CharacterIdentifier;
+
+    protected virtual void OnEnable()
     {
-        
+        DodgeChanceStatResolver.OnDodgeChanceResolverUpdated += DodgeChanceStatResolver_OnDodgeChanceResolverUpdated;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void OnDisable()
     {
-        
+        DodgeChanceStatResolver.OnDodgeChanceResolverUpdated -= DodgeChanceStatResolver_OnDodgeChanceResolverUpdated;
+    }
+
+    protected override float CalculateStat()
+    {
+        return DodgeChanceStatResolver.Instance.ResolveStatFloat(CharacterIdentifier.CharacterSO.baseDodgeChance);
+    }
+
+    private void DodgeChanceStatResolver_OnDodgeChanceResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateStat();
     }
 }

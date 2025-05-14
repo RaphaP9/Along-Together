@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMaxShieldStatResolver : EntityMaxShieldStatResolver
 {
-    private CharacterSO CharacterSO => entitySO as CharacterSO;
+    private CharacterIdentifier CharacterIdentifier => entityIdentifier as CharacterIdentifier;
 
     protected virtual void OnEnable()
     {
@@ -18,7 +18,7 @@ public class PlayerMaxShieldStatResolver : EntityMaxShieldStatResolver
 
     protected override int CalculateStat()
     {
-        return MaxShieldStatResolver.Instance.ResolveStatInt(CharacterSO.baseShield);
+        return MaxShieldStatResolver.Instance.ResolveStatInt(CharacterIdentifier.CharacterSO.baseShield);
     }
 
     private void MaxShieldStatResolver_OnMaxShieldResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)

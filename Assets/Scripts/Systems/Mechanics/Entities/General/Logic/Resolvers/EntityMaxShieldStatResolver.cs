@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class EntityMaxShieldStatResolver : EntityIntStatResolver
 {
-    protected override int CalculateStat() => entitySO.baseShield;
+    protected override int CalculateStat() => entityIdentifier.EntitySO.baseShield;
 }

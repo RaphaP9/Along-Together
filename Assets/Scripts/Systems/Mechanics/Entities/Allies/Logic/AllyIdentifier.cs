@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AllyIdentifier : MonoBehaviour
+public class AllyIdentifier : EntityIdentifier
 {
-    [Header("Components")]
-    [SerializeField] private AllySO allySO;
-
-    public AllySO AllySO => allySO;
+    public AllySO AllySO => entitySO as AllySO;
 }

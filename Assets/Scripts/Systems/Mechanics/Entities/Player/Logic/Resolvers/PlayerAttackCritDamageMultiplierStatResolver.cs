@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackCritDamageMultiplierStatResolver : MonoBehaviour
+public class PlayerAttackCritDamageMultiplierStatResolver : EntityAttackCritDamageMultiplierStatResolver
 {
-    // Start is called before the first frame update
-    void Start()
+    private CharacterIdentifier CharacterIdentifier => entityIdentifier as CharacterIdentifier;
+
+    protected virtual void OnEnable()
     {
-        
+        AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverUpdated += AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void OnDisable()
     {
-        
+        AttackCritDamageMultiplierStatResolver.OnAttackCritDamageMultiplierResolverUpdated -= AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated;
+    }
+
+    protected override float CalculateStat()
+    {
+        return AttackCritDamageMultiplierStatResolver.Instance.ResolveStatFloat(CharacterIdentifier.CharacterSO.baseAttackCritDamageMultiplier);
+    }
+
+    private void AttackCritDamageMultiplierStatResolver_OnAttackCritDamageMultiplierResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateStat();
     }
 }

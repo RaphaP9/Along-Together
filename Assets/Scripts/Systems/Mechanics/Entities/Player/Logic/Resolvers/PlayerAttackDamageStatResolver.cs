@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackDamageStatResolver : MonoBehaviour
+public class PlayerAttackDamageStatResolver : EntityIntStatResolver
 {
-    // Start is called before the first frame update
-    void Start()
+    private CharacterIdentifier CharacterIdentifier => entityIdentifier as CharacterIdentifier;
+
+    protected virtual void OnEnable()
     {
-        
+        AttackDamageStatResolver.OnAttackDamageResolverUpdated += AttackDamageStatResolver_OnAttackDamageResolverUpdated;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void OnDisable()
     {
-        
+        AttackDamageStatResolver.OnAttackDamageResolverUpdated -= AttackDamageStatResolver_OnAttackDamageResolverUpdated;
+    }
+
+    protected override int CalculateStat()
+    {
+        return AttackDamageStatResolver.Instance.ResolveStatInt(CharacterIdentifier.CharacterSO.baseAttackDamage);
+    }
+
+    private void AttackDamageStatResolver_OnAttackDamageResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateStat();
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class EntityFloatStatResolver : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] protected EntitySO entitySO;
+    [SerializeField] protected EntityIdentifier entityIdentifier;
 
     [Header("Runtime Filled")]
     [SerializeField] protected float value;

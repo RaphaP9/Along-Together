@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHealthRegenStatResolver : EntityIntStatResolver
 {
-    private CharacterSO CharacterSO => entitySO as CharacterSO;
+    private CharacterIdentifier CharacterIdentifier => entityIdentifier as CharacterIdentifier;
 
     protected virtual void OnEnable()
     {
@@ -18,7 +18,7 @@ public class PlayerHealthRegenStatResolver : EntityIntStatResolver
 
     protected override int CalculateStat()
     {
-        return HealthRegenStatResolver.Instance.ResolveStatInt(CharacterSO.baseHealthRegen);
+        return HealthRegenStatResolver.Instance.ResolveStatInt(CharacterIdentifier.CharacterSO.baseHealthRegen);
     }
 
     private void HealthRegenStatResolver_OnHealthRegenResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)

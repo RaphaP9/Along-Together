@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EntityAttackCritDamageMultiplierStatResolver : EntityFloatStatResolver
 {
-    protected override float CalculateStat() => entitySO.baseAttackCritDamageMultiplier;
+    protected override float CalculateStat() => entityIdentifier.EntitySO.baseAttackCritDamageMultiplier;
 }
 
 

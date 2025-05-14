@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class EntityMovementSpeedStatResolver : EntityFloatStatResolver
 {
-    protected override float CalculateStat() => entitySO.baseMovementSpeed;
+    protected override float CalculateStat() => entityIdentifier.EntitySO.baseMovementSpeed;
 }
 

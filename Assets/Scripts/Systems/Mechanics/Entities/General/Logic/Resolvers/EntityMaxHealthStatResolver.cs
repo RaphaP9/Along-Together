@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class EntityMaxHealthStatResolver : EntityIntStatResolver
 {
-    protected override int CalculateStat() => entitySO.baseHealth;
+    protected override int CalculateStat() => entityIdentifier.EntitySO.baseHealth;
 }

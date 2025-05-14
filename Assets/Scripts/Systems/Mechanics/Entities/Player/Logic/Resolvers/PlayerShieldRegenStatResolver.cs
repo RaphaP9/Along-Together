@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerShieldRegenStatResolver : EntityIntStatResolver
 {
-    private CharacterSO CharacterSO => entitySO as CharacterSO;
+    private CharacterIdentifier CharacterIdentifier => entityIdentifier as CharacterIdentifier;
 
     protected virtual void OnEnable()
     {
@@ -18,7 +18,7 @@ public class PlayerShieldRegenStatResolver : EntityIntStatResolver
 
     protected override int CalculateStat()
     {
-        return ShieldRegenStatResolver.Instance.ResolveStatInt(CharacterSO.baseShieldRegen);
+        return ShieldRegenStatResolver.Instance.ResolveStatInt(CharacterIdentifier.CharacterSO.baseShieldRegen);
     }
 
     private void ShieldRegenStatResolver_OnShieldRegenResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)

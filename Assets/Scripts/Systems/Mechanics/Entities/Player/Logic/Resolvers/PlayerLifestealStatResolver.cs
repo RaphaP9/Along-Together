@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerLifestealStatResolver : MonoBehaviour
+public class PlayerLifestealStatResolver : EntityLifestealStatResolver
 {
-    // Start is called before the first frame update
-    void Start()
+    private CharacterIdentifier CharacterIdentifier => entityIdentifier as CharacterIdentifier;
+
+    protected virtual void OnEnable()
     {
-        
+        LifestealStatResolver.OnLifestealResolverUpdated += LifestealStatResolver_OnLifestealResolverUpdated;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void OnDisable()
     {
-        
+        LifestealStatResolver.OnLifestealResolverUpdated -= LifestealStatResolver_OnLifestealResolverUpdated;
+    }
+
+    protected override float CalculateStat()
+    {
+        return LifestealStatResolver.Instance.ResolveStatFloat(CharacterIdentifier.CharacterSO.baseLifesteal);
+    }
+
+    private void LifestealStatResolver_OnLifestealResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    {
+        RecalculateStat();
     }
 }

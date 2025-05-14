@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EntityAttackCritChanceStatResolver : EntityFloatStatResolver
 {
-    protected override float CalculateStat() => entitySO.baseAttackCritChance;
+    protected override float CalculateStat() => entityIdentifier.EntitySO.baseAttackCritChance;
 }
 
 

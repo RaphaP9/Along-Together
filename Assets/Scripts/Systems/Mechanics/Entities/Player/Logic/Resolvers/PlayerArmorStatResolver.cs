@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerArmorStatResolver : EntityArmorStatResolver
 {
-    private CharacterSO CharacterSO => entitySO as CharacterSO;
+    private CharacterIdentifier CharacterIdentifier => entityIdentifier as CharacterIdentifier;
 
     protected virtual void OnEnable()
     {
@@ -18,7 +18,7 @@ public class PlayerArmorStatResolver : EntityArmorStatResolver
 
     protected override int CalculateStat()
     {
-        return ArmorStatResolver.Instance.ResolveStatInt(CharacterSO.baseArmor);
+        return ArmorStatResolver.Instance.ResolveStatInt(CharacterIdentifier.CharacterSO.baseArmor);
     }
 
     private void ArmorStatResolver_OnArmorResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)

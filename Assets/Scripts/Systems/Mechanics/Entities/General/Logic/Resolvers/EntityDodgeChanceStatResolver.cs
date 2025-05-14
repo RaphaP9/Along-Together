@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class EntityDodgeChanceStatResolver : EntityFloatStatResolver
 {
-    protected override float CalculateStat() => entitySO.baseDodgeChance;
+    protected override float CalculateStat() => entityIdentifier.EntitySO.baseDodgeChance;
 }
 

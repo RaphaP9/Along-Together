@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyIdentifier : MonoBehaviour
+public class EnemyIdentifier : EntityIdentifier
 {
-    [Header("Components")]
-    [SerializeField] private EnemySO enemySO;
-
-    public EnemySO EnemySO => enemySO;
+    public EnemySO EnemySO => entitySO as EnemySO;
 }

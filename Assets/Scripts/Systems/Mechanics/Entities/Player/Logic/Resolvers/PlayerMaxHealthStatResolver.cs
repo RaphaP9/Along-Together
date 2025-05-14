@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMaxHealthStatResolver : EntityMaxHealthStatResolver
 {
-    private CharacterSO CharacterSO => entitySO as CharacterSO;
+    private CharacterIdentifier CharacterIdentifier => entityIdentifier as CharacterIdentifier;
 
     protected virtual void OnEnable()
     {
@@ -19,7 +19,7 @@ public class PlayerMaxHealthStatResolver : EntityMaxHealthStatResolver
 
     protected override int CalculateStat()
     {
-        return MaxHealthStatResolver.Instance.ResolveStatInt(CharacterSO.baseHealth);
+        return MaxHealthStatResolver.Instance.ResolveStatInt(CharacterIdentifier.CharacterSO.baseHealth);
     }
 
     private void MaxHealthStatResolver_OnMaxHealthResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
