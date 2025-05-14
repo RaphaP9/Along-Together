@@ -21,6 +21,11 @@ public class PlayerCooldownReductionStatResolver : EntityFloatStatResolver
         return CooldownReductionStatResolver.Instance.ResolveStatFloat(CharacterIdentifier.CharacterSO.baseCooldownReduction);
     }
 
+    protected override float CalculateBaseValue()
+    {
+        return CharacterIdentifier.CharacterSO.baseCooldownReduction;
+    }
+
     public float GetAbilityCooldown(float abilityOriginalCooldown)
     {
         float newCooldown = abilityOriginalCooldown * (1 - value);

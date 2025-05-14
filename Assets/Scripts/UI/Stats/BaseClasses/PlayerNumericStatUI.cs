@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public abstract class PlayerNumericStatUI : MonoBehaviour
+public abstract class PlayerNumericStatUI<T> : MonoBehaviour where T : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] protected TextMeshProUGUI valueText;
@@ -16,10 +16,9 @@ public abstract class PlayerNumericStatUI : MonoBehaviour
     [Header("Debug")]
     [SerializeField] protected bool debug;
 
-    protected enum StatState { Positive, Neutral, Negative}
-    protected SpecificPlayerStatsResolver specificPlayerStatsResolver;
-    protected CharacterIdentifier characterIdentifier;
+    protected T resolver;
 
+    protected enum StatState { Positive, Neutral, Negative}
 
     protected virtual void OnEnable()
     {
@@ -69,14 +68,13 @@ public abstract class PlayerNumericStatUI : MonoBehaviour
     protected abstract float GetBaseValue();
     #endregion
 
-    protected virtual void FindPlayerLogic(Transform playerTransform)
+    protected void FindResolverLogic(Transform playerTransform)
     {
-        characterIdentifier = playerTransform.GetComponentInChildren<CharacterIdentifier>();
-        specificPlayerStatsResolver = playerTransform.GetComponentInChildren<SpecificPlayerStatsResolver>();
+        resolver = playerTransform.GetComponentInChildren<T>();
 
-        if (specificPlayerStatsResolver == null)
+        if (resolver == null)
         {
-            if (debug) Debug.Log("Could not fing SpecificPlayerStatsResolver.");
+            if (debug) Debug.Log("Could not find resolver.");
             return;
         }
 
@@ -89,7 +87,7 @@ public abstract class PlayerNumericStatUI : MonoBehaviour
     #region Subscriptions
     private void PlayerInstantiationHandler_OnPlayerInstantiation(object sender, PlayerInstantiationHandler.OnPlayerInstantiationEventArgs e)
     {
-        FindPlayerLogic(e.playerTransform);
+        FindResolverLogic(e.playerTransform);
     }
     #endregion
 }

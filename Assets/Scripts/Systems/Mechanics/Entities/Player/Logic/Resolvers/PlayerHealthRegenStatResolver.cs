@@ -21,6 +21,11 @@ public class PlayerHealthRegenStatResolver : EntityIntStatResolver
         return HealthRegenStatResolver.Instance.ResolveStatInt(CharacterIdentifier.CharacterSO.baseHealthRegen);
     }
 
+    protected override int CalculateBaseValue()
+    {
+        return CharacterIdentifier.CharacterSO.baseHealthRegen;
+    }
+
     private void HealthRegenStatResolver_OnHealthRegenResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
     {
         RecalculateStat();

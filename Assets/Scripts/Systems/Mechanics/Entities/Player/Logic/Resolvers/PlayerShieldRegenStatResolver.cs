@@ -21,6 +21,11 @@ public class PlayerShieldRegenStatResolver : EntityIntStatResolver
         return ShieldRegenStatResolver.Instance.ResolveStatInt(CharacterIdentifier.CharacterSO.baseShieldRegen);
     }
 
+    protected override int CalculateBaseValue()
+    {
+        return CharacterIdentifier.CharacterSO.baseShieldRegen;
+    }
+
     private void ShieldRegenStatResolver_OnShieldRegenResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
     {
         RecalculateStat();

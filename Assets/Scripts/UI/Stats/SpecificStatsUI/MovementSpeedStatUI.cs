@@ -2,34 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementSpeedStatUI : PlayerNumericStatUI
+public class MovementSpeedStatUI : PlayerNumericStatUI<PlayerMovementSpeedStatResolver>
 {
     protected override void SubscribeToEvents()
     {
-        specificPlayerStatsResolver.OnPlayerStatsInitialized += SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
-        specificPlayerStatsResolver.OnPlayerMovementSpeedChanged += SpecificPlayerStatsResolver_OnPlayerMovementSpeedChanged;
+        resolver.OnEntityStatInitialized += Resolver_OnEntityStatInitialized;
+        resolver.OnEntityStatUpdated += Resolver_OnEntityStatUpdated;
     }
-
     protected override void UnSubscribeToEvents()
     {
-        if (specificPlayerStatsResolver == null) return;
+        if (resolver == null) return;
 
-        specificPlayerStatsResolver.OnPlayerStatsInitialized -= SpecificPlayerStatsResolver_OnPlayerStatsInitialized;
-        specificPlayerStatsResolver.OnPlayerMovementSpeedChanged -= SpecificPlayerStatsResolver_OnPlayerMovementSpeedChanged;
+        resolver.OnEntityStatInitialized += Resolver_OnEntityStatInitialized;
+        resolver.OnEntityStatUpdated -= Resolver_OnEntityStatUpdated;
     }
 
     protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleFloat(currentValue, 2);
-    protected override float GetBaseValue() => characterIdentifier.CharacterSO.baseMovementSpeed;
-    protected override float GetCurrentValue() => specificPlayerStatsResolver.MovementSpeed;
+    protected override float GetBaseValue() => resolver.BaseValue;
+    protected override float GetCurrentValue() => resolver.Value;
 
 
     #region Subscriptions
-    private void SpecificPlayerStatsResolver_OnPlayerMovementSpeedChanged(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
+    private void Resolver_OnEntityStatInitialized(object sender, EntityFloatStatResolver.OnStatEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }
 
-    private void SpecificPlayerStatsResolver_OnPlayerStatsInitialized(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
+    private void Resolver_OnEntityStatUpdated(object sender, EntityFloatStatResolver.OnStatEventArgs e)
     {
         UpdateUIByNewValue(GetCurrentValue(), GetBaseValue());
     }

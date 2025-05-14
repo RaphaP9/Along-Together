@@ -10,8 +10,10 @@ public abstract class EntityFloatStatResolver : MonoBehaviour
 
     [Header("Runtime Filled")]
     [SerializeField] protected float value;
+    [SerializeField] protected float baseValue;
 
     public float Value => value;
+    public float BaseValue => baseValue;    
 
     public event EventHandler<OnStatEventArgs> OnEntityStatInitialized;
     public event EventHandler<OnStatEventArgs> OnEntityStatUpdated;
@@ -28,10 +30,12 @@ public abstract class EntityFloatStatResolver : MonoBehaviour
 
     private void Initialize()
     {
+        baseValue = CalculateBaseValue();
         value = CalculateStat();
         OnEntityStatInitialized?.Invoke(this, new OnStatEventArgs { value = value });
     }
 
+    protected abstract float CalculateBaseValue();
     protected abstract float CalculateStat();
 
     protected virtual void RecalculateStat()
