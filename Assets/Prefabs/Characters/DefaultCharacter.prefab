@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 3654785395795810660}
   - component: {fileID: 6181913077647479785}
   - component: {fileID: 3287368004166176090}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StatsResolvers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -763,7 +763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 80269585919273975}
   - component: {fileID: 5668402913487765036}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Guitar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -847,7 +847,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4207330769636370381}
   - component: {fileID: 5602473446942649674}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WeaponFlipper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -990,7 +990,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1539104338402781237}
   - component: {fileID: 1753534425973844098}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WeaponVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1069,7 +1069,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6248436503809636389}
   - component: {fileID: 2977175279305093656}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AimDirectioner
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -1514,7 +1514,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6335867028995148016}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -1579,9 +1579,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6380853313663446174}
     m_Modifications:
+    - target: {fileID: 141231946243313856, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1410530824343140059, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5085056178871382406, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6093734476313129250, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6093785102066928632, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6230169858455676317, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_Name
       value: CharacterHUDCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6230169858455676317, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6607938803619685459, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: playerHealth
@@ -1591,6 +1615,22 @@ PrefabInstance:
       propertyPath: playerMaxHealthStatResolver
       value: 
       objectReference: {fileID: 967868445402340617}
+    - target: {fileID: 6921071287596128181, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7277521392092184975, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7759946990167100741, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8277528786343497667, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8657386621253478757, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1670,6 +1710,10 @@ PrefabInstance:
     - target: {fileID: 8657386621253478757, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844417142399411739, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
