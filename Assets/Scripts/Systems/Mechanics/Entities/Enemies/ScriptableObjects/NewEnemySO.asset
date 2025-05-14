@@ -21,7 +21,7 @@ MonoBehaviour:
   baseHealth: 20
   baseShield: 0
   baseArmor: 10
-  baseDodgeChance: 0.5
+  baseDodgeChance: 0
   baseAttackDamage: 0
   baseAttackSpeed: 0.5
   baseAttackCritChance: 0

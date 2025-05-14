@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 1965199428449930878}
   - component: {fileID: 6586126778679378193}
   - component: {fileID: 4661234364419359008}
-  - component: {fileID: 3526358432640884377}
+  - component: {fileID: 2613628452749778797}
   m_Layer: 6
   m_Name: DefaultCharacter
   m_TagString: Untagged
@@ -428,7 +428,7 @@ MonoBehaviour:
   characterIdentifier: {fileID: 1965199428449930878}
   playerHealth: {fileID: 6586126778679378193}
   checkWall: {fileID: 1462229981353037001}
---- !u!114 &3526358432640884377
+--- !u!114 &2613628452749778797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1851777789475013426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61b0eff57cca2b1478bed9799a487ca2, type: 3}
+  m_Script: {fileID: 11500000, guid: e528e31e7171ed14499f3e02aeec5ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   specificEntityStatsResolver: {fileID: 6636574928624340988}
@@ -451,11 +451,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   firePoint: {fileID: 6335867028995148016}
-  hitscanImpactLayerMask:
+  projectilePrefab: {fileID: 8073931636513284674, guid: 2d3a358fa169ae842bec906ece6900ab, type: 3}
+  projectileDamageType: 0
+  projectileAreaRadius: 0
+  projectileImpactLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  hitscanDistance: 13.4
-  hitscanDispersionAngle: 0
+  projectileSpeed: 10
+  projectileLifespan: 5
+  projectileDispersionAngle: 0
 --- !u!1 &3069412420397820189
 GameObject:
   m_ObjectHideFlags: 0

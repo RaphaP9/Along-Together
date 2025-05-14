@@ -62,7 +62,14 @@ public abstract class EntityAttack : MonoBehaviour
 
     private bool AttackOnCooldown() => attackTimer > 0f;
     private void ResetAttackTimer() => attackTimer = 0f;
-    protected void MaxTimer() => attackTimer = 1f / specificEntityStatsResolver.AttackSpeed;
+    private bool HasValidAttackSpeed() => specificEntityStatsResolver.AttackSpeed > 0f;
+
+    protected void MaxTimer()
+    {
+        if (!HasValidAttackSpeed()) return;
+
+        attackTimer = 1f / specificEntityStatsResolver.AttackSpeed;
+    } 
 
     #region Virtual Event Methods
     protected virtual void OnEntityAttackMethod(bool isCrit, int attackDamage)
@@ -74,6 +81,7 @@ public abstract class EntityAttack : MonoBehaviour
 
     protected virtual bool CanAttack()
     {
+        if (!HasValidAttackSpeed()) return false;
         if (AttackOnCooldown()) return false;
 
         foreach (IAttackInterruptionAbility attackInterruptionAbility in attackInterruptionAbilities)
