@@ -13,7 +13,7 @@ public class SpecificNeutralEntityStatResolver : SpecificEntityStatsResolver
     public event EventHandler<OnEntityStatsEventArgs> OnNeutralEntityStatsInitialized;
 
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyNeutralEntityStatsUpdated;
-    public event EventHandler<OnEntityStatsEventArgs> OnEnemyStatsUpdated;
+    public event EventHandler<OnEntityStatsEventArgs> OnNeutralEntityStatsUpdated;
 
     public static event EventHandler<OnEntityStatsEventArgs> OnAnyNeutralEntityMaxHealthChanged;
     public event EventHandler<OnEntityStatsEventArgs> OnNeutralEntityMaxHealthChanged;
@@ -85,7 +85,7 @@ public class SpecificNeutralEntityStatResolver : SpecificEntityStatsResolver
     {
         base.OnEntityStatsUpdatedMethod();
 
-        OnEnemyStatsUpdated?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
+        OnNeutralEntityStatsUpdated?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
         OnAnyNeutralEntityStatsUpdated?.Invoke(this, GenerateCurrentEntityStatsEventArgs());
     }
 
