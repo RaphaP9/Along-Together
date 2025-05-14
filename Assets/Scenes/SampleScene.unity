@@ -995,6 +995,7 @@ Transform:
   - {fileID: 1798261951}
   - {fileID: 1215790615}
   - {fileID: 1984772640}
+  - {fileID: 576036529}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &157776629
@@ -1141,7 +1142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 163162892}
   - component: {fileID: 163162893}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2207,7 +2208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 383226953}
   - component: {fileID: 383226954}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BoundLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3757,7 +3758,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 559885416}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3984,6 +3985,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571196193}
   m_CullTransparentMesh: 1
+--- !u!1 &576036528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 576036529}
+  m_Layer: 0
+  m_Name: Collisions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &576036529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576036528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 148177430}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &602807250
 GameObject:
   m_ObjectHideFlags: 0
@@ -4027,7 +4059,7 @@ GameObject:
   m_Component:
   - component: {fileID: 605025502}
   - component: {fileID: 605025503}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4857,7 +4889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 712312523}
   - component: {fileID: 712312524}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BoundUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5702,7 +5734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 811104807}
   - component: {fileID: 811104808}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BoundRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6029,7 +6061,7 @@ GameObject:
   m_Component:
   - component: {fileID: 851976632}
   - component: {fileID: 851976633}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6314,7 +6346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 874856438}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6480,7 +6512,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 889139401}
-  - component: {fileID: 889139402}
   - component: {fileID: 889139412}
   - component: {fileID: 889139411}
   - component: {fileID: 889139410}
@@ -6513,29 +6544,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2024282506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &889139402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889139400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0c3f62e213c054488c2606bdf421240, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 0
-  maxShield: 0
-  armor: 0
-  dodgeChance: 0
-  attackDamage: 0
-  attackSpeed: 0
-  attackCritChance: 0
-  attackCritDamageMultiplier: 0
-  movementSpeed: 0
-  lifesteal: 0
-  enemyIdentifier: {fileID: 2100225253}
 --- !u!114 &889139403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6550,6 +6558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 2100225253}
   value: 0
+  baseValue: 0
 --- !u!114 &889139404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6564,6 +6573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 2100225253}
   value: 0
+  baseValue: 0
 --- !u!114 &889139405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6578,6 +6588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 2100225253}
   value: 0
+  baseValue: 0
 --- !u!114 &889139406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6592,6 +6603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 2100225253}
   value: 0
+  baseValue: 0
 --- !u!114 &889139407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6606,6 +6618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 2100225253}
   value: 0
+  baseValue: 0
 --- !u!114 &889139408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6620,6 +6633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 2100225253}
   value: 0
+  baseValue: 0
 --- !u!114 &889139409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6634,6 +6648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 2100225253}
   value: 0
+  baseValue: 0
 --- !u!114 &889139410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6648,6 +6663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 2100225253}
   value: 0
+  baseValue: 0
 --- !u!114 &889139411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6662,6 +6678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 2100225253}
   value: 0
+  baseValue: 0
 --- !u!114 &889139412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6676,6 +6693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 2100225253}
   value: 0
+  baseValue: 0
 --- !u!1 &932844823
 GameObject:
   m_ObjectHideFlags: 0
@@ -6716,7 +6734,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 950638792}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10011,7 +10029,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lifesteal Regen
+  m_text: Lifesteal
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12258,7 +12276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1692136275}
   - component: {fileID: 1692136276}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BoundDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12335,7 +12353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1697989839}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15093,8 +15111,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 464594795}
   - {fileID: 2024282506}
+  - {fileID: 464594795}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2100225252
@@ -15754,7 +15772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2112825298}
   - component: {fileID: 2112825299}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -6,15 +6,15 @@ using UnityEngine;
 public abstract class ActiveAbility : Ability, IActiveAbility
 {
     [Header("Active Ability Components")]
-    [SerializeField] protected SpecificPlayerStatsResolver specificPlayerStatsResolver;
+    [SerializeField] protected PlayerCooldownReductionStatResolver cooldownReductionStatResolver;
     [SerializeField] protected AbilityCooldownHandler abilityCooldownHandler;
 
     public AbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
     private ActiveAbilitySO ActiveAbilitySO => abilitySO as ActiveAbilitySO;
-    public float ProcessedAbilityCooldown => specificPlayerStatsResolver.GetAbilityCooldown(ActiveAbilitySO.baseCooldown);
+    public float ProcessedAbilityCooldown => cooldownReductionStatResolver.GetAbilityCooldown(ActiveAbilitySO.baseCooldown);
 
     #region InterfaceMethods
-    public float CalculateAbilityCooldown() => specificPlayerStatsResolver.GetAbilityCooldown(ActiveAbilitySO.baseCooldown);
+    public float CalculateAbilityCooldown() => cooldownReductionStatResolver.GetAbilityCooldown(ActiveAbilitySO.baseCooldown);
     public bool AbilityCastInput() => abilitySlotHandler.GetAssociatedDownInput();
     public override bool CanCastAbility()
     {

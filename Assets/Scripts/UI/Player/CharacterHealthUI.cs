@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CharacterHealthUI : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private SpecificPlayerStatsResolver specificPlayerStatsResolver;
+    [SerializeField] private PlayerMaxHealthStatResolver playerMaxHealthStatResolver;
     [SerializeField] private PlayerHealth playerHealth;
 
     [Header("UI Components")]
@@ -21,17 +21,16 @@ public class CharacterHealthUI : MonoBehaviour
 
     private float LERP_THRESHOLD = 0.01f;
 
-    public int maxHealth;
-    public int currentHealth;
+    private int maxHealth = 1;
+    private int currentHealth = 0;
 
-    public float targetFill;
-    public float currentFill;
+    private float targetFill;
+    private float currentFill;
 
     private void OnEnable()
     {
-        specificPlayerStatsResolver.OnPlayerStatsInitialized += PlayerHealth_OnPlayerStatsInitialized;
-        specificPlayerStatsResolver.OnPlayerStatsUpdated += PlayerHealth_OnPlayerStatsUpdated;
-        specificPlayerStatsResolver.OnPlayerMaxHealthChanged += PlayerHealth_OnPlayerMaxHealthChanged;
+        playerMaxHealthStatResolver.OnEntityStatInitialized += PlayerMaxHealthStatResolver_OnEntityStatInitialized;
+        playerMaxHealthStatResolver.OnEntityStatUpdated += PlayerMaxHealthStatResolver_OnEntityStatUpdated;
 
         playerHealth.OnPlayerInitialized += PlayerHealth_OnPlayerInitialized;
         playerHealth.OnPlayerHealthTakeDamage += PlayerHealth_OnPlayerHealthTakeDamage;
@@ -41,9 +40,8 @@ public class CharacterHealthUI : MonoBehaviour
 
     private void OnDisable()
     {
-        specificPlayerStatsResolver.OnPlayerStatsInitialized -= PlayerHealth_OnPlayerStatsInitialized;
-        specificPlayerStatsResolver.OnPlayerStatsUpdated -= PlayerHealth_OnPlayerStatsUpdated;
-        specificPlayerStatsResolver.OnPlayerMaxHealthChanged -= PlayerHealth_OnPlayerMaxHealthChanged;
+        playerMaxHealthStatResolver.OnEntityStatInitialized -= PlayerMaxHealthStatResolver_OnEntityStatInitialized;
+        playerMaxHealthStatResolver.OnEntityStatUpdated -= PlayerMaxHealthStatResolver_OnEntityStatUpdated;
 
         playerHealth.OnPlayerInitialized -= PlayerHealth_OnPlayerInitialized;
         playerHealth.OnPlayerHealthTakeDamage -= PlayerHealth_OnPlayerHealthTakeDamage;
@@ -106,22 +104,17 @@ public class CharacterHealthUI : MonoBehaviour
     }
 
     #region Subscriptions
-    private void PlayerHealth_OnPlayerStatsInitialized(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
+    private void PlayerMaxHealthStatResolver_OnEntityStatInitialized(object sender, EntityIntStatResolver.OnStatEventArgs e)
     {
-        UpdateHealthValues(currentHealth, e.maxHealth);
+        UpdateHealthValues(currentHealth, e.value);
         UpdateUIByHealthValues();
 
         UpdateUIByHealthValuesImmediately();
     }
 
-    private void PlayerHealth_OnPlayerStatsUpdated(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
+    private void PlayerMaxHealthStatResolver_OnEntityStatUpdated(object sender, EntityIntStatResolver.OnStatEventArgs e)
     {
-        UpdateHealthValues(currentHealth, e.maxHealth);
-        UpdateUIByHealthValues();
-    }
-    private void PlayerHealth_OnPlayerMaxHealthChanged(object sender, SpecificEntityStatsResolver.OnEntityStatsEventArgs e)
-    {
-        UpdateHealthValues(currentHealth, e.maxHealth);
+        UpdateHealthValues(currentHealth, e.value);
         UpdateUIByHealthValues();
     }
 

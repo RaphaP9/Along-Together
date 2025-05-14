@@ -101,7 +101,7 @@ MonoBehaviour:
   playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
   abilityLevel: 0
-  specificPlayerStatsResolver: {fileID: 6636574928624340988}
+  cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 8397176443843121625}
   activeAbilityGUIDs: []
 --- !u!114 &8397176443843121625
@@ -126,7 +126,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5554819483533937557}
-  - component: {fileID: 6636574928624340988}
   - component: {fileID: 967868445402340617}
   - component: {fileID: 1226524130109811475}
   - component: {fileID: 1745675015781674559}
@@ -162,32 +161,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 718122822509755242}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6636574928624340988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520426018347751691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e307204a8e5395341989af3fb524456b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 0
-  maxShield: 0
-  armor: 0
-  dodgeChance: 0
-  attackDamage: 0
-  attackSpeed: 0
-  attackCritChance: 0
-  attackCritDamageMultiplier: 0
-  movementSpeed: 0
-  lifesteal: 0
-  characterIdentifier: {fileID: 1965199428449930878}
-  healthRegen: 0
-  shieldRegen: 0
-  cooldownReduction: 0
 --- !u!114 &967868445402340617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &1226524130109811475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &1745675015781674559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &8309975983145625986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &5003616657934743761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,6 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &8050554025046698674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &4239527076616180330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &6819630603167251739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &5930587708578372876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &8844724857378226313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &3654785395795810660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,6 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &6181913077647479785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,6 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!114 &3287368004166176090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityIdentifier: {fileID: 1965199428449930878}
   value: 0
+  baseValue: 0
 --- !u!1 &1612407981133521685
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +404,7 @@ MonoBehaviour:
   playerMovement: {fileID: 4661234364419359008}
   wallLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4097
   rayLength: 0.35
   drawRaycasts: 1
   HitWall: 0
@@ -657,7 +643,7 @@ MonoBehaviour:
   projectileAreaRadius: 0
   projectileImpactLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4097
   projectileSpeed: 10
   projectileLifespan: 5
   projectileDispersionAngle: 0
@@ -948,7 +934,7 @@ MonoBehaviour:
   playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
   abilityLevel: 0
-  specificPlayerStatsResolver: {fileID: 6636574928624340988}
+  cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 6423833680700352654}
 --- !u!114 &6423833680700352654
 MonoBehaviour:
@@ -1330,7 +1316,7 @@ MonoBehaviour:
   playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
   abilityLevel: 0
-  specificPlayerStatsResolver: {fileID: 6636574928624340988}
+  cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 1263218695718187337}
   mouseDirectionHandler: {fileID: 4593777764411072900}
   movementDirectionHandler: {fileID: 4053781653671632281}
@@ -1602,9 +1588,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6586126778679378193}
     - target: {fileID: 6607938803619685459, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: specificPlayerStatsResolver
+      propertyPath: playerMaxHealthStatResolver
       value: 
-      objectReference: {fileID: 6636574928624340988}
+      objectReference: {fileID: 967868445402340617}
     - target: {fileID: 8657386621253478757, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_Pivot.x
       value: 0
