@@ -37,7 +37,6 @@ public abstract class PlayerAttack : EntityAttack
         MaxTimer();
     }
 
-
     protected override void OnEntityAttackMethod(bool isCrit, int attackDamage)
     {
         base.OnEntityAttackMethod(isCrit, attackDamage);

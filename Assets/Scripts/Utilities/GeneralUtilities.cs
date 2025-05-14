@@ -201,6 +201,18 @@ public static class GeneralUtilities
 
     #region LayerMasks
     public static bool CheckGameObjectInLayerMask(GameObject gameObject, LayerMask layerMask) => ((1 << gameObject.layer) & layerMask) != 0;
+
+    public static LayerMask CombineLayerMasks(List<LayerMask> layermasks)
+    {
+        int combined = 0;
+
+        foreach (LayerMask layermask in layermasks)
+        {
+            combined |= layermask.value;
+        }
+
+        return combined;
+    }
     #endregion
 
     #region Lists

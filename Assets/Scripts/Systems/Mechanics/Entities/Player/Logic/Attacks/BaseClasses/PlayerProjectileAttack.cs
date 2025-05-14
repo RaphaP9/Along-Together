@@ -25,9 +25,11 @@ public class PlayerProjectileAttack : PlayerAttack
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(specificEntityStatsResolver.AttackDamage, specificEntityStatsResolver.AttackCritDamageMultiplier) : specificEntityStatsResolver.AttackDamage;
 
         Vector2 shootDirection = aimDirectionerHandler.AimDirection;
+        Vector2 processedShootDirection = MechanicsUtilities.DeviateShootDirection(shootDirection, projectileDispersionAngle);
+
         Vector2 position = firePoint.position;
 
-        InstantiateProjectile(characterIdentifier.CharacterSO, projectilePrefab, position, shootDirection, damage, isCrit, projectileSpeed, projectileLifespan, projectileDamageType, projectileAreaRadius, attackLayermask, projectileImpactLayerMask);
+        InstantiateProjectile(characterIdentifier.CharacterSO, projectilePrefab, position, processedShootDirection, damage, isCrit, projectileSpeed, projectileLifespan, projectileDamageType, projectileAreaRadius, attackLayermask, projectileImpactLayerMask);
 
         OnEntityAttackMethod(isCrit, damage);
     }
@@ -45,8 +47,6 @@ public class PlayerProjectileAttack : PlayerAttack
             return;
         }
 
-        Vector2 processedShootDirection = MechanicsUtilities.DeviateShootDirection(shootDirection, projectileDispersionAngle);
-
-        projectileHandler.SetProjectile(damageSource, processedShootDirection, damage, isCrit, speed, lifespan, projectileDamageType, areaRadius, targetLayerMask, impactLayerMask);
+        projectileHandler.SetProjectile(damageSource, shootDirection, damage, isCrit, speed, lifespan, projectileDamageType, areaRadius, targetLayerMask, impactLayerMask);
     }
 }
