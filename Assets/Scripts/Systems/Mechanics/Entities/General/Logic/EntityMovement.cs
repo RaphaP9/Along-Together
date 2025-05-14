@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class EntityMovement : MonoBehaviour
 {
     [Header("Entity Movement Components")]
-    [SerializeField] protected SpecificEntityStatsResolver specificEntityStatsResolver;
+    [SerializeField] protected EntityMovementSpeedStatResolver entityMovementSpeedStatResolver;
     [Space]
     [SerializeField] protected List<Transform> displacementAbiltiesTransforms;
 
@@ -25,4 +25,6 @@ public abstract class EntityMovement : MonoBehaviour
     }
 
     private void GetDisplacementAbilitiesInterfaces() => displacementAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IDisplacementAbility>(displacementAbiltiesTransforms);
+
+    protected float GetMovementSpeedValue() => entityMovementSpeedStatResolver.Value;
 }

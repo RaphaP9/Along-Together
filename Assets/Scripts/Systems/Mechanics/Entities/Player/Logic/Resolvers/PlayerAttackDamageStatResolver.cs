@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackDamageStatResolver : EntityIntStatResolver
+public class PlayerAttackDamageStatResolver : EntityAttackDamageStatResolver
 {
     private CharacterIdentifier CharacterIdentifier => entityIdentifier as CharacterIdentifier;
 

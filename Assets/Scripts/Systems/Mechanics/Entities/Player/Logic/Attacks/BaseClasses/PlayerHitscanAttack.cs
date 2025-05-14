@@ -25,8 +25,8 @@ public class PlayerHitscanAttack : PlayerAttack
 
     protected override void Attack()
     {
-        bool isCrit = MechanicsUtilities.EvaluateCritAttack(specificEntityStatsResolver.AttackCritChance);
-        int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(specificEntityStatsResolver.AttackDamage, specificEntityStatsResolver.AttackCritDamageMultiplier) : specificEntityStatsResolver.AttackDamage;
+        bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value);
+        int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(entityAttackDamageStatResolver.Value, entityAttackCritDamageMultiplierStatResolver.Value) : entityAttackDamageStatResolver.Value;
 
         Vector2 direction = aimDirectionerHandler.AimDirection;
         Vector2 processedDirection = MechanicsUtilities.DeviateShootDirection(direction, hitscanDispersionAngle);

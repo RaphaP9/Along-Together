@@ -6,7 +6,10 @@ using UnityEngine;
 public abstract class EntityAttack : MonoBehaviour
 {
     [Header("Entity Attack Components")]
-    [SerializeField] protected SpecificEntityStatsResolver specificEntityStatsResolver;
+    [SerializeField] protected EntityAttackDamageStatResolver entityAttackDamageStatResolver;
+    [SerializeField] protected EntityAttackSpeedStatResolver entityAttackSpeedStatResolver;
+    [SerializeField] protected EntityAttackCritChanceStatResolver entityAttackCritChanceStatResolver;
+    [SerializeField] protected EntityAttackCritDamageMultiplierStatResolver entityAttackCritDamageMultiplierStatResolver;
     [Space]
     [SerializeField] protected List<Transform> attackInterruptionAbilitiesTransforms;
 
@@ -62,20 +65,20 @@ public abstract class EntityAttack : MonoBehaviour
 
     private bool AttackOnCooldown() => attackTimer > 0f;
     private void ResetAttackTimer() => attackTimer = 0f;
-    private bool HasValidAttackSpeed() => specificEntityStatsResolver.AttackSpeed > 0f;
+    private bool HasValidAttackSpeed() => entityAttackSpeedStatResolver.Value > 0f;
 
     protected void MaxTimer()
     {
         if (!HasValidAttackSpeed()) return;
 
-        attackTimer = 1f / specificEntityStatsResolver.AttackSpeed;
+        attackTimer = 1f / entityAttackSpeedStatResolver.Value;
     } 
 
     #region Virtual Event Methods
     protected virtual void OnEntityAttackMethod(bool isCrit, int attackDamage)
     {
-        OnEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = specificEntityStatsResolver.AttackSpeed, attackCritChance = specificEntityStatsResolver.AttackCritChance, attackCritDamageMultiplier = specificEntityStatsResolver.AttackCritDamageMultiplier });
-        OnAnyEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = specificEntityStatsResolver.AttackSpeed, attackCritChance = specificEntityStatsResolver.AttackCritChance, attackCritDamageMultiplier = specificEntityStatsResolver.AttackCritDamageMultiplier });
+        OnEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
+        OnAnyEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
     }
     #endregion
 

@@ -53,7 +53,7 @@ public class PlayerMovement : EntityMovement
 
     private void CalculateDesiredSpeed()
     {
-        DesiredSpeed = CanMove() ? specificEntityStatsResolver.MovementSpeed : 0f;
+        DesiredSpeed = CanMove() ? GetMovementSpeedValue() : 0f;
     }
 
     private bool CanMove()

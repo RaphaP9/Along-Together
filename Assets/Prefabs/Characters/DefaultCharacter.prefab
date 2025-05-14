@@ -596,7 +596,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c868199e7742cc4290e9f7f730928fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specificEntityStatsResolver: {fileID: 6636574928624340988}
+  entityMaxHealthStatResolver: {fileID: 967868445402340617}
+  entityMaxShieldStatResolver: {fileID: 1226524130109811475}
+  entityArmorStatResolver: {fileID: 1745675015781674559}
+  entityDodgeChanceStatResolver: {fileID: 8309975983145625986}
   dodgeAbiltiesTransforms:
   - {fileID: 3296231075715405042}
   immuneAbiltiesTransforms: []
@@ -614,7 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bb1d3e64f8d5a4299e3d1046917a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specificEntityStatsResolver: {fileID: 6636574928624340988}
+  entityMovementSpeedStatResolver: {fileID: 5930587708578372876}
   displacementAbiltiesTransforms:
   - {fileID: 3296231075715405042}
   smoothVelocityFactor: 100
@@ -635,7 +638,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e528e31e7171ed14499f3e02aeec5ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specificEntityStatsResolver: {fileID: 6636574928624340988}
+  entityAttackDamageStatResolver: {fileID: 5003616657934743761}
+  entityAttackSpeedStatResolver: {fileID: 8050554025046698674}
+  entityAttackCritChanceStatResolver: {fileID: 4239527076616180330}
+  entityAttackCritDamageMultiplierStatResolver: {fileID: 6819630603167251739}
   attackInterruptionAbilitiesTransforms:
   - {fileID: 3296231075715405042}
   debug: 1

@@ -41,8 +41,8 @@ public abstract class PlayerAttack : EntityAttack
     {
         base.OnEntityAttackMethod(isCrit, attackDamage);
 
-        OnPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = specificEntityStatsResolver.AttackSpeed, attackCritChance = specificEntityStatsResolver.AttackCritChance, attackCritDamageMultiplier = specificEntityStatsResolver.AttackCritDamageMultiplier });
-        OnAnyPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = specificEntityStatsResolver.AttackSpeed, attackCritChance = specificEntityStatsResolver.AttackCritChance, attackCritDamageMultiplier = specificEntityStatsResolver.AttackCritDamageMultiplier });
+        OnPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
+        OnAnyPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
     }
 
     #region AttackTriggerType-Input Assignation
