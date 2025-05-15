@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDisplacementAbility
+public interface IAttackInterruption
 {
-    public bool IsDisplacing();
+    public bool IsInterruptingAttack();
 }

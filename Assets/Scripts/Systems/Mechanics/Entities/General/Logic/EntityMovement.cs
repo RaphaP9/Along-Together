@@ -8,7 +8,7 @@ public abstract class EntityMovement : MonoBehaviour
     [Header("Entity Movement Components")]
     [SerializeField] protected EntityMovementSpeedStatResolver entityMovementSpeedStatResolver;
     [Space]
-    [SerializeField] protected List<Transform> displacementAbiltiesTransforms;
+    [SerializeField] protected List<Component> displacementComponents;
 
     [Header("Smooth Settings")]
     [SerializeField, Range(1f, 100f)] protected float smoothVelocityFactor = 5f;
@@ -16,15 +16,15 @@ public abstract class EntityMovement : MonoBehaviour
 
     protected Rigidbody2D _rigidbody2D;
 
-    protected List<IDisplacementAbility> displacementAbilities;
+    protected List<IDisplacement> displacements;
 
     protected virtual void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        GetDisplacementAbilitiesInterfaces();
+        GetDisplacementInterfaces();
     }
 
-    private void GetDisplacementAbilitiesInterfaces() => displacementAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IDisplacementAbility>(displacementAbiltiesTransforms);
+    private void GetDisplacementInterfaces() => displacements = GeneralUtilities.TryGetGenericsFromComponents<IDisplacement>(displacementComponents);
 
     protected float GetMovementSpeedValue() => entityMovementSpeedStatResolver.Value;
 }

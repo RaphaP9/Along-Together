@@ -98,7 +98,7 @@ public class PlayerMovement : EntityMovement
 
     private bool CanApplyMovement()
     {
-        foreach (IDisplacementAbility displacementAbility in displacementAbilities)
+        foreach (IDisplacement displacementAbility in displacements)
         {
             if (displacementAbility.IsDisplacing()) return false;
         }

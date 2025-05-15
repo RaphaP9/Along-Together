@@ -11,7 +11,7 @@ public class PlayerFacingDirectionHandler : MonoBehaviour
     [SerializeField] private PlayerHealth playerHealth;
     [Space]
     [Header("Components")]
-    [SerializeField] private List<Transform> facingInterruptionAbilitiesTransforms;
+    [SerializeField] private List<Component> facingInterruptionComponents;
 
     [Header("Settings")]
     [SerializeField] private FacingType facingType;
@@ -25,7 +25,7 @@ public class PlayerFacingDirectionHandler : MonoBehaviour
     [SerializeField] private Vector2 overridenDirection;
 
     public Vector2Int CurrentFacingDirection => currentFacingDirection;
-    private List<IFacingInterruptionAbility> facingInterruptionAbilities;
+    private List<IFacingInterruption> facingInterruptions;
 
     private enum FacingType { Rigidbody, Aim };
     public bool IsOverridingFacingDirection => isOverridingFacingDirection;
@@ -33,7 +33,7 @@ public class PlayerFacingDirectionHandler : MonoBehaviour
 
     private void Awake()
     {
-        GetFacingInterruptionAbilitiesInterfaces();
+        GetFacingInterruptionInterfaces();
     }
 
     private void Start()
@@ -47,7 +47,7 @@ public class PlayerFacingDirectionHandler : MonoBehaviour
         HandleFacingDirection();
     }
 
-    private void GetFacingInterruptionAbilitiesInterfaces() => facingInterruptionAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IFacingInterruptionAbility>(facingInterruptionAbilitiesTransforms);
+    private void GetFacingInterruptionInterfaces() => facingInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IFacingInterruption>(facingInterruptionComponents);
 
     #region FacingDirectionOverride
 
@@ -55,7 +55,7 @@ public class PlayerFacingDirectionHandler : MonoBehaviour
     {
         if (!playerHealth.IsAlive()) return;
 
-        foreach (IFacingInterruptionAbility facingInterruptionAbility in facingInterruptionAbilities)
+        foreach (IFacingInterruption facingInterruptionAbility in facingInterruptions)
         {
             if (facingInterruptionAbility.IsInterruptingFacing())
             {
@@ -73,7 +73,6 @@ public class PlayerFacingDirectionHandler : MonoBehaviour
     }
 
     #endregion
-
 
     #region Facing Direction Logic
     private void HandleFacingDirection()

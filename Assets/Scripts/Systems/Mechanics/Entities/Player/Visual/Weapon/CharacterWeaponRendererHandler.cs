@@ -5,15 +5,16 @@ using UnityEngine;
 public class CharacterWeaponRendererHandler : MonoBehaviour
 {
     [Header("Components")]
+    [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private List<Transform> attackInterruptionAbilitiesTransforms;
+    [SerializeField] private List<Component> attackInterruptionComponents;
 
-    private List<IAttackInterruptionAbility> attackInterruptionAbilities;
+    private List<IAttackInterruption> attackInterruptions;
     private bool renderingWeapon = true;
 
     private void Awake()
     {
-        GetAttackInterruptionAbilitiesInterfaces();
+        GetAttackInterruptionInterfaces();
     }
 
     private void Update()
@@ -21,9 +22,9 @@ public class CharacterWeaponRendererHandler : MonoBehaviour
         HandleWeaponRendering();
     }
 
-    private void GetAttackInterruptionAbilitiesInterfaces()
+    private void GetAttackInterruptionInterfaces()
     {
-        attackInterruptionAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IAttackInterruptionAbility>(attackInterruptionAbilitiesTransforms);
+        attackInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IAttackInterruption>(attackInterruptionComponents);
     }
 
     private void HandleWeaponRendering()
@@ -60,7 +61,9 @@ public class CharacterWeaponRendererHandler : MonoBehaviour
 
     protected virtual bool CanRenderWeapon()
     {
-        foreach (IAttackInterruptionAbility attackInterruptionAbility in attackInterruptionAbilities)
+        if (!playerHealth.IsAlive()) return false;
+
+        foreach (IAttackInterruption attackInterruptionAbility in attackInterruptions)
         {
             if (attackInterruptionAbility.IsInterruptingAttack()) return false;
         }

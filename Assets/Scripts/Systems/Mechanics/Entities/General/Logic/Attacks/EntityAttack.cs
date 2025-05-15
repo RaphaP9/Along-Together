@@ -6,18 +6,20 @@ using UnityEngine;
 public abstract class EntityAttack : MonoBehaviour
 {
     [Header("Entity Attack Components")]
+    [SerializeField] protected EntityHealth entityHealth;
+    [Space]
     [SerializeField] protected EntityAttackDamageStatResolver entityAttackDamageStatResolver;
     [SerializeField] protected EntityAttackSpeedStatResolver entityAttackSpeedStatResolver;
     [SerializeField] protected EntityAttackCritChanceStatResolver entityAttackCritChanceStatResolver;
     [SerializeField] protected EntityAttackCritDamageMultiplierStatResolver entityAttackCritDamageMultiplierStatResolver;
     [Space]
-    [SerializeField] protected List<Transform> attackInterruptionAbilitiesTransforms;
+    [SerializeField] protected List<Component> attackInterruptionComponents;
 
     [Header("Debug")]
     [SerializeField] protected bool debug;
 
     protected float attackTimer = 0f;
-    private List<IAttackInterruptionAbility> attackInterruptionAbilities;
+    private List<IAttackInterruption> attackInterruptions;
 
     #region Events
     public event EventHandler<OnEntityAttackEventArgs> OnEntityAttack;
@@ -38,7 +40,7 @@ public abstract class EntityAttack : MonoBehaviour
 
     private void Awake()
     {
-        GetAttackInterruptionAbilitiesInterfaces();
+        GetAttackInterruptionInterfaces();
     }
 
     protected virtual void Start()
@@ -54,7 +56,7 @@ public abstract class EntityAttack : MonoBehaviour
 
     protected abstract void HandleAttack();
     protected abstract void Attack();
-    private void GetAttackInterruptionAbilitiesInterfaces() => attackInterruptionAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IAttackInterruptionAbility>(attackInterruptionAbilitiesTransforms);
+    private void GetAttackInterruptionInterfaces() => attackInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IAttackInterruption>(attackInterruptionComponents);
 
     private void HandleAttackCooldown()
     {
@@ -84,10 +86,11 @@ public abstract class EntityAttack : MonoBehaviour
 
     protected virtual bool CanAttack()
     {
+        if (!entityHealth.IsAlive()) return false;
         if (!HasValidAttackSpeed()) return false;
         if (AttackOnCooldown()) return false;
 
-        foreach (IAttackInterruptionAbility attackInterruptionAbility in attackInterruptionAbilities)
+        foreach (IAttackInterruption attackInterruptionAbility in attackInterruptions)
         {
             if (attackInterruptionAbility.IsInterruptingAttack()) return false;
         }

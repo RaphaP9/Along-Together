@@ -586,9 +586,9 @@ MonoBehaviour:
   entityMaxShieldStatResolver: {fileID: 1226524130109811475}
   entityArmorStatResolver: {fileID: 1745675015781674559}
   entityDodgeChanceStatResolver: {fileID: 8309975983145625986}
-  dodgeAbiltiesTransforms:
-  - {fileID: 3296231075715405042}
-  immuneAbiltiesTransforms: []
+  dodgerComponents:
+  - {fileID: 7573232495966570463}
+  immunerComponents: []
   currentHealth: 0
   currentShield: 0
 --- !u!114 &4661234364419359008
@@ -604,8 +604,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityMovementSpeedStatResolver: {fileID: 5930587708578372876}
-  displacementAbiltiesTransforms:
-  - {fileID: 3296231075715405042}
+  displacementComponents:
+  - {fileID: 7573232495966570463}
   smoothVelocityFactor: 100
   smoothDirectionFactor: 100
   movementEnabled: 1
@@ -624,12 +624,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e528e31e7171ed14499f3e02aeec5ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityHealth: {fileID: 6586126778679378193}
   entityAttackDamageStatResolver: {fileID: 5003616657934743761}
   entityAttackSpeedStatResolver: {fileID: 8050554025046698674}
   entityAttackCritChanceStatResolver: {fileID: 4239527076616180330}
   entityAttackCritDamageMultiplierStatResolver: {fileID: 6819630603167251739}
-  attackInterruptionAbilitiesTransforms:
-  - {fileID: 3296231075715405042}
+  attackInterruptionComponents:
+  - {fileID: 7573232495966570463}
   debug: 1
   characterIdentifier: {fileID: 1965199428449930878}
   aimDirectionerHandler: {fileID: 2977175279305093656}
@@ -1025,9 +1026,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6e22598889d94fb244b176aa759d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: {fileID: 6586126778679378193}
   spriteRenderer: {fileID: 5668402913487765036}
-  attackInterruptionAbilitiesTransforms:
-  - {fileID: 3296231075715405042}
+  attackInterruptionComponents:
+  - {fileID: 7573232495966570463}
 --- !u!1 &6462796451184188670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,8 +1207,8 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 3125651546402793068}
   aimDirectionerHandler: {fileID: 2977175279305093656}
   playerHealth: {fileID: 6586126778679378193}
-  facingInterruptionAbilitiesTransforms:
-  - {fileID: 3296231075715405042}
+  facingInterruptionComponents:
+  - {fileID: 7573232495966570463}
   facingType: 1
   startingFacingDirection: {x: 1, y: 0}
   minimumRigidbodyVelocity: 1

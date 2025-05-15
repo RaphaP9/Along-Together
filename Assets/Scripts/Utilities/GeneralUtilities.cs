@@ -300,10 +300,38 @@ public static class GeneralUtilities
 
         return foundGenerics;
     }
+
+    public static bool TryGetGenericFromComponent<T>(Component component, out T foundGeneric) where T : class
+    {
+        foundGeneric = null;
+
+        if(component is T generic)
+        {
+            foundGeneric = generic;
+            return true;
+        }
+
+        return false;
+    }
+
+    public static List<T> TryGetGenericsFromComponents<T>(List<Component> components) where T : class
+    {
+        List<T> foundGenerics = new List<T>();
+
+        foreach (Component component in components)
+        {
+            if (component is T generic)
+            {
+                foundGenerics.Add(generic);
+            }
+        }
+
+        return foundGenerics;
+    }
     #endregion
 
     #region Interfaces
 
-   
+
     #endregion
 }

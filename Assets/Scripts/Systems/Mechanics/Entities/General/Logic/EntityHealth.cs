@@ -12,15 +12,15 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     [SerializeField] protected EntityDodgeChanceStatResolver entityDodgeChanceStatResolver;
 
     [Space]
-    [SerializeField] protected List<Transform> dodgeAbiltiesTransforms;
-    [SerializeField] protected List<Transform> immuneAbiltiesTransforms;
+    [SerializeField] protected List<Component> dodgerComponents;
+    [SerializeField] protected List<Component> immunerComponents;
 
     [Header("Runtime Filled")]
     [SerializeField] protected int currentHealth;
     [SerializeField] protected int currentShield;
 
-    protected List<IDodgeAbility> dodgeAbilties;
-    protected List<IImmuneAbility> immuneAbilities;
+    protected List<IDodger> dodgers;
+    protected List<IImmuner> immuners;
 
     protected bool healthReady = false;
     protected bool shieldReady = false;
@@ -171,8 +171,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     protected virtual void Awake()
     {
-        GetDodgeAbilitiesInterfaces();
-        GetImmuneAbilitiesInterfaces();
+        GetDodgerInterfaces();
+        GetImmunerInterfaces();
     }
 
     protected virtual void InitializeHealth()
@@ -201,8 +201,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnEntityInitializedMethod();
     }
 
-    private void GetDodgeAbilitiesInterfaces() => dodgeAbilties = GeneralUtilities.TryGetGenericsFromTransforms<IDodgeAbility>(dodgeAbiltiesTransforms);
-    private void GetImmuneAbilitiesInterfaces() => immuneAbilities = GeneralUtilities.TryGetGenericsFromTransforms<IImmuneAbility>(immuneAbiltiesTransforms);
+    private void GetDodgerInterfaces() => dodgers = GeneralUtilities.TryGetGenericsFromComponents<IDodger>(dodgerComponents);
+    private void GetImmunerInterfaces() => immuners = GeneralUtilities.TryGetGenericsFromComponents<IImmuner>(immunerComponents);
 
   
     #region Stats Clamping
@@ -226,7 +226,6 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     #endregion
 
     #region Interface Methods
-
     public virtual bool AvoidDamageTakeHits() => false;
     public virtual bool AvoidDamagePassThrough() => !IsAlive(); //If it is not alive, pass though attacks
     public virtual bool CanHeal() => IsAlive();
@@ -452,7 +451,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     {
         if (!IsAlive()) return false;
 
-        foreach (IDodgeAbility dodgeAbility in dodgeAbilties)
+        foreach (IDodger dodgeAbility in dodgers)
         {
             if (dodgeAbility.IsDodging()) return true;
         }
@@ -464,7 +463,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     {
         if (!IsAlive()) return false;
 
-        foreach (IImmuneAbility immuneAbility in immuneAbilities)
+        foreach (IImmuner immuneAbility in immuners)
         {
             if (immuneAbility.IsImmune()) return true;
         }
