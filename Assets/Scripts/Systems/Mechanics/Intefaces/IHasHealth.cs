@@ -6,7 +6,8 @@ using UnityEngine.UIElements;
 
 public interface IHasHealth 
 {
-    public bool CanTakeDamage();
+    public bool AvoidDamageTakeHits(); //Avoid all damage and get hit by projectiles
+    public bool AvoidDamagePassThrough(); //Avoid all damage and pass through projectiles
     public bool CanHeal();
     public bool CanRestoreShield();
 

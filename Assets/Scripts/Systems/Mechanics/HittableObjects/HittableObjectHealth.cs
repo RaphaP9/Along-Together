@@ -114,15 +114,16 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
     protected virtual int CalculateMaxShield() => hittableObjectIdentifier.HittableObjectSO.shield;
 
     #region Interface Methods
-    public virtual bool CanTakeDamage() => true;
+    public virtual bool AvoidDamageTakeHits() => false;
+    public virtual bool AvoidDamagePassThrough() => !IsAlive();
     public virtual bool CanHeal() => true;
     public virtual bool CanRestoreShield() => true;
 
     public bool TakeDamage(DamageData damageData) //Any damage taken By a HittableObject is 1
     {
         //HittableObjects can't dodge
-        if (!CanTakeDamage()) return true;
-        if (!IsAlive()) return false;
+        if (!AvoidDamagePassThrough()) return false;
+        if (!AvoidDamageTakeHits()) return true;
 
         int previousHealth = currentHealth;
         int previousShield = currentShield;
@@ -152,7 +153,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
 
     public void Excecute(IDamageSourceSO damageSource)
     {
-        if (!CanTakeDamage()) return;
+        if (!AvoidDamageTakeHits()) return;
         if (!IsAlive()) return;
 
         int previousHealth = currentHealth;

@@ -31,4 +31,4 @@ MonoBehaviour:
   baseMovementSpeed: 0
   oreDrop: 0
   spawnDuration: 1
-  cleanupTime: 1
+  cleanupTime: 3

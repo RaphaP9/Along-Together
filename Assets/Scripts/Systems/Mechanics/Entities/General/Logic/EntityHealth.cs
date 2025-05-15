@@ -227,15 +227,17 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     #region Interface Methods
 
-    public virtual bool CanTakeDamage() => IsAlive();
+    public virtual bool AvoidDamageTakeHits() => false;
+    public virtual bool AvoidDamagePassThrough() => !IsAlive(); //If it is not alive, pass though attacks
     public virtual bool CanHeal() => IsAlive();
     public virtual bool CanRestoreShield() => IsAlive();
 
     public bool TakeDamage(DamageData damageData) 
     {
-        if(!CanTakeDamage()) return false;
+        if(AvoidDamagePassThrough()) return false;
+        if(AvoidDamageTakeHits()) return true;
 
-        if(IsImmuneByAbility() && damageData.canBeImmuned)
+        if (IsImmuneByAbility() && damageData.canBeImmuned)
         {
             OnEntityImmuneMethod(damageData);
             return true;
@@ -287,7 +289,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     public void Excecute(IDamageSourceSO damageSource)
     {
-        if (!CanTakeDamage()) return;
+        if (!AvoidDamagePassThrough()) return;
+        if (!AvoidDamageTakeHits()) return;
         if (!IsAlive()) return;
 
         int previousHealth = currentHealth;

@@ -15153,7 +15153,9 @@ GameObject:
   - component: {fileID: 2100225251}
   - component: {fileID: 2100225250}
   - component: {fileID: 2100225253}
+  - component: {fileID: 2100225254}
   - component: {fileID: 2100225252}
+  - component: {fileID: 2100225255}
   m_Layer: 7
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -15246,6 +15248,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entitySO: {fileID: 11400000, guid: 134d8ff7fc2807c4694e47e9f8e6d19b, type: 2}
+--- !u!114 &2100225254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100225249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5389c1030ac244aab753a74be77fda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeEnemyState: 0
+--- !u!114 &2100225255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100225249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25e09951835815246a1846624e833aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyIdentifier: {fileID: 2100225253}
+  enemyHealth: {fileID: 2100225252}
 --- !u!1001 &2106544399
 PrefabInstance:
   m_ObjectHideFlags: 0
