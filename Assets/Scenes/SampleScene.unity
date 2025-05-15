@@ -15485,8 +15485,9 @@ MonoBehaviour:
   enemySpawnHandler: {fileID: 2100225256}
   enemyHealth: {fileID: 2100225252}
   enemyMovement: {fileID: 2100225257}
-  enemyMeleeAttack: {fileID: 2100225259}
+  meleeEnemyAttack: {fileID: 2100225259}
   enemyCleanup: {fileID: 2100225255}
+  playerRelativeHandler: {fileID: 138078872}
   meleeEnemyState: 0
 --- !u!114 &2100225255
 MonoBehaviour:

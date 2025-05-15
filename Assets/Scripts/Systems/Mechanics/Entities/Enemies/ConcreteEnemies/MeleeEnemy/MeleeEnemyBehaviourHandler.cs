@@ -4,26 +4,24 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MeleeEnemyBehaviourHandler : MonoBehaviour
+public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
 {
-    [Header("Components")]
-    [SerializeField] private EnemyIdentifier enemyIdentifier;
-    [SerializeField] private EnemySpawnHandler enemySpawnHandler;
-    [SerializeField] private EnemyHealth enemyHealth;
-    [SerializeField] private EnemyMovement enemyMovement;
-    [SerializeField] private MeleeEnemyAttack enemyMeleeAttack;
-    [SerializeField] private EnemyCleanupHandler enemyCleanup;
+    [Header("Melee Enemy Components")]
+    [SerializeField] private MeleeEnemyAttack meleeEnemyAttack;
 
     [Header("State - Runtime Filled")]
     [SerializeField] private MeleeEnemyState meleeEnemyState;
 
-    private enum MeleeEnemyState {Spawning, FollowingPlayer, AttackingPlayer, Dead}
+    private enum MeleeEnemyState {Spawning, FollowingPlayer, Attacking, Dead}
     private MeleeEnemySO MeleeEnemySO => enemyIdentifier.EnemySO as MeleeEnemySO;
 
     private void OnEnable()
     {
         enemySpawnHandler.OnEnemySpawnStart += EnemySpawnHandler_OnEnemySpawnStart;
         enemySpawnHandler.OnEnemySpawnComplete += EnemySpawnHandler_OnEnemySpawnComplete;
+
+        meleeEnemyAttack.OnMeleeEnemyAttackCompleted += MeleeEnemyAttack_OnMeleeEnemyAttackCompleted;
+
         enemyHealth.OnEnemyDeath += EnemyHealth_OnEnemyDeath;
     }
 
@@ -31,6 +29,9 @@ public class MeleeEnemyBehaviourHandler : MonoBehaviour
     {
         enemySpawnHandler.OnEnemySpawnStart -= EnemySpawnHandler_OnEnemySpawnStart;
         enemySpawnHandler.OnEnemySpawnComplete -= EnemySpawnHandler_OnEnemySpawnComplete;
+
+        meleeEnemyAttack.OnMeleeEnemyAttackCompleted -= MeleeEnemyAttack_OnMeleeEnemyAttackCompleted;
+
         enemyHealth.OnEnemyDeath -= EnemyHealth_OnEnemyDeath;
     }
 
@@ -54,7 +55,7 @@ public class MeleeEnemyBehaviourHandler : MonoBehaviour
             case MeleeEnemyState.FollowingPlayer:
                 FollowingPlayerLogic();
                 break;
-            case MeleeEnemyState.AttackingPlayer:
+            case MeleeEnemyState.Attacking:
                 AttackingPlayerLogic();
                 break;
             case MeleeEnemyState.Dead:
@@ -64,27 +65,27 @@ public class MeleeEnemyBehaviourHandler : MonoBehaviour
         }
     }
 
-    private void SpawningLogic()
-    {
-        //Start & End of Spawn handled by EnemySpawnHandler
-    }
+    private void SpawningLogic() { }
 
     private void FollowingPlayerLogic()
     {
         enemyMovement.MoveTowardsPlayerDirection();
+
+        if (OnAttackRange())
+        {
+            enemyMovement.StopOnCurrentPosition();
+            meleeEnemyAttack.TriggerAttack();
+
+            SetState(MeleeEnemyState.Attacking);
+        }
     }
 
-    private void AttackingPlayerLogic()
-    {
+    private void AttackingPlayerLogic() { }
 
-    }
-
-    private void DeadLogic()
-    {
-        enemyMovement.StopOnCurrentPosition();
-    }
+    private void DeadLogic() { }
 
     private void SetState(MeleeEnemyState state) => meleeEnemyState = state;
+    private bool OnAttackRange() => playerRelativeHandler.DistanceToPlayer <= MeleeEnemySO.attackDistance;
 
     #region Susbcriptions
 
@@ -98,8 +99,23 @@ public class MeleeEnemyBehaviourHandler : MonoBehaviour
         SetState(MeleeEnemyState.FollowingPlayer);
     }
 
+    private void MeleeEnemyAttack_OnMeleeEnemyAttackCompleted(object sender, MeleeEnemyAttack.OnEnemyAttackEventArgs e)
+    {
+        if (OnAttackRange())
+        {
+            meleeEnemyAttack.TriggerAttack();
+        }
+        else
+        {
+            SetState(MeleeEnemyState.FollowingPlayer);
+        }
+    }
+
     private void EnemyHealth_OnEnemyDeath(object sender, EventArgs e)
     {
+        meleeEnemyAttack.TriggerAttackStop();
+        enemyMovement.StopOnCurrentPosition();
+
         SetState(MeleeEnemyState.Dead);
     }
     #endregion

@@ -17,12 +17,15 @@ public class MeleeEnemyAttack : EnemyAttack
     public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyCharge;
     public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyAttack;
     public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyRecover;
+    public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyAttackCompleted;
     public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyStopAttacking;
 
     public event EventHandler<OnEnemyAttackEventArgs> OnMeleeEnemyCharge;
     public event EventHandler<OnEnemyAttackEventArgs> OnMeleeEnemyAttack;
     public event EventHandler<OnEnemyAttackEventArgs> OnMeleeEnemyRecover;
+    public event EventHandler<OnEnemyAttackEventArgs> OnMeleeEnemyAttackCompleted;
     public event EventHandler<OnEnemyAttackEventArgs> OnMeleeEnemyStopAttacking;
+
 
     public class OnEnemyAttackEventArgs : EventArgs
     {
@@ -41,6 +44,7 @@ public class MeleeEnemyAttack : EnemyAttack
         HandleMeleeAttack();
     }
 
+    #region Logic
     private void HandleMeleeAttack()
     {
         switch (meleeAttackState)
@@ -74,7 +78,6 @@ public class MeleeEnemyAttack : EnemyAttack
         if (shouldAttack)
         {
             shouldAttack = false;
-
             TransitionToState(MeleeAttackState.Charging);
         }
     }
@@ -138,9 +141,18 @@ public class MeleeEnemyAttack : EnemyAttack
 
         hasExecutedAttack = false;
 
-        if (shouldAttack) TransitionToState(MeleeAttackState.Charging);
+        OnAnyMeleeEnemyAttackCompleted?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+        OnMeleeEnemyAttackCompleted?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+
+        if (shouldAttack)
+        {
+            shouldAttack = false;
+            TransitionToState(MeleeAttackState.Charging);
+        }
+
         else TransitionToState(MeleeAttackState.NotAttacking);
     }
+    #endregion
 
     private void SetMeleeAttackState(MeleeAttackState state) => meleeAttackState = state;
 

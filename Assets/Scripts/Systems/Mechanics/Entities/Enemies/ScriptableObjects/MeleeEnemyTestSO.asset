@@ -32,7 +32,7 @@ MonoBehaviour:
   oreDrop: 0
   spawnDuration: 1
   cleanupTime: 3
-  attackDistance: 3
+  attackDistance: 1
   attackArea: 1
   chargingTimeMult: 0.3
   attackingTimeMult: 0.4
