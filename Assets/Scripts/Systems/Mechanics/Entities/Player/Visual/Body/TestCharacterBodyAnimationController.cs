@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterBodyAnimationController : MonoBehaviour
+public class TestCharacterBodyAnimationController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Animator animator;
-    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerFacingDirectionHandler facingDirectionHandler;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerHealth playerHealth;
+    [Space]
+    [SerializeField] private BasicDash basicDash;
 
     private const string SPEED_FLOAT = "Speed";
     private const string FACE_X_FLOAT = "FaceX";
     private const string FACE_Y_FLOAT = "FaceY";
 
     private const string MOVEMENT_BLEND_TREE_NAME = "MovementBlendTree";
+    private const string DASH_BLEND_TREE_NAME = "DashBlendTree";
+    private const string DEATH_ANIMATION_NAME = "Death";
 
     protected virtual void OnEnable()
     {

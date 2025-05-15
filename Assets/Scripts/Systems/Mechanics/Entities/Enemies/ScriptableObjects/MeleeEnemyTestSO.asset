@@ -23,14 +23,14 @@ MonoBehaviour:
   baseArmor: 10
   baseDodgeChance: 0
   baseAttackDamage: 1
-  baseAttackSpeed: 0.2
+  baseAttackSpeed: 0.333
   baseAttackCritChance: 0
   baseAttackCritDamageMultiplier: 0.5
   baseLifesteal: 0
   damageColor: {r: 0, g: 0, b: 0, a: 0}
   baseMovementSpeed: 1
   oreDrop: 0
-  spawnDuration: 1
+  spawnDuration: 3
   cleanupTime: 3
   attackDistance: 1
   attackArea: 1

@@ -56,6 +56,8 @@ public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterrupt
     {
         HandleDashResistance();
 
+        if (!playerHealth.IsAlive() && isDashing) StopDash();
+
         if (dashPerformTimer > 0) dashPerformTimer -= Time.deltaTime;
         else if (isDashing) StopDash();
     }
@@ -68,7 +70,6 @@ public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterrupt
         if (isDashing) StopDash();
 
         Dash();
-        SetDashPerformTimer(BasicDashSO.dashTime);
         shouldDash = false;
     }
 
@@ -77,6 +78,8 @@ public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterrupt
     #region AbilitySpecifics
     public void Dash()
     {
+        SetDashPerformTimer(BasicDashSO.dashTime);
+
         currentDashDirection = DefineDashDirection();
 
         float dashForce = BasicDashSO.dashDistance / BasicDashSO.dashTime;
@@ -98,13 +101,14 @@ public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterrupt
     {
         if (!isDashing) return;
 
-        _rigidbody2D.velocity = Vector2.zero;
         isDashing = false;
+        _rigidbody2D.velocity = Vector2.zero;
 
         OnAnyPlayerDashStopped?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
         OnPlayerDashStopped?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
 
         currentDashDirection = Vector2.zero;
+        ResetDashPerformTimer();
     }
 
     private Vector2 DefineDashDirection()
@@ -128,6 +132,7 @@ public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterrupt
     }
 
     private void SetDashPerformTimer(float time) => dashPerformTimer = time;
+    private void ResetDashPerformTimer() => dashPerformTimer = 0f;
 
     #endregion
 
