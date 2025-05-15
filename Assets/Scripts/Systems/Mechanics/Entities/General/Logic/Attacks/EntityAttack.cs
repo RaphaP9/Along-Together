@@ -13,7 +13,10 @@ public abstract class EntityAttack : MonoBehaviour
     [SerializeField] protected EntityAttackCritChanceStatResolver entityAttackCritChanceStatResolver;
     [SerializeField] protected EntityAttackCritDamageMultiplierStatResolver entityAttackCritDamageMultiplierStatResolver;
     [Space]
+    [SerializeField] protected LayerMask attackLayermask;
+    [Space]
     [SerializeField] protected List<Component> attackInterruptionComponents;
+
 
     [Header("Debug")]
     [SerializeField] protected bool debug;
@@ -45,6 +48,7 @@ public abstract class EntityAttack : MonoBehaviour
 
     protected abstract void Attack();
     private void GetAttackInterruptionInterfaces() => attackInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IAttackInterruption>(attackInterruptionComponents);
+    protected float GetAttackSpeed() => entityAttackSpeedStatResolver.Value;
     protected bool HasValidAttackSpeed() => entityAttackSpeedStatResolver.Value > 0f;
 
     protected virtual bool CanAttack()

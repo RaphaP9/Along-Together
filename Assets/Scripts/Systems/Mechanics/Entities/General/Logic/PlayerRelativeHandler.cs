@@ -6,10 +6,14 @@ using UnityEngine;
 public class PlayerRelativeHandler : MonoBehaviour
 {
     [Header("RuntimeFilled")]
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private Vector2 playerPosition;
     [SerializeField] private float distanceToPlayer;
     [SerializeField] private Vector2 directionToPlayer;
     [SerializeField] private float angleToPlayer;
 
+    public Transform PlayerTransform => playerTransform;
+    public Vector2 PlayerPosition => playerPosition;
     public float DistanceToPlayer => distanceToPlayer;
     public Vector2 DirectionToPlayer => directionToPlayer;
     public float AngleToPlayer => angleToPlayer;
@@ -23,6 +27,8 @@ public class PlayerRelativeHandler : MonoBehaviour
     {
         if (PlayerTransformRegister.Instance.PlayerTransform == null) return;
 
+        playerTransform = PlayerTransformRegister.Instance.PlayerTransform;
+        playerPosition = PlayerTransformRegister.Instance.PlayerTransform.position;
         distanceToPlayer = Vector2.Distance(GetPosition(), GetPlayerPosition());
         directionToPlayer = (GetPlayerPosition() - GetPosition()).normalized;
         angleToPlayer = GeneralUtilities.GetVector2AngleDegrees(directionToPlayer);

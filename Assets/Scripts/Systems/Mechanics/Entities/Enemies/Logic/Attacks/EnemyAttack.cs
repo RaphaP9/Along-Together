@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public abstract class EnemyAttack : EntityAttack
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Enemy Attack Components")]
+    [SerializeField] private EnemyIdentifier enemyIdentifier;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    protected EnemySO EnemySO => enemyIdentifier.EnemySO;
 }

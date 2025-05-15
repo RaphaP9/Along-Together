@@ -11,7 +11,7 @@ public class MeleeEnemySO : EnemySO
     //RULE: chargingTimeMult + attackingTimeMult + postAttackMult = 1
     [Range(0f, 1f)] public float chargingTimeMult; //Charging Time = chargingTimeMult * 1/ AttackSpeed
     [Range(0f, 1f)] public float attackingTimeMult; //Attacking Time = attackingTimeMult * 1/ AttackSpeed
-    [Range(0f, 1f)] public float postAttackTimeMult; //PostAttack Time = postAttackTimeMult * 1/ AttackSpeed
+    [Range(0f, 1f)] public float recoverTimeMult; //PostAttack Time = postAttackTimeMult * 1/ AttackSpeed
     [Space]
     [Range(0f, 3f)] public float attackArea;
 }

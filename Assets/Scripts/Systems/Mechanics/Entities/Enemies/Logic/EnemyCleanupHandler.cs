@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCleanup : MonoBehaviour
+public class EnemyCleanupHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private EnemyIdentifier enemyIdentifier;
@@ -33,6 +33,8 @@ public class EnemyCleanup : MonoBehaviour
 
         OnEnemyCleanup?.Invoke(this, new OnEnemyCleanUpEventArgs { enemySO = enemyIdentifier.EnemySO});
         OnAnyEnemyCleanup?.Invoke(this, new OnEnemyCleanUpEventArgs { enemySO = enemyIdentifier.EnemySO });
+
+        Destroy(gameObject);
     }
 
     private void EnemyHealth_OnEnemyDeath(object sender, System.EventArgs e)

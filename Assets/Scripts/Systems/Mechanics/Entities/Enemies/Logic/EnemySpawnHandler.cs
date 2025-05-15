@@ -9,7 +9,7 @@ public class EnemySpawnHandler : MonoBehaviour
     [SerializeField] private EnemyIdentifier enemyIdentifier;
     [SerializeField] private EnemyHealth enemyHealth;
 
-    [Header("Settings")]
+    [Header("Runtime Filled")]
     [SerializeField] private bool isSpawning;
 
     public bool IsSpawning => isSpawning;

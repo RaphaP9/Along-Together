@@ -10,7 +10,7 @@ public class MeleeEnemyBehaviourHandler : MonoBehaviour
     [SerializeField] private EnemyIdentifier enemyIdentifier;
     [SerializeField] private EnemySpawnHandler enemySpawnHandler;
     [SerializeField] private EnemyHealth enemyHealth;
-    [SerializeField] private EnemyCleanup enemyCleanup;
+    [SerializeField] private EnemyCleanupHandler enemyCleanup;
 
     [Header("State - Runtime Filled")]
     [SerializeField] private MeleeEnemyState meleeEnemyState;
@@ -64,7 +64,7 @@ public class MeleeEnemyBehaviourHandler : MonoBehaviour
 
     private void SpawningLogic()
     {
-        //
+        //Start & End of Spawn handled by EnemySpawnHandler
     }
 
     private void FollowingPlayerLogic()
@@ -79,7 +79,7 @@ public class MeleeEnemyBehaviourHandler : MonoBehaviour
 
     private void DeadLogic()
     {
-        //
+        //Cleanup Handled By EnemyCleanupHandler
     }
 
     private void SetState(MeleeEnemyState state) => meleeEnemyState = state;

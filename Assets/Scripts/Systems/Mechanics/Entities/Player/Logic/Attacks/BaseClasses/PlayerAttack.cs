@@ -11,7 +11,6 @@ public abstract class PlayerAttack : EntityAttack
 
     [Header("Player Attack Settings")]
     [SerializeField] protected AttackTriggerType attackTriggerType;
-    [SerializeField] protected LayerMask attackLayermask;
 
     public AttackTriggerType AttackTriggerType_ => attackTriggerType;
     public enum AttackTriggerType {Automatic, SemiAutomatic}
