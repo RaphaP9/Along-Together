@@ -14,10 +14,6 @@ public class EnemyMeleeAttack : EnemyAttack
     protected enum MeleeAttackState { NotAttacking, Charging, Attacking, Recovering }
     private MeleeEnemySO MeleeEnemySO => EnemySO as MeleeEnemySO;
 
-    private float timer;
-    private bool shouldAttack = false;
-    private bool shouldStopAttack = false;
-
     public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyCharge;
     public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyAttack;
     public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyRecover;
@@ -67,6 +63,8 @@ public class EnemyMeleeAttack : EnemyAttack
 
     private void NotAttackingLogic()
     {
+        hasExecutedAttack = false;
+
         if (!CanAttack())
         {
             ResetTimer();
@@ -75,57 +73,112 @@ public class EnemyMeleeAttack : EnemyAttack
 
         if (shouldAttack)
         {
-            SetMeleeAttackState(MeleeAttackState.Charging);
-            OnAnyMeleeEnemyCharge?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
-            OnMeleeEnemyCharge?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
-        }
+            shouldAttack = false;
 
-        ResetTimer();
+            TransitionToState(MeleeAttackState.Charging);
+        }
     }
 
     private void ChargingLogic()
     {
+        if (shouldStopAttack)
+        {
+            shouldStopAttack = false;
+            TransitionToState(MeleeAttackState.NotAttacking);
+            return;
+        }
+
         if (timer < GetAttackChargeTime())
         {
-            if (shouldStopAttack)
-            {
-                SetMeleeAttackState(MeleeAttackState.NotAttacking);
-
-                OnAnyMeleeEnemyAttack?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
-                OnMeleeEnemyAttack?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
-
-                ResetTimer();
-                return;
-            }
-
             timer += Time.deltaTime;
             return;
         }
 
-        Attack();
-        SetMeleeAttackState(MeleeAttackState.Attacking);
-        ResetTimer();
+        TransitionToState(MeleeAttackState.Attacking);
     }
 
     private void AttackingLogic()
     {
+        if (shouldStopAttack)
+        {
+            shouldStopAttack = false;
+            TransitionToState(MeleeAttackState.NotAttacking);
+            return;
+        }
 
+        if(timer >= GetAttackExecutionTime() && !hasExecutedAttack) //Control when to trigger the attack relative to the AttackState
+        {
+            Attack();
+            hasExecutedAttack = true;
+        }
+
+        if (timer < GetAttackingTime())
+        {
+            timer += Time.deltaTime;
+            return;
+        }
+
+        TransitionToState(MeleeAttackState.Recovering);
     }
 
     private void RecoveringLogic()
     {
+        if (shouldStopAttack)
+        {
+            shouldStopAttack = false;
+            TransitionToState(MeleeAttackState.NotAttacking);
+            return;
+        }
 
+        if (timer < GetRecoverTime())
+        {
+            timer += Time.deltaTime;
+            return;
+        }
+
+        hasExecutedAttack = false;
+
+        if (shouldAttack) TransitionToState(MeleeAttackState.Charging);
+        else TransitionToState(MeleeAttackState.NotAttacking);
     }
 
     private void SetMeleeAttackState(MeleeAttackState state) => meleeAttackState = state;
 
+    private void TransitionToState(MeleeAttackState state)
+    {
+        switch (state)
+        {
+            case MeleeAttackState.NotAttacking:
+                SetMeleeAttackState(MeleeAttackState.NotAttacking);
+                OnAnyMeleeEnemyStopAttacking?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnMeleeEnemyStopAttacking?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                break;
+            case MeleeAttackState.Charging:
+                SetMeleeAttackState(MeleeAttackState.Charging);
+                OnAnyMeleeEnemyCharge?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnMeleeEnemyCharge?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                break;
+            case MeleeAttackState.Attacking:
+                SetMeleeAttackState(MeleeAttackState.Attacking);
+                OnAnyMeleeEnemyAttack?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnMeleeEnemyAttack?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                break;
+            case MeleeAttackState.Recovering:
+                SetMeleeAttackState(MeleeAttackState.Recovering);
+                OnAnyMeleeEnemyRecover?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnMeleeEnemyRecover?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                break;
+        }
+
+        ResetTimer();
+    }
+
     private float GetAttackChargeTime() => GetAttackSpeed() * MeleeEnemySO.chargingTimeMult;
     private float GetAttackingTime() => GetAttackSpeed() * MeleeEnemySO.attackingTimeMult;
-    private float GetAttackRecoverTime() => GetAttackSpeed() * MeleeEnemySO.recoverTimeMult;
-    private void ResetTimer() => timer = 0f;
+    private float GetRecoverTime() => GetAttackSpeed() * MeleeEnemySO.recoverTimeMult;
+    private float GetAttackExecutionTime() => GetAttackingTime() * MeleeEnemySO.attackExecutionTimeMult;
 
-    public void TriggerAttack() => shouldAttack = true;
-    public void TriggerAttackStop() => shouldStopAttack = true;
+    public override bool OnAttackExecution() => meleeAttackState != MeleeAttackState.NotAttacking;
 
     protected override void Attack()
     {
@@ -139,13 +192,5 @@ public class EnemyMeleeAttack : EnemyAttack
         MechanicsUtilities.DealDamageInAreas(positions, MeleeEnemySO.attackArea, damageData, attackLayermask, new List<Transform> { transform });
 
         OnEntityAttackMethod(isCrit, damage);
-    }
-
-    protected override void OnEntityAttackMethod(bool isCrit, int attackDamage)
-    {
-        base.OnEntityAttackMethod(isCrit, attackDamage);
-
-        OnAnyMeleeEnemyAttack?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
-        OnMeleeEnemyAttack?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
     }
 }

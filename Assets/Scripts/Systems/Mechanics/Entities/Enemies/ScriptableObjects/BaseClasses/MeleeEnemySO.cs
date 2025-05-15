@@ -13,5 +13,7 @@ public class MeleeEnemySO : EnemySO
     [Range(0f, 1f)] public float attackingTimeMult; //Attacking Time = attackingTimeMult * 1/ AttackSpeed
     [Range(0f, 1f)] public float recoverTimeMult; //PostAttack Time = postAttackTimeMult * 1/ AttackSpeed
     [Space]
+    [Range(0f, 1f)] public float attackExecutionTimeMult; // Attack Execution on the middle of attack performance
+    [Space]
     [Range(0f, 3f)] public float attackArea;
 }
