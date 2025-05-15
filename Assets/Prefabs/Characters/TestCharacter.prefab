@@ -629,15 +629,15 @@ MonoBehaviour:
   entityAttackSpeedStatResolver: {fileID: 8050554025046698674}
   entityAttackCritChanceStatResolver: {fileID: 4239527076616180330}
   entityAttackCritDamageMultiplierStatResolver: {fileID: 6819630603167251739}
+  attackLayermask:
+    serializedVersion: 2
+    m_Bits: 128
   attackInterruptionComponents:
   - {fileID: 7573232495966570463}
   debug: 1
   characterIdentifier: {fileID: 1965199428449930878}
   aimDirectionerHandler: {fileID: 2977175279305093656}
   attackTriggerType: 0
-  attackLayermask:
-    serializedVersion: 2
-    m_Bits: 128
   firePoint: {fileID: 6335867028995148016}
   projectilePrefab: {fileID: 8073931636513284674, guid: 2d3a358fa169ae842bec906ece6900ab, type: 3}
   projectileDamageType: 0
@@ -1460,8 +1460,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4069439219325082044}
-  playerMovement: {fileID: 4661234364419359008}
   facingDirectionHandler: {fileID: 4295945866100084352}
+  playerMovement: {fileID: 4661234364419359008}
+  playerHealth: {fileID: 6586126778679378193}
+  basicDash: {fileID: 7573232495966570463}
 --- !u!114 &6934482600385633296
 MonoBehaviour:
   m_ObjectHideFlags: 0

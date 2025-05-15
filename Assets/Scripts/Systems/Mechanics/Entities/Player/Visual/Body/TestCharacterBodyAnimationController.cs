@@ -6,9 +6,10 @@ public class TestCharacterBodyAnimationController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Animator animator;
+    [Space]
     [SerializeField] private PlayerFacingDirectionHandler facingDirectionHandler;
-    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private PlayerMovement playerMovement;
     [Space]
     [SerializeField] private BasicDash basicDash;
 
@@ -22,12 +23,18 @@ public class TestCharacterBodyAnimationController : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        playerHealth.OnPlayerDeath += PlayerHealth_OnPlayerDeath;
 
+        basicDash.OnPlayerDash += BasicDash_OnPlayerDash;
+        basicDash.OnPlayerDashCompleted += BasicDash_OnPlayerDashCompleted;
     }
 
     protected virtual void OnDisable()
     {
+        playerHealth.OnPlayerDeath -= PlayerHealth_OnPlayerDeath;
 
+        basicDash.OnPlayerDash -= BasicDash_OnPlayerDash;
+        basicDash.OnPlayerDashCompleted -= BasicDash_OnPlayerDashCompleted;
     }
 
     private void Update()
@@ -46,4 +53,23 @@ public class TestCharacterBodyAnimationController : MonoBehaviour
         animator.SetFloat(FACE_X_FLOAT, facingDirectionHandler.CurrentFacingDirection.x);
         animator.SetFloat(FACE_Y_FLOAT, facingDirectionHandler.CurrentFacingDirection.y);
     }
+
+    private void PlayAnimation(string animationName) => animator.Play(animationName);
+
+    #region Subscriptions
+    private void PlayerHealth_OnPlayerDeath(object sender, System.EventArgs e)
+    {
+        PlayAnimation(DEATH_ANIMATION_NAME);
+    }
+
+    private void BasicDash_OnPlayerDash(object sender, BasicDash.OnPlayerDashEventArgs e)
+    {
+        PlayAnimation(DASH_BLEND_TREE_NAME);
+    }
+
+    private void BasicDash_OnPlayerDashCompleted(object sender, BasicDash.OnPlayerDashEventArgs e)
+    {
+        PlayAnimation(MOVEMENT_BLEND_TREE_NAME);
+    }
+    #endregion
 }

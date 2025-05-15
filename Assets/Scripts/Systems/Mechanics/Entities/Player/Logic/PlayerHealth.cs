@@ -10,7 +10,7 @@ public class PlayerHealth : EntityHealth
     public event EventHandler<OnEntityInitializedEventArgs> OnPlayerInitialized;
 
     public static event EventHandler<OnEntityDodgeEventArgs> OnAnyPlayerDodge;
-    public event EventHandler<OnEntityDodgeEventArgs> OnPlayerEntityDodge;
+    public event EventHandler<OnEntityDodgeEventArgs> OnPlayerDodge;
 
     public static event EventHandler<OnEntityHealthTakeDamageEventArgs> OnAnyPlayerHealthTakeDamage;
     public event EventHandler<OnEntityHealthTakeDamageEventArgs> OnPlayerHealthTakeDamage;
@@ -24,8 +24,8 @@ public class PlayerHealth : EntityHealth
     public static event EventHandler<OnEntityShieldRestoredEventArgs> OnAnyPlayerShieldRestored;
     public event EventHandler<OnEntityShieldRestoredEventArgs> OnPlayerShieldRestored;
 
-    public static event EventHandler OnAnyPlayerEntityDeath;
-    public event EventHandler OnPlayerEntityDeath;
+    public static event EventHandler OnAnyPlayerDeath;
+    public event EventHandler OnPlayerDeath;
 
     public static event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnAnyPlayerCurrentHealthClamped;
     public event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnPlayerCurrentHealthClamped;
@@ -51,7 +51,7 @@ public class PlayerHealth : EntityHealth
     {
         base.OnEntityDodgeMethod(damageData);
 
-        OnPlayerEntityDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damageData.damage, isCrit = damageData.isCrit, damageSource = damageData.damageSource });
+        OnPlayerDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damageData.damage, isCrit = damageData.isCrit, damageSource = damageData.damageSource });
         OnAnyPlayerDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damageData.damage, isCrit = damageData.isCrit, damageSource = damageData.damageSource });
     }
 
@@ -98,8 +98,8 @@ public class PlayerHealth : EntityHealth
     {
         base.OnEntityDeathMethod();
 
-        OnPlayerEntityDeath?.Invoke(this, EventArgs.Empty);
-        OnAnyPlayerEntityDeath?.Invoke(this, EventArgs.Empty);
+        OnPlayerDeath?.Invoke(this, EventArgs.Empty);
+        OnAnyPlayerDeath?.Invoke(this, EventArgs.Empty);
     }
 
     protected override void OnEntityCurrentHealthClampedMethod()

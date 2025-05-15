@@ -28,19 +28,22 @@ public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterrupt
     #region Events
 
     public static event EventHandler<OnPlayerDashEventArgs> OnAnyPlayerDash;
-    public static event EventHandler<OnPlayerDashEventArgs> OnAnyPlayerDashPre;
-    public static event EventHandler<OnPlayerDashEventArgs> OnAnyPlayerDashStopped;
+    public static event EventHandler<OnPlayerDashEventArgs> OnAnyPlayerDashCompleted;
+    public static event EventHandler<OnPlayerDashEventArgs> OnAnyPlayerDashInterrupted;
 
     public event EventHandler<OnPlayerDashEventArgs> OnPlayerDash;
-    public event EventHandler<OnPlayerDashEventArgs> OnPlayerDashPre;
-    public event EventHandler<OnPlayerDashEventArgs> OnPlayerDashStopped;
+    public event EventHandler<OnPlayerDashEventArgs> OnPlayerDashCompleted;
+    public event EventHandler<OnPlayerDashEventArgs> OnPlayerDashInterrupted;
+
 
     #endregion
 
+    #region EventArgs Classes
     public class OnPlayerDashEventArgs : EventArgs
     {
         public Vector2 dashDirection;
     }
+    #endregion
 
     #region Interface Methods
     public bool IsDisplacing() => isDashing;
@@ -56,18 +59,17 @@ public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterrupt
     {
         HandleDashResistance();
 
-        if (!playerHealth.IsAlive() && isDashing) StopDash();
+        if (!playerHealth.IsAlive() && isDashing) InterruptDash();
 
         if (dashPerformTimer > 0) dashPerformTimer -= Time.deltaTime;
-        else if (isDashing) StopDash();
+        else if (isDashing) CompleteDash();
     }
 
     protected override void HandleFixedUpdateLogic()
     {
         if (!IsActiveVariant) return;
-        if (!shouldDash) return;
 
-        if (isDashing) StopDash();
+        if (!shouldDash) return;
 
         Dash();
         shouldDash = false;
@@ -87,9 +89,6 @@ public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterrupt
 
         Vector2 scaledDashVector = MechanicsUtilities.ScaleVector2ToPerspective(dashVector);
 
-        OnAnyPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
-        OnPlayerDashPre?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
-
         _rigidbody2D.velocity = scaledDashVector;
         isDashing = true;
 
@@ -97,15 +96,30 @@ public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterrupt
         OnPlayerDash?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
     }
 
-    private void StopDash()
+    private void CompleteDash()
     {
         if (!isDashing) return;
 
+        StopDash();
+
+        OnAnyPlayerDashCompleted?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
+        OnPlayerDashCompleted?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
+    }
+
+    private void InterruptDash()
+    {
+        if (!isDashing) return;
+
+        StopDash();
+
+        OnAnyPlayerDashInterrupted?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
+        OnPlayerDashInterrupted?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
+    }
+
+    private void StopDash()
+    {
         isDashing = false;
         _rigidbody2D.velocity = Vector2.zero;
-
-        OnAnyPlayerDashStopped?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
-        OnPlayerDashStopped?.Invoke(this, new OnPlayerDashEventArgs { dashDirection = currentDashDirection });
 
         currentDashDirection = Vector2.zero;
         ResetDashPerformTimer();
@@ -146,7 +160,7 @@ public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterrupt
     protected override void OnAbilityVariantDeactivationMethod()
     {
         base.OnAbilityVariantDeactivationMethod();
-        StopDash();
+        CompleteDash();
     }
     #endregion
 }
