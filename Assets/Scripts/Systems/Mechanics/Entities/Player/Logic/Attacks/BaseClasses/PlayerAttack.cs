@@ -28,7 +28,18 @@ public abstract class PlayerAttack : EntityAttack
     }
     #endregion
 
-    protected override void HandleAttack()
+    protected virtual void Start()
+    {
+        ResetAttackTimer();
+    }
+
+    protected virtual void Update()
+    {
+        HandleAttack();
+        HandleAttackCooldown();
+    }
+
+    protected virtual void HandleAttack()
     {
         if (!GetAttackInput()) return;
         if (!CanAttack()) return;
@@ -37,6 +48,24 @@ public abstract class PlayerAttack : EntityAttack
         MaxTimer();
     }
 
+    private void HandleAttackCooldown()
+    {
+        if (attackTimer < 0) return;
+
+        attackTimer -= Time.deltaTime;
+    }
+
+    protected void MaxTimer()
+    {
+        if (!HasValidAttackSpeed()) return;
+
+        attackTimer = 1f / entityAttackSpeedStatResolver.Value;
+    }
+
+    private bool AttackOnCooldown() => attackTimer > 0f;
+    private void ResetAttackTimer() => attackTimer = 0f;
+
+    #region Virtual Event Methods
     protected override void OnEntityAttackMethod(bool isCrit, int attackDamage)
     {
         base.OnEntityAttackMethod(isCrit, attackDamage);
@@ -44,6 +73,7 @@ public abstract class PlayerAttack : EntityAttack
         OnPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
         OnAnyPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
     }
+    #endregion
 
     #region AttackTriggerType-Input Assignation
     protected bool GetSemiAutomaticInputAttack() => AttackInput.Instance.GetAttackDown();
@@ -61,4 +91,12 @@ public abstract class PlayerAttack : EntityAttack
         }
     }
     #endregion
+
+    protected override bool CanAttack()
+    {
+        if (!base.CanAttack()) return false;
+        if (AttackOnCooldown()) return false;
+
+        return true;
+    }
 }

@@ -43,52 +43,14 @@ public abstract class EntityAttack : MonoBehaviour
         GetAttackInterruptionInterfaces();
     }
 
-    protected virtual void Start()
-    {
-        ResetAttackTimer();
-    }
-
-    protected virtual void Update()
-    {
-        HandleAttack();
-        HandleAttackCooldown();
-    }
-
-    protected abstract void HandleAttack();
     protected abstract void Attack();
     private void GetAttackInterruptionInterfaces() => attackInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IAttackInterruption>(attackInterruptionComponents);
-
-    private void HandleAttackCooldown()
-    {
-        if (attackTimer < 0) return;
-
-        attackTimer -= Time.deltaTime;
-    }
-
-    private bool AttackOnCooldown() => attackTimer > 0f;
-    private void ResetAttackTimer() => attackTimer = 0f;
-    private bool HasValidAttackSpeed() => entityAttackSpeedStatResolver.Value > 0f;
-
-    protected void MaxTimer()
-    {
-        if (!HasValidAttackSpeed()) return;
-
-        attackTimer = 1f / entityAttackSpeedStatResolver.Value;
-    } 
-
-    #region Virtual Event Methods
-    protected virtual void OnEntityAttackMethod(bool isCrit, int attackDamage)
-    {
-        OnEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
-        OnAnyEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
-    }
-    #endregion
+    protected bool HasValidAttackSpeed() => entityAttackSpeedStatResolver.Value > 0f;
 
     protected virtual bool CanAttack()
     {
         if (!entityHealth.IsAlive()) return false;
         if (!HasValidAttackSpeed()) return false;
-        if (AttackOnCooldown()) return false;
 
         foreach (IAttackInterruption attackInterruptionAbility in attackInterruptions)
         {
@@ -97,4 +59,12 @@ public abstract class EntityAttack : MonoBehaviour
 
         return true;
     }
+
+    #region Virtual Event Methods
+    protected virtual void OnEntityAttackMethod(bool isCrit, int attackDamage)
+    {
+        OnEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
+        OnAnyEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
+    }
+    #endregion
 }
