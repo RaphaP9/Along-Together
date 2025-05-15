@@ -8,9 +8,10 @@ public class MeleeEnemySO : EnemySO
     [Header("Melee Enemy Settings")]
     [Range(3f, 20f)] public float attackDistance;
     [Space]
-    [Range(0f, 3f)] public float chargingTime;
-    [Range(0f, 3f)] public float attackingTime;
-    [Range(0f, 3f)] public float postAttackTime;
+    //RULE: chargingTimeMult + attackingTimeMult + postAttackMult = 1
+    [Range(0f, 1f)] public float chargingTimeMult; //Charging Time = chargingTimeMult * 1/ AttackSpeed
+    [Range(0f, 1f)] public float attackingTimeMult; //Attacking Time = attackingTimeMult * 1/ AttackSpeed
+    [Range(0f, 1f)] public float postAttackTimeMult; //PostAttack Time = postAttackTimeMult * 1/ AttackSpeed
     [Space]
     [Range(0f, 3f)] public float attackArea;
 }
