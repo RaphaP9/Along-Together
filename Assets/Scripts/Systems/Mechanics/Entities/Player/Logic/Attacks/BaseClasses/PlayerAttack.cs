@@ -58,7 +58,7 @@ public abstract class PlayerAttack : EntityAttack
     {
         if (!HasValidAttackSpeed()) return;
 
-        attackTimer = 1f / entityAttackSpeedStatResolver.Value;
+        attackTimer = 1f / GetRevisedAttackSpeed();
     }
 
     private bool AttackOnCooldown() => attackTimer > 0f;

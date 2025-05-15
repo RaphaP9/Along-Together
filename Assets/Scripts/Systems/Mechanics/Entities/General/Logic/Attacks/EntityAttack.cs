@@ -17,9 +17,10 @@ public abstract class EntityAttack : MonoBehaviour
     [Space]
     [SerializeField] protected List<Component> attackInterruptionComponents;
 
-
     [Header("Debug")]
     [SerializeField] protected bool debug;
+
+    protected const float REVISED_PROOF_ATTACK_SPEED = 0.01f;
 
     protected float attackTimer = 0f;
     private List<IAttackInterruption> attackInterruptions;
@@ -50,6 +51,11 @@ public abstract class EntityAttack : MonoBehaviour
     private void GetAttackInterruptionInterfaces() => attackInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IAttackInterruption>(attackInterruptionComponents);
     protected float GetAttackSpeed() => entityAttackSpeedStatResolver.Value;
     protected bool HasValidAttackSpeed() => entityAttackSpeedStatResolver.Value > 0f;
+    protected float GetRevisedAttackSpeed()
+    {
+        if(!HasValidAttackSpeed()) return REVISED_PROOF_ATTACK_SPEED;
+        return GetAttackSpeed();
+    }
 
     protected virtual bool CanAttack()
     {

@@ -10,6 +10,12 @@ public class EnemyMovement : EntityMovement
     public void MoveAwayFromPlayerDirection() => MoveTowardsDirection(-playerRelativeHandler.DirectionToPlayer);
     public void MoveTowardsPlayerDirection() => MoveTowardsDirection(playerRelativeHandler.DirectionToPlayer);
     public void MoveTowardsPlayerPosition() => MoveTowardsPosition(playerRelativeHandler.PlayerPosition);
+    public void StopOnCurrentPosition() => Stop();
+
+    protected void Stop()
+    {
+        _rigidbody2D.velocity = Vector2.zero;
+    }
 
     protected void MoveTowardsDirection(Vector2 direction)
     {

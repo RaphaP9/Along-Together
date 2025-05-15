@@ -22,7 +22,7 @@ public abstract class EntitySO : ScriptableObject, IAttackableSO, IDamageSourceS
 
     [Header("Entity Damage Settings")]
     [Range(0, 10)] public int baseAttackDamage;
-    [Range(0.5f, 3f)] public float baseAttackSpeed;
+    [Range(0.1f, 3f)] public float baseAttackSpeed;
     [Space]
     [Range(0f, 1f)] public float baseAttackCritChance;
     [Range(0.5f, 2f)] public float baseAttackCritDamageMultiplier;

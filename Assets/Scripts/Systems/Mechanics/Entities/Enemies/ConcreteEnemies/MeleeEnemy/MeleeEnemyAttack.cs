@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class EnemyMeleeAttack : EnemyAttack
+public class MeleeEnemyAttack : EnemyAttack
 {
     [Header("Melee Enemy Attack Components")]
     [SerializeField] protected List<Transform> attackPoints;
@@ -88,7 +88,7 @@ public class EnemyMeleeAttack : EnemyAttack
             return;
         }
 
-        if (timer < GetAttackChargeTime())
+        if (timer < GetChargingTime())
         {
             timer += Time.deltaTime;
             return;
@@ -173,10 +173,10 @@ public class EnemyMeleeAttack : EnemyAttack
         ResetTimer();
     }
 
-    private float GetAttackChargeTime() => GetAttackSpeed() * MeleeEnemySO.chargingTimeMult;
-    private float GetAttackingTime() => GetAttackSpeed() * MeleeEnemySO.attackingTimeMult;
-    private float GetRecoverTime() => GetAttackSpeed() * MeleeEnemySO.recoverTimeMult;
-    private float GetAttackExecutionTime() => GetAttackingTime() * MeleeEnemySO.attackExecutionTimeMult;
+    private float GetChargingTime() => 1 / GetRevisedAttackSpeed() * MeleeEnemySO.GetNormalizedChargingMult();
+    private float GetAttackingTime() => 1 / GetRevisedAttackSpeed() * MeleeEnemySO.GetNormalizedAttackingMult();
+    private float GetRecoverTime() => 1 / GetRevisedAttackSpeed() * MeleeEnemySO.GetNormalizedRecoverMult();
+    private float GetAttackExecutionTime() => GetRevisedAttackSpeed() * Mathf.Clamp01(MeleeEnemySO.attackExecutionTimeMult);
 
     public override bool OnAttackExecution() => meleeAttackState != MeleeAttackState.NotAttacking;
 

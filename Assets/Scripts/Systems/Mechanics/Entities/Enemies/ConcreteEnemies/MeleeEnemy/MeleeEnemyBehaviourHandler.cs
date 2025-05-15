@@ -10,6 +10,8 @@ public class MeleeEnemyBehaviourHandler : MonoBehaviour
     [SerializeField] private EnemyIdentifier enemyIdentifier;
     [SerializeField] private EnemySpawnHandler enemySpawnHandler;
     [SerializeField] private EnemyHealth enemyHealth;
+    [SerializeField] private EnemyMovement enemyMovement;
+    [SerializeField] private MeleeEnemyAttack enemyMeleeAttack;
     [SerializeField] private EnemyCleanupHandler enemyCleanup;
 
     [Header("State - Runtime Filled")]
@@ -69,7 +71,7 @@ public class MeleeEnemyBehaviourHandler : MonoBehaviour
 
     private void FollowingPlayerLogic()
     {
-
+        enemyMovement.MoveTowardsPlayerDirection();
     }
 
     private void AttackingPlayerLogic()
@@ -79,7 +81,7 @@ public class MeleeEnemyBehaviourHandler : MonoBehaviour
 
     private void DeadLogic()
     {
-        //Cleanup Handled By EnemyCleanupHandler
+        enemyMovement.StopOnCurrentPosition();
     }
 
     private void SetState(MeleeEnemyState state) => meleeEnemyState = state;
