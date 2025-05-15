@@ -1107,10 +1107,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd829a020d1d0a44aac2088cf638672b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseDirectionHandler: {fileID: 4593777764411072900}
-  playerHealth: {fileID: 6586126778679378193}
+  entityHealth: {fileID: 6586126778679378193}
   aimDirection: {x: 0, y: 0}
   aimAngle: 0
+  mouseDirectionHandler: {fileID: 4593777764411072900}
 --- !u!1 &7063982094058207045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,8 +1205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 3125651546402793068}
-  aimDirectionerHandler: {fileID: 2977175279305093656}
-  playerHealth: {fileID: 6586126778679378193}
+  entityAimDirectioner: {fileID: 2977175279305093656}
+  entityHealth: {fileID: 6586126778679378193}
   facingInterruptionComponents:
   - {fileID: 7573232495966570463}
   facingType: 1
@@ -1461,8 +1461,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4069439219325082044}
   facingDirectionHandler: {fileID: 4295945866100084352}
-  playerMovement: {fileID: 4661234364419359008}
   playerHealth: {fileID: 6586126778679378193}
+  playerMovement: {fileID: 4661234364419359008}
   basicDash: {fileID: 7573232495966570463}
 --- !u!114 &6934482600385633296
 MonoBehaviour:

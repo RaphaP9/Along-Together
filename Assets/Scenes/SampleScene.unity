@@ -8060,10 +8060,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d8e0b126dbd227448d3f3d8cdd102e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRelativeHandler: {fileID: 138078872}
-  enemyHealth: {fileID: 2100225252}
+  entityHealth: {fileID: 2100225252}
   aimDirection: {x: 0, y: 0}
   aimAngle: 0
+  playerRelativeHandler: {fileID: 138078872}
 --- !u!1 &1101486012
 GameObject:
   m_ObjectHideFlags: 0
