@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64230cd6388a9a34a9dd93e74faa625e, type: 3}
-  m_Name: NewEnemySO
+  m_Script: {fileID: 11500000, guid: 520dff8c8471b1745bf66ae88fb6fd80, type: 3}
+  m_Name: MeleeEnemyTestSO
   m_EditorClassIdentifier: 
   id: 0
   entityName: 
@@ -32,3 +32,8 @@ MonoBehaviour:
   oreDrop: 0
   spawnDuration: 1
   cleanupTime: 3
+  attackDistance: 3
+  chargingTime: 0
+  attackingTime: 0
+  postAttackTime: 0
+  attackArea: 0

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class EnemyHealth : EntityHealth
 {
+    [Header("Enemy Health Components")]
+    [SerializeField] protected EnemySpawnHandler enemySpawnHandler;
+
     #region Events
     public static event EventHandler<OnEntityInitializedEventArgs> OnAnyEnemyInitialized;
     public event EventHandler<OnEntityInitializedEventArgs> OnEnemyInitialized;
@@ -33,6 +36,14 @@ public class EnemyHealth : EntityHealth
     public static event EventHandler<OnEntityCurrentShieldClampedEventArgs> OnAnyEnemyCurrentShieldClamped;
     public event EventHandler<OnEntityCurrentShieldClampedEventArgs> OnEnemyCurrentShieldClamped;
     #endregion
+
+    public override bool AvoidDamagePassThrough()
+    {
+        if (!IsAlive()) return true;
+        if (enemySpawnHandler.IsSpawning) return true;
+
+        return false;
+    }
 
     #region Virtual Event Methods
     protected override void OnEntityInitializedMethod()

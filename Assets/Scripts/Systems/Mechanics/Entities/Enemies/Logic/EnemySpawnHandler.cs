@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawningHandler : MonoBehaviour
+public class EnemySpawnHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private EnemyIdentifier enemyIdentifier;
@@ -37,24 +37,12 @@ public class EnemySpawningHandler : MonoBehaviour
         OnAnyEnemySpawnStart?.Invoke(this, new OnEnemySpawnEventArgs { enemySO = enemyIdentifier.EnemySO });
         OnEnemySpawnStart?.Invoke(this, new OnEnemySpawnEventArgs { enemySO = enemyIdentifier.EnemySO });
 
-        float spawningTimer = 0f;
+        yield return new WaitForSeconds(enemyIdentifier.EnemySO.spawnDuration);
 
-        while (spawningTimer < enemyIdentifier.EnemySO.spawnDuration)
-        {
-            if (!enemyHealth.IsAlive())
-            {
-                isSpawning = false;
-                yield break;
-            }
-
-            spawningTimer += Time.deltaTime;
-            yield return null;
-        }
+        isSpawning = false;
 
         OnAnyEnemySpawnComplete?.Invoke(this, new OnEnemySpawnEventArgs { enemySO = enemyIdentifier.EnemySO });
         OnEnemySpawnComplete?.Invoke(this, new OnEnemySpawnEventArgs { enemySO = enemyIdentifier.EnemySO });
-
-        isSpawning = false;
     } 
 }
 

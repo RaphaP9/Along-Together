@@ -41,6 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: EnvironmentBelow
+    uniqueID: 3093839029
+    locked: 0
+  - name: Entities
+    uniqueID: 300410655
+    locked: 0
+  - name: Proyectiles
+    uniqueID: 297191843
+    locked: 0
+  - name: EnvironmentOver
+    uniqueID: 1232649101
+    locked: 0
   - name: UI
     uniqueID: 3274985619
     locked: 0
