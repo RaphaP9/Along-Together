@@ -116,6 +116,17 @@ public class EntityFacingDirectionHandler : MonoBehaviour
     }
 
     private void SetCurrentFacingDirection(Vector2Int facingDirection) => currentFacingDirection = facingDirection;
-    public bool IsFacingRight() => currentFacingDirection.x >= 0;
+
+    public bool IsFacingRight()
+    {
+        switch (facingType)
+        {
+            case FacingType.Rigidbody:
+            default:
+                return _rigidbody2D.velocity.x >= 0f;
+            case FacingType.Aim:
+                return entityAimDirectioner.AimDirection.x >= 0;
+        }
+    }
     #endregion
 }

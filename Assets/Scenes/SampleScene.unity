@@ -847,6 +847,7 @@ GameObject:
   m_Component:
   - component: {fileID: 138078871}
   - component: {fileID: 138078872}
+  - component: {fileID: 138078873}
   m_Layer: 7
   m_Name: Handlers
   m_TagString: Untagged
@@ -886,6 +887,28 @@ MonoBehaviour:
   distanceToPlayer: 0
   directionToPlayer: {x: 0, y: 0}
   angleToPlayer: 0
+--- !u!114 &138078873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138078870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4dd44043a39a7419617b6644d5e570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody2D: {fileID: 2100225258}
+  entityAimDirectioner: {fileID: 1089017726}
+  entityHealth: {fileID: 2100225252}
+  facingInterruptionComponents: []
+  facingType: 1
+  startingFacingDirection: {x: 1, y: 0}
+  minimumRigidbodyVelocity: 1
+  currentFacingDirection: {x: 0, y: 0}
+  isOverridingFacingDirection: 0
+  overridenDirection: {x: 0, y: 0}
 --- !u!1 &139269170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2726,6 +2749,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 464594795}
+  - component: {fileID: 464594796}
   m_Layer: 7
   m_Name: Visual
   m_TagString: Untagged
@@ -2749,6 +2773,20 @@ Transform:
   - {fileID: 1256046435}
   m_Father: {fileID: 2100225251}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &464594796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464594794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d7f8025ddcd164fbec43735e5e694a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1256046436}
+  facingDirectionHandler: {fileID: 138078873}
 --- !u!1001 &475341981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8064,6 +8102,7 @@ MonoBehaviour:
   aimDirection: {x: 0, y: 0}
   aimAngle: 0
   playerRelativeHandler: {fileID: 138078872}
+  enemySpawnHandler: {fileID: 2100225256}
 --- !u!1 &1101486012
 GameObject:
   m_ObjectHideFlags: 0
@@ -8639,7 +8678,7 @@ GameObject:
   - component: {fileID: 1256046435}
   - component: {fileID: 1256046436}
   m_Layer: 7
-  m_Name: Circle
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8698,11 +8737,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 300410655
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.5943396, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 975400624, guid: 707611d54aeb30c4195850a7245046fc, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -15376,7 +15415,7 @@ GameObject:
   - component: {fileID: 2100225256}
   - component: {fileID: 2100225255}
   m_Layer: 7
-  m_Name: TestEnemy
+  m_Name: TestMeleeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

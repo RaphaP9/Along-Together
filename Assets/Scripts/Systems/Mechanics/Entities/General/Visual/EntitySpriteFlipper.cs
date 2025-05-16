@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterBodySpriteFlipper : MonoBehaviour
+public class EntitySpriteFlipper : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private PlayerFacingDirectionHandler facingDirectionHandler;
+    [SerializeField] private EntityFacingDirectionHandler facingDirectionHandler;
 
     private bool facingRight = true;
 
