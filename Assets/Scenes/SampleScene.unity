@@ -2750,6 +2750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 464594795}
   - component: {fileID: 464594796}
+  - component: {fileID: 464594797}
   m_Layer: 7
   m_Name: Visual
   m_TagString: Untagged
@@ -2787,6 +2788,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1256046436}
   facingDirectionHandler: {fileID: 138078873}
+--- !u!114 &464594797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464594794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c9c5011e4e1174484e40e0db9cbfdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1256046437}
+  facingDirectionHandler: {fileID: 138078873}
+  enemySpawnHandler: {fileID: 2100225256}
+  enemyHealth: {fileID: 2100225252}
+  enemyMovement: {fileID: 2100225257}
+  meleeEnemyAttack: {fileID: 2100225259}
 --- !u!1001 &475341981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8677,6 +8696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1256046435}
   - component: {fileID: 1256046436}
+  - component: {fileID: 1256046437}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -8751,6 +8771,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1256046437
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256046434}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6f62af192e1e6de48be213fef7b470e7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1261578522
 GameObject:
   m_ObjectHideFlags: 0
@@ -15569,6 +15610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d77f30106f828b49b34aad914b61913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidbody2D: {fileID: 2100225258}
   entityMovementSpeedStatResolver: {fileID: 889139404}
   displacementComponents: []
   smoothVelocityFactor: 5

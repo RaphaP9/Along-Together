@@ -603,6 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bb1d3e64f8d5a4299e3d1046917a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidbody2D: {fileID: 3125651546402793068}
   entityMovementSpeedStatResolver: {fileID: 5930587708578372876}
   displacementComponents:
   - {fileID: 7573232495966570463}

@@ -11,12 +11,16 @@ public class TestCharacterBodyAnimationController : CharacterBodyAnimationContro
 
     protected override void OnEnable()
     {
+        base.OnEnable();
+
         basicDash.OnPlayerDash += BasicDash_OnPlayerDash;
         basicDash.OnPlayerDashCompleted += BasicDash_OnPlayerDashCompleted;
     }
 
     protected override void OnDisable()
     {
+        base.OnDisable();
+
         basicDash.OnPlayerDash -= BasicDash_OnPlayerDash;
         basicDash.OnPlayerDashCompleted -= BasicDash_OnPlayerDashCompleted;
     }
