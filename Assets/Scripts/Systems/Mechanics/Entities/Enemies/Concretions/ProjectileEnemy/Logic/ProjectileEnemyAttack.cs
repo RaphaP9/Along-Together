@@ -215,7 +215,6 @@ public class ProjectileEnemyAttack : EnemyAttack
         InstantiateProjectile(ProjectileEnemySO, projectilePrefab, position, processedShootDirection, damage, isCrit, projectileSpeed, projectileLifespan, projectileDamageType, projectileAreaRadius, attackLayermask, projectileImpactLayerMask);
 
         OnEntityAttackMethod(isCrit, damage);
-        OnEntityAttackCompletedMethod();
     }
 
     protected void InstantiateProjectile(IDamageSourceSO damageSource, Transform projectilePrefab, Vector2 position, Vector2 shootDirection, int damage, bool isCrit, float speed, float lifespan, ProjectileDamageType projectileDamageType, float areaRadius, LayerMask targetLayerMask, LayerMask impactLayerMask)

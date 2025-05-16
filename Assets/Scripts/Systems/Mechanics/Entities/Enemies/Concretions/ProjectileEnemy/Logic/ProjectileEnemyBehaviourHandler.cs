@@ -85,7 +85,6 @@ public class ProjectileEnemyBehaviourHandler : EnemyBehaviourHandler
         {
             enemyMovement.StopOnCurrentPosition();
             projectileEnemyAttack.TriggerAttack();
-            Debug.Log("A");
 
             SetState(ProjectileEnemyState.Attacking);
             return;
@@ -106,7 +105,6 @@ public class ProjectileEnemyBehaviourHandler : EnemyBehaviourHandler
         {
             enemyMovement.StopOnCurrentPosition();
             projectileEnemyAttack.TriggerAttack();
-            Debug.Log("A");
 
             SetState(ProjectileEnemyState.Attacking);
             return;
@@ -150,7 +148,6 @@ public class ProjectileEnemyBehaviourHandler : EnemyBehaviourHandler
         if (OnAttackRange())
         {
             projectileEnemyAttack.TriggerAttack();
-            Debug.Log("A");
             SetState(ProjectileEnemyState.Attacking);
             return;
         }

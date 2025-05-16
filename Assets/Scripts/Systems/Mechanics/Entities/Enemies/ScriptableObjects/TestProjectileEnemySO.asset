@@ -23,7 +23,7 @@ MonoBehaviour:
   baseArmor: 10
   baseDodgeChance: 0
   baseAttackDamage: 1
-  baseAttackSpeed: 1
+  baseAttackSpeed: 0.3
   baseAttackCritChance: 0
   baseAttackCritDamageMultiplier: 0.5
   baseLifesteal: 0
@@ -33,8 +33,8 @@ MonoBehaviour:
   spawnDuration: 3
   cleanupTime: 3
   tooCloseDistance: 3
-  preferredDistance: 7
-  tooFarDistance: 11
+  preferredDistance: 5
+  tooFarDistance: 7
   aimingTimeMult: 0.33
   shootingTimeMult: 0.33
   reloadTimeMult: 0.33
