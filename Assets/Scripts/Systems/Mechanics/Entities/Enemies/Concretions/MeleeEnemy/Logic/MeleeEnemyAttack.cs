@@ -8,7 +8,7 @@ public class MeleeEnemyAttack : EnemyAttack
     [Header("Melee Enemy Attack Components")]
     [SerializeField] protected List<Transform> attackPoints;
 
-    [Header("States")]
+    [Header("States - Runtime Filled")]
     [SerializeField] protected MeleeAttackState meleeAttackState;
 
     protected enum MeleeAttackState { NotAttacking, Charging, Attacking, Recovering }
