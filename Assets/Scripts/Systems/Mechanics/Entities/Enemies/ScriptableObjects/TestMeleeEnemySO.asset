@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 520dff8c8471b1745bf66ae88fb6fd80, type: 3}
-  m_Name: MeleeEnemyTestSO
+  m_Name: TestMeleeEnemySO
   m_EditorClassIdentifier: 
   id: 0
   entityName: 
@@ -23,7 +23,7 @@ MonoBehaviour:
   baseArmor: 10
   baseDodgeChance: 0
   baseAttackDamage: 1
-  baseAttackSpeed: 0.333
+  baseAttackSpeed: 1
   baseAttackCritChance: 0
   baseAttackCritDamageMultiplier: 0.5
   baseLifesteal: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
   cleanupTime: 3
   attackDistance: 1
   attackArea: 1
-  chargingTimeMult: 0.3
-  attackingTimeMult: 0.4
-  recoverTimeMult: 0.3
+  chargingTimeMult: 0.36
+  attackingTimeMult: 0.22
+  recoverTimeMult: 0.43
   attackExecutionTimeMult: 0

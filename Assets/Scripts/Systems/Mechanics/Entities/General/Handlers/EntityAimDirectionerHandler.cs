@@ -22,17 +22,8 @@ public abstract class EntityAimDirectionerHandler : MonoBehaviour
     private void HandleAim()
     {
         if (!CanAim()) return;
-
-        aimDirection = CalculateAimDirection();
-        aimAngle = CalculateAimAngle();
-
-        UpdateRotation(aimAngle);
-
+        UpdateAim();
     }
-
-    protected abstract Vector2 CalculateAimDirection();
-    protected abstract float CalculateAimAngle();
-
     protected virtual bool CanAim()
     {
         if (!entityHealth.IsAlive()) return false;
@@ -40,14 +31,17 @@ public abstract class EntityAimDirectionerHandler : MonoBehaviour
         return true;
     }
 
-    private void UpdateRotation(float aimAngle)
+    protected void UpdateAim()
     {
-        transform.rotation = Quaternion.Euler(0, 0, aimAngle);
+        aimDirection = CalculateAimDirection();
+        aimAngle = CalculateAimAngle();
+
+        UpdateRotation(aimAngle);
     }
 
-    public bool IsAimingRight()
-    {
-        if (aimDirection.x >= 0) return true;
-        return false;
-    }
+    protected abstract Vector2 CalculateAimDirection();
+    protected abstract float CalculateAimAngle();
+    private void UpdateRotation(float aimAngle) => transform.rotation = Quaternion.Euler(0, 0, aimAngle);
+    public bool IsAimingRight() => aimDirection.x >= 0;
+
 }

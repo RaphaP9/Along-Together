@@ -8114,7 +8114,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1089017724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8e0b126dbd227448d3f3d8cdd102e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6404eaf7f8a0adb49bf069e06c9a1a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entityHealth: {fileID: 2100225252}
@@ -8122,6 +8122,7 @@ MonoBehaviour:
   aimAngle: 0
   playerRelativeHandler: {fileID: 138078872}
   enemySpawnHandler: {fileID: 2100225256}
+  meleeEnemyAttack: {fileID: 2100225259}
 --- !u!1 &1101486012
 GameObject:
   m_ObjectHideFlags: 0
