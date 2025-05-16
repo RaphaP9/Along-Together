@@ -720,9 +720,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: 300410655
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 1024212178, guid: d1666415ad7d47e498174995e7e965ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -825,8 +825,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 300410655
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9325424e206d3db4684ea6fdffa179c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -982,6 +982,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 718122822509755242}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4940761652634725093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6821514096472661047}
+  m_Layer: 6
+  m_Name: RenderingRefference
+  m_TagString: Untagged
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6821514096472661047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4940761652634725093}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.407, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6543428868650559586}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5733256387100246634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,7 +1106,7 @@ GameObject:
   m_Layer: 6
   m_Name: AimDirectioner
   m_TagString: Untagged
-  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1213,6 +1244,7 @@ MonoBehaviour:
   facingType: 1
   startingFacingDirection: {x: 1, y: 0}
   minimumRigidbodyVelocity: 1
+  currentRawFacingDirection: {x: 0, y: 0}
   currentFacingDirection: {x: 0, y: 0}
   isOverridingFacingDirection: 0
   overridenDirection: {x: 0, y: 0}
@@ -1425,6 +1457,7 @@ GameObject:
   - component: {fileID: 6543428868650559586}
   - component: {fileID: 6934482600385633296}
   - component: {fileID: 3243932913206162116}
+  - component: {fileID: 3840282726937612099}
   m_Layer: 6
   m_Name: BodyVisual
   m_TagString: Untagged
@@ -1446,6 +1479,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6338731076422787120}
+  - {fileID: 6821514096472661047}
   m_Father: {fileID: 6380853313663446174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6934482600385633296
@@ -1479,6 +1513,22 @@ MonoBehaviour:
   playerHealth: {fileID: 6586126778679378193}
   playerMovement: {fileID: 4661234364419359008}
   basicDash: {fileID: 7573232495966570463}
+--- !u!114 &3840282726937612099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8502199646678721002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd0677dbead101408d8d381b4a763b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderingRefference: {fileID: 6821514096472661047}
+  spriteRenderers:
+  - {fileID: 1724196336011256719}
+  - {fileID: 5668402913487765036}
 --- !u!1 &8529961401906286131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,7 +1541,7 @@ GameObject:
   m_Layer: 6
   m_Name: CameraFollowPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
