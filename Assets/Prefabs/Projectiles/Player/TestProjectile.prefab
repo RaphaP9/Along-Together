@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 297191843
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -200,6 +200,7 @@ MonoBehaviour:
   speed: 5
   lifespan: 5
   damageType: 0
+  areaRadius: 0
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -215,6 +216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4438610197538586329}
+  - component: {fileID: 6797995713973560439}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -238,3 +240,17 @@ Transform:
   - {fileID: 7810999984652736882}
   m_Father: {fileID: 8073931636513284674}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6797995713973560439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9195111808960843506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7593b017bfd7a0f409b15e2c8d61d0d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHandler: {fileID: 6451573138883523255}
+  transformToRotate: {fileID: 7810999984652736882}

@@ -196,7 +196,6 @@ GameObject:
   m_Component:
   - component: {fileID: 33461067}
   - component: {fileID: 33461069}
-  - component: {fileID: 33461068}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -219,27 +218,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2047801817}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &33461068
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33461066}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6f62af192e1e6de48be213fef7b470e7, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &33461069
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -281,7 +259,7 @@ SpriteRenderer:
   m_SortingLayerID: 300410655
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 975400624, guid: 707611d54aeb30c4195850a7245046fc, type: 3}
+  m_Sprite: {fileID: -1957752860, guid: aa3a83f3ce5179d4f902fbbf08b6a4c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
