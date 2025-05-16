@@ -12,18 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8860690d183e2364bba2ae1c6e131102, type: 3}
   m_Name: TestProjectileEnemySO
   m_EditorClassIdentifier: 
-  id: 0
-  entityName: 
-  description: 
+  id: 202
+  entityName: TestProjectileEnemy
+  description: 'TestProjectileEnemy
+
+'
   sprite: {fileID: 0}
   color: {r: 0, g: 0, b: 0, a: 0}
-  prefab: {fileID: 0}
+  prefab: {fileID: 1504599749268194510, guid: 7ca476a64904ae74791a47e0f17b43a2, type: 3}
   baseHealth: 20
   baseShield: 0
   baseArmor: 10
   baseDodgeChance: 0
   baseAttackDamage: 1
-  baseAttackSpeed: 0.3
+  baseAttackSpeed: 1
   baseAttackCritChance: 0
   baseAttackCritDamageMultiplier: 0.5
   baseLifesteal: 0
@@ -35,7 +37,7 @@ MonoBehaviour:
   tooCloseDistance: 3
   preferredDistance: 5
   tooFarDistance: 7
-  aimingTimeMult: 0.33
-  shootingTimeMult: 0.33
-  reloadTimeMult: 0.33
+  aimingTimeMult: 0.35
+  shootingTimeMult: 0.15
+  reloadTimeMult: 0.5
   attackExecutionTimeMult: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7810999984652736882}
   - component: {fileID: 4829325659011107911}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4027222788886058084}
   - component: {fileID: 38188463111943636}
   - component: {fileID: 6451573138883523255}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: TestEnemyProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4438610197538586329}
   - component: {fileID: 4249616494866352090}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}

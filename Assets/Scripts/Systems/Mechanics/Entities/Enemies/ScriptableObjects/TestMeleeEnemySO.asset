@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520dff8c8471b1745bf66ae88fb6fd80, type: 3}
   m_Name: TestMeleeEnemySO
   m_EditorClassIdentifier: 
-  id: 0
-  entityName: Test Melee Enemy
-  description: 
+  id: 201
+  entityName: TestMeleeEnemy
+  description: TestMeleeEnemy
   sprite: {fileID: 0}
   color: {r: 0, g: 0, b: 0, a: 0}
   prefab: {fileID: 8171095813524711411, guid: ad84cde8775b00a4fb9c69e7cc4ec3a8, type: 3}
