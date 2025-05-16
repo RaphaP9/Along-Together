@@ -23,6 +23,7 @@ public class PlayerMeleeAttack : PlayerAttack
         MechanicsUtilities.DealDamageInAreas(positions, attackAreaRadius, damageData, attackLayermask, new List<Transform> {transform});
 
         OnEntityAttackMethod(isCrit, damage);
+        OnEntityAttackCompletedMethod();
     }
 
     private void OnDrawGizmos()

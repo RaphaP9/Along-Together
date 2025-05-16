@@ -14,20 +14,18 @@ public class MeleeEnemyAttack : EnemyAttack
     protected enum MeleeAttackState { NotAttacking, Charging, Attacking, Recovering }
     private MeleeEnemySO MeleeEnemySO => EnemySO as MeleeEnemySO;
 
-    public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyCharge;
-    public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyAttack;
-    public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyRecover;
-    public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyAttackCompleted;
-    public static event EventHandler<OnEnemyAttackEventArgs> OnAnyMeleeEnemyStopAttacking;
+    public static event EventHandler<OnMeleeEnemyAttackEventArgs> OnAnyMeleeEnemyCharge;
+    public static event EventHandler<OnMeleeEnemyAttackEventArgs> OnAnyMeleeEnemyAttack;
+    public static event EventHandler<OnMeleeEnemyAttackEventArgs> OnAnyMeleeEnemyRecover;
+    public static event EventHandler<OnMeleeEnemyAttackEventArgs> OnAnyMeleeEnemyStopAttacking;
 
-    public event EventHandler<OnEnemyAttackEventArgs> OnMeleeEnemyCharge;
-    public event EventHandler<OnEnemyAttackEventArgs> OnMeleeEnemyAttack;
-    public event EventHandler<OnEnemyAttackEventArgs> OnMeleeEnemyRecover;
-    public event EventHandler<OnEnemyAttackEventArgs> OnMeleeEnemyAttackCompleted;
-    public event EventHandler<OnEnemyAttackEventArgs> OnMeleeEnemyStopAttacking;
+    public event EventHandler<OnMeleeEnemyAttackEventArgs> OnMeleeEnemyCharge;
+    public event EventHandler<OnMeleeEnemyAttackEventArgs> OnMeleeEnemyAttack;
+    public event EventHandler<OnMeleeEnemyAttackEventArgs> OnMeleeEnemyRecover;
+    public event EventHandler<OnMeleeEnemyAttackEventArgs> OnMeleeEnemyStopAttacking;
 
 
-    public class OnEnemyAttackEventArgs : EventArgs
+    public class OnMeleeEnemyAttackEventArgs : EventArgs
     {
         public MeleeEnemySO meleeEnemySO;
         public List<Transform> attackPoints;
@@ -141,8 +139,7 @@ public class MeleeEnemyAttack : EnemyAttack
 
         hasExecutedAttack = false;
 
-        OnAnyMeleeEnemyAttackCompleted?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
-        OnMeleeEnemyAttackCompleted?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+        OnEntityAttackCompletedMethod();
 
         if (shouldAttack)
         {
@@ -162,23 +159,23 @@ public class MeleeEnemyAttack : EnemyAttack
         {
             case MeleeAttackState.NotAttacking:
                 SetMeleeAttackState(MeleeAttackState.NotAttacking);
-                OnAnyMeleeEnemyStopAttacking?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
-                OnMeleeEnemyStopAttacking?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnAnyMeleeEnemyStopAttacking?.Invoke(this, new OnMeleeEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnMeleeEnemyStopAttacking?.Invoke(this, new OnMeleeEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
                 break;
             case MeleeAttackState.Charging:
                 SetMeleeAttackState(MeleeAttackState.Charging);
-                OnAnyMeleeEnemyCharge?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
-                OnMeleeEnemyCharge?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnAnyMeleeEnemyCharge?.Invoke(this, new OnMeleeEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnMeleeEnemyCharge?.Invoke(this, new OnMeleeEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
                 break;
             case MeleeAttackState.Attacking:
                 SetMeleeAttackState(MeleeAttackState.Attacking);
-                OnAnyMeleeEnemyAttack?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
-                OnMeleeEnemyAttack?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnAnyMeleeEnemyAttack?.Invoke(this, new OnMeleeEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnMeleeEnemyAttack?.Invoke(this, new OnMeleeEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
                 break;
             case MeleeAttackState.Recovering:
                 SetMeleeAttackState(MeleeAttackState.Recovering);
-                OnAnyMeleeEnemyRecover?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
-                OnMeleeEnemyRecover?.Invoke(this, new OnEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnAnyMeleeEnemyRecover?.Invoke(this, new OnMeleeEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
+                OnMeleeEnemyRecover?.Invoke(this, new OnMeleeEnemyAttackEventArgs { meleeEnemySO = MeleeEnemySO, attackPoints = attackPoints });
                 break;
         }
 

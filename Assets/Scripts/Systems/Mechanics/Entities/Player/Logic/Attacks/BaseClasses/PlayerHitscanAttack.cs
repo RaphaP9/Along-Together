@@ -36,6 +36,7 @@ public class PlayerHitscanAttack : PlayerAttack
         ShootHitscanRay(position, processedDirection, hitscanDistance, GeneralUtilities.CombineLayerMasks(new List<LayerMask> { attackLayermask, hitscanImpactLayerMask}), damage, isCrit);
 
         OnEntityAttackMethod(isCrit, damage);
+        OnEntityAttackCompletedMethod();
     }
 
     protected virtual void ShootHitscanRay(Vector2 originPosition , Vector2 direction, float distance, LayerMask layerMask, int damage, bool isCrit)

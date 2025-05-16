@@ -9,12 +9,12 @@ public class MeleeEnemyAimDirectionerHandler : EnemyAimDirectionerHandler
 
     private void OnEnable()
     {
-        meleeEnemyAttack.OnMeleeEnemyAttackCompleted += MeleeEnemyAttack_OnMeleeEnemyAttackCompleted;
+        meleeEnemyAttack.OnEnemyAttackCompleted += MeleeEnemyAttack_OnEnemyAttackCompleted;
     }
 
     private void OnDisable()
     {
-        meleeEnemyAttack.OnMeleeEnemyAttackCompleted -= MeleeEnemyAttack_OnMeleeEnemyAttackCompleted;
+        meleeEnemyAttack.OnEnemyAttackCompleted -= MeleeEnemyAttack_OnEnemyAttackCompleted;
     }
 
     protected override bool CanAim()
@@ -26,7 +26,7 @@ public class MeleeEnemyAimDirectionerHandler : EnemyAimDirectionerHandler
     }
 
     #region Subscriptions
-    private void MeleeEnemyAttack_OnMeleeEnemyAttackCompleted(object sender, MeleeEnemyAttack.OnEnemyAttackEventArgs e)
+    private void MeleeEnemyAttack_OnEnemyAttackCompleted(object sender, EnemyAttack.OnEnemyAttackCompletedEventArgs e)
     {
         UpdateAim(); //UpdateAim if attack finished
     }

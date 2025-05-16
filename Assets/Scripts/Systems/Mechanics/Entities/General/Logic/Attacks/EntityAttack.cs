@@ -28,6 +28,9 @@ public abstract class EntityAttack : MonoBehaviour
     #region Events
     public event EventHandler<OnEntityAttackEventArgs> OnEntityAttack;
     public static event EventHandler<OnEntityAttackEventArgs> OnAnyEntityAttack;
+
+    public event EventHandler<OnEntityAttackCompletedEventArgs> OnEntityAttackCompleted;
+    public static event EventHandler<OnEntityAttackCompletedEventArgs> OnAnyEntityAttackCompleted;
     #endregion
 
     #region EventArgs Classes
@@ -39,6 +42,11 @@ public abstract class EntityAttack : MonoBehaviour
         public float attackSpeed;
         public float attackCritChance;
         public float attackCritDamageMultiplier;
+    }
+
+    public class OnEntityAttackCompletedEventArgs : EventArgs
+    {
+
     }
     #endregion
 
@@ -75,6 +83,12 @@ public abstract class EntityAttack : MonoBehaviour
     {
         OnEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
         OnAnyEntityAttack?.Invoke(this, new OnEntityAttackEventArgs {isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
+    }
+
+    protected virtual void OnEntityAttackCompletedMethod()
+    {
+        OnEntityAttackCompleted?.Invoke(this, new OnEntityAttackCompletedEventArgs {});
+        OnAnyEntityAttackCompleted?.Invoke(this, new OnEntityAttackCompletedEventArgs {});
     }
     #endregion
 }

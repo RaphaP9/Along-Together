@@ -18,12 +18,20 @@ public abstract class PlayerAttack : EntityAttack
     #region Events
     public event EventHandler<OnPlayerAttackEventArgs> OnPlayerAttack;
     public static event EventHandler<OnPlayerAttackEventArgs> OnAnyPlayerAttack;
+
+    public event EventHandler<OnPlayerAttackCompletedEvtnArgs> OnPlayerAttackCompleted;
+    public static event EventHandler<OnPlayerAttackCompletedEvtnArgs> OnAnyPlayerAttackCompleted;
     #endregion
 
     #region EventArgs Classes
     public class OnPlayerAttackEventArgs : OnEntityAttackEventArgs
     {
-        public PlayerAttack playerAttack;
+        public CharacterSO characterSO;
+    }
+
+    public class OnPlayerAttackCompletedEvtnArgs : OnEntityAttackCompletedEventArgs
+    {
+        public CharacterSO characterSO;
     }
     #endregion
 
@@ -69,8 +77,16 @@ public abstract class PlayerAttack : EntityAttack
     {
         base.OnEntityAttackMethod(isCrit, attackDamage);
 
-        OnPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
-        OnAnyPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { playerAttack = this, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
+        OnPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { characterSO = characterIdentifier.CharacterSO, isCrit = isCrit, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
+        OnAnyPlayerAttack?.Invoke(this, new OnPlayerAttackEventArgs { characterSO = characterIdentifier.CharacterSO, attackDamage = attackDamage, attackSpeed = entityAttackSpeedStatResolver.Value, attackCritChance = entityAttackCritChanceStatResolver.Value, attackCritDamageMultiplier = entityAttackCritDamageMultiplierStatResolver.Value });
+    }
+
+    protected override void OnEntityAttackCompletedMethod()
+    {
+        base.OnEntityAttackCompletedMethod();
+
+        OnPlayerAttackCompleted?.Invoke(this, new OnPlayerAttackCompletedEvtnArgs { characterSO = characterIdentifier.CharacterSO });
+        OnAnyPlayerAttackCompleted?.Invoke(this, new OnPlayerAttackCompletedEvtnArgs { characterSO = characterIdentifier.CharacterSO });
     }
     #endregion
 

@@ -20,7 +20,7 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
         enemySpawnHandler.OnEnemySpawnStart += EnemySpawnHandler_OnEnemySpawnStart;
         enemySpawnHandler.OnEnemySpawnComplete += EnemySpawnHandler_OnEnemySpawnComplete;
 
-        meleeEnemyAttack.OnMeleeEnemyAttackCompleted += MeleeEnemyAttack_OnMeleeEnemyAttackCompleted;
+        meleeEnemyAttack.OnEnemyAttackCompleted += MeleeEnemyAttack_OnMeleeEnemyAttackCompleted;
 
         enemyHealth.OnEnemyDeath += EnemyHealth_OnEnemyDeath;
     }
@@ -30,7 +30,7 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
         enemySpawnHandler.OnEnemySpawnStart -= EnemySpawnHandler_OnEnemySpawnStart;
         enemySpawnHandler.OnEnemySpawnComplete -= EnemySpawnHandler_OnEnemySpawnComplete;
 
-        meleeEnemyAttack.OnMeleeEnemyAttackCompleted -= MeleeEnemyAttack_OnMeleeEnemyAttackCompleted;
+        meleeEnemyAttack.OnEnemyAttackCompleted -= MeleeEnemyAttack_OnMeleeEnemyAttackCompleted;
 
         enemyHealth.OnEnemyDeath -= EnemyHealth_OnEnemyDeath;
     }
@@ -99,7 +99,7 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
         SetState(MeleeEnemyState.FollowingPlayer);
     }
 
-    private void MeleeEnemyAttack_OnMeleeEnemyAttackCompleted(object sender, MeleeEnemyAttack.OnEnemyAttackEventArgs e)
+    private void MeleeEnemyAttack_OnMeleeEnemyAttackCompleted(object sender, EnemyAttack.OnEntityAttackCompletedEventArgs e)
     {
         if (OnAttackRange())
         {

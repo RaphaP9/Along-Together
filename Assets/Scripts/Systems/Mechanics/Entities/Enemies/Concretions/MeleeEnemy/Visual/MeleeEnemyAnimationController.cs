@@ -33,21 +33,21 @@ public class MeleeEnemyAnimationController : EnemyAnimationController
     }
 
     #region Subscriptions
-    private void MeleeEnemyAttack_OnMeleeEnemyCharge(object sender, MeleeEnemyAttack.OnEnemyAttackEventArgs e)
+    private void MeleeEnemyAttack_OnMeleeEnemyCharge(object sender, MeleeEnemyAttack.OnMeleeEnemyAttackEventArgs e)
     {
         PlayAnimation(CHARGE_BLEND_TREE_NAME);
     }
-    private void MeleeEnemyAttack_OnMeleeEnemyAttack(object sender, MeleeEnemyAttack.OnEnemyAttackEventArgs e)
+    private void MeleeEnemyAttack_OnMeleeEnemyAttack(object sender, MeleeEnemyAttack.OnMeleeEnemyAttackEventArgs e)
     {
         PlayAnimation(ATTACK_BLEND_TREE_NAME);
     }
 
-    private void MeleeEnemyAttack_OnMeleeEnemyRecover(object sender, MeleeEnemyAttack.OnEnemyAttackEventArgs e)
+    private void MeleeEnemyAttack_OnMeleeEnemyRecover(object sender, MeleeEnemyAttack.OnMeleeEnemyAttackEventArgs e)
     {
         PlayAnimation(RECOVER_BLEND_TREE_NAME);
     }
 
-    private void MeleeEnemyAttack_OnMeleeEnemyStopAttacking(object sender, MeleeEnemyAttack.OnEnemyAttackEventArgs e)
+    private void MeleeEnemyAttack_OnMeleeEnemyStopAttacking(object sender, MeleeEnemyAttack.OnMeleeEnemyAttackEventArgs e)
     {
         if (isDead) return;
 
