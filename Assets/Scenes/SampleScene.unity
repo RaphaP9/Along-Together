@@ -906,6 +906,7 @@ MonoBehaviour:
   facingType: 1
   startingFacingDirection: {x: 1, y: 0}
   minimumRigidbodyVelocity: 1
+  currentRawFacingDirection: {x: 0, y: 0}
   currentFacingDirection: {x: 0, y: 0}
   isOverridingFacingDirection: 0
   overridenDirection: {x: 0, y: 0}

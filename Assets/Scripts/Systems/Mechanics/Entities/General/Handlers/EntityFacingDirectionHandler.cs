@@ -18,16 +18,19 @@ public class EntityFacingDirectionHandler : MonoBehaviour
     [SerializeField, Range(0.5f, 10f)] private float minimumRigidbodyVelocity;
 
     [Header("Runtime Filled")]
+    [SerializeField] private Vector2 currentRawFacingDirection;
     [SerializeField] private Vector2Int currentFacingDirection;
     [Space]
     [SerializeField] private bool isOverridingFacingDirection;
     [SerializeField] private Vector2 overridenDirection;
 
     public Vector2Int CurrentFacingDirection => currentFacingDirection;
+    public Vector2 CurrentRawFacingDirection => currentRawFacingDirection;
+    public bool IsOverridingFacingDirection => isOverridingFacingDirection;
+
     private List<IFacingInterruption> facingInterruptions;
 
     private enum FacingType { Rigidbody, Aim }
-    public bool IsOverridingFacingDirection => isOverridingFacingDirection;
     public Vector2 OverridenDirection => overridenDirection;
 
     private void Awake()
@@ -37,7 +40,7 @@ public class EntityFacingDirectionHandler : MonoBehaviour
 
     private void Start()
     {
-        SetCurrentFacingDirection(startingFacingDirection);
+        RecalculateFacingDirections(startingFacingDirection);
     }
 
     private void Update()
@@ -62,8 +65,7 @@ public class EntityFacingDirectionHandler : MonoBehaviour
                 isOverridingFacingDirection = true;
                 overridenDirection = facingInterruptionAbility.GetFacingDirection();
 
-                Vector2Int direction = GeneralUtilities.ClampVector2To8Direction(overridenDirection);
-                SetCurrentFacingDirection(direction);
+                RecalculateFacingDirections(overridenDirection);
                 return;
             }
         }
@@ -97,36 +99,35 @@ public class EntityFacingDirectionHandler : MonoBehaviour
     {
         if (_rigidbody2D.velocity.magnitude < minimumRigidbodyVelocity) return;
 
-        Vector2Int direction = GeneralUtilities.ClampVector2To8Direction(_rigidbody2D.velocity);
+        Vector2 direction = _rigidbody2D.velocity.normalized;
 
-        if (currentFacingDirection != direction)
+        if (currentRawFacingDirection != direction)
         {
-            SetCurrentFacingDirection(direction);
+            RecalculateFacingDirections(direction);
         }
     }
 
     private void HandleFacingDirectionByAim()
     {
-        Vector2Int direction = GeneralUtilities.ClampVector2To8Direction(entityAimDirectioner.AimDirection);
+        Vector2 direction = entityAimDirectioner.AimDirection;
 
-        if (currentFacingDirection != direction)
+        if (currentRawFacingDirection != direction)
         {
-            SetCurrentFacingDirection(direction);
+            RecalculateFacingDirections(direction);
         }
     }
 
+    private void RecalculateFacingDirections(Vector2 direction)
+    {
+        SetCurrentRawFacingDirection(direction);
+        RecalculateCurrentFacingDirection();
+    }
+
+    private void RecalculateCurrentFacingDirection() => currentFacingDirection = GeneralUtilities.ClampVector2To8Direction(currentRawFacingDirection);
+    private void SetCurrentRawFacingDirection(Vector2 rawFacingDirection) => currentRawFacingDirection = rawFacingDirection;
     private void SetCurrentFacingDirection(Vector2Int facingDirection) => currentFacingDirection = facingDirection;
 
-    public bool IsFacingRight()
-    {
-        switch (facingType)
-        {
-            case FacingType.Rigidbody:
-            default:
-                return _rigidbody2D.velocity.x >= 0f;
-            case FacingType.Aim:
-                return entityAimDirectioner.AimDirection.x >= 0;
-        }
-    }
+    public bool IsFacingRight() => currentRawFacingDirection.x >= 0;
+
     #endregion
 }
