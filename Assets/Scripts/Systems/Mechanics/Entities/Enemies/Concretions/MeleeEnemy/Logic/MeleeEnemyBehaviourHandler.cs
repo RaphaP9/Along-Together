@@ -20,7 +20,7 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
         enemySpawnHandler.OnEnemySpawnStart += EnemySpawnHandler_OnEnemySpawnStart;
         enemySpawnHandler.OnEnemySpawnComplete += EnemySpawnHandler_OnEnemySpawnComplete;
 
-        meleeEnemyAttack.OnEnemyAttackCompleted += MeleeEnemyAttack_OnMeleeEnemyAttackCompleted;
+        meleeEnemyAttack.OnEnemyAttackCompleted += MeleeEnemyAttack_OnEnemyAttackCompleted;
 
         enemyHealth.OnEnemyDeath += EnemyHealth_OnEnemyDeath;
     }
@@ -30,7 +30,7 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
         enemySpawnHandler.OnEnemySpawnStart -= EnemySpawnHandler_OnEnemySpawnStart;
         enemySpawnHandler.OnEnemySpawnComplete -= EnemySpawnHandler_OnEnemySpawnComplete;
 
-        meleeEnemyAttack.OnEnemyAttackCompleted -= MeleeEnemyAttack_OnMeleeEnemyAttackCompleted;
+        meleeEnemyAttack.OnEnemyAttackCompleted -= MeleeEnemyAttack_OnEnemyAttackCompleted;
 
         enemyHealth.OnEnemyDeath -= EnemyHealth_OnEnemyDeath;
     }
@@ -85,7 +85,10 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
     private void DeadLogic() { }
 
     private void SetState(MeleeEnemyState state) => meleeEnemyState = state;
+
+    #region Ranges
     private bool OnAttackRange() => playerRelativeHandler.DistanceToPlayer <= MeleeEnemySO.attackDistance;
+    #endregion
 
     #region Susbcriptions
 
@@ -99,11 +102,12 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
         SetState(MeleeEnemyState.FollowingPlayer);
     }
 
-    private void MeleeEnemyAttack_OnMeleeEnemyAttackCompleted(object sender, EnemyAttack.OnEntityAttackCompletedEventArgs e)
+    private void MeleeEnemyAttack_OnEnemyAttackCompleted(object sender, EnemyAttack.OnEntityAttackCompletedEventArgs e)
     {
         if (OnAttackRange())
         {
             meleeEnemyAttack.TriggerAttack();
+            SetState(MeleeEnemyState.Attacking);
         }
         else
         {

@@ -4198,7 +4198,7 @@ GameObject:
   - component: {fileID: 598703637}
   - component: {fileID: 598703636}
   - component: {fileID: 598703635}
-  - component: {fileID: 598703634}
+  - component: {fileID: 598703640}
   - component: {fileID: 598703633}
   - component: {fileID: 598703639}
   - component: {fileID: 598703631}
@@ -4279,26 +4279,6 @@ MonoBehaviour:
   currentHealth: 0
   currentShield: 0
   enemySpawnHandler: {fileID: 598703630}
---- !u!114 &598703634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598703628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de5389c1030ac244aab753a74be77fda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyIdentifier: {fileID: 598703635}
-  enemySpawnHandler: {fileID: 598703630}
-  enemyHealth: {fileID: 598703633}
-  enemyMovement: {fileID: 598703631}
-  enemyCleanup: {fileID: 598703629}
-  playerRelativeHandler: {fileID: 1852083156}
-  meleeEnemyAttack: {fileID: 0}
-  meleeEnemyState: 0
 --- !u!114 &598703635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4311,7 +4291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b055eaee263b8cb409bb95aeaa2baeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entitySO: {fileID: 11400000, guid: 8a3ede3befcbc3c4dab36331a3e15506, type: 2}
+  entitySO: {fileID: 11400000, guid: 8a187a977c2394c4ca5bc25d399c13ab, type: 2}
 --- !u!50 &598703636
 Rigidbody2D:
   serializedVersion: 4
@@ -4417,16 +4397,36 @@ MonoBehaviour:
   enemyIdentifier: {fileID: 598703635}
   aimDirectionerHandler: {fileID: 667208476}
   firePoint: {fileID: 184701375}
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 8073931636513284674, guid: 87d0d4ca8c17e474483239c1477ec45b, type: 3}
   projectileDamageType: 0
   projectileAreaRadius: 0
   projectileImpactLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  projectileSpeed: 0.1
-  projectileLifespan: 0.5
+    m_Bits: 4097
+  projectileSpeed: 10
+  projectileLifespan: 5
   projectileDispersionAngle: 0
   projectileAttackState: 0
+--- !u!114 &598703640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598703628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b2e60268634e844970d2408506e53c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyIdentifier: {fileID: 598703635}
+  enemySpawnHandler: {fileID: 598703630}
+  enemyHealth: {fileID: 598703633}
+  enemyMovement: {fileID: 598703631}
+  enemyCleanup: {fileID: 598703629}
+  playerRelativeHandler: {fileID: 1852083156}
+  projectileEnemyAttack: {fileID: 598703639}
+  projectileEnemyState: 0
 --- !u!1 &602807250
 GameObject:
   m_ObjectHideFlags: 0

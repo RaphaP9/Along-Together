@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "NewProjectileEnemySO", menuName = "ScriptableObjects/Entities/Enemies/ProjectileEnemy")]
 public class ProjectileEnemySO : EnemySO
 {
     [Header("Projectile Enemy Settings")]
