@@ -17,9 +17,7 @@ public class KamikazeEnemyAnimationController : EnemyAnimationController
         base.OnEnable();
 
         kamikazeEnemyExplosion.OnEntityExplosionCompleted += KamikazeEnemyExplosion_OnEntityExplosionCompleted;
-
         kamikazeEnemyExplosion.OnKamikazeEnemyCharge += KamikazeEnemyExplosion_OnKamikazeEnemyCharge;
-        kamikazeEnemyExplosion.OnKamikazeEnemyExplosion += KamikazeEnemyExplosion_OnKamikazeEnemyExplosion;
     }
 
     protected override void OnDisable()
@@ -27,8 +25,6 @@ public class KamikazeEnemyAnimationController : EnemyAnimationController
         base.OnDisable();
 
         kamikazeEnemyExplosion.OnKamikazeEnemyCharge -= KamikazeEnemyExplosion_OnKamikazeEnemyCharge;
-        kamikazeEnemyExplosion.OnKamikazeEnemyExplosion -= KamikazeEnemyExplosion_OnKamikazeEnemyExplosion;
-
         kamikazeEnemyExplosion.OnEntityExplosionCompleted -= KamikazeEnemyExplosion_OnEntityExplosionCompleted;
     }
 
@@ -38,16 +34,15 @@ public class KamikazeEnemyAnimationController : EnemyAnimationController
         PlayAnimation(CHARGE_ANIMATION_NAME);
     }
 
-    private void KamikazeEnemyExplosion_OnKamikazeEnemyExplosion(object sender, KamikazeEnemyExplosion.OnKamikazeEnemyExplosionEventArgs e)
-    {
-        PlayAnimation(EXPLOSION_ANIMATION_NAME);
-    }
-
+    //On Regular Death, OnEnemyNormalKill, OnEnemyKillWhileExploding
+    //1st, -, -
     private void KamikazeEnemyExplosion_OnEntityExplosionCompleted(object sender, EntityExplosion.OnEntityExplosionCompletedEventArgs e)
     {
         hasExploded = true;
+        PlayAnimation(EXPLOSION_ANIMATION_NAME);
     }
 
+    //2nd, 1st, 1st
     protected override void EnemyHealth_OnEnemyDeath(object sender, System.EventArgs e)
     {
         if (hasExploded) return;

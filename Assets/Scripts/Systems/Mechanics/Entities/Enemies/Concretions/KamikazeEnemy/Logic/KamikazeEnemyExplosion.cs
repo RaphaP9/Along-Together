@@ -8,7 +8,7 @@ public class KamikazeEnemyExplosion : EnemyExplosion
     [Header("States - Runtime Filled")]
     [SerializeField] protected KamikazeExplosionState kamikazeExplosionState;
 
-    protected enum KamikazeExplosionState {NotExploding, Charging} //Kamikaze Enemies Only have 2 states
+    protected enum KamikazeExplosionState {NotExploding, Charging} //Kamikaze Enemy Explosion only have 2 states
     private KamikazeEnemySO KamikazeEnemySO => EnemySO as KamikazeEnemySO;
 
     public static event EventHandler<OnKamikazeEnemyExplosionEventArgs> OnAnyKamikazeEnemyCharge;
@@ -126,7 +126,7 @@ public class KamikazeEnemyExplosion : EnemyExplosion
 ;
         List<Vector2> positions = GeneralUtilities.TransformPositionVector2List(explosionPoints);
 
-        DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = KamikazeEnemySO, canBeDodged = false, canBeImmuned = true };
+        DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = KamikazeEnemySO, canBeDodged = false, canBeImmuned = true }; //Can not dodge explosion damage
 
         MechanicsUtilities.DealDamageInAreas(positions, KamikazeEnemySO.explosionRadius, damageData, explosionLayermask, new List<Transform> { transform });
         entityHealth.Excecute(KamikazeEnemySO); 
@@ -135,12 +135,12 @@ public class KamikazeEnemyExplosion : EnemyExplosion
     }
 
     #region Virtual Event Methods
-    protected override void OnEntityExplosionCompletedMethod()
+    protected override void OnEntityExplosionMethod(int damage)
     {
-        base.OnEntityExplosionCompletedMethod();
+        base.OnEntityExplosionMethod(damage);
 
-        OnAnyKamikazeEnemyExplosion?.Invoke(this, new OnKamikazeEnemyExplosionEventArgs { kamikazeEnemySO = KamikazeEnemySO, explosionPoints = explosionPoints, explosionDamage = KamikazeEnemySO.explosionDamage });
-        OnKamikazeEnemyExplosion?.Invoke(this, new OnKamikazeEnemyExplosionEventArgs { kamikazeEnemySO = KamikazeEnemySO, explosionPoints = explosionPoints, explosionDamage = KamikazeEnemySO.explosionDamage });
+        OnAnyKamikazeEnemyExplosion?.Invoke(this, new OnKamikazeEnemyExplosionEventArgs { kamikazeEnemySO = KamikazeEnemySO, explosionPoints = explosionPoints, explosionDamage = damage });
+        OnKamikazeEnemyExplosion?.Invoke(this, new OnKamikazeEnemyExplosionEventArgs { kamikazeEnemySO = KamikazeEnemySO, explosionPoints = explosionPoints, explosionDamage = damage });
     }
     #endregion
 
