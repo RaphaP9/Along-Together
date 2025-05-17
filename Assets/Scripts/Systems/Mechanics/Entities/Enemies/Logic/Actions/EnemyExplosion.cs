@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyExplosion : MonoBehaviour
+public abstract class EnemyExplosion : EntityExplosion
 {
     [Header("Enemy Explosion Components")]
     [SerializeField] private EnemyIdentifier enemyIdentifier;
-    [SerializeField] protected List<Transform> explosionPoints;
 
     protected EnemySO EnemySO => enemyIdentifier.EnemySO;
 
@@ -15,24 +14,14 @@ public abstract class EnemyExplosion : MonoBehaviour
     protected bool shouldExplode = false;
     protected bool shouldStopExplosion = false;
 
-    protected bool hasExecutedExplosion = false;
 
     #region Events
     public event EventHandler<OnEnemyExplosionEventArgs> OnEnemyExplosion;
     public static event EventHandler<OnEnemyExplosionEventArgs> OnAnyEnemyExplosion;
-
-    public event EventHandler<OnEnemyAttackCompletedEventArgs> OnAnyEnemyExplosionCompleted;
-    public static event EventHandler<OnEnemyAttackCompletedEventArgs> OnEnemyExplosionCompleted;
     #endregion
 
     #region EventArgs Classes
-    public class OnEnemyExplosionEventArgs
-    {
-        public EnemySO enemySO;
-        public List<Transform> explosionPoints;
-    }
-
-    public class OnEnemyAttackCompletedEventArgs
+    public class OnEnemyExplosionEventArgs : OnEntityExplosionEventArgs
     {
         public EnemySO enemySO;
     }
@@ -42,19 +31,16 @@ public abstract class EnemyExplosion : MonoBehaviour
     public void TriggerExplosionStop() => shouldStopExplosion = true;
 
     protected void ResetTimer() => timer = 0f;
-    public abstract bool OnExplosionExecution();
+
+    protected abstract void Explode();
 
     #region Virtual Event Methods
-    protected virtual void OnEnemyExplosionMethod()
+    protected override void OnEntityExplosionMethod(int explosionDamage)
     {
-        OnEnemyExplosion?.Invoke(this, new OnEnemyExplosionEventArgs { enemySO = enemyIdentifier.EnemySO, explosionPoints = explosionPoints});
-        OnAnyEnemyExplosion?.Invoke(this, new OnEnemyExplosionEventArgs { enemySO = enemyIdentifier.EnemySO, explosionPoints = explosionPoints });
-    }
+        base.OnEntityExplosionMethod(explosionDamage);
 
-    protected virtual void OnEntityAttackCompletedMethod()
-    {
-        OnEnemyExplosionCompleted?.Invoke(this, new OnEnemyAttackCompletedEventArgs { enemySO = enemyIdentifier.EnemySO });
-        OnAnyEnemyExplosionCompleted?.Invoke(this, new OnEnemyAttackCompletedEventArgs { enemySO = enemyIdentifier.EnemySO });
+        OnEnemyExplosion?.Invoke(this, new OnEnemyExplosionEventArgs { explosionPoints = explosionPoints, explosionDamage = explosionDamage, enemySO = EnemySO });
+        OnAnyEnemyExplosion?.Invoke(this, new OnEnemyExplosionEventArgs { explosionPoints = explosionPoints, explosionDamage = explosionDamage, enemySO = EnemySO });
     }
     #endregion
 }
