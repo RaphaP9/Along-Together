@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa2ed3f31f680f947947d7299867f6fe, type: 3}
+  m_Name: TestKamikazeEnemySO
+  m_EditorClassIdentifier: 
+  id: 0
+  entityName: 
+  description: 
+  sprite: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  prefab: {fileID: 0}
+  baseHealth: 0
+  baseShield: 0
+  baseArmor: 0
+  baseDodgeChance: 0
+  baseAttackDamage: 0
+  baseAttackSpeed: 0
+  baseAttackCritChance: 0
+  baseAttackCritDamageMultiplier: 0
+  baseLifesteal: 0
+  damageColor: {r: 0, g: 0, b: 0, a: 0}
+  baseMovementSpeed: 0
+  oreDrop: 0
+  spawnDuration: 0
+  cleanupTime: 0
+  explosionDamage: 0
+  explosionArea: 0
+  detectionRange: 0
+  explosionTime: 0

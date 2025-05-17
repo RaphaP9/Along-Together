@@ -10,7 +10,6 @@ public abstract class EnemyAttack : EntityAttack
 
     protected EnemySO EnemySO => enemyIdentifier.EnemySO;
 
-
     protected float timer;
     protected bool shouldAttack = false;
     protected bool shouldStopAttack = false;
