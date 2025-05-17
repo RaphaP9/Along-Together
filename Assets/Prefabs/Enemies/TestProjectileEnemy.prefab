@@ -789,7 +789,7 @@ MonoBehaviour:
   projectileImpactLayerMask:
     serializedVersion: 2
     m_Bits: 4097
-  projectileSpeed: 10
+  projectileSpeed: 5
   projectileLifespan: 5
   projectileDispersionAngle: 0
   projectileAttackState: 0

@@ -11,7 +11,6 @@ public class MeleeEnemyAnimationController : EnemyAnimationController
     protected const string ATTACK_BLEND_TREE_NAME = "AttackBlendTree";
     protected const string RECOVER_BLEND_TREE_NAME = "RecoverBlendTree";
 
-
     protected override void OnEnable()
     {
         base.OnEnable();

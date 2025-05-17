@@ -68,7 +68,7 @@ public class EnemyAnimationController : MonoBehaviour
         PlayAnimation(MOVEMENT_BLEND_TREE_NAME);
     }
 
-    private void EnemyHealth_OnEnemyDeath(object sender, System.EventArgs e)
+    protected virtual void EnemyHealth_OnEnemyDeath(object sender, System.EventArgs e)
     {
         isDead = true;
         PlayAnimation(DEATH_ANIMATION_NAME);

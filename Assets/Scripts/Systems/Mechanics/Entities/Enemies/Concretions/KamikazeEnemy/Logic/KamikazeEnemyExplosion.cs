@@ -87,9 +87,9 @@ public class KamikazeEnemyExplosion : EnemyExplosion
 
         hasExecutedExplosion = true;
 
+        OnEntityExplosionCompletedMethod();
         Explode();
 
-        OnEntityExplosionCompletedMethod();
         TransitionToState(KamikazeExplosionState.NotExploding);
     }
 
@@ -132,7 +132,6 @@ public class KamikazeEnemyExplosion : EnemyExplosion
         entityHealth.Excecute(KamikazeEnemySO); 
 
         OnEntityExplosionMethod(damage);
-        Debug.Log("Boom");
     }
 
     #region Virtual Event Methods
