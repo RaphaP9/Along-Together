@@ -288,8 +288,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     public void Excecute(IDamageSourceSO damageSource)
     {
-        if (!AvoidDamagePassThrough()) return;
-        if (!AvoidDamageTakeHits()) return;
+        if (AvoidDamagePassThrough()) return;
+        if (AvoidDamageTakeHits()) return;
         if (!IsAlive()) return;
 
         int previousHealth = currentHealth;

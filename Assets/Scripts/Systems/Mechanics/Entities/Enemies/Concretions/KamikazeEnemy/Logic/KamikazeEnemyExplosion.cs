@@ -85,9 +85,10 @@ public class KamikazeEnemyExplosion : EnemyExplosion
             return;
         }
 
+        hasExecutedExplosion = true;
+
         Explode();
 
-        hasExecutedExplosion = true;
         OnEntityExplosionCompletedMethod();
         TransitionToState(KamikazeExplosionState.NotExploding);
     }
@@ -127,10 +128,11 @@ public class KamikazeEnemyExplosion : EnemyExplosion
 
         DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = KamikazeEnemySO, canBeDodged = false, canBeImmuned = true };
 
-        MechanicsUtilities.DealDamageInAreas(positions, KamikazeEnemySO.explosionArea, damageData, explosionLayermask, new List<Transform> { transform });
-
+        MechanicsUtilities.DealDamageInAreas(positions, KamikazeEnemySO.explosionRadius, damageData, explosionLayermask, new List<Transform> { transform });
+        entityHealth.Excecute(KamikazeEnemySO); 
 
         OnEntityExplosionMethod(damage);
+        Debug.Log("Boom");
     }
 
     #region Virtual Event Methods
@@ -140,6 +142,14 @@ public class KamikazeEnemyExplosion : EnemyExplosion
 
         OnAnyKamikazeEnemyExplosion?.Invoke(this, new OnKamikazeEnemyExplosionEventArgs { kamikazeEnemySO = KamikazeEnemySO, explosionPoints = explosionPoints, explosionDamage = KamikazeEnemySO.explosionDamage });
         OnKamikazeEnemyExplosion?.Invoke(this, new OnKamikazeEnemyExplosionEventArgs { kamikazeEnemySO = KamikazeEnemySO, explosionPoints = explosionPoints, explosionDamage = KamikazeEnemySO.explosionDamage });
+    }
+    #endregion
+
+    #region Subscriptions
+    protected override void EntityHealth_OnEntityDeath(object sender, EventArgs e)
+    {
+        if (hasExecutedExplosion) return;
+        if (explodeOnDeath) Explode();
     }
     #endregion
 }

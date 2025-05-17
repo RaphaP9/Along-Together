@@ -12,27 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2ed3f31f680f947947d7299867f6fe, type: 3}
   m_Name: TestKamikazeEnemySO
   m_EditorClassIdentifier: 
-  id: 0
-  entityName: 
-  description: 
+  id: 203
+  entityName: TestKamikazeEnemy
+  description: TestKamikazeEnemy
   sprite: {fileID: 0}
   color: {r: 0, g: 0, b: 0, a: 0}
   prefab: {fileID: 0}
-  baseHealth: 0
+  baseHealth: 20
   baseShield: 0
-  baseArmor: 0
+  baseArmor: 10
   baseDodgeChance: 0
-  baseAttackDamage: 0
-  baseAttackSpeed: 0
+  baseAttackDamage: 1
+  baseAttackSpeed: 1
   baseAttackCritChance: 0
-  baseAttackCritDamageMultiplier: 0
+  baseAttackCritDamageMultiplier: 0.5
   baseLifesteal: 0
   damageColor: {r: 0, g: 0, b: 0, a: 0}
-  baseMovementSpeed: 0
+  baseMovementSpeed: 1
   oreDrop: 0
-  spawnDuration: 0
-  cleanupTime: 0
-  explosionDamage: 0
-  explosionArea: 0
-  detectionRange: 0
-  explosionTime: 0
+  spawnDuration: 3
+  cleanupTime: 3
+  explosionDamage: 1
+  explosionRadius: 2
+  detectionRange: 2
+  explosionTime: 1

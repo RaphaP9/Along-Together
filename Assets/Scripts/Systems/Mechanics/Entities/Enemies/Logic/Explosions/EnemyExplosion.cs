@@ -32,8 +32,6 @@ public abstract class EnemyExplosion : EntityExplosion
 
     protected void ResetTimer() => timer = 0f;
 
-    protected abstract void Explode();
-
     #region Virtual Event Methods
     protected override void OnEntityExplosionMethod(int explosionDamage)
     {
