@@ -7,35 +7,14 @@ public class EnemySpawnerManager : MonoBehaviour
 {
     public static EnemySpawnerManager Instance { get; private set; }
 
-    [Header("Lists")]
-    [SerializeField] private List<Transform> enemySpawnPoints;
-
-    [Header("Settings")]
-    [SerializeField,Range(3f, 10f)] private float minDistanceToPlayer;
-    [SerializeField,Range(5f, 20f)] private float maxDistanceToPlayer;
-
-    [Header("Runtime Filled")]
-    [SerializeField] private Transform playerTransform;
-
     [Header("Debug")]
     [SerializeField] private bool debug;
-    [SerializeField] private Color gizmosColor;
 
     public static event EventHandler<OnEnemySpawnedEventArgs> OnEnemySpawned;
     public class OnEnemySpawnedEventArgs : EventArgs
     {
         public EnemySO enemySO;
-        public Transform spawnPoint;
-    }
-
-    private void OnEnable()
-    {
-        PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
-    }
-
-    private void OnDisable()
-    {
-        PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
+        public Vector2 position;
     }
 
     private void Awake()
@@ -56,118 +35,35 @@ public class EnemySpawnerManager : MonoBehaviour
         }
     }
 
-    public void SpawnEnemy(EnemySO enemySO)
+    public Transform SpawnEnemyOnValidRandomSpawnPoint(EnemySO enemySO)
     {
-        Transform chosenSpawnPoint = GetRandomValidSpawnPoint(enemySpawnPoints, minDistanceToPlayer, maxDistanceToPlayer);
+        Transform chosenSpawnPoint = EnemySpawnPointsManager.Instance.GetRandomValidSpawnPoint();
 
         if(chosenSpawnPoint == null)
         {
             if (debug) Debug.Log("Chosen SpawnPoint is null. Spawn will be ignored");
-            return;
+            return null;
         }
 
-        SpawnEnemyAtPosition(enemySO, chosenSpawnPoint.position);
+        Transform spawnedEnemy = SpawnEnemyAtPosition(enemySO, chosenSpawnPoint.position);
 
-        OnEnemySpawned?.Invoke(this, new OnEnemySpawnedEventArgs { enemySO = enemySO, spawnPoint = chosenSpawnPoint });
+        return spawnedEnemy;
     }
 
-    private void SpawnEnemyAtPosition(EnemySO enemySO, Vector3 position)
+    public Transform SpawnEnemyAtPosition(EnemySO enemySO, Vector3 position)
     {
         if(enemySO.prefab == null)
         {
             if (debug) Debug.Log($"EnemySO with name {enemySO.entityName} does not contain an enemy prefab. Instantiation will be ignored.");
-            return;
+            return null;
         }
 
         Transform spawnedEnemy = Instantiate(enemySO.prefab, position, Quaternion.identity);
+
+        OnEnemySpawned?.Invoke(this, new OnEnemySpawnedEventArgs { enemySO = enemySO, position = position });
+
+        return spawnedEnemy;
     }
 
-    #region SpawnPoint Filtering
-
-    private Transform GetRandomValidSpawnPoint(List<Transform> enemySpawnPointsPool, float minDistance, float maxDistance)
-    {
-        List<Transform> validSpawnPoints = FilterValidEnemySpawnPointsByMinMaxDistanceRange(enemySpawnPointsPool, minDistance, maxDistance);
-        Transform chosenSpawnPoint = ChooseRandomEnemySpawnPoint(validSpawnPoints);
-
-        return chosenSpawnPoint;
-    }
-
-    private List<Transform> FilterValidEnemySpawnPointsByMinMaxDistanceRange(List<Transform> enemySpawnPointsPool, float minDistance, float maxDistance)
-    {
-        List<Transform> validSpawnPoints = new List<Transform>();
-
-        foreach(Transform enemySpawnPoint in enemySpawnPointsPool)
-        {
-            if (!EnemySpawnPointOnMinDistanceRange(enemySpawnPoint, minDistance)) continue;
-            if (!EnemySpawnPointOnMaxDistanceRange(enemySpawnPoint, maxDistance)) continue;
-
-            validSpawnPoints.Add(enemySpawnPoint);
-        }
-
-        return validSpawnPoints;
-    }
-
-    private List<Transform> FilterValidEnemySpawnPointsByMinDistanceRange(List<Transform> enemySpawnPointsPool, float minDistance)
-    {
-        List<Transform> validSpawnPoints = new List<Transform>();
-
-        foreach (Transform enemySpawnPoint in enemySpawnPointsPool)
-        {
-            if (!EnemySpawnPointOnMinDistanceRange(enemySpawnPoint, minDistance)) continue;
-
-            validSpawnPoints.Add(enemySpawnPoint);
-        }
-
-        return validSpawnPoints;
-    }
-
-    private List<Transform> ChooseValidEnemySpawnPointsByMaxDistanceRange(List<Transform> enemySpawnPointsPool, float maxDistance)
-    {
-        List<Transform> validSpawnPoints = new List<Transform>();
-
-        foreach (Transform enemySpawnPoint in enemySpawnPointsPool)
-        {
-            if (!EnemySpawnPointOnMaxDistanceRange(enemySpawnPoint, maxDistance)) continue;
-
-            validSpawnPoints.Add(enemySpawnPoint);
-        }
-
-        return validSpawnPoints;
-    }
-
-    private Transform ChooseRandomEnemySpawnPoint(List<Transform> enemySpawnPointsPool)
-    {
-        Transform enemySpawnPoint = GeneralUtilities.ChooseRandomElementFromList(enemySpawnPointsPool);
-        return enemySpawnPoint;
-    }
-
-    private bool EnemySpawnPointOnMinDistanceRange(Transform enemySpawnPoint, float minDistance)
-    {
-        if (Vector2.Distance(GeneralUtilities.TransformPositionVector2(enemySpawnPoint), GeneralUtilities.TransformPositionVector2(playerTransform)) > minDistance) return true;
-        return false;
-    }
-
-    private bool EnemySpawnPointOnMaxDistanceRange(Transform enemySpawnPoint, float maxDistance)
-    {
-        if (Vector2.Distance(GeneralUtilities.TransformPositionVector2(enemySpawnPoint), GeneralUtilities.TransformPositionVector2(playerTransform)) < maxDistance) return true;
-        return false;
-    }
-
-    #endregion
-
-    #region Subscriptions
-    private void PlayerInstantiationHandler_OnPlayerInstantiation(object sender, PlayerInstantiationHandler.OnPlayerInstantiationEventArgs e)
-    {
-        playerTransform = e.playerTransform;
-    }
-
-    #endregion
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = gizmosColor;
-
-        //Gizmos.DrawWireSphere(PlayerPositionHandler.Instance.Player.position, minDistanceToPlayer);
-        //Gizmos.DrawWireSphere(PlayerPositionHandler.Instance.Player.position, maxDistanceToPlayer);
-    }
+  
 }

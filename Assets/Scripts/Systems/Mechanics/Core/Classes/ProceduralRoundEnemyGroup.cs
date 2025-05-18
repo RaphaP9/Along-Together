@@ -6,5 +6,5 @@ using UnityEngine;
 public class ProceduralRoundEnemyGroup
 {
     public EnemySO enemySO;
-    [Range(1, 100)] public int weight;
+    [Range(1, 1000)] public int weight;
 }

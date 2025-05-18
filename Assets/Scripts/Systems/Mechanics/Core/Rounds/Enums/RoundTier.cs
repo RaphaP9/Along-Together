@@ -1,6 +1,5 @@
 public enum RoundTier 
 {
-    Z,
     S,
     A,
     B,
