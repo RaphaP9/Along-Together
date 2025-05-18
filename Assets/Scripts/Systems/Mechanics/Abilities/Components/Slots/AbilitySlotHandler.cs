@@ -8,7 +8,7 @@ public class AbilitySlotHandler : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private AbilitySlot abilitySlot;
     [SerializeField] private List<Ability> abilityVariants;
-
+    [Space] 
     [SerializeField] private Ability startingAbilityVariant;
 
     [Header("Runtime Filled")]
@@ -78,8 +78,6 @@ public class AbilitySlotHandler : MonoBehaviour
         SelectAbilityVariant(abilityVariant);
     }
     #endregion
-
-
 
     #region Seekers
 

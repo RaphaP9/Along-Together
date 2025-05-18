@@ -112,6 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityIdentifier: {fileID: 4591576310225339193}
+  maxLevel: 3
+  startingAbilityLevel: 0
   abilityLevel: 0
 --- !u!114 &8470413022457330166
 MonoBehaviour:
@@ -975,6 +977,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityIdentifier: {fileID: 5328163113391621430}
+  maxLevel: 3
+  startingAbilityLevel: 0
   abilityLevel: 0
 --- !u!114 &1280386860473701626
 MonoBehaviour:
@@ -1418,6 +1422,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityIdentifier: {fileID: 1897673595700632218}
+  maxLevel: 3
+  startingAbilityLevel: 0
   abilityLevel: 0
 --- !u!114 &7573232495966570463
 MonoBehaviour:
@@ -1516,19 +1522,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7556025860753867530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 305fbec8dfb35b247be6e385512ecd9b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1a4cc0a5b1a86d43855bfb2b259c687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityLevelGroups:
-  - ability: {fileID: 7573232495966570463}
-    startingAbilityLevel: 1
-    currentAbilityLevel: 0
-  - ability: {fileID: 1280386860473701626}
-    startingAbilityLevel: 1
-    currentAbilityLevel: 0
-  - ability: {fileID: 8470413022457330166}
-    startingAbilityLevel: 1
-    currentAbilityLevel: 0
+  abilityLevelHandlers:
+  - {fileID: 8223277899744677149}
+  - {fileID: 5611075828277405468}
+  - {fileID: 5577424398876266477}
   debug: 1
 --- !u!1 &8502199646678721002
 GameObject:

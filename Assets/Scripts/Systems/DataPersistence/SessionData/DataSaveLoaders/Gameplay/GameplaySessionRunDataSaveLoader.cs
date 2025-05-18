@@ -101,7 +101,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         if (playerTransform == null) return;
 
-        PlayerAbilityLevelsHandler playerAbilityLevelsHandler = playerTransform.GetComponentInChildren<PlayerAbilityLevelsHandler>();
+        PlayerAbilitiesLevelsHandler playerAbilityLevelsHandler = playerTransform.GetComponentInChildren<PlayerAbilitiesLevelsHandler>();
 
         if(playerAbilityLevelsHandler == null) return;
 
@@ -165,7 +165,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         if (playerTransform == null) return;
 
-        PlayerAbilityLevelsHandler playerAbilityLevelsHandler = playerTransform.GetComponentInChildren<PlayerAbilityLevelsHandler>();
+        PlayerAbilitiesLevelsHandler playerAbilityLevelsHandler = playerTransform.GetComponentInChildren<PlayerAbilitiesLevelsHandler>();
 
         if (playerAbilityLevelsHandler == null) return;
 

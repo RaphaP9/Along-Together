@@ -1,12 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class AbilityLevelHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private AbilityIdentifier abilityIdentifier;
+
+    [Header("Setting")]
+    [SerializeField] private AbilityLevel maxLevel;
+    [SerializeField] private AbilityLevel startingAbilityLevel;
 
     [Header("Runtime Filled")]
     [SerializeField] private AbilityLevel abilityLevel;
@@ -15,10 +20,7 @@ public class AbilityLevelHandler : MonoBehaviour
     public AbilityLevel AbilityLevel => abilityLevel;
 
     public event EventHandler<OnAbilityLevelEventArgs> OnAbilityLevelSet;
-    public static event EventHandler<OnAbilityLevelEventArgs> OnAnyAbilityLevelSet;
-
     public event EventHandler<OnAbilityLevelEventArgs> OnAbilityLevelInitialized;
-    public static event EventHandler<OnAbilityLevelEventArgs> OnAnyAbilityLevelInitialized;
 
     public class OnAbilityLevelEventArgs : EventArgs
     {
@@ -26,21 +28,38 @@ public class AbilityLevelHandler : MonoBehaviour
         public AbilityLevel abilityLevel;
     }
 
+    private void Start()
+    {
+        InitializeAbilityLevel(startingAbilityLevel);
+    }
+
     public bool IsUnlocked() => abilityLevel != AbilityLevel.NotLearned;
+    public bool IsMaxed() => abilityLevel == maxLevel;
+
+    #region Ability Level Selection
+    public void InitializeAbilityLevel(AbilityLevel abilityLevel)
+    {
+        this.abilityLevel = abilityLevel;
+        OnAbilityLevelInitialized?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });     
+    }
 
     public void SetAbilityLevel(AbilityLevel abilityLevel)
     {
         this.abilityLevel = abilityLevel;
-
         OnAbilityLevelSet?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });
-        OnAnyAbilityLevelSet?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });
     }
+    #endregion
 
-    public void InitializeAbilityLevel(AbilityLevel abilityLevel)
+    #region Get & Set
+    public void SetStartingAbilityLevel(AbilityLevel abilityLevel)
     {
-        this.abilityLevel = abilityLevel;
-
-        OnAbilityLevelInitialized?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });
-        OnAnyAbilityLevelInitialized?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });
+        startingAbilityLevel = abilityLevel;
     }
+
+    public PrimitiveAbilityLevelGroup GetPrimitiveAbilityLevelGroup()
+    {
+        PrimitiveAbilityLevelGroup primitiveAbilityLevelGroup = new PrimitiveAbilityLevelGroup { abilitySO = AbilitySO, abilityLevel = abilityLevel };
+        return primitiveAbilityLevelGroup;
+    }
+    #endregion
 }
