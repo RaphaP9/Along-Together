@@ -286,7 +286,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         return true;
     }
 
-    public void Excecute(IDamageSourceSO damageSource)
+    public void Excecute(ExecuteDamageData executeDamageData)
     {
         if (AvoidDamagePassThrough()) return;
         if (AvoidDamageTakeHits()) return;
@@ -303,12 +303,12 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
          
         if(damageTakenByShield > 0)
         {
-            OnEntityShieldTakeDamageMethod(damageTakenByShield, previousShield, true, damageSource);
+            if(executeDamageData.triggerShieldTakeDamageEvents) OnEntityShieldTakeDamageMethod(damageTakenByShield, previousShield, executeDamageData.isCrit, executeDamageData.damageSource);
         }
 
         if(damageTakenByHealth > 0)
         {
-            OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, true, damageSource);
+            if (executeDamageData.triggerHealthTakeDamageEvents) OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, executeDamageData.isCrit, executeDamageData.damageSource);
         }
 
         OnEntityDeathMethod();

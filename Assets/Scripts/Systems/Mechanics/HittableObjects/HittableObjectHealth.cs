@@ -151,7 +151,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         return true;
     }
 
-    public void Excecute(IDamageSourceSO damageSource)
+    public void Excecute(ExecuteDamageData executeDamageData)
     {
         if (!AvoidDamageTakeHits()) return;
         if (!IsAlive()) return;
@@ -167,12 +167,12 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
 
         if (damageTakenByShield > 0)
         {
-            OnHittableObjectShieldTakeDamageMethod(damageTakenByShield, previousShield, true, damageSource);
+            if (executeDamageData.triggerShieldTakeDamageEvents) OnHittableObjectShieldTakeDamageMethod(damageTakenByShield, previousShield, executeDamageData.isCrit, executeDamageData.damageSource);
         }
 
         if (damageTakenByHealth > 0)
         {
-            OnHittableObjectHealthTakeDamageMethod(damageTakenByHealth, previousHealth, true, damageSource);
+            if (executeDamageData.triggerHealthTakeDamageEvents) OnHittableObjectHealthTakeDamageMethod(damageTakenByHealth, previousHealth, executeDamageData.isCrit, executeDamageData.damageSource);
         }
 
         OnHittableObjectDeathMethod();
