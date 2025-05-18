@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class SpawnPointHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Settings")]
+    [SerializeField] private bool isEnabled;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool IsEnabled => isEnabled;
+
+    public void SetIsEnabled(bool isValid) => this.isEnabled = isValid;
 }

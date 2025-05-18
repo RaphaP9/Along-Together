@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnpointGroupHandler : MonoBehaviour
+public class SpawnPointGroupHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Lists")]
+    [SerializeField] private List<SpawnPointHandler> groupSpawnPoints;
+
+    public List<SpawnPointHandler> GroupSpawnPoints => groupSpawnPoints;
+
+    public void EnableSpawnPoints()
     {
-        
+        foreach(SpawnPointHandler spawnPoint in groupSpawnPoints)
+        {
+            spawnPoint.SetIsEnabled(true);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DisableSpawnPoints()
     {
-        
+        foreach (SpawnPointHandler spawnPoint in groupSpawnPoints)
+        {
+            spawnPoint.SetIsEnabled(false);
+        }
     }
 }

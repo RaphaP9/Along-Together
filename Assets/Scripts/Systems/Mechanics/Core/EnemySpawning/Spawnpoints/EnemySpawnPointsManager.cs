@@ -7,7 +7,7 @@ public class EnemySpawnPointsManager : MonoBehaviour
     public static EnemySpawnPointsManager Instance { get; private set; }
 
     [Header("Lists")]
-    [SerializeField] private List<Transform> enemySpawnPoints;
+    [SerializeField] private List<SpawnPointHandler> enemySpawnPoints;
 
     [Header("Settings")]
     [SerializeField, Range(3f, 10f)] private float minDistanceToPlayer;
@@ -40,10 +40,23 @@ public class EnemySpawnPointsManager : MonoBehaviour
 
     public Transform GetRandomValidSpawnPoint()
     {
-        List<Transform> validSpawnPoints = FilterValidEnemySpawnPointsByMinMaxDistanceRange(enemySpawnPoints, minDistanceToPlayer, maxDistanceToPlayer);
+        List<Transform> enabledSpawnPoints = GetEnabledSpawnPoints(enemySpawnPoints);
+        List<Transform> validSpawnPoints = FilterValidEnemySpawnPointsByMinMaxDistanceRange(enabledSpawnPoints, minDistanceToPlayer, maxDistanceToPlayer);
         Transform chosenSpawnPoint = ChooseRandomEnemySpawnPoint(validSpawnPoints);
 
         return chosenSpawnPoint;
+    }
+
+    private List<Transform> GetEnabledSpawnPoints(List<SpawnPointHandler> enemySpawnPointsPool)
+    {
+        List<Transform> enabledSpawnPoints = new List<Transform>();
+
+        foreach(SpawnPointHandler spawnPoint in enemySpawnPointsPool)
+        {
+            if (spawnPoint.IsEnabled) enabledSpawnPoints.Add(spawnPoint.transform);
+        }
+
+        return enabledSpawnPoints;
     }
 
     private List<Transform> FilterValidEnemySpawnPointsByMinMaxDistanceRange(List<Transform> enemySpawnPointsPool, float minDistance, float maxDistance)

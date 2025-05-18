@@ -36,6 +36,7 @@ public class MeleeEnemyAnimationController : EnemyAnimationController
     {
         PlayAnimation(CHARGE_BLEND_TREE_NAME);
     }
+
     private void MeleeEnemyAttack_OnMeleeEnemyAttack(object sender, MeleeEnemyAttack.OnMeleeEnemyAttackEventArgs e)
     {
         PlayAnimation(ATTACK_BLEND_TREE_NAME);
