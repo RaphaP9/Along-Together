@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class PassiveAbility : Ability, IPassiveAbility
 {
-    private PassiveAbilitySO PassiveAbilitySO => abilitySO as PassiveAbilitySO;
+    private PassiveAbilitySO PassiveAbilitySO => AbilitySO as PassiveAbilitySO;
 }

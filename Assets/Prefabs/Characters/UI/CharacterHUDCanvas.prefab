@@ -272,15 +272,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd39694d5d8103749a9d75ab470a994d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMaxHealthStatResolver: {fileID: 0}
   playerHealth: {fileID: 0}
   healthBarImage: {fileID: 4131019033391016755}
   currentHealthText: {fileID: 7101853265527884281}
   maxHealthText: {fileID: 7892765718889956210}
   lerpSpeed: 5
-  maxHealth: 0
-  currentHealth: 0
-  targetFill: 0
-  currentFill: 0
 --- !u!1 &6093785102066928632
 GameObject:
   m_ObjectHideFlags: 0

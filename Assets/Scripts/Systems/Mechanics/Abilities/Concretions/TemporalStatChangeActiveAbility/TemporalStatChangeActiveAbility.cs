@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TemporalStatChangeActiveAbility : ActiveAbility
 {
-    private TemporalStatChangeActiveAbilitySO TemporalStatChangeActiveAbilitySO => abilitySO as TemporalStatChangeActiveAbilitySO;
+    private TemporalStatChangeActiveAbilitySO TemporalStatChangeActiveAbilitySO => AbilitySO as TemporalStatChangeActiveAbilitySO;
 
     [Header("Specific Runtime Filled")]
     [SerializeField] private List<string> activeAbilityGUIDs;

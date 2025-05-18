@@ -6,18 +6,16 @@ using UnityEngine;
 public abstract class Ability : MonoBehaviour
 {
     [Header("Ability Components")]
-    [SerializeField] protected AbilitySO abilitySO;
-    [Space]
+    [SerializeField] protected AbilityIdentifier abilityIdentifier;
+    [SerializeField] protected AbilityLevelHandler abilityLevelHandler;
     [SerializeField] protected AbilitySlotHandler abilitySlotHandler;
-    [SerializeField] protected PlayerAbilityLevelsHandler playerAbilityLevelsHandler;
+    [Space]
     [SerializeField] protected PlayerHealth playerHealth;
 
-    [Header("Ability Runtime Filled")]
-    [SerializeField] protected AbilityLevel abilityLevel;
 
-    public AbilitySO AbilitySO => abilitySO;
+    public AbilitySO AbilitySO => abilityIdentifier.AbilitySO;
     public AbilitySlot AbilitySlot => abilitySlotHandler.AbilitySlot;
-    public AbilityLevel AbilityLevel => abilityLevel;
+    public AbilityLevel AbilityLevel => abilityLevelHandler.AbilityLevel;
     public bool IsActiveVariant => abilitySlotHandler.ActiveAbilityVariant == this;
 
     #region Events
@@ -51,8 +49,8 @@ public abstract class Ability : MonoBehaviour
         abilitySlotHandler.OnAbilityVariantInitialized += PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized;
         abilitySlotHandler.OnAbilityVariantSelected += AbilityVariantHandler_OnAbilityVariantSelected;
 
-        playerAbilityLevelsHandler.OnAbilityLevelInitialized += PlayerAbilityLevelsHandler_OnAbilityLevelInitialized;
-        playerAbilityLevelsHandler.OnAbilityLevelChanged += AbilityLevelsHandler_OnAbilityLevelChanged;
+        abilityLevelHandler.OnAbilityLevelInitialized += AbilityLevelHandler_OnAbilityLevelInitialized;
+        abilityLevelHandler.OnAbilityLevelSet += AbilityLevelHandler_OnAbilityLevelSet;
     }
 
     protected virtual void OnDisable()
@@ -60,8 +58,8 @@ public abstract class Ability : MonoBehaviour
         abilitySlotHandler.OnAbilityVariantInitialized -= PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized;
         abilitySlotHandler.OnAbilityVariantSelected -= AbilityVariantHandler_OnAbilityVariantSelected;
 
-        playerAbilityLevelsHandler.OnAbilityLevelInitialized -= PlayerAbilityLevelsHandler_OnAbilityLevelInitialized;
-        playerAbilityLevelsHandler.OnAbilityLevelChanged -= AbilityLevelsHandler_OnAbilityLevelChanged;
+        abilityLevelHandler.OnAbilityLevelInitialized -= AbilityLevelHandler_OnAbilityLevelInitialized;
+        abilityLevelHandler.OnAbilityLevelSet -= AbilityLevelHandler_OnAbilityLevelSet;
     }
 
     protected virtual void Update()
@@ -88,13 +86,16 @@ public abstract class Ability : MonoBehaviour
         }
     }
 
-    protected bool IsUnlocked() => abilityLevel != AbilityLevel.NotLearned;
-
     #region Abstract Methods
     protected abstract void HandleUpdateLogic();
     protected abstract void HandleFixedUpdateLogic();
+
+
     protected abstract void OnAbilityVariantActivationMethod();
     protected abstract void OnAbilityVariantDeactivationMethod();
+
+    protected abstract void OnAbililityLevelInitializedMethod();
+    protected abstract void OnAbililityLevelSetMethod();
 
     protected virtual void OnAbilityCastMethod()
     {
@@ -110,9 +111,9 @@ public abstract class Ability : MonoBehaviour
 
     public virtual bool CanCastAbility()
     {
+        if (!abilityLevelHandler.IsUnlocked()) return false;
         if (!playerHealth.IsAlive()) return false;
-        if (abilitySO.GetAbilityType() == AbilityType.Passive) return false; //Can not cast if only passive
-        if (abilityLevel == AbilityLevel.NotLearned) return false;
+        if (AbilitySO.GetAbilityType() == AbilityType.Passive) return false; //Can not cast if only passive
 
         return true;
     }
@@ -146,18 +147,14 @@ public abstract class Ability : MonoBehaviour
         }
     }
 
-    private void AbilityLevelsHandler_OnAbilityLevelChanged(object sender, PlayerAbilityLevelsHandler.OnAbilityLevelChangedEventArgs e)
+    private void AbilityLevelHandler_OnAbilityLevelInitialized(object sender, AbilityLevelHandler.OnAbilityLevelEventArgs e)
     {
-        if (e.abilityLevelGroup.ability != this) return;
-
-        abilityLevel = e.newAbilityLevel;
+        OnAbililityLevelInitializedMethod();
     }
 
-    private void PlayerAbilityLevelsHandler_OnAbilityLevelInitialized(object sender, PlayerAbilityLevelsHandler.OnAbilityLevelChangedEventArgs e)
+    private void AbilityLevelHandler_OnAbilityLevelSet(object sender, AbilityLevelHandler.OnAbilityLevelEventArgs e)
     {
-        if (e.abilityLevelGroup.ability != this) return;
-
-        abilityLevel = e.newAbilityLevel;
+        OnAbililityLevelSetMethod();
     }
 
     #endregion

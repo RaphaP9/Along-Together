@@ -17,7 +17,7 @@ public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterrupt
     [Header("Specific Runtime Filled")]
     [SerializeField] private Vector2 currentDashDirection;
 
-    private BasicDashSO BasicDashSO => abilitySO as BasicDashSO;
+    private BasicDashSO BasicDashSO => AbilitySO as BasicDashSO;
 
     private enum DirectionMode { MousePosition, LastMovementDirection }
 

@@ -10,7 +10,7 @@ public abstract class ActiveAbility : Ability, IActiveAbility
     [SerializeField] protected AbilityCooldownHandler abilityCooldownHandler;
 
     public AbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
-    private ActiveAbilitySO ActiveAbilitySO => abilitySO as ActiveAbilitySO;
+    private ActiveAbilitySO ActiveAbilitySO => AbilitySO as ActiveAbilitySO;
     public float ProcessedAbilityCooldown => cooldownReductionStatResolver.GetAbilityCooldown(ActiveAbilitySO.baseCooldown);
 
     #region InterfaceMethods
@@ -45,6 +45,16 @@ public abstract class ActiveAbility : Ability, IActiveAbility
     protected override void OnAbilityVariantDeactivationMethod()
     {
         //
+    }
+
+    protected override void OnAbililityLevelInitializedMethod()
+    {
+        abilityCooldownHandler.ResetCooldownTimer(); //Reset Cooldown On Initialization
+    }
+
+    protected override void OnAbililityLevelSetMethod()
+    {
+        abilityCooldownHandler.ResetCooldownTimer(); //Reset Cooldown On LevelSet
     }
     #endregion
 }

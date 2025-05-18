@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActiveAbilityMock : ActiveAbility
 {
-    private ActiveAbilityMockSO ActiveAbilityMockSO => abilitySO as ActiveAbilityMockSO;
+    private ActiveAbilityMockSO ActiveAbilityMockSO => AbilitySO as ActiveAbilityMockSO;
 
     #region Logic Methods
     protected override void HandleFixedUpdateLogic() { }

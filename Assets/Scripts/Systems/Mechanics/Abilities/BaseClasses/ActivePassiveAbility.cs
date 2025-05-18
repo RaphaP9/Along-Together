@@ -11,7 +11,7 @@ public abstract class ActivePassiveAbility : Ability, IActiveAbility, IPassiveAb
     [SerializeField] protected float abilityCooldownTime;
 
     public AbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
-    private ActivePassiveAbilitySO ActivePassiveAbilitSO => abilitySO as ActivePassiveAbilitySO;
+    private ActivePassiveAbilitySO ActivePassiveAbilitSO => AbilitySO as ActivePassiveAbilitySO;
 
 
     protected override void OnEnable()

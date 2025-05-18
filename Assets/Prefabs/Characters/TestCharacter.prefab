@@ -60,6 +60,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4669092448496720726}
+  - component: {fileID: 4591576310225339193}
+  - component: {fileID: 5577424398876266477}
   - component: {fileID: 8470413022457330166}
   - component: {fileID: 8397176443843121625}
   m_Layer: 6
@@ -84,6 +86,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 389461692359508210}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4591576310225339193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376360663945388064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364b8fe6fceea954881abe998a687f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySO: {fileID: 11400000, guid: fa8e30561bdb20d4e832fb1056c8ec1e, type: 2}
+--- !u!114 &5577424398876266477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376360663945388064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1165cdfce28c73c4296259040587a264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityIdentifier: {fileID: 4591576310225339193}
+  abilityLevel: 0
 --- !u!114 &8470413022457330166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,11 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0a1cedfe3195b4fa1d99c86d790a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilitySO: {fileID: 11400000, guid: fa8e30561bdb20d4e832fb1056c8ec1e, type: 2}
+  abilityIdentifier: {fileID: 4591576310225339193}
+  abilityLevelHandler: {fileID: 5577424398876266477}
   abilitySlotHandler: {fileID: 4493125982467729595}
-  playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
-  abilityLevel: 0
   cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 8397176443843121625}
   activeAbilityGUIDs: []
@@ -895,6 +923,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7380819930257380479}
+  - component: {fileID: 5328163113391621430}
+  - component: {fileID: 5611075828277405468}
   - component: {fileID: 1280386860473701626}
   - component: {fileID: 6423833680700352654}
   m_Layer: 6
@@ -919,6 +949,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3196710238795072990}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5328163113391621430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330250828371384196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364b8fe6fceea954881abe998a687f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySO: {fileID: 11400000, guid: 9267755db900af943ad68566a86d6198, type: 2}
+--- !u!114 &5611075828277405468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330250828371384196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1165cdfce28c73c4296259040587a264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityIdentifier: {fileID: 5328163113391621430}
+  abilityLevel: 0
 --- !u!114 &1280386860473701626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -931,11 +988,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf03ba5761832449920c39d3b7aa345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilitySO: {fileID: 11400000, guid: 9267755db900af943ad68566a86d6198, type: 2}
+  abilityIdentifier: {fileID: 5328163113391621430}
+  abilityLevelHandler: {fileID: 5611075828277405468}
   abilitySlotHandler: {fileID: 8531194546525769567}
-  playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
-  abilityLevel: 0
   cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 6423833680700352654}
 --- !u!114 &6423833680700352654
@@ -1310,6 +1366,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3296231075715405042}
+  - component: {fileID: 1897673595700632218}
+  - component: {fileID: 8223277899744677149}
   - component: {fileID: 7573232495966570463}
   - component: {fileID: 1263218695718187337}
   m_Layer: 6
@@ -1334,6 +1392,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3196710238795072990}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1897673595700632218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279207625108799617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364b8fe6fceea954881abe998a687f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySO: {fileID: 11400000, guid: 0689710761c5add46b325ddca21e2d61, type: 2}
+--- !u!114 &8223277899744677149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279207625108799617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1165cdfce28c73c4296259040587a264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityIdentifier: {fileID: 1897673595700632218}
+  abilityLevel: 0
 --- !u!114 &7573232495966570463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1346,11 +1431,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ede1ee0cc33f1e43887a114a4fbd563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilitySO: {fileID: 11400000, guid: 0689710761c5add46b325ddca21e2d61, type: 2}
+  abilityIdentifier: {fileID: 1897673595700632218}
+  abilityLevelHandler: {fileID: 8223277899744677149}
   abilitySlotHandler: {fileID: 8531194546525769567}
-  playerAbilityLevelsHandler: {fileID: 6695293978895852260}
   playerHealth: {fileID: 6586126778679378193}
-  abilityLevel: 0
   cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 1263218695718187337}
   mouseDirectionHandler: {fileID: 4593777764411072900}
@@ -1634,33 +1718,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6380853313663446174}
     m_Modifications:
-    - target: {fileID: 141231946243313856, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1410530824343140059, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5085056178871382406, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093734476313129250, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093785102066928632, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6230169858455676317, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_Name
       value: CharacterHUDCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6230169858455676317, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: m_Layer
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6607938803619685459, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: playerHealth
@@ -1670,22 +1730,6 @@ PrefabInstance:
       propertyPath: playerMaxHealthStatResolver
       value: 
       objectReference: {fileID: 967868445402340617}
-    - target: {fileID: 6921071287596128181, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7277521392092184975, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7759946990167100741, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8277528786343497667, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8657386621253478757, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1765,10 +1809,6 @@ PrefabInstance:
     - target: {fileID: 8657386621253478757, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8844417142399411739, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
-      propertyPath: m_Layer
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
