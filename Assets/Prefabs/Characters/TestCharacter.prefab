@@ -1043,10 +1043,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfcb1b9e2ba4b2149a13504001664431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseDirectionHandler: {fileID: 4593777764411072900}
   entityHealth: {fileID: 6586126778679378193}
+  weaponPivot: {fileID: 5317297067384626538}
   refferenceAimPoint: {fileID: 6721708550121472256}
-  pivotAimRefferenceOffset: {x: 0, y: 0}
-  refferencedAimAngle: 0
+  pivotAimRefferenceAngle: 0
+  pivotAimRefferenceDistance: 0
+  pivotTargetAngle: 0
+  pivotTargetDistance: 0
+  pivotAngle: 0
 --- !u!1 &4904437968985621501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,8 +1273,8 @@ MonoBehaviour:
   refferenceAimPoint: {fileID: 6721708550121472256}
   aimDirection: {x: 0, y: 0}
   aimAngle: 0
-  refferencedlAimDirection: {x: 0, y: 0}
-  refferencedlAimAngle: 0
+  refferencedAimDirection: {x: 0, y: 0}
+  refferencedAimAngle: 0
   mouseDirectionHandler: {fileID: 4593777764411072900}
 --- !u!1 &6945838811755319683
 GameObject:
