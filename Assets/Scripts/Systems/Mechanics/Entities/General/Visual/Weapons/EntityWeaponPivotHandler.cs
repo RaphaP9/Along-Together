@@ -6,15 +6,18 @@ using UnityEngine;
 public class EntityWeaponPivotHandler : MonoBehaviour
 {
     [Header("Components")]
+    [SerializeField] private EntityAimDirectionerHandler aimDirectionerHandler;
     [SerializeField] private EntityHealth entityHealth;
     [SerializeField] private Transform refferenceAimPoint;
 
     [Header("Runtime Filled")]
     [SerializeField] private Vector2 pivotAimRefferenceOffset;
+    [SerializeField] private float pivotAimRefferenceAngle;
     [Space]
-    [SerializeField] private float refferencedAimAngle;
+    [SerializeField] private float aimAngle;
+    [SerializeField] private float pivotAngle;
 
-    public float RefferencedAimAngle => refferencedAimAngle;
+    public float PivotAngle => pivotAngle;
 
     private void Start()
     {
@@ -28,7 +31,8 @@ public class EntityWeaponPivotHandler : MonoBehaviour
 
     private void CalculatePivotAimRefferenceOffset()
     {
-        pivotAimRefferenceOffset = refferenceAimPoint.position - transform.position;
+        pivotAimRefferenceOffset = refferenceAimPoint.localPosition;
+        pivotAimRefferenceAngle = GeneralUtilities.GetAngleDegreesVector2(pivotAimRefferenceOffset);
     }
 
     private void HandlePivotRotation()
@@ -40,6 +44,6 @@ public class EntityWeaponPivotHandler : MonoBehaviour
 
     private void UpdateRotation()
     {
-
+        aimAngle = aimDirectionerHandler.AimAngle;
     }
 }

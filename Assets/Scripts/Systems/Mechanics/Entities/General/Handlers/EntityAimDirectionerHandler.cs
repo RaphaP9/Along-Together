@@ -13,14 +13,14 @@ public abstract class EntityAimDirectionerHandler : MonoBehaviour
     [SerializeField] protected Vector2 aimDirection;
     [SerializeField] protected float aimAngle;
     [Space]
-    [SerializeField] private Vector2 refferencedlAimDirection;
-    [SerializeField] protected float refferencedlAimAngle;
+    [SerializeField] private Vector2 refferencedAimDirection;
+    [SerializeField] protected float refferencedAimAngle;
 
     public Vector2 AimDirection => aimDirection;
     public float AimAngle => aimAngle;
 
-    public Vector2 RefferencedlAimDirection => refferencedlAimDirection;
-    public float RefferencedlAimAngle => refferencedlAimAngle;
+    public Vector2 RefferencedlAimDirection => refferencedAimDirection;
+    public float RefferencedlAimAngle => refferencedAimAngle;
 
     protected virtual void Update()
     {
@@ -53,8 +53,8 @@ public abstract class EntityAimDirectionerHandler : MonoBehaviour
     {
         if (refferenceAimPoint == null) return;
 
-        refferencedlAimDirection = CalculateRefferencedAimDirection();
-        refferencedlAimAngle = CalculateRefferencedAimAngle();
+        refferencedAimDirection = CalculateRefferencedAimDirection();
+        refferencedAimAngle = CalculateRefferencedAimAngle();
     }
 
     protected abstract Vector2 CalculateAimDirection();
