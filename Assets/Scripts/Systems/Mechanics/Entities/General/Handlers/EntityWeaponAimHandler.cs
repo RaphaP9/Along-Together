@@ -64,19 +64,19 @@ public abstract class EntityWeaponAimHandler : MonoBehaviour
 
         float beta;
 
-        if (AC <= AB)
-        {
-            return; //Aiming Inside Weapon
-        }
-
         #region Pivot Angle Logic
+
+        //if AC > AB, aiming outside weapon
+
         if (facingDirectionHandler.IsFacingRight()) //Take In count Scale Flip
         {
-            beta = alpha - Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad)) * Mathf.Rad2Deg;
+            if (AC > AB) beta = alpha - Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad)) * Mathf.Rad2Deg;
+            else beta = alpha - phi;
         }
         else
         {
-            beta = -180 + alpha + Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad)) * Mathf.Rad2Deg;
+            if (AC > AB) beta = -180 + alpha + Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad)) * Mathf.Rad2Deg;
+            else beta = alpha -180 + phi;
         }
 
         pivotAngle = beta;
