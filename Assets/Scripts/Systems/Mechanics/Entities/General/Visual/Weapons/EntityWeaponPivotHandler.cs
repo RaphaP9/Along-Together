@@ -32,7 +32,7 @@ public class EntityWeaponPivotHandler : MonoBehaviour
     private void CalculatePivotAimRefferenceOffset()
     {
         pivotAimRefferenceOffset = refferenceAimPoint.localPosition;
-        pivotAimRefferenceAngle = GeneralUtilities.GetAngleDegreesVector2(pivotAimRefferenceOffset);
+        pivotAimRefferenceAngle = GeneralUtilities.GetVector2AngleDegrees(pivotAimRefferenceOffset);
     }
 
     private void HandlePivotRotation()
