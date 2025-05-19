@@ -29,6 +29,11 @@ public abstract class EntityWeaponAimHandler : MonoBehaviour
 
     private void Start()
     {
+        InitializePivotAimRefferenceValues();
+    }
+
+    private void InitializePivotAimRefferenceValues() //Values when pivot has rotation 0° (Start())
+    {
         pivotAimRefferenceAngle = CalculatePivotAimRefferenceAngle();
         pivotAimRefferenceDistance = CalculatePivotAimRefferenceDistance();
     }
@@ -68,7 +73,7 @@ public abstract class EntityWeaponAimHandler : MonoBehaviour
 
         //if AC > AB, aiming outside weapon
 
-        if (facingDirectionHandler.IsFacingRight()) //Take In count Scale Flip
+        if (facingDirectionHandler.IsFacingRight()) //Take in count Scale Flip when Facing Right
         {
             if (AC > AB) beta = alpha - Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad)) * Mathf.Rad2Deg;
             else beta = alpha - phi;
