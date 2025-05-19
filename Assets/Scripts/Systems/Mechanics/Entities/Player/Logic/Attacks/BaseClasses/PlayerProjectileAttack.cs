@@ -24,7 +24,7 @@ public class PlayerProjectileAttack : PlayerAttack
         bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value);
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(entityAttackDamageStatResolver.Value, entityAttackCritDamageMultiplierStatResolver.Value) : entityAttackDamageStatResolver.Value;
 
-        Vector2 shootDirection = aimDirectionerHandler.AimDirection;
+        Vector2 shootDirection = aimDirectionerHandler.RefferencedlAimDirection;
         Vector2 processedShootDirection = MechanicsUtilities.DeviateShootDirection(shootDirection, projectileDispersionAngle);
 
         Vector2 position = firePoint.position;

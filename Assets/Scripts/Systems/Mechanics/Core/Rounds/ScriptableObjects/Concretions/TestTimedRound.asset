@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundID: 0
   RoundTier: 6
-  duration: 30
+  duration: 10
   baseSpawnInterval: 1
-  proceduralRoundEnemyGroups:
-  - enemySO: {fileID: 0}
-    weight: 1
+  proceduralRoundEnemyGroups: []

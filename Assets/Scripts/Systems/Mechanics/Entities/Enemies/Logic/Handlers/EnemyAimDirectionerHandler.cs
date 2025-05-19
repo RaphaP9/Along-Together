@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class EnemyAimDirectionerHandler : EntityAimDirectionerHandler
 {
@@ -11,6 +10,14 @@ public class EnemyAimDirectionerHandler : EntityAimDirectionerHandler
 
     protected override Vector2 CalculateAimDirection() => playerRelativeHandler.DirectionToPlayer;
     protected override float CalculateAimAngle() => playerRelativeHandler.AngleToPlayer;
+
+    protected override Vector2 CalculateRefferencedAimDirection()
+    {
+        Vector2 rawRefferencedDirection = playerRelativeHandler.PlayerPosition - GeneralUtilities.TransformPositionVector2(refferenceAimPoint);
+        return rawRefferencedDirection.normalized;
+    }
+
+    protected override float CalculateRefferencedAimAngle() => GeneralUtilities.GetVector2AngleDegrees(CalculateRefferencedAimDirection());
 
     protected override bool CanAim()
     {

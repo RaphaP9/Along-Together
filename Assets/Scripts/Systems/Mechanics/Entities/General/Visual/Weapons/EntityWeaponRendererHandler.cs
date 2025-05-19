@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterWeaponRendererHandler : MonoBehaviour
+public class EntityWeaponRendererHandler : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private EntityHealth entityHealth;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private List<Component> attackInterruptionComponents;
 
@@ -61,7 +61,7 @@ public class CharacterWeaponRendererHandler : MonoBehaviour
 
     protected virtual bool CanRenderWeapon()
     {
-        if (!playerHealth.IsAlive()) return false;
+        if (!entityHealth.IsAlive()) return false;
 
         foreach (IAttackInterruption attackInterruptionAbility in attackInterruptions)
         {

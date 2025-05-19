@@ -6,24 +6,34 @@ public abstract class EntityAimDirectionerHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] protected EntityHealth entityHealth;
+    [Space]
+    [SerializeField] protected Transform refferenceAimPoint;
 
     [Header("RuntimeFilled")]
     [SerializeField] protected Vector2 aimDirection;
     [SerializeField] protected float aimAngle;
+    [Space]
+    [SerializeField] private Vector2 refferencedlAimDirection;
+    [SerializeField] protected float refferencedlAimAngle;
 
     public Vector2 AimDirection => aimDirection;
     public float AimAngle => aimAngle;
 
-    private void Update()
+    public Vector2 RefferencedlAimDirection => refferencedlAimDirection;
+    public float RefferencedlAimAngle => refferencedlAimAngle;
+
+    protected virtual void Update()
     {
         HandleAim();
     }
 
-    private void HandleAim()
+    protected virtual void HandleAim()
     {
         if (!CanAim()) return;
         UpdateAim();
+        UpdateRefferencedAim();
     }
+
     protected virtual bool CanAim()
     {
         if (!entityHealth.IsAlive()) return false;
@@ -39,8 +49,20 @@ public abstract class EntityAimDirectionerHandler : MonoBehaviour
         UpdateRotation(aimAngle);
     }
 
+    protected void UpdateRefferencedAim()
+    {
+        if (refferenceAimPoint == null) return;
+
+        refferencedlAimDirection = CalculateRefferencedAimDirection();
+        refferencedlAimAngle = CalculateRefferencedAimAngle();
+    }
+
     protected abstract Vector2 CalculateAimDirection();
     protected abstract float CalculateAimAngle();
+
+    protected abstract Vector2 CalculateRefferencedAimDirection();
+    protected abstract float CalculateRefferencedAimAngle();
+
     private void UpdateRotation(float aimAngle) => transform.rotation = Quaternion.Euler(0, 0, aimAngle);
     public bool IsAimingRight() => aimDirection.x >= 0;
 
