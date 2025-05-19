@@ -17611,7 +17611,7 @@ GameObject:
   - component: {fileID: 2056409982}
   - component: {fileID: 2056409983}
   m_Layer: 0
-  m_Name: EnemySpawnerManager
+  m_Name: EnemiesManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17641,9 +17641,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2056409981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a9d330e4a1ab82499462793205fae3e, type: 3}
+  m_Script: {fileID: 11500000, guid: a5b9a150cc4fdc84691a57cba307c019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeEnemies: []
   debug: 1
 --- !u!1 &2067687068
 GameObject:

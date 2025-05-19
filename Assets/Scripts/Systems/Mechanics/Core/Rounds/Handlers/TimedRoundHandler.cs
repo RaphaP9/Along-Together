@@ -63,7 +63,7 @@ public class TimedRoundHandler : RoundHandler
             if (enemySpawnTimer > RoundUtilties.GetTimedRoundDinamicSpawnInterval(timedRoundSO.baseSpawnInterval, spawnIntervalNormalizedReductionFactor, normalizedElapsedTime))
             {
                 EnemySO enemyToSpawn = RoundUtilties.GetRandomDinamicEnemyByWeight(timedRoundSO.proceduralRoundEnemyGroups, weightNormalizedIncreaseFactor ,normalizedElapsedTime);
-                EnemySpawnerManager.Instance.SpawnEnemyOnValidRandomSpawnPoint(enemyToSpawn);
+                EnemiesManager.Instance.SpawnEnemyOnValidRandomSpawnPoint(enemyToSpawn);
 
                 enemySpawnTimer = 0f;
             }
@@ -86,7 +86,7 @@ public class TimedRoundHandler : RoundHandler
 
         OnRoundCompletedMethod(currentTimedRound);
 
-        EnemySpawnerManager.Instance.ExecuteAllEnemies();
+        EnemiesManager.Instance.ExecuteAllActiveEnemies();
     }
 
     #region Set & Get

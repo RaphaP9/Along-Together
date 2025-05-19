@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawnerManager : MonoBehaviour
+public class EnemiesManager : MonoBehaviour
 {
-    public static EnemySpawnerManager Instance { get; private set; }
+    public static EnemiesManager Instance { get; private set; }
+
+    [Header("List - Runtime Filled")]
+    [SerializeField] private List<Transform> activeEnemies;
 
     [Header("Debug")]
     [SerializeField] private bool debug;
@@ -15,6 +18,16 @@ public class EnemySpawnerManager : MonoBehaviour
     {
         public EnemySO enemySO;
         public Vector2 position;
+    }
+
+    private void OnEnable()
+    {
+        EnemyCleanupHandler.OnAnyEnemyCleanup += EnemyCleanupHandler_OnAnyEnemyCleanup;
+    }
+
+    private void OnDisable()
+    {
+        EnemyCleanupHandler.OnAnyEnemyCleanup -= EnemyCleanupHandler_OnAnyEnemyCleanup;
     }
 
     private void Awake()
@@ -59,21 +72,54 @@ public class EnemySpawnerManager : MonoBehaviour
         }
 
         Transform spawnedEnemy = Instantiate(enemySO.prefab, position, Quaternion.identity);
+        RegisterEnemyIntoActiveEnemyList(spawnedEnemy);
 
         OnEnemySpawned?.Invoke(this, new OnEnemySpawnedEventArgs { enemySO = enemySO, position = position });
 
         return spawnedEnemy;
     }
 
-    public void ExecuteAllEnemies()
+    #region Enemy Execution
+
+    public void ExecuteAllEnemies() //Uses Find Objects Of Type!
     {
         EnemyHealth[] enemyHealths = GameObject.FindObjectsOfType<EnemyHealth>();
 
-        foreach(EnemyHealth enemyHealth in enemyHealths)
+        foreach (EnemyHealth enemyHealth in enemyHealths)
         {
             SelfExecuteDamageData selfExecuteDamageData = new SelfExecuteDamageData(true, false, false);
 
             enemyHealth.SelfExecute(selfExecuteDamageData);
         }
     }
+
+    public void ExecuteAllActiveEnemies()
+    {
+        List<EnemyHealth> enemyHealths = GeneralUtilities.TryGetGenericsFromTransforms<EnemyHealth>(activeEnemies);
+
+        foreach (EnemyHealth enemyHealth in enemyHealths)
+        {
+            SelfExecuteDamageData selfExecuteDamageData = new SelfExecuteDamageData(true, false, false);
+
+            enemyHealth.SelfExecute(selfExecuteDamageData);
+        }
+    }
+    #endregion
+
+    private void RegisterEnemyIntoActiveEnemyList(Transform enemy)
+    {
+        activeEnemies.Add(enemy);
+    }
+
+    private void RemoveEnemyFromActiveEnemyList(Transform enemy)
+    {
+        activeEnemies.Remove(enemy);
+    }
+
+    #region Subscriptions
+    private void EnemyCleanupHandler_OnAnyEnemyCleanup(object sender, EnemyCleanupHandler.OnEnemyCleanUpEventArgs e)
+    {
+        RemoveEnemyFromActiveEnemyList(e.enemyTransform);    
+    }
+    #endregion
 }

@@ -15,6 +15,7 @@ public class EnemyCleanupHandler : MonoBehaviour
     public class OnEnemyCleanUpEventArgs
     {
         public EnemySO enemySO;
+        public Transform enemyTransform;
     }
 
     private void OnEnable()
@@ -31,8 +32,8 @@ public class EnemyCleanupHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(enemyIdentifier.EnemySO.cleanupTime);
 
-        OnEnemyCleanup?.Invoke(this, new OnEnemyCleanUpEventArgs { enemySO = enemyIdentifier.EnemySO});
-        OnAnyEnemyCleanup?.Invoke(this, new OnEnemyCleanUpEventArgs { enemySO = enemyIdentifier.EnemySO });
+        OnEnemyCleanup?.Invoke(this, new OnEnemyCleanUpEventArgs { enemySO = enemyIdentifier.EnemySO, enemyTransform = transform});
+        OnAnyEnemyCleanup?.Invoke(this, new OnEnemyCleanUpEventArgs { enemySO = enemyIdentifier.EnemySO, enemyTransform = transform });
 
         Destroy(gameObject);
     }
