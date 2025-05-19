@@ -65,13 +65,13 @@ public class EntityWeaponPivotHandler : MonoBehaviour
 
         if (AC <= AB) return;
 
-        if (facingDirectionHandler.IsFacingRight())
+        if (facingDirectionHandler.IsFacingRight()) //Take In count Scale Flip
         {
-            beta = alpha - Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad));
+            beta = alpha - Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad)) * Mathf.Rad2Deg;
         }
         else
         {
-            beta = alpha - 180 - Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad));
+            beta = -180 + alpha + Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad)) * Mathf.Rad2Deg;
         }
 
         pivotAngle = beta;
