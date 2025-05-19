@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityWeaponPivotHandler : MonoBehaviour
+public abstract class EntityWeaponAimHandler : MonoBehaviour
 {
-    [Header("Components")]
-    [SerializeField] private MouseDirectionHandler mouseDirectionHandler;
+    [Header("Entity Components")]
     [SerializeField] private EntityFacingDirectionHandler facingDirectionHandler;
     [SerializeField] private EntityHealth entityHealth;
     [Space]
@@ -21,8 +20,12 @@ public class EntityWeaponPivotHandler : MonoBehaviour
     [SerializeField] private float pivotTargetDistance;
     [Space]
     [SerializeField] private float pivotAngle;
+    [SerializeField] private float weaponAimAngle;
+    [SerializeField] private Vector2 weaponAimDirection;
 
     public float PivotAngle => pivotAngle;
+    public float WeaponAimAngle => weaponAimAngle;
+    public Vector2 WeaponAimDirection => weaponAimDirection;
 
     private void Start()
     {
@@ -35,14 +38,12 @@ public class EntityWeaponPivotHandler : MonoBehaviour
         HandlePivotRotation();
     }
 
+    protected abstract Vector2 GetTargetPosition();
+
     private float CalculatePivotAimRefferenceAngle() => GeneralUtilities.GetVector2AngleDegrees(GeneralUtilities.SupressZComponent(refferenceAimPoint.position - weaponPivot.position));
     private float CalculatePivotAimRefferenceDistance() => GeneralUtilities.SupressZComponent(refferenceAimPoint.position - weaponPivot.position).magnitude;
     private float CalculatePivotTargetAngle() => GeneralUtilities.GetVector2AngleDegrees(GetTargetPosition() - GeneralUtilities.SupressZComponent(weaponPivot.position));
     private float CalculatePivotTargetDistance() => (GetTargetPosition() - GeneralUtilities.SupressZComponent(weaponPivot.position)).magnitude;
-
-
-    private Vector2 GetTargetPosition() => mouseDirectionHandler.Input;
-
 
     private void HandlePivotRotation()
     {
@@ -63,8 +64,12 @@ public class EntityWeaponPivotHandler : MonoBehaviour
 
         float beta;
 
-        if (AC <= AB) return;
+        if (AC <= AB)
+        {
+            return; //Aiming Inside Weapon
+        }
 
+        #region Pivot Angle Logic
         if (facingDirectionHandler.IsFacingRight()) //Take In count Scale Flip
         {
             beta = alpha - Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad)) * Mathf.Rad2Deg;
@@ -77,6 +82,14 @@ public class EntityWeaponPivotHandler : MonoBehaviour
         pivotAngle = beta;
 
         UpdatePivotRotation();
+        #endregion
+
+        #region Aim Angle Logic
+
+        weaponAimAngle = facingDirectionHandler.IsFacingRight() ? beta : 180 + beta;
+        weaponAimDirection = GeneralUtilities.GetAngleDegreesVector2(weaponAimAngle);
+
+        #endregion
     }
 
     private void UpdatePivotRotation()

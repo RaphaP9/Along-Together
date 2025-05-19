@@ -28,7 +28,7 @@ public class PlayerHitscanAttack : PlayerAttack
         bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value);
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(entityAttackDamageStatResolver.Value, entityAttackCritDamageMultiplierStatResolver.Value) : entityAttackDamageStatResolver.Value;
 
-        Vector2 direction = aimDirectionerHandler.AimDirection;
+        Vector2 direction = weaponAimHandler.WeaponAimDirection;
         Vector2 processedDirection = MechanicsUtilities.DeviateShootDirection(direction, hitscanDispersionAngle);
 
         Vector2 position = firePoint.position;
@@ -78,6 +78,6 @@ public class PlayerHitscanAttack : PlayerAttack
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(firePoint.position, firePoint.position + GeneralUtilities.Vector2ToVector3(aimDirectionerHandler.AimDirection) * hitscanDistance);
+        Gizmos.DrawLine(firePoint.position, firePoint.position + GeneralUtilities.Vector2ToVector3(weaponAimHandler.WeaponAimDirection) * hitscanDistance);
     }
 }

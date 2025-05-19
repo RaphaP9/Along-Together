@@ -9,12 +9,4 @@ public class PlayerAimDirectionerHandler : EntityAimDirectionerHandler
 
     protected override Vector2 CalculateAimDirection() => mouseDirectionHandler.NormalizedMouseDirection;
     protected override float CalculateAimAngle() => GeneralUtilities.GetVector2AngleDegrees(CalculateAimDirection());
-
-    protected override Vector2 CalculateRefferencedAimDirection()
-    {
-        Vector2 rawRefferencedDirection = mouseDirectionHandler.Input - GeneralUtilities.TransformPositionVector2(refferenceAimPoint);
-        return rawRefferencedDirection.normalized;
-    }
-
-    protected override float CalculateRefferencedAimAngle() => GeneralUtilities.GetVector2AngleDegrees(CalculateRefferencedAimDirection());
 }
