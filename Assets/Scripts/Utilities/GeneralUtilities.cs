@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public static class GeneralUtilities
 {
@@ -27,6 +28,58 @@ public static class GeneralUtilities
         return generatedGUID;
     }
 
+    #endregion
+
+    #region Angles
+    public static float NormalizeAngleDeg(float angleDeg)
+    {
+        float normalizedAngle = (angleDeg % 360f + 360f) % 360f;
+        return normalizedAngle;
+    }
+
+    public static bool AngleDegIsInQuadrant(float angleDeg, int quadrant)
+    {
+        switch (quadrant)
+        {
+            case 1:
+            default:
+                return AngleDegIs1stQuadrant(angleDeg);
+            case 2:
+                return AngleDegIs2ndQuadrant(angleDeg);
+            case 3:
+                return AngleDegIs3rdQuadrant(angleDeg);
+            case 4:
+                return AngleDegIs4thQuadrant(angleDeg);
+        }
+    }
+
+    public static bool AngleDegIs1stQuadrant(float angleDeg)
+    {
+        float normalizedAngle = NormalizeAngleDeg(angleDeg);
+        bool isFirstQuadrant = normalizedAngle >= 0f && normalizedAngle <= 90f;
+        return isFirstQuadrant;
+    }
+
+    public static bool AngleDegIs2ndQuadrant(float angleDeg)
+    {
+        float normalizedAngle = NormalizeAngleDeg(angleDeg);
+        bool isSecondQuadrant = normalizedAngle >= 90f && normalizedAngle <= 180f;
+        return isSecondQuadrant;
+    }
+
+    public static bool AngleDegIs3rdQuadrant(float angleDeg)
+    {
+        float normalizedAngle = NormalizeAngleDeg(angleDeg);
+        bool isThirdQuadrant = normalizedAngle >= 180f && normalizedAngle <= 270f;
+        return isThirdQuadrant;
+    }
+
+    public static bool AngleDegIs4thQuadrant(float angleDeg)
+    {
+        float normalizedAngle = NormalizeAngleDeg(angleDeg);
+        bool isFourthQuadrant = normalizedAngle >= 270f && normalizedAngle <= 360f;
+        return isFourthQuadrant;
+    }
     #endregion
 
     #region Vectors

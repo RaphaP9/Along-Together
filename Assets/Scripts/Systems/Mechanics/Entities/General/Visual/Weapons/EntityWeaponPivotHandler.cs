@@ -7,6 +7,7 @@ public class EntityWeaponPivotHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private MouseDirectionHandler mouseDirectionHandler;
+    [SerializeField] private EntityFacingDirectionHandler facingDirectionHandler;
     [SerializeField] private EntityHealth entityHealth;
     [Space]
     [SerializeField] private Transform weaponPivot;
@@ -29,7 +30,7 @@ public class EntityWeaponPivotHandler : MonoBehaviour
         pivotAimRefferenceDistance = CalculatePivotAimRefferenceDistance();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         HandlePivotRotation();
     }
@@ -60,7 +61,18 @@ public class EntityWeaponPivotHandler : MonoBehaviour
         float alpha = pivotTargetAngle;
         float AC = pivotTargetDistance;
 
-        float beta = alpha - Mathf.Asin((AB/AC)*Mathf.Sin(phi*Mathf.Deg2Rad));
+        float beta;
+
+        if (AC <= AB) return;
+
+        if (facingDirectionHandler.IsFacingRight())
+        {
+            beta = alpha - Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad));
+        }
+        else
+        {
+            beta = alpha - 180 - Mathf.Asin((AB / AC) * Mathf.Sin(phi * Mathf.Deg2Rad));
+        }
 
         pivotAngle = beta;
 
