@@ -64,4 +64,16 @@ public class EnemySpawnerManager : MonoBehaviour
 
         return spawnedEnemy;
     }
+
+    public void ExecuteAllEnemies()
+    {
+        EnemyHealth[] enemyHealths = GameObject.FindObjectsOfType<EnemyHealth>();
+
+        foreach(EnemyHealth enemyHealth in enemyHealths)
+        {
+            SelfExecuteDamageData selfExecuteDamageData = new SelfExecuteDamageData(true, false, false);
+
+            enemyHealth.SelfExecute(selfExecuteDamageData);
+        }
+    }
 }

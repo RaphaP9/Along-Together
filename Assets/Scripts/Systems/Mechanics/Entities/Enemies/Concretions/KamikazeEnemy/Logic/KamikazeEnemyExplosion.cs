@@ -130,7 +130,7 @@ public class KamikazeEnemyExplosion : EnemyExplosion
         MechanicsUtilities.DealDamageInAreas(positions, KamikazeEnemySO.explosionRadius, damageData, explosionLayermask, new List<Transform> { transform });
 
         ExecuteDamageData executeDamageData = new ExecuteDamageData(true, KamikazeEnemySO, false, false);
-        entityHealth.Excecute(executeDamageData); 
+        entityHealth.Execute(executeDamageData); 
 
         OnEntityExplosionMethod(damage);
     }

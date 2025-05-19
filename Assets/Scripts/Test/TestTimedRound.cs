@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestEnemySpawn : MonoBehaviour
+public class TestTimedRound : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private EnemySO enemySO;
+    [SerializeField] private TimedRoundSO timedRoundSO;
 
     private void Update()
     {
@@ -16,7 +16,7 @@ public class TestEnemySpawn : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            EnemySpawnerManager.Instance.SpawnEnemyOnValidRandomSpawnPoint(enemySO);
+            TimedRoundHandler.Instance.StartTimedRound(timedRoundSO);
         }
     }
 }

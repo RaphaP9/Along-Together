@@ -79,6 +79,8 @@ MonoBehaviour:
   entityHealth: {fileID: 5108009791445493210}
   aimDirection: {x: 0, y: 0}
   aimAngle: 0
+  refferencedAimDirection: {x: 0, y: 0}
+  refferencedAimAngle: 0
   playerRelativeHandler: {fileID: 2524694192382131667}
   enemySpawnHandler: {fileID: 7521818973245002023}
   meleeEnemyAttack: {fileID: 5248160781583413841}
@@ -271,6 +273,7 @@ MonoBehaviour:
   renderingRefference: {fileID: 8487410976662839087}
   spriteRenderers:
   - {fileID: 5780403409944864038}
+  respectListingOrder: 0
 --- !u!1 &7364808272163929362
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,6 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd3b938f4b88ea4d90f3f2809aa5a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityIdentifier: {fileID: 6224107339905634441}
   entityMaxHealthStatResolver: {fileID: 4287410841644100378}
   entityMaxShieldStatResolver: {fileID: 6401413010072420831}
   entityArmorStatResolver: {fileID: 3017061464093879664}
@@ -769,6 +773,7 @@ GameObject:
   - component: {fileID: 5686678035536537750}
   - component: {fileID: 2524694192382131667}
   - component: {fileID: 4615393358422545409}
+  - component: {fileID: 3260634903693636641}
   m_Layer: 7
   m_Name: Handlers
   m_TagString: Untagged
@@ -831,3 +836,17 @@ MonoBehaviour:
   currentFacingDirection: {x: 0, y: 0}
   isOverridingFacingDirection: 0
   overridenDirection: {x: 0, y: 0}
+--- !u!114 &3260634903693636641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8967624295568605925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc67e81da6d72443be75709bfa405e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityHealth: {fileID: 5108009791445493210}
+  _collider2D: {fileID: 6837081020803590227}

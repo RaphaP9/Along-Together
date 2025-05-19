@@ -235,6 +235,7 @@ MonoBehaviour:
   renderingRefference: {fileID: 2831121492300425062}
   spriteRenderers:
   - {fileID: 5196844210077119428}
+  respectListingOrder: 0
 --- !u!114 &6404922557120481347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +333,8 @@ MonoBehaviour:
   entityHealth: {fileID: 7613458921501402528}
   aimDirection: {x: 0, y: 0}
   aimAngle: 0
+  refferencedAimDirection: {x: 0, y: 0}
+  refferencedAimAngle: 0
   playerRelativeHandler: {fileID: 3204811641508873334}
   enemySpawnHandler: {fileID: 8942189645329353576}
   projectileEnemyAttack: {fileID: 5914679703919730462}
@@ -346,6 +349,7 @@ GameObject:
   - component: {fileID: 9205830459438358144}
   - component: {fileID: 3204811641508873334}
   - component: {fileID: 4210701699229654129}
+  - component: {fileID: 3525343234226037308}
   m_Layer: 7
   m_Name: Handlers
   m_TagString: Untagged
@@ -408,6 +412,20 @@ MonoBehaviour:
   currentFacingDirection: {x: 0, y: 0}
   isOverridingFacingDirection: 0
   overridenDirection: {x: 0, y: 0}
+--- !u!114 &3525343234226037308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4614559186583191531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc67e81da6d72443be75709bfa405e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityHealth: {fileID: 7613458921501402528}
+  _collider2D: {fileID: 5656605717586926970}
 --- !u!1 &7839226316697343315
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd3b938f4b88ea4d90f3f2809aa5a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityIdentifier: {fileID: 8246813395085610927}
   entityMaxHealthStatResolver: {fileID: 1096758079199732240}
   entityMaxShieldStatResolver: {fileID: 80324980162622377}
   entityArmorStatResolver: {fileID: 1866552495512391508}

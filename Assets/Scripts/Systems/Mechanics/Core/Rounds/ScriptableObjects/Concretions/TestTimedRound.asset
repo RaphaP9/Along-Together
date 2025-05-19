@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64fc29406bef0874099e644c58362ffe, type: 3}
   m_Name: TestTimedRound
   m_EditorClassIdentifier: 
-  roundID: 0
+  roundID: 1
   RoundTier: 6
-  duration: 10
-  baseSpawnInterval: 1
-  proceduralRoundEnemyGroups: []
+  duration: 20
+  baseSpawnInterval: 5
+  proceduralRoundEnemyGroups:
+  - enemySO: {fileID: 11400000, guid: 8a3ede3befcbc3c4dab36331a3e15506, type: 2}
+    weight: 10
+  - enemySO: {fileID: 11400000, guid: 8a187a977c2394c4ca5bc25d399c13ab, type: 2}
+    weight: 10

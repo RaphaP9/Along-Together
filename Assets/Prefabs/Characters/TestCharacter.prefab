@@ -612,6 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c868199e7742cc4290e9f7f730928fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityIdentifier: {fileID: 1965199428449930878}
   entityMaxHealthStatResolver: {fileID: 967868445402340617}
   entityMaxShieldStatResolver: {fileID: 1226524130109811475}
   entityArmorStatResolver: {fileID: 1745675015781674559}

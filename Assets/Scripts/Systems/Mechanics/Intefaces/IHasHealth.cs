@@ -15,7 +15,7 @@ public interface IHasHealth
     public void Heal(HealData healData);
     public void RestoreShield(ShieldData shieldData);
 
-    public void Excecute(ExecuteDamageData executeDamageData);
+    public void Execute(ExecuteDamageData executeDamageData);
     public void HealCompletely(IHealSourceSO healSource);
     public void RestoreShieldCompletely(IShieldSourceSO shieldSource);
 

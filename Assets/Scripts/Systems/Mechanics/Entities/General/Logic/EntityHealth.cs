@@ -6,6 +6,8 @@ using UnityEngine;
 public abstract class EntityHealth : MonoBehaviour, IHasHealth
 {
     [Header("Entity Health Components")]
+    [SerializeField] protected EntityIdentifier entityIdentifier;
+    [Space]
     [SerializeField] protected EntityMaxHealthStatResolver entityMaxHealthStatResolver;
     [SerializeField] protected EntityMaxShieldStatResolver entityMaxShieldStatResolver;
     [SerializeField] protected EntityArmorStatResolver entityArmorStatResolver;
@@ -286,7 +288,13 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         return true;
     }
 
-    public void Excecute(ExecuteDamageData executeDamageData)
+    public void SelfTakeDamage(SelfDamageData selfDamageData)
+    {
+        DamageData damageData = new DamageData { damage = selfDamageData.damage , isCrit = selfDamageData.isCrit, damageSource = entityIdentifier.EntitySO, canBeDodged = selfDamageData.canBeDodged, canBeImmuned = selfDamageData.canBeImmuned};
+        TakeDamage(damageData);
+    }
+
+    public void Execute(ExecuteDamageData executeDamageData)
     {
         if (AvoidDamagePassThrough()) return;
         if (AvoidDamageTakeHits()) return;
@@ -312,6 +320,12 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         }
 
         OnEntityDeathMethod();
+    }
+
+    public void SelfExecute(SelfExecuteDamageData selfExecuteDamageData)
+    {
+        ExecuteDamageData executeDamageData = new ExecuteDamageData(selfExecuteDamageData.isCrit,entityIdentifier.EntitySO, selfExecuteDamageData.triggerHealthTakeDamageEvents, selfExecuteDamageData.triggerHealthTakeDamageEvents);
+        Execute(executeDamageData);
     }
 
     public void Heal(HealData healData)

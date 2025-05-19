@@ -151,7 +151,7 @@ public class HittableObjectHealth : MonoBehaviour, IHasHealth
         return true;
     }
 
-    public void Excecute(ExecuteDamageData executeDamageData)
+    public void Execute(ExecuteDamageData executeDamageData)
     {
         if (!AvoidDamageTakeHits()) return;
         if (!IsAlive()) return;

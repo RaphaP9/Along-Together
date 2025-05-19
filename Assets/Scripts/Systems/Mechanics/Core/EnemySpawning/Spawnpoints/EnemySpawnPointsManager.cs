@@ -10,7 +10,7 @@ public class EnemySpawnPointsManager : MonoBehaviour
     [SerializeField] private List<SpawnPointHandler> enemySpawnPoints;
 
     [Header("Settings")]
-    [SerializeField, Range(3f, 10f)] private float minDistanceToPlayer;
+    [SerializeField, Range(2f, 10f)] private float minDistanceToPlayer;
     [SerializeField, Range(5f, 20f)] private float maxDistanceToPlayer;
 
     [Header("Debug")]
