@@ -15,6 +15,9 @@ public class TimedRoundHandler : RoundHandler
     [SerializeField] protected float currentRoundDuration;
     [SerializeField] protected float currentRoundElapsedTime;
 
+    public float CurrentRoundElapsedTime => currentRoundElapsedTime;
+    public float CurrentRoundCountdown => currentRoundDuration - currentRoundElapsedTime;
+
     protected override void SetSingleton()
     {
         if (Instance == null)
@@ -99,6 +102,5 @@ public class TimedRoundHandler : RoundHandler
     protected void ClearCurrentRound() => currentTimedRound = null;
     protected void ResetCurrentRoundDuration() => currentRoundDuration = 0;
     protected void ResetCurrentRoundElapsedTime() => currentRoundElapsedTime = 0;
-
     #endregion 
 }

@@ -1,6 +1,6 @@
 public enum RoundType 
 {
     Timed,
-    KillAll,
+    Waves,
     BossFight
 }
