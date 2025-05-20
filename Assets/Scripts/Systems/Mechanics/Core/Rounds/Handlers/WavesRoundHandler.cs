@@ -55,7 +55,7 @@ public class WavesRoundHandler : RoundHandler
         ResetCurrentRoundElapsedTime();
     }
 
-    public void StartTimedRound(WavesRoundSO wavesRoundSO)
+    public void StartTimedRound(WavesRoundSO wavesRoundSO, List<Transform> spawnPointsPool)
     {
         if (currentWavesRound != null) return;
 
@@ -66,10 +66,10 @@ public class WavesRoundHandler : RoundHandler
 
         ClearRemainingEnemiesInWaveList();
 
-        StartCoroutine(StartRoundCoroutine(wavesRoundSO));
+        StartCoroutine(StartRoundCoroutine(wavesRoundSO, spawnPointsPool));
     }
 
-    private IEnumerator StartRoundCoroutine(WavesRoundSO wavesRoundSO)
+    private IEnumerator StartRoundCoroutine(WavesRoundSO wavesRoundSO, List<Transform> spawnPointsPool)
     {
         SetTotalWaves(wavesRoundSO.enemyWaves.Count);
         ResetCurrentWave();
@@ -79,7 +79,7 @@ public class WavesRoundHandler : RoundHandler
         while (currentWave < totalWaves)
         {
             SetCurrentWave(currentWave + 1);
-            SpawnWaveEnemies(wavesRoundSO.enemyWaves[currentWave-1]);
+            SpawnWaveEnemies(wavesRoundSO.enemyWaves[currentWave-1], spawnPointsPool);
 
             while (remainingEnemiesInWave.Count > 0)
             {
@@ -108,9 +108,9 @@ public class WavesRoundHandler : RoundHandler
         EnemiesManager.Instance.ExecuteAllActiveEnemies(); //There should be no active enemies anyway
     }
 
-    private void SpawnWaveEnemies(EnemyWave enemyWave)
+    private void SpawnWaveEnemies(EnemyWave enemyWave, List<Transform> spawnPointsPool)
     {
-        List<Transform> spawnedEnemies = EnemiesManager.Instance.SpawnEnemiesOnDifferentValidRandomSpawnPoint(enemyWave.enemies);
+        List<Transform> spawnedEnemies = EnemiesManager.Instance.SpawnEnemiesOnDifferentValidRandomSpawnPointsFromPool(enemyWave.enemies, spawnPointsPool);
         SetRemainingEnemiesInWaveList(spawnedEnemies);
     }
 

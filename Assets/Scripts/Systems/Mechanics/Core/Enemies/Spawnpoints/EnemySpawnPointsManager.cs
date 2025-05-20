@@ -6,9 +6,6 @@ public class EnemySpawnPointsManager : MonoBehaviour
 {
     public static EnemySpawnPointsManager Instance { get; private set; }
 
-    [Header("Lists")]
-    [SerializeField] private List<SpawnPointHandler> enemySpawnPoints;
-
     [Header("Settings")]
     [SerializeField, Range(2f, 10f)] private float minDistanceToPlayer;
     [SerializeField, Range(5f, 20f)] private float maxDistanceToPlayer;
@@ -37,10 +34,10 @@ public class EnemySpawnPointsManager : MonoBehaviour
 
     #region SpawnPoint Validation
 
-    public List<Transform> GetXValidSpawnPoints(int quantity)
+    public List<Transform> GetXValidSpawnPointsFromPool(List<Transform> spawnPointsPool, int quantity)
     {
         List<Transform> chosenSpawnPoints = new List<Transform>();
-        List<Transform> validSpawnPointsPool = GetValidSpawnPointsFromPool(enemySpawnPoints);
+        List<Transform> validSpawnPointsPool = GetValidSpawnPointsFromPool(spawnPointsPool);
 
         for (int i=0; i<quantity; ++i)
         {
@@ -58,69 +55,56 @@ public class EnemySpawnPointsManager : MonoBehaviour
         return chosenSpawnPoints;   
     }
 
-    public Transform GetRandomValidSpawnPoint()
+    public Transform GetRandomValidSpawnPointFromPool(List<Transform> spawnPointsPool)
     {  
-        Transform chosenSpawnPoint = ChooseRandomEnemySpawnPoint(GetValidSpawnPointsFromPool(enemySpawnPoints));
+        Transform chosenSpawnPoint = ChooseRandomEnemySpawnPoint(GetValidSpawnPointsFromPool(spawnPointsPool));
         return chosenSpawnPoint;
     }
 
-    public List<Transform> GetValidSpawnPointsFromPool(List<SpawnPointHandler> enemySpawnPointPool)
+    public List<Transform> GetValidSpawnPointsFromPool(List<Transform> spawnPointsPool)
     {
-        List<Transform> enabledSpawnPoints = GetEnabledSpawnPoints(enemySpawnPoints);
-        List<Transform> validSpawnPoints = FilterValidEnemySpawnPointsByMinMaxDistanceRange(enabledSpawnPoints, minDistanceToPlayer, maxDistanceToPlayer);
+        List<Transform> validSpawnPoints = FilterValidEnemySpawnPointsByMinMaxDistanceRange(spawnPointsPool, minDistanceToPlayer, maxDistanceToPlayer);
         return validSpawnPoints;
     }
 
-    private List<Transform> GetEnabledSpawnPoints(List<SpawnPointHandler> enemySpawnPointsPool)
-    {
-        List<Transform> enabledSpawnPoints = new List<Transform>();
-
-        foreach(SpawnPointHandler spawnPoint in enemySpawnPointsPool)
-        {
-            if (spawnPoint.IsEnabled) enabledSpawnPoints.Add(spawnPoint.transform);
-        }
-
-        return enabledSpawnPoints;
-    }
-
-    private List<Transform> FilterValidEnemySpawnPointsByMinMaxDistanceRange(List<Transform> enemySpawnPointsPool, float minDistance, float maxDistance)
+    private List<Transform> FilterValidEnemySpawnPointsByMinMaxDistanceRange(List<Transform> spawnPointsPool, float minDistance, float maxDistance)
     {
         List<Transform> validSpawnPoints = new List<Transform>();
 
-        foreach (Transform enemySpawnPoint in enemySpawnPointsPool)
+        foreach (Transform spawnPoint in spawnPointsPool)
         {
-            if (!EnemySpawnPointOnMinDistanceRange(enemySpawnPoint, minDistance)) continue;
-            if (!EnemySpawnPointOnMaxDistanceRange(enemySpawnPoint, maxDistance)) continue;
+            if (!EnemySpawnPointOnMinDistanceRange(spawnPoint, minDistance)) continue;
+            if (!EnemySpawnPointOnMaxDistanceRange(spawnPoint, maxDistance)) continue;
 
-            validSpawnPoints.Add(enemySpawnPoint);
+            validSpawnPoints.Add(spawnPoint);
         }
 
         return validSpawnPoints;
     }
 
-    private List<Transform> FilterValidEnemySpawnPointsByMinDistanceRange(List<Transform> enemySpawnPointsPool, float minDistance)
+    private List<Transform> FilterValidEnemySpawnPointsByMinDistanceRange(List<Transform> spawnPointsPool, float minDistance)
     {
         List<Transform> validSpawnPoints = new List<Transform>();
 
-        foreach (Transform enemySpawnPoint in enemySpawnPointsPool)
+        foreach (Transform spawnPoint in spawnPointsPool)
         {
-            if (!EnemySpawnPointOnMinDistanceRange(enemySpawnPoint, minDistance)) continue;
+            if (!EnemySpawnPointOnMinDistanceRange(spawnPoint, minDistance)) continue;
 
-            validSpawnPoints.Add(enemySpawnPoint);
+            validSpawnPoints.Add(spawnPoint);
         }
 
         return validSpawnPoints;
     }
 
-    private List<Transform> ChooseValidEnemySpawnPointsByMaxDistanceRange(List<Transform> enemySpawnPointsPool, float maxDistance)
+    private List<Transform> ChooseValidEnemySpawnPointsByMaxDistanceRange(List<Transform> spawnPointsPool, float maxDistance)
     {
         List<Transform> validSpawnPoints = new List<Transform>();
 
-        foreach (Transform enemySpawnPoint in enemySpawnPointsPool)
+        foreach (Transform spawnPoint in spawnPointsPool)
         {
-            if (!EnemySpawnPointOnMaxDistanceRange(enemySpawnPoint, maxDistance)) continue;
+            if (!EnemySpawnPointOnMaxDistanceRange(spawnPoint, maxDistance)) continue;
 
-            validSpawnPoints.Add(enemySpawnPoint);
+            validSpawnPoints.Add(spawnPoint);
         }
 
         return validSpawnPoints;

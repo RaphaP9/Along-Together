@@ -412,6 +412,7 @@ MonoBehaviour:
   currentFacingDirection: {x: 0, y: 0}
   isOverridingFacingDirection: 0
   overridenDirection: {x: 0, y: 0}
+  enemySpawnHandler: {fileID: 8942189645329353576}
 --- !u!114 &3525343234226037308
 MonoBehaviour:
   m_ObjectHideFlags: 0

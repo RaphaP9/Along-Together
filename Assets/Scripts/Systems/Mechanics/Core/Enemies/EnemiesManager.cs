@@ -48,9 +48,9 @@ public class EnemiesManager : MonoBehaviour
         }
     }
 
-    public List<Transform> SpawnEnemiesOnDifferentValidRandomSpawnPoint(List<EnemySO> enemySOs)
+    public List<Transform> SpawnEnemiesOnDifferentValidRandomSpawnPointsFromPool(List<EnemySO> enemySOs, List<Transform> spawnPointsPool)
     {
-        List<Transform> spawnPoints = EnemySpawnPointsManager.Instance.GetXValidSpawnPoints(enemySOs.Count);
+        List<Transform> spawnPoints = EnemySpawnPointsManager.Instance.GetXValidSpawnPointsFromPool(spawnPointsPool, enemySOs.Count);
         List<Transform> spawnedEnemies = new List<Transform>();
 
         if(spawnPoints.Count < enemySOs.Count)
@@ -71,22 +71,22 @@ public class EnemiesManager : MonoBehaviour
         return spawnedEnemies;
     }
 
-    public List<Transform> SpawnEnemiesOnValidRandomSpawnPoint(List<EnemySO> enemySOs)
+    public List<Transform> SpawnEnemiesOnValidRandomSpawnPointFromPool(List<EnemySO> enemySOs, List<Transform> spawnPointsPool)
     {
         List<Transform> spawnedEnemies = new List<Transform>();
 
         foreach (EnemySO enemySO in enemySOs)
         {
-            Transform spawnedEnemy = SpawnEnemyOnValidRandomSpawnPoint(enemySO);
+            Transform spawnedEnemy = SpawnEnemyOnValidRandomSpawnPointFromPool(enemySO, spawnPointsPool);
             spawnedEnemies.Add(spawnedEnemy);
         }
 
         return spawnedEnemies;
     }
 
-    public Transform SpawnEnemyOnValidRandomSpawnPoint(EnemySO enemySO)
+    public Transform SpawnEnemyOnValidRandomSpawnPointFromPool(EnemySO enemySO, List<Transform> spawnPointsPool)
     {
-        Transform chosenSpawnPoint = EnemySpawnPointsManager.Instance.GetRandomValidSpawnPoint();
+        Transform chosenSpawnPoint = EnemySpawnPointsManager.Instance.GetRandomValidSpawnPointFromPool(spawnPointsPool);
 
         if(chosenSpawnPoint == null)
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestBossFightRound : MonoBehaviour
 {
     [Header("Components")]
+    [SerializeField] private StageSpawnPointsHandler stageSpawnPointsHandler;
     [SerializeField] private BossFightRoundSO bossFightRoundSO;
 
     private void Update()
@@ -16,7 +17,7 @@ public class TestBossFightRound : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            BossFightRoundHandler.Instance.StartBossFightRound(bossFightRoundSO);
+            BossFightRoundHandler.Instance.StartBossFightRound(bossFightRoundSO, stageSpawnPointsHandler.SpecialSpawnPoint);
         }
     }
 }

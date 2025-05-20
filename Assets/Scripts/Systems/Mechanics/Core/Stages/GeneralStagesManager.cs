@@ -7,13 +7,13 @@ public class GeneralStagesManager : MonoBehaviour
     public static GeneralStagesManager Instance {  get; private set; }
 
     [Header("Lists")]
-    [SerializeField] private List<StageSO> stages;
+    [SerializeField] private List<StageGroup> stagesGroups;
 
     [Header("Runtime Filled")]
     [SerializeField] private StageSO currentStage;
     [SerializeField] private RoundSO currentRound;
 
-    public List<StageSO> Stages => stages;
+    public List<StageGroup> StagesGroups => stagesGroups;
     public StageSO CurrentStage => currentStage;
     public RoundSO CurrentRound => currentRound;
 
@@ -35,5 +35,12 @@ public class GeneralStagesManager : MonoBehaviour
         }
     }
 
-    public int GetStagesCount() => stages.Count;
+    public int GetStagesCount() => stagesGroups.Count;
+}
+
+[System.Serializable]
+public class StageGroup
+{
+    public StageSO stageSO;
+    public StageSpawnPointsHandler spawnPointsHandler;
 }

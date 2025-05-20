@@ -370,8 +370,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1f34e2fcf073e41934996d72b2109a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stages:
-  - {fileID: 11400000, guid: 47368ed2adf26cc46a90c445e4e62a02, type: 2}
+  stagesGroups:
+  - stageSO: {fileID: 11400000, guid: 47368ed2adf26cc46a90c445e4e62a02, type: 2}
+    spawnPointsHandler: {fileID: 1236280672}
+  currentStage: {fileID: 0}
+  currentRound: {fileID: 0}
 --- !u!1001 &80267180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10005,7 +10008,7 @@ GameObject:
   - component: {fileID: 1236280671}
   - component: {fileID: 1236280672}
   m_Layer: 0
-  m_Name: GroupA
+  m_Name: Stage1SpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10079,7 +10082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8e45742a5b13a458039b9c74692e34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groupSpawnPoints:
+  stageSpawnPoints:
   - {fileID: 132599719845491766}
   - {fileID: 1936959958}
   - {fileID: 1547908326}
@@ -10121,6 +10124,7 @@ MonoBehaviour:
   - {fileID: 1315445082}
   - {fileID: 937409583}
   - {fileID: 580732878}
+  specialSpawnPoint: {fileID: 604843826}
 --- !u!1001 &1245538489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11082,7 +11086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde15b93f53f4fe49be73b7413168db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossSpawnPoint: {fileID: 604843826}
   currentBossFightRound: {fileID: 0}
   currentRoundElapsedTime: 0
   currentBossTransform: {fileID: 0}
@@ -13225,48 +13228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c04657dfca50140bf374e2980ddb04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnPoints:
-  - {fileID: 132599719845491766}
-  - {fileID: 1936959958}
-  - {fileID: 1547908326}
-  - {fileID: 1014723284}
-  - {fileID: 1722658190}
-  - {fileID: 521535795}
-  - {fileID: 1754335538}
-  - {fileID: 1777762134}
-  - {fileID: 103804324}
-  - {fileID: 760956264}
-  - {fileID: 1615603017}
-  - {fileID: 2069007497}
-  - {fileID: 1460640287}
-  - {fileID: 459982368}
-  - {fileID: 1952312075}
-  - {fileID: 1117638024}
-  - {fileID: 622671514}
-  - {fileID: 1967346553}
-  - {fileID: 632453254}
-  - {fileID: 1986146471}
-  - {fileID: 1268999604}
-  - {fileID: 1251169869}
-  - {fileID: 128615722}
-  - {fileID: 1212065877}
-  - {fileID: 1172867874}
-  - {fileID: 604843827}
-  - {fileID: 1894246277}
-  - {fileID: 2111705264}
-  - {fileID: 1227162678}
-  - {fileID: 318294232}
-  - {fileID: 1037442140}
-  - {fileID: 1901634302}
-  - {fileID: 1342271719}
-  - {fileID: 471229174}
-  - {fileID: 1141967489}
-  - {fileID: 1245538491}
-  - {fileID: 4821579}
-  - {fileID: 1218580408}
-  - {fileID: 1315445082}
-  - {fileID: 937409583}
-  - {fileID: 580732878}
   minDistanceToPlayer: 2
   maxDistanceToPlayer: 7
   gizmosColor: {r: 0.91974485, g: 1, b: 0, a: 1}
@@ -15217,6 +15178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f3aa5d99aaeb343b510f8c41f66211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageSpawnPointsHandler: {fileID: 1236280672}
   timedRoundSO: {fileID: 11400000, guid: dd6d3dbf75cde324f87d71a890e314ed, type: 2}
 --- !u!114 &1773330774
 MonoBehaviour:
@@ -15230,6 +15192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6325d6b40c7d6b408a25e022116b0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageSpawnPointsHandler: {fileID: 1236280672}
   wavesRoundSO: {fileID: 11400000, guid: 4b8a1a36ac742b441bd8b83606620656, type: 2}
 --- !u!114 &1773330775
 MonoBehaviour:
@@ -15243,6 +15206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17339075dd534864d84ae8e5b1ad07eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageSpawnPointsHandler: {fileID: 1236280672}
   bossFightRoundSO: {fileID: 11400000, guid: 326447e5dd91fb54e978d18bc8a46a51, type: 2}
 --- !u!1001 &1777762132
 PrefabInstance:

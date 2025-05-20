@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestWavesRound : MonoBehaviour
 {
     [Header("Components")]
+    [SerializeField] private StageSpawnPointsHandler stageSpawnPointsHandler;
     [SerializeField] private WavesRoundSO wavesRoundSO;
 
     private void Update()
@@ -16,7 +17,7 @@ public class TestWavesRound : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            WavesRoundHandler.Instance.StartTimedRound(wavesRoundSO);
+            WavesRoundHandler.Instance.StartTimedRound(wavesRoundSO, stageSpawnPointsHandler.GetEnabledSpawnPoints());
         }
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestTimedRound : MonoBehaviour
 {
     [Header("Components")]
+    [SerializeField] private StageSpawnPointsHandler stageSpawnPointsHandler;
     [SerializeField] private TimedRoundSO timedRoundSO;
 
     private void Update()
@@ -16,7 +17,7 @@ public class TestTimedRound : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            TimedRoundHandler.Instance.StartTimedRound(timedRoundSO);
+            TimedRoundHandler.Instance.StartTimedRound(timedRoundSO, stageSpawnPointsHandler.GetEnabledSpawnPoints());
         }
     }
 }

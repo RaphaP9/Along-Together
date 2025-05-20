@@ -56,7 +56,7 @@ public class EntityFacingDirectionHandler : MonoBehaviour
 
     private void HandleDirectionOverride()
     {
-        if (!entityHealth.IsAlive()) return;
+        if (!CanFace()) return;
 
         foreach (IFacingInterruption facingInterruptionAbility in facingInterruptions)
         {
@@ -79,7 +79,7 @@ public class EntityFacingDirectionHandler : MonoBehaviour
     #region Facing Direction Logic
     private void HandleFacingDirection()
     {
-        if (!entityHealth.IsAlive()) return;
+        if (!CanFace()) return;
         if (isOverridingFacingDirection) return;
 
         switch (facingType)
@@ -130,4 +130,11 @@ public class EntityFacingDirectionHandler : MonoBehaviour
     public bool IsFacingRight() => currentRawFacingDirection.x >= 0;
 
     #endregion
+
+    protected virtual bool CanFace()
+    {
+        if (!entityHealth.IsAlive()) return false;
+
+        return true;
+    }
 }

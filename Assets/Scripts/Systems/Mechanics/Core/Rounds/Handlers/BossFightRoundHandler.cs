@@ -7,9 +7,6 @@ public class BossFightRoundHandler : RoundHandler
 {
     public static BossFightRoundHandler Instance { get; private set; }
 
-    [Header("Settings")]
-    [SerializeField] private Transform bossSpawnPoint;
-
     [Header("Runtime Filled")]
     [SerializeField] private BossFightRoundSO currentBossFightRound;
     [SerializeField] protected float currentRoundElapsedTime;
@@ -54,7 +51,7 @@ public class BossFightRoundHandler : RoundHandler
         ResetCurrentRoundElapsedTime();
     }
 
-    public void StartBossFightRound(BossFightRoundSO bossFightRoundSO)
+    public void StartBossFightRound(BossFightRoundSO bossFightRoundSO, Transform bossSpawnPoint)
     {
         if (currentBossFightRound != null) return;
 
@@ -64,10 +61,10 @@ public class BossFightRoundHandler : RoundHandler
         ClearCurrentBossTransform();
         ResetCurrentRoundElapsedTime();
 
-        StartCoroutine(StartRoundCoroutine(bossFightRoundSO));
+        StartCoroutine(StartRoundCoroutine(bossFightRoundSO, bossSpawnPoint));
     }
 
-    private IEnumerator StartRoundCoroutine(BossFightRoundSO bossFightRoundSO)
+    private IEnumerator StartRoundCoroutine(BossFightRoundSO bossFightRoundSO, Transform bossSpawnPoint)
     {
         float roundElapsedTimer = 0f;
 
