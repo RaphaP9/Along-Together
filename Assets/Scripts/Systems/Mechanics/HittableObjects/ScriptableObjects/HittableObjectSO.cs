@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewHittableObjectSO", menuName = "ScriptableObjects/HittableObjects/HittableObject")]
+[CreateAssetMenu(fileName = "NewHittableObjectSO", menuName = "ScriptableObjects/HittableObjects/HittableObject(Default)")]
 public class HittableObjectSO : ScriptableObject, IAttackableSO
 {
     [Header("Hittable Object Identifiers")]

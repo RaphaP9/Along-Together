@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewNeutralEntitySO", menuName = "ScriptableObjects/Entities/NeutralEntity")]
+[CreateAssetMenu(fileName = "NewNeutralEntitySO", menuName = "ScriptableObjects/Entities/NeutralEntities/NeutralEntity(Default)")]
 public class NeutralEntitySO : EntitySO, IOreSourceSO
 {
     [Header("NeutralEntity Extra Settings")]

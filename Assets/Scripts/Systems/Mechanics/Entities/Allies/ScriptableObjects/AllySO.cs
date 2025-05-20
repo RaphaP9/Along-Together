@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewAllySO", menuName = "ScriptableObjects/Entities/Ally")]
+[CreateAssetMenu(fileName = "NewAllySO", menuName = "ScriptableObjects/Entities/Allies/Ally(Default)")]
 public class AllySO : EntitySO
 {
     [Header("Ally Extra Settings")]

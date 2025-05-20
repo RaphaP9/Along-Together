@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewCharacterSO", menuName = "ScriptableObjects/Entities/Character")]
+[CreateAssetMenu(fileName = "NewCharacterSO", menuName = "ScriptableObjects/Entities/Characters/Character(Default)")]
 public class CharacterSO : EntitySO
 {
     [Header("Character Health Settings")]
