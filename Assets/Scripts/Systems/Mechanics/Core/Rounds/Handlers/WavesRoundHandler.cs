@@ -40,7 +40,7 @@ public class WavesRoundHandler : RoundHandler
 
     private void OnEnable()
     {
-        EnemyHealth.OnAnyEnemyDeath += EnemyHealth_OnAnyEnemyDeath;
+        EnemyHealth.OnAnyEnemyDeath += EnemyHealth_OnAnyEnemyDeath; //Enemy defeated when dead
     }
 
     private void OnDisable()
@@ -51,6 +51,7 @@ public class WavesRoundHandler : RoundHandler
     private void Start()
     {
         ClearCurrentRound();
+        ClearRemainingEnemiesInWaveList();
         ResetCurrentRoundElapsedTime();
     }
 
@@ -98,6 +99,7 @@ public class WavesRoundHandler : RoundHandler
     {
         if (currentWavesRound == null) return;
 
+        ClearRemainingEnemiesInWaveList();
         ClearCurrentRound();
         ResetCurrentRoundElapsedTime();
 

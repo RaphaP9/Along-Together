@@ -7,17 +7,17 @@ public class BossFightRoundHandler : RoundHandler
 {
     public static BossFightRoundHandler Instance { get; private set; }
 
+    [Header("Settings")]
+    [SerializeField] private Transform bossSpawnPoint;
+
     [Header("Runtime Filled")]
     [SerializeField] private BossFightRoundSO currentBossFightRound;
     [SerializeField] protected float currentRoundElapsedTime;
+    [Space]
+    [SerializeField] private Transform currentBossTransform;
 
     public static event EventHandler<OnBossFightRoundEventArgs> OnBossFightRoundStart;
     public static event EventHandler<OnBossFightRoundEventArgs> OnBossFightRoundCompleted;
-
-    public class OnBossFightRoundEventArgs : EventArgs
-    {
-        public BossFightRoundSO bossFightRoundSO;
-    }
 
     protected override void SetSingleton()
     {
@@ -31,4 +31,108 @@ public class BossFightRoundHandler : RoundHandler
             Destroy(gameObject);
         }
     }
+
+    private void OnEnable()
+    {
+        EnemyCleanupHandler.OnAnyEnemyCleanup += EnemyCleanupHandler_OnAnyEnemyCleanup; //BossDefeated when cleanup
+    } 
+
+    private void OnDisable()
+    {
+        EnemyCleanupHandler.OnAnyEnemyCleanup -= EnemyCleanupHandler_OnAnyEnemyCleanup;
+    }
+
+    public class OnBossFightRoundEventArgs : EventArgs
+    {
+        public BossFightRoundSO bossFightRoundSO;
+    }
+
+    private void Start()
+    {
+        ClearCurrentRound();
+        ClearCurrentBossTransform();
+        ResetCurrentRoundElapsedTime();
+    }
+
+    public void StartBossFightRound(BossFightRoundSO bossFightRoundSO)
+    {
+        if (currentBossFightRound != null) return;
+
+        OnRoundStartMethod(bossFightRoundSO);
+
+        SetCurrentBossFightRound(bossFightRoundSO);
+        ClearCurrentBossTransform();
+        ResetCurrentRoundElapsedTime();
+
+        StartCoroutine(StartRoundCoroutine(bossFightRoundSO));
+    }
+
+    private IEnumerator StartRoundCoroutine(BossFightRoundSO bossFightRoundSO)
+    {
+        float roundElapsedTimer = 0f;
+
+        SpawnBoss(bossFightRoundSO.enemyBoss, bossSpawnPoint.position);
+
+        while (currentBossTransform != null)
+        {
+            roundElapsedTimer += Time.deltaTime;
+            SetCurrentRoundElapsedTime(roundElapsedTimer);
+
+            yield return null;
+        }
+
+        CompleteCurrentRound();
+    }
+
+    protected virtual void CompleteCurrentRound()
+    {
+        if (currentBossFightRound == null) return;
+
+        ClearCurrentBossTransform();
+        ClearCurrentRound();
+        ResetCurrentRoundElapsedTime();
+
+        OnRoundCompletedMethod(currentBossFightRound);
+
+        EnemiesManager.Instance.ExecuteAllActiveEnemies(); //There should be no active enemies anyway
+    }
+
+    private void SpawnBoss(EnemySO bossEnemySO, Vector3 position)
+    {
+        Transform bossTransform = EnemiesManager.Instance.SpawnEnemyAtPosition(bossEnemySO, position);
+        SetCurrentBossTransform(bossTransform);
+    }
+
+    #region Set & Get
+    protected void SetCurrentBossFightRound(BossFightRoundSO bossFightRoundSO) => currentBossFightRound = bossFightRoundSO;
+    protected void SetCurrentRoundElapsedTime(float elapsedTime) => currentRoundElapsedTime = elapsedTime;
+    protected void SetCurrentBossTransform(Transform bossTransform) => currentBossTransform = bossTransform;
+
+    protected void ClearCurrentRound() => currentBossFightRound = null;
+    protected void ResetCurrentRoundElapsedTime() => currentRoundElapsedTime = 0;
+    protected void ClearCurrentBossTransform() => currentBossTransform = null;
+    #endregion
+
+    #region Virtual Methods
+    protected override void OnRoundStartMethod(RoundSO roundSO)
+    {
+        base.OnRoundStartMethod(roundSO);
+        OnBossFightRoundStart?.Invoke(this, new OnBossFightRoundEventArgs { bossFightRoundSO = roundSO as BossFightRoundSO });
+    }
+
+    protected override void OnRoundCompletedMethod(RoundSO roundSO)
+    {
+        base.OnRoundCompletedMethod(roundSO);
+        OnBossFightRoundCompleted?.Invoke(this, new OnBossFightRoundEventArgs { bossFightRoundSO = roundSO as BossFightRoundSO });
+    }
+    #endregion
+
+    #region Subscriptions
+
+    private void EnemyCleanupHandler_OnAnyEnemyCleanup(object sender, EnemyCleanupHandler.OnEnemyCleanUpEventArgs e)
+    {
+        if (e.enemyTransform != currentBossTransform) return;
+        ClearCurrentBossTransform();
+    }
+    #endregion
 }

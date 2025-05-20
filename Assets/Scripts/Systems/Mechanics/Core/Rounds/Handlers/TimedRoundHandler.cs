@@ -93,8 +93,8 @@ public class TimedRoundHandler : RoundHandler
     {
         if (currentTimedRound == null) return;
 
-        ClearCurrentRound();
         ResetCurrentRoundDuration();
+        ClearCurrentRound();
         ResetCurrentRoundElapsedTime();
 
         OnRoundCompletedMethod(currentTimedRound);

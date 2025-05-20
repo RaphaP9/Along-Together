@@ -11005,8 +11005,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde15b93f53f4fe49be73b7413168db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossSpawnPoint: {fileID: 604843826}
   currentBossFightRound: {fileID: 0}
   currentRoundElapsedTime: 0
+  currentBossTransform: {fileID: 0}
 --- !u!1 &1333497106
 GameObject:
   m_ObjectHideFlags: 0
@@ -15063,6 +15065,7 @@ GameObject:
   - component: {fileID: 1773330772}
   - component: {fileID: 1773330773}
   - component: {fileID: 1773330774}
+  - component: {fileID: 1773330775}
   m_Layer: 0
   m_Name: TestObject
   m_TagString: Untagged
@@ -15151,6 +15154,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wavesRoundSO: {fileID: 11400000, guid: 4b8a1a36ac742b441bd8b83606620656, type: 2}
+--- !u!114 &1773330775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773330765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17339075dd534864d84ae8e5b1ad07eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossFightRoundSO: {fileID: 11400000, guid: 326447e5dd91fb54e978d18bc8a46a51, type: 2}
 --- !u!1001 &1777762132
 PrefabInstance:
   m_ObjectHideFlags: 0
