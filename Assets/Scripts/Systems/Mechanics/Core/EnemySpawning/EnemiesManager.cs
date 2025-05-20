@@ -48,6 +48,42 @@ public class EnemiesManager : MonoBehaviour
         }
     }
 
+    public List<Transform> SpawnEnemiesOnDifferentValidRandomSpawnPoint(List<EnemySO> enemySOs)
+    {
+        List<Transform> spawnedEnemies = new List<Transform>();
+        List<Transform> spawnPoints = EnemySpawnPointsManager.Instance.GetXValidSpawnPoints(enemySOs.Count);
+
+        if(spawnPoints.Count < enemySOs.Count)
+        {
+            if (debug) Debug.Log("There are less spawnPoints than enemies to spawn.");
+        }
+
+        int spawnedEnemyIndex = 0;
+
+        foreach (Transform spawnPoint in spawnPoints)
+        {
+            Transform spawnedEnemy = SpawnEnemyOnValidRandomSpawnPoint(enemySOs[spawnedEnemyIndex]);
+            spawnedEnemies.Add(spawnedEnemy);
+
+            spawnedEnemyIndex++;
+        }
+
+        return spawnedEnemies;
+    }
+
+    public List<Transform> SpawnEnemiesOnValidRandomSpawnPoint(List<EnemySO> enemySOs)
+    {
+        List<Transform> spawnedEnemies = new List<Transform>();
+
+        foreach (EnemySO enemySO in enemySOs)
+        {
+            Transform spawnedEnemy = SpawnEnemyOnValidRandomSpawnPoint(enemySO);
+            spawnedEnemies.Add(spawnedEnemy);
+        }
+
+        return spawnedEnemies;
+    }
+
     public Transform SpawnEnemyOnValidRandomSpawnPoint(EnemySO enemySO)
     {
         Transform chosenSpawnPoint = EnemySpawnPointsManager.Instance.GetRandomValidSpawnPoint();
@@ -62,6 +98,8 @@ public class EnemiesManager : MonoBehaviour
 
         return spawnedEnemy;
     }
+
+    
 
     public Transform SpawnEnemyAtPosition(EnemySO enemySO, Vector3 position)
     {

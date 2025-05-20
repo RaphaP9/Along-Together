@@ -37,14 +37,40 @@ public class EnemySpawnPointsManager : MonoBehaviour
 
     #region SpawnPoint Validation
 
+    public List<Transform> GetXValidSpawnPoints(int quantity)
+    {
+        List<Transform> chosenSpawnPoints = new List<Transform>();
+        List<Transform> validSpawnPointsPool = GetValidSpawnPointsFromPool(enemySpawnPoints);
+
+        for (int i=0; i<validSpawnPointsPool.Count; ++i)
+        {
+            if(validSpawnPointsPool.Count <= 0)
+            {
+                if (debug) Debug.Log("Not Enough different spawnPoints. Returning all available");
+                return chosenSpawnPoints;
+            }
+
+            Transform chosenSpawnPoint = ChooseRandomEnemySpawnPoint(validSpawnPointsPool);
+            chosenSpawnPoints.Add(chosenSpawnPoint);
+            validSpawnPointsPool.Remove(chosenSpawnPoint);
+
+            Debug.Log(chosenSpawnPoint);
+        }
+
+        return chosenSpawnPoints;   
+    }
 
     public Transform GetRandomValidSpawnPoint()
+    {  
+        Transform chosenSpawnPoint = ChooseRandomEnemySpawnPoint(GetValidSpawnPointsFromPool(enemySpawnPoints));
+        return chosenSpawnPoint;
+    }
+
+    public List<Transform> GetValidSpawnPointsFromPool(List<SpawnPointHandler> enemySpawnPointPool)
     {
         List<Transform> enabledSpawnPoints = GetEnabledSpawnPoints(enemySpawnPoints);
         List<Transform> validSpawnPoints = FilterValidEnemySpawnPointsByMinMaxDistanceRange(enabledSpawnPoints, minDistanceToPlayer, maxDistanceToPlayer);
-        Transform chosenSpawnPoint = ChooseRandomEnemySpawnPoint(validSpawnPoints);
-
-        return chosenSpawnPoint;
+        return validSpawnPoints;
     }
 
     private List<Transform> GetEnabledSpawnPoints(List<SpawnPointHandler> enemySpawnPointsPool)

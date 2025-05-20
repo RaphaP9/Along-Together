@@ -101,11 +101,8 @@ public class WavesRoundHandler : RoundHandler
 
     private void SpawnWaveEnemies(EnemyWave enemyWave)
     {
-        foreach(EnemySO enemySO in enemyWave.enemies)
-        {
-            Transform spawnedEnemy = EnemiesManager.Instance.SpawnEnemyOnValidRandomSpawnPoint(enemySO);
-            AddEnemyToRemainingEnemiesInWaveList(spawnedEnemy);
-        }
+        List<Transform> spawnedEnemies = EnemiesManager.Instance.SpawnEnemiesOnDifferentValidRandomSpawnPoint(enemyWave.enemies);
+        SetRemainingEnemiesInWaveList(spawnedEnemies);
     }
 
     #region Set & Get
@@ -119,7 +116,7 @@ public class WavesRoundHandler : RoundHandler
     protected void ResetTotalWaves() => totalWaves = 0;
     protected void ResetCurrentWave() => currentWave = 0;
 
-    protected void AddEnemyToRemainingEnemiesInWaveList(Transform enemyTransform) => remainingEnemiesInWave.Add(enemyTransform);
+    protected void SetRemainingEnemiesInWaveList(List<Transform> enemyTransforms) => remainingEnemiesInWave = enemyTransforms;
     protected void RemoveEnemyFromRemainingEnemiesInWaveList(Transform enemyTransform) => remainingEnemiesInWave.Remove(enemyTransform);
     protected void ClearRemainingEnemiesInWaveList() => remainingEnemiesInWave.Clear();
 
