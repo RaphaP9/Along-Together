@@ -42,7 +42,7 @@ public class EnemySpawnPointsManager : MonoBehaviour
         List<Transform> chosenSpawnPoints = new List<Transform>();
         List<Transform> validSpawnPointsPool = GetValidSpawnPointsFromPool(enemySpawnPoints);
 
-        for (int i=0; i<validSpawnPointsPool.Count; ++i)
+        for (int i=0; i<quantity; ++i)
         {
             if(validSpawnPointsPool.Count <= 0)
             {
@@ -51,10 +51,8 @@ public class EnemySpawnPointsManager : MonoBehaviour
             }
 
             Transform chosenSpawnPoint = ChooseRandomEnemySpawnPoint(validSpawnPointsPool);
-            chosenSpawnPoints.Add(chosenSpawnPoint);
             validSpawnPointsPool.Remove(chosenSpawnPoint);
-
-            Debug.Log(chosenSpawnPoint);
+            chosenSpawnPoints.Add(chosenSpawnPoint);
         }
 
         return chosenSpawnPoints;   

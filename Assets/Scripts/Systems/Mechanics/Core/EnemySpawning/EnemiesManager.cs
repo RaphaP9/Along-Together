@@ -50,8 +50,8 @@ public class EnemiesManager : MonoBehaviour
 
     public List<Transform> SpawnEnemiesOnDifferentValidRandomSpawnPoint(List<EnemySO> enemySOs)
     {
-        List<Transform> spawnedEnemies = new List<Transform>();
         List<Transform> spawnPoints = EnemySpawnPointsManager.Instance.GetXValidSpawnPoints(enemySOs.Count);
+        List<Transform> spawnedEnemies = new List<Transform>();
 
         if(spawnPoints.Count < enemySOs.Count)
         {
@@ -62,7 +62,7 @@ public class EnemiesManager : MonoBehaviour
 
         foreach (Transform spawnPoint in spawnPoints)
         {
-            Transform spawnedEnemy = SpawnEnemyOnValidRandomSpawnPoint(enemySOs[spawnedEnemyIndex]);
+            Transform spawnedEnemy = SpawnEnemyAtPosition(enemySOs[spawnedEnemyIndex], spawnPoint.position);
             spawnedEnemies.Add(spawnedEnemy);
 
             spawnedEnemyIndex++;

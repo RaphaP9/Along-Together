@@ -80,8 +80,7 @@ public class WavesRoundHandler : RoundHandler
                 yield return null;
             }
 
-
-            yield return new WaitForSeconds(wavesRoundSO.waveSpawnInterval);
+            if(currentWave < totalWaves) yield return new WaitForSeconds(wavesRoundSO.waveSpawnInterval);
         }
 
         CompleteCurrentRound();
