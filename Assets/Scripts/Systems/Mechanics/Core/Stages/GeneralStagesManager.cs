@@ -7,9 +7,9 @@ public class GeneralStagesManager : MonoBehaviour
     public static GeneralStagesManager Instance {  get; private set; }
 
     [Header("Lists")]
-    [SerializeField] private List<Stage> stages;
+    [SerializeField] private List<StageSO> stages;
 
-    public List<Stage> Stages => stages;
+    public List<StageSO> Stages => stages;
 
     private void Awake()
     {

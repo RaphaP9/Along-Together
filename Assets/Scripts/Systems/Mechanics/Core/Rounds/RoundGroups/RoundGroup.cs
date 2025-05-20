@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class RoundGroup
 {
+    public DifficultyTier difficultyTier;
     public List<RoundSO> rounds;
 
     public RoundSO GetRandomRoundFromRoundsList()

@@ -1,4 +1,4 @@
-public enum RoundTier 
+public enum DifficultyTier 
 {
     S,
     A,

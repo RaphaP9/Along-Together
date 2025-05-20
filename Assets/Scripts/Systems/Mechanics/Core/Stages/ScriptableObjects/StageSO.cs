@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Stage
+[CreateAssetMenu(fileName = "NewStageSO", menuName = "ScriptableObjects/Core/Stage")]
+public class StageSO : ScriptableObject
 {
     public List<RoundGroup> roundGroups;
 

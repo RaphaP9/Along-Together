@@ -6,7 +6,7 @@ public abstract class RoundSO : ScriptableObject
 {
     [Header("Settings")]
     public int roundID;
-    public RoundTier RoundTier;
+    public DifficultyTier RoundTier;
 
     public abstract RoundType GetRoundType();
 }

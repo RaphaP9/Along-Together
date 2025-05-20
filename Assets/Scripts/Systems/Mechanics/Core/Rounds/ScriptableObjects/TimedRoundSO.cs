@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewTimedRoundSO", menuName = "ScriptableObjects/Rounds/TimedRound")]
+[CreateAssetMenu(fileName = "NewTimedRoundSO", menuName = "ScriptableObjects/Core/Rounds/TimedRound")]
 public class TimedRoundSO : RoundSO
 {
     [Header("Timed Round Settings")]

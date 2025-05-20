@@ -371,24 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stages:
-  - roundGroups:
-    - rounds:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    - rounds:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    - rounds:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    - rounds:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-  - roundGroups: []
+  - {fileID: 11400000, guid: 47368ed2adf26cc46a90c445e4e62a02, type: 2}
 --- !u!1001 &80267180
 PrefabInstance:
   m_ObjectHideFlags: 0
