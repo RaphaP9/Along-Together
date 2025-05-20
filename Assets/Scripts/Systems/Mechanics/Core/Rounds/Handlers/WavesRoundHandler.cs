@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,13 @@ public class WavesRoundHandler : RoundHandler
     [SerializeField] private List<Transform> remainingEnemiesInWave;
     public float CurrentRoundElapsedTime => currentRoundElapsedTime;
 
+    public static event EventHandler<OnWavesRoundEventArgs> OnWavesRoundStart;
+    public static event EventHandler<OnWavesRoundEventArgs> OnWavesRoundCompleted;
+
+    public class OnWavesRoundEventArgs : EventArgs
+    {
+        public WavesRoundSO wavesRoundSO;
+    }
 
     protected override void SetSingleton()
     {
@@ -119,6 +127,20 @@ public class WavesRoundHandler : RoundHandler
     protected void RemoveEnemyFromRemainingEnemiesInWaveList(Transform enemyTransform) => remainingEnemiesInWave.Remove(enemyTransform);
     protected void ClearRemainingEnemiesInWaveList() => remainingEnemiesInWave.Clear();
 
+    #endregion
+
+    #region Virtual Methods
+    protected override void OnRoundStartMethod(RoundSO roundSO)
+    {
+        base.OnRoundStartMethod(roundSO);
+        OnWavesRoundStart?.Invoke(this, new OnWavesRoundEventArgs { wavesRoundSO = roundSO as WavesRoundSO });
+    }
+
+    protected override void OnRoundCompletedMethod(RoundSO roundSO)
+    {
+        base.OnRoundCompletedMethod(roundSO);
+        OnWavesRoundCompleted?.Invoke(this, new OnWavesRoundEventArgs { wavesRoundSO = roundSO as WavesRoundSO});
+    }
     #endregion
 
     #region Subscriptions

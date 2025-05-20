@@ -20,12 +20,12 @@ public abstract class RoundHandler : MonoBehaviour
 
     protected abstract void SetSingleton();
 
-    protected void OnRoundStartMethod(RoundSO roundSO)
+    protected virtual void OnRoundStartMethod(RoundSO roundSO)
     {
         OnRoundStart?.Invoke(this, new OnRoundEventArgs { roundSO = roundSO });
     }
 
-    protected void OnRoundCompletedMethod(RoundSO roundSO)
+    protected virtual void OnRoundCompletedMethod(RoundSO roundSO)
     {
         OnRoundCompleted?.Invoke(this, new OnRoundEventArgs { roundSO = roundSO });
     }

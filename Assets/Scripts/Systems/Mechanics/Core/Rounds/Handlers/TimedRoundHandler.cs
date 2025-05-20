@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static WavesRoundHandler;
 
 public class TimedRoundHandler : RoundHandler
 {
@@ -17,6 +19,14 @@ public class TimedRoundHandler : RoundHandler
 
     public float CurrentRoundElapsedTime => currentRoundElapsedTime;
     public float CurrentRoundCountdown => currentRoundDuration - currentRoundElapsedTime;
+
+    public static event EventHandler<OnTimedRoundEventArgs> OnTimedRoundStart;
+    public static event EventHandler<OnTimedRoundEventArgs> OnTimedRoundCompleted;
+
+    public class OnTimedRoundEventArgs : EventArgs
+    {
+        public TimedRoundSO timedRoundSO;
+    }
 
     protected override void SetSingleton()
     {
@@ -103,4 +113,18 @@ public class TimedRoundHandler : RoundHandler
     protected void ResetCurrentRoundDuration() => currentRoundDuration = 0;
     protected void ResetCurrentRoundElapsedTime() => currentRoundElapsedTime = 0;
     #endregion 
+
+    #region Virtual Methods
+    protected override void OnRoundStartMethod(RoundSO roundSO)
+    {
+        base.OnRoundStartMethod(roundSO);
+        OnTimedRoundStart?.Invoke(this, new OnTimedRoundEventArgs { timedRoundSO = roundSO as TimedRoundSO });
+    }
+
+    protected override void OnRoundCompletedMethod(RoundSO roundSO)
+    {
+        base.OnRoundCompletedMethod(roundSO);
+        OnTimedRoundCompleted?.Invoke(this, new OnTimedRoundEventArgs { timedRoundSO = roundSO as TimedRoundSO });
+    }
+    #endregion
 }
