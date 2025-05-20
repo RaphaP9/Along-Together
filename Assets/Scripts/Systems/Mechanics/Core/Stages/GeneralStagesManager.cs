@@ -9,7 +9,13 @@ public class GeneralStagesManager : MonoBehaviour
     [Header("Lists")]
     [SerializeField] private List<StageSO> stages;
 
+    [Header("Runtime Filled")]
+    [SerializeField] private StageSO currentStage;
+    [SerializeField] private RoundSO currentRound;
+
     public List<StageSO> Stages => stages;
+    public StageSO CurrentStage => currentStage;
+    public RoundSO CurrentRound => currentRound;
 
     private void Awake()
     {
