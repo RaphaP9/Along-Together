@@ -9,15 +9,18 @@ public class NewScreenInput : ScreenInput
 
     public override bool CanProcessInput()
     {
+        if(PauseManager.Instance.GamePaused) return false;
         return true;
     }
 
     public override Vector2 GetWorldMousePosition()
     {
-        if(!CanProcessInput()) return Vector2.zero;
+        if(!CanProcessInput()) return lastValidWorldMousePosition;
 
         Vector3 rawPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
         Vector2 screenPosition = GeneralUtilities.SupressZComponent(rawPosition);
+
+        lastValidWorldMousePosition = screenPosition;
 
         return screenPosition;
     }

@@ -48,7 +48,7 @@ public class TimedRoundHandler : RoundHandler
         ResetCurrentRoundElapsedTime();
     }
 
-    public void StartTimedRound(TimedRoundSO timedRoundSO, List<Transform> spawnPointsPool)
+    public void StartTimedRound(TimedRoundSO timedRoundSO, StageSpawnPointsHandler stageSpawnPointsHandler)
     {
         if (currentTimedRound != null) return;
 
@@ -58,10 +58,10 @@ public class TimedRoundHandler : RoundHandler
         SetCurrentRoundDuration(timedRoundSO.duration);
         ResetCurrentRoundElapsedTime();
 
-        StartCoroutine(StartRoundCoroutine(timedRoundSO, spawnPointsPool));
+        StartCoroutine(StartRoundCoroutine(timedRoundSO, stageSpawnPointsHandler));
     }
 
-    private IEnumerator StartRoundCoroutine(TimedRoundSO timedRoundSO, List<Transform> spawnPointsPool)
+    private IEnumerator StartRoundCoroutine(TimedRoundSO timedRoundSO, StageSpawnPointsHandler stageSpawnPointsHandler)
     {
         float roundElapsedTimer = 0f;
         float enemySpawnTimer = Mathf.Infinity; //To spawn an enemy inmediately after wave start, otherwise, set to 0
@@ -76,7 +76,7 @@ public class TimedRoundHandler : RoundHandler
             if (enemySpawnTimer > RoundUtilties.GetTimedRoundDinamicSpawnInterval(timedRoundSO.baseSpawnInterval, spawnIntervalNormalizedReductionFactor, normalizedElapsedTime))
             {
                 EnemySO enemyToSpawn = RoundUtilties.GetRandomDinamicEnemyByWeight(timedRoundSO.proceduralRoundEnemyGroups, weightNormalizedIncreaseFactor ,normalizedElapsedTime);
-                EnemiesManager.Instance.SpawnEnemyOnValidRandomSpawnPointFromPool(enemyToSpawn, spawnPointsPool);
+                EnemiesManager.Instance.SpawnEnemyOnValidRandomSpawnPointFromPool(enemyToSpawn, stageSpawnPointsHandler.GetEnabledSpawnPoints());
 
                 enemySpawnTimer = 0f;
             }

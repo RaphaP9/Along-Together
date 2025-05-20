@@ -36,7 +36,7 @@ public class CharacterBodyAnimationController : MonoBehaviour
 
     private void HandleSpeedBlend()
     {
-        animator.SetFloat(SPEED_FLOAT, playerMovement.DesiredSpeed);
+        animator.SetFloat(SPEED_FLOAT, playerMovement.FinalMoveValue.magnitude);
     }
 
     private void HandleFacingBlend()

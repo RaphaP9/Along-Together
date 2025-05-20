@@ -17,7 +17,7 @@ public class TestBossFightRound : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            BossFightRoundHandler.Instance.StartBossFightRound(bossFightRoundSO, stageSpawnPointsHandler.SpecialSpawnPoint);
+            BossFightRoundHandler.Instance.StartBossFightRound(bossFightRoundSO, stageSpawnPointsHandler);
         }
     }
 }

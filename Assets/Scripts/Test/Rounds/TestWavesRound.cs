@@ -17,7 +17,7 @@ public class TestWavesRound : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            WavesRoundHandler.Instance.StartTimedRound(wavesRoundSO, stageSpawnPointsHandler.GetEnabledSpawnPoints());
+            WavesRoundHandler.Instance.StartTimedRound(wavesRoundSO, stageSpawnPointsHandler);
         }
     }
 }

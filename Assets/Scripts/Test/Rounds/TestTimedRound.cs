@@ -17,7 +17,7 @@ public class TestTimedRound : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            TimedRoundHandler.Instance.StartTimedRound(timedRoundSO, stageSpawnPointsHandler.GetEnabledSpawnPoints());
+            TimedRoundHandler.Instance.StartTimedRound(timedRoundSO, stageSpawnPointsHandler);
         }
     }
 }

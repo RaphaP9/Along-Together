@@ -51,7 +51,7 @@ public class BossFightRoundHandler : RoundHandler
         ResetCurrentRoundElapsedTime();
     }
 
-    public void StartBossFightRound(BossFightRoundSO bossFightRoundSO, Transform bossSpawnPoint)
+    public void StartBossFightRound(BossFightRoundSO bossFightRoundSO, StageSpawnPointsHandler stageSpawnPointsHandler)
     {
         if (currentBossFightRound != null) return;
 
@@ -61,14 +61,14 @@ public class BossFightRoundHandler : RoundHandler
         ClearCurrentBossTransform();
         ResetCurrentRoundElapsedTime();
 
-        StartCoroutine(StartRoundCoroutine(bossFightRoundSO, bossSpawnPoint));
+        StartCoroutine(StartRoundCoroutine(bossFightRoundSO, stageSpawnPointsHandler));
     }
 
-    private IEnumerator StartRoundCoroutine(BossFightRoundSO bossFightRoundSO, Transform bossSpawnPoint)
+    private IEnumerator StartRoundCoroutine(BossFightRoundSO bossFightRoundSO, StageSpawnPointsHandler stageSpawnPointsHandler)
     {
         float roundElapsedTimer = 0f;
 
-        SpawnBoss(bossFightRoundSO.enemyBoss, bossSpawnPoint.position);
+        SpawnBoss(bossFightRoundSO.enemyBoss, stageSpawnPointsHandler.SpecialSpawnPoint.position);
 
         while (currentBossTransform != null)
         {

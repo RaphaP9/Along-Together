@@ -55,7 +55,7 @@ public class WavesRoundHandler : RoundHandler
         ResetCurrentRoundElapsedTime();
     }
 
-    public void StartTimedRound(WavesRoundSO wavesRoundSO, List<Transform> spawnPointsPool)
+    public void StartTimedRound(WavesRoundSO wavesRoundSO, StageSpawnPointsHandler stageSpawnPointsHandler)
     {
         if (currentWavesRound != null) return;
 
@@ -66,10 +66,10 @@ public class WavesRoundHandler : RoundHandler
 
         ClearRemainingEnemiesInWaveList();
 
-        StartCoroutine(StartRoundCoroutine(wavesRoundSO, spawnPointsPool));
+        StartCoroutine(StartRoundCoroutine(wavesRoundSO, stageSpawnPointsHandler));
     }
 
-    private IEnumerator StartRoundCoroutine(WavesRoundSO wavesRoundSO, List<Transform> spawnPointsPool)
+    private IEnumerator StartRoundCoroutine(WavesRoundSO wavesRoundSO, StageSpawnPointsHandler stageSpawnPointsHandler)
     {
         SetTotalWaves(wavesRoundSO.enemyWaves.Count);
         ResetCurrentWave();
@@ -79,7 +79,7 @@ public class WavesRoundHandler : RoundHandler
         while (currentWave < totalWaves)
         {
             SetCurrentWave(currentWave + 1);
-            SpawnWaveEnemies(wavesRoundSO.enemyWaves[currentWave-1], spawnPointsPool);
+            SpawnWaveEnemies(wavesRoundSO.enemyWaves[currentWave-1], stageSpawnPointsHandler.GetEnabledSpawnPoints());
 
             while (remainingEnemiesInWave.Count > 0)
             {

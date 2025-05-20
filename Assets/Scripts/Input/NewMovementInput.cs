@@ -40,6 +40,7 @@ public class NewMovementInput : MovementInput
     public override bool CanProcessInput()
     {
         //if (GameManager.Instance.GameState != GameManager.State.OnWave) return false;
+        if (PauseManager.Instance.GamePaused) return false;
         return true;
     }
 

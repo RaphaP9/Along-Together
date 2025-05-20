@@ -6,6 +6,9 @@ public abstract class ScreenInput : MonoBehaviour
 {
     public static ScreenInput Instance { get; private set; }
 
+    [Header("Runtime Filled")]
+    [SerializeField] protected Vector2 lastValidWorldMousePosition = Vector2.zero;
+
     protected virtual void Awake()
     {
         SetSingleton();
