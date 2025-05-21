@@ -236,7 +236,7 @@ public static class DataUtilities
         int abilityID = primitiveAbilityLevelGroup.abilitySO.id;
         string abilityLevel = primitiveAbilityLevelGroup.abilityLevel.ToString();
 
-        DataModeledAbilityLevelGroup dataModeledAbilityLevelGroup = new DataModeledAbilityLevelGroup { abilityID = abilityID, abilityLevel = abilityLevel };
+        DataModeledAbilityLevelGroup dataModeledAbilityLevelGroup = new DataModeledAbilityLevelGroup(abilityID,abilityLevel);
 
         return dataModeledAbilityLevelGroup;
     }
@@ -300,9 +300,12 @@ public static class DataUtilities
         string abilitySlot = primitiveAbilitySlotGroup.abilitySlot.ToString();
         int abilityID = primitiveAbilitySlotGroup.abilitySO.id;
 
-        DataModeledAbilitySlotGroup dataModeledAbilitySlotGroup = new DataModeledAbilitySlotGroup { abilitySlot = abilitySlot, abilityID = abilityID };
+        DataModeledAbilitySlotGroup dataModeledAbilitySlotGroup = new DataModeledAbilitySlotGroup(abilitySlot,abilityID);
 
         return dataModeledAbilitySlotGroup;
     }
+    #endregion
+
+    #region Objects Translation
     #endregion
 }
