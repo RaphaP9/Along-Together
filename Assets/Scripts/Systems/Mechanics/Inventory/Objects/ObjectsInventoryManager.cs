@@ -8,12 +8,12 @@ public class ObjectsInventoryManager : MonoBehaviour
     public static ObjectsInventoryManager Instance { get; private set; }
 
     [Header("Lists")]
-    [SerializeField] private List<ObjectInventoryIdentified> objectsInventory;
+    [SerializeField] private List<ObjectIdentified> objectsInventory;
 
     [Header("Debug")]
     [SerializeField] private bool debug;
 
-    public List<ObjectInventoryIdentified> ObjectsInventory => objectsInventory;
+    public List<ObjectIdentified> ObjectsInventory => objectsInventory;
 
     public static event EventHandler<OnObjectsEventArgs> OnObjectsInventoryInitialized;
     public static event EventHandler<OnObjectEventArgs> OnObjectAddedToInventory;
@@ -21,11 +21,11 @@ public class ObjectsInventoryManager : MonoBehaviour
 
     public class OnObjectEventArgs : EventArgs
     {
-        public ObjectInventoryIdentified @object;
+        public ObjectIdentified @object;
     }
     public class OnObjectsEventArgs : EventArgs
     {
-        public List<ObjectInventoryIdentified> objects;
+        public List<ObjectIdentified> objects;
     }
 
     private void OnEnable()
@@ -77,7 +77,7 @@ public class ObjectsInventoryManager : MonoBehaviour
 
         string objectGUID = GeneralUtilities.GenerateGUID();
 
-        ObjectInventoryIdentified objectToAdd = new ObjectInventoryIdentified { GUID = objectGUID, objectSO = objectSO };
+        ObjectIdentified objectToAdd = new ObjectIdentified { assignedGUID = objectGUID, objectSO = objectSO };
 
         objectsInventory.Add(objectToAdd);
 
@@ -94,7 +94,7 @@ public class ObjectsInventoryManager : MonoBehaviour
             return;
         }
 
-        ObjectInventoryIdentified objectIdentified = FindObjectByObjectSO(objectSO);
+        ObjectIdentified objectIdentified = FindObjectByObjectSO(objectSO);
 
         if (objectIdentified == null)
         {
@@ -109,7 +109,7 @@ public class ObjectsInventoryManager : MonoBehaviour
 
     private void RemoveObjectFromInventoryByGUID(string GUID)
     {
-        ObjectInventoryIdentified objectIdentified = FindObjectByGUID(GUID);
+        ObjectIdentified objectIdentified = FindObjectByGUID(GUID);
 
         if (objectIdentified == null)
         {
@@ -124,9 +124,9 @@ public class ObjectsInventoryManager : MonoBehaviour
     #endregion
 
     #region Find Objects
-    private ObjectInventoryIdentified FindObjectByObjectSO(ObjectSO objectSO)
+    private ObjectIdentified FindObjectByObjectSO(ObjectSO objectSO)
     {
-        foreach (ObjectInventoryIdentified @object in objectsInventory)
+        foreach (ObjectIdentified @object in objectsInventory)
         {
             if (@object.objectSO == objectSO) return @object;
         }
@@ -135,11 +135,11 @@ public class ObjectsInventoryManager : MonoBehaviour
         return null;
     }
 
-    private ObjectInventoryIdentified FindObjectByGUID(string GUID)
+    private ObjectIdentified FindObjectByGUID(string GUID)
     {
-        foreach (ObjectInventoryIdentified @object in objectsInventory)
+        foreach (ObjectIdentified @object in objectsInventory)
         {
-            if (@object.GUID == GUID) return @object;
+            if (@object.assignedGUID == GUID) return @object;
         }
 
         if (debug) Debug.Log($"Object with GUID {GUID} could not be found. Proceding to return null");
@@ -147,12 +147,5 @@ public class ObjectsInventoryManager : MonoBehaviour
     }
     #endregion
 
-    public void SetObjectsInventory(List<ObjectInventoryIdentified> setterObjectsInventory) => objectsInventory.AddRange(setterObjectsInventory); //Add, not Replace!
-}
-
-[System.Serializable]
-public class ObjectInventoryIdentified
-{
-    public string GUID;
-    public ObjectSO objectSO;
+    public void SetObjectsInventory(List<ObjectIdentified> setterObjectsInventory) => objectsInventory.AddRange(setterObjectsInventory); //Add, not Replace!
 }

@@ -307,5 +307,60 @@ public static class DataUtilities
     #endregion
 
     #region Objects Translation
+    public static List<DataModeledObject> TranslateObjectsIdentifiedToDataModeledObjects(List<ObjectIdentified> objectsIdentified)
+    {
+        List<DataModeledObject> dataModeledObjects = new List<DataModeledObject>();
+
+        foreach (ObjectIdentified objectIdentified in objectsIdentified)
+        {
+            DataModeledObject dataModeledObject = TranslateObjectIdentifiedToDataModeledObject(objectIdentified);
+            if (dataModeledObject == null) continue;
+            dataModeledObjects.Add(dataModeledObject);
+        }
+
+        return dataModeledObjects;
+    }
+
+    public static DataModeledObject TranslateObjectIdentifiedToDataModeledObject(ObjectIdentified objectIdentified)
+    {
+        string assignedGUID = objectIdentified.assignedGUID;
+        int objectID = objectIdentified.objectSO.id;
+
+        DataModeledObject dataModeledObject = new DataModeledObject(assignedGUID,objectID);  
+
+        return dataModeledObject;
+    }
+
+    public static List<ObjectIdentified> TranslateDataModeledObjectsToObjectsIdentified(List<DataModeledObject> dataModeledObjects)
+    {
+        List<ObjectIdentified> objectsIdentified = new List<ObjectIdentified>();
+
+        foreach (DataModeledObject dataModeledObject in dataModeledObjects)
+        {
+            ObjectIdentified objectIdentified = TranslateDataModeledObjectToObjectIdentified(dataModeledObject);
+            if (objectIdentified == null) continue;
+            objectsIdentified.Add(objectIdentified);
+        }
+
+        return objectsIdentified;
+    }
+
+    public static ObjectIdentified TranslateDataModeledObjectToObjectIdentified(DataModeledObject dataModeledObject)
+    {
+        ObjectIdentified objectIdentified = new ObjectIdentified();
+
+        objectIdentified.assignedGUID = dataModeledObject.assignedGUID;
+
+        if (ObjectsAssetLibrary.Instance == null)
+        {
+            if (DEBUG) Debug.Log("ObjectsAssetLibrary is null. Can not resolve ObjectSO Asset.");
+            return null;
+        }
+
+        objectIdentified.objectSO = ObjectsAssetLibrary.Instance.GetObjectSOByID(dataModeledObject.objectID);
+
+        return objectIdentified;
+    }
+
     #endregion
 }
