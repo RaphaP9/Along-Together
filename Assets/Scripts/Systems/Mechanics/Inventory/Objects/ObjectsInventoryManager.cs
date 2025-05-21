@@ -21,7 +21,7 @@ public class ObjectsInventoryManager : MonoBehaviour
 
     public class OnObjectEventArgs : EventArgs
     {
-        public ObjectIdentified @object;
+        public ObjectIdentified objectIdentified;
     }
     public class OnObjectsEventArgs : EventArgs
     {
@@ -81,7 +81,7 @@ public class ObjectsInventoryManager : MonoBehaviour
 
         objectsInventory.Add(objectToAdd);
 
-        OnObjectAddedToInventory?.Invoke(this, new OnObjectEventArgs { @object = objectToAdd });
+        OnObjectAddedToInventory?.Invoke(this, new OnObjectEventArgs { objectIdentified = objectToAdd });
     }
     #endregion
 
@@ -94,32 +94,32 @@ public class ObjectsInventoryManager : MonoBehaviour
             return;
         }
 
-        ObjectIdentified objectIdentified = FindObjectByObjectSO(objectSO);
+        ObjectIdentified objectToRemove = FindObjectByObjectSO(objectSO);
 
-        if (objectIdentified == null)
+        if (objectToRemove == null)
         {
             if (debug) Debug.Log("Could not find object by ObjectSO");
             return;
         }
 
-        objectsInventory.Remove(objectIdentified);
+        objectsInventory.Remove(objectToRemove);
 
-        OnObjectRemovedFromInventory?.Invoke(this, new OnObjectEventArgs { @object = objectIdentified });
+        OnObjectRemovedFromInventory?.Invoke(this, new OnObjectEventArgs { objectIdentified = objectToRemove });
     }
 
     private void RemoveObjectFromInventoryByGUID(string GUID)
     {
-        ObjectIdentified objectIdentified = FindObjectByGUID(GUID);
+        ObjectIdentified objectToRemove = FindObjectByGUID(GUID);
 
-        if (objectIdentified == null)
+        if (objectToRemove == null)
         {
             if (debug) Debug.Log("Could not find object by GUID");
             return;
         }
 
-        objectsInventory.Remove(objectIdentified);
+        objectsInventory.Remove(objectToRemove);
 
-        OnObjectRemovedFromInventory?.Invoke(this, new OnObjectEventArgs { @object = objectIdentified });
+        OnObjectRemovedFromInventory?.Invoke(this, new OnObjectEventArgs { objectIdentified = objectToRemove });
     }
     #endregion
 
