@@ -7124,6 +7124,7 @@ MonoBehaviour:
   sceneDataSaveLoader: {fileID: 716470182}
   generalStagesManager: {fileID: 457582225}
   playerCharacterManager: {fileID: 1944359882}
+  objectsInventoryManager: {fileID: 1927527969}
   runAssetStatModifierManager: {fileID: 1707162412}
   runNumericStatModifierManager: {fileID: 1673298609}
 --- !u!1 &849816745

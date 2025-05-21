@@ -9,6 +9,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     [Space]
     [SerializeField] private PlayerCharacterManager playerCharacterManager;
     [Space]
+    [SerializeField] private ObjectsInventoryManager objectsInventoryManager;
+    [Space]
     [SerializeField] private RunAssetStatModifierManager runAssetStatModifierManager;
     [SerializeField] private RunNumericStatModifierManager runNumericStatModifierManager;
 
@@ -37,6 +39,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         LoadPlayerCurrentHealth();
         LoadPlayerCurrentShield();
 
+        LoadObjects();
+
         LoadRunNumericStats();
         LoadRunAssetStats();
 
@@ -53,6 +57,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
         SavePlayerCurrentHealth();
         SavePlayerCurrentShield();
+
+        SaveObjects();
 
         SaveRunNumericStats();
         SaveRunAssetStats();
@@ -80,6 +86,11 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         if (playerCharacterManager == null) return;
         playerCharacterManager.SetCharacterSO(DataUtilities.TranslateCharacterIDToCharacterSO(SessionRunDataContainer.Instance.RunData.currentCharacterID));
+    }
+    private void LoadObjects()
+    {
+        if (objectsInventoryManager == null) return;
+        objectsInventoryManager.SetObjectsInventory(DataUtilities.TranslateDataModeledObjectsToObjectsIdentified(SessionRunDataContainer.Instance.RunData.objects));
     }
 
     private void LoadRunAssetStats()
@@ -115,7 +126,6 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
         playerHealth.SetCurrentShield(SessionRunDataContainer.Instance.RunData.currentShield);
     }
-
 
     private void LoadCharacterAbilityLevels()
     {
@@ -159,6 +169,12 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         if (playerCharacterManager == null) return;
         SessionRunDataContainer.Instance.SetCurrentCharacterID(playerCharacterManager.CharacterSO.id);
     }
+    private void SaveObjects()
+    {
+        if (objectsInventoryManager == null) return;
+        SessionRunDataContainer.Instance.SetObjects(DataUtilities.TranslateObjectsIdentifiedToDataModeledObjects(objectsInventoryManager.ObjectsInventory));
+    }
+
     private void SaveRunNumericStats()
     {
         if (runNumericStatModifierManager == null) return;

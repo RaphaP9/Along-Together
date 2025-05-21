@@ -43,6 +43,8 @@ public class SessionRunDataContainer : MonoBehaviour
     public void SetCurrentHealth(int currentHealth) => runData.currentHealth = currentHealth;
     public void SetCurrentShield(int currentShield) => runData.currentShield = currentShield;
 
+    public void SetObjects(List<DataModeledObject> dataModeledObjects) => runData.objects = dataModeledObjects;
+
     public void SetNumericStats(List<DataModeledNumericStat> dataModeledNumericStats) => runData.numericStats = dataModeledNumericStats;
     public void SetAssetStats(List<DataModeledAssetStat> dataModeledAssetStats) => runData.assetStats = dataModeledAssetStats;
 

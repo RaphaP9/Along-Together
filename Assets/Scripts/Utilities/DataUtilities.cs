@@ -321,7 +321,7 @@ public static class DataUtilities
         return dataModeledObjects;
     }
 
-    public static DataModeledObject TranslateObjectIdentifiedToDataModeledObject(ObjectIdentified objectIdentified)
+    private static DataModeledObject TranslateObjectIdentifiedToDataModeledObject(ObjectIdentified objectIdentified)
     {
         string assignedGUID = objectIdentified.assignedGUID;
         int objectID = objectIdentified.objectSO.id;
@@ -345,7 +345,7 @@ public static class DataUtilities
         return objectsIdentified;
     }
 
-    public static ObjectIdentified TranslateDataModeledObjectToObjectIdentified(DataModeledObject dataModeledObject)
+    private static ObjectIdentified TranslateDataModeledObjectToObjectIdentified(DataModeledObject dataModeledObject)
     {
         ObjectIdentified objectIdentified = new ObjectIdentified();
 
