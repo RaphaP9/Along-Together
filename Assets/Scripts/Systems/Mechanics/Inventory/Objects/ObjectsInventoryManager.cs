@@ -67,7 +67,7 @@ public class ObjectsInventoryManager : MonoBehaviour
     }
 
     #region Add Objects
-    private void AddObjectToInventory(ObjectSO objectSO)
+    public void AddObjectToInventory(ObjectSO objectSO)
     {
         if (objectSO == null)
         {
@@ -86,7 +86,7 @@ public class ObjectsInventoryManager : MonoBehaviour
     #endregion
 
     #region Remove Objects
-    private void RemoveObjectFromInventoryByObjectSO(ObjectSO objectSO)
+    public void RemoveObjectFromInventory(ObjectSO objectSO)
     {
         if (objectSO == null)
         {
@@ -131,7 +131,7 @@ public class ObjectsInventoryManager : MonoBehaviour
             if (@object.objectSO == objectSO) return @object;
         }
 
-        if (debug) Debug.Log($"Object with ObjectSO with ID {objectSO.id} could not be found. Proceding to return null");
+        if (debug) Debug.Log($"ObjectSO with name: {objectSO._name} could not be found. Proceding to return null");
         return null;
     }
 

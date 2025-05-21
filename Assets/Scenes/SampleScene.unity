@@ -15186,7 +15186,6 @@ GameObject:
   - component: {fileID: 1773330767}
   - component: {fileID: 1773330770}
   - component: {fileID: 1773330771}
-  - component: {fileID: 1773330772}
   - component: {fileID: 1773330773}
   - component: {fileID: 1773330774}
   - component: {fileID: 1773330775}
@@ -15239,20 +15238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749e5460e4e36a3468c3b5a8d8bf8782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1773330772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773330765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 018464e538ba89e45bc7a230b9b46e08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numericStatModifierManager: {fileID: 1673298609}
-  numericEmbeddedStats: []
 --- !u!114 &1773330773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15304,10 +15289,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1773330765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0df65c0eb24b7164eba5d1abcf9463ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d4b42ca61129d54fbd0c02c1555c7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportPosition: {x: 5, y: 0}
+  objectSO: {fileID: 11400000, guid: caf4b2fb6b02de54e92635fd928de7e3, type: 2}
 --- !u!1001 &1777762132
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16493,7 +16478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsInventory: []
-  debug: 0
+  debug: 1
 --- !u!1 &1935645241
 GameObject:
   m_ObjectHideFlags: 0
