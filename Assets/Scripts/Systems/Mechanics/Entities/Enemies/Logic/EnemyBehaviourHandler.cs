@@ -12,4 +12,5 @@ public class EnemyBehaviourHandler : MonoBehaviour
     [SerializeField] protected EnemyCleanupHandler enemyCleanup;
     [Space]
     [SerializeField] protected PlayerRelativeHandler playerRelativeHandler;
+    [SerializeField] protected EnemyFacingDirectionHandler enemyFacingDirectionHandler;
 }

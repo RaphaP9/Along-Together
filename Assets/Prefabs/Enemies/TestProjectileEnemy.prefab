@@ -754,6 +754,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 5971531763212200158}
   enemyCleanup: {fileID: 7482886143490242096}
   playerRelativeHandler: {fileID: 3204811641508873334}
+  enemyFacingDirectionHandler: {fileID: 4210701699229654129}
   projectileEnemyAttack: {fileID: 5914679703919730462}
   projectileEnemyState: 0
 --- !u!114 &7613458921501402528

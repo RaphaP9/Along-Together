@@ -475,6 +475,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 8364510044175325432}
   enemyCleanup: {fileID: 1616814288529754153}
   playerRelativeHandler: {fileID: 8642607771193940538}
+  enemyFacingDirectionHandler: {fileID: 8668006828377196939}
   kamikazeEnemyExplosion: {fileID: 8811045212219346871}
   kamikazeEnemyState: 0
 --- !u!114 &7913916363484433750

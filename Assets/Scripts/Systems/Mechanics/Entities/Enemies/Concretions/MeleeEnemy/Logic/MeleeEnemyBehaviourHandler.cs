@@ -70,6 +70,7 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
     private void FollowingPlayerLogic()
     {
         enemyMovement.MoveTowardsPlayerDirection();
+        enemyFacingDirectionHandler.HandleFacing();
 
         if (OnAttackRange())
         {
@@ -104,6 +105,8 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
 
     private void MeleeEnemyAttack_OnEnemyAttackCompleted(object sender, EnemyAttack.OnEntityAttackCompletedEventArgs e)
     {
+        enemyFacingDirectionHandler.HandleFacing();
+
         if (OnAttackRange())
         {
             meleeEnemyAttack.TriggerAttack();

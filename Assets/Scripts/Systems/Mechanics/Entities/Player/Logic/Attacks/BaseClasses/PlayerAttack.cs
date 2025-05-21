@@ -42,11 +42,10 @@ public abstract class PlayerAttack : EntityAttack
 
     protected virtual void Update()
     {
-        HandleAttack();
         HandleAttackCooldown();
     }
 
-    protected virtual void HandleAttack()
+    public virtual void HandleAttack() //Called By PlayerStateHandler
     {
         if (!GetAttackInput()) return;
         if (!CanAttack()) return;

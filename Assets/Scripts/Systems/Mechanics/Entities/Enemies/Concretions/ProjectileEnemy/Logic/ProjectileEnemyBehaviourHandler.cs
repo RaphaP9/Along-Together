@@ -74,6 +74,7 @@ public class ProjectileEnemyBehaviourHandler : EnemyBehaviourHandler
     private void FollowingPlayerLogic()
     {
         enemyMovement.MoveTowardsPlayerDirection();
+        enemyFacingDirectionHandler.HandleFacing();
 
         if (OnTooCloseDistance())
         {
@@ -94,6 +95,7 @@ public class ProjectileEnemyBehaviourHandler : EnemyBehaviourHandler
     private void MovingAwayFromPlayerLogic()
     {
         enemyMovement.MoveAwayFromPlayerDirection();
+        enemyFacingDirectionHandler.HandleFacing();
 
         if (OnTooFarDistance())
         {
@@ -111,7 +113,10 @@ public class ProjectileEnemyBehaviourHandler : EnemyBehaviourHandler
         }
     }
 
-    private void AttackingPlayerLogic() { }
+    private void AttackingPlayerLogic()
+    {
+        enemyFacingDirectionHandler.HandleFacing();
+    }
 
     private void DeadLogic() { }
 
@@ -145,6 +150,8 @@ public class ProjectileEnemyBehaviourHandler : EnemyBehaviourHandler
 
     private void ProjectileEnemyAttack_OnEnemyAttackCompleted(object sender, EnemyAttack.OnEntityAttackCompletedEventArgs e)
     {
+        enemyFacingDirectionHandler.HandleFacing();
+
         if (OnAttackRange())
         {
             projectileEnemyAttack.TriggerAttack();

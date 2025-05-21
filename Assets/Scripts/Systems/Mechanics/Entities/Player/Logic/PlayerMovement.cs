@@ -27,18 +27,9 @@ public class PlayerMovement : EntityMovement
     public bool MovementEnabled => movementEnabled;
     #endregion
 
-    private void Update()
-    {
-        HandleMovement();
-    }
-
-    private void FixedUpdate()
-    {
-        ApplyMovement();
-    }
 
     #region Logic
-    private void HandleMovement()
+    public void HandleMovement() //Called By PlayerStateHandler
     {
         if (!movementEnabled) return;
 
@@ -49,6 +40,13 @@ public class PlayerMovement : EntityMovement
 
         CalculateFinalMovement();
         ScaleFinalMovement();
+    }
+
+    public void ApplyMovement() //Called By PlayerStateHandler
+    {
+        if (!CanApplyMovement()) return;
+
+        _rigidbody2D.velocity = new Vector2(ScaledMovementVector.x, ScaledMovementVector.y);
     }
 
     private void CalculateDesiredSpeed()
@@ -88,12 +86,6 @@ public class PlayerMovement : EntityMovement
         ScaledMovementVector = MechanicsUtilities.ScaleVector2ToPerspective(FinalMoveValue);
     }
 
-    private void ApplyMovement()
-    {
-        if (!CanApplyMovement()) return;
-
-        _rigidbody2D.velocity = new Vector2(ScaledMovementVector.x, ScaledMovementVector.y);
-    }
     #endregion
 
     private bool CanApplyMovement()

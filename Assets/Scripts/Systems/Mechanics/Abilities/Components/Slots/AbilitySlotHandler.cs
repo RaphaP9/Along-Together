@@ -35,14 +35,10 @@ public class AbilitySlotHandler : MonoBehaviour
         InitializeAbilityVariant(startingAbilityVariant);
     }
 
-    private void Update()
-    {
-        HandleAbilityCasting();
-    }
-
     //All abilities can be cast. If only passive, cast is always denied
-    protected virtual void HandleAbilityCasting()
+    public virtual void HandleAbilityCasting()
     {
+        if (activeAbilityVariant == null) return;
         if (!GetAssociatedDownInput()) return;
 
         activeAbilityVariant.TryCastAbility();

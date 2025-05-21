@@ -43,7 +43,7 @@ public class EntityFacingDirectionHandler : MonoBehaviour
         RecalculateFacingDirections(startingFacingDirection);
     }
 
-    private void Update()
+    public void HandleFacing() //Called By the corresponding entity StateHandler: PlayerStateHandler, MeleeEnemyStateHandler, etc
     {
         HandleDirectionOverride();
         HandleFacingDirection();

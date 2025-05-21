@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 3125651546402793068}
   - component: {fileID: 7490123483503898531}
   - component: {fileID: 1965199428449930878}
+  - component: {fileID: 2527459363889109172}
   - component: {fileID: 6586126778679378193}
   - component: {fileID: 4661234364419359008}
   - component: {fileID: 2613628452749778797}
@@ -600,6 +601,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entitySO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
+--- !u!114 &2527459363889109172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851777789475013426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8b94e1da60ca24aa494ae8ddef1c3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 4661234364419359008}
+  playerAttack: {fileID: 2613628452749778797}
+  playerAbilitiesCastingHandler: {fileID: 7071924974927239523}
+  playerFacingDirectionHandler: {fileID: 4295945866100084352}
+  playerState: 0
 --- !u!114 &6586126778679378193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1150,6 +1168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7891673171534345979}
+  - component: {fileID: 7233062201028402588}
   m_Layer: 6
   m_Name: AbilityC
   m_TagString: Untagged
@@ -1172,6 +1191,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5386565058599454864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7233062201028402588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462796451184188670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03bf4002125bf6e40a27f4cfbdf5bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySlot: 4
+  abilityVariants: []
+  startingAbilityVariant: {fileID: 0}
+  activeAbilityVariant: {fileID: 0}
+  debug: 1
 --- !u!1 &6546964152467631905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,6 +1600,7 @@ GameObject:
   - component: {fileID: 5386565058599454864}
   - component: {fileID: 8693075421116404059}
   - component: {fileID: 6695293978895852260}
+  - component: {fileID: 7071924974927239523}
   m_Layer: 6
   m_Name: Abilities
   m_TagString: Untagged
@@ -1622,6 +1659,22 @@ MonoBehaviour:
   - {fileID: 5611075828277405468}
   - {fileID: 5577424398876266477}
   debug: 1
+--- !u!114 &7071924974927239523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556025860753867530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904491e79697c2d4585fcd2048a845fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySlotsHandlers:
+  - {fileID: 8531194546525769567}
+  - {fileID: 4493125982467729595}
+  - {fileID: 7233062201028402588}
 --- !u!1 &8502199646678721002
 GameObject:
   m_ObjectHideFlags: 0

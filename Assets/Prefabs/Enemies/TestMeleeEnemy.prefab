@@ -665,6 +665,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 1912662841755041670}
   enemyCleanup: {fileID: 4495301452471555423}
   playerRelativeHandler: {fileID: 2524694192382131667}
+  enemyFacingDirectionHandler: {fileID: 4615393358422545409}
   meleeEnemyAttack: {fileID: 5248160781583413841}
   meleeEnemyState: 0
 --- !u!114 &5108009791445493210

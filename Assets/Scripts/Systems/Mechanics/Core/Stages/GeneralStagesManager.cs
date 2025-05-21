@@ -42,5 +42,6 @@ public class GeneralStagesManager : MonoBehaviour
 public class StageGroup
 {
     public StageSO stageSO;
+    public Transform playerSpawnPoint;
     public StageSpawnPointsHandler spawnPointsHandler;
 }
