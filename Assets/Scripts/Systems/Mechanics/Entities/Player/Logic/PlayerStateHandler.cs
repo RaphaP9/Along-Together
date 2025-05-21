@@ -11,15 +11,19 @@ public class PlayerStateHandler : MonoBehaviour
     [SerializeField] private PlayerAbilitiesCastingHandler playerAbilitiesCastingHandler;
     [Space]
     [SerializeField] private PlayerFacingDirectionHandler playerFacingDirectionHandler;
+    [SerializeField] private PlayerWeaponAimHandler playerWeaponAimHandler;
 
-    [Header("States")]
+    [Header("Settings")]
+    [SerializeField] private PlayerState startingState;
+
+    [Header("Runtime Filled")]
     [SerializeField] private PlayerState playerState;
 
-    private enum PlayerState { Spawning, Combat, Rest, Dead}
+    private enum PlayerState {Spawning, Combat, Rest, Dead}
 
     private void Start()
     {
-        SetPlayerState(PlayerState.Combat);
+        SetPlayerState(startingState);
     }
 
     private void Update()
@@ -30,6 +34,11 @@ public class PlayerStateHandler : MonoBehaviour
     private void FixedUpdate()
     {
         HandleStateFixedUpdate();
+    }
+
+    private void LateUpdate()
+    {
+        HandleStateLateUpdate();
     }
 
     private void HandleStateUpdate()
@@ -72,6 +81,26 @@ public class PlayerStateHandler : MonoBehaviour
         }
     }
 
+    private void HandleStateLateUpdate()
+    {
+        switch (playerState)
+        {
+            case PlayerState.Spawning:
+                SpawningLogicLateUpdate();
+                break;
+            case PlayerState.Combat:
+            default:
+                CombatLogicLateUpdate();
+                break;
+            case PlayerState.Rest:
+                RestLogicLateUpdate();
+                break;
+            case PlayerState.Dead:
+                DeadLogicLateUpdate();
+                break;
+        }
+    }
+
     #region Spawning Logics
     private void SpawningLogicUpdate()
     {
@@ -82,6 +111,12 @@ public class PlayerStateHandler : MonoBehaviour
     {
 
     }
+
+    private void SpawningLogicLateUpdate()
+    {
+
+    }
+
     #endregion
 
     #region Combat Logics
@@ -96,7 +131,11 @@ public class PlayerStateHandler : MonoBehaviour
     private void CombatLogicFixedUpdate()
     {
         playerMovement.ApplyMovement();
-        playerFacingDirectionHandler.HandleFacing();
+    }
+
+    private void CombatLogicLateUpdate()
+    {
+        playerWeaponAimHandler.HandlePivotRotation();
     }
     #endregion
 
@@ -104,21 +143,32 @@ public class PlayerStateHandler : MonoBehaviour
     private void RestLogicUpdate()
     {
         playerMovement.HandleMovement();
+        playerFacingDirectionHandler.HandleFacing();
     }
 
     private void RestLogicFixedUpdate()
     {
         playerMovement.ApplyMovement();
     }
+
+    private void RestLogicLateUpdate()
+    {
+        playerWeaponAimHandler.HandlePivotRotation();
+    }
     #endregion
 
-    #region Rest Logics
+    #region Dead Logics
     private void DeadLogicUpdate()
     {
 
     }
 
     private void DeadLogicFixedUpdate()
+    {
+
+    }
+
+    private void DeadLogicLateUpdate()
     {
 
     }

@@ -38,11 +38,6 @@ public abstract class EntityWeaponAimHandler : MonoBehaviour
         pivotAimRefferenceDistance = CalculatePivotAimRefferenceDistance();
     }
 
-    private void LateUpdate()
-    {
-        HandlePivotRotation();
-    }
-
     protected abstract Vector2 GetTargetPosition();
 
     private float CalculatePivotAimRefferenceAngle() => GeneralUtilities.GetVector2AngleDegrees(GeneralUtilities.SupressZComponent(refferenceAimPoint.position - weaponPivot.position));
@@ -50,7 +45,7 @@ public abstract class EntityWeaponAimHandler : MonoBehaviour
     private float CalculatePivotTargetAngle() => GeneralUtilities.GetVector2AngleDegrees(GetTargetPosition() - GeneralUtilities.SupressZComponent(weaponPivot.position));
     private float CalculatePivotTargetDistance() => (GetTargetPosition() - GeneralUtilities.SupressZComponent(weaponPivot.position)).magnitude;
 
-    private void HandlePivotRotation()
+    public void HandlePivotRotation() //Called By the corresponding entity StateHandler: PlayerStateHandler, MeleeEnemyStateHandler, etc
     {
         if (!entityHealth.IsAlive()) return;
 
