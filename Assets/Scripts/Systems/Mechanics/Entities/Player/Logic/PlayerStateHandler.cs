@@ -12,6 +12,7 @@ public class PlayerStateHandler : MonoBehaviour
     [Space]
     [SerializeField] private PlayerFacingDirectionHandler playerFacingDirectionHandler;
     [SerializeField] private PlayerWeaponAimHandler playerWeaponAimHandler;
+    [SerializeField] private PlayerAimDirectionerHandler playerAimDirectionerHandler;
 
     [Header("Settings")]
     [SerializeField] private PlayerState startingState;
@@ -125,6 +126,8 @@ public class PlayerStateHandler : MonoBehaviour
         playerMovement.HandleMovement();
         playerAttack.HandleAttack();
         playerAbilitiesCastingHandler.HandleAbilitiesCasting();
+
+        playerAimDirectionerHandler.HandleAim();
         playerFacingDirectionHandler.HandleFacing();
     }
 
@@ -143,7 +146,9 @@ public class PlayerStateHandler : MonoBehaviour
     private void RestLogicUpdate()
     {
         playerMovement.HandleMovement();
+
         playerFacingDirectionHandler.HandleFacing();
+        playerAimDirectionerHandler.HandleAim();
     }
 
     private void RestLogicFixedUpdate()

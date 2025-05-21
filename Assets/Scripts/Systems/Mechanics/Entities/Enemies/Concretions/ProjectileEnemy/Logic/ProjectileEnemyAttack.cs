@@ -6,7 +6,7 @@ using System;
 public class ProjectileEnemyAttack : EnemyAttack
 {
     [Header("Projectile Enemy Attack Components")]
-    [SerializeField] protected ProjectileEnemyAimDirectionerHandler aimDirectionerHandler;
+    [SerializeField] protected EnemyAimDirectionerHandler aimDirectionerHandler;
     [SerializeField] protected Transform firePoint;
     [SerializeField] protected Transform projectilePrefab;
 

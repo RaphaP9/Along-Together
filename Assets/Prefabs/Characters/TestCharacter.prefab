@@ -618,6 +618,7 @@ MonoBehaviour:
   playerAbilitiesCastingHandler: {fileID: 7071924974927239523}
   playerFacingDirectionHandler: {fileID: 4295945866100084352}
   playerWeaponAimHandler: {fileID: 2672523740232767417}
+  playerAimDirectionerHandler: {fileID: 2977175279305093656}
   startingState: 1
   playerState: 0
 --- !u!114 &6586126778679378193

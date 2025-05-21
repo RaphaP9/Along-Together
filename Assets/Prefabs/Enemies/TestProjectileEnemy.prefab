@@ -294,7 +294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6073408401134345775}
-  - component: {fileID: 2864229290109531755}
+  - component: {fileID: 4013654955497290503}
   m_Layer: 7
   m_Name: AimDirectioner
   m_TagString: Untagged
@@ -318,7 +318,7 @@ Transform:
   - {fileID: 2502583288736862255}
   m_Father: {fileID: 1504599749268194510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2864229290109531755
+--- !u!114 &4013654955497290503
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4581753590694036717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250175ec59c58aa4b8894e8e61f8c58e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d8e0b126dbd227448d3f3d8cdd102e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entityHealth: {fileID: 7613458921501402528}
@@ -337,7 +337,6 @@ MonoBehaviour:
   refferencedAimAngle: 0
   playerRelativeHandler: {fileID: 3204811641508873334}
   enemySpawnHandler: {fileID: 8942189645329353576}
-  projectileEnemyAttack: {fileID: 5914679703919730462}
 --- !u!1 &4614559186583191531
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 1295730402221327}
-  entityAimDirectioner: {fileID: 2864229290109531755}
+  entityAimDirectioner: {fileID: 4013654955497290503}
   entityHealth: {fileID: 7613458921501402528}
   facingInterruptionComponents: []
   facingType: 1
@@ -753,6 +752,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 7613458921501402528}
   enemyMovement: {fileID: 5971531763212200158}
   enemyCleanup: {fileID: 7482886143490242096}
+  enemyAimDirectionerHandler: {fileID: 4013654955497290503}
   playerRelativeHandler: {fileID: 3204811641508873334}
   enemyFacingDirectionHandler: {fileID: 4210701699229654129}
   projectileEnemyAttack: {fileID: 5914679703919730462}
@@ -802,7 +802,7 @@ MonoBehaviour:
   attackInterruptionComponents: []
   debug: 1
   enemyIdentifier: {fileID: 8246813395085610927}
-  aimDirectionerHandler: {fileID: 2864229290109531755}
+  aimDirectionerHandler: {fileID: 4013654955497290503}
   firePoint: {fileID: 2502583288736862255}
   projectilePrefab: {fileID: 8073931636513284674, guid: 87d0d4ca8c17e474483239c1477ec45b, type: 3}
   projectileDamageType: 0

@@ -474,6 +474,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 7913916363484433750}
   enemyMovement: {fileID: 8364510044175325432}
   enemyCleanup: {fileID: 1616814288529754153}
+  enemyAimDirectionerHandler: {fileID: 7279119486096882443}
   playerRelativeHandler: {fileID: 8642607771193940538}
   enemyFacingDirectionHandler: {fileID: 8668006828377196939}
   kamikazeEnemyExplosion: {fileID: 8811045212219346871}
@@ -663,7 +664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 2329428769073550589}
-  entityAimDirectioner: {fileID: 2382473965951692308}
+  entityAimDirectioner: {fileID: 7279119486096882443}
   entityHealth: {fileID: 7913916363484433750}
   facingInterruptionComponents: []
   facingType: 1
@@ -803,7 +804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4250990555095487142}
-  - component: {fileID: 2382473965951692308}
+  - component: {fileID: 7279119486096882443}
   m_Layer: 7
   m_Name: AimDirectioner
   m_TagString: Untagged
@@ -827,7 +828,7 @@ Transform:
   - {fileID: 521433831724078515}
   m_Father: {fileID: 8009517623076321794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2382473965951692308
+--- !u!114 &7279119486096882443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -836,7 +837,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9131174235564801329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04ca6b8c74e8d524581f163bedd96bca, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d8e0b126dbd227448d3f3d8cdd102e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entityHealth: {fileID: 7913916363484433750}
@@ -846,4 +847,3 @@ MonoBehaviour:
   refferencedAimAngle: 0
   playerRelativeHandler: {fileID: 8642607771193940538}
   enemySpawnHandler: {fileID: 3257223475304700248}
-  kamikazeEnemyExplosion: {fileID: 8811045212219346871}

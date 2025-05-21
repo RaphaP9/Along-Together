@@ -17,12 +17,7 @@ public abstract class EntityAimDirectionerHandler : MonoBehaviour
     public Vector2 AimDirection => aimDirection;
     public float AimAngle => aimAngle;
 
-    protected virtual void Update()
-    {
-        HandleAim();
-    }
-
-    protected virtual void HandleAim()
+    public virtual void HandleAim() //Called By the corresponding entity StateHandler: PlayerStateHandler, MeleeEnemyStateHandler, etc
     {
         if (!CanAim()) return;
         UpdateAim();

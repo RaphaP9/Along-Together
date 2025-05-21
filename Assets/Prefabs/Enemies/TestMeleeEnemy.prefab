@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2829346729731099177}
-  - component: {fileID: 227917706320684715}
+  - component: {fileID: 1325511617713833652}
   m_Layer: 7
   m_Name: AimDirectioner
   m_TagString: Untagged
@@ -64,7 +64,7 @@ Transform:
   - {fileID: 5254665096776336600}
   m_Father: {fileID: 8171095813524711411}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &227917706320684715
+--- !u!114 &1325511617713833652
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3747103709649814158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6404eaf7f8a0adb49bf069e06c9a1a1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d8e0b126dbd227448d3f3d8cdd102e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entityHealth: {fileID: 5108009791445493210}
@@ -83,7 +83,6 @@ MonoBehaviour:
   refferencedAimAngle: 0
   playerRelativeHandler: {fileID: 2524694192382131667}
   enemySpawnHandler: {fileID: 7521818973245002023}
-  meleeEnemyAttack: {fileID: 5248160781583413841}
 --- !u!1 &5370400386341315922
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +663,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 5108009791445493210}
   enemyMovement: {fileID: 1912662841755041670}
   enemyCleanup: {fileID: 4495301452471555423}
+  enemyAimDirectionerHandler: {fileID: 1325511617713833652}
   playerRelativeHandler: {fileID: 2524694192382131667}
   enemyFacingDirectionHandler: {fileID: 4615393358422545409}
   meleeEnemyAttack: {fileID: 5248160781583413841}
@@ -827,7 +827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 1453130375328599785}
-  entityAimDirectioner: {fileID: 227917706320684715}
+  entityAimDirectioner: {fileID: 1325511617713833652}
   entityHealth: {fileID: 5108009791445493210}
   facingInterruptionComponents: []
   facingType: 1

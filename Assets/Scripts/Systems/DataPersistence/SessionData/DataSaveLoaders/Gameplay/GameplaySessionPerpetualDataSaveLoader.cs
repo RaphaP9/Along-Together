@@ -24,25 +24,25 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     #region Abstract Methods
     public override void LoadRuntimeData()
     {
-        LoadRunNumericStats();
-        LoadRunAssetStats();
+        LoadPerpetualNumericStats();
+        LoadPerpetualAssetStats();
     }
 
     public override void SaveRuntimeData()
     {
-        SaveRunNumericStats();
-        SaveRunAssetStats();
+        SavePerpetualNumericStats();
+        SavePerpetualAssetStats();
     }
     #endregion
 
     #region LoadMethods
-    private void LoadRunAssetStats()
+    private void LoadPerpetualAssetStats()
     {
         if (perpetualAssetStatModifierManager == null) return;
         perpetualAssetStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledAssetStatsToAssetStatModifiers(SessionPerpetualDataContainer.Instance.PerpetualData.assetStats));
     }
 
-    private void LoadRunNumericStats()
+    private void LoadPerpetualNumericStats()
     {
         if(perpetualNumericStatModifierManager == null) return;
         perpetualNumericStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledNumericStatsToNumericStatModifiers(SessionPerpetualDataContainer.Instance.PerpetualData.numericStats));
@@ -50,13 +50,13 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     #endregion
 
     #region SaveMethods
-    private void SaveRunNumericStats()
+    private void SavePerpetualNumericStats()
     {
         if (perpetualNumericStatModifierManager == null) return;
         SessionPerpetualDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataModeledNumericStats(perpetualNumericStatModifierManager.NumericStatModifiers));
     }
 
-    private void SaveRunAssetStats()
+    private void SavePerpetualAssetStats()
     {
         if (perpetualAssetStatModifierManager == null) return;
         SessionPerpetualDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataModeledAssetStats(perpetualAssetStatModifierManager.AssetStatModifiers));

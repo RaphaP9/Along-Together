@@ -64,8 +64,10 @@ public class KamikazeEnemyBehaviourHandler : EnemyBehaviourHandler
 
     private void FollowingPlayerLogic()
     {
-        enemyFacingDirectionHandler.HandleFacing();
         enemyMovement.MoveTowardsPlayerDirection();
+
+        enemyAimDirectionerHandler.HandleAim();
+        enemyFacingDirectionHandler.HandleFacing();
 
         if (OnExplosionRange())
         {
