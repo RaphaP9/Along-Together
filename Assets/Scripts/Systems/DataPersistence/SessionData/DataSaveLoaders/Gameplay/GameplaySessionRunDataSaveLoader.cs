@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 {
     [Header("Data Scripts - Already On Scene")]
+    [SerializeField] private GeneralStagesManager generalStagesManager;
+    [Space]
     [SerializeField] private PlayerCharacterManager playerCharacterManager;
     [Space]
     [SerializeField] private RunAssetStatModifierManager runAssetStatModifierManager;
@@ -27,6 +29,9 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
     public override void LoadRuntimeData()
     {
+        LoadCurrentStageNumber();
+        LoadCurrentRoundNumber();
+
         LoadCurrentCharacter();
 
         LoadPlayerCurrentHealth();
@@ -41,6 +46,9 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
     public override void SaveRuntimeData()
     {
+        SaveCurrentStageNumber();
+        SaveCurrentRoundNumber();
+
         SavePlayerCurrentCharacter();
 
         SavePlayerCurrentHealth();
@@ -56,6 +64,18 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     #endregion
 
     #region LoadMethods
+    private void LoadCurrentStageNumber()
+    {
+        if (generalStagesManager == null) return;
+        generalStagesManager.SetStartingStageNumber(SessionRunDataContainer.Instance.RunData.currentStageNumber);
+    }
+
+    private void LoadCurrentRoundNumber()
+    {
+        if (generalStagesManager == null) return;
+        generalStagesManager.SetStartingRoundNumber(SessionRunDataContainer.Instance.RunData.currentRoundNumber);
+    }
+
     private void LoadCurrentCharacter()
     {
         if (playerCharacterManager == null) return;
@@ -121,6 +141,18 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     #endregion
 
     #region SaveMethods
+
+    private void SaveCurrentStageNumber()
+    {
+        if (generalStagesManager == null) return;
+        SessionRunDataContainer.Instance.SetCurrentStageNumber(generalStagesManager.CurrentStageNumber);
+    }
+
+    private void SaveCurrentRoundNumber()
+    {
+        if (generalStagesManager == null) return;
+        SessionRunDataContainer.Instance.SetCurrentRoundNumber(generalStagesManager.CurrentRoundNumber);
+    }
 
     private void SavePlayerCurrentCharacter()
     {

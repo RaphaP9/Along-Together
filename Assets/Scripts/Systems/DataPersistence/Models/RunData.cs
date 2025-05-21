@@ -5,6 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class RunData
 {
+    public int currentStageNumber;
+    public int currentRoundNumber;
+    [Space]
     public int currentCharacterID;
     [Space]
     public int currentHealth;
@@ -18,6 +21,9 @@ public class RunData
 
     public RunData()
     {
+        currentStageNumber = 1;
+        currentRoundNumber = 1;
+
         currentCharacterID = 0;
 
         currentHealth = 0;

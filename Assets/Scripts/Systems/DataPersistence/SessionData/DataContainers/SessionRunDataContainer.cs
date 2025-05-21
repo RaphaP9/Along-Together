@@ -35,6 +35,9 @@ public class SessionRunDataContainer : MonoBehaviour
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public void SetCurrentStageNumber(int stageNumber) => runData.currentStageNumber = stageNumber;
+    public void SetCurrentRoundNumber(int roundNumber) => runData.currentRoundNumber = roundNumber;
+
     public void SetCurrentCharacterID(int characterID) => runData.currentCharacterID = characterID;
 
     public void SetCurrentHealth(int currentHealth) => runData.currentHealth = currentHealth;

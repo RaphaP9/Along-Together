@@ -374,8 +374,12 @@ MonoBehaviour:
   - stageSO: {fileID: 11400000, guid: 47368ed2adf26cc46a90c445e4e62a02, type: 2}
     playerSpawnPoint: {fileID: 830161888}
     spawnPointsHandler: {fileID: 1236280672}
+  startingStageNumber: 0
+  startingRoundNumber: 0
   currentStage: {fileID: 0}
   currentRound: {fileID: 0}
+  currentStageNumber: 0
+  currentRoundNumber: 0
 --- !u!1001 &80267180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7117,6 +7121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneDataSaveLoader: {fileID: 716470182}
+  generalStagesManager: {fileID: 61084001}
   playerCharacterManager: {fileID: 1944359882}
   runAssetStatModifierManager: {fileID: 1707162412}
   runNumericStatModifierManager: {fileID: 1673298609}
