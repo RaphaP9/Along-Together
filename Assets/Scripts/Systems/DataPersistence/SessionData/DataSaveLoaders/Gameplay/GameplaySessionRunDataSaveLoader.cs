@@ -7,6 +7,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     [Header("Data Scripts - Already On Scene")]
     [SerializeField] private GeneralStagesManager generalStagesManager;
     [Space]
+    [SerializeField] private GoldManager goldManager;   
+    [Space]
     [SerializeField] private PlayerCharacterManager playerCharacterManager;
     [Space]
     [SerializeField] private ObjectsInventoryManager objectsInventoryManager;
@@ -34,6 +36,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         LoadCurrentStageNumber();
         LoadCurrentRoundNumber();
 
+        LoadCurrentGold();
+
         LoadCurrentCharacter();
 
         LoadPlayerCurrentHealth();
@@ -52,6 +56,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         SaveCurrentStageNumber();
         SaveCurrentRoundNumber();
+
+        SaveCurrentGold();
 
         SavePlayerCurrentCharacter();
 
@@ -80,6 +86,12 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         if (generalStagesManager == null) return;
         generalStagesManager.SetStartingRoundNumber(SessionRunDataContainer.Instance.RunData.currentRoundNumber);
+    }
+
+    private void LoadCurrentGold()
+    {
+        if (goldManager == null) return;
+        goldManager.SetCurrentGold(SessionRunDataContainer.Instance.RunData.currentGold);
     }
 
     private void LoadCurrentCharacter()
@@ -162,6 +174,12 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         if (generalStagesManager == null) return;
         SessionRunDataContainer.Instance.SetCurrentRoundNumber(generalStagesManager.CurrentRoundNumber);
+    }
+
+    private void SaveCurrentGold()
+    {
+        if(goldManager == null) return;
+        SessionRunDataContainer.Instance.SetCurrentGold(goldManager.CurrentGold);
     }
 
     private void SavePlayerCurrentCharacter()

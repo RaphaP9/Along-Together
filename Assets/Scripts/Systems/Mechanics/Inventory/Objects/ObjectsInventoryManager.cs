@@ -147,5 +147,15 @@ public class ObjectsInventoryManager : MonoBehaviour
     }
     #endregion
 
+    public bool HasObjectSOInInventory(ObjectSO objectSO)
+    {
+        foreach(ObjectIdentified @object in objectsInventory)
+        {
+            if (@object.objectSO == objectSO) return true;
+        }
+
+        return false;
+    }
+
     public void SetObjectsInventory(List<ObjectIdentified> setterObjectsInventory) => objectsInventory.AddRange(setterObjectsInventory); //Add, not Replace!
 }

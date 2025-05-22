@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class GeneralStagesManager : MonoBehaviour
@@ -25,6 +27,14 @@ public class GeneralStagesManager : MonoBehaviour
     public RoundSO CurrentRound => currentRound;
     public int CurrentStageNumber => currentStageNumber;
     public int CurrentRoundNumber => currentRoundNumber;
+
+    public static event EventHandler<OnStageEventArgs> OnStageInitialized;
+
+    public class OnStageEventArgs : EventArgs
+    {
+        public int stageNumber;
+        public int roundNumber;
+    }
 
     private const int FIRTS_STAGE_NUMBER = 1;
     private const int FIRST_ROUND_NUMBER = 1;
@@ -56,6 +66,8 @@ public class GeneralStagesManager : MonoBehaviour
     {
         currentStageNumber = startingStageNumber <= 0? FIRTS_STAGE_NUMBER : startingStageNumber;
         currentRoundNumber = startingRoundNumber <= 0? FIRST_ROUND_NUMBER : startingRoundNumber;
+
+        OnStageInitialized?.Invoke(this, new OnStageEventArgs { stageNumber = currentStageNumber, roundNumber = currentRoundNumber });
     }
 
     public void SetStartingStageNumber(int setterStartingStageNumber) => startingStageNumber = setterStartingStageNumber;

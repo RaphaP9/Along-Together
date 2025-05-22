@@ -8,6 +8,8 @@ public class RunData
     public int currentStageNumber;
     public int currentRoundNumber;
     [Space]
+    public int currentGold;
+    [Space]
     public int currentCharacterID;
     [Space]
     public int currentHealth;
@@ -25,6 +27,8 @@ public class RunData
     {
         currentStageNumber = 1;
         currentRoundNumber = 1;
+
+        currentGold = 0;
 
         currentCharacterID = 0;
 

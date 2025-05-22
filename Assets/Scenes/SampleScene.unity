@@ -1185,6 +1185,7 @@ Transform:
   - {fileID: 1984772640}
   - {fileID: 786458908}
   - {fileID: 576036529}
+  - {fileID: 727390537}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &157776629
@@ -6031,6 +6032,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 718985274}
   m_CullTransparentMesh: 1
+--- !u!1 &727390536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727390537}
+  - component: {fileID: 727390538}
+  m_Layer: 0
+  m_Name: Gold
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &727390537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727390536}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 148177430}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &727390538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727390536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ee3ceace1172f47abd0f0bf3d15e4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentGold: 0
+  debug: 1
 --- !u!1 &728717727
 GameObject:
   m_ObjectHideFlags: 0
@@ -7123,6 +7170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneDataSaveLoader: {fileID: 716470182}
   generalStagesManager: {fileID: 457582225}
+  goldManager: {fileID: 727390538}
   playerCharacterManager: {fileID: 1944359882}
   objectsInventoryManager: {fileID: 1927527969}
   runAssetStatModifierManager: {fileID: 1707162412}
@@ -7847,6 +7895,7 @@ Transform:
   - {fileID: 2016939395}
   - {fileID: 729197761}
   - {fileID: 685024020}
+  - {fileID: 2073860317}
   m_Father: {fileID: 1984772640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &972418211
@@ -15289,10 +15338,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1773330765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d4b42ca61129d54fbd0c02c1555c7ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 37172feabbf452a4984979baa03a5625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectSO: {fileID: 11400000, guid: caf4b2fb6b02de54e92635fd928de7e3, type: 2}
+  gold: 0
 --- !u!1001 &1777762132
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18154,6 +18203,57 @@ Transform:
   - {fileID: 1462378493}
   m_Father: {fileID: 148177430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2073860316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2073860317}
+  - component: {fileID: 2073860318}
+  m_Layer: 0
+  m_Name: Gold
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2073860317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073860316}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 972315486}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2073860318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073860316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 080e38e6b000105428047c76551f78cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numericStatModifierManagers:
+  - {fileID: 540249401}
+  - {fileID: 1673298609}
+  - {fileID: 256441755}
+  additiveValue: 0
+  multiplierValue: 0
+  replacementValue: 0
 --- !u!1 &2074105904
 GameObject:
   m_ObjectHideFlags: 0
