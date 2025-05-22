@@ -363,4 +363,61 @@ public static class DataUtilities
     }
 
     #endregion
+
+    #region Treats Translation
+    public static List<DataModeledTreat> TranslateTreatsIdentifiedToDataModeledTreats(List<TreatIdentified> treatsIdentified)
+    {
+        List<DataModeledTreat> dataModeledTreats = new List<DataModeledTreat>();
+
+        foreach (TreatIdentified treatIdentified in treatsIdentified)
+        {
+            DataModeledTreat dataModeledTreat = TranslateTreatIdentifiedToDataModeledTreat(treatIdentified);
+            if (dataModeledTreat == null) continue;
+            dataModeledTreats.Add(dataModeledTreat);
+        }
+
+        return dataModeledTreats;
+    }
+
+    private static DataModeledTreat TranslateTreatIdentifiedToDataModeledTreat(TreatIdentified treatIdentified)
+    {
+        string assignedGUID = treatIdentified.assignedGUID;
+        int treatID = treatIdentified.treatSO.id;
+
+        DataModeledTreat dataModeledTreat = new DataModeledTreat(assignedGUID, treatID);
+
+        return dataModeledTreat;
+    }
+
+    public static List<TreatIdentified> TranslateDataModeledTreatsToTreatssIdentified(List<DataModeledTreat> dataModeledTreats)
+    {
+        List<TreatIdentified> treatsIdentified = new List<TreatIdentified>();
+
+        foreach (DataModeledTreat dataModeledTreat in dataModeledTreats)
+        {
+            TreatIdentified treatIdentified = TranslateDataModeledTreatToTreatIdentified(dataModeledTreat);
+            if (treatIdentified == null) continue;
+            treatsIdentified.Add(treatIdentified);
+        }
+
+        return treatsIdentified;
+    }
+
+    private static TreatIdentified TranslateDataModeledTreatToTreatIdentified(DataModeledTreat dataModeledTreat)
+    {
+        TreatIdentified treatIdentified = new TreatIdentified();
+
+        treatIdentified.assignedGUID = dataModeledTreat.assignedGUID;
+
+        if (TreatsAssetLibrary.Instance == null)
+        {
+            if (DEBUG) Debug.Log("TreatsAssetLibrary is null. Can not resolve TreatSO Asset.");
+            return null;
+        }
+
+        treatIdentified.treatSO = TreatsAssetLibrary.Instance.GetTreatSOByID(dataModeledTreat.treatID);
+
+        return treatIdentified;
+    }
+    #endregion
 }
