@@ -26,7 +26,8 @@ public class ProjectileHandler : MonoBehaviour
     private IDamageSourceSO damageSource;
     private Rigidbody2D _rigidbody2D;
 
-    public static event EventHandler<OnProjectileEventArgs> OnProjectileImpact;
+    public static event EventHandler<OnProjectileEventArgs> OnProjectileImpactTarget;
+    public static event EventHandler<OnProjectileEventArgs> OnProjectileImpactRegular;
     public static event EventHandler<OnProjectileEventArgs> OnProjectileLifespanEnd;
 
     public event EventHandler<OnProjectileEventArgs> OnProjectileSet;
@@ -89,9 +90,15 @@ public class ProjectileHandler : MonoBehaviour
         _rigidbody2D.velocity = direction * speed;
     }
 
-    private void ImpactProjectile()
+    private void ImpactProjectileTarget()
     {
-        OnProjectileImpact?.Invoke(this, new OnProjectileEventArgs { id = id , damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask});
+        OnProjectileImpactTarget?.Invoke(this, new OnProjectileEventArgs { id = id , damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask});
+        Destroy(gameObject);
+    }
+
+    private void ImpactProjectileRegular()
+    {
+        OnProjectileImpactRegular?.Invoke(this, new OnProjectileEventArgs { id = id, damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask });
         Destroy(gameObject);
     }
 
@@ -118,7 +125,7 @@ public class ProjectileHandler : MonoBehaviour
         }
     }
 
-    private void HandleDamageImpact(Transform impactTransform, DamageData originalDamageData)
+    private void HandleDamageImpact(Transform impactTransform, DamageData originalDamageData) //Impacted Something on the targetLayerMask
     {
         bool impacted = false;
 
@@ -138,7 +145,7 @@ public class ProjectileHandler : MonoBehaviour
                 break;         
         }
 
-        if (impacted) ImpactProjectile();
+        if (impacted) ImpactProjectileTarget();
     }
 
     private void HandleRegularImpact(Transform impactTransform, DamageData originalDamageData)
@@ -155,6 +162,6 @@ public class ProjectileHandler : MonoBehaviour
                 break;
         }
 
-        ImpactProjectile();
+        ImpactProjectileRegular();
     }
 }

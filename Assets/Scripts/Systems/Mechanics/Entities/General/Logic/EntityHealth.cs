@@ -260,6 +260,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         int armorMitigatedDamage = MechanicsUtilities.MitigateDamageByArmor(damageData.damage, entityArmorStatResolver.Value);
 
+        if(armorMitigatedDamage <= 0) return true;
+
         int previousHealth = currentHealth;
         int previousShield = currentShield;
 

@@ -12,4 +12,7 @@ public class CharacterSO : EntitySO
 
     [Header("Character Cooldown Settings")]
     [Range(0f, 1f)] public float baseCooldownReduction;
+
+    [Header("Character Stats Affinity")]
+    public List<NumericStatType> statAffinities;
 }

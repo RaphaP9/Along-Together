@@ -32,3 +32,4 @@ MonoBehaviour:
   baseHealthRegen: 1
   baseShieldRegen: 1
   baseCooldownReduction: 0
+  statAffinities: 00000000
