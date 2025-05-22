@@ -12,6 +12,10 @@ public abstract class PlayerNumericStatUI<T> : MonoBehaviour where T : MonoBehav
     [SerializeField] protected Color positiveColor;
     [SerializeField] protected Color neutralColor;
     [SerializeField] protected Color negativeColor;
+    [Space]
+    [SerializeField] protected bool invertEvaluation; 
+    //A greater value than base value is considered Positive by default
+    //If invertEvaluation checked, it is considered Negative
 
     [Header("Debug")]
     [SerializeField] protected bool debug;
@@ -57,8 +61,17 @@ public abstract class PlayerNumericStatUI<T> : MonoBehaviour where T : MonoBehav
 
     protected StatState GetStatState(float currentValue, float baseValue)
     {
-        if(currentValue > baseValue) return StatState.Positive;
-        if(currentValue<baseValue) return StatState.Negative;
+        if(currentValue > baseValue)
+        {
+            if(!invertEvaluation) return StatState.Positive;
+            return StatState.Negative;
+        }
+
+        if(currentValue < baseValue)
+        {
+            if(!invertEvaluation) return StatState.Negative;
+            return StatState.Positive;
+        }
 
         return StatState.Neutral;
     }

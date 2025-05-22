@@ -1908,6 +1908,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1 &256441753
 GameObject:
@@ -3757,6 +3758,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 0
 --- !u!1 &515906405
 GameObject:
@@ -5648,6 +5650,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1 &690639540
 GameObject:
@@ -8220,6 +8223,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40530434, g: 0.8679245, b: 0.5403074, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.9339623, g: 0.36565503, b: 0.36565503, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1 &983291239
 GameObject:
@@ -11418,6 +11422,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1001 &1342271717
 PrefabInstance:
@@ -12211,6 +12216,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1001 &1460640285
 PrefabInstance:
@@ -15059,6 +15065,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1 &1735607567
 GameObject:
@@ -15668,6 +15675,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1 &1844467944
 GameObject:
@@ -15723,6 +15731,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1 &1854319307
 GameObject:
@@ -17074,6 +17083,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1 &1971095826
 GameObject:
@@ -17721,6 +17731,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1 &2016939394
 GameObject:
@@ -18370,6 +18381,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1 &2092187399
 GameObject:
@@ -19274,6 +19286,7 @@ MonoBehaviour:
   positiveColor: {r: 0.40392157, g: 0.8666667, b: 0.5411765, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 0.93333334, g: 0.3647059, b: 0.3647059, a: 1}
+  invertEvaluation: 0
   debug: 1
 --- !u!1001 &59341372337003059
 PrefabInstance:
