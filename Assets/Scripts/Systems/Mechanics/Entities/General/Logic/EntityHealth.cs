@@ -142,6 +142,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     public class OnEntityDeathEventArgs : EventArgs
     {
+        public EntitySO entitySO;
         public IDamageSourceSO damageSource;
     }
 
@@ -288,7 +289,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
             OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, damageData.isCrit, damageData.damageSource);
         }
 
-        if (!IsAlive()) OnEntityDeathMethod(damageData.damageSource);
+        if (!IsAlive()) OnEntityDeathMethod(entityIdentifier.EntitySO, damageData.damageSource);
 
         return true;
     }
@@ -324,7 +325,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
             if (executeDamageData.triggerHealthTakeDamageEvents) OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, executeDamageData.isCrit, executeDamageData.damageSource);
         }
 
-        OnEntityDeathMethod(executeDamageData.damageSource);
+        OnEntityDeathMethod(entityIdentifier.EntitySO, executeDamageData.damageSource);
     }
 
     public void SelfExecute(SelfExecuteDamageData selfExecuteDamageData)
@@ -442,10 +443,10 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnAnyEntityShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, shieldSource = shieldSource, shieldReceiver = this });
     }
 
-    protected virtual void OnEntityDeathMethod(IDamageSourceSO damageSource)
+    protected virtual void OnEntityDeathMethod(EntitySO entitySO, IDamageSourceSO damageSource)
     {
-        OnEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource});
-        OnAnyEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
+        OnEntityDeath?.Invoke(this, new OnEntityDeathEventArgs {entitySO = entitySO, damageSource = damageSource});
+        OnAnyEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO, damageSource = damageSource });
     }
 
     //

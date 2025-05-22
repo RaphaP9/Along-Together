@@ -91,12 +91,12 @@ public class NeutralEntityHealth : EntityHealth
         OnAnyNeutralEntityShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, shieldSource = shieldSource, shieldReceiver = this });
     }
 
-    protected override void OnEntityDeathMethod(IDamageSourceSO damageSource)
+    protected override void OnEntityDeathMethod(EntitySO entitySO, IDamageSourceSO damageSource)
     {
-        base.OnEntityDeathMethod(damageSource);
+        base.OnEntityDeathMethod(entitySO, damageSource);
 
-        OnNeutralEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
-        OnAnyNeutralEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
+        OnNeutralEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as NeutralEntitySO, damageSource = damageSource });
+        OnAnyNeutralEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as NeutralEntitySO, damageSource = damageSource });
     }
 
     protected override void OnEntityCurrentHealthClampedMethod()

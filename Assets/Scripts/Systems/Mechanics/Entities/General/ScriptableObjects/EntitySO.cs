@@ -42,9 +42,9 @@ public abstract class EntitySO : ScriptableObject, IAttackableSO, IDamageSourceS
     #endregion
 
     #region IDamageSourceSO Methods
-    public string GetDamageSourceName() => name;
-    public Sprite GetDamageSourceSprite() => sprite;
+    public string GetDamageSourceName() => entityName;
     public string GetDamageSourceDescription() => description;
+    public Sprite GetDamageSourceSprite() => sprite;
     public Color GetDamageSourceColor() => damageColor;
     #endregion
 }

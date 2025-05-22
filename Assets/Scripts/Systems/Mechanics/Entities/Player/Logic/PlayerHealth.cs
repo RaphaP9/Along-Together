@@ -94,12 +94,12 @@ public class PlayerHealth : EntityHealth
         OnAnyPlayerShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, shieldSource = shieldSource, shieldReceiver = this });
     }
 
-    protected override void OnEntityDeathMethod(IDamageSourceSO damageSource)
+    protected override void OnEntityDeathMethod(EntitySO entitySO, IDamageSourceSO damageSource)
     {
-        base.OnEntityDeathMethod(damageSource);
+        base.OnEntityDeathMethod(entitySO, damageSource);
 
-        OnPlayerDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
-        OnAnyPlayerDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
+        OnPlayerDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as CharacterSO, damageSource = damageSource });
+        OnAnyPlayerDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as CharacterSO, damageSource = damageSource });
     }
 
     protected override void OnEntityCurrentHealthClampedMethod()

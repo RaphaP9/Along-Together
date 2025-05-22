@@ -101,12 +101,12 @@ public class EnemyHealth : EntityHealth
         OnAnyEnemyShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, shieldSource = shieldSource, shieldReceiver = this });
     }
 
-    protected override void OnEntityDeathMethod(IDamageSourceSO damageSource)
+    protected override void OnEntityDeathMethod(EntitySO entitySO, IDamageSourceSO damageSource)
     {
-        base.OnEntityDeathMethod(damageSource);
+        base.OnEntityDeathMethod(entitySO, damageSource);
 
-        OnEnemyDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
-        OnAnyEnemyDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
+        OnEnemyDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as EnemySO, damageSource = damageSource });
+        OnAnyEnemyDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as EnemySO, damageSource = damageSource });
     }
 
     protected override void OnEntityCurrentHealthClampedMethod()

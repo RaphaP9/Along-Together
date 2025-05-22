@@ -123,12 +123,12 @@ public class AllyHealth : EntityHealth
         OnAnyAllyShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, shieldSource = shieldSource, shieldReceiver = this });
     }
 
-    protected override void OnEntityDeathMethod(IDamageSourceSO damageSource)
+    protected override void OnEntityDeathMethod(EntitySO entitySO, IDamageSourceSO damageSource)
     {
-        base.OnEntityDeathMethod(damageSource);
+        base.OnEntityDeathMethod(entitySO, damageSource);
 
-        OnAllyDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
-        OnAnyAllyDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
+        OnAllyDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as AllySO, damageSource = damageSource });
+        OnAnyAllyDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as AllySO, damageSource = damageSource });
     }
 
     protected override void OnEntityCurrentHealthClampedMethod()
