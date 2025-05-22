@@ -23,8 +23,6 @@ public class GoldDropperManager : MonoBehaviour
         EnemyHealth.OnAnyEnemyDeath += EnemyHealth_OnAnyEnemyDeath;
     }
 
-
-
     private void OnDisable()
     {
         EnemyHealth.OnAnyEnemyDeath -= EnemyHealth_OnAnyEnemyDeath;
