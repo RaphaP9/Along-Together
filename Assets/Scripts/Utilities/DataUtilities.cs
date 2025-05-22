@@ -389,7 +389,7 @@ public static class DataUtilities
         return dataModeledTreat;
     }
 
-    public static List<TreatIdentified> TranslateDataModeledTreatsToTreatssIdentified(List<DataModeledTreat> dataModeledTreats)
+    public static List<TreatIdentified> TranslateDataModeledTreatsToTreatsIdentified(List<DataModeledTreat> dataModeledTreats)
     {
         List<TreatIdentified> treatsIdentified = new List<TreatIdentified>();
 

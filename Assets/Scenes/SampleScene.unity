@@ -4780,7 +4780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treatsInventory: []
-  debug: 0
+  debug: 1
 --- !u!1 &602807250
 GameObject:
   m_ObjectHideFlags: 0
@@ -7301,6 +7301,7 @@ MonoBehaviour:
   goldManager: {fileID: 727390538}
   playerCharacterManager: {fileID: 1944359882}
   objectsInventoryManager: {fileID: 1927527969}
+  treatsInventoryManager: {fileID: 590290175}
   runAssetStatModifierManager: {fileID: 1707162412}
   runNumericStatModifierManager: {fileID: 1673298609}
 --- !u!1 &849816745

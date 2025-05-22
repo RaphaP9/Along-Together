@@ -17,6 +17,8 @@ public class RunData
     [Space]
     public List<DataModeledObject> objects;
     [Space]
+    public List<DataModeledTreat> treats;
+    [Space]
     public List<DataModeledAssetStat> assetStats;
     public List<DataModeledNumericStat> numericStats;
     [Space]
@@ -35,7 +37,9 @@ public class RunData
         currentHealth = 0;
         currentShield = 0;
 
-        objects = new List<DataModeledObject>(); 
+        objects = new List<DataModeledObject>();
+
+        treats = new List<DataModeledTreat>();
 
         numericStats = new List<DataModeledNumericStat>();
         assetStats = new List<DataModeledAssetStat>(); 

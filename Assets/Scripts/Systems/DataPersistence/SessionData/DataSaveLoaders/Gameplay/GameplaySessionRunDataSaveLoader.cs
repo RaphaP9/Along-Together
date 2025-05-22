@@ -13,6 +13,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     [Space]
     [SerializeField] private ObjectsInventoryManager objectsInventoryManager;
     [Space]
+    [SerializeField] private TreatsInventoryManager treatsInventoryManager;
+    [Space]
     [SerializeField] private RunAssetStatModifierManager runAssetStatModifierManager;
     [SerializeField] private RunNumericStatModifierManager runNumericStatModifierManager;
 
@@ -45,6 +47,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
         LoadObjects();
 
+        LoadTreats();
+
         LoadRunNumericStats();
         LoadRunAssetStats();
 
@@ -65,6 +69,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         SavePlayerCurrentShield();
 
         SaveObjects();
+
+        SaveTreats();
 
         SaveRunNumericStats();
         SaveRunAssetStats();
@@ -99,10 +105,17 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         if (playerCharacterManager == null) return;
         playerCharacterManager.SetCharacterSO(DataUtilities.TranslateCharacterIDToCharacterSO(SessionRunDataContainer.Instance.RunData.currentCharacterID));
     }
+
     private void LoadObjects()
     {
         if (objectsInventoryManager == null) return;
         objectsInventoryManager.SetObjectsInventory(DataUtilities.TranslateDataModeledObjectsToObjectsIdentified(SessionRunDataContainer.Instance.RunData.objects));
+    }
+
+    private void LoadTreats()
+    {
+        if (treatsInventoryManager == null) return;
+        treatsInventoryManager.SetTreatsInventory(DataUtilities.TranslateDataModeledTreatsToTreatsIdentified(SessionRunDataContainer.Instance.RunData.treats));
     }
 
     private void LoadRunAssetStats()
@@ -187,10 +200,17 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         if (playerCharacterManager == null) return;
         SessionRunDataContainer.Instance.SetCurrentCharacterID(playerCharacterManager.CharacterSO.id);
     }
+
     private void SaveObjects()
     {
         if (objectsInventoryManager == null) return;
         SessionRunDataContainer.Instance.SetObjects(DataUtilities.TranslateObjectsIdentifiedToDataModeledObjects(objectsInventoryManager.ObjectsInventory));
+    }
+
+    private void SaveTreats()
+    {
+        if (treatsInventoryManager == null) return;
+        SessionRunDataContainer.Instance.SetTreats(DataUtilities.TranslateTreatsIdentifiedToDataModeledTreats(treatsInventoryManager.TreatsInventory));
     }
 
     private void SaveRunNumericStats()
