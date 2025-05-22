@@ -156,4 +156,6 @@ public class TreatsInventoryManager : MonoBehaviour
 
         return false;
     }
+
+    public void SetTreatsInventory(List<TreatIdentified> setterTreatsInventory) => treatsInventory.AddRange(setterTreatsInventory); //Add, not Replace!
 }

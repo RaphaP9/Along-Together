@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TreatSO : InventoryObjectSO
+[CreateAssetMenu(fileName = "NewTreatSO", menuName = "ScriptableObjects/Inventory/Treat")]
+public class TreatSO : InventoryObjectSO
 {
     public override InventoryObjectType GetInventoryObjectType() => InventoryObjectType.Treat;
 }
