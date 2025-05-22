@@ -57,7 +57,7 @@ public class GoldDropperManager : MonoBehaviour
         Debug.Log($"{goldDropped} gold dropped at {entityPosition}");
     }
 
-    private bool PlayerKilledEnemy(IDamageSourceSO damageSource)
+    private bool PlayerIsDamageSource(IDamageSourceSO damageSource)
     {
         if (GetPlayerCharacterSO() == null) return false;
         if(GetPlayerCharacterSO().entityName != damageSource.GetDamageSourceName()) return false;
@@ -79,7 +79,7 @@ public class GoldDropperManager : MonoBehaviour
     #region Subscriptions
     private void EnemyHealth_OnAnyEnemyDeath(object sender, EntityHealth.OnEntityDeathEventArgs e)
     {
-        if (!PlayerKilledEnemy(e.damageSource)) return;
+        if (!PlayerIsDamageSource(e.damageSource)) return;
 
         int goldAmount = (e.entitySO as EnemySO).goldDrop;
         Vector2 position = GeneralUtilities.SupressZComponent((sender as EntityHealth).transform.position);
