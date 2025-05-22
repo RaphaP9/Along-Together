@@ -12,10 +12,12 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     [SerializeField] protected EntityMaxShieldStatResolver entityMaxShieldStatResolver;
     [SerializeField] protected EntityArmorStatResolver entityArmorStatResolver;
     [SerializeField] protected EntityDodgeChanceStatResolver entityDodgeChanceStatResolver;
-
     [Space]
     [SerializeField] protected List<Component> dodgerComponents;
     [SerializeField] protected List<Component> immunerComponents;
+
+    [Header("Entity Health Settings")]
+    [SerializeField, Range(0f,3f)] protected float invulnerableTimeAfterTakingDamage;
 
     [Header("Runtime Filled")]
     [SerializeField] protected int currentHealth;
@@ -26,6 +28,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     protected bool healthReady = false;
     protected bool shieldReady = false;
+    protected bool invulnerableAfterTakingDamage = false;
 
     #region Properties
     public int CurrentHealth => currentHealth;
@@ -241,14 +244,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     public bool TakeDamage(DamageData damageData) 
     {
+        //First Check Damage PassThorugh (Dodged, etc), then damage Hit (immune, invulnerableAfterTakingDamage, etc)
         if(AvoidDamagePassThrough()) return false;
-        if(AvoidDamageTakeHits()) return true;
-
-        if (IsImmuneByAbility() && damageData.canBeImmuned)
-        {
-            OnEntityImmuneMethod(damageData);
-            return true;
-        }
 
         bool dodged = MechanicsUtilities.EvaluateDodgeChance(entityDodgeChanceStatResolver.Value);
 
@@ -256,6 +253,16 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         {
             OnEntityDodgeMethod(damageData);
             return false;
+        }
+
+        if (AvoidDamageTakeHits()) return true;
+
+        if (invulnerableAfterTakingDamage) return true;
+
+        if (IsImmuneByAbility() && damageData.canBeImmuned)
+        {
+            OnEntityImmuneMethod(damageData);
+            return true;
         }
 
         int armorMitigatedDamage = MechanicsUtilities.MitigateDamageByArmor(damageData.damage, entityArmorStatResolver.Value);
@@ -291,6 +298,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
             OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, damageData.isCrit, damageData.damageSource);
         }
 
+        HandleInvulnerabilityAfterTakingDamage();
+
         if (!IsAlive()) OnEntityDeathMethod(entityIdentifier.EntitySO, damageData.damageSource);
 
         return true;
@@ -304,8 +313,6 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     public void Execute(ExecuteDamageData executeDamageData)
     {
-        if (AvoidDamagePassThrough()) return;
-        if (AvoidDamageTakeHits()) return;
         if (!IsAlive()) return;
 
         int previousHealth = currentHealth;
@@ -392,6 +399,24 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     public bool IsAlive() => currentHealth > 0;
     public bool HasShield() => currentShield > 0;
 
+    #endregion
+
+    #region Invulnerability After Taking Damage
+    protected void HandleInvulnerabilityAfterTakingDamage()
+    {
+        StartCoroutine(InvulnerabilityAfterTakingDamageCoroutine());
+    }
+
+    protected IEnumerator InvulnerabilityAfterTakingDamageCoroutine()
+    {
+        if(invulnerableTimeAfterTakingDamage <=0) yield break;
+
+        invulnerableAfterTakingDamage = true;
+
+        yield return new WaitForSeconds(invulnerableTimeAfterTakingDamage);
+
+        invulnerableAfterTakingDamage = false;
+    }
     #endregion
 
     #region Virtual Event Methods
