@@ -24,8 +24,8 @@ public class AllyHealth : EntityHealth
     public static event EventHandler<OnEntityShieldRestoredEventArgs> OnAnyAllyShieldRestored;
     public event EventHandler<OnEntityShieldRestoredEventArgs> OnAllyShieldRestored;
 
-    public static event EventHandler OnAnyAllyDeath;
-    public event EventHandler OnAllyDeath;
+    public static event EventHandler<OnEntityDeathEventArgs> OnAnyAllyDeath;
+    public event EventHandler<OnEntityDeathEventArgs> OnAllyDeath;
 
     public static event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnAnyAllyCurrentHealthClamped;
     public event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnAllyCurrentHealthClamped;
@@ -123,12 +123,12 @@ public class AllyHealth : EntityHealth
         OnAnyAllyShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, shieldSource = shieldSource, shieldReceiver = this });
     }
 
-    protected override void OnEntityDeathMethod()
+    protected override void OnEntityDeathMethod(IDamageSourceSO damageSource)
     {
-        base.OnEntityDeathMethod();
+        base.OnEntityDeathMethod(damageSource);
 
-        OnAllyDeath?.Invoke(this, EventArgs.Empty);
-        OnAnyAllyDeath?.Invoke(this, EventArgs.Empty);
+        OnAllyDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
+        OnAnyAllyDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
     }
 
     protected override void OnEntityCurrentHealthClampedMethod()

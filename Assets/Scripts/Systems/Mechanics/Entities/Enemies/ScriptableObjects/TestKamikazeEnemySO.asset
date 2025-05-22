@@ -29,7 +29,7 @@ MonoBehaviour:
   baseLifesteal: 0
   damageColor: {r: 0, g: 0, b: 0, a: 0}
   baseMovementSpeed: 1
-  oreDrop: 0
+  goldDrop: 5
   spawnDuration: 3
   cleanupTime: 3
   explosionDamage: 1

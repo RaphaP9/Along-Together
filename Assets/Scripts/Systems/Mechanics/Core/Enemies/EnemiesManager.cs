@@ -119,7 +119,7 @@ public class EnemiesManager : MonoBehaviour
 
     #region Enemy Execution
 
-    public void ExecuteAllEnemies() //Uses Find Objects Of Type!
+    public void ExecuteAllEnemiesOnScene() //Uses Find Objects Of Type!
     {
         EnemyHealth[] enemyHealths = GameObject.FindObjectsOfType<EnemyHealth>();
 

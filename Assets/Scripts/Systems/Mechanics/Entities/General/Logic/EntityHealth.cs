@@ -54,8 +54,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     public static event EventHandler<OnEntityShieldRestoredEventArgs> OnAnyEntityShieldRestored;
     public event EventHandler<OnEntityShieldRestoredEventArgs> OnEntityShieldRestored;
 
-    public static event EventHandler OnAnyEntityDeath;
-    public event EventHandler OnEntityDeath;
+    public static event EventHandler<OnEntityDeathEventArgs> OnAnyEntityDeath;
+    public event EventHandler<OnEntityDeathEventArgs> OnEntityDeath;
 
     public static event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnAnyEntityCurrentHealthClamped;
     public event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnEntityCurrentHealthClamped;
@@ -138,6 +138,11 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         public IShieldSourceSO shieldSource;
         public IHasHealth shieldReceiver;
+    }
+
+    public class OnEntityDeathEventArgs : EventArgs
+    {
+        public IDamageSourceSO damageSource;
     }
 
     public class OnEntityCurrentHealthClampedEventArgs: EventArgs
@@ -283,7 +288,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
             OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, damageData.isCrit, damageData.damageSource);
         }
 
-        if (!IsAlive()) OnEntityDeathMethod();
+        if (!IsAlive()) OnEntityDeathMethod(damageData.damageSource);
 
         return true;
     }
@@ -319,7 +324,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
             if (executeDamageData.triggerHealthTakeDamageEvents) OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, executeDamageData.isCrit, executeDamageData.damageSource);
         }
 
-        OnEntityDeathMethod();
+        OnEntityDeathMethod(executeDamageData.damageSource);
     }
 
     public void SelfExecute(SelfExecuteDamageData selfExecuteDamageData)
@@ -437,10 +442,10 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnAnyEntityShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, shieldSource = shieldSource, shieldReceiver = this });
     }
 
-    protected virtual void OnEntityDeathMethod()
+    protected virtual void OnEntityDeathMethod(IDamageSourceSO damageSource)
     {
-        OnEntityDeath?.Invoke(this, EventArgs.Empty);
-        OnAnyEntityDeath?.Invoke(this, EventArgs.Empty);
+        OnEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource});
+        OnAnyEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
     }
 
     //

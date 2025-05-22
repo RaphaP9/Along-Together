@@ -27,8 +27,8 @@ public class EnemyHealth : EntityHealth
     public static event EventHandler<OnEntityShieldRestoredEventArgs> OnAnyEnemyShieldRestored;
     public event EventHandler<OnEntityShieldRestoredEventArgs> OnEnemyShieldRestored;
 
-    public static event EventHandler OnAnyEnemyDeath;
-    public event EventHandler OnEnemyDeath;
+    public static event EventHandler<OnEntityDeathEventArgs> OnAnyEnemyDeath;
+    public event EventHandler<OnEntityDeathEventArgs> OnEnemyDeath;
 
     public static event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnAnyEnemyCurrentHealthClamped;
     public event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnEnemyCurrentHealthClamped;
@@ -101,12 +101,12 @@ public class EnemyHealth : EntityHealth
         OnAnyEnemyShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, shieldSource = shieldSource, shieldReceiver = this });
     }
 
-    protected override void OnEntityDeathMethod()
+    protected override void OnEntityDeathMethod(IDamageSourceSO damageSource)
     {
-        base.OnEntityDeathMethod();
+        base.OnEntityDeathMethod(damageSource);
 
-        OnEnemyDeath?.Invoke(this, EventArgs.Empty);
-        OnAnyEnemyDeath?.Invoke(this, EventArgs.Empty);
+        OnEnemyDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
+        OnAnyEnemyDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
     }
 
     protected override void OnEntityCurrentHealthClampedMethod()

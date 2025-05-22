@@ -24,8 +24,8 @@ public class PlayerHealth : EntityHealth
     public static event EventHandler<OnEntityShieldRestoredEventArgs> OnAnyPlayerShieldRestored;
     public event EventHandler<OnEntityShieldRestoredEventArgs> OnPlayerShieldRestored;
 
-    public static event EventHandler OnAnyPlayerDeath;
-    public event EventHandler OnPlayerDeath;
+    public static event EventHandler<OnEntityDeathEventArgs> OnAnyPlayerDeath;
+    public event EventHandler<OnEntityDeathEventArgs> OnPlayerDeath;
 
     public static event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnAnyPlayerCurrentHealthClamped;
     public event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnPlayerCurrentHealthClamped;
@@ -94,12 +94,12 @@ public class PlayerHealth : EntityHealth
         OnAnyPlayerShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, shieldSource = shieldSource, shieldReceiver = this });
     }
 
-    protected override void OnEntityDeathMethod()
+    protected override void OnEntityDeathMethod(IDamageSourceSO damageSource)
     {
-        base.OnEntityDeathMethod();
+        base.OnEntityDeathMethod(damageSource);
 
-        OnPlayerDeath?.Invoke(this, EventArgs.Empty);
-        OnAnyPlayerDeath?.Invoke(this, EventArgs.Empty);
+        OnPlayerDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
+        OnAnyPlayerDeath?.Invoke(this, new OnEntityDeathEventArgs { damageSource = damageSource });
     }
 
     protected override void OnEntityCurrentHealthClampedMethod()

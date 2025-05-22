@@ -129,7 +129,11 @@ public class KamikazeEnemyExplosion : EnemyExplosion
         DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = KamikazeEnemySO, canBeDodged = false, canBeImmuned = true }; //Can not dodge explosion damage
         MechanicsUtilities.DealDamageInAreas(positions, KamikazeEnemySO.explosionRadius, damageData, explosionLayermask, new List<Transform> { transform });
 
-        ExecuteDamageData executeDamageData = new ExecuteDamageData(true, KamikazeEnemySO, false, false);
+        ExecuteDamageData executeDamageData = new ExecuteDamageData(true, KamikazeEnemySO, false, false); 
+        //Tread lighlty whether the damageSource is the KamikazeEnemySO or the player
+        //This will have repercussion on the kamikaze enemy droping gold on explosion or not
+        //Note: Player Character is accessed by: PlayerCharacterManager.Instance.CharacterSO
+
         entityHealth.Execute(executeDamageData); 
 
         OnEntityExplosionMethod(damage);
