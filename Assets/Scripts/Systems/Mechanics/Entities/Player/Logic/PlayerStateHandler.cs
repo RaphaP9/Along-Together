@@ -20,7 +20,8 @@ public class PlayerStateHandler : MonoBehaviour
     [Header("Runtime Filled")]
     [SerializeField] private PlayerState playerState;
 
-    private enum PlayerState {Spawning, Combat, Rest, Dead}
+    public PlayerState State => playerState;
+    public enum PlayerState {Spawning, Combat, NoCombat, Rest, Dead}
 
     private void Start()
     {
@@ -53,6 +54,9 @@ public class PlayerStateHandler : MonoBehaviour
             default:
                 CombatLogicUpdate();
                 break;
+            case PlayerState.NoCombat:
+                NoCombatLogicUpdate();
+                break;
             case PlayerState.Rest:
                 RestLogicUpdate();
                 break;
@@ -73,6 +77,9 @@ public class PlayerStateHandler : MonoBehaviour
             default:
                 CombatLogicFixedUpdate();
                 break;
+            case PlayerState.NoCombat:
+                NoCombatLogicFixedUpdate();
+                break;
             case PlayerState.Rest:
                 RestLogicFixedUpdate();
                 break;
@@ -92,6 +99,9 @@ public class PlayerStateHandler : MonoBehaviour
             case PlayerState.Combat:
             default:
                 CombatLogicLateUpdate();
+                break;
+            case PlayerState.NoCombat:
+                NoCombatLogicLateUpdate();
                 break;
             case PlayerState.Rest:
                 RestLogicLateUpdate();
@@ -142,8 +152,8 @@ public class PlayerStateHandler : MonoBehaviour
     }
     #endregion
 
-    #region Rest Logics
-    private void RestLogicUpdate()
+    #region NoCombat Logics
+    private void NoCombatLogicUpdate()
     {
         playerMovement.HandleMovement();
 
@@ -151,14 +161,31 @@ public class PlayerStateHandler : MonoBehaviour
         playerAimDirectionerHandler.HandleAim();
     }
 
-    private void RestLogicFixedUpdate()
+    private void NoCombatLogicFixedUpdate()
     {
         playerMovement.ApplyMovement();
     }
 
-    private void RestLogicLateUpdate()
+    private void NoCombatLogicLateUpdate()
     {
         playerWeaponAimHandler.HandlePivotRotation();
+    }
+    #endregion
+
+    #region NoCombat Logics
+    private void RestLogicUpdate()
+    {
+        
+    }
+
+    private void RestLogicFixedUpdate()
+    {
+
+    }
+
+    private void RestLogicLateUpdate()
+    {
+
     }
     #endregion
 

@@ -1124,7 +1124,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1539104338402781237}
-  - component: {fileID: 1753534425973844098}
+  - component: {fileID: 3542137057122353642}
   m_Layer: 6
   m_Name: WeaponVisual
   m_TagString: Untagged
@@ -1148,7 +1148,7 @@ Transform:
   - {fileID: 80269585919273975}
   m_Father: {fileID: 5317297067384626538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1753534425973844098
+--- !u!114 &3542137057122353642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1157,13 +1157,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5733256387100246634}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffa6e22598889d94fb244b176aa759d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d5f46e7a9d5f524bb8c16f9d7b06955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entityHealth: {fileID: 6586126778679378193}
   spriteRenderer: {fileID: 5668402913487765036}
   attackInterruptionComponents:
   - {fileID: 7573232495966570463}
+  playerStateHandler: {fileID: 2527459363889109172}
 --- !u!1 &6462796451184188670
 GameObject:
   m_ObjectHideFlags: 0

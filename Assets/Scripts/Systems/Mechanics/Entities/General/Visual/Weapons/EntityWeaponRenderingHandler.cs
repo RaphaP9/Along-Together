@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityWeaponRendererHandler : MonoBehaviour
+public class EntityWeaponRenderingHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private EntityHealth entityHealth;
