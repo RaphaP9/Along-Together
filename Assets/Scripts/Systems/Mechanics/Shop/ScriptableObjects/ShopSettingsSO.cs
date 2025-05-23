@@ -33,7 +33,7 @@ public class ShopSettingsSO : ScriptableObject
 
     #region Get Type Methods
 
-    public ShopInventoryObjectTypeSetting GetInventoryObjectTypeSettingByObjectType(InventoryObjectType inventoryObjectType)
+    public ShopInventoryObjectTypeSetting GetShopInventoryObjectTypeSettingByObjectType(InventoryObjectType inventoryObjectType)
     {
         foreach (ShopInventoryObjectTypeSetting inventoryObjectTypeSetting in shopInventoryObjectTypeSettings)
         {
@@ -53,9 +53,16 @@ public class ShopSettingsSO : ScriptableObject
         foreach (StageShopInventoryObjectRaritySetting stageShopInventoryObjectRaritySetting in stageShopInventoryObjectRaritySettings)
         {
             if (stageShopInventoryObjectRaritySetting.stageNumber == stageNumber) return stageShopInventoryObjectRaritySetting;
+        } 
+
+        //Following logic to return nonExistent settings, Ex. if(settings stop to change in wave 5.) Wave 6,7... Keep same settings
+        if(stageShopInventoryObjectRaritySettings.Count > 0)
+        {
+            Debug.Log($"StageShopInventoryObjectRaritySetting with StageNumber: {stageNumber} was not found. Proceding to return last element from StageShopInventoryObjectRaritySetting list.");
+            return stageShopInventoryObjectRaritySettings[^1];
         }
 
-        Debug.Log($"StageShopInventoryObjectRaritySetting with StageNumber: {stageNumber} was not found. Proceding to return null.");
+        Debug.Log($"StageShopInventoryObjectRaritySettingsList has no elements. Proceding to return null.");
         return null;
     }
 
