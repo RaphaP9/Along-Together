@@ -231,6 +231,27 @@ public class ShopGenerator : MonoBehaviour
     #region Get Inventory Object From List with Type & Rarity
     private InventoryObjectSO GetRandomInventoryObjectFromListByTypeAndRarity(List<InventoryObjectSO> inventoryObjectList, InventoryObjectType targetObjectType, Rarity targetObjectRarity)
     {
+        List<InventoryObjectSO> filteredInventoryObjectList = new List<InventoryObjectSO>();
+
+        foreach (InventoryObjectSO inventoryObject in inventoryObjectList) //First on list that matches conditions(Rarity,Type) is returned
+        {
+            if (!IsInventoryObjectOfRarity(inventoryObject, targetObjectRarity)) continue;
+            if (!IsInventoryObjectOfType(inventoryObject, targetObjectType)) continue;
+
+            filteredInventoryObjectList.Add(inventoryObject);
+        }
+
+        if (filteredInventoryObjectList.Count <= 0)
+        {
+            if (debug) Debug.Log($"No matching inventory objects found for the given Type: {targetObjectType} and Rarity: {targetObjectRarity}. Proceding to return null.");
+            return null;
+        }
+
+        return GetRandomInventoryObjectFromList(filteredInventoryObjectList);
+    }
+
+    private InventoryObjectSO GetRandomInventoryObjectFromListByTypeAndRarityFisherYatesShuffle(List<InventoryObjectSO> inventoryObjectList, InventoryObjectType targetObjectType, Rarity targetObjectRarity)
+    {
         List<InventoryObjectSO> shuffledInventoryObjectList = GeneralUtilities.FisherYatesShuffle(inventoryObjectList);
 
         foreach (InventoryObjectSO inventoryObject in shuffledInventoryObjectList) //First on list that matches conditions(Rarity,Type) is returned
