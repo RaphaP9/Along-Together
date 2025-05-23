@@ -13,7 +13,7 @@ public class ShopSettingsSO : ScriptableObject
     public List<ShopInventoryObjectTypeSetting> shopInventoryObjectTypeSettings;
 
     [Header("Rarity Settings")]
-    public List<StageShopInventoryObjectRaritySetting> shopInventoryObjectRaritySettings;
+    public List<StageShopInventoryObjectRaritySetting> stageShopInventoryObjectRaritySettings;
 
     [Header("Rerolls")]
     [Range(0, 100)] public int rerollBaseCost;
@@ -23,7 +23,63 @@ public class ShopSettingsSO : ScriptableObject
     public List<ObjectSO> objectsPool;
     public List<TreatSO> treatsPool;
 
-
     [Header("Other")]
     public List<InventoryObjectSO> randomBreakerInventoryObjectList;
+    public InventoryObjectType defaultInventoryObjectType;
+    public Rarity defaultInventoryObjectRarity;
+
+
+    //Methods
+
+    #region Get Type Methods
+
+    public ShopInventoryObjectTypeSetting GetInventoryObjectTypeSettingByObjectType(InventoryObjectType inventoryObjectType)
+    {
+        foreach (ShopInventoryObjectTypeSetting inventoryObjectTypeSetting in shopInventoryObjectTypeSettings)
+        {
+            if (inventoryObjectTypeSetting.inventoryObjectType == inventoryObjectType) return inventoryObjectTypeSetting;
+        }
+
+        Debug.Log($"InventoryObjectTypeSetting with InventoryObjectType: {inventoryObjectType} was not found. Proceding to return null.");
+        return null;
+    }
+
+    #endregion
+
+    #region Get Rarity Methods
+
+    public StageShopInventoryObjectRaritySetting GetStageShopInventoryObjectRaritySettingByStage(int stageNumber)
+    {
+        foreach (StageShopInventoryObjectRaritySetting stageShopInventoryObjectRaritySetting in stageShopInventoryObjectRaritySettings)
+        {
+            if (stageShopInventoryObjectRaritySetting.stageNumber == stageNumber) return stageShopInventoryObjectRaritySetting;
+        }
+
+        Debug.Log($"StageShopInventoryObjectRaritySetting with StageNumber: {stageNumber} was not found. Proceding to return null.");
+        return null;
+    }
+
+    public ShopInventoryObjectRaritySetting GetShopInventoryObjectRaritySettingByRarity(StageShopInventoryObjectRaritySetting stageShopInventoryObjectRaritySetting, Rarity inventoryObjectRarity)
+    {
+        foreach (ShopInventoryObjectRaritySetting shopInventoryObjectRaritySetting in stageShopInventoryObjectRaritySetting.shopInventoryObjectRaritySettings)
+        {
+            if (shopInventoryObjectRaritySetting.inventoryObjectRarity == inventoryObjectRarity) return shopInventoryObjectRaritySetting;
+        }
+
+        Debug.Log($"ShopInventoryObjectRaritySetting with Rarity: {inventoryObjectRarity} was not found. Proceding to return null.");
+        return null;
+    }
+
+    public ShopInventoryObjectRaritySetting GetShopInventoryObjectRaritySettingByRarityAndStage(Rarity inventoryObjectRatity, int stageNumber)
+    {
+        StageShopInventoryObjectRaritySetting stageShopInventoryObjectRaritySetting = GetStageShopInventoryObjectRaritySettingByStage(stageNumber);
+
+        if(stageShopInventoryObjectRaritySetting == null) return null;
+
+        ShopInventoryObjectRaritySetting shopInventoryObjectRaritySetting = GetShopInventoryObjectRaritySettingByRarity(stageShopInventoryObjectRaritySetting,inventoryObjectRatity);
+
+        return shopInventoryObjectRaritySetting;
+    }
+
+    #endregion
 }
