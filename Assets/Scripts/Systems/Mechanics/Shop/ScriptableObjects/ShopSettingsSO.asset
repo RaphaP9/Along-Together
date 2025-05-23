@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3b49ba506126243980644485cf89ce, type: 3}
+  m_Name: ShopSettingsSO
+  m_EditorClassIdentifier: 
+  shopSize: 3
+  shopInventoryObjectTypeSettings:
+  - inventoryObjectType: 0
+    weight: 80
+    cap: 0
+  - inventoryObjectType: 1
+    weight: 20
+    cap: 0
+  shopInventoryObjectRaritySettings:
+  - stageNumber: 1
+    shopInventoryObjectRaritySettings:
+    - inventoryObjectRarity: 0
+      weight: 80
+      cap: 0
+    - inventoryObjectRarity: 1
+      weight: 20
+      cap: 1
+    - inventoryObjectRarity: 2
+      weight: 0
+      cap: 0
+    - inventoryObjectRarity: 3
+      weight: 0
+      cap: 0
+    - inventoryObjectRarity: 4
+      weight: 0
+      cap: 0
+  rerollBaseCost: 1
+  rerollCostIncreasePerReroll: 1
+  objectsPool:
+  - {fileID: 11400000, guid: caf4b2fb6b02de54e92635fd928de7e3, type: 2}
+  treatsPool:
+  - {fileID: 11400000, guid: 1505598d537f98848aea47ce31447da2, type: 2}
+  randomBreakerInventoryObjectList: []
