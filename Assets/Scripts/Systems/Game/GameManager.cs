@@ -11,14 +11,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private State state;
     [SerializeField] private State previousState;
 
-    public enum State { StartingGame, PlayerTurn, EnemyTurn, FreeMovement, Lose }
+    public enum State {PlayerSpawn, Combat, Shop, Upgrade, Cinematic, Dialogue, Lose }
 
     public State GameState => state;
 
-    public static event EventHandler<OnStateEventArgs> OnStateChanged;
+    public static event EventHandler<OnStateChangeEventArgs> OnStateChanged;
 
-    public class OnStateEventArgs : EventArgs
+    public class OnStateChangeEventArgs : EventArgs
     {
+        public State previousState;
         public State newState;
     }
 
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        ChangeState(State.StartingGame);
+        ChangeState(State.PlayerSpawn);
     }
 
     private void SetSingleton()
@@ -68,7 +69,8 @@ public class GameManager : MonoBehaviour
 
     private void ChangeState(State state)
     {
+        State previousState = this.state;
         SetGameState(state);
-        OnStateChanged?.Invoke(this, new OnStateEventArgs { newState = state });
+        OnStateChanged?.Invoke(this, new OnStateChangeEventArgs {previousState = previousState,  newState = state });
     }
 }
