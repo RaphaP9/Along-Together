@@ -243,7 +243,7 @@ public class ShopGenerator : MonoBehaviour
 
         if (filteredInventoryObjectList.Count <= 0)
         {
-            if (debug) Debug.Log($"No matching inventory objects found for the given Type: {targetObjectType} and Rarity: {targetObjectRarity}. Proceding to return null.");
+            //if (debug) Debug.Log($"No matching inventory objects found for the given Type: {targetObjectType} and Rarity: {targetObjectRarity}. Proceding to return null.");
             return null;
         }
 
