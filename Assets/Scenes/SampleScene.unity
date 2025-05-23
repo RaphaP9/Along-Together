@@ -16210,7 +16210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90d7aba686c5f446b5538bef7ac1170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageNumber: 0
+  stageNumber: 1
 --- !u!1001 &1777762132
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20222,7 +20222,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2120504988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5609134e40f0e6c4d806803178904568, type: 3}
+  m_Script: {fileID: 11500000, guid: d395471863119da4c99cf3aadbdb0890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shopSettingsSO: {fileID: 11400000, guid: b156c742f8777fb488751642e30d1e92, type: 2}

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using static UnityEditor.Rendering.FilterWindow;
 
 public class ShopGenerator : MonoBehaviour
 {
@@ -53,6 +52,7 @@ public class ShopGenerator : MonoBehaviour
         foreach (TreatSO treat in shopSettingsSO.treatsPool)
         {
             if (TreatsInventoryManager.Instance.HasTreatSOInInventory(treat)) continue; //Unique Treats
+            validTreats.Add(treat);
         }
 
         return validTreats;
@@ -63,7 +63,7 @@ public class ShopGenerator : MonoBehaviour
         List<InventoryObjectSO> validObjectsAsInventoryObjects = GetShopAvailableObjectsFromCompleteObjectsList(shopSettingsSO).Select(x => x as InventoryObjectSO).ToList();
         List<InventoryObjectSO> validTreatsAsInventoryObjects = GetShopAvailableTreatsFromCompleteTreatsList(shopSettingsSO).Select(x => x as InventoryObjectSO).ToList();
 
-        List<List<InventoryObjectSO>> unnappendedAvailableInventoryObjectsList = new List<List<InventoryObjectSO>> { validObjectsAsInventoryObjects, validTreatsAsInventoryObjects};
+        List<List<InventoryObjectSO>> unnappendedAvailableInventoryObjectsList = new List<List<InventoryObjectSO>> { validObjectsAsInventoryObjects, validTreatsAsInventoryObjects };
         List<InventoryObjectSO> availableInventoryObjects = GeneralUtilities.AppendListsOfLists(unnappendedAvailableInventoryObjectsList);
 
         return availableInventoryObjects;
@@ -112,7 +112,7 @@ public class ShopGenerator : MonoBehaviour
             Rarity targetObjectRarity = GenerateInventoryObjectRarity(raritySettings);
 
             ShopInventoryObjectTypeSetting typeSetting = shopSettingsSO.GetShopInventoryObjectTypeSettingByObjectType(targetObjectType); //Get the setting that matches type
-            ShopInventoryObjectRaritySetting raritySetting = shopSettingsSO.GetShopInventoryObjectRaritySettingByRarityAndStage(targetObjectRarity,stageNumber); //Get the setting that matches rarity & stage
+            ShopInventoryObjectRaritySetting raritySetting = shopSettingsSO.GetShopInventoryObjectRaritySettingByRarityAndStage(targetObjectRarity, stageNumber); //Get the setting that matches rarity & stage
 
             if (HasReachedTypeCap(typeSetting, targetObjectType, currentGeneratedList)) continue;
             if (HasReachedRarityCap(raritySetting, targetObjectRarity, currentGeneratedList)) continue;
@@ -141,6 +141,7 @@ public class ShopGenerator : MonoBehaviour
     }
 
     #endregion
+
     #region Generate Rarity&Type
 
     private Rarity GenerateInventoryObjectRarity(List<ShopInventoryObjectRaritySetting> shopInventoryObjectRaritySettings)
