@@ -216,6 +216,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Conversations",
+            "id": "bf731363-53f1-4552-a35e-fb958022b6f6",
+            "actions": [
+                {
+                    "name": "Skip",
+                    "type": "Button",
+                    "id": "b76053ea-39a6-4779-aa02-f587d9ad29d4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0c65f1e6-33b1-403d-9bff-2301809e92db",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

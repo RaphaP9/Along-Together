@@ -7,22 +7,22 @@ public class NewMovementInput : MovementInput
 
     private Vector2 LastNonZeroMovementInput = new Vector2(1f, 0f); //Default Value Assigned
 
-    protected override void Awake()
+    private void OnDisable()
     {
-        base.Awake();
-        InitializePlayerInputActions();
+        playerInputActions?.Movement.Disable();
     }
 
-    private void InitializePlayerInputActions()
+    private void Start()
     {
-        playerInputActions = new PlayerInputActions();
+        InitializePlayerInputActions(CentralizedInputSystemManager.Instance.PlayerInputActions);
+    }
+
+    private void InitializePlayerInputActions(PlayerInputActions playerInputActions)
+    {
+        this.playerInputActions = playerInputActions;   
         playerInputActions.Movement.Enable();
     }
 
-    private void OnDisable()
-    {
-        playerInputActions.Movement.Disable();
-    }
 
     private void Update()
     {
@@ -39,6 +39,8 @@ public class NewMovementInput : MovementInput
 
     public override bool CanProcessInput()
     {
+        if(playerInputActions == null) return false;
+
         //if (GameManager.Instance.GameState != GameManager.State.OnWave) return false;
         if (PauseManager.Instance.GamePaused) return false;
         return true;

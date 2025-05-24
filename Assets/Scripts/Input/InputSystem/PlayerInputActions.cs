@@ -238,6 +238,34 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Conversations"",
+            ""id"": ""bf731363-53f1-4552-a35e-fb958022b6f6"",
+            ""actions"": [
+                {
+                    ""name"": ""Skip"",
+                    ""type"": ""Button"",
+                    ""id"": ""b76053ea-39a6-4779-aa02-f587d9ad29d4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""0c65f1e6-33b1-403d-9bff-2301809e92db"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -257,6 +285,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Abilities_AbilityA = m_Abilities.FindAction("AbilityA", throwIfNotFound: true);
         m_Abilities_AbilityB = m_Abilities.FindAction("AbilityB", throwIfNotFound: true);
         m_Abilities_AbilityC = m_Abilities.FindAction("AbilityC", throwIfNotFound: true);
+        // Conversations
+        m_Conversations = asset.FindActionMap("Conversations", throwIfNotFound: true);
+        m_Conversations_Skip = m_Conversations.FindAction("Skip", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -522,6 +553,52 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public AbilitiesActions @Abilities => new AbilitiesActions(this);
+
+    // Conversations
+    private readonly InputActionMap m_Conversations;
+    private List<IConversationsActions> m_ConversationsActionsCallbackInterfaces = new List<IConversationsActions>();
+    private readonly InputAction m_Conversations_Skip;
+    public struct ConversationsActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public ConversationsActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Skip => m_Wrapper.m_Conversations_Skip;
+        public InputActionMap Get() { return m_Wrapper.m_Conversations; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ConversationsActions set) { return set.Get(); }
+        public void AddCallbacks(IConversationsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ConversationsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ConversationsActionsCallbackInterfaces.Add(instance);
+            @Skip.started += instance.OnSkip;
+            @Skip.performed += instance.OnSkip;
+            @Skip.canceled += instance.OnSkip;
+        }
+
+        private void UnregisterCallbacks(IConversationsActions instance)
+        {
+            @Skip.started -= instance.OnSkip;
+            @Skip.performed -= instance.OnSkip;
+            @Skip.canceled -= instance.OnSkip;
+        }
+
+        public void RemoveCallbacks(IConversationsActions instance)
+        {
+            if (m_Wrapper.m_ConversationsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IConversationsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ConversationsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ConversationsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ConversationsActions @Conversations => new ConversationsActions(this);
     public interface IUIActions
     {
         void OnPause(InputAction.CallbackContext context);
@@ -540,5 +617,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnAbilityA(InputAction.CallbackContext context);
         void OnAbilityB(InputAction.CallbackContext context);
         void OnAbilityC(InputAction.CallbackContext context);
+    }
+    public interface IConversationsActions
+    {
+        void OnSkip(InputAction.CallbackContext context);
     }
 }

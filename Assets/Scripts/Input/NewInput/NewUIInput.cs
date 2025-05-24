@@ -6,25 +6,26 @@ public class NewUIInput : UIInput
 {
     private PlayerInputActions playerInputActions;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        InitializePlayerInputActions();
-    }
-
-    private void InitializePlayerInputActions()
-    {
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.UI.Enable();
-    }
-
     private void OnDisable()
     {
-        playerInputActions.UI.Disable();
+        playerInputActions?.Movement.Disable();
+    }
+
+    private void Start()
+    {
+        InitializePlayerInputActions(CentralizedInputSystemManager.Instance.PlayerInputActions);
+    }
+
+    private void InitializePlayerInputActions(PlayerInputActions playerInputActions)
+    {
+        this.playerInputActions = playerInputActions;
+        playerInputActions.UI.Enable();
     }
 
     public override bool CanProcessInput()
     {
+        if (playerInputActions == null) return false;
+
         if (ScenesManager.Instance.SceneState != ScenesManager.State.Idle) return false;
         return true;
     }

@@ -6,25 +6,26 @@ public class NewAbilitiesInput : AbilitiesInput
 {
     private PlayerInputActions playerInputActions;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        InitializePlayerInputActions();
-    }
-
-    private void InitializePlayerInputActions()
-    {
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Abilities.Enable();
-    }
-
     private void OnDisable()
     {
-        playerInputActions.Abilities.Disable();
+        playerInputActions?.Movement.Disable();
+    }
+
+    private void Start()
+    {
+        InitializePlayerInputActions(CentralizedInputSystemManager.Instance.PlayerInputActions);
+    }
+
+    private void InitializePlayerInputActions(PlayerInputActions playerInputActions)
+    {
+        this.playerInputActions = playerInputActions;
+        playerInputActions.Abilities.Enable();
     }
 
     public override bool CanProcessInput()
     {
+        if (playerInputActions == null) return false;
+
         //if (GameManager.Instance.GameState != GameManager.State.OnWave) return false;
         if (PauseManager.Instance.GamePaused) return false;
         return true;
