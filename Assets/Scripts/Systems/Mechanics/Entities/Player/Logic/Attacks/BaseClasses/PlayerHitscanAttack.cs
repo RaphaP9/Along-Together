@@ -42,7 +42,7 @@ public class PlayerHitscanAttack : PlayerAttack
     protected virtual void ShootHitscanRay(Vector2 originPosition , Vector2 direction, float distance, LayerMask layerMask, int damage, bool isCrit)
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(originPosition, direction, distance, layerMask);
-        DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = characterIdentifier.CharacterSO, canBeDodged = true, canBeImmuned = true};
+        DamageData damageData = new DamageData(damage, isCrit, characterIdentifier.CharacterSO, true, true, true, true);
 
         Vector2 hitPoint = Vector2.zero;
 

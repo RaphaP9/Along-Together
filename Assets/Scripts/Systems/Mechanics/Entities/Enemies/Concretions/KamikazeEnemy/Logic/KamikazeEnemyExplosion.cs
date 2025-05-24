@@ -126,7 +126,7 @@ public class KamikazeEnemyExplosion : EnemyExplosion
 ;
         List<Vector2> positions = GeneralUtilities.TransformPositionVector2List(explosionPoints);
 
-        DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = KamikazeEnemySO, canBeDodged = false, canBeImmuned = true }; //Can not dodge explosion damage
+        DamageData damageData = new DamageData (damage,isCrit, KamikazeEnemySO, false, true, true,  true ); //Can not dodge explosion damage
         MechanicsUtilities.DealDamageInAreas(positions, KamikazeEnemySO.explosionRadius, damageData, explosionLayermask, new List<Transform> { transform });
 
         ExecuteDamageData executeDamageData = new ExecuteDamageData(true, KamikazeEnemySO, false, false); 

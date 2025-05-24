@@ -18,8 +18,7 @@ public class PlayerMeleeAttack : PlayerAttack
 
         List<Vector2> positions = GeneralUtilities.TransformPositionVector2List(attackPoints);
 
-        DamageData damageData = new DamageData {damage = damage, isCrit = isCrit, damageSource = characterIdentifier.CharacterSO, canBeDodged = true, canBeImmuned = true};
-
+        DamageData damageData = new DamageData(damage, isCrit, characterIdentifier.CharacterSO, true, true, true, true);
         MechanicsUtilities.DealDamageInAreas(positions, attackAreaRadius, damageData, attackLayermask, new List<Transform> {transform});
 
         OnEntityAttackMethod(isCrit, damage);

@@ -16,7 +16,7 @@ public class TestHittableObjectHealth : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            hittableObjectHealth.TakeDamage(new DamageData { damage = 1, isCrit = true, damageSource = null });
+            hittableObjectHealth.TakeDamage(new DamageData(1, true, null, false, false, false, true));
         }
     }
 }

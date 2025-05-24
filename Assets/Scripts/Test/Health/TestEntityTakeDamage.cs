@@ -16,7 +16,7 @@ public class TestEntityTakeDamage : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            entityHealth.TakeDamage(new DamageData { damage = 1, isCrit = true, damageSource = null, canBeDodged = false, canBeImmuned = false });
+            entityHealth.TakeDamage(new DamageData(1, true, null, false, false, false, true ));
         }
     }
 }

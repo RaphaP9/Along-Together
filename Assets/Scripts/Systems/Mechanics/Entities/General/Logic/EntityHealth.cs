@@ -298,7 +298,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
             OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, damageData.isCrit, damageData.damageSource);
         }
 
-        HandleInvulnerabilityAfterTakingDamage();
+        if(damageData.triggerInvulnerability) HandleInvulnerabilityAfterTakingDamage();
 
         if (!IsAlive()) OnEntityDeathMethod(entityIdentifier.EntitySO, damageData.damageSource);
 
@@ -307,7 +307,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     public void SelfTakeDamage(SelfDamageData selfDamageData)
     {
-        DamageData damageData = new DamageData { damage = selfDamageData.damage , isCrit = selfDamageData.isCrit, damageSource = entityIdentifier.EntitySO, canBeDodged = selfDamageData.canBeDodged, canBeImmuned = selfDamageData.canBeImmuned};
+        DamageData damageData = new DamageData(selfDamageData.damage , selfDamageData.isCrit, entityIdentifier.EntitySO, selfDamageData.canBeDodged, selfDamageData.canBeImmuned, selfDamageData.canBeInvulnerabled, selfDamageData.triggerInulnerability);
         TakeDamage(damageData);
     }
 

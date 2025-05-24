@@ -110,9 +110,9 @@ public class ProjectileHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = damageSource, canBeDodged = true, canBeImmuned = true};
+        DamageData damageData = new DamageData(damage, isCrit, damageSource, true, true, true, true);
 
-        if(GeneralUtilities.CheckGameObjectInLayerMask(collision.gameObject, targetLayerMask))
+        if (GeneralUtilities.CheckGameObjectInLayerMask(collision.gameObject, targetLayerMask))
         {
             HandleDamageImpact(collision.transform, damageData);
             return;
@@ -139,7 +139,7 @@ public class ProjectileHandler : MonoBehaviour
                 impacted = MechanicsUtilities.DealDamageToTransform(impactTransform, originalDamageData); //Deal damage to impact transform
                 if(impacted) //If impacted, deal area damage to EACH OTHER transform and CAN'T BE DODGED
                 {
-                    DamageData areaDamageData = new DamageData { damage = originalDamageData.damage, isCrit = originalDamageData.isCrit, damageSource = originalDamageData.damageSource, canBeDodged = false, canBeImmuned = true };
+                    DamageData areaDamageData = new DamageData (originalDamageData.damage, isCrit, originalDamageData.damageSource, false, true, true, true );
                     MechanicsUtilities.DealDamageInArea(GeneralUtilities.TransformPositionVector2(transform), areaRadius, areaDamageData, targetLayerMask, new List<Transform> {impactTransform}); 
                 }
                 break;         
@@ -157,7 +157,7 @@ public class ProjectileHandler : MonoBehaviour
                 //Nothing
                 break;
             case ProjectileDamageType.Area: // Deal area damage to EVERY transform and CAN'T BE DODGED
-                DamageData areaDamageData = new DamageData { damage = originalDamageData.damage, isCrit = originalDamageData.isCrit, damageSource = originalDamageData.damageSource, canBeDodged = false, canBeImmuned = true };
+                DamageData areaDamageData = new DamageData(originalDamageData.damage, originalDamageData.isCrit, originalDamageData.damageSource, false, true, true, true );
                 MechanicsUtilities.DealDamageInArea(GeneralUtilities.TransformPositionVector2(transform), areaRadius, areaDamageData, impactLayerMask);
                 break;
         }

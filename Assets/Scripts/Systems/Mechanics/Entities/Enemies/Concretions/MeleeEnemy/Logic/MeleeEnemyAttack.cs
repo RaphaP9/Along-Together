@@ -196,7 +196,7 @@ public class MeleeEnemyAttack : EnemyAttack
 
         List<Vector2> positions = GeneralUtilities.TransformPositionVector2List(attackPoints);
 
-        DamageData damageData = new DamageData { damage = damage, isCrit = isCrit, damageSource = MeleeEnemySO, canBeDodged = true, canBeImmuned = true };
+        DamageData damageData = new DamageData(damage, isCrit, MeleeEnemySO, true, true , true, true);
 
         MechanicsUtilities.DealDamageInAreas(positions, MeleeEnemySO.attackArea, damageData, attackLayermask, new List<Transform> { transform });
 
