@@ -2516,8 +2516,6 @@ MonoBehaviour:
     triggerSentenceTransition: 0
     audioClip: {fileID: 0}
   dialogueState: 0
-  shouldSkipSentence: 0
-  shouldSkipDialogue: 0
 --- !u!1 &278823560
 GameObject:
   m_ObjectHideFlags: 0
@@ -4849,6 +4847,7 @@ GameObject:
   - component: {fileID: 524287491}
   - component: {fileID: 524287492}
   - component: {fileID: 524287493}
+  - component: {fileID: 524287494}
   m_Layer: 5
   m_Name: DialogueUI
   m_TagString: Untagged
@@ -4938,6 +4937,25 @@ MonoBehaviour:
     speakerOnRight: 0
     triggerSentenceTransition: 0
     audioClip: {fileID: 0}
+--- !u!114 &524287494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524287489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597da47c324026f4dbbda79d127e587d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sentenceText: {fileID: 1489646105}
+  timeToStartTypewriting: 1
+  charactersPerSecond: 20
+  interpuntuationDelay: 1
+  speedUpSkip: 1
+  skipSpeedMultiplier: 25
+  typewriterText: 
 --- !u!1 &536130801
 GameObject:
   m_ObjectHideFlags: 0

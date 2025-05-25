@@ -25,31 +25,28 @@ public class TypewriterHandler : MonoBehaviour
     private float regularDelay;
     private float skipDelay;
 
-    public bool isSkipping;
-    public bool isCompleted;
 
-    private bool delayInterrupted;
-    private bool delayCompleted;
-    private bool skippedThisFrame;
 
     private const char PERIOD_CHARACTER = '.';
 
     private Coroutine typewriterCoroutine;
     private Coroutine delayCoroutine;
 
+    private bool delayCompleted = false;
     private bool shouldSkip = false;
-    private bool finishedTyping = false;
+    private bool typingCompleted = false;
 
     private bool SkipInput => ConversationsInput.Instance.GetSkipDown();
 
     #region Events
-    public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterSentenceStart;
-    public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterSentenceTypingBegin;
-    public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterSentenceTypingSkip;
-    public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterSentenceTypingComplete;
-    public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterSentenceEnd;
+    //public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterSentenceStart;
+    //public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterSentenceTypingBegin;
+    //public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterSentenceTypingSkip;
+    //public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterSentenceTypingComplete;
+    //public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterSentenceEnd;
+    //public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterCompleted;
 
-    public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterCompleted;
+    public static event EventHandler OnCompleteSentenceCommand;
     #endregion
 
     #region Classes
@@ -61,7 +58,7 @@ public class TypewriterHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        DialogueManager.OnSentenceBegin += DialogueManager_OnSentenceBegin;
+        DialogueManager.OnSentenceIdle += DialogueManager_OnSentenceIdle;
 
         DialogueManager.OnGeneralDialogueBegin += DialogueManager_OnGeneralDialogueBegin;
         DialogueManager.OnGeneralDialogueConcluded += DialogueManager_OnGeneralDialogueConcluded;
@@ -70,7 +67,7 @@ public class TypewriterHandler : MonoBehaviour
 
     private void OnDisable()
     {
-        DialogueManager.OnSentenceBegin -= DialogueManager_OnSentenceBegin;
+        DialogueManager.OnSentenceIdle -= DialogueManager_OnSentenceIdle;
 
         DialogueManager.OnGeneralDialogueBegin -= DialogueManager_OnGeneralDialogueBegin;
         DialogueManager.OnGeneralDialogueConcluded -= DialogueManager_OnGeneralDialogueConcluded;
@@ -96,17 +93,18 @@ public class TypewriterHandler : MonoBehaviour
 
     private void ResetFlags()
     {
-        isSkipping = false;
-        isCompleted = false;
-        delayInterrupted = false;
+        shouldSkip = false;
         delayCompleted = false;
-        skippedThisFrame = false;
+        typingCompleted = false;
     }
 
     private void HandleSkip()
     {
         if (!SkipInput) return;
-        shouldSkip = true;
+        if (typewriterCoroutine == null) return; //No Typewritting Happening
+
+        if (!typingCompleted) shouldSkip = true;
+        else OnCompleteSentenceCommand?.Invoke(this, EventArgs.Empty);
     }
 
     #region Logic
@@ -121,6 +119,9 @@ public class TypewriterHandler : MonoBehaviour
 
     private IEnumerator TypewriterCoroutine(string textToTypewrite)
     {
+        typingCompleted = false;
+        shouldSkip = false;
+
         UpdateTypewriterText(textToTypewrite);
 
         ResetMaxVisibleCharacters();
@@ -162,12 +163,12 @@ public class TypewriterHandler : MonoBehaviour
             currentVisibleCharacterIndex++;
         }
 
-        shouldSkip = false;
 
         sentenceText.maxVisibleCharacters = textInfo.characterCount;
         sentenceText.ForceMeshUpdate();
 
-        OnTypewriterSentenceTypingComplete?.Invoke(this, new OnTypewriterSentenceEventArgs { typewriterText = typewriterText });
+        shouldSkip = false;
+        typingCompleted = true;
     }
 
     private IEnumerator DelayCoroutine(float delay)
@@ -222,9 +223,10 @@ public class TypewriterHandler : MonoBehaviour
     #endregion
 
     #region Subscriptions
-    private void DialogueManager_OnSentenceBegin(object sender, DialogueManager.OnDialogueEventArgs e)
+
+    private void DialogueManager_OnSentenceIdle(object sender, DialogueManager.OnDialogueEventArgs e)
     {
-        StartTypewriting(e.dialogueSentence.sentenceText);  
+        StartTypewriting(e.dialogueSentence.sentenceText);
     }
 
     private void DialogueManager_OnGeneralDialogueBegin(object sender, EventArgs e)

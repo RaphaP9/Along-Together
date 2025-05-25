@@ -55,6 +55,8 @@ public class DialogueManager : MonoBehaviour
         DialogueUI.OnDialogueTransitionOutEnd += DialogueUI_OnDialogueTransitionOutEnd;
         DialogueUI.OnSentenceTransitionInEnd += DialogueUI_OnSentenceTransitionInEnd;
         DialogueUI.OnSentenceTransitionOutEnd += DialogueUI_OnSentenceTransitionOutEnd;
+
+        TypewriterHandler.OnCompleteSentenceCommand += TypewriterHandler_OnCompleteSentenceCommand;
     }
 
     private void OnDisable()
@@ -63,6 +65,8 @@ public class DialogueManager : MonoBehaviour
         DialogueUI.OnDialogueTransitionOutEnd -= DialogueUI_OnDialogueTransitionOutEnd;
         DialogueUI.OnSentenceTransitionInEnd -= DialogueUI_OnSentenceTransitionInEnd;
         DialogueUI.OnSentenceTransitionOutEnd -= DialogueUI_OnSentenceTransitionOutEnd;
+
+        TypewriterHandler.OnCompleteSentenceCommand -= TypewriterHandler_OnCompleteSentenceCommand;
     }
 
     private void Awake()
@@ -223,5 +227,10 @@ public class DialogueManager : MonoBehaviour
     private void DialogueUI_OnDialogueTransitionOutEnd(object sender, DialogueUI.OnDialogueSentenceEventArgs e) => dialogueTransitionOutCompleted = true;
     private void DialogueUI_OnSentenceTransitionInEnd(object sender, DialogueUI.OnDialogueSentenceEventArgs e) => sentenceTransitionInCompleted = true;
     private void DialogueUI_OnSentenceTransitionOutEnd(object sender, DialogueUI.OnDialogueSentenceEventArgs e) => sentenceTransitionOutCompleted = true;
+
+    private void TypewriterHandler_OnCompleteSentenceCommand(object sender, EventArgs e)
+    {
+        EndSentence();
+    }
     #endregion
 }
