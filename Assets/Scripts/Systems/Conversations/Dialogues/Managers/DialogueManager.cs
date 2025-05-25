@@ -25,10 +25,8 @@ public class DialogueManager : MonoBehaviour
     private bool sentenceTransitionInCompleted = false;
     private bool sentenceTransitionOutCompleted = false;
 
-    private bool dialogueConcluded = false;
-
-    private bool shouldSkipSentence = false;
-    private bool shouldSkipDialogue = false;
+    public bool shouldSkipSentence = false;
+    public bool shouldSkipDialogue = false;
     #endregion
 
     #region Events
@@ -46,6 +44,22 @@ public class DialogueManager : MonoBehaviour
     {
         public DialogueSO dialogueSO;
         public DialogueSentence dialogueSentence;
+    }
+
+    private void OnEnable()
+    {
+        DialogueUI.OnDialogueTransitionInEnd += DialogueUI_OnDialogueTransitionInEnd;
+        DialogueUI.OnDialogueTransitionOutEnd += DialogueUI_OnDialogueTransitionOutEnd;
+        DialogueUI.OnSentenceTransitionInEnd += DialogueUI_OnSentenceTransitionInEnd;
+        DialogueUI.OnSentenceTransitionOutEnd += DialogueUI_OnSentenceTransitionOutEnd;
+    }
+
+    private void OnDisable()
+    {
+        DialogueUI.OnDialogueTransitionInEnd -= DialogueUI_OnDialogueTransitionInEnd;
+        DialogueUI.OnDialogueTransitionOutEnd -= DialogueUI_OnDialogueTransitionOutEnd;
+        DialogueUI.OnSentenceTransitionInEnd -= DialogueUI_OnSentenceTransitionInEnd;
+        DialogueUI.OnSentenceTransitionOutEnd -= DialogueUI_OnSentenceTransitionOutEnd;
     }
 
     private void Awake()
@@ -96,6 +110,8 @@ public class DialogueManager : MonoBehaviour
             #region Dialogue Begin Logic & Sentence Transition In Logic
             if (i ==0) //If first Sentence, DialogueIsStarting & Wait for the TransitionIn To Complete
             {
+                SetDialogueState(DialogueState.DialogueTransitionIn);
+
                 dialogueTransitionInCompleted = false;
                 OnDialogueBegin?.Invoke(this, new OnDialogueEventArgs { dialogueSentence = currentSentence });
 
@@ -104,6 +120,8 @@ public class DialogueManager : MonoBehaviour
             }
             else if(dialogueSO.dialogueSentences[i].triggerSentenceTransition) //If current sentence has the triggerSentenceTransition Checked
             {
+                SetDialogueState(DialogueState.SentenceTransitionIn);
+
                 sentenceTransitionInCompleted = false;
                 OnSentenceBegin?.Invoke(this, new OnDialogueEventArgs { dialogueSentence = currentSentence });
 
@@ -114,6 +132,9 @@ public class DialogueManager : MonoBehaviour
 
             #region Idle Logic
             //At this point, Sentence Is On Idle
+
+            SetDialogueState(DialogueState.Idle);
+
             OnSentenceIdle?.Invoke(this, new OnDialogueEventArgs { dialogueSentence = currentSentence}); //Loads the entire Sentence
 
             while (!shouldSkipSentence)
@@ -137,6 +158,8 @@ public class DialogueManager : MonoBehaviour
             {
                 if (dialogueSO.dialogueSentences[i + 1].triggerSentenceTransition) //If next sentence has the triggerSentenceTransition Checked
                 {
+                    SetDialogueState(DialogueState.SentenceTransitionOut);
+
                     sentenceTransitionOutCompleted = false;
                     OnSentenceEnd?.Invoke(this, new OnDialogueEventArgs { dialogueSentence = currentSentence });
 
@@ -148,6 +171,8 @@ public class DialogueManager : MonoBehaviour
         }
 
         shouldSkipDialogue = false;
+
+        SetDialogueState(DialogueState.DialogueTransitionOut);
 
         dialogueTransitionOutCompleted = false;
         OnDialogueEnd?.Invoke(this, new OnDialogueEventArgs { dialogueSentence = currentSentence });
@@ -172,7 +197,6 @@ public class DialogueManager : MonoBehaviour
     #region States
     private void SetDialogueState(DialogueState dialogueState) => this.dialogueState = dialogueState;
 
-
     #endregion
 
     #region Setters
@@ -181,5 +205,19 @@ public class DialogueManager : MonoBehaviour
 
     private void SetCurrentSentence(DialogueSentence sentence) => currentSentence = sentence;
     private void ClearCurrentSentence() => currentSentence = null;
+    #endregion
+
+    #region Subscriptions
+    private void DialogueUI_OnDialogueTransitionInEnd(object sender, DialogueUI.OnDialogueSentenceEventArgs e) => dialogueTransitionInCompleted = true;
+
+    private void DialogueUI_OnDialogueTransitionOutEnd(object sender, DialogueUI.OnDialogueSentenceEventArgs e) => dialogueTransitionOutCompleted = true;
+
+
+    private void DialogueUI_OnSentenceTransitionInEnd(object sender, DialogueUI.OnDialogueSentenceEventArgs e) => sentenceTransitionInCompleted = true;
+
+    private void DialogueUI_OnSentenceTransitionOutEnd(object sender, DialogueUI.OnDialogueSentenceEventArgs e) => sentenceTransitionOutCompleted = true;
+
+
+
     #endregion
 }

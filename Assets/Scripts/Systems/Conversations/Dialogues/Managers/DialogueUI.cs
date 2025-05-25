@@ -29,14 +29,16 @@ public class DialogueUI : MonoBehaviour
     [Header("Runtime Filled")]
     [SerializeField] private DialogueSentence currentDialogueSentence;
 
+    #region Animation Named
     private const string HIDDEN_ANIMATION_NAME = "Hidden";
-    private const string Idle_ANIMATION_NAME = "Idle";
+    private const string IDLE_ANIMATION_NAME = "Idle";
 
     private const string DIALOGUE_TRANSITION_IN_ANIMATION_NAME = "DialogueTransitionIn";
     private const string DIALOGUE_TRANSITION_OUT_ANIMATION_NAME = "DialogueTransitionOut";
 
     private const string SENTENCE_TRANSITION_IN_ANIMATION_NAME = "SentenceTransitionIn";
     private const string SENTENCE_TRANSITION_OUT_ANIMATION_NAME = "SentenceTransitionOut";
+    #endregion
 
     #region Events
     public static event EventHandler<OnDialogueSentenceEventArgs> OnDialogueTransitionInStart;
@@ -63,6 +65,8 @@ public class DialogueUI : MonoBehaviour
         DialogueManager.OnDialogueEnd += DialogueManager_OnDialogueEnd;
         DialogueManager.OnSentenceBegin += DialogueManager_OnSentenceBegin;
         DialogueManager.OnSentenceEnd += DialogueManager_OnSentenceEnd;
+        DialogueManager.OnSentenceIdle += DialogueManager_OnSentenceIdle;
+        DialogueManager.OnNotOnDialogue += DialogueManager_OnNotOnDialogue;
     }
 
     private void Disable()
@@ -71,6 +75,8 @@ public class DialogueUI : MonoBehaviour
         DialogueManager.OnDialogueEnd -= DialogueManager_OnDialogueEnd;
         DialogueManager.OnSentenceBegin -= DialogueManager_OnSentenceBegin;
         DialogueManager.OnSentenceEnd -= DialogueManager_OnSentenceEnd;
+        DialogueManager.OnSentenceIdle -= DialogueManager_OnSentenceIdle;
+        DialogueManager.OnNotOnDialogue -= DialogueManager_OnNotOnDialogue;
     }
 
     private void PlayAnimation(string animationName) => animator.Play(animationName);
@@ -99,6 +105,16 @@ public class DialogueUI : MonoBehaviour
     {
         PlayAnimation(SENTENCE_TRANSITION_OUT_ANIMATION_NAME);
         OnSentenceTransitionOutStart?.Invoke(this, new OnDialogueSentenceEventArgs());
+    }
+
+    private void SentenceIdle()
+    {
+        PlayAnimation(IDLE_ANIMATION_NAME);
+    }
+
+    private void DialogueConcluded()
+    {
+        PlayAnimation(HIDDEN_ANIMATION_NAME);
     }
     #endregion
 
@@ -141,6 +157,7 @@ public class DialogueUI : MonoBehaviour
     #region Subscriptions
     private void DialogueManager_OnDialogueBegin(object sender, DialogueManager.OnDialogueEventArgs e)
     {
+        SetSentenceUI(e.dialogueSentence);
         DialogueTransitionIn();
     }
 
@@ -151,12 +168,24 @@ public class DialogueUI : MonoBehaviour
 
     private void DialogueManager_OnSentenceBegin(object sender, DialogueManager.OnDialogueEventArgs e)
     {
+        SetSentenceUI(e.dialogueSentence);
         SentenceTransitionIn();
     }
 
     private void DialogueManager_OnSentenceEnd(object sender, DialogueManager.OnDialogueEventArgs e)
     {
         SentenceTransitionOut();
+    }
+
+    private void DialogueManager_OnSentenceIdle(object sender, DialogueManager.OnDialogueEventArgs e)
+    {
+        SetSentenceUI(e.dialogueSentence);
+        SentenceIdle();
+    }
+
+    private void DialogueManager_OnNotOnDialogue(object sender, EventArgs e)
+    {
+        DialogueConcluded();
     }
     #endregion
 }
