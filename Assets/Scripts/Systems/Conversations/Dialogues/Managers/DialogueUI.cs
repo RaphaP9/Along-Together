@@ -54,14 +54,59 @@ public class DialogueUI : MonoBehaviour
 
     public class OnDialogueSentenceEventArgs : EventArgs
     {
-
+        public DialogueSentence dialogueSentence;
     }
 
+    private void OnEnable()
+    {
+        DialogueManager.OnDialogueBegin += DialogueManager_OnDialogueBegin;
+        DialogueManager.OnDialogueEnd += DialogueManager_OnDialogueEnd;
+        DialogueManager.OnSentenceBegin += DialogueManager_OnSentenceBegin;
+        DialogueManager.OnSentenceEnd += DialogueManager_OnSentenceEnd;
+    }
+
+    private void Disable()
+    {
+        DialogueManager.OnDialogueBegin -= DialogueManager_OnDialogueBegin;
+        DialogueManager.OnDialogueEnd -= DialogueManager_OnDialogueEnd;
+        DialogueManager.OnSentenceBegin -= DialogueManager_OnSentenceBegin;
+        DialogueManager.OnSentenceEnd -= DialogueManager_OnSentenceEnd;
+    }
+
+    private void PlayAnimation(string animationName) => animator.Play(animationName);
+
+
+    #region Animations
+    private void DialogueTransitionIn()
+    {
+        PlayAnimation(DIALOGUE_TRANSITION_IN_ANIMATION_NAME);
+        OnDialogueTransitionInStart?.Invoke(this, new OnDialogueSentenceEventArgs());
+    }
+
+    private void DialogueTransitionOut()
+    {
+        PlayAnimation(DIALOGUE_TRANSITION_OUT_ANIMATION_NAME);
+        OnDialogueTransitionOutStart?.Invoke(this, new OnDialogueSentenceEventArgs());
+    }
+
+    private void SentenceTransitionIn()
+    {
+        PlayAnimation(SENTENCE_TRANSITION_IN_ANIMATION_NAME);
+        OnSentenceTransitionInStart?.Invoke(this, new OnDialogueSentenceEventArgs());
+    }
+
+    private void SentenceTransitionOut()
+    {
+        PlayAnimation(SENTENCE_TRANSITION_OUT_ANIMATION_NAME);
+        OnSentenceTransitionOutStart?.Invoke(this, new OnDialogueSentenceEventArgs());
+    }
+    #endregion
+
     #region Animation Event Methods
-    private void TriggerDialogueTransitionInEnd() => OnDialogueTransitionInEnd?.Invoke(this, new OnDialogueSentenceEventArgs { });
-    private void TriggerDialogueTransitionOutEnd() => OnDialogueTransitionOutEnd?.Invoke(this, new OnDialogueSentenceEventArgs { });
-    private void TriggerSentenceTransitionInEnd() => OnSentenceTransitionInEnd?.Invoke(this, new OnDialogueSentenceEventArgs { });
-    private void TriggerSentenceTransitionOutEnd() => OnSentenceTransitionOutEnd?.Invoke(this, new OnDialogueSentenceEventArgs { });
+    public void TriggerDialogueTransitionInEnd() => OnDialogueTransitionInEnd?.Invoke(this, new OnDialogueSentenceEventArgs { });
+    public void TriggerDialogueTransitionOutEnd() => OnDialogueTransitionOutEnd?.Invoke(this, new OnDialogueSentenceEventArgs { });
+    public void TriggerSentenceTransitionInEnd() => OnSentenceTransitionInEnd?.Invoke(this, new OnDialogueSentenceEventArgs { });
+    public void TriggerSentenceTransitionOutEnd() => OnSentenceTransitionOutEnd?.Invoke(this, new OnDialogueSentenceEventArgs { });
     #endregion
 
     #region Set 
@@ -91,5 +136,27 @@ public class DialogueUI : MonoBehaviour
     }
 
     private void SetCurrentDialogueSentence(DialogueSentence dialogueSentence) => currentDialogueSentence = dialogueSentence;
+    #endregion
+
+    #region Subscriptions
+    private void DialogueManager_OnDialogueBegin(object sender, DialogueManager.OnDialogueEventArgs e)
+    {
+        DialogueTransitionIn();
+    }
+
+    private void DialogueManager_OnDialogueEnd(object sender, DialogueManager.OnDialogueEventArgs e)
+    {
+        DialogueTransitionOut();
+    }
+
+    private void DialogueManager_OnSentenceBegin(object sender, DialogueManager.OnDialogueEventArgs e)
+    {
+        SentenceTransitionIn();
+    }
+
+    private void DialogueManager_OnSentenceEnd(object sender, DialogueManager.OnDialogueEventArgs e)
+    {
+        SentenceTransitionOut();
+    }
     #endregion
 }
