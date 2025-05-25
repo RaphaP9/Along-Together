@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 317dea99470857540bb16c9e3c8593cd, type: 3}
-  m_Name: TestDialogueSpeakerSO
+  m_Name: DialogueSpeakerA
   m_EditorClassIdentifier: 
   id: 1
-  speakerName: 
+  speakerName: SpeakerA
   speakerImage: {fileID: 0}
-  nameColor: {r: 0, g: 0, b: 0, a: 0}
+  nameColor: {r: 0.6556604, g: 0.81954134, b: 1, a: 1}
