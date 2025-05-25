@@ -37,7 +37,10 @@ public class DialogueManager : MonoBehaviour
     public static event EventHandler<OnDialogueEventArgs> OnSentenceEnd;
 
     public static event EventHandler<OnDialogueEventArgs> OnSentenceIdle;
-    public static event EventHandler OnNotOnDialogue;
+
+    public static event EventHandler OnGeneralDialogueBegin;
+    public static event EventHandler OnGeneralDialogueConcluded;
+    public static event EventHandler OnMidSentences;
     #endregion
 
     public class OnDialogueEventArgs : EventArgs
@@ -111,6 +114,8 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator DialogueCoroutine(DialogueSO dialogueSO)
     {
+        OnGeneralDialogueBegin?.Invoke(this, EventArgs.Empty);
+
         SetCurrentDialogue(dialogueSO);
 
         for(int i=0; i< dialogueSO.dialogueSentences.Count; i++)
@@ -170,6 +175,8 @@ public class DialogueManager : MonoBehaviour
                     yield return new WaitUntil(() => sentenceTransitionOutCompleted);
                     sentenceTransitionOutCompleted = false;
                 }
+
+                OnMidSentences?.Invoke(this, EventArgs.Empty);
             }
             #endregion
         }
@@ -184,7 +191,7 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitUntil(() => dialogueTransitionOutCompleted);
         dialogueTransitionOutCompleted = false;
 
-        OnNotOnDialogue.Invoke(this, EventArgs.Empty);
+        OnGeneralDialogueConcluded.Invoke(this, EventArgs.Empty);
         SetDialogueState(DialogueState.NotOnDialogue);
 
         ClearCurrentDialogue();

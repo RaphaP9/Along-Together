@@ -66,7 +66,7 @@ public class DialogueUI : MonoBehaviour
         DialogueManager.OnSentenceBegin += DialogueManager_OnSentenceBegin;
         DialogueManager.OnSentenceEnd += DialogueManager_OnSentenceEnd;
         DialogueManager.OnSentenceIdle += DialogueManager_OnSentenceIdle;
-        DialogueManager.OnNotOnDialogue += DialogueManager_OnNotOnDialogue;
+        DialogueManager.OnGeneralDialogueConcluded += DialogueManager_OnNotOnDialogue;
     }
 
     private void Disable()
@@ -76,7 +76,7 @@ public class DialogueUI : MonoBehaviour
         DialogueManager.OnSentenceBegin -= DialogueManager_OnSentenceBegin;
         DialogueManager.OnSentenceEnd -= DialogueManager_OnSentenceEnd;
         DialogueManager.OnSentenceIdle -= DialogueManager_OnSentenceIdle;
-        DialogueManager.OnNotOnDialogue -= DialogueManager_OnNotOnDialogue;
+        DialogueManager.OnGeneralDialogueConcluded -= DialogueManager_OnNotOnDialogue;
     }
 
     private void PlayAnimation(string animationName) => animator.Play(animationName);
@@ -130,7 +130,7 @@ public class DialogueUI : MonoBehaviour
     {
         SetCurrentDialogueSentence(dialogueSentence);
 
-        sentenceText.text = dialogueSentence.sentenceText;
+        //sentenceText.text = dialogueSentence.sentenceText; //Handled By TypewritterHandler
         speakerImage.sprite = dialogueSentence.dialogueSpeakerSO.speakerImage;
         speakerNameText.text = dialogueSentence.dialogueSpeakerSO.speakerName;
         speakerNameText.color = dialogueSentence.dialogueSpeakerSO.nameColor;
