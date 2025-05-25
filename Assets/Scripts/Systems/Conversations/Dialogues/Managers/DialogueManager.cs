@@ -133,6 +133,10 @@ public class DialogueManager : MonoBehaviour
             #region Idle Logic
             //At this point, Sentence Is On Idle
 
+            shouldSkipDialogue = false;
+            shouldSkipSentence = false;
+            suddenDialogueEnd = false;
+
             SetDialogueState(DialogueState.Idle);
 
             OnSentenceIdle?.Invoke(this, new OnDialogueEventArgs { dialogueSentence = currentSentence}); //Loads the entire Sentence
