@@ -21,12 +21,12 @@ public class TestDialogue : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            DialogueManager.Instance.shouldSkipSentence = true;
+            DialogueManager.Instance.EndSentence();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            DialogueManager.Instance.shouldSkipDialogue = true;
+            DialogueManager.Instance.EndDialogue();
         }
     }
 }
