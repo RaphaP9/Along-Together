@@ -31,6 +31,7 @@ public class TypewriterHandler : MonoBehaviour
     //Coroutines
     private Coroutine typewriterCoroutine;
     private Coroutine delayCoroutine;
+    private Coroutine preciseDelayCoroutine;
 
     //Flags
     private bool delayCompleted = false;
@@ -77,6 +78,7 @@ public class TypewriterHandler : MonoBehaviour
     {
         ResetFlags();
         InitializeVariables();
+        CompleteTypewriterReset();
     }
 
     private void Update()
@@ -148,14 +150,14 @@ public class TypewriterHandler : MonoBehaviour
 
             char character = textInfo.characterInfo[currentVisibleCharacterIndex].character;
 
-            float delayBetweenCharacters = EvaluateInterpuntuationCharacter(character) ? interpuntuationDelay : regularDelay;
+            float delayBetweenCharacters = EvaluateInterpuntuationCharacter(character) && currentVisibleCharacterIndex != lastCharacterIndex ? interpuntuationDelay : regularDelay;
             delayBetweenCharacters = (shouldSkip && speedUpSkip)? skipDelay : delayBetweenCharacters;
 
             #region DelayBetweenCharacters Logic
             delayCompleted = false;
-            AssignDelayCoroutineRefference(delayBetweenCharacters);
-            yield return new WaitUntil(() => shouldSkip || delayCompleted);
-            ResetDelayCoroutineRefference();
+            AssignPreciseDelayCoroutineRefference(delayBetweenCharacters);
+            yield return new WaitUntil(() => delayCompleted || (shouldSkip && EvaluateInterpuntuationCharacter(character)));
+            ResetPreciseDelayCoroutineRefference();
             delayCompleted = false;
             #endregion
 
@@ -172,7 +174,24 @@ public class TypewriterHandler : MonoBehaviour
 
     private IEnumerator DelayCoroutine(float delay)
     {
+        delayCompleted = false;
         yield return new WaitForSeconds(delay);
+        delayCompleted = true;
+    }
+
+    private IEnumerator PreciseDelayCoroutine(float delay) //Use only for small delay values
+    {
+        delayCompleted = false;
+
+        float startTime = Time.realtimeSinceStartup;
+
+        while (Time.realtimeSinceStartup - startTime < delay)
+        {          
+            while (PauseManager.Instance.GamePaused) yield return null; //While GameIsPaused Delay Should not end (Optional as the delay is very small, this might be inperceptible)
+                                                                        
+            yield return null;
+        }
+
         delayCompleted = true;
     }
 
@@ -197,6 +216,10 @@ public class TypewriterHandler : MonoBehaviour
     private void AssignDelayCoroutineRefference(float delay) => delayCoroutine = StartCoroutine(DelayCoroutine(delay));
     private void ResetDelayCoroutineRefference() => delayCoroutine = null;
 
+    private void AssignPreciseDelayCoroutineRefference(float delay) => preciseDelayCoroutine = StartCoroutine(PreciseDelayCoroutine(delay));
+    private void ResetPreciseDelayCoroutineRefference() => preciseDelayCoroutine = null;
+
+
     private void UpdateTypewriterText(string text)
     {
         typewriterText = text;
@@ -213,6 +236,7 @@ public class TypewriterHandler : MonoBehaviour
     {
         ResetTypewritterCoroutineRefference();
         ResetDelayCoroutineRefference();
+        ResetPreciseDelayCoroutineRefference();
 
         ResetCurrentVisibleCharacterIndex();
         ResetMaxVisibleCharacters();

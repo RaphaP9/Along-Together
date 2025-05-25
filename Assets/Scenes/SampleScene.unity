@@ -4950,11 +4950,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sentenceText: {fileID: 1489646105}
-  timeToStartTypewriting: 1
+  timeToStartTypewriting: 0.5
   charactersPerSecond: 20
   interpuntuationDelay: 1
   speedUpSkip: 1
-  skipSpeedMultiplier: 25
+  skipSpeedMultiplier: 10
   typewriterText: 
 --- !u!1 &536130801
 GameObject:

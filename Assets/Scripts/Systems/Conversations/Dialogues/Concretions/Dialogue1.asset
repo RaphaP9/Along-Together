@@ -13,18 +13,21 @@ MonoBehaviour:
   m_Name: Dialogue1
   m_EditorClassIdentifier: 
   dialogueSentences:
-  - dialogueSpeakerSO: {fileID: 11400000, guid: a92f0bdce03b0a846ad4572db854db4a, type: 2}
-    sentenceText: Sentence1TextSentence1TextSentence1TextSentence1Text
+  - localID: 0
+    dialogueSpeakerSO: {fileID: 11400000, guid: a92f0bdce03b0a846ad4572db854db4a, type: 2}
+    sentenceText: Sentence1TextSentence1. TextSentence1TextSentence1Text.
     speakerOnRight: 0
     triggerSentenceTransition: 0
     audioClip: {fileID: 0}
-  - dialogueSpeakerSO: {fileID: 11400000, guid: 947d6c583014ebb4187f04852fcb9e84, type: 2}
+  - localID: 0
+    dialogueSpeakerSO: {fileID: 11400000, guid: 947d6c583014ebb4187f04852fcb9e84, type: 2}
     sentenceText: Sentence2TextSentence2TextSentence2Text
     speakerOnRight: 1
     triggerSentenceTransition: 1
     audioClip: {fileID: 0}
-  - dialogueSpeakerSO: {fileID: 11400000, guid: 947d6c583014ebb4187f04852fcb9e84, type: 2}
-    sentenceText: Sentence3TextSentence3TextSentence3TextSentence3TextSentence3Text
+  - localID: 0
+    dialogueSpeakerSO: {fileID: 11400000, guid: 947d6c583014ebb4187f04852fcb9e84, type: 2}
+    sentenceText: Sentence3TextSentence3TextSentence3TextSentence3. TextSentence3Text.
     speakerOnRight: 1
     triggerSentenceTransition: 0
     audioClip: {fileID: 0}
