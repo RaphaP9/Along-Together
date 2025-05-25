@@ -19,24 +19,23 @@ public class TypewriterHandler : MonoBehaviour
 
     [Header("Runtime Filled")]
     [SerializeField] private string typewriterText;
-
-    private int currentVisibleCharacterIndex;
-
-    private float regularDelay;
-    private float skipDelay;
-
-
+    private bool SkipInput => ConversationsInput.Instance.GetSkipDown();
 
     private const char PERIOD_CHARACTER = '.';
 
+    //Runtime Filled Values
+    private int currentVisibleCharacterIndex;
+    private float regularDelay;
+    private float skipDelay;
+
+    //Coroutines
     private Coroutine typewriterCoroutine;
     private Coroutine delayCoroutine;
 
+    //Flags
     private bool delayCompleted = false;
     private bool shouldSkip = false;
     private bool typingCompleted = false;
-
-    private bool SkipInput => ConversationsInput.Instance.GetSkipDown();
 
     #region Events
     //public static event EventHandler<OnTypewriterSentenceEventArgs> OnTypewriterSentenceStart;
