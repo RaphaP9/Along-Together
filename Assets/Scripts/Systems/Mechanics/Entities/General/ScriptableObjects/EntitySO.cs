@@ -46,5 +46,6 @@ public abstract class EntitySO : ScriptableObject, IAttackableSO, IDamageSourceS
     public string GetDamageSourceDescription() => description;
     public Sprite GetDamageSourceSprite() => sprite;
     public Color GetDamageSourceColor() => damageColor;
+    public abstract DamageSourceClassification GetDamageSourceClassification();
     #endregion
 }

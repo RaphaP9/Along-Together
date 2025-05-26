@@ -17,4 +17,6 @@ public class EnemySO : EntitySO, IGoldSourceSO
     public string GetGoldSourceDescription() => description;
     public Sprite GetGoldSourceSprite() => sprite;
     #endregion
+
+    public override DamageSourceClassification GetDamageSourceClassification() => DamageSourceClassification.Enemy;
 }

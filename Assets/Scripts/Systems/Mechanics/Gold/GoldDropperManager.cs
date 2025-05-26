@@ -57,12 +57,15 @@ public class GoldDropperManager : MonoBehaviour
         Debug.Log($"{goldDropped} gold dropped at {entityPosition}");
     }
 
-    private bool PlayerIsDamageSource(IDamageSourceSO damageSource)
+    private void HandleGoldDrop(object sender, EntityHealth.OnEntityDeathEventArgs e)
     {
-        if (GetPlayerCharacterSO() == null) return false;
-        if(GetPlayerCharacterSO().entityName != damageSource.GetDamageSourceName()) return false;
+        if (e.damageSource.GetDamageSourceClassification() == DamageSourceClassification.Enemy) return;
+        if (e.damageSource.GetDamageSourceClassification() == DamageSourceClassification.NeutralEntity) return;
 
-        return true;
+        int goldAmount = (e.entitySO as EnemySO).goldDrop;
+        Vector2 position = GeneralUtilities.SupressZComponent((sender as EntityHealth).transform.position);
+
+        DropEntityGoldAtPosition(goldAmount, position);
     }
 
     private CharacterSO GetPlayerCharacterSO()
@@ -79,13 +82,7 @@ public class GoldDropperManager : MonoBehaviour
     #region Subscriptions
     private void EnemyHealth_OnAnyEnemyDeath(object sender, EntityHealth.OnEntityDeathEventArgs e)
     {
-        if (!PlayerIsDamageSource(e.damageSource)) return;
-
-        int goldAmount = (e.entitySO as EnemySO).goldDrop;
-        Vector2 position = GeneralUtilities.SupressZComponent((sender as EntityHealth).transform.position);
-
-        DropEntityGoldAtPosition(goldAmount, position);
+        HandleGoldDrop(sender, e);
     }
-
     #endregion
 }

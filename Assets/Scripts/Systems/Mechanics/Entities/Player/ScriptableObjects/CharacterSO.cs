@@ -15,4 +15,6 @@ public class CharacterSO : EntitySO
 
     [Header("Character Stats Affinity")]
     public List<NumericStatType> statAffinities;
+
+    public override DamageSourceClassification GetDamageSourceClassification() => DamageSourceClassification.Character;
 }
