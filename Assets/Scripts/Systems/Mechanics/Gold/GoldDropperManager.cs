@@ -68,17 +68,6 @@ public class GoldDropperManager : MonoBehaviour
         DropEntityGoldAtPosition(goldAmount, position);
     }
 
-    private CharacterSO GetPlayerCharacterSO()
-    {
-        if (PlayerCharacterManager.Instance == null || PlayerCharacterManager.Instance.CharacterSO == null)
-        {
-            if (debug) Debug.Log("Either PlayerCharacterManager or CharacterSO is null. Can not get CharacterSO.");
-            return null;
-        }
-
-        return PlayerCharacterManager.Instance.CharacterSO;
-    }
-
     #region Subscriptions
     private void EnemyHealth_OnAnyEnemyDeath(object sender, EntityHealth.OnEntityDeathEventArgs e)
     {

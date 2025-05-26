@@ -1461,7 +1461,7 @@ GameObject:
   - component: {fileID: 147724355}
   - component: {fileID: 147724356}
   m_Layer: 0
-  m_Name: EntityGoldDropManager
+  m_Name: GoldDropper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7861,7 +7861,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 782847596}
   sentenceText: {fileID: 92478967}
-  sentenceContainer: {fileID: 1299953261}
   currentMonologueSentence:
     localID: 0
     monologueSpeakerSO: {fileID: 0}
