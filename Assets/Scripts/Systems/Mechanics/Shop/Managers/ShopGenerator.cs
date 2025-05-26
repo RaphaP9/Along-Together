@@ -151,7 +151,7 @@ public class ShopGenerator : MonoBehaviour
         if (totalWeight <= 0) return shopSettingsSO.defaultInventoryObjectRarity;
 
         System.Random random = new System.Random();
-        int randomValue = random.Next(0, totalWeight);
+        int randomValue = random.Next(0, totalWeight) +1;
 
         int currentWeight = 0;
 
@@ -172,7 +172,7 @@ public class ShopGenerator : MonoBehaviour
         if (totalWeight <= 0) return shopSettingsSO.defaultInventoryObjectType;
 
         System.Random random = new System.Random();
-        int randomValue = random.Next(0, totalWeight);
+        int randomValue = random.Next(0, totalWeight) +1;
 
         int currentWeight = 0;
 
