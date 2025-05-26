@@ -29,7 +29,7 @@ public class DialogueUI : MonoBehaviour
     [Header("Runtime Filled")]
     [SerializeField] private DialogueSentence currentDialogueSentence;
 
-    #region Animation Named
+    #region Animation Names
     private const string HIDDEN_ANIMATION_NAME = "Hidden";
     private const string IDLE_ANIMATION_NAME = "Idle";
 
@@ -66,7 +66,7 @@ public class DialogueUI : MonoBehaviour
         DialogueManager.OnSentenceBegin += DialogueManager_OnSentenceBegin;
         DialogueManager.OnSentenceEnd += DialogueManager_OnSentenceEnd;
         DialogueManager.OnSentenceIdle += DialogueManager_OnSentenceIdle;
-        DialogueManager.OnGeneralDialogueConcluded += DialogueManager_OnNotOnDialogue;
+        DialogueManager.OnGeneralDialogueConcluded += DialogueManager_OnGeneralDialogueConcluded;
     }
 
     private void Disable()
@@ -76,7 +76,7 @@ public class DialogueUI : MonoBehaviour
         DialogueManager.OnSentenceBegin -= DialogueManager_OnSentenceBegin;
         DialogueManager.OnSentenceEnd -= DialogueManager_OnSentenceEnd;
         DialogueManager.OnSentenceIdle -= DialogueManager_OnSentenceIdle;
-        DialogueManager.OnGeneralDialogueConcluded -= DialogueManager_OnNotOnDialogue;
+        DialogueManager.OnGeneralDialogueConcluded -= DialogueManager_OnGeneralDialogueConcluded;
     }
 
     private void PlayAnimation(string animationName) => animator.Play(animationName);
@@ -183,7 +183,7 @@ public class DialogueUI : MonoBehaviour
         SentenceIdle();
     }
 
-    private void DialogueManager_OnNotOnDialogue(object sender, EventArgs e)
+    private void DialogueManager_OnGeneralDialogueConcluded(object sender, EventArgs e)
     {
         DialogueConcluded();
     }

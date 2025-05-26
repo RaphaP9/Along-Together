@@ -5,5 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewDialogueSO", menuName = "ScriptableObjects/Conversations/Dialogues/Dialogue")]
 public class DialogueSO : ScriptableObject
 {
-     public List<DialogueSentence> dialogueSentences;
+    public int id;
+    public List<DialogueSentence> dialogueSentences;
 }

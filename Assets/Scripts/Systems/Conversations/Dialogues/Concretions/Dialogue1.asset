@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df823755eb67814dacc01339f77596e, type: 3}
   m_Name: Dialogue1
   m_EditorClassIdentifier: 
+  id: 1
   dialogueSentences:
   - localID: 0
     dialogueSpeakerSO: {fileID: 11400000, guid: a92f0bdce03b0a846ad4572db854db4a, type: 2}
