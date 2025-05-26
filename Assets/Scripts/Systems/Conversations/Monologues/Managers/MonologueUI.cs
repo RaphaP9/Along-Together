@@ -55,7 +55,7 @@ public class MonologueUI : MonoBehaviour
         MonologueManager.OnGeneralMonologueConcluded += MonologueManager_OnGeneralMonologueConcluded;
     }
 
-    private void Disable()
+    private void OnDisable()
     {
         MonologueManager.OnMonologueBegin -= MonologueManager_OnMonologueBegin;
         MonologueManager.OnMonologueEnd -= MonologueManager_OnMonologueEnd;
@@ -117,6 +117,8 @@ public class MonologueUI : MonoBehaviour
 
         sentenceText.text = monologueSentence.sentenceText;
         sentenceText.color = monologueSentence.monologueSpeakerSO.textColor;
+
+        sentenceText.ForceMeshUpdate();
     }
 
     private void SetCurrentMonologueSentence(MonologueSentence monologueSentence) => currentMonologueSentence = monologueSentence;
@@ -147,7 +149,6 @@ public class MonologueUI : MonoBehaviour
 
     private void MonologueManager_OnSentenceIdle(object sender, MonologueManager.OnMonologueEventArgs e)
     {
-        SetSentenceUI(e.monologueSentence);
         SentenceIdle();
     }
 

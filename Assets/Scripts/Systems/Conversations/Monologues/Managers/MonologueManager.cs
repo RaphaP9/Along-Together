@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static DialogueManager;
 
 public class MonologueManager : MonoBehaviour
 {
@@ -26,8 +25,8 @@ public class MonologueManager : MonoBehaviour
     private bool sentenceTransitionInCompleted = false;
     private bool sentenceTransitionOutCompleted = false;
 
-    private bool shouldSkipSentence = false;
-    private bool shouldSkipMonologue = false;
+    public bool shouldSkipSentence = false;
+    public bool shouldSkipMonologue = false;
     #endregion
 
     #region Events
@@ -107,7 +106,7 @@ public class MonologueManager : MonoBehaviour
         shouldSkipSentence = true;
     }
 
-    public void EndDialogue()
+    public void EndMonologue()
     {
         if (monologueState != MonologueState.Idle) return;
         shouldSkipMonologue = true;
@@ -156,7 +155,18 @@ public class MonologueManager : MonoBehaviour
 
             OnSentenceIdle?.Invoke(this, new OnMonologueEventArgs { monologueSentence = currentSentence });
 
-            yield return new WaitUntil(() => shouldSkipSentence || shouldSkipMonologue);
+            #region Wait Sentence Time Logic
+
+            float waitTime = 0;
+
+            while (waitTime <= currentSentence.time)
+            {
+                if (shouldSkipSentence || shouldSkipMonologue) break;
+
+                waitTime += Time.deltaTime;
+                yield return null;
+            }
+            #endregion
 
             shouldSkipSentence = false;
 

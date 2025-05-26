@@ -69,7 +69,7 @@ public class DialogueUI : MonoBehaviour
         DialogueManager.OnGeneralDialogueConcluded += DialogueManager_OnGeneralDialogueConcluded;
     }
 
-    private void Disable()
+    private void OnDisable()
     {
         DialogueManager.OnDialogueBegin -= DialogueManager_OnDialogueBegin;
         DialogueManager.OnDialogueEnd -= DialogueManager_OnDialogueEnd;
