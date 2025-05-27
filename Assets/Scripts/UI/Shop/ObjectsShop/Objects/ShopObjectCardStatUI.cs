@@ -9,8 +9,13 @@ public class ShopObjectCardStatUI : MonoBehaviour
     [SerializeField] private NumericEmbeddedStat numericEmbeddedStat;
 
     [Header("Components")]
-    [SerializeField] private TextMeshProUGUI valueText;
-    [SerializeField] private TextMeshProUGUI typeText;
+    [SerializeField] private TextMeshProUGUI statValueText;
+    [SerializeField] private TextMeshProUGUI statNameText;
+
+    [Header("Settings")]
+    [SerializeField] protected Color positiveColor;
+    [SerializeField] protected Color neutralColor;
+    [SerializeField] protected Color negativeColor;
 
     private void SetNumericEmbededStat(NumericEmbeddedStat numericEmbeddedStat)
     {

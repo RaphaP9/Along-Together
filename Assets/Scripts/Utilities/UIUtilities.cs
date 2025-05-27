@@ -32,7 +32,7 @@ public static class UIUtilities
     private const string ATTACK_SPEED_STAT = "Vel. de Ataque";
     private const string ATTACK_CRIT_CHANCE_STAT = "Prob. de Crítico";
     private const string ATTACK_CRIT_DAMAGE_MULTIPLIER_STAT = "Daño Crítico";
-    private const string COOLWON_REDUCTION_STAT = "Red. de Enfriamiento";
+    private const string COOLDOWN_REDUCTION_STAT = "Red. de Enfriamiento";
     private const string LIFESTEAL_STAT = "Robo de Vida";
     private const string MOVEMENT_SPEED_STAT = "Vel. de Movimiento";
     private const string GOLD_STAT = "Riqueza";
@@ -116,7 +116,7 @@ public static class UIUtilities
             case NumericStatType.DodgeChance:
                 return DODGE_CHANCE_STAT;
             case NumericStatType.CooldownReduction:
-                return COOLWON_REDUCTION_STAT;
+                return COOLDOWN_REDUCTION_STAT;
             case NumericStatType.Lifesteal:
                 return LIFESTEAL_STAT;
             case NumericStatType.Gold:
