@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1747514880988364668}
   - component: {fileID: 647208895681278628}
+  - component: {fileID: 2619090163064674077}
   m_Layer: 5
   m_Name: ShopInventoryObjectCardUI
   m_TagString: Untagged
@@ -49,6 +50,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d924be81166ee8c498a60e8fccb02efd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryObjectSO: {fileID: 0}
+  purchaseButton: {fileID: 2800079941718180586}
+--- !u!114 &2619090163064674077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460971394690556747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa43dd55ef8e2ff429dff622390158fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopObjectCardUI: {fileID: 647208895681278628}
   objectNameText: {fileID: 6592595327823372493}
   objectImage: {fileID: 5166485287435695322}
   objectClassificationText: {fileID: 6094123067128724913}
@@ -56,11 +72,11 @@ MonoBehaviour:
   - {fileID: 8329277990918438696}
   - {fileID: 2028992738263418834}
   - {fileID: 4539285942261591585}
-  commonColor: {r: 0, g: 0.54509807, b: 1, a: 1}
-  uncommonColor: {r: 0, g: 0.6901961, b: 0.015686275, a: 1}
-  rareColor: {r: 0.77254903, g: 0.14901961, b: 0.14901961, a: 1}
-  epicColor: {r: 0.74509805, g: 0.101960786, b: 0.49803922, a: 1}
-  legendaryColor: {r: 1, g: 0.63529414, b: 0, a: 1}
+  commonColor: {r: 0.25882354, g: 0.6313726, b: 1, a: 1}
+  uncommonColor: {r: 0, g: 0.62352943, b: 0.101960786, a: 1}
+  rareColor: {r: 0.74509805, g: 0.15686275, b: 0.15686275, a: 1}
+  epicColor: {r: 0.85882354, g: 0.11764706, b: 0.53333336, a: 1}
+  legendaryColor: {r: 1, g: 0.5882353, b: 0, a: 1}
 --- !u!1 &1279888262483118871
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +492,7 @@ GameObject:
   - component: {fileID: 2765927317436903229}
   - component: {fileID: 8329277990918438696}
   m_Layer: 5
-  m_Name: Border
+  m_Name: CardBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -598,7 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
+  m_Color: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1131,7 +1147,7 @@ GameObject:
   - component: {fileID: 2800079941718180586}
   - component: {fileID: 2935829591340601932}
   m_Layer: 5
-  m_Name: CostPanel
+  m_Name: PurchaseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1278,7 +1294,7 @@ GameObject:
   - component: {fileID: 6573174334992364795}
   - component: {fileID: 2028992738263418834}
   m_Layer: 5
-  m_Name: ImageGroup
+  m_Name: ImageBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1591,7 +1607,7 @@ GameObject:
   - component: {fileID: 5858205833442433789}
   - component: {fileID: 1266570789016482612}
   m_Layer: 5
-  m_Name: CostGroup
+  m_Name: PurchaseGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

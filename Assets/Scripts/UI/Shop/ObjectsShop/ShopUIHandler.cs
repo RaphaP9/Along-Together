@@ -85,15 +85,15 @@ public class ShopUIHandler : MonoBehaviour
     {
         Transform shopInventoryObjectCard = Instantiate(shopInventoryObjectCardPrefab, shopInventoryObjectCardsContainer);
 
-        ShopInventoryObjectCardUI shopInventoryObjectCardUI = shopInventoryObjectCard.GetComponent<ShopInventoryObjectCardUI>();
+        ShopObjectCardUI shopObjectCardUI = shopInventoryObjectCard.GetComponent<ShopObjectCardUI>();
 
-        if(shopInventoryObjectCardUI == null)
+        if(shopObjectCardUI == null)
         {
-            if (debug) Debug.Log("Instantiated Shop Object Card does not contain a ShopInventoryObjectCardUI component. Set will be ignored.");
+            if (debug) Debug.Log("Instantiated Shop Object Card does not contain a ShopObjectCardUI component. Set will be ignored.");
             return;
         }
 
-        shopInventoryObjectCardUI.CompleteSetUI(inventoryObjectSO);
+        shopObjectCardUI.SetInventoryObject(inventoryObjectSO);
     }
 
     #region Subscriptions
