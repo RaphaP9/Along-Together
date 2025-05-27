@@ -13,12 +13,12 @@ public class TestShopOpening : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            ShopOpeningManager.Instance.OpenShopInmediately();
+            ShopOpeningManager.Instance.OpenShop();
         }
 
         if (Input.GetKeyDown(KeyCode.H))
         {
-            ShopOpeningManager.Instance.CloseShopInmediately();
+            ShopOpeningManager.Instance.CloseShop();
         }
     }
 }
