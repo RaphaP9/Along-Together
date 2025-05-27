@@ -17,9 +17,9 @@ public class AttackCritDamageMultiplierStatUI : PlayerNumericStatUI<PlayerAttack
         resolver.OnEntityStatUpdated -= Resolver_OnEntityStatUpdated;
     }
 
-    protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToPercentage(currentValue, 2);
     protected override float GetBaseValue() => resolver.BaseValue;
     protected override float GetCurrentValue() => resolver.Value;
+    protected override NumericStatType GetNumericStatType() => NumericStatType.AttackCritDamageMultiplier;
 
 
     #region Subscriptions

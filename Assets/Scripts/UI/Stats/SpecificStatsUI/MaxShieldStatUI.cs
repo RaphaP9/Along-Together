@@ -17,10 +17,9 @@ public class MaxShieldStatUI : PlayerNumericStatUI<PlayerMaxShieldStatResolver>
         resolver.OnEntityStatUpdated -= Resolver_OnEntityStatUpdated;
     }
 
-    protected override string ProcessCurrentValue(float currentValue) => MechanicsUtilities.ProcessCurrentValueToSimpleInt(currentValue);
     protected override float GetBaseValue() => resolver.BaseValue;
     protected override float GetCurrentValue() => resolver.Value;
-
+    protected override NumericStatType GetNumericStatType() => NumericStatType.MaxShield;
 
     #region Subscriptions
     private void Resolver_OnEntityStatInitialized(object sender, EntityIntStatResolver.OnStatEventArgs e)

@@ -12,17 +12,11 @@ public abstract class PlayerNumericStatUI<T> : MonoBehaviour where T : MonoBehav
     [SerializeField] protected Color positiveColor;
     [SerializeField] protected Color neutralColor;
     [SerializeField] protected Color negativeColor;
-    [Space]
-    [SerializeField] protected bool invertEvaluation; 
-    //A greater value than base value is considered Positive by default
-    //If invertEvaluation checked, it is considered Negative
 
     [Header("Debug")]
     [SerializeField] protected bool debug;
 
     protected T resolver;
-
-    protected enum StatState { Positive, Neutral, Negative}
 
     protected virtual void OnEnable()
     {
@@ -34,49 +28,33 @@ public abstract class PlayerNumericStatUI<T> : MonoBehaviour where T : MonoBehav
         UnSubscribeToEvents();
     }
 
+    protected abstract NumericStatType GetNumericStatType();
+
     #region Logic
     protected void UpdateUIByNewValue(float currentValue, float baseValue)
     {
-        StatState statState = GetStatState(currentValue, baseValue);
+        NumericStatState statState = MechanicsUtilities.GetNumericStatState(GetNumericStatType(), currentValue, baseValue);
 
         switch (statState)
         {
-            case StatState.Positive:
+            case NumericStatState.Positive:
                 SetValueTextColor(positiveColor);
                 break;
-            case StatState.Neutral:
+            case NumericStatState.Neutral:
                 SetValueTextColor(neutralColor);
                 break;
-            case StatState.Negative:
+            case NumericStatState.Negative:
                 SetValueTextColor(negativeColor);
                 break;
         }
 
-        string processedValueText = ProcessCurrentValue(currentValue);
+        string processedValueText = MechanicsUtilities.ProcessNumericStatValueToString(GetNumericStatType(), currentValue);
         SetValueText(processedValueText);
     }
 
     protected void SetValueText(string text) => valueText.text = text;
     protected void SetValueTextColor(Color color) => valueText.color = color;
 
-    protected StatState GetStatState(float currentValue, float baseValue)
-    {
-        if(currentValue > baseValue)
-        {
-            if(!invertEvaluation) return StatState.Positive;
-            return StatState.Negative;
-        }
-
-        if(currentValue < baseValue)
-        {
-            if(!invertEvaluation) return StatState.Negative;
-            return StatState.Positive;
-        }
-
-        return StatState.Neutral;
-    }
-
-    protected abstract string ProcessCurrentValue(float currentValue);
     protected abstract float GetCurrentValue();
     protected abstract float GetBaseValue();
     #endregion

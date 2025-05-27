@@ -186,6 +186,55 @@ public static class MechanicsUtilities
         string stringValue = percentageValue.ToString() + PERCENTAGE_CHARACTER;
         return stringValue;
     }
+
+    public static NumericStatEvaluationWay GetStatEvaluationWay(NumericStatType numericStatType)
+    {
+        switch (numericStatType)
+        {
+            default:
+                return NumericStatEvaluationWay.PositiveAvobeBase; //For now, values are treated as positive while avobe base value
+        }
+    }
+
+    public static NumericStatState GetNumericStatState(NumericStatType numericStatType, float currentValue, float baseValue)
+    {
+        if (currentValue > baseValue)
+        {
+            if (GetStatEvaluationWay(numericStatType) == NumericStatEvaluationWay.PositiveAvobeBase) return NumericStatState.Positive;
+            if (GetStatEvaluationWay(numericStatType) == NumericStatEvaluationWay.NegativeAvobeBase) return NumericStatState.Negative;
+        }
+
+        if (currentValue < baseValue)
+        {
+            if (GetStatEvaluationWay(numericStatType) == NumericStatEvaluationWay.PositiveAvobeBase) return NumericStatState.Negative;
+            if (GetStatEvaluationWay(numericStatType) == NumericStatEvaluationWay.NegativeAvobeBase) return NumericStatState.Positive;
+        }
+
+        return NumericStatState.Neutral;
+    }
+
+    public static string ProcessNumericStatValueToString(NumericStatType numericStatType, float value)
+    {
+        switch (numericStatType)
+        {
+            case NumericStatType.MaxHealth:
+            case NumericStatType.MaxShield:
+            case NumericStatType.Armor:
+            case NumericStatType.HealthRegen:
+            case NumericStatType.ShieldRegen:
+                return ProcessCurrentValueToSimpleInt(value);
+            case NumericStatType.MovementSpeed:
+            case NumericStatType.AttackSpeed:
+            default:
+                return ProcessCurrentValueToSimpleFloat(value, 2);
+            case NumericStatType.AttackCritChance:
+            case NumericStatType.AttackCritDamageMultiplier:
+            case NumericStatType.DodgeChance:
+            case NumericStatType.CooldownReduction:
+            case NumericStatType.Lifesteal:
+                return ProcessCurrentValueToPercentage(value, 2);
+        }
+    }
     #endregion
 
     #region Abilities
