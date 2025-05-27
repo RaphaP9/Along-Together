@@ -17,7 +17,7 @@ MonoBehaviour:
   objectRarity: 0
   description: TestObject
   sprite: {fileID: 0}
-  price: 200
+  price: 10
   numericEmbeddedStats:
   - numericStatType: 0
     numericStatModificationType: 0

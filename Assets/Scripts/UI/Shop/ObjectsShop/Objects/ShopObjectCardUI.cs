@@ -13,6 +13,8 @@ public class ShopObjectCardUI : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Button purchaseButton;
 
+    public InventoryObjectSO InventoryObjectSO => inventoryObjectSO;
+
     public event EventHandler<OnInventoryObjectEventArgs> OnInventoryObjectSet;
 
     public class OnInventoryObjectEventArgs : EventArgs

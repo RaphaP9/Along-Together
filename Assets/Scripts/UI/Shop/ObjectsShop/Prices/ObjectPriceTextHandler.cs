@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPriceTextHandler : MonoBehaviour
+public class ObjectPriceTextHandler : PriceTextHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Components")]
+    [SerializeField] private ShopObjectCardUI shopObjectCardUI;
+
+    protected override void OnEnable()
     {
-        
+        base.OnEnable();
+        shopObjectCardUI.OnInventoryObjectSet += ShopObjectCardUI_OnInventoryObjectSet;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void OnDisable()
     {
-        
+        base.OnDisable();
+        shopObjectCardUI.OnInventoryObjectSet -= ShopObjectCardUI_OnInventoryObjectSet;
+    }
+
+
+    private void ShopObjectCardUI_OnInventoryObjectSet(object sender, ShopObjectCardUI.OnInventoryObjectEventArgs e)
+    {
+        UpdatePriceTag(e.inventoryObjectSO.price);
+        UpdatePriceColor();
     }
 }

@@ -17,4 +17,4 @@ MonoBehaviour:
   objectRarity: 0
   description: 
   sprite: {fileID: 0}
-  price: 100
+  price: 35

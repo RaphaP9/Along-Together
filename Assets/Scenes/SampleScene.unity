@@ -9358,6 +9358,7 @@ MonoBehaviour:
   priceText: {fileID: 880540444}
   affordableColor: {r: 1, g: 1, b: 1, a: 1}
   cantPurchaseColor: {r: 1, g: 0.4292453, b: 0.4292453, a: 1}
+  currentPriceTag: 0
 --- !u!1 &884084225
 GameObject:
   m_ObjectHideFlags: 0
@@ -10324,6 +10325,18 @@ PrefabInstance:
     - target: {fileID: 3194144278246337336, guid: 3c221cee12cdb35498d253160444e951, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039023767812040641, guid: 3c221cee12cdb35498d253160444e951, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5943396
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039023767812040641, guid: 3c221cee12cdb35498d253160444e951, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5943396
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039023767812040641, guid: 3c221cee12cdb35498d253160444e951, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5943396
       objectReference: {fileID: 0}
     - target: {fileID: 5920697267368461729, guid: 3c221cee12cdb35498d253160444e951, type: 3}
       propertyPath: m_AnchorMax.y
