@@ -19,6 +19,8 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private int rerollTimes;
 
     public bool IsShopLocked => isShopLocked;
+    public int CurrentRerollCost => currentRerollCost;
+    public int RerollTimes => rerollTimes;
 
     public static event EventHandler<OnShopItemsEventArgs> OnShopItemsGenerated;
     public static event EventHandler<OnRerollCostEventArgs> OnRerollCostSet;
