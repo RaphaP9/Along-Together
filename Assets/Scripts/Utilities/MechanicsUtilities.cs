@@ -222,6 +222,7 @@ public static class MechanicsUtilities
             case NumericStatType.Armor:
             case NumericStatType.HealthRegen:
             case NumericStatType.ShieldRegen:
+            case NumericStatType.AttackDamage:
                 return ProcessCurrentValueToSimpleInt(value);
             case NumericStatType.MovementSpeed:
             case NumericStatType.AttackSpeed:
@@ -232,6 +233,7 @@ public static class MechanicsUtilities
             case NumericStatType.DodgeChance:
             case NumericStatType.CooldownReduction:
             case NumericStatType.Lifesteal:
+            case NumericStatType.Gold:
                 return ProcessCurrentValueToPercentage(value, 2);
         }
     }
