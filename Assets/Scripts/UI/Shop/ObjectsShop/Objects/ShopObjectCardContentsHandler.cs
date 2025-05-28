@@ -13,7 +13,10 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI objectNameText;
     [SerializeField] private Image objectImage;
     [SerializeField] private TextMeshProUGUI objectClassificationText;
-
+    [Space]
+    [SerializeField] private Transform numericStatsContainer;
+    [SerializeField] private Transform numericStatUIPrefab;
+    [Space]
     [SerializeField] private List<Image> borders;
 
     [Header("Settings")]
@@ -22,6 +25,9 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     [SerializeField] private Color rareColor;
     [SerializeField] private Color epicColor;
     [SerializeField] private Color legendaryColor;
+
+    [Header("Debug")]
+    [SerializeField] private bool debug;
 
     private void OnEnable()
     {
@@ -38,6 +44,8 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
         SetObjectImage(inventoryObjectSO);
         SetObjectClassificationText(inventoryObjectSO);
         SetBordersColor(inventoryObjectSO);
+
+        GenerateNumericStats(inventoryObjectSO);
     }
 
     private void SetObjectNameText(InventoryObjectSO inventoryObjectSO) => objectNameText.text = inventoryObjectSO._name;
@@ -70,6 +78,38 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
         UIUtilities.SetImagesColor(borders, color);
     }
 
+    private void GenerateNumericStats(InventoryObjectSO inventoryObjectSO)
+    {
+        ClearNumericStatsContainer();
+
+        foreach (NumericEmbeddedStat numericEmbeddedStat in inventoryObjectSO.GetNumericEmbeddedStats())
+        {
+            CreateNumericStat(numericEmbeddedStat);
+        }
+    }
+
+    private void CreateNumericStat(NumericEmbeddedStat numericEmbeddedStat)
+    {
+        Transform numericStatUI = Instantiate(numericStatUIPrefab, numericStatsContainer);
+
+        ShopObjectCardNumericStatUI shopObjectCardNumericStatUI = numericStatUI.GetComponent<ShopObjectCardNumericStatUI>();
+
+        if (shopObjectCardNumericStatUI == null)
+        {
+            if (debug) Debug.Log("Instantiated Numeric Stat UI does not contain a ShopObjectCardNumericStatUI component. Set will be ignored.");
+            return;
+        }
+
+        shopObjectCardNumericStatUI.SetNumericEmbededStat(numericEmbeddedStat);
+    }
+
+    private void ClearNumericStatsContainer()
+    {
+        foreach (Transform child in numericStatsContainer)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 
     private void ShopObjectCardUI_OnInventoryObjectSet(object sender, ShopObjectCardUI.OnInventoryObjectEventArgs e)
     {
