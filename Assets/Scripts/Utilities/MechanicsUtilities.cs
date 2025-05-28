@@ -12,8 +12,6 @@ public static class MechanicsUtilities
 
     private const float ABILITY_COOLDOWN_MIN_VALUE = 0.5f;
 
-    private const string PERCENTAGE_CHARACTER = "%";
-
     #region Perspective
     public static Vector2 ScaleVector2ToPerspective(Vector2 baseVector)
     {
@@ -150,93 +148,8 @@ public static class MechanicsUtilities
     }
     #endregion
 
-    #region StatUIProcessing
-    public static string ProcessCurrentValueToSimpleInt(float currentValue)
-    {
-        int intValue = Mathf.RoundToInt(currentValue);
-        string stringValue = intValue.ToString();
-        return stringValue;
-    }
+    #region Stats
 
-    public static string ProcessCurrentValueToSimpleFloat(float currentValue, int decimalPlaces)
-    {
-        float floatValue = GeneralUtilities.RoundToNDecimalPlaces(currentValue, decimalPlaces);
-        string stringValue = floatValue.ToString();
-        return stringValue;
-    }
-
-    public static string ProcessCurrentValueToPercentage(float currentValue, int decimalPlaces)
-    {
-        float floatValue = GeneralUtilities.RoundToNDecimalPlaces(currentValue, decimalPlaces);
-        string stringValue = TransformToPercentage(floatValue);
-        return stringValue;
-    }
-
-    public static string ProcessCurrentValueToExcessPercentage(float currentValue, int decimalPlaces)
-    {
-        float floatValue = GeneralUtilities.RoundToNDecimalPlaces(currentValue, decimalPlaces);
-        floatValue = floatValue - 1;
-        string stringValue = TransformToPercentage(floatValue);
-        return stringValue;
-    }
-
-    public static string TransformToPercentage(float value)
-    {
-        float percentageValue = value * 100;
-        string stringValue = percentageValue.ToString() + PERCENTAGE_CHARACTER;
-        return stringValue;
-    }
-
-    public static NumericStatEvaluationWay GetStatEvaluationWay(NumericStatType numericStatType)
-    {
-        switch (numericStatType)
-        {
-            default:
-                return NumericStatEvaluationWay.PositiveAvobeBase; //For now, values are treated as positive while avobe base value
-        }
-    }
-
-    public static NumericStatState GetNumericStatState(NumericStatType numericStatType, float currentValue, float baseValue)
-    {
-        if (currentValue > baseValue)
-        {
-            if (GetStatEvaluationWay(numericStatType) == NumericStatEvaluationWay.PositiveAvobeBase) return NumericStatState.Positive;
-            if (GetStatEvaluationWay(numericStatType) == NumericStatEvaluationWay.NegativeAvobeBase) return NumericStatState.Negative;
-        }
-
-        if (currentValue < baseValue)
-        {
-            if (GetStatEvaluationWay(numericStatType) == NumericStatEvaluationWay.PositiveAvobeBase) return NumericStatState.Negative;
-            if (GetStatEvaluationWay(numericStatType) == NumericStatEvaluationWay.NegativeAvobeBase) return NumericStatState.Positive;
-        }
-
-        return NumericStatState.Neutral;
-    }
-
-    public static string ProcessNumericStatValueToString(NumericStatType numericStatType, float value)
-    {
-        switch (numericStatType)
-        {
-            case NumericStatType.MaxHealth:
-            case NumericStatType.MaxShield:
-            case NumericStatType.Armor:
-            case NumericStatType.HealthRegen:
-            case NumericStatType.ShieldRegen:
-            case NumericStatType.AttackDamage:
-                return ProcessCurrentValueToSimpleInt(value);
-            case NumericStatType.MovementSpeed:
-            case NumericStatType.AttackSpeed:
-            default:
-                return ProcessCurrentValueToSimpleFloat(value, 2);
-            case NumericStatType.AttackCritChance:
-            case NumericStatType.AttackCritDamageMultiplier:
-            case NumericStatType.DodgeChance:
-            case NumericStatType.CooldownReduction:
-            case NumericStatType.Lifesteal:
-            case NumericStatType.Gold:
-                return ProcessCurrentValueToPercentage(value, 2);
-        }
-    }
     #endregion
 
     #region Abilities

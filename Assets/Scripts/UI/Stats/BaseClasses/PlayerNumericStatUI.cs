@@ -33,7 +33,7 @@ public abstract class PlayerNumericStatUI<T> : MonoBehaviour where T : MonoBehav
     #region Logic
     protected void UpdateUIByNewValue(float currentValue, float baseValue)
     {
-        NumericStatState statState = MechanicsUtilities.GetNumericStatState(GetNumericStatType(), currentValue, baseValue);
+        NumericStatState statState = MappingUtilities.GetNumericStatState(GetNumericStatType(), currentValue, baseValue);
 
         switch (statState)
         {
@@ -48,7 +48,7 @@ public abstract class PlayerNumericStatUI<T> : MonoBehaviour where T : MonoBehav
                 break;
         }
 
-        string processedValueText = MechanicsUtilities.ProcessNumericStatValueToString(GetNumericStatType(), currentValue);
+        string processedValueText = MappingUtilities.ProcessNumericStatValueToString(GetNumericStatType(), currentValue);
         SetValueText(processedValueText);
     }
 
