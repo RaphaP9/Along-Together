@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 1
   _name: TestObject
   objectRarity: 0
-  description: TestObject
+  description: Sample SampleSample SampleSample SampleSample Sample
   sprite: {fileID: 0}
   price: 21
   numericEmbeddedStats:

@@ -15,10 +15,13 @@ MonoBehaviour:
   id: 1
   _name: TestObject
   objectRarity: 0
-  description: TestObject
+  description: Sample Desciption AAA
   sprite: {fileID: 0}
   price: 5
   numericEmbeddedStats:
   - numericStatType: 0
     numericStatModificationType: 0
     value: -1
+  - numericStatType: 3
+    numericStatModificationType: 0
+    value: -0.5

@@ -19,6 +19,6 @@ MonoBehaviour:
   sprite: {fileID: 0}
   price: 8
   numericEmbeddedStats:
-  - numericStatType: 0
-    numericStatModificationType: 0
-    value: 3
+  - numericStatType: 6
+    numericStatModificationType: 1
+    value: -0.3

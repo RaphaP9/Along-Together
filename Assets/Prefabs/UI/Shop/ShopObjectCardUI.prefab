@@ -70,6 +70,7 @@ MonoBehaviour:
   objectClassificationText: {fileID: 6094123067128724913}
   numericStatsContainer: {fileID: 6691656525958236874}
   numericStatUISample: {fileID: 8210692481800771506}
+  objectDescriptionText: {fileID: 8591711243084447009}
   borders:
   - {fileID: 8329277990918438696}
   - {fileID: 2028992738263418834}
@@ -244,7 +245,7 @@ GameObject:
   - component: {fileID: 3968440880173883832}
   - component: {fileID: 8591711243084447009}
   m_Layer: 5
-  m_Name: DescriptionText
+  m_Name: ObjectDescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

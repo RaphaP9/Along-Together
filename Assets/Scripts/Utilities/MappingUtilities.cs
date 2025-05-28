@@ -6,17 +6,17 @@ using static UnityEngine.Rendering.DebugUI;
 public static class MappingUtilities 
 {
     #region Object Classification Consts 
-    private const string COMMON_OBJECT_TEXT = "Treat Común";
-    private const string UNCOMMON_OBJECT_TEXT = "Treat Poco Común";
-    private const string RARE_OBJECT_TEXT = "Treat Raro";
-    private const string EPIC_OBJECT_TEXT = "Treat Épico";
-    private const string LEGENDARY_OBJECT_TEXT = "Treat Legendario";
+    private const string COMMON_OBJECT_TEXT = "Objeto Común";
+    private const string UNCOMMON_OBJECT_TEXT = "Objeto Poco Común";
+    private const string RARE_OBJECT_TEXT = "Objeto Raro";
+    private const string EPIC_OBJECT_TEXT = "Objeto Épico";
+    private const string LEGENDARY_OBJECT_TEXT = "Objeto Legendario";
 
-    private const string COMMON_TREAT_TEXT = "Arma Común";
-    private const string UNCOMMON_TREAT_TEXT = "Arma Poco Común";
-    private const string RARE_TREAT_TEXT = "Arma Rara";
-    private const string EPIC_TREAT_TEXT = "Arma Épica";
-    private const string LEGENDARY_TREAT_TEXT = "Arma Legendaria";
+    private const string COMMON_TREAT_TEXT = "Treat Común";
+    private const string UNCOMMON_TREAT_TEXT = "Treat Poco Común";
+    private const string RARE_TREAT_TEXT = "Treat Rara";
+    private const string EPIC_TREAT_TEXT = "Treat Épica";
+    private const string LEGENDARY_TREAT_TEXT = "Treat Legendaria";
     #endregion
 
     #region Numeric Stat Consts
@@ -117,6 +117,93 @@ public static class MappingUtilities
     }
 
     public static string ProcessNumericStatValueToString(NumericStatType numericStatType, float value)
+    {
+        switch (numericStatType)
+        {
+            case NumericStatType.MaxHealth:
+            case NumericStatType.MaxShield:
+            case NumericStatType.Armor:
+            case NumericStatType.HealthRegen:
+            case NumericStatType.ShieldRegen:
+            case NumericStatType.AttackDamage:
+                return ProcessCurrentValueToSimpleInt(value);
+            case NumericStatType.MovementSpeed:
+            case NumericStatType.AttackSpeed:
+            default:
+                return ProcessCurrentValueToSimpleFloat(value, 2);
+            case NumericStatType.AttackCritChance:
+            case NumericStatType.AttackCritDamageMultiplier:
+            case NumericStatType.DodgeChance:
+            case NumericStatType.CooldownReduction:
+            case NumericStatType.Lifesteal:
+            case NumericStatType.Gold:
+                return ProcessCurrentValueToPercentage(value, 2);
+        }
+    }
+
+    public static string ProcessObjectNumericStatValueToString(NumericStatType numericStatType, NumericStatModificationType numericStatModificationType, float value)
+    {
+        switch (numericStatModificationType)
+        {
+            case NumericStatModificationType.Value:
+            default:
+                return ProcessObjectValueNumericStatValueToString(numericStatType, value);
+            case NumericStatModificationType.Percentage:
+                return ProcessObjectPercentageNumericStatValueToString(numericStatType, value);
+            case NumericStatModificationType.Replacement:
+                return ProcessObjectReplacementNumericStatValueToString(numericStatType, value);
+        }
+    }
+
+    public static string ProcessObjectValueNumericStatValueToString(NumericStatType numericStatType, float value)
+    {
+        switch (numericStatType)
+        {
+            case NumericStatType.MaxHealth:
+            case NumericStatType.MaxShield:
+            case NumericStatType.Armor:
+            case NumericStatType.HealthRegen:
+            case NumericStatType.ShieldRegen:
+            case NumericStatType.AttackDamage:
+                return ProcessCurrentValueToSimpleInt(value);
+            case NumericStatType.MovementSpeed:
+            case NumericStatType.AttackSpeed:
+            default:
+                return ProcessCurrentValueToSimpleFloat(value, 2);
+            case NumericStatType.AttackCritChance:
+            case NumericStatType.AttackCritDamageMultiplier:
+            case NumericStatType.DodgeChance:
+            case NumericStatType.CooldownReduction:
+            case NumericStatType.Lifesteal:
+            case NumericStatType.Gold:
+                return ProcessCurrentValueToPercentage(value, 2);
+        }
+    }
+
+    public static string ProcessObjectPercentageNumericStatValueToString(NumericStatType numericStatType, float value)
+    {
+        switch (numericStatType)
+        {
+            case NumericStatType.MaxHealth:
+            case NumericStatType.MaxShield:
+            case NumericStatType.Armor:
+            case NumericStatType.HealthRegen:
+            case NumericStatType.ShieldRegen:
+            case NumericStatType.AttackDamage:
+            case NumericStatType.MovementSpeed:
+            case NumericStatType.AttackSpeed:
+            case NumericStatType.AttackCritChance:
+            case NumericStatType.AttackCritDamageMultiplier:
+            case NumericStatType.DodgeChance:
+            case NumericStatType.CooldownReduction:
+            case NumericStatType.Lifesteal:
+            case NumericStatType.Gold:
+            default:
+                return ProcessCurrentValueToPercentage(value, 2);
+        }
+    }
+
+    public static string ProcessObjectReplacementNumericStatValueToString(NumericStatType numericStatType, float value)
     {
         switch (numericStatType)
         {

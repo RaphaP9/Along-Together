@@ -46,7 +46,7 @@ public class ShopObjectCardNumericStatUI : MonoBehaviour
                 break;
         }
 
-        string processedValueText = MappingUtilities.ProcessNumericStatValueToString(numericEmbeddedStat.numericStatType, numericEmbeddedStat.value);
+        string processedValueText = MappingUtilities.ProcessObjectNumericStatValueToString(numericEmbeddedStat.numericStatType, numericEmbeddedStat.numericStatModificationType, numericEmbeddedStat.value);
 
         if (numericEmbeddedStat.value > 0f) processedValueText = PLUS_CHARACTER + processedValueText; //Add plus character to values over 0
 

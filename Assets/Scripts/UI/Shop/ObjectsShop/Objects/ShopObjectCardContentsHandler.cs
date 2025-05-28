@@ -17,6 +17,8 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     [SerializeField] private Transform numericStatsContainer;
     [SerializeField] private Transform numericStatUISample;
     [Space]
+    [SerializeField] private TextMeshProUGUI objectDescriptionText;
+    [Space]
     [SerializeField] private List<Image> borders;
 
     [Header("Settings")]
@@ -44,6 +46,7 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
         SetObjectImage(inventoryObjectSO);
         SetObjectClassificationText(inventoryObjectSO);
         SetBordersColor(inventoryObjectSO);
+        SetObjectDescriptionText(inventoryObjectSO);
 
         GenerateNumericStats(inventoryObjectSO);
     }
@@ -51,6 +54,7 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     private void SetObjectNameText(InventoryObjectSO inventoryObjectSO) => objectNameText.text = inventoryObjectSO._name;
     private void SetObjectImage(InventoryObjectSO inventoryObjectSO) => objectImage.sprite = inventoryObjectSO.sprite;
     private void SetObjectClassificationText(InventoryObjectSO inventoryObjectSO) => objectClassificationText.text = MappingUtilities.MapInventoryObjectRarityType(inventoryObjectSO);
+    private void SetObjectDescriptionText(InventoryObjectSO inventoryObjectSO) => objectDescriptionText.text = inventoryObjectSO.description;
     private void SetBordersColor(InventoryObjectSO inventoryObjectSO)
     {
         Color color;
