@@ -11,6 +11,9 @@ public class RunNumericStatModifierManager : NumericStatModifierManager
     {
         ObjectsInventoryManager.OnObjectAddedToInventory += ObjectsInventoryManager_OnObjectAddedToInventory;
         ObjectsInventoryManager.OnObjectRemovedFromInventory += ObjectsInventoryManager_OnObjectRemovedFromInventory;
+
+        TreatsInventoryManager.OnTreatAddedToInventory += TreatsInventoryManager_OnTreatAddedToInventory;
+        TreatsInventoryManager.OnTreatRemovedFromInventory += TreatsInventoryManager_OnTreatRemovedFromInventory;
     }
 
     protected virtual void OnDisable()
@@ -41,6 +44,16 @@ public class RunNumericStatModifierManager : NumericStatModifierManager
     private void ObjectsInventoryManager_OnObjectRemovedFromInventory(object sender, ObjectsInventoryManager.OnObjectEventArgs e)
     {
         RemoveStatModifiersByGUID(e.objectIdentified.assignedGUID);
+    }
+
+    private void TreatsInventoryManager_OnTreatAddedToInventory(object sender, TreatsInventoryManager.OnTreatEventArgs e)
+    {
+        AddStatModifiers(e.treatIdentified.assignedGUID, e.treatIdentified.treatSO);
+    }
+
+    private void TreatsInventoryManager_OnTreatRemovedFromInventory(object sender, TreatsInventoryManager.OnTreatEventArgs e)
+    {
+        RemoveStatModifiersByGUID(e.treatIdentified.assignedGUID);
     }
     #endregion
 }

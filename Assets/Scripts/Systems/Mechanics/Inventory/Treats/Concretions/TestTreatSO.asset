@@ -15,6 +15,10 @@ MonoBehaviour:
   id: 0
   _name: TestTreat1
   objectRarity: 0
-  description: 
+  description: Treat1
   sprite: {fileID: 0}
   price: 35
+  numericEmbeddedStats:
+  - numericStatType: 7
+    numericStatModificationType: 1
+    value: 0.2

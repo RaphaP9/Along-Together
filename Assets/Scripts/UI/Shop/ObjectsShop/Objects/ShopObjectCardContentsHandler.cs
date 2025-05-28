@@ -55,6 +55,7 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     private void SetObjectImage(InventoryObjectSO inventoryObjectSO) => objectImage.sprite = inventoryObjectSO.sprite;
     private void SetObjectClassificationText(InventoryObjectSO inventoryObjectSO) => objectClassificationText.text = MappingUtilities.MapInventoryObjectRarityType(inventoryObjectSO);
     private void SetObjectDescriptionText(InventoryObjectSO inventoryObjectSO) => objectDescriptionText.text = inventoryObjectSO.description;
+    
     private void SetBordersColor(InventoryObjectSO inventoryObjectSO)
     {
         Color color;

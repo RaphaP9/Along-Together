@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: TestTreatSO3
   m_EditorClassIdentifier: 
   id: 0
-  _name: TestTreat1
+  _name: TestTreat3
   objectRarity: 0
   description: 
   sprite: {fileID: 0}
   price: 35
+  numericEmbeddedStats: []

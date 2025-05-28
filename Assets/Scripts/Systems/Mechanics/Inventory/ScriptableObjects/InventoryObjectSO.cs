@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class InventoryObjectSO : ScriptableObject
+public abstract class InventoryObjectSO : ScriptableObject, IHasEmbeddedNumericStats
 {
     [Header("InventoryObjectSO Settings")]
     public int id;
@@ -17,6 +17,5 @@ public abstract class InventoryObjectSO : ScriptableObject
     public List<NumericEmbeddedStat> numericEmbeddedStats;
 
     public abstract InventoryObjectType GetInventoryObjectType();
-
     public List<NumericEmbeddedStat> GetNumericEmbeddedStats() => numericEmbeddedStats;
 }
