@@ -15,7 +15,7 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI objectClassificationText;
     [Space]
     [SerializeField] private Transform numericStatsContainer;
-    [SerializeField] private Transform numericStatUIPrefab;
+    [SerializeField] private Transform numericStatUISample;
     [Space]
     [SerializeField] private List<Image> borders;
 
@@ -82,6 +82,12 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     {
         ClearNumericStatsContainer();
 
+        if(inventoryObjectSO.GetNumericEmbeddedStats().Count <= 0)
+        {
+            numericStatsContainer.gameObject.SetActive(false);
+            return;
+        }
+
         foreach (NumericEmbeddedStat numericEmbeddedStat in inventoryObjectSO.GetNumericEmbeddedStats())
         {
             CreateNumericStat(numericEmbeddedStat);
@@ -90,7 +96,7 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
 
     private void CreateNumericStat(NumericEmbeddedStat numericEmbeddedStat)
     {
-        Transform numericStatUI = Instantiate(numericStatUIPrefab, numericStatsContainer);
+        Transform numericStatUI = Instantiate(numericStatUISample, numericStatsContainer);
 
         ShopObjectCardNumericStatUI shopObjectCardNumericStatUI = numericStatUI.GetComponent<ShopObjectCardNumericStatUI>();
 
@@ -101,13 +107,14 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
         }
 
         shopObjectCardNumericStatUI.SetNumericEmbededStat(numericEmbeddedStat);
+        numericStatUI.gameObject.SetActive(true);
     }
 
     private void ClearNumericStatsContainer()
     {
         foreach (Transform child in numericStatsContainer)
         {
-            Destroy(child.gameObject);
+            child.gameObject.SetActive(false);
         }
     }
 
