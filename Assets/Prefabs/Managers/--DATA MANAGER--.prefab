@@ -63,9 +63,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5438476101881666189}
   - {fileID: 6034867946566760265}
   - {fileID: 7535539065777201091}
-  - {fileID: 5438476101881666189}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8776526556619537174
@@ -262,8 +262,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableDataPersistence: 1
-  enableDataSaveAfterLoad: 1
-  enableDataSaveOnQuit: 1
   fileName: perpetualData.atdata
   useEncryption: 0
   debug: 0
@@ -280,8 +278,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableDataPersistence: 1
-  enableDataSaveAfterLoad: 1
-  enableDataSaveOnQuit: 1
   fileName: runData.atdata
   useEncryption: 0
   debug: 0
@@ -329,11 +325,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd4ff96e9fdc8040b580afd2ffb953c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunData:
+  runData:
+    currentStageNumber: 1
+    currentRoundNumber: 1
+    currentGold: 0
+    currentCharacterID: 0
     currentHealth: 0
     currentShield: 0
+    objects: []
+    treats: []
     assetStats: []
     numericStats: []
+    abilityLevelGroups: []
+    abilitySlotGroups: []
 --- !u!1 &7233732281889248120
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,6 +382,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f7c250297803f4fbc060e41b9b903c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PerpetualData:
+  perpetualData:
     assetStats: []
     numericStats: []

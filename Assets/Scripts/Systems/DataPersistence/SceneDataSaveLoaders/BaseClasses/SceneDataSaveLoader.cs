@@ -9,8 +9,9 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
     [SerializeField] private bool allowDynamicLoad; //Only Session Data Loads Dinamically
     [Space]
     [SerializeField] private SaveMode dynamicSaveMode;
-    [SerializeField] private SaveMode applicationQuitSaveMode;
+    [SerializeField] private SaveMode applicationQuitSaveMode; //Only Unity Editor
 
+    //CompleteDataLoad/Save performs both JSON and session data operations
     private enum LoadMode {CompleteDataLoad, JSONDataLoad, SessionDataLoad, NoLoad}
     private enum SaveMode {CompleteDataSave, JSONDataSave, SessionDataSave, NoSave}
 

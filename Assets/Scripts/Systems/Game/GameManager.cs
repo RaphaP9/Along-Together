@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private State state;
     [SerializeField] private State previousState;
 
-    public enum State {PlayerSpawn, Combat, Shop, Upgrade, Cinematic, Dialogue, Lose }
+    public enum State {PlayerSpawning, BeginningCombat, Combat, EndingCombat, Shop, Upgrade, Cinematic, Dialogue, Lose } //Monologue is considered non GameState intrusive, can happen on combat,etc
 
     public State GameState => state;
 
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        ChangeState(State.PlayerSpawn);
+        ChangeState(State.PlayerSpawning);
     }
 
     private void SetSingleton()

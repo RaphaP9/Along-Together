@@ -46,7 +46,6 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         LoadPlayerCurrentShield();
 
         LoadObjects();
-
         LoadTreats();
 
         LoadRunNumericStats();
@@ -69,7 +68,6 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         SavePlayerCurrentShield();
 
         SaveObjects();
-
         SaveTreats();
 
         SaveRunNumericStats();
