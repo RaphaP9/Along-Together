@@ -5,7 +5,7 @@ using UnityEngine.Video;
 
 [CreateAssetMenu(fileName = "NewVideoCinematicSO", menuName = "ScriptableObjects/Cinematics/VideoCinematic")]
 
-public class VideCinematicSO : ScriptableObject
+public class VideoCinematicSO : ScriptableObject
 {
     public int id;
     public string cinematicName;

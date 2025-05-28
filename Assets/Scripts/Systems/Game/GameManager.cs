@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     private void SetSingleton()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
