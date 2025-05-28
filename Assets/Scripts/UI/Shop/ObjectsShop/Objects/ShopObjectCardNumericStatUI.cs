@@ -17,7 +17,6 @@ public class ShopObjectCardNumericStatUI : MonoBehaviour
     [SerializeField] protected Color neutralColor;
     [SerializeField] protected Color negativeColor;
 
-    private const string PLUS_CHARACTER = "+";
 
     public void SetNumericEmbededStat(NumericEmbeddedStat numericEmbeddedStat)
     {
@@ -31,7 +30,7 @@ public class ShopObjectCardNumericStatUI : MonoBehaviour
 
     private void SetStatValueText(NumericEmbeddedStat numericEmbeddedStat)
     {
-        NumericStatState statState = MappingUtilities.GetNumericStatState(numericEmbeddedStat.numericStatType, numericEmbeddedStat.value, 0f);
+        NumericStatState statState = MappingUtilities.GetNumericStatState(numericEmbeddedStat.numericStatType, numericEmbeddedStat.value, 0f); //Base Value is always 0
 
         switch (statState)
         {
@@ -47,8 +46,6 @@ public class ShopObjectCardNumericStatUI : MonoBehaviour
         }
 
         string processedValueText = MappingUtilities.ProcessObjectNumericStatValueToString(numericEmbeddedStat.numericStatType, numericEmbeddedStat.numericStatModificationType, numericEmbeddedStat.value);
-
-        if (numericEmbeddedStat.value > 0f) processedValueText = PLUS_CHARACTER + processedValueText; //Add plus character to values over 0
 
         SetStatValueText(processedValueText);
     }

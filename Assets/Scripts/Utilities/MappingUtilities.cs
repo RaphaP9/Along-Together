@@ -37,6 +37,7 @@ public static class MappingUtilities
     #endregion
 
     private const string PERCENTAGE_CHARACTER = "%";
+    private const string PLUS_CHARACTER = "+";
 
     #region Stats
 
@@ -143,16 +144,25 @@ public static class MappingUtilities
 
     public static string ProcessObjectNumericStatValueToString(NumericStatType numericStatType, NumericStatModificationType numericStatModificationType, float value)
     {
+        string processedString = "";
+
         switch (numericStatModificationType)
         {
             case NumericStatModificationType.Value:
             default:
-                return ProcessObjectValueNumericStatValueToString(numericStatType, value);
+                processedString = ProcessObjectValueNumericStatValueToString(numericStatType, value);
+                break;
             case NumericStatModificationType.Percentage:
-                return ProcessObjectPercentageNumericStatValueToString(numericStatType, value);
+                processedString = ProcessObjectPercentageNumericStatValueToString(numericStatType, value);
+                break;
             case NumericStatModificationType.Replacement:
-                return ProcessObjectReplacementNumericStatValueToString(numericStatType, value);
+                processedString = ProcessObjectReplacementNumericStatValueToString(numericStatType, value);
+                break;
         }
+
+        if (value > 0f) processedString = PLUS_CHARACTER + processedString; //Add plus character to values over 0
+
+        return processedString;
     }
 
     public static string ProcessObjectValueNumericStatValueToString(NumericStatType numericStatType, float value)
