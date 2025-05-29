@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: TestObjectSO5
   m_EditorClassIdentifier: 
   id: 1
-  _name: TestObject
+  _name: TestObject5
   objectRarity: 0
   description: Sample Desciption AAA
   sprite: {fileID: 0}
   price: 5
+  sellPrice: 5
   numericEmbeddedStats:
   - numericStatType: 0
     numericStatModificationType: 0

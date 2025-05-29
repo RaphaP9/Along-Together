@@ -18,6 +18,7 @@ MonoBehaviour:
   description: Treat1
   sprite: {fileID: 0}
   price: 35
+  sellPrice: 10
   numericEmbeddedStats:
   - numericStatType: 7
     numericStatModificationType: 1

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: TestObjectSO3
   m_EditorClassIdentifier: 
   id: 1
-  _name: TestObject
+  _name: TestObject3
   objectRarity: 0
   description: TestObject
   sprite: {fileID: 0}
   price: 8
+  sellPrice: 5
   numericEmbeddedStats:
   - numericStatType: 6
     numericStatModificationType: 1
