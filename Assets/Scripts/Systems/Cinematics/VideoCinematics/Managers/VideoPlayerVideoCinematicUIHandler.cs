@@ -11,6 +11,16 @@ public class VideoPlayerVideoCinematicUIHandler : MonoBehaviour
 
     private CanvasGroup canvasGroup;
 
+    private void OnEnable()
+    {
+        
+    }
+
+    private void OnDisable()
+    {
+        
+    }
+
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -21,7 +31,7 @@ public class VideoPlayerVideoCinematicUIHandler : MonoBehaviour
         SetVideoOutputMode();
     }
 
-    public void CompletePlayVideo(VideoClip videoClip)
+    private void CompletePlayVideo(VideoClip videoClip)
     {
         SetVideoClip(videoClip);
         SetVideoAudioSource(videoAudioSource);
@@ -29,7 +39,7 @@ public class VideoPlayerVideoCinematicUIHandler : MonoBehaviour
         PlayVideo();
     }
 
-    public void CompleteStopVideo()
+    private void CompleteStopVideo()
     {
         StopVideo();
         HideVideoUI();

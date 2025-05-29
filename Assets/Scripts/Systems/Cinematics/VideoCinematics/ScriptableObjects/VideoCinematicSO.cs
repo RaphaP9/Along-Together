@@ -9,5 +9,6 @@ public class VideoCinematicSO : ScriptableObject
 {
     public int id;
     public string cinematicName;
+    public VideoCinematicTransitionType transitionType;
     public VideoClip videoClip;
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static MonologueManager;
 
 public class VideoCinematicManager : MonoBehaviour
 {
@@ -16,18 +15,20 @@ public class VideoCinematicManager : MonoBehaviour
 
     public VideoCinematicState State => videoCinematicState;
 
-    public enum VideoCinematicState { NotOnCinematic, TransitionIn, Playing, TransitionOut }
+    public enum VideoCinematicState { NotOnCinematic, TransitionIn, Idle, TransitionOut }
 
     #region Flags
     private bool cinematicTransitionInCompleted = false;
     private bool cinematicTransitionOutCompleted = false;
+
+    private bool shouldSkipCinematic = false;
     #endregion
 
     #region Events
-    public static event EventHandler<OnMonologueEventArgs> OnCinematicBegin;
-    public static event EventHandler<OnMonologueEventArgs> OnCinematicEnd;
+    public static event EventHandler<OnVideoCinematicEventArgs> OnCinematicBegin;
+    public static event EventHandler<OnVideoCinematicEventArgs> OnCinematicEnd;
 
-    public static event EventHandler<OnMonologueEventArgs> OnCinematicIdle;
+    public static event EventHandler<OnVideoCinematicEventArgs> OnCinematicIdle;
 
     public static event EventHandler OnGeneralCinematicBegin;
     public static event EventHandler OnGeneralCinematicConcluded;
@@ -56,8 +57,76 @@ public class VideoCinematicManager : MonoBehaviour
         }
     }
 
+    public void StartCinematic(VideoCinematicSO videoCinematicSO)
+    {
+        if (!CanStartCinematic()) return;
 
-    private bool CanStartMonologue()
+        StartCoroutine(CinematicCoroutine(videoCinematicSO));
+    }
+
+    public void EndCinematic()
+    {
+        if (videoCinematicState != VideoCinematicState.Idle) return;
+        shouldSkipCinematic = true;
+    }
+
+    private IEnumerator CinematicCoroutine(VideoCinematicSO videoCinematicSO)
+    {
+        OnGeneralCinematicBegin?.Invoke(this, new OnVideoCinematicEventArgs { videoCinematicSO = videoCinematicSO});
+
+        SetCurrentCinematic(videoCinematicSO);
+
+        #region TransitionInLogic
+        SetCinematicState(VideoCinematicState.TransitionIn);
+
+        cinematicTransitionInCompleted = false;
+        OnCinematicBegin?.Invoke(this, new OnVideoCinematicEventArgs { videoCinematicSO = currentVideoCinematicSO });
+
+        yield return new WaitUntil(() => cinematicTransitionInCompleted);
+        cinematicTransitionInCompleted = false;
+        #endregion
+
+        #region Idle Logic
+        shouldSkipCinematic = false;
+        SetCinematicState(VideoCinematicState.Idle);
+        OnCinematicIdle?.Invoke(this, new OnVideoCinematicEventArgs { videoCinematicSO = currentVideoCinematicSO });
+
+        float calculatedDuration = currentVideoCinematicSO.videoClip.frameCount / (float)currentVideoCinematicSO.videoClip.frameRate;
+
+        #region Wait Sentence Time Logic
+
+        float elapsedTime = 0;
+
+        while (elapsedTime <= calculatedDuration)
+        {
+            if (shouldSkipCinematic) break;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        #endregion
+
+        shouldSkipCinematic = false;
+
+        OnCinematicEnd?.Invoke(this, new OnVideoCinematicEventArgs { videoCinematicSO = currentVideoCinematicSO });
+
+        #region Transition Out Logic
+        SetCinematicState(VideoCinematicState.TransitionIn);
+
+        cinematicTransitionOutCompleted = false;
+        OnCinematicBegin?.Invoke(this, new OnVideoCinematicEventArgs { videoCinematicSO = currentVideoCinematicSO });
+
+        yield return new WaitUntil(() => cinematicTransitionOutCompleted);
+        cinematicTransitionOutCompleted = false;
+        #endregion
+
+        OnGeneralCinematicConcluded?.Invoke(this, new OnVideoCinematicEventArgs { videoCinematicSO = currentVideoCinematicSO });
+        SetCinematicState(VideoCinematicState.NotOnCinematic);
+        ClearCurrentCinematic(); 
+    }
+    #endregion
+
+    private bool CanStartCinematic()
     {
         if (videoCinematicState != VideoCinematicState.NotOnCinematic) return false;
         return true;

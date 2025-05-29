@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static System.TimeZoneInfo;
 
 public class SceneTransitionUIHandler : MonoBehaviour
 {
@@ -60,6 +59,7 @@ public class SceneTransitionUIHandler : MonoBehaviour
         transitionAnimator.ResetTrigger(TRANSITION_IN_TRIGGER);
         transitionAnimator.SetTrigger(TRANSITION_OUT_TRIGGER);
     }
+
     private void TriggerTransitionIn(TransitionType transitionType)
     {
         Animator transitionAnimator = FindAnimatorByTransitionType(transitionType);
