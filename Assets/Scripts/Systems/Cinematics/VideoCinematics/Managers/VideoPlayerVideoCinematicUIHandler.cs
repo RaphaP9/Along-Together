@@ -13,12 +13,14 @@ public class VideoPlayerVideoCinematicUIHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        VideoCinematicManager.OnCinematicPlayStart += VideoCinematicManager_OnCinematicPlayStart;
+        VideoCinematicManager.OnCinematicPlayEnd += VideoCinematicManager_OnCinematicPlayEnd;
     }
 
     private void OnDisable()
     {
-        
+        VideoCinematicManager.OnCinematicPlayStart -= VideoCinematicManager_OnCinematicPlayStart;
+        VideoCinematicManager.OnCinematicPlayEnd -= VideoCinematicManager_OnCinematicPlayEnd;
     }
 
     private void Awake()
@@ -67,4 +69,16 @@ public class VideoPlayerVideoCinematicUIHandler : MonoBehaviour
     private void SetVideoAudioSource(AudioSource audioSource) => videoPlayer.SetTargetAudioSource(0,audioSource);
     private void PlayVideo() => videoPlayer.Play();
     private void StopVideo() => videoPlayer.Stop();
+
+    #region Subscriptions
+    private void VideoCinematicManager_OnCinematicPlayStart(object sender, VideoCinematicManager.OnVideoCinematicEventArgs e)
+    {
+        CompletePlayVideo(e.videoCinematicSO.videoClip);
+    }
+
+    private void VideoCinematicManager_OnCinematicPlayEnd(object sender, VideoCinematicManager.OnVideoCinematicEventArgs e)
+    {
+        CompleteStopVideo();
+    }
+    #endregion
 }

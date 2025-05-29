@@ -7,6 +7,8 @@ public class SingleVideoCinematicTransitionUINotifier : MonoBehaviour
     [Header("Components")]
     [SerializeField] private VideoCinematicUI videoCinematicUI;
 
-    public void NotifyTransitionInEnd() => videoCinematicUI.TransitionInEnd();
-    public void NotifyTransitionOutEnd() => videoCinematicUI.TransitionOutEnd();
+    public void NotifyTransitionInOpeningEnd() => videoCinematicUI.TransitionInOpeningEnd();
+    public void NotifyTransitionInClosingEnd() => videoCinematicUI.TransitionInClosingEnd();
+    public void NotifyTransitionOutOpeningEnd() => videoCinematicUI.TransitionOutOpeningEnd();
+    public void NotifyTransitionOutClosingEnd() => videoCinematicUI.TransitionOutClosingEnd();
 }

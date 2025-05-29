@@ -18,8 +18,11 @@ public class VideoCinematicManager : MonoBehaviour
     public enum VideoCinematicState { NotOnCinematic, TransitionIn, Idle, TransitionOut }
 
     #region Flags
-    private bool cinematicTransitionInCompleted = false;
-    private bool cinematicTransitionOutCompleted = false;
+    private bool cinematicTransitionInOpeningCompleted = false;
+    private bool cinematicTransitionInClosingCompleted = false;
+
+    private bool cinematicTransitionOutOpeningCompleted = false;
+    private bool cinematicTransitionOutClosingCompleted = false;
 
     private bool shouldSkipCinematic = false;
     #endregion
@@ -30,6 +33,9 @@ public class VideoCinematicManager : MonoBehaviour
 
     public static event EventHandler<OnVideoCinematicEventArgs> OnCinematicIdle;
 
+    public static event EventHandler<OnVideoCinematicEventArgs> OnCinematicPlayStart;
+    public static event EventHandler<OnVideoCinematicEventArgs> OnCinematicPlayEnd;
+
     public static event EventHandler OnGeneralCinematicBegin;
     public static event EventHandler OnGeneralCinematicConcluded;
     #endregion
@@ -37,6 +43,15 @@ public class VideoCinematicManager : MonoBehaviour
     public class OnVideoCinematicEventArgs : EventArgs
     {
         public VideoCinematicSO videoCinematicSO;
+    }
+
+    private void OnEnable()
+    {
+        VideoCinematicUI.OnTransitionInOpeningEnd += VideoCinematicUI_OnTransitionInOpeningEnd;
+        VideoCinematicUI.OnTransitionInClosingEnd += VideoCinematicUI_OnTransitionInClosingEnd;
+
+        VideoCinematicUI.OnTransitionOutOpeningEnd += VideoCinematicUI_OnTransitionOutOpeningEnd;
+        VideoCinematicUI.OnTransitionOutClosingEnd += VideoCinematicUI_OnTransitionOutClosingEnd;
     }
 
     private void Awake()
@@ -61,7 +76,7 @@ public class VideoCinematicManager : MonoBehaviour
     {
         if (!CanStartCinematic()) return;
 
-        StartCoroutine(CinematicCoroutine(videoCinematicSO));
+        //StartCoroutine(CinematicCoroutine(videoCinematicSO));
     }
 
     public void EndCinematic()
@@ -70,25 +85,28 @@ public class VideoCinematicManager : MonoBehaviour
         shouldSkipCinematic = true;
     }
 
+    /*
     private IEnumerator CinematicCoroutine(VideoCinematicSO videoCinematicSO)
     {
         OnGeneralCinematicBegin?.Invoke(this, new OnVideoCinematicEventArgs { videoCinematicSO = videoCinematicSO});
 
         SetCurrentCinematic(videoCinematicSO);
 
-        #region TransitionInLogic
         SetCinematicState(VideoCinematicState.TransitionIn);
 
-        cinematicTransitionInCompleted = false;
+        #region TransitionInOpeningLogic
+
+        cinematicTransitionInOpeningCompleted = false;
         OnCinematicBegin?.Invoke(this, new OnVideoCinematicEventArgs { videoCinematicSO = currentVideoCinematicSO });
 
-        yield return new WaitUntil(() => cinematicTransitionInCompleted);
-        cinematicTransitionInCompleted = false;
+        yield return new WaitUntil(() => cinematicTransitionInOpeningCompleted);
+        cinematicTransitionInOpeningCompleted = false;
         #endregion
+
+        SetCinematicState(VideoCinematicState.Idle);
 
         #region Idle Logic
         shouldSkipCinematic = false;
-        SetCinematicState(VideoCinematicState.Idle);
         OnCinematicIdle?.Invoke(this, new OnVideoCinematicEventArgs { videoCinematicSO = currentVideoCinematicSO });
 
         float calculatedDuration = currentVideoCinematicSO.videoClip.frameCount / (float)currentVideoCinematicSO.videoClip.frameRate;
@@ -125,6 +143,7 @@ public class VideoCinematicManager : MonoBehaviour
         ClearCurrentCinematic(); 
     }
     #endregion
+    */
 
     private bool CanStartCinematic()
     {
@@ -140,5 +159,13 @@ public class VideoCinematicManager : MonoBehaviour
     #region Setters
     private void SetCurrentCinematic(VideoCinematicSO videoCinematicSO) => currentVideoCinematicSO = videoCinematicSO;
     private void ClearCurrentCinematic() => currentVideoCinematicSO = null;
+    #endregion
+
+    #region Subscriptions
+    private void VideoCinematicUI_OnTransitionInOpeningEnd(object sender, VideoCinematicUI.OnVideoCinematicUIEventArgs e) => cinematicTransitionInOpeningCompleted = true;
+    private void VideoCinematicUI_OnTransitionInClosingEnd(object sender, VideoCinematicUI.OnVideoCinematicUIEventArgs e) => cinematicTransitionInClosingCompleted = true;
+
+    private void VideoCinematicUI_OnTransitionOutOpeningEnd(object sender, VideoCinematicUI.OnVideoCinematicUIEventArgs e) => cinematicTransitionOutOpeningCompleted = true;
+    private void VideoCinematicUI_OnTransitionOutClosingEnd(object sender, VideoCinematicUI.OnVideoCinematicUIEventArgs e) => cinematicTransitionOutClosingCompleted = true;
     #endregion
 }
