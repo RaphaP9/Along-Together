@@ -31,6 +31,7 @@ public class VideoPlayerVideoCinematicUIHandler : MonoBehaviour
     private void Start()
     {
         SetVideoOutputMode();
+        HideVideoUI();
     }
 
     private void CompletePlayVideo(VideoClip videoClip)

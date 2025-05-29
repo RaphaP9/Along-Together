@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static MonologueUI;
-using static System.TimeZoneInfo;
 
 public class VideoCinematicUI : MonoBehaviour
 {
+    public static VideoCinematicUI Instance { get; private set; }
+
     [Header("Lists")]
     [SerializeField] private List<VideoCinematicTransitionTypeAnimator> transitionTypeAnimators;
 
@@ -14,7 +14,6 @@ public class VideoCinematicUI : MonoBehaviour
     [SerializeField] private bool debug;
 
     private const string HIDDEN_ANIMATION_NAME = "Hidden";
-    private const string IDLE_ANIMATION_NAME = "Idle";
 
     private const string TRANSITION_IN_OPENING_ANIMATION_NAME = "TransitionInOpening";
     private const string TRANSITION_IN_CLOSING_ANIMATION_NAME = "TransitionInClosing";
@@ -50,12 +49,41 @@ public class VideoCinematicUI : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        VideoCinematicManager.OnCinematicBeginA += VideoCinematicManager_OnCinematicBeginA;
+        VideoCinematicManager.OnCinematicBeginB += VideoCinematicManager_OnCinematicBeginB;
+
+        VideoCinematicManager.OnCinematicEndA += VideoCinematicManager_OnCinematicEndA;
+        VideoCinematicManager.OnCinematicEndB += VideoCinematicManager_OnCinematicEndB;
+
+        VideoCinematicManager.OnCinematicIdle += VideoCinematicManager_OnCinematicIdle;
+        VideoCinematicManager.OnGeneralCinematicConcluded += VideoCinematicManager_OnGeneralCinematicConcluded;
     }
 
     private void OnDisable()
     {
-        
+        VideoCinematicManager.OnCinematicBeginA -= VideoCinematicManager_OnCinematicBeginA;
+        VideoCinematicManager.OnCinematicBeginB -= VideoCinematicManager_OnCinematicBeginB;
+
+        VideoCinematicManager.OnCinematicEndA -= VideoCinematicManager_OnCinematicEndA;
+        VideoCinematicManager.OnCinematicEndB -= VideoCinematicManager_OnCinematicEndB;
+    }
+
+    private void Awake()
+    {
+        SetSingleton();
+    }
+
+    private void SetSingleton()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("There is more than one VideoCinematicUI instance, proceding to destroy duplicate");
+            Destroy(gameObject);
+        }
     }
 
     private void SetCurrentVideoCinematic(VideoCinematicSO videoCinematicSO) => currentVideoCinematic = videoCinematicSO;
@@ -101,16 +129,7 @@ public class VideoCinematicUI : MonoBehaviour
         OnTransitionOutClosingStart?.Invoke(this, new OnVideoCinematicUIEventArgs { videoCinematicSO = videoCinematicSO });
     }
 
-    private void CinematicIdle(VideoCinematicSO videoCinematicSO)
-    {
-        Animator transitionAnimator = FindAnimatorByTransitionType(videoCinematicSO.transitionType);
-
-        if (transitionAnimator == null) return;
-
-        transitionAnimator.Play(IDLE_ANIMATION_NAME);
-    }
-
-    private void CinematicConcluded(VideoCinematicSO videoCinematicSO)
+    private void TransitionHidden(VideoCinematicSO videoCinematicSO)
     {
         Animator transitionAnimator = FindAnimatorByTransitionType(videoCinematicSO.transitionType);
 
@@ -119,10 +138,39 @@ public class VideoCinematicUI : MonoBehaviour
         transitionAnimator.Play(HIDDEN_ANIMATION_NAME);
     }
     #endregion
+
     public void TransitionInOpeningEnd() => OnTransitionInOpeningEnd?.Invoke(this, new OnVideoCinematicUIEventArgs { videoCinematicSO = currentVideoCinematic });
     public void TransitionInClosingEnd() => OnTransitionInClosingEnd?.Invoke(this, new OnVideoCinematicUIEventArgs { videoCinematicSO = currentVideoCinematic });
     public void TransitionOutOpeningEnd() => OnTransitionOutOpeningEnd?.Invoke(this, new OnVideoCinematicUIEventArgs { videoCinematicSO = currentVideoCinematic });
     public void TransitionOutClosingEnd() => OnTransitionOutClosingEnd?.Invoke(this, new OnVideoCinematicUIEventArgs { videoCinematicSO = currentVideoCinematic });
+
+    #region Duration Methods
+    public float GetTransitionInClosingDurationForTransitionType(VideoCinematicTransitionType transitionType)
+    {
+        Animator transitionAnimator = FindAnimatorByTransitionType(transitionType);
+
+        if(transitionAnimator == null)
+        {
+            if (debug) Debug.Log($"Transition Animation for TransitionType:{transitionType} is null. Returninf 0");
+            return 0f;
+        }
+
+        return AnimationUtilities.GetAnimationClipDuration(transitionAnimator, TRANSITION_IN_CLOSING_ANIMATION_NAME);
+    }
+
+    public float GetTransitionOutOpeningDurationForTransitionType(VideoCinematicTransitionType transitionType)
+    {
+        Animator transitionAnimator = FindAnimatorByTransitionType(transitionType);
+
+        if (transitionAnimator == null)
+        {
+            if (debug) Debug.Log($"Transition Animation for TransitionType:{transitionType} is null. Returninf 0");
+            return 0f;
+        }
+
+        return AnimationUtilities.GetAnimationClipDuration(transitionAnimator, TRANSITION_OUT_OPENING_ANIMATION_NAME);
+    }
+    #endregion
 
     private Animator FindAnimatorByTransitionType(VideoCinematicTransitionType transitionType)
     {
@@ -137,7 +185,32 @@ public class VideoCinematicUI : MonoBehaviour
     }
 
     #region Subscriptions
+    private void VideoCinematicManager_OnCinematicBeginA(object sender, VideoCinematicManager.OnVideoCinematicEventArgs e)
+    {
+        CinematicTransitionInOpening(e.videoCinematicSO);
+    }
+    private void VideoCinematicManager_OnCinematicBeginB(object sender, VideoCinematicManager.OnVideoCinematicEventArgs e)
+    {
+        CinematicTransitionInClosing(e.videoCinematicSO);
+    }
+    private void VideoCinematicManager_OnCinematicEndA(object sender, VideoCinematicManager.OnVideoCinematicEventArgs e)
+    {
+        CinematicTransitionOutOpening(e.videoCinematicSO);
+    }
+    private void VideoCinematicManager_OnCinematicEndB(object sender, VideoCinematicManager.OnVideoCinematicEventArgs e)
+    {
+        CinematicTransitionOutClosing(e.videoCinematicSO);
+    }
 
+    private void VideoCinematicManager_OnCinematicIdle(object sender, VideoCinematicManager.OnVideoCinematicEventArgs e)
+    {
+        TransitionHidden(e.videoCinematicSO);
+    }
+
+    private void VideoCinematicManager_OnGeneralCinematicConcluded(object sender, VideoCinematicManager.OnVideoCinematicEventArgs e)
+    {
+        TransitionHidden(e.videoCinematicSO);
+    }
     #endregion
 
 }

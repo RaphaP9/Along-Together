@@ -15,4 +15,4 @@ MonoBehaviour:
   id: 1
   cinematicName: TestCinematic1
   transitionType: 0
-  videoClip: {fileID: 32900000, guid: c3b337f749a2c924b90af07d9800b140, type: 3}
+  videoClip: {fileID: 32900000, guid: b0cc301deadcffd43b254df3b9390014, type: 3}
