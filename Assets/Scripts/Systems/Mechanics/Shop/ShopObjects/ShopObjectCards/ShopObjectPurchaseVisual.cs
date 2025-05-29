@@ -22,7 +22,7 @@ public class ShopObjectPurchaseVisual : MonoBehaviour
     }
 
     private void HandlePurchaseUI()
-    {
+    {   
         /*
         UIUtilities.SetCanvasGroupAlpha(cardUICanvasGroup, 0f);
         cardUICanvasGroup.interactable = false;
@@ -30,8 +30,8 @@ public class ShopObjectPurchaseVisual : MonoBehaviour
         */
 
         UIUtilities.SetCanvasGroupAlpha(purchaseUICanvasGroup, 1f);
-        cardUICanvasGroup.interactable = true;
-        cardUICanvasGroup.blocksRaycasts = true;
+        purchaseUICanvasGroup.interactable = true;
+        purchaseUICanvasGroup.blocksRaycasts = true;
     }
 
 
