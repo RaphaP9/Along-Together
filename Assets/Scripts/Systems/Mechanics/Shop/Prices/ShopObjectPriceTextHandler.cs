@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPriceTextHandler : PriceTextHandler
+public class ShopObjectPriceTextHandler : PriceTextHandler
 {
     [Header("Components")]
     [SerializeField] private ShopObjectCardUI shopObjectCardUI;

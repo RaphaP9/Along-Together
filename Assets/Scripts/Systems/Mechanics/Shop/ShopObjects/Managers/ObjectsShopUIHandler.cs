@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
-public class ShopUIHandler : MonoBehaviour
+public class ObjectsShopUIHandler : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] private Transform shopInventoryObjectCardsContainer;

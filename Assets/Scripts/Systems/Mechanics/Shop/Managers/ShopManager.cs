@@ -42,16 +42,16 @@ public class ShopManager : MonoBehaviour
     {
         ShopOpeningManager.OnShopOpen += ShopOpeningManager_OnShopOpen;
 
-        ShopUIHandler.OnRerollClick += ShopUIHandler_OnRerollClick;
-        ShopUIHandler.OnLockShopToggled += ShopUIHandler_OnLockShopToggled;
+        ObjectsShopUIHandler.OnRerollClick += ShopUIHandler_OnRerollClick;
+        ObjectsShopUIHandler.OnLockShopToggled += ShopUIHandler_OnLockShopToggled;
     }
 
     private void OnDisable()
     {
         ShopOpeningManager.OnShopOpen -= ShopOpeningManager_OnShopOpen;
 
-        ShopUIHandler.OnRerollClick -= ShopUIHandler_OnRerollClick;
-        ShopUIHandler.OnLockShopToggled -= ShopUIHandler_OnLockShopToggled;
+        ObjectsShopUIHandler.OnRerollClick -= ShopUIHandler_OnRerollClick;
+        ObjectsShopUIHandler.OnLockShopToggled -= ShopUIHandler_OnLockShopToggled;
     }
 
     private void Awake()
@@ -115,7 +115,6 @@ public class ShopManager : MonoBehaviour
     private void DenyReroll()
     {
         OnRerollDenied?.Invoke(this, new OnRerollCostEventArgs { rerollCost = currentRerollCost });
-        return;
     }
 
     private void ResetRerollCost()
@@ -148,7 +147,7 @@ public class ShopManager : MonoBehaviour
         if (!isShopLocked) GenerateNewShopItems();
     }
 
-    private void ShopUIHandler_OnLockShopToggled(object sender, ShopUIHandler.OnLockShopToggledEventArgs e)
+    private void ShopUIHandler_OnLockShopToggled(object sender, ObjectsShopUIHandler.OnLockShopToggledEventArgs e)
     {
         SetIsShopLocked(e.isOn);
     }
