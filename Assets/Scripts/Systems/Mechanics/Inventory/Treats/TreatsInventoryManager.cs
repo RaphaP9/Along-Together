@@ -10,14 +10,20 @@ public class TreatsInventoryManager : MonoBehaviour
     [Header("Lists")]
     [SerializeField] private List<TreatIdentified> treatsInventory;
 
+    [Header("Character Dependant - RuntimeFilled")]
+    [SerializeField] private int treatsInventorySize;
+
     [Header("Debug")]
     [SerializeField] private bool debug;
 
     public List<TreatIdentified> TreatsInventory => treatsInventory;
+    public int TeamsInventorySize => treatsInventorySize;
 
     public static event EventHandler<OnTreatsEventArgs> OnTreatsInventoryInitialized;
     public static event EventHandler<OnTreatEventArgs> OnTreatAddedToInventory;
     public static event EventHandler<OnTreatEventArgs> OnTreatRemovedFromInventory;
+
+    public static event EventHandler<OnTreatsInventorySizeEventArgs> OnTreatsInventorySizeSet;
 
     public class OnTreatEventArgs : EventArgs
     {
@@ -28,14 +34,19 @@ public class TreatsInventoryManager : MonoBehaviour
         public List<TreatIdentified> treats;
     }
 
+    public class OnTreatsInventorySizeEventArgs : EventArgs
+    {
+        public int treatsInventorySize;
+    }
+
     private void OnEnable()
     {
-        //ShopStuff
+        PlayerCharacterManager.OnPlayerCharacterSetPreInstantiation += PlayerCharacterManager_OnPlayerCharacterSetPreInstantiation;
     }
 
     private void OnDisable()
     {
-
+        PlayerCharacterManager.OnPlayerCharacterSetPreInstantiation -= PlayerCharacterManager_OnPlayerCharacterSetPreInstantiation;
     }
 
     private void Awake()
@@ -158,4 +169,17 @@ public class TreatsInventoryManager : MonoBehaviour
     }
 
     public void SetTreatsInventory(List<TreatIdentified> setterTreatsInventory) => treatsInventory.AddRange(setterTreatsInventory); //Add, not Replace!
+
+    public void SetTreatsInventorySize(int size)
+    {
+        treatsInventorySize = size;
+        OnTreatsInventorySizeSet?.Invoke(this, new OnTreatsInventorySizeEventArgs { treatsInventorySize = size });
+    }
+
+    #region Subscriptions
+    private void PlayerCharacterManager_OnPlayerCharacterSetPreInstantiation(object sender, PlayerCharacterManager.OnPlayerCharacterEventArgs e)
+    {
+        SetTreatsInventorySize(e.characterSO.treatsInventorySize);
+    }
+    #endregion
 }

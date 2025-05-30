@@ -10,14 +10,20 @@ public class ObjectsInventoryManager : MonoBehaviour
     [Header("Lists")]
     [SerializeField] private List<ObjectIdentified> objectsInventory;
 
+    [Header("Character Dependant - RuntimeFilled")]
+    [SerializeField] private int objectsInventorySize;
+
     [Header("Debug")]
     [SerializeField] private bool debug;
 
     public List<ObjectIdentified> ObjectsInventory => objectsInventory;
+    public int ObjectsInventorySize => objectsInventorySize;
 
     public static event EventHandler<OnObjectsEventArgs> OnObjectsInventoryInitialized;
     public static event EventHandler<OnObjectEventArgs> OnObjectAddedToInventory;
     public static event EventHandler<OnObjectEventArgs> OnObjectRemovedFromInventory;
+
+    public static event EventHandler<OnObjectInventorySizeEventArgs> OnObjectInventorySizeSet;
 
     public class OnObjectEventArgs : EventArgs
     {
@@ -28,14 +34,19 @@ public class ObjectsInventoryManager : MonoBehaviour
         public List<ObjectIdentified> objects;
     }
 
+    public class OnObjectInventorySizeEventArgs : EventArgs
+    {
+        public int objectInventorySize;
+    }
+
     private void OnEnable()
     {
-        //ShopStuff
+        PlayerCharacterManager.OnPlayerCharacterSetPreInstantiation += PlayerCharacterManager_OnPlayerCharacterSetPreInstantiation;
     }
 
     private void OnDisable()
     {
-
+        PlayerCharacterManager.OnPlayerCharacterSetPreInstantiation -= PlayerCharacterManager_OnPlayerCharacterSetPreInstantiation;
     }
 
     private void Awake()
@@ -158,4 +169,17 @@ public class ObjectsInventoryManager : MonoBehaviour
     }
 
     public void SetObjectsInventory(List<ObjectIdentified> setterObjectsInventory) => objectsInventory.AddRange(setterObjectsInventory); //Add, not Replace!
+
+    public void SetObjectsInventorySize(int size)
+    {
+        objectsInventorySize = size;
+        OnObjectInventorySizeSet?.Invoke(this, new OnObjectInventorySizeEventArgs { objectInventorySize = size });
+    }
+
+    #region Subscriptions
+    private void PlayerCharacterManager_OnPlayerCharacterSetPreInstantiation(object sender, PlayerCharacterManager.OnPlayerCharacterEventArgs e)
+    {
+        SetObjectsInventorySize(e.characterSO.objectsInventorySize);
+    }
+    #endregion
 }

@@ -16,5 +16,9 @@ public class CharacterSO : EntitySO
     [Header("Character Stats Affinity")]
     public List<NumericStatType> statAffinities;
 
+    [Header("Inventories")]
+    [Range(0, 1000)] public int objectsInventorySize;
+    [Range(0, 1000)] public int treatsInventorySize;
+
     public override DamageSourceClassification GetDamageSourceClassification() => DamageSourceClassification.Character;
 }
