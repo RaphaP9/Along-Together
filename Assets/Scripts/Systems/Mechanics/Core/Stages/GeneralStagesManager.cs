@@ -79,15 +79,6 @@ public class GeneralStagesManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.F))
-        {
-            Debug.Log($"NextStage: {GetNextStageNumberByStageAndRoundNumbers(currentStageNumber,currentRoundNumber)}");
-            Debug.Log($"NextRound: {GetNextRoundNumberByStageAndRoundNumbers(currentStageNumber,currentRoundNumber)}");
-        }
-    }
-
     private void InitializeStage()
     {
         currentStageNumber = startingStageNumber <= 0? FIRTS_STAGE_NUMBER : startingStageNumber;
@@ -119,6 +110,22 @@ public class GeneralStagesManager : MonoBehaviour
     public void StartLoadedRound()
     {
        
+    }
+
+    public void StartRoundLogic(RoundSO roundSO, StageGroup stageGroup)
+    {
+        switch (roundSO.GetRoundType())
+        {
+            case RoundType.Timed:
+                TimedRoundHandler.Instance.StartTimedRound(roundSO as TimedRoundSO, stageGroup.spawnPointsHandler);
+                break;
+            case RoundType.Waves:
+                WavesRoundHandler.Instance.StartWavesRound(roundSO as WavesRoundSO, stageGroup.spawnPointsHandler);
+                break;
+            case RoundType.BossFight:
+                BossFightRoundHandler.Instance.StartBossFightRound(roundSO as BossFightRoundSO, stageGroup.spawnPointsHandler);
+                break;
+        }
     }
 
     #region UtilityMethods

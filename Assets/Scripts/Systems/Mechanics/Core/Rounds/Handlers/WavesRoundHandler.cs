@@ -55,7 +55,7 @@ public class WavesRoundHandler : RoundHandler
         ResetCurrentRoundElapsedTime();
     }
 
-    public void StartTimedRound(WavesRoundSO wavesRoundSO, StageSpawnPointsHandler stageSpawnPointsHandler)
+    public void StartWavesRound(WavesRoundSO wavesRoundSO, StageSpawnPointsHandler stageSpawnPointsHandler)
     {
         if (currentWavesRound != null) return;
 
