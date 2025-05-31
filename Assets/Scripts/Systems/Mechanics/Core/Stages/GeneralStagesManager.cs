@@ -49,6 +49,8 @@ public class GeneralStagesManager : MonoBehaviour
     private const int FIRTS_STAGE_NUMBER = 1;
     private const int FIRST_ROUND_NUMBER = 1;
 
+    private const int NOT_FOUND_VALUE = 0;
+    private const int LAST_VALUE = -1;
 
     #region Flags
     private bool currentRoundEnded = false;
@@ -74,6 +76,15 @@ public class GeneralStagesManager : MonoBehaviour
         {
             Debug.LogWarning("There is more than one GeneralStagesManager instance, proceding to destroy duplicate");
             Destroy(gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            Debug.Log($"NextStage: {GetNextStageNumberByStageAndRoundNumbers(currentStageNumber,currentRoundNumber)}");
+            Debug.Log($"NextRound: {GetNextRoundNumberByStageAndRoundNumbers(currentStageNumber,currentRoundNumber)}");
         }
     }
 
@@ -114,6 +125,8 @@ public class GeneralStagesManager : MonoBehaviour
 
     private StageGroup LocateStageGroupByStageNumber(int stageNumber)
     {
+        if (stageNumber <= 0) return null;
+
         if(stageNumber > stagesGroups.Count)
         {
             //if (debug) Debug.Log($"Stages are less than Stage Number: {stageNumber}. Returning null.");
@@ -125,6 +138,9 @@ public class GeneralStagesManager : MonoBehaviour
 
     private RoundGroup LocateRoundGroupByRoundNumber(int stageNumber, int roundNumber)
     {
+        if (stageNumber <= 0) return null;
+        if (roundNumber <= 0) return null;
+
         StageGroup stageGroup = LocateStageGroupByStageNumber(stageNumber);
         
         if (stageGroup == null)
@@ -143,12 +159,41 @@ public class GeneralStagesManager : MonoBehaviour
     }
 
     private bool IsLastStageGroup(StageGroup stageGroup) => stageGroup == stagesGroups[^1];
-    private bool IsLastRoundGroupFromStageGroup(StageSO stageSO, RoundGroup roundGroup) => roundGroup == stageSO.roundGroups[^1];
+    private bool IsLastRoundGroupFromStageGroup(StageGroup stageGroup, RoundGroup roundGroup) => roundGroup == stageGroup.stageSO.roundGroups[^1];
 
     private int GetNextStageNumberByStageAndRoundNumbers(int stageNumber, int roundNumber)
     {
         StageGroup stageGroup = LocateStageGroupByStageNumber(stageNumber);
-        return 0;
+
+        if (stageGroup == null) return NOT_FOUND_VALUE; //If Not found stage
+
+        RoundGroup roundGroup = LocateRoundGroupByRoundNumber(stageNumber, roundNumber);
+
+        if (roundGroup == null) return NOT_FOUND_VALUE; //If Not found round
+
+        if (IsLastRoundGroupFromStageGroup(stageGroup, roundGroup))
+        {
+            if (IsLastStageGroup(stageGroup)) return LAST_VALUE; //If last round and last stage
+
+            return stageNumber + 1; // If last round but not last stage
+        }
+
+        return stageNumber; //If neither last round nor last stage
+    }
+
+    private int GetNextRoundNumberByStageAndRoundNumbers(int stageNumber, int roundNumber)
+    {
+        StageGroup stageGroup = LocateStageGroupByStageNumber(stageNumber);
+
+        if (stageGroup == null) return NOT_FOUND_VALUE; //If Not found stage
+
+        RoundGroup roundGroup = LocateRoundGroupByRoundNumber(stageNumber, roundNumber);
+
+        if (roundGroup == null) return NOT_FOUND_VALUE; //If Not found round
+
+        if (IsLastRoundGroupFromStageGroup(stageGroup, roundGroup)) return LAST_VALUE;
+
+        return roundNumber + 1; //If not last roundgroup from stage group
     }
 
     #endregion

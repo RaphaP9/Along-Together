@@ -5132,6 +5132,9 @@ MonoBehaviour:
   - stageSO: {fileID: 11400000, guid: 47368ed2adf26cc46a90c445e4e62a02, type: 2}
     playerSpawnPoint: {fileID: 830161888}
     spawnPointsHandler: {fileID: 1236280672}
+  - stageSO: {fileID: 11400000, guid: a390d5ef5adf9764ba85b14abcce050e, type: 2}
+    playerSpawnPoint: {fileID: 830161888}
+    spawnPointsHandler: {fileID: 1236280672}
   startingStageNumber: 2
   startingRoundNumber: 0
   roundStartingTime: 3
