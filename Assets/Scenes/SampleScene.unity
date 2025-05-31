@@ -5132,12 +5132,21 @@ MonoBehaviour:
   - stageSO: {fileID: 11400000, guid: 47368ed2adf26cc46a90c445e4e62a02, type: 2}
     playerSpawnPoint: {fileID: 830161888}
     spawnPointsHandler: {fileID: 1236280672}
-  startingStageNumber: 0
+  startingStageNumber: 2
   startingRoundNumber: 0
-  currentStage: {fileID: 0}
+  roundStartingTime: 3
+  roundEndingTime: 3
+  currentStageGroup:
+    stageSO: {fileID: 0}
+    playerSpawnPoint: {fileID: 0}
+    spawnPointsHandler: {fileID: 0}
+  currentRoundGroup:
+    difficultyTier: 0
+    rounds: []
   currentRound: {fileID: 0}
   currentStageNumber: 0
   currentRoundNumber: 0
+  debug: 1
 --- !u!1001 &459982366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7015,6 +7024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treatsInventory: []
+  treatsInventorySize: 0
   debug: 1
 --- !u!1 &602807250
 GameObject:
@@ -22490,6 +22500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsInventory: []
+  objectsInventorySize: 0
   debug: 1
 --- !u!1 &1935645241
 GameObject:
