@@ -11,10 +11,12 @@ public class ShopObjectCardPurchaseHandler : MonoBehaviour
     [SerializeField] private Button purchaseButton;
 
     public static event EventHandler<OnShopObjectPurchaseEventArgs> OnAnyShopObjectPurchase;
-    public static event EventHandler<OnShopObjectPurchaseEventArgs> OnAnyShopObjectPurchaseDenied;
+    public static event EventHandler<OnShopObjectPurchaseEventArgs> OnAnyShopObjectPurchaseDeniedByGold;
+    public static event EventHandler<OnShopObjectPurchaseEventArgs> OnAnyShopObjectPurchaseDeniedByInventory;
 
     public event EventHandler<OnShopObjectPurchaseEventArgs> OnShopObjectPurchase;
-    public event EventHandler<OnShopObjectPurchaseEventArgs> OnShopObjectPurchaseDenied;
+    public event EventHandler<OnShopObjectPurchaseEventArgs> OnShopObjectPurchaseDeniedByGold;
+    public event EventHandler<OnShopObjectPurchaseEventArgs> OnShopObjectPurchaseDeniedByInventory;
 
     public class OnShopObjectPurchaseEventArgs : EventArgs
     {
@@ -33,11 +35,20 @@ public class ShopObjectCardPurchaseHandler : MonoBehaviour
 
     private void HandlePurchase(InventoryObjectSO inventoryObjectSO)
     {
-        if (!GoldManager.Instance.CanSpendGold(inventoryObjectSO.price))
+        if (!inventoryObjectSO.CanPurchaseDueToInventory())
         {
-            DenyPurchase(inventoryObjectSO);
+            DenyPurchaseByInventory(inventoryObjectSO);
+            Debug.Log("NoInventory");
             return;
         }
+
+        if (!inventoryObjectSO.CanPurchaseDueToGold())
+        {
+            DenyPurchaseByGold(inventoryObjectSO);
+            Debug.Log("NoGold");
+            return;
+        }
+
 
         Purchase(inventoryObjectSO);
     }
@@ -50,10 +61,16 @@ public class ShopObjectCardPurchaseHandler : MonoBehaviour
         OnShopObjectPurchase?.Invoke(this, new OnShopObjectPurchaseEventArgs { inventoryObjectSO = inventoryObjectSO });
     }
 
-    private void DenyPurchase(InventoryObjectSO inventoryObjectSO)
+    private void DenyPurchaseByInventory(InventoryObjectSO inventoryObjectSO)
     {
-        OnAnyShopObjectPurchaseDenied?.Invoke(this, new OnShopObjectPurchaseEventArgs { inventoryObjectSO = inventoryObjectSO });
-        OnShopObjectPurchaseDenied?.Invoke(this, new OnShopObjectPurchaseEventArgs { inventoryObjectSO = inventoryObjectSO });
+        OnAnyShopObjectPurchaseDeniedByInventory?.Invoke(this, new OnShopObjectPurchaseEventArgs { inventoryObjectSO = inventoryObjectSO });
+        OnShopObjectPurchaseDeniedByInventory?.Invoke(this, new OnShopObjectPurchaseEventArgs { inventoryObjectSO = inventoryObjectSO });
+    }
+
+    private void DenyPurchaseByGold(InventoryObjectSO inventoryObjectSO)
+    {
+        OnAnyShopObjectPurchaseDeniedByGold?.Invoke(this, new OnShopObjectPurchaseEventArgs { inventoryObjectSO = inventoryObjectSO });
+        OnShopObjectPurchaseDeniedByGold?.Invoke(this, new OnShopObjectPurchaseEventArgs { inventoryObjectSO = inventoryObjectSO });
     }
 
     private void UpdateButtonListener(InventoryObjectSO inventoryObjectSO)

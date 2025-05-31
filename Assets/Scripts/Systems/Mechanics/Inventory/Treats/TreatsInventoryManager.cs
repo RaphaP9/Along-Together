@@ -176,6 +176,8 @@ public class TreatsInventoryManager : MonoBehaviour
         OnTreatsInventorySizeSet?.Invoke(this, new OnTreatsInventorySizeEventArgs { treatsInventorySize = size });
     }
 
+    public bool IsInventoryFull() => treatsInventory.Count >= treatsInventorySize;
+
     #region Subscriptions
     private void PlayerCharacterManager_OnPlayerCharacterSetPreInstantiation(object sender, PlayerCharacterManager.OnPlayerCharacterEventArgs e)
     {

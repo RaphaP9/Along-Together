@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,4 +21,16 @@ public abstract class InventoryObjectSO : ScriptableObject, IHasEmbeddedNumericS
 
     public abstract InventoryObjectType GetInventoryObjectType();
     public List<NumericEmbeddedStat> GetNumericEmbeddedStats() => numericEmbeddedStats;
+
+    #region Purchase Stuff
+    public bool CanPurchaseDueToGold()
+    {
+        if (GoldManager.Instance == null) return false;
+        if (!GoldManager.Instance.CanSpendGold(price)) return false;
+
+        return true;
+    }
+
+    public abstract bool CanPurchaseDueToInventory();
+    #endregion
 }

@@ -33,3 +33,5 @@ MonoBehaviour:
   baseShieldRegen: 1
   baseCooldownReduction: 0
   statAffinities: 00000000
+  objectsInventorySize: 5
+  treatsInventorySize: 2
