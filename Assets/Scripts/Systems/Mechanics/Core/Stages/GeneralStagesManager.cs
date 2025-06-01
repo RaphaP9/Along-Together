@@ -190,17 +190,22 @@ public class GeneralStagesManager : MonoBehaviour
 
         RoundSO roundSO = currentRoundGroup.GetRandomRoundFromRoundsList();
 
-        StartCoroutine(RoundBlockCoroutine(roundSO, currentStageGroup));
+        StartCoroutine(CurrentRoundCoroutine(roundSO));
     }
 
-    private IEnumerator RoundBlockCoroutine(RoundSO roundSO, StageGroup stageGroup)
+    private IEnumerator CurrentRoundCoroutine(RoundSO roundSO)
     {
         SetCurrentRound(roundSO);
 
+        StageGroup stageGroup = currentStageGroup;
+        RoundGroup roundGroup = currentRoundGroup;
+        int stageNumber = currentStageNumber;
+        int roundNumber = currentRoundNumber;
+
         SetRoundState(RoundState.StartingRound);
-        OnRoundStarting?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = currentRoundGroup, stageNumber = currentStageNumber, roundNumber=currentRoundNumber, roundSO = roundSO });
+        OnRoundStarting?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
         yield return new WaitForSeconds(roundStartingTime);
-        OnRoundStart?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = currentRoundGroup, stageNumber = currentStageNumber, roundNumber = currentRoundNumber, roundSO = roundSO });
+        OnRoundStart?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
         SetRoundState(RoundState.OnRound);
 
         currentRoundEnded = false;
@@ -209,9 +214,9 @@ public class GeneralStagesManager : MonoBehaviour
         currentRoundEnded = false;
 
         SetRoundState(RoundState.EndingRound);
-        OnRoundEnding?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = currentRoundGroup, stageNumber = currentStageNumber, roundNumber = currentRoundNumber, roundSO = roundSO });
+        OnRoundEnding?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
         yield return new WaitForSeconds(roundEndingTime);
-        OnRoundEnd?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = currentRoundGroup, stageNumber = currentStageNumber, roundNumber = currentRoundNumber, roundSO = roundSO });
+        OnRoundEnd?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
         SetRoundState(RoundState.NotOnRound);
 
         ClearCurrentRound();

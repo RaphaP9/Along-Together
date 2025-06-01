@@ -12925,6 +12925,8 @@ MonoBehaviour:
     collideeLayerIndex: 10
   - colliderLayerIndex: 6
     collideeLayerIndex: 11
+  - colliderLayerIndex: 7
+    collideeLayerIndex: 7
 --- !u!1 &1105287829
 GameObject:
   m_ObjectHideFlags: 0
