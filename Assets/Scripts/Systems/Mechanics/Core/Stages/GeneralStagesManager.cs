@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Bson;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,9 @@ public class GeneralStagesManager : MonoBehaviour
     [SerializeField, Range(2f, 5f)] private float roundStartingTime;
     [SerializeField, Range(2f, 5f)] private float roundEndingTime;
 
+    [Header("States - Runtime Filled")]
+    [SerializeField] private RoundState roundState;
+
     [Header("Runtime Filled")]
     [SerializeField] private StageGroup currentStageGroup;
     [SerializeField] private RoundGroup currentRoundGroup;
@@ -37,14 +41,34 @@ public class GeneralStagesManager : MonoBehaviour
     public int CurrentStageNumber => currentStageNumber;
     public int CurrentRoundNumber => currentRoundNumber;
 
+    private enum RoundState { NotOnRound, StartingRound, OnRound, EndingRound}
 
     public static event EventHandler<OnStageAndRoundEventArgs> OnStageAndRoundInitialized;
     public static event EventHandler<OnStageAndRoundLoadEventArgs> OnStageAndRoundLoad;
 
+    public static event EventHandler<OnRoundEventArgs> OnRoundStarting;
+    public static event EventHandler<OnRoundEventArgs> OnRoundStart;
+    public static event EventHandler<OnRoundEventArgs> OnRoundEnding;
+    public static event EventHandler<OnRoundEventArgs> OnRoundEnd;
+
     public class OnStageAndRoundEventArgs : EventArgs
     {
+        public StageGroup stageGroup;
+        public RoundGroup roundGroup;
+
         public int stageNumber;
         public int roundNumber;
+    }
+
+    public class OnRoundEventArgs : EventArgs
+    {
+        public StageGroup stageGroup;
+        public RoundGroup roundGroup;
+
+        public int stageNumber;
+        public int roundNumber;
+
+        public RoundSO roundSO;
     }
 
     public class OnStageAndRoundLoadEventArgs : EventArgs
@@ -70,6 +94,16 @@ public class GeneralStagesManager : MonoBehaviour
     private bool currentRoundEnded = false;
     #endregion
 
+    private void OnEnable()
+    {
+        RoundHandler.OnRoundCompleted += RoundHandler_OnRoundCompleted;
+    }
+
+    private void OnDisable()
+    {
+        RoundHandler.OnRoundCompleted -= RoundHandler_OnRoundCompleted;
+    }
+
     private void Awake()
     {
         SetSingleton();
@@ -77,6 +111,7 @@ public class GeneralStagesManager : MonoBehaviour
 
     private void Start()
     {
+        SetRoundState(RoundState.NotOnRound);
         InitializeStage();
     }
 
@@ -90,6 +125,14 @@ public class GeneralStagesManager : MonoBehaviour
         {
             Debug.LogWarning("There is more than one GeneralStagesManager instance, proceding to destroy duplicate");
             Destroy(gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            StartCurrentRoundBlock();
         }
     }
 
@@ -120,15 +163,61 @@ public class GeneralStagesManager : MonoBehaviour
         SetCurrentStageGroup(stageGroup);
         SetCurrentRoundGroup(roundGroup);
 
-        OnStageAndRoundInitialized?.Invoke(this, new OnStageAndRoundEventArgs { stageNumber = currentStageNumber, roundNumber = currentRoundNumber });
+        OnStageAndRoundInitialized?.Invoke(this, new OnStageAndRoundEventArgs {stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = currentStageNumber, roundNumber = currentRoundNumber });
     }
 
-    public void StartLoadedRound()
+    public void StartCurrentRoundBlock() //RoundBlockIncludes Starting and Ending Time periods
     {
+        if (!CanStartRound()) return;
 
+        if (currentStageGroup == null)
+        {
+            if (debug) Debug.Log("Current Stage Group is null. Can not start current round.");
+            return;
+        }
+
+        if (currentRoundGroup == null)
+        {
+            if (debug) Debug.Log("Current Round Group is null. Can not start current round.");
+            return;
+        }
+
+        if(currentRoundGroup.rounds.Count <= 0)
+        {
+            if (debug) Debug.Log("Current Round Group has no rounds. Can not start current round.");
+            return;
+        }
+
+        RoundSO roundSO = currentRoundGroup.GetRandomRoundFromRoundsList();
+
+        StartCoroutine(RoundBlockCoroutine(roundSO, currentStageGroup));
     }
 
-    public void StartRoundLogic(RoundSO roundSO, StageGroup stageGroup)
+    private IEnumerator RoundBlockCoroutine(RoundSO roundSO, StageGroup stageGroup)
+    {
+        SetCurrentRound(roundSO);
+
+        SetRoundState(RoundState.StartingRound);
+        OnRoundStarting?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = currentRoundGroup, stageNumber = currentStageNumber, roundNumber=currentRoundNumber, roundSO = roundSO });
+        yield return new WaitForSeconds(roundStartingTime);
+        OnRoundStart?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = currentRoundGroup, stageNumber = currentStageNumber, roundNumber = currentRoundNumber, roundSO = roundSO });
+        SetRoundState(RoundState.OnRound);
+
+        currentRoundEnded = false;
+        StartRoundLogic(roundSO, stageGroup);
+        yield return new WaitUntil(() => currentRoundEnded);
+        currentRoundEnded = false;
+
+        SetRoundState(RoundState.EndingRound);
+        OnRoundEnding?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = currentRoundGroup, stageNumber = currentStageNumber, roundNumber = currentRoundNumber, roundSO = roundSO });
+        yield return new WaitForSeconds(roundEndingTime);
+        OnRoundEnd?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = currentRoundGroup, stageNumber = currentStageNumber, roundNumber = currentRoundNumber, roundSO = roundSO });
+        SetRoundState(RoundState.NotOnRound);
+
+        ClearCurrentRound();
+    }
+
+    private void StartRoundLogic(RoundSO roundSO, StageGroup stageGroup)
     {
         switch (roundSO.GetRoundType())
         {
@@ -143,6 +232,13 @@ public class GeneralStagesManager : MonoBehaviour
                 break;
         }
     }
+
+    private bool CanStartRound()
+    {
+        if(roundState != RoundState.NotOnRound) return false;
+        return true;
+    }
+
 
     #region UtilityMethods
 
@@ -242,6 +338,8 @@ public class GeneralStagesManager : MonoBehaviour
 
     #endregion
 
+    #region Public Methods
+
     public bool CurrentStageAndRoundNumberAreLasts() => StageAndRoundNumberAreLasts(currentStageGroup, currentRoundGroup);
     public bool CurrentRoundIsLastFromCurrentStage() => IsLastRoundGroupFromStageGroup(currentStageGroup, currentRoundGroup);
     public void LoadNextRoundAndStage()
@@ -311,10 +409,13 @@ public class GeneralStagesManager : MonoBehaviour
         OnStageAndRoundLoad?.Invoke(this, new OnStageAndRoundLoadEventArgs { previousStageGroup = previousStageGroup, previousRoundGroup = previousRoundGroup, previousStageNumber = previousStageNumber, previousRoundNumber = previousRoundNumber, 
         newStageGroup = newStageGroup, newRoundGroup = newRoundGroup, newStageNumber = newStageNumber, newRoundNumber = newRoundNumber});
     }
+    #endregion
 
     #region Get & Set
     public void SetStartingStageNumber(int setterStartingStageNumber) => startingStageNumber = setterStartingStageNumber;
     public void SetStartingRoundNumber(int setterStartingRoundNumber) => startingRoundNumber = setterStartingRoundNumber;
+
+    private void SetRoundState(RoundState roundState) => this.roundState = roundState;
 
     private void SetCurrentStageGroup(StageGroup stageGroup) => currentStageGroup = stageGroup;
     private void ClearCurrentStageGroup() => currentStageGroup = null;
@@ -330,11 +431,16 @@ public class GeneralStagesManager : MonoBehaviour
 
     private void SetCurrentRoundNumber(int roundNumber) => currentRoundNumber = roundNumber;
     private void ResetCurrentRoundNumber() => currentRoundNumber = 0;
-
-
     public int GetStagesCount() => stagesGroups.Count;
     #endregion
 
+    #region Subscriptions
+    private void RoundHandler_OnRoundCompleted(object sender, RoundHandler.OnRoundEventArgs e)
+    {
+        if (currentRound != e.roundSO) return;
+        currentRoundEnded = true;
+    }
+    #endregion
 }
 
 [System.Serializable]
