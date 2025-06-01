@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GeneralStagesManager : MonoBehaviour
 {
-    public static GeneralStagesManager Instance {  get; private set; }
+    public static GeneralStagesManager Instance { get; private set; }
 
     [Header("Lists")]
     [SerializeField] private List<StageGroup> stagesGroups;
@@ -15,8 +15,8 @@ public class GeneralStagesManager : MonoBehaviour
     [SerializeField] private int startingRoundNumber;
 
     [Header("Settings - Starting/Ending timers")]
-    [SerializeField, Range(2f,5f)] private float roundStartingTime;
-    [SerializeField, Range(2f,5f)] private float roundEndingTime;
+    [SerializeField, Range(2f, 5f)] private float roundStartingTime;
+    [SerializeField, Range(2f, 5f)] private float roundEndingTime;
 
     [Header("Runtime Filled")]
     [SerializeField] private StageGroup currentStageGroup;
@@ -38,12 +38,26 @@ public class GeneralStagesManager : MonoBehaviour
     public int CurrentRoundNumber => currentRoundNumber;
 
 
-    public static event EventHandler<OnStageEventArgs> OnStageInitialized;
+    public static event EventHandler<OnStageAndRoundEventArgs> OnStageAndRoundInitialized;
+    public static event EventHandler<OnStageAndRoundLoadEventArgs> OnStageAndRoundLoad;
 
-    public class OnStageEventArgs : EventArgs
+    public class OnStageAndRoundEventArgs : EventArgs
     {
         public int stageNumber;
         public int roundNumber;
+    }
+
+    public class OnStageAndRoundLoadEventArgs : EventArgs
+    {
+        public StageGroup previousStageGroup;
+        public RoundGroup previousRoundGroup;
+        public int previousStageNumber;
+        public int previousRoundNumber;
+
+        public StageGroup newStageGroup;
+        public RoundGroup newRoundGroup;
+        public int newStageNumber;
+        public int newRoundNumber;
     }
 
     private const int FIRTS_STAGE_NUMBER = 1;
@@ -81,8 +95,8 @@ public class GeneralStagesManager : MonoBehaviour
 
     private void InitializeStage()
     {
-        currentStageNumber = startingStageNumber <= 0? FIRTS_STAGE_NUMBER : startingStageNumber;
-        currentRoundNumber = startingRoundNumber <= 0? FIRST_ROUND_NUMBER : startingRoundNumber;
+        currentStageNumber = startingStageNumber <= 0 ? FIRTS_STAGE_NUMBER : startingStageNumber;
+        currentRoundNumber = startingRoundNumber <= 0 ? FIRST_ROUND_NUMBER : startingRoundNumber;
 
         StageGroup stageGroup = LocateStageGroupByStageNumber(currentStageNumber);
         RoundGroup roundGroup = LocateRoundGroupByRoundNumber(currentStageNumber, currentRoundNumber);
@@ -90,26 +104,28 @@ public class GeneralStagesManager : MonoBehaviour
         //Verify if currentValues do exist
         if (stageGroup == null)
         {
-            currentStageNumber = FIRTS_STAGE_NUMBER;
-            currentRoundNumber = FIRST_ROUND_NUMBER;
+            SetCurrentStageNumber(FIRTS_STAGE_NUMBER);
+            SetCurrentRoundNumber(FIRST_ROUND_NUMBER);
 
             if (debug) Debug.Log("Could not locate StageGroup on Initialization, reseting Stage & Round Numbers to Initials.");
         }
         else if (roundGroup == null)
         {
-            currentStageNumber = FIRTS_STAGE_NUMBER;
-            currentRoundNumber = FIRST_ROUND_NUMBER;
+            SetCurrentStageNumber(FIRTS_STAGE_NUMBER);
+            SetCurrentRoundNumber(FIRST_ROUND_NUMBER);
 
             if (debug) Debug.Log("Could not locate RoundGroup on Initialization, reseting Stage & Round Numbers to Initials.");
         }
 
+        SetCurrentStageGroup(stageGroup);
+        SetCurrentRoundGroup(roundGroup);
 
-        OnStageInitialized?.Invoke(this, new OnStageEventArgs { stageNumber = currentStageNumber, roundNumber = currentRoundNumber });
+        OnStageAndRoundInitialized?.Invoke(this, new OnStageAndRoundEventArgs { stageNumber = currentStageNumber, roundNumber = currentRoundNumber });
     }
 
     public void StartLoadedRound()
     {
-       
+
     }
 
     public void StartRoundLogic(RoundSO roundSO, StageGroup stageGroup)
@@ -134,7 +150,7 @@ public class GeneralStagesManager : MonoBehaviour
     {
         if (stageNumber <= 0) return null;
 
-        if(stageNumber > stagesGroups.Count)
+        if (stageNumber > stagesGroups.Count)
         {
             //if (debug) Debug.Log($"Stages are less than Stage Number: {stageNumber}. Returning null.");
             return null;
@@ -149,7 +165,7 @@ public class GeneralStagesManager : MonoBehaviour
         if (roundNumber <= 0) return null;
 
         StageGroup stageGroup = LocateStageGroupByStageNumber(stageNumber);
-        
+
         if (stageGroup == null)
         {
             //if (debug) Debug.Log($"As StageGroup is null, RoundGroup can not be found. Returning null.");
@@ -167,6 +183,27 @@ public class GeneralStagesManager : MonoBehaviour
 
     private bool IsLastStageGroup(StageGroup stageGroup) => stageGroup == stagesGroups[^1];
     private bool IsLastRoundGroupFromStageGroup(StageGroup stageGroup, RoundGroup roundGroup) => roundGroup == stageGroup.stageSO.roundGroups[^1];
+    public bool StageAndRoundNumberAreLasts(StageGroup stageGroup, RoundGroup roundGroup)
+    {
+        if (IsLastStageGroup(stageGroup))
+        {
+            if (IsLastRoundGroupFromStageGroup(stageGroup, roundGroup)) return true;
+        }
+
+        return false;
+    }
+
+
+    private bool StageAndRoundNumberExist(int stageNumber, int roundNumber)
+    {
+        StageGroup stageGroup = LocateStageGroupByStageNumber(stageNumber);
+        RoundGroup roundGroup = LocateRoundGroupByRoundNumber(stageNumber, roundNumber);
+
+        if (stageGroup == null) return false;
+        if (roundGroup == null) return false;
+
+        return true;
+    }
 
     private int GetNextStageNumberByStageAndRoundNumbers(int stageNumber, int roundNumber)
     {
@@ -205,6 +242,76 @@ public class GeneralStagesManager : MonoBehaviour
 
     #endregion
 
+    public bool CurrentStageAndRoundNumberAreLasts() => StageAndRoundNumberAreLasts(currentStageGroup, currentRoundGroup);
+    public bool CurrentRoundIsLastFromCurrentStage() => IsLastRoundGroupFromStageGroup(currentStageGroup, currentRoundGroup);
+    public void LoadNextRoundAndStage()
+    {
+        int previousStageNumber = currentStageNumber;
+        int previousRoundNumber = currentRoundNumber;
+
+        StageGroup previousStageGroup = LocateStageGroupByStageNumber(previousStageNumber);
+        RoundGroup previousRoundGroup = LocateRoundGroupByRoundNumber(previousStageNumber, previousRoundNumber);
+
+        if (previousStageGroup == null)
+        {
+            if (debug) Debug.Log("Cant not define previousStageGroup. Can not load next Round And Stage.");
+            return;
+        }
+
+        if (previousRoundGroup == null)
+        {
+            if (debug) Debug.Log("Cant not define previousRoundGroup. Can not load next Round And Stage.");
+            return;
+        }
+
+        if (StageAndRoundNumberAreLasts(previousStageGroup, previousRoundGroup))
+        {
+            if (debug) Debug.Log("Previous Stage and Group are lasts. Can not load next Round and Stage.");
+            return;
+        }
+
+        int newStageNumber;
+        int newRoundNumber;
+
+        if (IsLastRoundGroupFromStageGroup(previousStageGroup, previousRoundGroup))
+        {
+            newStageNumber = currentStageNumber + 1;
+            newRoundNumber = 1;
+        }
+        else
+        {
+            newStageNumber = currentStageNumber;
+            newRoundNumber = currentRoundNumber + 1;
+        }
+
+        //FinalCheck
+
+        StageGroup newStageGroup = LocateStageGroupByStageNumber(newStageNumber);
+        RoundGroup newRoundGroup = LocateRoundGroupByRoundNumber(newStageNumber, newRoundNumber);
+
+        if (newStageGroup == null)
+        {
+            if (debug) Debug.Log("Cant not define newStageGroup. Can not load next Round And Stage.");
+            return;
+        }
+
+        if (newRoundGroup == null)
+        {
+            if (debug) Debug.Log("Cant not define newRoundGroup. Can not load next Round And Stage.");
+            return;
+        }
+
+        SetCurrentStageGroup(newStageGroup);
+        SetCurrentRoundGroup(newRoundGroup);
+
+        SetCurrentStageNumber(newStageNumber);
+        SetCurrentRoundNumber(newRoundNumber);
+
+
+        OnStageAndRoundLoad?.Invoke(this, new OnStageAndRoundLoadEventArgs { previousStageGroup = previousStageGroup, previousRoundGroup = previousRoundGroup, previousStageNumber = previousStageNumber, previousRoundNumber = previousRoundNumber, 
+        newStageGroup = newStageGroup, newRoundGroup = newRoundGroup, newStageNumber = newStageNumber, newRoundNumber = newRoundNumber});
+    }
+
     #region Get & Set
     public void SetStartingStageNumber(int setterStartingStageNumber) => startingStageNumber = setterStartingStageNumber;
     public void SetStartingRoundNumber(int setterStartingRoundNumber) => startingRoundNumber = setterStartingRoundNumber;
@@ -217,6 +324,13 @@ public class GeneralStagesManager : MonoBehaviour
 
     private void SetCurrentRound(RoundSO round) => currentRound = round;
     private void ClearCurrentRound() => currentRound = null;
+
+    private void SetCurrentStageNumber(int stageNumber) => currentStageNumber = stageNumber;
+    private void ResetCurrentStageNumber() => currentStageNumber = 0;
+
+    private void SetCurrentRoundNumber(int roundNumber) => currentRoundNumber = roundNumber;
+    private void ResetCurrentRoundNumber() => currentRoundNumber = 0;
+
 
     public int GetStagesCount() => stagesGroups.Count;
     #endregion
