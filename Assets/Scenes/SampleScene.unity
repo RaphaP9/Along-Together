@@ -5137,8 +5137,9 @@ MonoBehaviour:
     spawnPointsHandler: {fileID: 1236280672}
   startingStageNumber: 2
   startingRoundNumber: 0
-  roundStartingTime: 3
-  roundEndingTime: 3
+  roundStartingTime: 2
+  roundEndingTime: 4
+  roundState: 0
   currentStageGroup:
     stageSO: {fileID: 0}
     playerSpawnPoint: {fileID: 0}

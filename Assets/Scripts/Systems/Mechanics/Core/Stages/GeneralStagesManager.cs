@@ -437,6 +437,8 @@ public class GeneralStagesManager : MonoBehaviour
     #region Subscriptions
     private void RoundHandler_OnRoundCompleted(object sender, RoundHandler.OnRoundEventArgs e)
     {
+
+        Debug.Log(e.roundSO);
         if (currentRound != e.roundSO) return;
         currentRoundEnded = true;
     }

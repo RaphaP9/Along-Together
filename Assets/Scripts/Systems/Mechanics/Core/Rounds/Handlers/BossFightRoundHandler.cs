@@ -85,11 +85,11 @@ public class BossFightRoundHandler : RoundHandler
     {
         if (currentBossFightRound == null) return;
 
+        OnRoundCompletedMethod(currentBossFightRound);
+
         ClearCurrentBossTransform();
         ClearCurrentRound();
         ResetCurrentRoundElapsedTime();
-
-        OnRoundCompletedMethod(currentBossFightRound);
 
         EnemiesManager.Instance.ExecuteAllActiveEnemies(); //There should be no active enemies anyway
     }

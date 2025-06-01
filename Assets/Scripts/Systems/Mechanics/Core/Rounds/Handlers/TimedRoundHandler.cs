@@ -64,7 +64,7 @@ public class TimedRoundHandler : RoundHandler
     private IEnumerator StartRoundCoroutine(TimedRoundSO timedRoundSO, StageSpawnPointsHandler stageSpawnPointsHandler)
     {
         float roundElapsedTimer = 0f;
-        float enemySpawnTimer = Mathf.Infinity; //To spawn an enemy inmediately after wave start, otherwise, set to 0
+        float enemySpawnTimer = Mathf.Infinity; //To spawn an enemy immediately after wave start, otherwise, set to 0
 
         while (roundElapsedTimer < timedRoundSO.duration)
         {
@@ -93,11 +93,11 @@ public class TimedRoundHandler : RoundHandler
     {
         if (currentTimedRound == null) return;
 
+        OnRoundCompletedMethod(currentTimedRound);
+
         ResetCurrentRoundDuration();
         ClearCurrentRound();
         ResetCurrentRoundElapsedTime();
-
-        OnRoundCompletedMethod(currentTimedRound);
 
         EnemiesManager.Instance.ExecuteAllActiveEnemies();
     }

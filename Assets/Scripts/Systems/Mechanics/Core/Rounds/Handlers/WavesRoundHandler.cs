@@ -99,11 +99,11 @@ public class WavesRoundHandler : RoundHandler
     {
         if (currentWavesRound == null) return;
 
+        OnRoundCompletedMethod(currentWavesRound);
+
         ClearRemainingEnemiesInWaveList();
         ClearCurrentRound();
         ResetCurrentRoundElapsedTime();
-
-        OnRoundCompletedMethod(currentWavesRound);
 
         EnemiesManager.Instance.ExecuteAllActiveEnemies(); //There should be no active enemies anyway
     }
