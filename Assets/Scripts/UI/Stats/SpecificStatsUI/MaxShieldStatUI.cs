@@ -13,7 +13,7 @@ public class MaxShieldStatUI : PlayerNumericStatUI<PlayerMaxShieldStatResolver>
     {
         if (resolver == null) return;
 
-        resolver.OnEntityStatInitialized += Resolver_OnEntityStatInitialized;
+        resolver.OnEntityStatInitialized -= Resolver_OnEntityStatInitialized;
         resolver.OnEntityStatUpdated -= Resolver_OnEntityStatUpdated;
     }
 

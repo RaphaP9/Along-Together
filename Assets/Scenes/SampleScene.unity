@@ -5135,7 +5135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stagesGroups:
-  - stageSO: {fileID: 11400000, guid: 07f2ce29db2ad9f48a0cafaae74ab984, type: 2}
+  - stageSO: {fileID: 11400000, guid: 47368ed2adf26cc46a90c445e4e62a02, type: 2}
     playerSpawnPoint: {fileID: 830161888}
     spawnPointsHandler: {fileID: 1236280672}
   - stageSO: {fileID: 11400000, guid: a390d5ef5adf9764ba85b14abcce050e, type: 2}
@@ -20927,11 +20927,6 @@ GameObject:
   - component: {fileID: 1773330767}
   - component: {fileID: 1773330770}
   - component: {fileID: 1773330771}
-  - component: {fileID: 1773330773}
-  - component: {fileID: 1773330774}
-  - component: {fileID: 1773330775}
-  - component: {fileID: 1773330776}
-  - component: {fileID: 1773330777}
   - component: {fileID: 1773330778}
   m_Layer: 0
   m_Name: TestObject
@@ -20981,73 +20976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749e5460e4e36a3468c3b5a8d8bf8782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1773330773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773330765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53f3aa5d99aaeb343b510f8c41f66211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageSpawnPointsHandler: {fileID: 1236280672}
-  timedRoundSO: {fileID: 11400000, guid: dd6d3dbf75cde324f87d71a890e314ed, type: 2}
---- !u!114 &1773330774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773330765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6325d6b40c7d6b408a25e022116b0e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageSpawnPointsHandler: {fileID: 1236280672}
-  wavesRoundSO: {fileID: 11400000, guid: 4b8a1a36ac742b441bd8b83606620656, type: 2}
---- !u!114 &1773330775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773330765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17339075dd534864d84ae8e5b1ad07eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageSpawnPointsHandler: {fileID: 1236280672}
-  bossFightRoundSO: {fileID: 11400000, guid: 326447e5dd91fb54e978d18bc8a46a51, type: 2}
---- !u!114 &1773330776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773330765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 855fac4c64d36d04db1b088f891103d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1773330777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773330765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e90d7aba686c5f446b5538bef7ac1170, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageNumber: 1
 --- !u!114 &1773330778
 MonoBehaviour:
   m_ObjectHideFlags: 0

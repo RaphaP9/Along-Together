@@ -24,8 +24,8 @@ public class KamikazeEnemyAnimationController : EnemyAnimationController
     {
         base.OnDisable();
 
-        kamikazeEnemyExplosion.OnKamikazeEnemyCharge -= KamikazeEnemyExplosion_OnKamikazeEnemyCharge;
         kamikazeEnemyExplosion.OnEntityExplosionCompleted -= KamikazeEnemyExplosion_OnEntityExplosionCompleted;
+        kamikazeEnemyExplosion.OnKamikazeEnemyCharge -= KamikazeEnemyExplosion_OnKamikazeEnemyCharge;
     }
 
     #region Subscriptions

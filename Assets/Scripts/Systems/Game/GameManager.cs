@@ -328,7 +328,7 @@ public class GameManager : MonoBehaviour
     {
         ChangeState(State.EndingCombat);
 
-        if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts())
+        if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts()) //Load Next Round&Stage and Save Data
         {
             GeneralStagesManager.Instance.LoadNextRoundAndStage();
             TriggerDataSave();

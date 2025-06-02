@@ -66,6 +66,9 @@ public class VideoCinematicUI : MonoBehaviour
 
         VideoCinematicManager.OnCinematicEndA -= VideoCinematicManager_OnCinematicEndA;
         VideoCinematicManager.OnCinematicEndB -= VideoCinematicManager_OnCinematicEndB;
+
+        VideoCinematicManager.OnCinematicIdle -= VideoCinematicManager_OnCinematicIdle;
+        VideoCinematicManager.OnGeneralCinematicConcluded -= VideoCinematicManager_OnGeneralCinematicConcluded;
     }
 
     private void Awake()

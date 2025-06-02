@@ -58,6 +58,15 @@ public class VideoCinematicManager : MonoBehaviour
         VideoCinematicUI.OnTransitionOutClosingEnd += VideoCinematicUI_OnTransitionOutClosingEnd;
     }
 
+    private void OnDisable()
+    {
+        VideoCinematicUI.OnTransitionInOpeningEnd -= VideoCinematicUI_OnTransitionInOpeningEnd;
+        VideoCinematicUI.OnTransitionInClosingEnd -= VideoCinematicUI_OnTransitionInClosingEnd;
+
+        VideoCinematicUI.OnTransitionOutOpeningEnd -= VideoCinematicUI_OnTransitionOutOpeningEnd;
+        VideoCinematicUI.OnTransitionOutClosingEnd -= VideoCinematicUI_OnTransitionOutClosingEnd;
+    }
+
     private void Awake()
     {
         SetSingleton();

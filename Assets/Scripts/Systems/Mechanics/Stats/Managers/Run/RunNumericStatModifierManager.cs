@@ -20,6 +20,9 @@ public class RunNumericStatModifierManager : NumericStatModifierManager
     {
         ObjectsInventoryManager.OnObjectAddedToInventory -= ObjectsInventoryManager_OnObjectAddedToInventory;
         ObjectsInventoryManager.OnObjectRemovedFromInventory -= ObjectsInventoryManager_OnObjectRemovedFromInventory;
+
+        TreatsInventoryManager.OnTreatAddedToInventory -= TreatsInventoryManager_OnTreatAddedToInventory;
+        TreatsInventoryManager.OnTreatRemovedFromInventory -= TreatsInventoryManager_OnTreatRemovedFromInventory;
     }
 
     protected override void SetSingleton()

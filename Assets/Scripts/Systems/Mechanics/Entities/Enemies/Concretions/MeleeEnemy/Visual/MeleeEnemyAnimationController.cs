@@ -29,6 +29,8 @@ public class MeleeEnemyAnimationController : EnemyAnimationController
         meleeEnemyAttack.OnMeleeEnemyCharge -= MeleeEnemyAttack_OnMeleeEnemyCharge;
         meleeEnemyAttack.OnMeleeEnemyAttack -= MeleeEnemyAttack_OnMeleeEnemyAttack;
         meleeEnemyAttack.OnMeleeEnemyRecover -= MeleeEnemyAttack_OnMeleeEnemyRecover;
+
+        meleeEnemyAttack.OnMeleeEnemyStopAttacking -= MeleeEnemyAttack_OnMeleeEnemyStopAttacking;
     }
 
     #region Subscriptions

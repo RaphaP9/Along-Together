@@ -13,7 +13,7 @@ public class AttackCritChanceStatUI : PlayerNumericStatUI<PlayerAttackCritChance
     {
         if (resolver == null) return;
 
-        resolver.OnEntityStatInitialized += Resolver_OnEntityStatInitialized;
+        resolver.OnEntityStatInitialized -= Resolver_OnEntityStatInitialized;
         resolver.OnEntityStatUpdated -= Resolver_OnEntityStatUpdated;
     }
 
