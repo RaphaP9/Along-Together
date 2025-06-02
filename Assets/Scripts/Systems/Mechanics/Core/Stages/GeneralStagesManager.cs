@@ -2,6 +2,7 @@ using Newtonsoft.Json.Bson;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GeneralStagesManager : MonoBehaviour
@@ -11,13 +12,16 @@ public class GeneralStagesManager : MonoBehaviour
     [Header("Lists")]
     [SerializeField] private List<StageGroup> stagesGroups;
 
-    [Header("Settings")]
-    [SerializeField] private int startingStageNumber;
-    [SerializeField] private int startingRoundNumber;
-
     [Header("Settings - Starting/Ending timers")]
     [SerializeField, Range(2f, 5f)] private float roundStartingTime;
     [SerializeField, Range(2f, 5f)] private float roundEndingTime;
+    [Space]
+    [SerializeField, Range(2f, 5f)] private float changeStateStartingTimer;
+    [SerializeField, Range(2f, 5f)] private float changeStateEndingTimer;
+
+    [Header("Settings")]
+    [SerializeField] private int startingStageNumber;
+    [SerializeField] private int startingRoundNumber;
 
     [Header("States - Runtime Filled")]
     [SerializeField] private RoundState roundState;
@@ -33,6 +37,7 @@ public class GeneralStagesManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool debug;
 
+    #region Properties
     public List<StageGroup> StagesGroups => stagesGroups;
     public StageGroup CurrentStage => currentStageGroup;
     public RoundGroup CurrentRoundGroup => currentRoundGroup;
@@ -40,9 +45,11 @@ public class GeneralStagesManager : MonoBehaviour
 
     public int CurrentStageNumber => currentStageNumber;
     public int CurrentRoundNumber => currentRoundNumber;
+    #endregion
 
-    private enum RoundState { NotOnRound, StartingRound, OnRound, EndingRound}
+    private enum RoundState { NotOnRound, StartingRound, OnRound, EndingRound, ChangingStage}
 
+    #region Events
     public static event EventHandler<OnStageAndRoundEventArgs> OnStageAndRoundInitialized;
     public static event EventHandler<OnStageAndRoundLoadEventArgs> OnStageAndRoundLoad;
 
@@ -51,6 +58,12 @@ public class GeneralStagesManager : MonoBehaviour
     public static event EventHandler<OnRoundEventArgs> OnRoundEnding;
     public static event EventHandler<OnRoundEventArgs> OnRoundEnd;
 
+    public static event EventHandler<OnStageChangeEventArgs> OnStageChangeStart;
+    public static event EventHandler<OnStageChangeEventArgs> OnStageChangeMid;
+    public static event EventHandler<OnStageChangeEventArgs> OnStageChangeEnd;
+    #endregion
+
+    #region EventArgs Classes
     public class OnStageAndRoundEventArgs : EventArgs
     {
         public StageGroup stageGroup;
@@ -84,6 +97,12 @@ public class GeneralStagesManager : MonoBehaviour
         public int newRoundNumber;
     }
 
+    public class OnStageChangeEventArgs : EventArgs
+    {
+        public StageGroup stageGroup;
+    }
+    #endregion
+    
     private const int FIRTS_STAGE_NUMBER = 1;
     private const int FIRST_ROUND_NUMBER = 1;
 
@@ -132,9 +151,10 @@ public class GeneralStagesManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            StartCurrentRoundBlock();
+            StartCurrentStageChange();
         }
     }
+
 
     private void InitializeStage()
     {
@@ -166,6 +186,7 @@ public class GeneralStagesManager : MonoBehaviour
         OnStageAndRoundInitialized?.Invoke(this, new OnStageAndRoundEventArgs {stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = currentStageNumber, roundNumber = currentRoundNumber });
     }
 
+    #region Rounds
     public void StartCurrentRoundBlock() //RoundBlockIncludes Starting and Ending Time periods
     {
         if (!CanStartRound()) return;
@@ -202,22 +223,22 @@ public class GeneralStagesManager : MonoBehaviour
         int stageNumber = currentStageNumber;
         int roundNumber = currentRoundNumber;
 
-        SetRoundState(RoundState.StartingRound);
         OnRoundStarting?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
+        SetRoundState(RoundState.StartingRound);
         yield return new WaitForSeconds(roundStartingTime);
-        OnRoundStart?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
         SetRoundState(RoundState.OnRound);
+        OnRoundStart?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
 
         currentRoundEnded = false;
         StartRoundLogic(roundSO, stageGroup);
         yield return new WaitUntil(() => currentRoundEnded);
         currentRoundEnded = false;
 
-        SetRoundState(RoundState.EndingRound);
         OnRoundEnding?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
+        SetRoundState(RoundState.EndingRound);
         yield return new WaitForSeconds(roundEndingTime);
-        OnRoundEnd?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
         SetRoundState(RoundState.NotOnRound);
+        OnRoundEnd?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
 
         ClearCurrentRound();
     }
@@ -243,7 +264,7 @@ public class GeneralStagesManager : MonoBehaviour
         if(roundState != RoundState.NotOnRound) return false;
         return true;
     }
-
+    #endregion
 
     #region UtilityMethods
 
@@ -436,7 +457,47 @@ public class GeneralStagesManager : MonoBehaviour
 
     private void SetCurrentRoundNumber(int roundNumber) => currentRoundNumber = roundNumber;
     private void ResetCurrentRoundNumber() => currentRoundNumber = 0;
+
     public int GetStagesCount() => stagesGroups.Count;
+
+    public Vector2 GetPlayerSpawnPointPositionFromCurrentStageGroup() => GeneralUtilities.SupressZComponent(currentStageGroup.playerSpawnPoint.position);
+    private Vector2 GetPlayerSpawnPointPositionFromStageGroup(StageGroup stageGroup) => GeneralUtilities.SupressZComponent(stageGroup.playerSpawnPoint.position);
+
+    #endregion
+
+    #region StageChange
+    public void StartCurrentStageChange()
+    {
+        if (!CanChangeStage()) return;
+
+        if (currentStageGroup == null)
+        {
+            if (debug) Debug.Log("Current Stage Group is null. Can not change stage.");
+            return;
+        }
+
+        StartCoroutine(ChangeStageCoroutine(currentStageGroup));
+    }
+
+    private IEnumerator ChangeStageCoroutine(StageGroup stageGroup)
+    {
+        OnStageChangeStart?.Invoke(this, new OnStageChangeEventArgs { stageGroup = stageGroup});
+        SetRoundState(RoundState.ChangingStage);
+        yield return new WaitForSeconds(changeStateStartingTimer);
+
+        PlayerTeleporterManager.Instance.TeleportPlayerToPosition(GetPlayerSpawnPointPositionFromStageGroup(stageGroup), true);
+
+        OnStageChangeMid?.Invoke(this, new OnStageChangeEventArgs { stageGroup = stageGroup });
+        yield return new WaitForSeconds(changeStateEndingTimer);
+        SetRoundState(RoundState.NotOnRound);
+        OnStageChangeEnd?.Invoke(this, new OnStageChangeEventArgs { stageGroup = stageGroup });
+    }
+
+    private bool CanChangeStage()
+    {
+        if (roundState != RoundState.NotOnRound) return false;
+        return true;
+    }
     #endregion
 
     #region Subscriptions

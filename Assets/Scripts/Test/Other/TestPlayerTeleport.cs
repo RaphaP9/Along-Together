@@ -16,7 +16,7 @@ public class TestPlayerTeleport : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            PlayerTeleporterManager.Instance.TeleportPlayerToPosition(teleportPosition);
+            PlayerTeleporterManager.Instance.TeleportPlayerToPosition(teleportPosition, true);
         }
     }
 }

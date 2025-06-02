@@ -15,6 +15,7 @@ public class PlayerTeleporterManager : MonoBehaviour
     public class OnPlayerTeleportEventArgs: EventArgs
     {
         public Vector2 teleportPosition;
+        public bool cameraInstantPosition;
     }
 
     private void Awake()
@@ -34,7 +35,7 @@ public class PlayerTeleporterManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void TeleportPlayerToPosition(Vector2 position)
+    public void TeleportPlayerToPosition(Vector2 position, bool cameraInstantPosition)
     {
         if(PlayerTransformRegister.Instance == null || PlayerTransformRegister.Instance.PlayerTransform == null)
         {
@@ -44,6 +45,6 @@ public class PlayerTeleporterManager : MonoBehaviour
 
         PlayerTransformRegister.Instance.PlayerTransform.position = GeneralUtilities.Vector2ToVector3(position);
 
-        OnPlayerTeleported?.Invoke(this, new OnPlayerTeleportEventArgs { teleportPosition = position });
+        OnPlayerTeleported?.Invoke(this, new OnPlayerTeleportEventArgs { teleportPosition = position, cameraInstantPosition = cameraInstantPosition });
     }
 }

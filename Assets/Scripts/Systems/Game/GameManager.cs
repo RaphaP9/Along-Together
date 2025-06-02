@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private State state;
     [SerializeField] private State previousState;
 
-    public enum State {PlayerSpawning, BeginningCombat, Combat, EndingCombat, Shop, Upgrade, Cinematic, Dialogue, Lose } //Monologue is considered non GameState intrusive, can happen on combat,etc
+    //Monologue is considered non GameState intrusive, can happen on combat,etc
+    public enum State {StartingGame, BeginningCombat, Combat, EndingCombat, Shop, Upgrade, ChangingStage, Cinematic, Dialogue, Lose } 
 
     public State GameState => state;
 
@@ -38,11 +39,7 @@ public class GameManager : MonoBehaviour
         SetSingleton();
     }
 
-    private void Start()
-    {
-        ChangeState(State.PlayerSpawning);
-    }
-
+    #region Initialization
     private void SetSingleton()
     {
         if (Instance == null)
@@ -55,7 +52,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 
+    #region Utility Methods
     private void SetGameState(State state)
     {
         SetPreviousState(this.state);
@@ -73,4 +72,6 @@ public class GameManager : MonoBehaviour
         SetGameState(state);
         OnStateChanged?.Invoke(this, new OnStateChangeEventArgs {previousState = previousState,  newState = state });
     }
+    #endregion
+
 }
