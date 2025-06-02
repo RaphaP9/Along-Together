@@ -180,8 +180,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2175047077855233545}
   - component: {fileID: 1767680226784233606}
-  - component: {fileID: 2103602662934856347}
   - component: {fileID: 6404922557120481347}
+  - component: {fileID: 2103602662934856347}
+  - component: {fileID: 6212454105987961149}
   m_Layer: 7
   m_Name: Visual
   m_TagString: Untagged
@@ -220,22 +221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 5196844210077119428}
   facingDirectionHandler: {fileID: 4210701699229654129}
---- !u!114 &2103602662934856347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2442243168671979922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd0677dbead101408d8d381b4a763b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderingRefference: {fileID: 2831121492300425062}
-  spriteRenderers:
-  - {fileID: 5196844210077119428}
-  respectListingOrder: 0
 --- !u!114 &6404922557120481347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +239,37 @@ MonoBehaviour:
   enemyHealth: {fileID: 7613458921501402528}
   enemyMovement: {fileID: 5971531763212200158}
   projectileEnemyAttack: {fileID: 5914679703919730462}
+--- !u!114 &2103602662934856347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2442243168671979922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd0677dbead101408d8d381b4a763b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderingRefference: {fileID: 2831121492300425062}
+  spriteRenderers:
+  - {fileID: 5196844210077119428}
+  respectListingOrder: 0
+--- !u!114 &6212454105987961149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2442243168671979922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7289d3d46a30ef04fa3ff257402afb24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderingRefference: {fileID: 2831121492300425062}
+  UICanvases:
+  - {fileID: 5868171347747765480}
 --- !u!1 &3228117365427682611
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,5 +987,10 @@ PrefabInstance:
 --- !u!224 &3169788049407501797 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5566468291033210972, guid: dbe409340d4ff814184fe9fdbcfda87a, type: 3}
+  m_PrefabInstance: {fileID: 7403152548220421561}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &5868171347747765480 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 4022460739973658961, guid: dbe409340d4ff814184fe9fdbcfda87a, type: 3}
   m_PrefabInstance: {fileID: 7403152548220421561}
   m_PrefabAsset: {fileID: 0}

@@ -4128,6 +4128,7 @@ MonoBehaviour:
   roundEndingTime: 3
   changeStateStartingTimer: 3
   changeStateEndingTimer: 3
+  timer: 0
 --- !u!1 &383226952
 GameObject:
   m_ObjectHideFlags: 0
@@ -5134,7 +5135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stagesGroups:
-  - stageSO: {fileID: 11400000, guid: 47368ed2adf26cc46a90c445e4e62a02, type: 2}
+  - stageSO: {fileID: 11400000, guid: 07f2ce29db2ad9f48a0cafaae74ab984, type: 2}
     playerSpawnPoint: {fileID: 830161888}
     spawnPointsHandler: {fileID: 1236280672}
   - stageSO: {fileID: 11400000, guid: a390d5ef5adf9764ba85b14abcce050e, type: 2}
@@ -5153,6 +5154,13 @@ MonoBehaviour:
   currentRound: {fileID: 0}
   currentStageNumber: 0
   currentRoundNumber: 0
+  lastCompletedStageGroup:
+    stageSO: {fileID: 0}
+    playerSpawnPoint: {fileID: 0}
+    spawnPointsHandler: {fileID: 0}
+  lastCompletedRoundGroup:
+    difficultyTier: 0
+    rounds: []
   debug: 1
 --- !u!1001 &459982366
 PrefabInstance:
@@ -8308,7 +8316,7 @@ MonoBehaviour:
   awakeLoadMode: 0
   allowDynamicLoad: 1
   dynamicSaveMode: 0
-  applicationQuitSaveMode: 0
+  applicationQuitSaveMode: 3
 --- !u!1 &718985274
 GameObject:
   m_ObjectHideFlags: 0

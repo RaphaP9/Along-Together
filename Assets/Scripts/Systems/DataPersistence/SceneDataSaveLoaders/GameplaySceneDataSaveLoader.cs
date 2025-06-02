@@ -6,6 +6,16 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
 {
     public static GameplaySceneDataSaveLoader Instance {  get; private set; }
 
+    private void OnEnable()
+    {
+        GameManager.OnTriggerDataSave += GameManager_OnTriggerDataSave;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnTriggerDataSave -= GameManager_OnTriggerDataSave;
+    }
+
     protected override void SetSingleton()
     {
         if (Instance == null)
@@ -16,5 +26,10 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
         {
             Destroy(gameObject);
         }
+    }
+
+    private void GameManager_OnTriggerDataSave(object sender, System.EventArgs e)
+    {
+        HandleDynamicDataSave();
     }
 }

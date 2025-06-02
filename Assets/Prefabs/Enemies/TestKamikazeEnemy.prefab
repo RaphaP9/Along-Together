@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7763419896753885386}
   - component: {fileID: 8999948923457908442}
-  - component: {fileID: 3587964685154448748}
   - component: {fileID: 4612567573390295009}
+  - component: {fileID: 3587964685154448748}
+  - component: {fileID: 1106262027479427470}
   m_Layer: 7
   m_Name: Visual
   m_TagString: Untagged
@@ -50,22 +51,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4618795816096615855}
   facingDirectionHandler: {fileID: 8668006828377196939}
---- !u!114 &3587964685154448748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264724814189880305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd0677dbead101408d8d381b4a763b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderingRefference: {fileID: 4882927765344189426}
-  spriteRenderers:
-  - {fileID: 4618795816096615855}
-  respectListingOrder: 0
 --- !u!114 &4612567573390295009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +69,37 @@ MonoBehaviour:
   enemyHealth: {fileID: 7913916363484433750}
   enemyMovement: {fileID: 8364510044175325432}
   kamikazeEnemyExplosion: {fileID: 8811045212219346871}
+--- !u!114 &3587964685154448748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264724814189880305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd0677dbead101408d8d381b4a763b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderingRefference: {fileID: 4882927765344189426}
+  spriteRenderers:
+  - {fileID: 4618795816096615855}
+  respectListingOrder: 0
+--- !u!114 &1106262027479427470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264724814189880305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7289d3d46a30ef04fa3ff257402afb24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderingRefference: {fileID: 4882927765344189426}
+  UICanvases:
+  - {fileID: 6867233554747087357}
 --- !u!1 &3887083149585797501
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,5 +973,10 @@ PrefabInstance:
 --- !u!224 &2729154266798276848 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5566468291033210972, guid: dbe409340d4ff814184fe9fdbcfda87a, type: 3}
+  m_PrefabInstance: {fileID: 7539015002380984492}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &6867233554747087357 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 4022460739973658961, guid: dbe409340d4ff814184fe9fdbcfda87a, type: 3}
   m_PrefabInstance: {fileID: 7539015002380984492}
   m_PrefabAsset: {fileID: 0}

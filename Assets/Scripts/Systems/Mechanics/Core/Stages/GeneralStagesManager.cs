@@ -26,6 +26,9 @@ public class GeneralStagesManager : MonoBehaviour
     [Space]
     [SerializeField] private int currentStageNumber;
     [SerializeField] private int currentRoundNumber;
+    [Space]
+    [SerializeField] private StageGroup lastCompletedStageGroup;
+    [SerializeField] private RoundGroup lastCompletedRoundGroup;
 
     [Header("Debug")]
     [SerializeField] private bool debug;
@@ -121,15 +124,10 @@ public class GeneralStagesManager : MonoBehaviour
     private void Start()
     {
         SetRoundState(RoundState.NotOnRound);
-        InitializeStage();
-    }
+        ClearLastCompletedStageGroup();
+        ClearLastCompletedtRoundGroup();
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            StartCurrentRound();
-        }
+        InitializeStage();
     }
 
     private void SetSingleton()
@@ -220,6 +218,9 @@ public class GeneralStagesManager : MonoBehaviour
         StartRoundLogic(roundSO, stageGroup);
         yield return new WaitUntil(() => currentRoundEnded);
         currentRoundEnded = false;
+
+        SetLastCompletedStageGroup(currentStageGroup);
+        SetLastCompletedRoundGroup(currentRoundGroup);
 
         SetRoundState(RoundState.NotOnRound);
         OnRoundEnd?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
@@ -351,9 +352,9 @@ public class GeneralStagesManager : MonoBehaviour
 
     #region Public Methods
 
-    public bool CurrentStageAndRoundNumberAreLasts() => StageAndRoundNumberAreLasts(currentStageGroup, currentRoundGroup);
-    public bool CurrentRoundIsLastFromCurrentStage() => IsLastRoundGroupFromStageGroup(currentStageGroup, currentRoundGroup);
     public bool CurrentRoundIsFirstFromCurrentStage() => IsFirstRoundGroupFromStageGroup(currentStageGroup, currentRoundGroup);
+    public bool LastCompletedStageAndRoundNumberAreLasts() => StageAndRoundNumberAreLasts(lastCompletedStageGroup, lastCompletedRoundGroup);
+    public bool LastCompletedRoundIsLastFromStage() => IsLastRoundGroupFromStageGroup(lastCompletedStageGroup, lastCompletedRoundGroup);
     public void LoadNextRoundAndStage()
     {
         int previousStageNumber = currentStageNumber;
@@ -445,6 +446,13 @@ public class GeneralStagesManager : MonoBehaviour
     private void ResetCurrentRoundNumber() => currentRoundNumber = 0;
 
     public int GetStagesCount() => stagesGroups.Count;
+
+    private void SetLastCompletedStageGroup(StageGroup stageGroup) => lastCompletedStageGroup = stageGroup;
+    private void ClearLastCompletedStageGroup() => lastCompletedStageGroup = null;
+
+    private void SetLastCompletedRoundGroup(RoundGroup roundGroup) => lastCompletedRoundGroup = roundGroup;
+    private void ClearLastCompletedtRoundGroup() => lastCompletedRoundGroup = null;
+
 
     public Vector2 GetPlayerSpawnPointPositionFromCurrentStageGroup() => GeneralUtilities.SupressZComponent(currentStageGroup.playerSpawnPoint.position);
     private Vector2 GetPlayerSpawnPointPositionFromStageGroup(StageGroup stageGroup) => GeneralUtilities.SupressZComponent(stageGroup.playerSpawnPoint.position);

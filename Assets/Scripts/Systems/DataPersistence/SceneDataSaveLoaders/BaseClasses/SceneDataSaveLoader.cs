@@ -49,7 +49,7 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
         switch (dynamicSaveMode)
         {
             case SaveMode.CompleteDataSave:
-                await GeneralDataSaveLoader.Instance.CompleteDataLoadAsync();
+                await GeneralDataSaveLoader.Instance.CompleteDataSaveAsync();
                 break;
             case SaveMode.JSONDataSave:
                 await GeneralDataSaveLoader.Instance.SavePersistentDataAsync();

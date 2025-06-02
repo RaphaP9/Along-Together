@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -32,6 +31,8 @@ public class GameManager : MonoBehaviour
     public float ChangeStateEndingTimer => changeStateEndingTimer;
     #endregion
 
+    public static event EventHandler OnTriggerDataSave;
+
     //Monologue is considered non GameState intrusive, can happen on combat,etc
     public enum State {StartingGame, BeginningCombat, Combat, EndingCombat, Shop, Upgrade, BeginningChangingStage, EndingChangingStage, Cinematic, Dialogue, Lose, Win } 
 
@@ -41,7 +42,6 @@ public class GameManager : MonoBehaviour
     public static event EventHandler<OnStateInitializedEventArgs> OnStateInitialized;
 
     private bool firstUpdateLogicPerformed = false;
-    private bool shouldChangeToNextStage = false;
 
     public class OnStateChangeEventArgs : EventArgs
     {
@@ -231,14 +231,14 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (GeneralStagesManager.Instance.CurrentStageAndRoundNumberAreLasts())
+        if (GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts())
         {
             ChangeState(State.Win);
             ResetTimer();
             return;
         }
 
-        if (GeneralStagesManager.Instance.CurrentRoundIsLastFromCurrentStage())
+        if (GeneralStagesManager.Instance.LastCompletedRoundIsLastFromStage())
         {
             ChangeState(State.BeginningChangingStage);
         }
@@ -269,7 +269,9 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        ChangeState(State.EndingChangingStage);
         GeneralStagesManager.Instance.ChangeToCurrentStage();
+
         ResetTimer();
     }
 
@@ -281,7 +283,9 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        ChangeState(State.Shop);
         ShopOpeningManager.Instance.OpenShop(); //Later Change To Upgrade
+
         ResetTimer();
     }
 
@@ -307,6 +311,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     private void ResetTimer() => timer = 0f;
+    private void TriggerDataSave() => OnTriggerDataSave?.Invoke(this, EventArgs.Empty);
 
     #region Subscriptions
     private void ShopOpeningManager_OnShopClose(object sender, EventArgs e)
@@ -322,7 +327,12 @@ public class GameManager : MonoBehaviour
     private void GeneralStagesManager_OnRoundEnd(object sender, GeneralStagesManager.OnRoundEventArgs e)
     {
         ChangeState(State.EndingCombat);
-    }
 
+        if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts())
+        {
+            GeneralStagesManager.Instance.LoadNextRoundAndStage();
+            TriggerDataSave();
+        }
+    }
     #endregion
 }
