@@ -11,12 +11,31 @@ public class GameManager : MonoBehaviour
     [SerializeField] private State state;
     [SerializeField] private State previousState;
 
+    [Header("Settings - Timers")]
+    [SerializeField, Range(2f, 5f)] private float startingGameTimer;
+    [Space]
+    [SerializeField, Range(2f, 5f)] private float roundStartingTime;
+    [SerializeField, Range(2f, 5f)] private float roundEndingTime;
+    [Space]
+    [SerializeField, Range(2f, 5f)] private float changeStateStartingTimer;
+    [SerializeField, Range(2f, 5f)] private float changeStateEndingTimer;
+
+    #region Properties
+    public float StartingGameTimer => startingGameTimer;
+    public float RoundStartingTime => roundStartingTime;
+    public float RoundEndingTime => roundEndingTime;
+    public float ChangeStateStartingTimer => changeStateStartingTimer;
+    public float ChangeStateEndingTimer => changeStateEndingTimer;
+    #endregion
+
     //Monologue is considered non GameState intrusive, can happen on combat,etc
     public enum State {StartingGame, BeginningCombat, Combat, EndingCombat, Shop, Upgrade, ChangingStage, Cinematic, Dialogue, Lose } 
 
     public State GameState => state;
 
     public static event EventHandler<OnStateChangeEventArgs> OnStateChanged;
+
+    private float timer = 0f;
 
     public class OnStateChangeEventArgs : EventArgs
     {
@@ -37,6 +56,16 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         SetSingleton();
+    }
+
+    private void Start()
+    {
+        ResetTimer();
+    }
+
+    private void Update()
+    {
+        HandleGameStates();
     }
 
     #region Initialization
@@ -74,4 +103,107 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region Logic
+    private void HandleGameStates()
+    {
+        switch (state)
+        {
+            case State.StartingGame:
+                StartingGameLogic();
+                break;
+            case State.BeginningCombat:
+                BeginningCombatLogic();
+                break;
+            case State.Combat:
+                CombatLogic();
+                break;
+            case State.EndingCombat:
+                EndingCombatLogic();
+                break;
+            case State.Shop:
+                ShopLogic();
+                break;
+            case State.Upgrade:
+                UpgradeLogic();
+                break;
+            case State.ChangingStage:
+                ChangingStageLogic();
+                break;
+            case State.Cinematic:
+                CinematicLogic();
+                break;
+            case State.Dialogue:
+                DialogueLogic();
+                break;
+            case State.Lose:
+                LoseLogic();
+                break;
+
+        }
+    }
+
+    private void StartingGameLogic()
+    {
+        if(timer < startingGameTimer)
+        {
+            timer += Time.deltaTime;
+            return;
+        }
+
+        ResetTimer();
+
+        //if(GeneralStagesManager.Instance.cU)
+    }
+
+    private void BeginningCombatLogic()
+    {
+
+    }
+
+    private void CombatLogic()
+    {
+
+    }
+
+    private void EndingCombatLogic()
+    {
+
+    }
+
+    private void ShopLogic()
+    {
+
+    }
+
+    private void UpgradeLogic()
+    {
+
+    }
+
+    private void ChangingStageLogic()
+    {
+
+    }
+
+    private void CinematicLogic()
+    {
+
+    }
+
+    private void DialogueLogic()
+    {
+
+    }
+
+    private void LoseLogic()
+    {
+
+    }
+    #endregion
+
+    private void ResetTimer() => timer = 0f;
+
+    #region Subscriptions
+
+    #endregion
 }
