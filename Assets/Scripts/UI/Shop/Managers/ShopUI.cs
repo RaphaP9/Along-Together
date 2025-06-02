@@ -26,7 +26,7 @@ public class ShopUI : MonoBehaviour
         ShopOpeningManager.OnShopClose += ShopUIOpeningManager_OnShopUIClose;
 
         ShopOpeningManager.OnShopOpenInmediately += ShopUIOpeningManager_OnShopUIOpenInmediately;
-        ShopOpeningManager.OnShopCloseInmediately += ShopUIOpeningManager_OnShopUICloseInmediately;
+        ShopOpeningManager.OnShopCloseImmediately += ShopUIOpeningManager_OnShopUICloseInmediately;
     }
 
     private void OnDisable()
@@ -35,7 +35,7 @@ public class ShopUI : MonoBehaviour
         ShopOpeningManager.OnShopClose -= ShopUIOpeningManager_OnShopUIClose;
 
         ShopOpeningManager.OnShopOpenInmediately -= ShopUIOpeningManager_OnShopUIOpenInmediately;
-        ShopOpeningManager.OnShopCloseInmediately -= ShopUIOpeningManager_OnShopUICloseInmediately;
+        ShopOpeningManager.OnShopCloseImmediately -= ShopUIOpeningManager_OnShopUICloseInmediately;
     }
 
     private void Awake()

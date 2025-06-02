@@ -49,6 +49,7 @@ public class GeneralStagesManager : MonoBehaviour
     public static event EventHandler<OnRoundEventArgs> OnRoundStart;
     public static event EventHandler<OnRoundEventArgs> OnRoundEnd;
 
+    public static event EventHandler<OnStageChangeEventArgs> OnStageInitialized;
     public static event EventHandler<OnStageChangeEventArgs> OnStageChange;
     #endregion
 
@@ -288,8 +289,8 @@ public class GeneralStagesManager : MonoBehaviour
 
     private bool IsLastStageGroup(StageGroup stageGroup) => stageGroup == stagesGroups[^1];
     private bool IsLastRoundGroupFromStageGroup(StageGroup stageGroup, RoundGroup roundGroup) => roundGroup == stageGroup.stageSO.roundGroups[^1];
-    private bool IsFirstRoundFromStageGroup(StageGroup stageGroup, RoundGroup roundGroup) => roundGroup == stageGroup.stageSO.roundGroups[0];
-    public bool StageAndRoundNumberAreLasts(StageGroup stageGroup, RoundGroup roundGroup)
+    private bool IsFirstRoundGroupFromStageGroup(StageGroup stageGroup, RoundGroup roundGroup) => roundGroup == stageGroup.stageSO.roundGroups[0];
+    private bool StageAndRoundNumberAreLasts(StageGroup stageGroup, RoundGroup roundGroup)
     {
         if (IsLastStageGroup(stageGroup))
         {
@@ -352,6 +353,7 @@ public class GeneralStagesManager : MonoBehaviour
 
     public bool CurrentStageAndRoundNumberAreLasts() => StageAndRoundNumberAreLasts(currentStageGroup, currentRoundGroup);
     public bool CurrentRoundIsLastFromCurrentStage() => IsLastRoundGroupFromStageGroup(currentStageGroup, currentRoundGroup);
+    public bool CurrentRoundIsFirstFromCurrentStage() => IsFirstRoundGroupFromStageGroup(currentStageGroup, currentRoundGroup);
     public void LoadNextRoundAndStage()
     {
         int previousStageNumber = currentStageNumber;
@@ -450,6 +452,18 @@ public class GeneralStagesManager : MonoBehaviour
     #endregion
 
     #region StageChange
+    public void InitializeToCurrentStage()
+    {
+        if (currentStageGroup == null)
+        {
+            if (debug) Debug.Log("Current Stage Group is null. Can not change stage.");
+            return;
+        }
+
+        PlayerTeleporterManager.Instance.TeleportPlayerToPosition(GetPlayerSpawnPointPositionFromStageGroup(currentStageGroup), true);
+        OnStageInitialized?.Invoke(this, new OnStageChangeEventArgs { stageGroup = currentStageGroup });
+    }
+
     public void ChangeToCurrentStage()
     {
         if (!CanChangeStage()) return;

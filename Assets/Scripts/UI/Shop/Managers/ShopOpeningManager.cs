@@ -14,7 +14,7 @@ public class ShopOpeningManager : MonoBehaviour
     public static event EventHandler OnShopClose;
 
     public static event EventHandler OnShopOpenInmediately;
-    public static event EventHandler OnShopCloseInmediately;
+    public static event EventHandler OnShopCloseImmediately;
 
     public static event EventHandler OnShopClosedFromUI;
 
@@ -60,7 +60,7 @@ public class ShopOpeningManager : MonoBehaviour
     {
         if (!isOpen) return;
 
-        OnShopCloseInmediately?.Invoke(this, EventArgs.Empty);
+        OnShopCloseImmediately?.Invoke(this, EventArgs.Empty);
         SetIsOpen(false);
     }
 

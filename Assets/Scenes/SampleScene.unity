@@ -4123,11 +4123,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   previousState: 0
-  startingGameTimer: 0
-  roundStartingTime: 0
-  roundEndingTime: 0
-  changeStateStartingTimer: 0
-  changeStateEndingTimer: 0
+  startingGameTimer: 3
+  roundStartingTime: 3
+  roundEndingTime: 3
+  changeStateStartingTimer: 3
+  changeStateEndingTimer: 3
 --- !u!1 &383226952
 GameObject:
   m_ObjectHideFlags: 0
