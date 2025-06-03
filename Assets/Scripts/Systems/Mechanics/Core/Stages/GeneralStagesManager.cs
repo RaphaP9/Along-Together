@@ -1,8 +1,6 @@
-using Newtonsoft.Json.Bson;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GeneralStagesManager : MonoBehaviour
@@ -455,7 +453,7 @@ public class GeneralStagesManager : MonoBehaviour
 
 
     public Vector2 GetPlayerSpawnPointPositionFromCurrentStageGroup() => GeneralUtilities.SupressZComponent(currentStageGroup.playerSpawnPoint.position);
-    private Vector2 GetPlayerSpawnPointPositionFromStageGroup(StageGroup stageGroup) => GeneralUtilities.SupressZComponent(stageGroup.playerSpawnPoint.position);
+    public Vector2 GetPlayerSpawnPointPositionFromStageGroup(StageGroup stageGroup) => GeneralUtilities.SupressZComponent(stageGroup.playerSpawnPoint.position);
 
     #endregion
 
@@ -468,7 +466,6 @@ public class GeneralStagesManager : MonoBehaviour
             return;
         }
 
-        PlayerTeleporterManager.Instance.TeleportPlayerToPosition(GetPlayerSpawnPointPositionFromStageGroup(currentStageGroup), true);
         OnStageInitialized?.Invoke(this, new OnStageChangeEventArgs { stageGroup = currentStageGroup });
     }
 
@@ -482,9 +479,7 @@ public class GeneralStagesManager : MonoBehaviour
             return;
         }
 
-        PlayerTeleporterManager.Instance.TeleportPlayerToPosition(GetPlayerSpawnPointPositionFromStageGroup(currentStageGroup), true);
-        OnStageChange?.Invoke(this, new OnStageChangeEventArgs { stageGroup = currentStageGroup });
-        
+        OnStageChange?.Invoke(this, new OnStageChangeEventArgs { stageGroup = currentStageGroup });        
     }
 
     private bool CanChangeStage()
@@ -509,4 +504,5 @@ public class StageGroup
     public StageSO stageSO;
     public Transform playerSpawnPoint;
     public StageSpawnPointsHandler spawnPointsHandler;
+    public PolygonCollider2D stageConfiner;
 }

@@ -51,6 +51,7 @@ public class PlayerMovement : EntityMovement
 
     public void Stop() //Called By PlayerStateHandler
     {
+        FinalMoveValue = Vector2.zero;
         _rigidbody2D.velocity = Vector2.zero;
     }
 

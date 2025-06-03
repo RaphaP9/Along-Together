@@ -123,7 +123,7 @@ public class PlayerStateHandler : MonoBehaviour
 
     private void ZeroActionsLogicFixedUpdate()
     {
-
+        playerMovement.Stop();
     }
 
     private void ZeroActionsLogicLateUpdate()
