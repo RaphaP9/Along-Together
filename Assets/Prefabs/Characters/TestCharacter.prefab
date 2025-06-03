@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityIdentifier: {fileID: 4591576310225339193}
   maxLevel: 3
-  startingAbilityLevel: 0
+  startingAbilityLevel: 1
   abilityLevel: 0
 --- !u!114 &8470413022457330166
 MonoBehaviour:
@@ -955,7 +955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityIdentifier: {fileID: 5328163113391621430}
   maxLevel: 3
-  startingAbilityLevel: 0
+  startingAbilityLevel: 1
   abilityLevel: 0
 --- !u!114 &1280386860473701626
 MonoBehaviour:
@@ -1557,7 +1557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityIdentifier: {fileID: 1897673595700632218}
   maxLevel: 3
-  startingAbilityLevel: 0
+  startingAbilityLevel: 1
   abilityLevel: 0
 --- !u!114 &7573232495966570463
 MonoBehaviour:

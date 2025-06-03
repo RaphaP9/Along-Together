@@ -183,7 +183,7 @@ public class PlayerStateHandler : MonoBehaviour
 
     private void RestLogicFixedUpdate()
     {
-
+        playerMovement.Stop();
     }
 
     private void RestLogicLateUpdate()

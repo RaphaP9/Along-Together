@@ -19,17 +19,11 @@ public class GameManager : MonoBehaviour
     [Space]
     [SerializeField, Range(2f, 5f)] private float changeStateStartingTimer;
     [SerializeField, Range(2f, 5f)] private float changeStateEndingTimer;
+    [Space]
+    [SerializeField, Range(0f, 2f)] private float dialogueUpgradeInterval;
 
     [Header("Runtime Filled")]
     [SerializeField] private float timer = 0f;
-
-    #region Properties
-    public float StartingGameTimer => startingGameTimer;
-    public float RoundStartingTime => roundStartingTime;
-    public float RoundEndingTime => roundEndingTime;
-    public float ChangeStateStartingTimer => changeStateStartingTimer;
-    public float ChangeStateEndingTimer => changeStateEndingTimer;
-    #endregion
 
     public static event EventHandler OnTriggerDataSave;
 
@@ -60,6 +54,8 @@ public class GameManager : MonoBehaviour
         ShopOpeningManager.OnShopCloseImmediately += ShopOpeningManager_OnShopCloseImmediately;
 
         GeneralStagesManager.OnRoundEnd += GeneralStagesManager_OnRoundEnd;
+
+        DialogueManager.OnDialogueEnd += DialogueManager_OnDialogueEnd;
     }
 
     private void OnDisable()
@@ -68,6 +64,8 @@ public class GameManager : MonoBehaviour
         ShopOpeningManager.OnShopCloseImmediately -= ShopOpeningManager_OnShopCloseImmediately;
 
         GeneralStagesManager.OnRoundEnd -= GeneralStagesManager_OnRoundEnd;
+
+        DialogueManager.OnDialogueEnd -= DialogueManager_OnDialogueEnd;
     }
 
     private void Awake()
@@ -192,8 +190,16 @@ public class GameManager : MonoBehaviour
 
         if (GeneralStagesManager.Instance.CurrentRoundIsFirstFromCurrentStage())
         {
-            ChangeState(State.Shop); //Later Change to Upgrade
-            ShopOpeningManager.Instance.OpenShop();
+            if (DialogueTriggerHandler.Instance.ExistDialogueForCurrentCharacterAndStage()) //Play Dialogue only if it exist, otherwise open Upgrade
+            {
+                ChangeState(State.Dialogue);
+                DialogueTriggerHandler.Instance.PlayDialogueForCurrentCharacterAndStage();
+            }
+            else
+            {
+                ChangeState(State.Shop); //Later Change to Upgrade
+                ShopOpeningManager.Instance.OpenShop();
+            }
         }
         else
         {
@@ -283,8 +289,16 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        ChangeState(State.Shop);
-        ShopOpeningManager.Instance.OpenShop(); //Later Change To Upgrade
+        if (DialogueTriggerHandler.Instance.ExistDialogueForCurrentCharacterAndStage()) //Play Dialogue only if it exist, otherwise open Upgrade
+        {
+            ChangeState(State.Dialogue);
+            DialogueTriggerHandler.Instance.PlayDialogueForCurrentCharacterAndStage();
+        }
+        else
+        {
+            ChangeState(State.Shop); //Later Change to Upgrade
+            ShopOpeningManager.Instance.OpenShop();
+        }
 
         ResetTimer();
     }
@@ -313,6 +327,14 @@ public class GameManager : MonoBehaviour
     private void ResetTimer() => timer = 0f;
     private void TriggerDataSave() => OnTriggerDataSave?.Invoke(this, EventArgs.Empty);
 
+    private IEnumerator FromDialogueToUpgradeCoroutine()
+    {
+        yield return new WaitForSeconds(dialogueUpgradeInterval);
+
+        ChangeState(State.Shop); //Later Change to Upgrade
+        ShopOpeningManager.Instance.OpenShop();
+    }
+
     #region Subscriptions
     private void ShopOpeningManager_OnShopClose(object sender, EventArgs e)
     {
@@ -334,5 +356,12 @@ public class GameManager : MonoBehaviour
             TriggerDataSave();
         }
     }
+
+
+    private void DialogueManager_OnDialogueEnd(object sender, DialogueManager.OnDialogueEventArgs e)
+    {
+        StartCoroutine(FromDialogueToUpgradeCoroutine());
+    }
+
     #endregion
 }

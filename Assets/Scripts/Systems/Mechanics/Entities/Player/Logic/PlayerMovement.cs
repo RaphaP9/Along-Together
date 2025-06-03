@@ -49,6 +49,11 @@ public class PlayerMovement : EntityMovement
         _rigidbody2D.velocity = new Vector2(ScaledMovementVector.x, ScaledMovementVector.y);
     }
 
+    public void Stop() //Called By PlayerStateHandler
+    {
+        _rigidbody2D.velocity = Vector2.zero;
+    }
+
     private void CalculateDesiredSpeed()
     {
         DesiredSpeed = CanMove() ? GetMovementSpeedValue() : 0f;
