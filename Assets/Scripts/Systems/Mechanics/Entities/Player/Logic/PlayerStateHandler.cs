@@ -21,7 +21,19 @@ public class PlayerStateHandler : MonoBehaviour
     [SerializeField] private PlayerState playerState;
 
     public PlayerState State => playerState;
-    public enum PlayerState {Spawning, Combat, NoCombat, Rest, Dead}
+    public enum PlayerState {ZeroActions, Combat, NoCombat, Rest, Dead}
+
+    private void OnEnable()
+    {
+        GameManager.OnStateInitialized += GameManager_OnStateInitialized;
+        GameManager.OnStateChanged += GameManager_OnStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnStateInitialized -= GameManager_OnStateInitialized;
+        GameManager.OnStateChanged -= GameManager_OnStateChanged;
+    }
 
     private void Start()
     {
@@ -47,8 +59,8 @@ public class PlayerStateHandler : MonoBehaviour
     {
         switch (playerState)
         {
-            case PlayerState.Spawning:
-                SpawningLogicUpdate();
+            case PlayerState.ZeroActions:
+                ZeroActionsLogicUpdate();
                 break;
             case PlayerState.Combat:
             default:
@@ -60,9 +72,6 @@ public class PlayerStateHandler : MonoBehaviour
             case PlayerState.Rest:
                 RestLogicUpdate();
                 break;
-            case PlayerState.Dead:
-                DeadLogicUpdate();
-                break;
         }
     }
 
@@ -70,8 +79,8 @@ public class PlayerStateHandler : MonoBehaviour
     {
         switch (playerState)
         {
-            case PlayerState.Spawning:
-                SpawningLogicFixedUpdate();
+            case PlayerState.ZeroActions:
+                ZeroActionsLogicFixedUpdate();
                 break;
             case PlayerState.Combat:
             default:
@@ -83,9 +92,6 @@ public class PlayerStateHandler : MonoBehaviour
             case PlayerState.Rest:
                 RestLogicFixedUpdate();
                 break;
-            case PlayerState.Dead:
-                DeadLogicFixedUpdate();
-                break;
         }
     }
 
@@ -93,8 +99,8 @@ public class PlayerStateHandler : MonoBehaviour
     {
         switch (playerState)
         {
-            case PlayerState.Spawning:
-                SpawningLogicLateUpdate();
+            case PlayerState.ZeroActions:
+                ZeroActionsLogicLateUpdate();
                 break;
             case PlayerState.Combat:
             default:
@@ -106,24 +112,21 @@ public class PlayerStateHandler : MonoBehaviour
             case PlayerState.Rest:
                 RestLogicLateUpdate();
                 break;
-            case PlayerState.Dead:
-                DeadLogicLateUpdate();
-                break;
         }
     }
 
-    #region Spawning Logics
-    private void SpawningLogicUpdate()
+    #region ZeroActions Logics
+    private void ZeroActionsLogicUpdate()
     {
 
     }
 
-    private void SpawningLogicFixedUpdate()
+    private void ZeroActionsLogicFixedUpdate()
     {
 
     }
 
-    private void SpawningLogicLateUpdate()
+    private void ZeroActionsLogicLateUpdate()
     {
 
     }
@@ -189,22 +192,42 @@ public class PlayerStateHandler : MonoBehaviour
     }
     #endregion
 
-    #region Dead Logics
-    private void DeadLogicUpdate()
+    private void ChangePlayerStateByGameState(GameManager.State gameState)
     {
-
+        switch (gameState)
+        {
+            case GameManager.State.StartingGame:
+            case GameManager.State.BeginningChangingStage:
+            case GameManager.State.EndingChangingStage:
+            case GameManager.State.Lose:
+                SetPlayerState(PlayerState.ZeroActions);
+                break;
+            case GameManager.State.BeginningCombat:
+            case GameManager.State.EndingCombat:
+            case GameManager.State.Combat:
+                SetPlayerState(PlayerState.Combat);
+                break;
+            case GameManager.State.Shop:
+            case GameManager.State.Upgrade:
+            case GameManager.State.Win:
+            case GameManager.State.Cinematic:
+            case GameManager.State.Dialogue:
+                SetPlayerState(PlayerState.Rest);
+                break;
+        }
     }
-
-    private void DeadLogicFixedUpdate()
-    {
-
-    }
-
-    private void DeadLogicLateUpdate()
-    {
-
-    }
-    #endregion
 
     private void SetPlayerState(PlayerState state) => playerState = state;
+
+    #region Subscriptions
+    private void GameManager_OnStateInitialized(object sender, GameManager.OnStateInitializedEventArgs e)
+    {
+        ChangePlayerStateByGameState(e.state);
+
+    }
+    private void GameManager_OnStateChanged(object sender, GameManager.OnStateChangeEventArgs e)
+    {
+        ChangePlayerStateByGameState(e.newState);
+    }
+    #endregion
 }
