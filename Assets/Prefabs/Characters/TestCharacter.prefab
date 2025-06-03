@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 6586126778679378193}
   - component: {fileID: 4661234364419359008}
   - component: {fileID: 2613628452749778797}
+  - component: {fileID: 4256363878830921393}
   m_Layer: 6
   m_Name: TestCharacter
   m_TagString: Untagged
@@ -642,7 +643,7 @@ MonoBehaviour:
   dodgerComponents:
   - {fileID: 7573232495966570463}
   immunerComponents: []
-  invulnerableTimeAfterTakingDamage: 2
+  invulnerableTimeAfterTakingDamage: 1.5
   currentHealth: 0
   currentShield: 0
 --- !u!114 &4661234364419359008
@@ -703,6 +704,20 @@ MonoBehaviour:
   projectileSpeed: 10
   projectileLifespan: 5
   projectileDispersionAngle: 0
+--- !u!114 &4256363878830921393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851777789475013426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad913cd71fefc114ca99a2f53d8063bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterIdentifier: {fileID: 1965199428449930878}
+  playerHealth: {fileID: 6586126778679378193}
 --- !u!1 &3069412420397820189
 GameObject:
   m_ObjectHideFlags: 0

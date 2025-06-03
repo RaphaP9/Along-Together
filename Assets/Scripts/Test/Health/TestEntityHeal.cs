@@ -17,7 +17,7 @@ public class TestEntityHeal : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            entityHealth.Heal(new HealData { healAmount = 2, healSource = null});
+            entityHealth.Heal(new HealData(2,null));
         }
     }
 }

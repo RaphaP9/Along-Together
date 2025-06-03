@@ -48,7 +48,7 @@ public class DataSaveUI : MonoBehaviour
         yield return new WaitUntil(() => dataSaveCompleted);
         dataSaveCompleted = false;
 
-        yield return new WaitForSeconds(minimumShowingInidicatorTime);
+        yield return new WaitForSecondsRealtime(minimumShowingInidicatorTime);
 
         HideIndicator();
     }
