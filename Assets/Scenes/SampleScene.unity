@@ -28861,6 +28861,7 @@ MonoBehaviour:
   - id: 1
     logToStart: Start
     logToEnd: End
+    useOriginalFollowPoint: 1
     targetTransform: {fileID: 2109542994}
     stallTimeIn: 0
     moveInTime: 2

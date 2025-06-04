@@ -25,6 +25,7 @@ public class CameraTransitionHandler : MonoBehaviour
     private const float DISTANCE_CAMERA_TIME_FACTOR = 0.08f;
 
     private const float POSITION_DIFFERENCE_THRESHOLD = 0.2f;
+    private const float DISTANCE_DIFFERENCE_THRESHOLD = 0.05f;
 
     private Transform currentCameraFollowTransform;
     private float previousCameraDistance;
@@ -101,12 +102,13 @@ public class CameraTransitionHandler : MonoBehaviour
         Transform cameraFollowTransform = cameraFollowGameObject.transform;
 
         SetCurrentCameraFollowTransform(cameraFollowTransform);
-        SetPreviousCameraDistance(CameraOrthoSizeHandler.Instance.Distance);
+        SetPreviousCameraDistance(CameraOrthoSizeHandler.Instance.OrthoSizeDefault);
 
         currentCameraFollowTransform.position = previousCameraFollowTransform.position;
         CMVCam.Follow = currentCameraFollowTransform;
 
         Vector3 startingPositionIn = currentCameraFollowTransform.position;
+        Transform targetTransform = cameraTransition.useOriginalFollowPoint ? currentCameraFollowTransform : cameraTransition.targetTransform;
 
         //If previous CameraFollowTransform wasn't the original playerCameraFollowTransform (Transition started while another transition was happening)
         if(previousCameraFollowTransform != playerCameraFollowPoint) Destroy(previousCameraFollowTransform.gameObject);
@@ -121,10 +123,10 @@ public class CameraTransitionHandler : MonoBehaviour
         float positionDifferenceMagnitude = float.MaxValue;
         float distanceDifferenceMagnitude = float.MaxValue;
 
-        while (positionDifferenceMagnitude > POSITION_DIFFERENCE_THRESHOLD)
+        while (positionDifferenceMagnitude > POSITION_DIFFERENCE_THRESHOLD || distanceDifferenceMagnitude > DISTANCE_DIFFERENCE_THRESHOLD)
         {
-            currentCameraFollowTransform.position = Vector3.Lerp(currentCameraFollowTransform.position, cameraTransition.targetTransform.position, time/(cameraTransition.moveInTime) * 1/(MOVE_CAMERA_TIME_FACTOR * cameraTransition.moveInTime) * Time.deltaTime);
-            positionDifferenceMagnitude = (currentCameraFollowTransform.position - cameraTransition.targetTransform.position).magnitude;
+            currentCameraFollowTransform.position = Vector3.Lerp(currentCameraFollowTransform.position, targetTransform.position, time/(cameraTransition.moveInTime) * 1/(MOVE_CAMERA_TIME_FACTOR * cameraTransition.moveInTime) * Time.deltaTime);
+            positionDifferenceMagnitude = (currentCameraFollowTransform.position - targetTransform.position).magnitude;
 
             CameraOrthoSizeHandler.Instance.LerpTowardsTargetDistance(cameraTransition.targetDistance, time / (cameraTransition.moveInTime) * 1 / (DISTANCE_CAMERA_TIME_FACTOR * cameraTransition.moveInTime));
             distanceDifferenceMagnitude = Math.Abs(CameraOrthoSizeHandler.Instance.Distance - cameraTransition.targetDistance);
@@ -133,7 +135,7 @@ public class CameraTransitionHandler : MonoBehaviour
             yield return null;
         }
 
-        currentCameraFollowTransform.position = cameraTransition.targetTransform.position;
+        currentCameraFollowTransform.position = targetTransform.position;
 
         OnCameraTransitionInEnd?.Invoke(this, new OnCameraTransitionEventArgs {cameraTransition = cameraTransition});
 
@@ -159,7 +161,7 @@ public class CameraTransitionHandler : MonoBehaviour
         float positionDifferenceMagnitude = float.MaxValue;
         float distanceDifferenceMagnitude = float.MaxValue;
 
-        while (positionDifferenceMagnitude > POSITION_DIFFERENCE_THRESHOLD)
+        while (positionDifferenceMagnitude > POSITION_DIFFERENCE_THRESHOLD || distanceDifferenceMagnitude > DISTANCE_DIFFERENCE_THRESHOLD)
         {
             currentCameraFollowTransform.position = Vector3.Lerp(currentCameraFollowTransform.position, playerCameraFollowPoint.position, time / (cameraTransition.moveOutTime) * 1 / (MOVE_CAMERA_TIME_FACTOR * cameraTransition.moveOutTime) * Time.deltaTime);
             positionDifferenceMagnitude = (currentCameraFollowTransform.position - playerCameraFollowPoint.position).magnitude;
@@ -214,13 +216,17 @@ public class CameraTransition
     public int id;
     public string logToStart;
     public string logToEnd;
+    [Space]
+    public bool useOriginalFollowPoint;
     public Transform targetTransform;
+    [Space]
     [Range(0f, 4f)] public float stallTimeIn;
     [Range(0.5f, 4f)] public float moveInTime;
     [Range(0.5f, 10f)] public float stallTime;
     [Range(0.5f, 4f)] public float moveOutTime;
     [Range(0.01f, 4f)] public float stallTimeOut;
     [Range(2.5f, 10f)] public float targetDistance;
+    [Space]
     public bool endInTime;
     [Space]
     public bool enabled;
