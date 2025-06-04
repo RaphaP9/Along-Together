@@ -6,6 +6,8 @@ public class PlayerHealthRegen : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private CharacterIdentifier characterIdentifier;
+    [SerializeField] private PlayerHealthRegenStatResolver healthRegenStatResolver;
+    [SerializeField] private PlayerShieldRegenStatResolver shieldRegenStatResolver;
     [SerializeField] private PlayerHealth playerHealth;
 
     private void OnEnable()
@@ -21,13 +23,13 @@ public class PlayerHealthRegen : MonoBehaviour
 
     private void HealFromHealthRegen()
     {
-        HealData healData = new HealData(HealthRegenStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseHealthRegen), characterIdentifier.CharacterSO);
+        HealData healData = new HealData(healthRegenStatResolver.Value, characterIdentifier.CharacterSO);
         playerHealth.Heal(healData);
     }
 
     private void RestoreShieldFromShieldRegen()
     {
-        ShieldData shieldData = new ShieldData(ShieldRegenStatResolver.Instance.ResolveStatInt(characterIdentifier.CharacterSO.baseShieldRegen), characterIdentifier.CharacterSO);
+        ShieldData shieldData = new ShieldData(shieldRegenStatResolver.Value, characterIdentifier.CharacterSO);
         playerHealth.RestoreShield(shieldData);
     }
 

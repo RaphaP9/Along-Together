@@ -717,6 +717,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterIdentifier: {fileID: 1965199428449930878}
+  healthRegenStatResolver: {fileID: 3654785395795810660}
+  shieldRegenStatResolver: {fileID: 6181913077647479785}
   playerHealth: {fileID: 6586126778679378193}
 --- !u!1 &3069412420397820189
 GameObject:
