@@ -5361,8 +5361,7 @@ MonoBehaviour:
   roundEndingTime: 3
   changeStateStartingTimer: 3
   changeStateEndingTimer: 3
-  dialogueUpgradeInterval: 1
-  timer: 0
+  dialogueInterval: 1
 --- !u!1 &383226952
 GameObject:
   m_ObjectHideFlags: 0
@@ -14671,15 +14670,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350b2b29c2e465c4394cab4cdcc0c123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterDialogueGroups:
+  dialogueGroups:
   - characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
-    stageDialogues:
-    - stageNumber: 1
-      dialogueSO: {fileID: 11400000, guid: 445ad903ac87bc84b85586945209bfa0, type: 2}
-    - stageNumber: 2
-      dialogueSO: {fileID: 11400000, guid: 791dcadc0a5c9c24790065f702cc0e59, type: 2}
-  debug: 0
-  CharacterDialogues: []
+    stageNumber: 1
+    roundNumber: 1
+    dialogueChronology: 0
+    dialogueSO: {fileID: 11400000, guid: 445ad903ac87bc84b85586945209bfa0, type: 2}
+    enabled: 1
+  - characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
+    stageNumber: 1
+    roundNumber: 1
+    dialogueChronology: 1
+    dialogueSO: {fileID: 11400000, guid: 791dcadc0a5c9c24790065f702cc0e59, type: 2}
+    enabled: 1
+  debug: 1
 --- !u!1 &1005535937
 GameObject:
   m_ObjectHideFlags: 0

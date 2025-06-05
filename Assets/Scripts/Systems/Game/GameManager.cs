@@ -20,10 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField, Range(2f, 5f)] private float changeStateStartingTimer;
     [SerializeField, Range(2f, 5f)] private float changeStateEndingTimer;
     [Space]
-    [SerializeField, Range(0f, 2f)] private float dialogueUpgradeInterval;
-
-    [Header("Runtime Filled")]
-    [SerializeField] private float timer = 0f;
+    [SerializeField, Range(0f, 2f)] private float dialogueInterval;
 
     public static event EventHandler OnTriggerDataSave;
 
@@ -40,6 +37,7 @@ public class GameManager : MonoBehaviour
     private bool dialogueConcluded = false;
     private bool shopClosed = false;
     private bool abilityUpgradeClosed = false;
+    private bool roundEnded = false;
     //private bool cinematicConcluded = false;
     #endregion
 
@@ -85,16 +83,9 @@ public class GameManager : MonoBehaviour
         SetSingleton();
     }
 
-    private void Start()
-    {
-        SetGameState(State.StartingGame);
-        ResetTimer();
-    }
-
     private void Update()
     {
         FirstUpdateLogic();
-        HandleGameStates();
     }
 
     #region Initialization
@@ -140,6 +131,14 @@ public class GameManager : MonoBehaviour
 
     #region Logic
 
+    private void FirstUpdateLogic()
+    {
+        if (firstUpdateLogicPerformed) return;
+
+        StartCoroutine(GameCoroutine());
+        firstUpdateLogicPerformed = true;
+    }
+
     private IEnumerator GameCoroutine()
     {
         CharacterSO characterSO = PlayerCharacterManager.Instance.CharacterSO;
@@ -155,257 +154,140 @@ public class GameManager : MonoBehaviour
 
         while (!gameEnded)
         {
-            if(DialogueTriggerHandler.Instance.ExistDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PreCombat))
-            {
-
-                DialogueTriggerHandler.Instance.PlayDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PreCombat);
-            }
-        }
-    }
-
-    private void FirstUpdateLogic()
-    {
-        if (firstUpdateLogicPerformed) return;
-
-        InitializeState(State.StartingGame);
-        GeneralStagesManager.Instance.InitializeToCurrentStage();
-        firstUpdateLogicPerformed = true;
-    }
-
-    private void HandleGameStates()
-    {
-        switch (state)
-        {
-            case State.StartingGame:
-                StartingGameLogic();
-                break;
-            case State.BeginningCombat:
-                BeginningCombatLogic();
-                break;
-            case State.Combat:
-                CombatLogic();
-                break;
-            case State.EndingCombat:
-                EndingCombatLogic();
-                break;
-            case State.Shop:
-                ShopLogic();
-                break;
-            case State.Upgrade:
-                UpgradeLogic();
-                break;
-            case State.BeginningChangingStage:
-                BeginningChangingStageLogic();
-                break;
-            case State.EndingChangingStage:
-                EndingChangingStageLogic();
-                break;
-            case State.Cinematic:
-                CinematicLogic();
-                break;
-            case State.Dialogue:
-                DialogueLogic();
-                break;
-            case State.Lose:
-                LoseLogic();
-                break;
-            case State.Win:
-                WinLogic();
-                break;
-
-        }
-    }
-
-    private void StartingGameLogic()
-    {
-        if(timer < startingGameTimer)
-        {
-            timer += Time.deltaTime;
-            return;
-        }
-
-        if (GeneralStagesManager.Instance.CurrentRoundIsFirstFromCurrentStage())
-        {
-            if (DialogueTriggerHandler.Instance.ExistDialogueForCurrentCharacterAndStage()) //Play Dialogue only if it exist, otherwise open Upgrade
+            #region PreCombat Dialogue Logic
+            if (DialogueTriggerHandler.Instance.ExistDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PreCombat))
             {
                 ChangeState(State.Dialogue);
-                DialogueTriggerHandler.Instance.PlayDialogueForCurrentCharacterAndStage();
+
+                yield return new WaitForSeconds(dialogueInterval);
+                dialogueConcluded = false;
+                DialogueTriggerHandler.Instance.PlayDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PreCombat);
+                yield return new WaitUntil(() => dialogueConcluded);
+                dialogueConcluded = false;
+                yield return new WaitForSeconds(dialogueInterval);
+            }
+            #endregion
+
+            #region Shop/AbilityUpgrade Logic
+            if (GeneralStagesManager.Instance.CurrentRoundIsFirstFromCurrentStage())
+            {
+                ChangeState(State.Upgrade);
+                abilityUpgradeClosed = false;
+                AbilityUpgradeOpeningManager.Instance.OpenAbilityUpgrade();
+                yield return new WaitUntil(() => abilityUpgradeClosed);
+                abilityUpgradeClosed = false;
+
             }
             else
             {
-                ChangeState(State.Upgrade);
-                AbilityUpgradeOpeningManager.Instance.OpenAbilityUpgrade();
+                ChangeState(State.Shop);
+                shopClosed = false;
+                ShopOpeningManager.Instance.OpenShop();
+                yield return new WaitUntil(() => shopClosed);
+                shopClosed = false;
             }
+            #endregion
+
+            #region BeginningCombat Logic
+            ChangeState(State.BeginningCombat);
+            yield return new WaitForSeconds(roundStartingTime);
+            #endregion
+
+            #region Combat Logic
+            ChangeState(State.Combat);
+            roundEnded = false;
+            GeneralStagesManager.Instance.StartCurrentRound();
+            yield return new WaitUntil(() => roundEnded);
+            roundEnded = false;
+            #endregion
+
+            #region LoadNextRound Logic
+            if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts()) //Load Next Round&Stage and Save Data
+            {
+                GeneralStagesManager.Instance.LoadNextRoundAndStage();
+                TriggerDataSave();
+            }
+            #endregion
+
+            #region EndingCombat Logic
+            ChangeState(State.EndingCombat);
+            yield return new WaitForSeconds(roundEndingTime);
+            #endregion
+
+            #region PostCombat Dialogue Logic
+            if (DialogueTriggerHandler.Instance.ExistDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PostCombat))
+            {
+                ChangeState(State.Dialogue);
+
+                yield return new WaitForSeconds(dialogueInterval);
+                dialogueConcluded = false;
+                DialogueTriggerHandler.Instance.PlayDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PostCombat);
+                yield return new WaitUntil(() => dialogueConcluded);
+                dialogueConcluded = false;
+                yield return new WaitForSeconds(dialogueInterval);
+            }
+            #endregion
+
+            #region Win Logic
+            if (GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts())
+            {
+                ChangeState(State.Win);
+                gameEnded = true;
+                break;
+            }
+            #endregion
+
+            #region ChangeStage Logic
+            if (GeneralStagesManager.Instance.LastCompletedRoundIsLastFromStage())
+            {
+                ChangeState(State.BeginningChangingStage);
+                yield return new WaitForSeconds(changeStateStartingTimer);
+                GeneralStagesManager.Instance.ChangeToCurrentStage();
+                ChangeState(State.EndingChangingStage);
+                yield return new WaitForSeconds(changeStateEndingTimer);
+            }
+            #endregion
+
+            #region UpdateStageRoundValues
+            stageNumber = GeneralStagesManager.Instance.CurrentStageNumber;
+            roundNumber = GeneralStagesManager.Instance.CurrentRoundNumber;
+            #endregion
         }
-        else
-        {
-            ChangeState(State.Shop);
-            ShopOpeningManager.Instance.OpenShop();
-        }
-
-        ResetTimer();
     }
 
-    private void BeginningCombatLogic()
-    {
-        if (timer < roundStartingTime)
-        {
-            timer += Time.deltaTime;
-            return;
-        }
-
-        ChangeState(State.Combat);
-        ResetTimer();
-
-        GeneralStagesManager.Instance.StartCurrentRound();
-    }
-
-    private void CombatLogic()
-    {
-        ResetTimer();
-    }
-
-    private void EndingCombatLogic()
-    {
-        if (timer < roundEndingTime)
-        {
-            timer += Time.deltaTime;
-            return;
-        }
-
-        if (GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts())
-        {
-            ChangeState(State.Win);
-            ResetTimer();
-            return;
-        }
-
-        if (GeneralStagesManager.Instance.LastCompletedRoundIsLastFromStage())
-        {
-            ChangeState(State.BeginningChangingStage);
-        }
-        else
-        {
-            ChangeState(State.Shop);
-            ShopOpeningManager.Instance.OpenShop();
-        }
-
-        ResetTimer();
-    }
-
-    private void ShopLogic()
-    {
-        ResetTimer();
-    }
-
-    private void UpgradeLogic()
-    {
-        ResetTimer();
-    }
-
-    private void BeginningChangingStageLogic()
-    {
-        if (timer < changeStateStartingTimer)
-        {
-            timer += Time.deltaTime;
-            return;
-        }
-
-        ChangeState(State.EndingChangingStage);
-        GeneralStagesManager.Instance.ChangeToCurrentStage();
-
-        ResetTimer();
-    }
-
-    private void EndingChangingStageLogic()
-    {
-        if (timer < changeStateEndingTimer)
-        {
-            timer += Time.deltaTime;
-            return;
-        }
-
-        if (DialogueTriggerHandler.Instance.ExistDialogueForCurrentCharacterAndStage()) //Play Dialogue only if it exist, otherwise open Upgrade
-        {
-            ChangeState(State.Dialogue);
-            DialogueTriggerHandler.Instance.PlayDialogueForCurrentCharacterAndStage();
-        }
-        else
-        {
-            ChangeState(State.Upgrade);
-            AbilityUpgradeOpeningManager.Instance.OpenAbilityUpgrade();
-        }
-
-        ResetTimer();
-    }
-
-    private void CinematicLogic()
-    {
-        ResetTimer();
-    }
-
-    private void DialogueLogic()
-    {
-        ResetTimer();
-    }
-
-    private void LoseLogic()
-    {
-        ResetTimer();
-    }
-
-    private void WinLogic()
-    {
-        ResetTimer();
-    }
     #endregion
 
-    private void ResetTimer() => timer = 0f;
     private void TriggerDataSave() => OnTriggerDataSave?.Invoke(this, EventArgs.Empty);
-
-    private IEnumerator FromDialogueToUpgradeCoroutine()
-    {
-        yield return new WaitForSeconds(dialogueUpgradeInterval);
-
-        ChangeState(State.Upgrade);
-        AbilityUpgradeOpeningManager.Instance.OpenAbilityUpgrade();
-    }
 
     #region Subscriptions
     private void ShopOpeningManager_OnShopClose(object sender, EventArgs e)
     {
-        ChangeState(State.BeginningCombat);
+        shopClosed = true;
     }
 
     private void ShopOpeningManager_OnShopCloseImmediately(object sender, EventArgs e)
     {
-        ChangeState(State.BeginningCombat);
+        shopClosed = true;
     }
 
     private void AbilityUpgradeOpeningManager_OnAbilityUpgradeClose(object sender, EventArgs e)
     {
-        ChangeState(State.BeginningCombat);
+        abilityUpgradeClosed = true;
     }
 
     private void AbilityUpgradeOpeningManager_OnAbilityUpgradeCloseImmediately(object sender, EventArgs e)
     {
-        ChangeState(State.BeginningCombat);
+        abilityUpgradeClosed = true;
     }
 
     private void GeneralStagesManager_OnRoundEnd(object sender, GeneralStagesManager.OnRoundEventArgs e)
     {
-        ChangeState(State.EndingCombat);
-
-        if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts()) //Load Next Round&Stage and Save Data
-        {
-            GeneralStagesManager.Instance.LoadNextRoundAndStage();
-            TriggerDataSave();
-        }
+        roundEnded = true;
     }
 
     private void DialogueManager_OnDialogueEnd(object sender, DialogueManager.OnDialogueEventArgs e)
     {
-        StartCoroutine(FromDialogueToUpgradeCoroutine());
+        dialogueConcluded = true;
     }
 
     #endregion
