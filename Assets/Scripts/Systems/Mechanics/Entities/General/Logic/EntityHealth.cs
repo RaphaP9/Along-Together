@@ -353,6 +353,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         int effectiveHealAmount = currentHealth + healData.healAmount > entityMaxHealthStatResolver.Value ? entityMaxHealthStatResolver.Value - currentHealth : healData.healAmount;
         currentHealth = currentHealth + effectiveHealAmount > entityMaxHealthStatResolver.Value ? entityMaxHealthStatResolver.Value : currentHealth + effectiveHealAmount;
 
+        if (currentHealth == previousHealth) return; //Did not heal at all
+
         OnEntityHealMethod(effectiveHealAmount, previousHealth, healData.healSource);
     }
     public void HealCompletely(IHealSourceSO healSource)
@@ -377,6 +379,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         int effectiveShieldRestored = currentShield + shieldData.shieldAmount > entityMaxShieldStatResolver.Value ? entityMaxShieldStatResolver.Value - currentShield : shieldData.shieldAmount;
         currentShield = currentShield + effectiveShieldRestored > entityMaxShieldStatResolver.Value ? entityMaxShieldStatResolver.Value : currentShield + effectiveShieldRestored;
+
+        if (currentShield == previousShield) return; //Did not restore shield at all
 
         OnEntityShieldRestoredMethod(effectiveShieldRestored, previousShield, shieldData.shieldSource);
     }
