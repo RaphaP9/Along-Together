@@ -35,7 +35,13 @@ public class GameManager : MonoBehaviour
     public static event EventHandler<OnStateChangeEventArgs> OnStateChanged;
     public static event EventHandler<OnStateInitializedEventArgs> OnStateInitialized;
 
+    #region Flags
     private bool firstUpdateLogicPerformed = false;
+    private bool dialogueConcluded = false;
+    private bool shopClosed = false;
+    private bool abilityUpgradeClosed = false;
+    //private bool cinematicConcluded = false;
+    #endregion
 
     public class OnStateChangeEventArgs : EventArgs
     {
@@ -65,6 +71,9 @@ public class GameManager : MonoBehaviour
     {
         ShopOpeningManager.OnShopClose -= ShopOpeningManager_OnShopClose;
         ShopOpeningManager.OnShopCloseImmediately -= ShopOpeningManager_OnShopCloseImmediately;
+
+        AbilityUpgradeOpeningManager.OnAbilityUpgradeClose -= AbilityUpgradeOpeningManager_OnAbilityUpgradeClose;
+        AbilityUpgradeOpeningManager.OnAbilityUpgradeCloseImmediately -= AbilityUpgradeOpeningManager_OnAbilityUpgradeCloseImmediately;
 
         GeneralStagesManager.OnRoundEnd -= GeneralStagesManager_OnRoundEnd;
 
@@ -130,6 +139,30 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Logic
+
+    private IEnumerator GameCoroutine()
+    {
+        CharacterSO characterSO = PlayerCharacterManager.Instance.CharacterSO;
+        int stageNumber = GeneralStagesManager.Instance.CurrentStageNumber;
+        int roundNumber = GeneralStagesManager.Instance.CurrentRoundNumber;
+
+        bool gameEnded = false;
+
+        InitializeState(State.StartingGame);
+        GeneralStagesManager.Instance.InitializeToCurrentStage();
+
+        yield return new WaitForSeconds(startingGameTimer);
+
+        while (!gameEnded)
+        {
+            if(DialogueTriggerHandler.Instance.ExistDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PreCombat))
+            {
+
+                DialogueTriggerHandler.Instance.PlayDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PreCombat);
+            }
+        }
+    }
+
     private void FirstUpdateLogic()
     {
         if (firstUpdateLogicPerformed) return;

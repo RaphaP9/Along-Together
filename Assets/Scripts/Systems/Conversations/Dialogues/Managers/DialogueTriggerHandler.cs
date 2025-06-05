@@ -8,27 +8,57 @@ public class DialogueTriggerHandler : MonoBehaviour
     public static DialogueTriggerHandler Instance { get; private set; }
 
     [Header("Lists")]
-    [SerializeField] private List<CharacterDialogueGroup> characterDialogueGroups;
+    [SerializeField] private List<DialogueGroup> dialogueGroups;
 
     [Header("Debug")]
     [SerializeField] private bool debug;
 
-    public List<CharacterDialogueGroup> CharacterDialogues;
-
     #region Public Methods
-    public bool ExistDialogueForCurrentCharacterAndStage()
+    public bool ExistDialogueWithConditions(CharacterSO characterSO, int stageNumber, int roundNumber, DialogueChronology dialogueChronology)
     {
-        DialogueSO dialogueSO = GetDialogueForCharacterAndStage(PlayerCharacterManager.Instance.CharacterSO, GeneralStagesManager.Instance.CurrentStageNumber);
-        if(dialogueSO == null) return false;
-        return true;
+        foreach(DialogueGroup dialogueGroup in dialogueGroups)
+        {
+            if (!dialogueGroup.enabled) continue;
+
+            if (dialogueGroup.characterSO != characterSO) continue;
+            if (dialogueGroup.stageNumber != stageNumber) continue;
+            if (dialogueGroup.roundNumber != roundNumber) continue;
+            if (dialogueGroup.dialogueChronology != dialogueChronology) continue;
+
+            return true;
+        }
+
+        return false;
     }
 
-    public void PlayDialogueForCurrentCharacterAndStage()
+    public void PlayDialogueWithConditions(CharacterSO characterSO, int stageNumber, int roundNumber, DialogueChronology dialogueChronology)
     {
-        DialogueSO dialogueSO = GetDialogueForCharacterAndStage(PlayerCharacterManager.Instance.CharacterSO, GeneralStagesManager.Instance.CurrentStageNumber);
-        if(dialogueSO == null) return;
+        DialogueSO dialogueSO = FindDialogueWithConditions(characterSO,stageNumber, roundNumber,dialogueChronology);
+
+        if(dialogueSO == null)
+        {
+            if (debug) Debug.Log("DialogueSO was not found. Dialogue Play will be ignored.");
+            return;
+        }
 
         DialogueManager.Instance.StartDialogue(dialogueSO);
+    }
+
+    private DialogueSO FindDialogueWithConditions(CharacterSO characterSO, int stageNumber, int roundNumber, DialogueChronology dialogueChronology)
+    {
+        foreach (DialogueGroup dialogueGroup in dialogueGroups)
+        {
+            if (!dialogueGroup.enabled) continue;
+
+            if (dialogueGroup.characterSO != characterSO) continue;
+            if (dialogueGroup.stageNumber != stageNumber) continue;
+            if (dialogueGroup.roundNumber != roundNumber) continue;
+            if (dialogueGroup.dialogueChronology != dialogueChronology) continue;
+
+            return dialogueGroup.dialogueSO;
+        }
+
+        return null;
     }
     #endregion
 
@@ -49,52 +79,16 @@ public class DialogueTriggerHandler : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    #region Utility Methods
-    private CharacterDialogueGroup GetCharacterDialoguesByCharacterSO(CharacterSO characterSO)
-    {
-        foreach (CharacterDialogueGroup characterDialogueGroup in characterDialogueGroups)
-        {
-            if (characterDialogueGroup.characterSO == characterSO) return characterDialogueGroup;
-        }
-
-        if (debug) Debug.Log($"Could not find CharacterDialogueGroup for CharacterSO: {characterSO.entityName}. Returning null.");
-        return null;
-    }
-
-    private DialogueSO GetDialogueByCharacterDialogueGroupAndStage(CharacterDialogueGroup characterDialogueGroup, int stageNumber)
-    {
-        foreach (StageDialogue stageDialogue in characterDialogueGroup.stageDialogues)
-        {
-            if (stageDialogue.stageNumber == stageNumber) return stageDialogue.dialogueSO;
-        }
-
-        if (debug) Debug.Log($"Could not find DialogueSO for StageNumber: {stageNumber}. Returning null.");
-        return null;
-    }
-
-    private DialogueSO GetDialogueForCharacterAndStage(CharacterSO characterSO, int stageNumber)
-    {
-        CharacterDialogueGroup characterDialogueGroup = GetCharacterDialoguesByCharacterSO(characterSO);
-        if (characterDialogueGroup == null) return null;
-        DialogueSO dialogueSO = GetDialogueByCharacterDialogueGroupAndStage(characterDialogueGroup, stageNumber);
-        if (dialogueSO == null) return null;
-
-        return dialogueSO;
-    }
-    #endregion
 }
 
 [System.Serializable]
-public class CharacterDialogueGroup
+public class DialogueGroup
 {
     public CharacterSO characterSO;
-    public List<StageDialogue> stageDialogues;
-}
-
-[System.Serializable]
-public class StageDialogue
-{
     public int stageNumber;
+    public int roundNumber;
+    public DialogueChronology dialogueChronology;
     public DialogueSO dialogueSO;
+    [Space]
+    public bool enabled;
 }
