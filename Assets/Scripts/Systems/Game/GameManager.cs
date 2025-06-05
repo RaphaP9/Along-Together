@@ -53,6 +53,9 @@ public class GameManager : MonoBehaviour
         ShopOpeningManager.OnShopClose += ShopOpeningManager_OnShopClose;
         ShopOpeningManager.OnShopCloseImmediately += ShopOpeningManager_OnShopCloseImmediately;
 
+        AbilityUpgradeOpeningManager.OnAbilityUpgradeClose += AbilityUpgradeOpeningManager_OnAbilityUpgradeClose;
+        AbilityUpgradeOpeningManager.OnAbilityUpgradeCloseImmediately += AbilityUpgradeOpeningManager_OnAbilityUpgradeCloseImmediately;
+
         GeneralStagesManager.OnRoundEnd += GeneralStagesManager_OnRoundEnd;
 
         DialogueManager.OnDialogueEnd += DialogueManager_OnDialogueEnd;
@@ -197,8 +200,8 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                ChangeState(State.Shop); //Later Change to Upgrade
-                ShopOpeningManager.Instance.OpenShop();
+                ChangeState(State.Upgrade);
+                AbilityUpgradeOpeningManager.Instance.OpenAbilityUpgrade();
             }
         }
         else
@@ -296,8 +299,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            ChangeState(State.Shop); //Later Change to Upgrade
-            ShopOpeningManager.Instance.OpenShop();
+            ChangeState(State.Upgrade);
+            AbilityUpgradeOpeningManager.Instance.OpenAbilityUpgrade();
         }
 
         ResetTimer();
@@ -331,8 +334,8 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(dialogueUpgradeInterval);
 
-        ChangeState(State.Shop); //Later Change to Upgrade
-        ShopOpeningManager.Instance.OpenShop();
+        ChangeState(State.Upgrade);
+        AbilityUpgradeOpeningManager.Instance.OpenAbilityUpgrade();
     }
 
     #region Subscriptions
@@ -342,6 +345,16 @@ public class GameManager : MonoBehaviour
     }
 
     private void ShopOpeningManager_OnShopCloseImmediately(object sender, EventArgs e)
+    {
+        ChangeState(State.BeginningCombat);
+    }
+
+    private void AbilityUpgradeOpeningManager_OnAbilityUpgradeClose(object sender, EventArgs e)
+    {
+        ChangeState(State.BeginningCombat);
+    }
+
+    private void AbilityUpgradeOpeningManager_OnAbilityUpgradeCloseImmediately(object sender, EventArgs e)
     {
         ChangeState(State.BeginningCombat);
     }
@@ -356,7 +369,6 @@ public class GameManager : MonoBehaviour
             TriggerDataSave();
         }
     }
-
 
     private void DialogueManager_OnDialogueEnd(object sender, DialogueManager.OnDialogueEventArgs e)
     {
