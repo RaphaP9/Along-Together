@@ -6113,10 +6113,10 @@ MonoBehaviour:
   - id: 1
     logToShake: Entity/Explosion
     amplitude: 2
-    frequency: 0.5
+    frequency: 2
     shakeTime: 0.3
-    shakeFadeInTime: 0.1
-    shakeFadeOutTime: 0.1
+    shakeFadeInTime: 0.05
+    shakeFadeOutTime: 0.05
     enabled: 1
 --- !u!1 &421481290
 GameObject:

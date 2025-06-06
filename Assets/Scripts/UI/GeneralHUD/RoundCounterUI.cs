@@ -67,7 +67,6 @@ public class RoundCounterUI : MonoBehaviour
     }
     #endregion
 
-
     private void UpdateUIToBufferedValues()
     {
         stageText.text = bufferedStageNumber.ToString();

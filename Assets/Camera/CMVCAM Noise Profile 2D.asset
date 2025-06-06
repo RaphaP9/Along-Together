@@ -15,7 +15,7 @@ MonoBehaviour:
   PositionNoise:
   - X:
       Frequency: 3.2
-      Amplitude: 0.02
+      Amplitude: 0.011
       Constant: 1
     Y:
       Frequency: 1.9
@@ -27,19 +27,19 @@ MonoBehaviour:
       Constant: 0
   - X:
       Frequency: 7.7
-      Amplitude: 0.015
+      Amplitude: 0.009
       Constant: 1
     Y:
       Frequency: 9.1
       Amplitude: 0.04
-      Constant: 1
+      Constant: 0
     Z:
       Frequency: 0
       Amplitude: 0
       Constant: 0
   - X:
       Frequency: 51.51
-      Amplitude: 0.01
+      Amplitude: 0.002
       Constant: 1
     Y:
       Frequency: 55.54
@@ -51,36 +51,36 @@ MonoBehaviour:
       Constant: 0
   OrientationNoise:
   - X:
-      Frequency: 0
-      Amplitude: 0
+      Frequency: 5.83
+      Amplitude: 0.09
       Constant: 1
     Y:
-      Frequency: 0
-      Amplitude: 0
+      Frequency: 1.8
+      Amplitude: 0.059
       Constant: 1
     Z:
       Frequency: 0
       Amplitude: 0
       Constant: 0
   - X:
-      Frequency: 0
-      Amplitude: 0
+      Frequency: 9.17
+      Amplitude: 0.14
       Constant: 1
     Y:
-      Frequency: 0
-      Amplitude: 0
+      Frequency: 11.35
+      Amplitude: 0.041
       Constant: 1
     Z:
       Frequency: 0
       Amplitude: 0
       Constant: 0
   - X:
-      Frequency: 0
-      Amplitude: 0
+      Frequency: 57.17
+      Amplitude: 0.15
       Constant: 1
     Y:
-      Frequency: 0
-      Amplitude: 0
+      Frequency: 54.17
+      Amplitude: 0.048
       Constant: 1
     Z:
       Frequency: 0

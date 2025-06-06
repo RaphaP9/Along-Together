@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
 
         GeneralStagesManager.OnRoundEnd += GeneralStagesManager_OnRoundEnd;
 
-        DialogueManager.OnDialogueEnd += DialogueManager_OnDialogueEnd;
+        DialogueManager.OnGeneralDialogueConcluded += DialogueManager_OnGeneralDialogueConcluded;
     }
 
     private void OnDisable()
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
 
         GeneralStagesManager.OnRoundEnd -= GeneralStagesManager_OnRoundEnd;
 
-        DialogueManager.OnDialogueEnd -= DialogueManager_OnDialogueEnd;
+        DialogueManager.OnGeneralDialogueConcluded -= DialogueManager_OnGeneralDialogueConcluded;
     }
 
     private void Awake()
@@ -285,7 +285,7 @@ public class GameManager : MonoBehaviour
         roundEnded = true;
     }
 
-    private void DialogueManager_OnDialogueEnd(object sender, DialogueManager.OnDialogueEventArgs e)
+    private void DialogueManager_OnGeneralDialogueConcluded(object sender, EventArgs e)
     {
         dialogueConcluded = true;
     }
