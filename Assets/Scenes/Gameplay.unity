@@ -14218,7 +14218,7 @@ GameObject:
   - component: {fileID: 970916821}
   - component: {fileID: 970916820}
   m_Layer: 5
-  m_Name: BackVideoImage
+  m_Name: BlackPanelCover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -225,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToLoadData: 2
   timeToWaitAfterLoad: 2
-  nextScene: SampleScene
+  nextScene: Gameplay
   nextSceneTransitionType: 0
 --- !u!1001 &990673811
 PrefabInstance:
