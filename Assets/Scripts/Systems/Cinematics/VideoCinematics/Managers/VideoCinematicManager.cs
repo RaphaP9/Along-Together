@@ -92,7 +92,7 @@ public class VideoCinematicManager : MonoBehaviour
         StartCoroutine(CinematicCoroutine(videoCinematicSO));
     }
 
-    public void EndCinematic()
+    public void SkipCinematic()
     {
         if (videoCinematicState != VideoCinematicState.Idle) return;
         shouldSkipCinematic = true;

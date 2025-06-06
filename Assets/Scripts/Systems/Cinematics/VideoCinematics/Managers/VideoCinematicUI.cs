@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VideoCinematicUI : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class VideoCinematicUI : MonoBehaviour
 
     [Header("Lists")]
     [SerializeField] private List<VideoCinematicTransitionTypeAnimator> transitionTypeAnimators;
+
+    [Header("Components")]
+    [SerializeField] private Button skipCinematicButton;
 
     [Header("Debug")]
     [SerializeField] private bool debug;
@@ -74,6 +78,7 @@ public class VideoCinematicUI : MonoBehaviour
     private void Awake()
     {
         SetSingleton();
+        IntializeButtonsListeners();
     }
 
     private void SetSingleton()
@@ -87,6 +92,11 @@ public class VideoCinematicUI : MonoBehaviour
             Debug.LogWarning("There is more than one VideoCinematicUI instance, proceding to destroy duplicate");
             Destroy(gameObject);
         }
+    }
+
+    private void IntializeButtonsListeners()
+    {
+        skipCinematicButton.onClick.AddListener(SkipCinematic);
     }
 
     private void SetCurrentVideoCinematic(VideoCinematicSO videoCinematicSO) => currentVideoCinematic = videoCinematicSO;
@@ -146,6 +156,8 @@ public class VideoCinematicUI : MonoBehaviour
     public void TransitionInClosingEnd() => OnTransitionInClosingEnd?.Invoke(this, new OnVideoCinematicUIEventArgs { videoCinematicSO = currentVideoCinematic });
     public void TransitionOutOpeningEnd() => OnTransitionOutOpeningEnd?.Invoke(this, new OnVideoCinematicUIEventArgs { videoCinematicSO = currentVideoCinematic });
     public void TransitionOutClosingEnd() => OnTransitionOutClosingEnd?.Invoke(this, new OnVideoCinematicUIEventArgs { videoCinematicSO = currentVideoCinematic });
+
+    private void SkipCinematic() => VideoCinematicManager.Instance.SkipCinematic();
 
     #region Duration Methods
     public float GetTransitionInClosingDurationForTransitionType(VideoCinematicTransitionType transitionType)

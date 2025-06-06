@@ -21,7 +21,7 @@ public class TestCinematic : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            VideoCinematicManager.Instance.EndCinematic();
+            VideoCinematicManager.Instance.SkipCinematic();
         }
     }
 }
