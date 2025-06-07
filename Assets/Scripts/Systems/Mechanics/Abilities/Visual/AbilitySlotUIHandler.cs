@@ -8,7 +8,5 @@ public class AbilitySlotUIHandler : MonoBehaviour
     [Header("Components")]
     [SerializeField] private AbilitySlotHandler abilitySlotHandler;
 
-    [Header("UIComponents")]
-    [SerializeField] private Transform cooldownPanelTransform;
-    [SerializeField] private TextMeshProUGUI cooldownText;
+
 }

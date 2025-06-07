@@ -20,8 +20,14 @@ public class AbilitySlotHandler : MonoBehaviour
     public AbilitySlot AbilitySlot => abilitySlot;
     public Ability ActiveAbilityVariant => activeAbilityVariant;
 
-    public event EventHandler<OnAbilityVariantSelectionEventArgs> OnAbilityVariantInitialized;
+    public event EventHandler<OnAbilityVariantInitializationEventArgs> OnAbilityVariantInitialized;
     public event EventHandler<OnAbilityVariantSelectionEventArgs> OnAbilityVariantSelected;
+
+    public class OnAbilityVariantInitializationEventArgs : EventArgs
+    {
+        public AbilitySlot abilitySlot;
+        public Ability abilityVariant;
+    }
 
     public class OnAbilityVariantSelectionEventArgs : EventArgs
     {
@@ -47,10 +53,9 @@ public class AbilitySlotHandler : MonoBehaviour
     #region Ability Variants Selection
     private void InitializeAbilityVariant(Ability abilityVariant)
     {
-        Ability previousAbilityVariant = null;
         activeAbilityVariant = abilityVariant;
 
-        OnAbilityVariantInitialized?.Invoke(this, new OnAbilityVariantSelectionEventArgs { abilitySlot = abilitySlot, previousAbilityVariant = previousAbilityVariant, newAbilityVariant = activeAbilityVariant });
+        OnAbilityVariantInitialized?.Invoke(this, new OnAbilityVariantInitializationEventArgs { abilitySlot = abilitySlot,  abilityVariant = activeAbilityVariant });
     }
 
     private void SelectAbilityVariant(Ability abilityVariant)

@@ -121,14 +121,9 @@ public abstract class Ability : MonoBehaviour
 
 
     #region Subscriptions
-    private void PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized(object sender, AbilitySlotHandler.OnAbilityVariantSelectionEventArgs e)
+    private void PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized(object sender, AbilitySlotHandler.OnAbilityVariantInitializationEventArgs e)
     {
-        if (e.previousAbilityVariant == this)
-        {
-            OnAbilityVariantDeactivationMethod();
-        }
-
-        if (e.newAbilityVariant == this)
+        if (e.abilityVariant == this)
         {
             OnAbilityVariantActivationMethod();
         }      
