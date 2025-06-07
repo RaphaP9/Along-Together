@@ -5,59 +5,71 @@ using UnityEngine;
 
 public class AbilityCooldownUIHandler : MonoBehaviour
 {
-    [Header("UIComponents")]
+    [Header("UI Components")]
     [SerializeField] private Transform cooldownPanelTransform;
-    [SerializeField] private TextMeshProUGUI cooldownText;
+
+    [Header("Components")]
+    [SerializeField] private CooldownCounterUIHandler cooldownCounterUIHandler;
 
     [Header("Runtime Filled")]
-    [SerializeField] private Ability ability;
     [SerializeField] private AbilityCooldownHandler abilityCooldownHandler;
+
+    #region Flags
+    private bool UIEnabled = false;
+    #endregion
+
+    private void Awake()
+    {
+        InitializeUI();
+    }
 
     private void Update()
     {
-        HandleCooldownText();
+        HandleCooldownUI();
     }
 
-    private void HandleCooldownText()
+    private void InitializeUI()
     {
+        DisableCooldownUI();
+        UIEnabled = false;
+    }
 
+    private void HandleCooldownUI()
+    {
+        if (abilityCooldownHandler == null) return;
+
+        //NOTE: CooldownCounterUIHandler does not update the cooldownText every frame (See CooldownCounterUIHandler class)
+        cooldownCounterUIHandler.SetCooldownText(abilityCooldownHandler.CooldownTimer); 
+
+        if(abilityCooldownHandler.CooldownTimer > 0 && !UIEnabled)
+        {
+            EnableCooldownUI();
+            UIEnabled = true;
+        }
+
+        if (abilityCooldownHandler.CooldownTimer <= 0 && UIEnabled)
+        {
+            DisableCooldownUI();
+            UIEnabled = false;
+        }
     }
 
     #region PublicMethods
     public void AssignAbility(Ability ability)
     {
-        SetAbility(ability);
-
         switch (ability.AbilitySO.GetAbilityType())
         {
             case AbilityType.Passive:
-                AssignPassiveAbility(ability as PassiveAbility);
+                ClearAbilityCooldownHandler();
                 break;
             case AbilityType.Active:
-                AssignActiveAbilityAbility(ability as ActiveAbility);
+                SetAbilityCooldownHandler((ability as ActiveAbility).AbilityCooldownHandler);
                 break;
             case AbilityType.ActivePassive:
-                AssignActivePassiveAbilityAbility(ability as ActivePassiveAbility);
+                SetAbilityCooldownHandler((ability as ActivePassiveAbility).AbilityCooldownHandler);
                 break;
 
         }
-    }
-    #endregion
-
-    #region Logics
-    private void AssignPassiveAbility(PassiveAbility passiveAbility)
-    {
-        ClearAbilityCooldownHandler();
-    }
-
-    private void AssignActiveAbilityAbility(ActiveAbility activeAbility)
-    {
-        SetAbilityCooldownHandler(activeAbility.AbilityCooldownHandler);
-    }
-
-    private void AssignActivePassiveAbilityAbility(ActivePassiveAbility activePassiveAbility)
-    {
-        SetAbilityCooldownHandler(activePassiveAbility.AbilityCooldownHandler);
     }
     #endregion
 
@@ -67,8 +79,5 @@ public class AbilityCooldownUIHandler : MonoBehaviour
     #region Setters
     private void SetAbilityCooldownHandler(AbilityCooldownHandler abilityCooldownHandler) => this.abilityCooldownHandler = abilityCooldownHandler;
     private void ClearAbilityCooldownHandler() => abilityCooldownHandler = null;
-
-    private void SetAbility(Ability ability) => this.ability = ability;
-    private void ClearAbility() => ability = null;
     #endregion
 }
