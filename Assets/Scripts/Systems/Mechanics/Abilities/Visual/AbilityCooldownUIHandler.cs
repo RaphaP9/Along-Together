@@ -39,7 +39,10 @@ public class AbilityCooldownUIHandler : MonoBehaviour
         if (abilityCooldownHandler == null) return;
 
         //NOTE: CooldownCounterUIHandler does not update the cooldownText every frame (See CooldownCounterUIHandler class)
-        cooldownCounterUIHandler.SetCooldownText(abilityCooldownHandler.CooldownTimer); 
+        if(abilityCooldownHandler.CooldownTimer > 0)
+        {
+            cooldownCounterUIHandler.UpdateCooldownValues(abilityCooldownHandler.CooldownTimer); 
+        }
 
         if(abilityCooldownHandler.CooldownTimer > 0 && !UIEnabled)
         {
@@ -50,6 +53,7 @@ public class AbilityCooldownUIHandler : MonoBehaviour
         if (abilityCooldownHandler.CooldownTimer <= 0 && UIEnabled)
         {
             DisableCooldownUI();
+            cooldownCounterUIHandler.ClearCooldownValues();
             UIEnabled = false;
         }
     }
