@@ -171,12 +171,24 @@ public class GameManager : MonoBehaviour
             #region Shop/AbilityUpgrade Logic
             if (GeneralStagesManager.Instance.CurrentRoundIsFirstFromCurrentStage())
             {
-                ChangeState(State.Upgrade);
-                abilityUpgradeClosed = false;
-                AbilityUpgradeOpeningManager.Instance.OpenAbilityUpgrade();
-                yield return new WaitUntil(() => abilityUpgradeClosed);
-                abilityUpgradeClosed = false;
-
+                #region AbilityUpgrade Logic
+                if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) //Only Open AbilityUpgradeUI if can upgrade an ability
+                {
+                    ChangeState(State.Upgrade);
+                    abilityUpgradeClosed = false;
+                    AbilityUpgradeOpeningManager.Instance.OpenAbilityUpgrade();
+                    yield return new WaitUntil(() => abilityUpgradeClosed);
+                    abilityUpgradeClosed = false;
+                }
+                else
+                {
+                    ChangeState(State.Shop);
+                    shopClosed = false;
+                    ShopOpeningManager.Instance.OpenShop();
+                    yield return new WaitUntil(() => shopClosed);
+                    shopClosed = false;
+                }
+                #endregion
             }
             else
             {

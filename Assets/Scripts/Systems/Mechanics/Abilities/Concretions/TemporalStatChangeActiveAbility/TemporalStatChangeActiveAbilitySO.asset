@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 123
   abilityName: TemporalStatChangeAA
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 1618585ccd0160b4bab2e3d5179f561d, type: 3}
   description: TemporalStatChangeAA
   abilityClassification: 4
+  statAffinities: 
   baseCooldown: 5
   numericEmbeddedStats:
   - numericStatType: 12

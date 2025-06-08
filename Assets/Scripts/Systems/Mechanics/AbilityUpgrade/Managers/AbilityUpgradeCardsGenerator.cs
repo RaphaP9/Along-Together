@@ -17,19 +17,6 @@ public class AbilityUpgradeCardsGenerator : MonoBehaviour
         SetSingleton();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            List<AbilityUpgradeCardInfo> abilityUpgradeCardInfos = GenerateNextLevelActiveAbilityVariantCards();
-
-            foreach(AbilityUpgradeCardInfo abilityUpgradeCardInfo in abilityUpgradeCardInfos)
-            {
-                Debug.Log($"AbilitySO: {abilityUpgradeCardInfo.abilitySO}, CurrentLevel: {abilityUpgradeCardInfo.currentLevel}, UpgradeLevel: {abilityUpgradeCardInfo.upgradeLevel}");
-            }
-        }
-    }
-
     private void SetSingleton()
     {
         if (Instance == null)
@@ -63,6 +50,14 @@ public class AbilityUpgradeCardsGenerator : MonoBehaviour
         activeAbilityVariantCards = ReduceCardsToSize(activeAbilityVariantCards);
 
         return activeAbilityVariantCards;
+    }
+
+    public bool CanGenerateNextLevelActiveAbilityVariantCards()
+    {
+        List<AbilityUpgradeCardInfo> abilityUpgradeCardInfos = GenerateNextLevelActiveAbilityVariantCards();
+
+        if(abilityUpgradeCardInfos.Count <= 0) return false;
+        return true;
     }
 
     private AbilityUpgradeCardInfo GenerateNextLevelCard(Ability ability)
