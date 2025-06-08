@@ -36,6 +36,13 @@ public static class MappingUtilities
     private const string GOLD_STAT = "Riqueza";
     #endregion
 
+    #region Level Const
+    private const string NOT_LEARNED = "No Aprendida";
+    private const string LEVEL_1 = "Nivel 1";
+    private const string LEVEL_2 = "Nivel 2";
+    private const string LEVEL_3 = "Nivel 3";
+    #endregion
+
     private const string PERCENTAGE_CHARACTER = "%";
     private const string PLUS_CHARACTER = "+";
 
@@ -239,7 +246,6 @@ public static class MappingUtilities
     }
     #endregion
 
-
     public static string MapInventoryObjectRarityType(InventoryObjectSO inventoryObjectSO)
     {
         switch (inventoryObjectSO.GetInventoryObjectType())
@@ -311,6 +317,23 @@ public static class MappingUtilities
                 return LIFESTEAL_STAT;
             case NumericStatType.Gold:
                 return GOLD_STAT;
+        }
+    }
+
+    public static string MapAbilityLevel(AbilityLevel abilityLevel)
+    {
+        switch (abilityLevel)
+        {
+            case AbilityLevel.NotLearned:
+            default:
+                return NOT_LEARNED;
+            case AbilityLevel.Level1:
+                return LEVEL_1;
+            case AbilityLevel.Level2:
+                return LEVEL_2;
+            case AbilityLevel.Level3:
+                return LEVEL_3;
+
         }
     }
 }

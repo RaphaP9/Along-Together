@@ -36,7 +36,7 @@ public class AbilityLevelHandler : MonoBehaviour
     }
 
     public bool IsUnlocked() => abilityLevel != AbilityLevel.NotLearned;
-    public bool IsMaxed() => abilityLevel == maxLevel;
+    public bool IsMaxedOut() => abilityLevel == maxLevel;
 
     #region Ability Level Selection
     public void InitializeAbilityLevel(AbilityLevel abilityLevel)

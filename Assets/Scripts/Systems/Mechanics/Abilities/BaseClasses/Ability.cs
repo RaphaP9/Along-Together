@@ -12,7 +12,7 @@ public abstract class Ability : MonoBehaviour
     [Space]
     [SerializeField] protected PlayerHealth playerHealth;
 
-
+    public AbilityLevelHandler AbilityLevelHandler => abilityLevelHandler;
     public AbilitySO AbilitySO => abilityIdentifier.AbilitySO;
     public AbilitySlot AbilitySlot => abilitySlotHandler.AbilitySlot;
     public AbilityLevel AbilityLevel => abilityLevelHandler.AbilityLevel;
