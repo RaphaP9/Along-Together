@@ -15,9 +15,6 @@ public class CharacterSO : EntitySO, IHealSourceSO, IShieldSourceSO
     [Header("Character Cooldown Settings")]
     [Range(0f, 1f)] public float baseCooldownReduction;
 
-    [Header("Character Stats Affinity")]
-    public List<NumericStatType> statAffinities;
-
     [Header("Inventories")]
     [Range(0, 1000)] public int objectsInventorySize;
     [Range(0, 1000)] public int treatsInventorySize;

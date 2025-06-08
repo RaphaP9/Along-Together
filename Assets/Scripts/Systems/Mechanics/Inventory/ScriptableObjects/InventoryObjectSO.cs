@@ -19,6 +19,9 @@ public abstract class InventoryObjectSO : ScriptableObject, IHasEmbeddedNumericS
     [Header("Numeric Embedded Stats")]
     public List<NumericEmbeddedStat> numericEmbeddedStats;
 
+    [Header("Recommended Characters")]
+    public List<CharacterSO> recommendedCharacters;
+
     public abstract InventoryObjectType GetInventoryObjectType();
     public List<NumericEmbeddedStat> GetNumericEmbeddedStats() => numericEmbeddedStats;
 

@@ -11,5 +11,8 @@ public abstract class AbilitySO : ScriptableObject
     [TextArea(3,10)] public string description;
     public AbilityClassification abilityClassification;
 
+    [Header("Stats Affinity")]
+    public List<NumericStatType> statAffinities;
+
     public abstract AbilityType GetAbilityType();
 }
