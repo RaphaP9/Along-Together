@@ -8,7 +8,9 @@ public class AbilitySlotUIHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private AbilitySlotHandler abilitySlotHandler;
+    [Space]
     [SerializeField] private AbilityCooldownUIHandler abilityCooldownUIHandler;
+    [SerializeField] private AbilityLevelUIHandler abilityLevelUIHandler;
 
     [Header("UI Components")]
     [SerializeField] private Image abilityImage; 
@@ -31,10 +33,12 @@ public class AbilitySlotUIHandler : MonoBehaviour
     {
         SetAbilityImage(e.abilityVariant.AbilitySO.sprite);
         abilityCooldownUIHandler.AssignAbility(e.abilityVariant);
+        abilityLevelUIHandler.AssignAbility(e.abilityVariant);
     }
     private void AbilitySlotHandler_OnAbilityVariantSelected(object sender, AbilitySlotHandler.OnAbilityVariantSelectionEventArgs e)
     {
         SetAbilityImage(e.newAbilityVariant.AbilitySO.sprite);
         abilityCooldownUIHandler.AssignAbility(e.newAbilityVariant);
+        abilityLevelUIHandler.AssignAbility(e.newAbilityVariant);
     }
 }

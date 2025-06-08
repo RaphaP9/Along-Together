@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class AbilityLevelHandler : MonoBehaviour
@@ -22,6 +21,9 @@ public class AbilityLevelHandler : MonoBehaviour
     public event EventHandler<OnAbilityLevelEventArgs> OnAbilityLevelSet;
     public event EventHandler<OnAbilityLevelEventArgs> OnAbilityLevelInitialized;
 
+    public static event EventHandler<OnAbilityLevelEventArgs> OnAnyAbilityLevelSet;
+    public static event EventHandler<OnAbilityLevelEventArgs> OnAnyAbilityLevelInitialized;
+
     public class OnAbilityLevelEventArgs : EventArgs
     {
         public AbilitySO abilitySO;
@@ -41,12 +43,14 @@ public class AbilityLevelHandler : MonoBehaviour
     {
         this.abilityLevel = abilityLevel;
         OnAbilityLevelInitialized?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });     
+        OnAnyAbilityLevelInitialized?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });
     }
 
     public void SetAbilityLevel(AbilityLevel abilityLevel)
     {
         this.abilityLevel = abilityLevel;
         OnAbilityLevelSet?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });
+        OnAnyAbilityLevelSet?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });
     }
     #endregion
 

@@ -12,6 +12,7 @@ public class AbilityCooldownUIHandler : MonoBehaviour
     [SerializeField] private CooldownCounterUIHandler cooldownCounterUIHandler;
 
     [Header("Runtime Filled")]
+    [SerializeField] private Ability ability;
     [SerializeField] private AbilityCooldownHandler abilityCooldownHandler;
 
     #region Flags
@@ -58,9 +59,11 @@ public class AbilityCooldownUIHandler : MonoBehaviour
         }
     }
 
-    #region PublicMethods
+    #region Public Methods
     public void AssignAbility(Ability ability)
     {
+        SetAbility(ability);
+
         switch (ability.AbilitySO.GetAbilityType())
         {
             case AbilityType.Passive:
@@ -72,7 +75,6 @@ public class AbilityCooldownUIHandler : MonoBehaviour
             case AbilityType.ActivePassive:
                 SetAbilityCooldownHandler((ability as ActivePassiveAbility).AbilityCooldownHandler);
                 break;
-
         }
     }
     #endregion
@@ -81,6 +83,8 @@ public class AbilityCooldownUIHandler : MonoBehaviour
     private void DisableCooldownUI() => cooldownPanelTransform.gameObject.SetActive(false);
 
     #region Setters
+    private void SetAbility(Ability ability) => this.ability = ability;
+    private void ClearAbility() => ability = null;
     private void SetAbilityCooldownHandler(AbilityCooldownHandler abilityCooldownHandler) => this.abilityCooldownHandler = abilityCooldownHandler;
     private void ClearAbilityCooldownHandler() => abilityCooldownHandler = null;
     #endregion
