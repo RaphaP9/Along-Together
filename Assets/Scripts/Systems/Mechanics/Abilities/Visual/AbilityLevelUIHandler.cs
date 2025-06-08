@@ -8,6 +8,9 @@ public class AbilityLevelUIHandler : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] private Transform notLearnedPanelTransform;
+    [Space]
+    [SerializeField] private Transform levelIndicatorsContainer;
+    [SerializeField] private Transform levelIndicatorUISample;
 
     [Header("Runtime Filled")]
     [SerializeField] private Ability ability;
@@ -33,6 +36,16 @@ public class AbilityLevelUIHandler : MonoBehaviour
         HandleFirstUpdateLogic();
     }
 
+    #region Public Methods
+    public void AssignAbility(Ability ability)
+    {
+        SetAbility(ability);
+
+        if (!firstUpdateLogicPerformed) return;
+        HandleUI(ability.AbilityLevel);
+    }
+    #endregion
+
     private void HandleFirstUpdateLogic() //Performed in first update to make sure AbilityLevelHandler has already initialized the AbilityLevel (Initializes on Start())
     {
         if (firstUpdateLogicPerformed) return;
@@ -53,18 +66,54 @@ public class AbilityLevelUIHandler : MonoBehaviour
         {
             DisableLearnedUI();
         }
+
+        switch (abilityLevel)
+        {
+            case AbilityLevel.NotLearned:
+                ClearIndicatorsContainer();
+                break;
+            case AbilityLevel.Level1:
+                CreateUIIndicators(1);
+                break;
+            case AbilityLevel.Level2:
+                CreateUIIndicators(2);
+                break;
+            case AbilityLevel.Level3:
+                CreateUIIndicators(3);
+                break;
+        }
     }
 
-    #region Public Methods
-    public void AssignAbility(Ability ability)
+    private void CreateUIIndicators(int indicatorsQuantity)
     {
-        SetAbility(ability);
+        ClearIndicatorsContainer();
 
-        if (!firstUpdateLogicPerformed) return;
-
-        HandleUI(ability.AbilityLevel);
+        for(int i = 0; i < indicatorsQuantity; i++)
+        {
+            CreateLevelIndicator();
+        }
     }
-    #endregion
+
+    private void CreateLevelIndicator()
+    {
+        Transform levelIndicatorUI = Instantiate(levelIndicatorUISample, levelIndicatorsContainer);
+        levelIndicatorUI.gameObject.SetActive(true);
+    }
+
+    private void ClearIndicatorsContainer()
+    {
+        foreach (Transform child in levelIndicatorsContainer)
+        {
+            if(child == levelIndicatorUISample)
+            {
+                child.gameObject.SetActive(false);
+            }
+            else
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
 
     private void EnableNotLearnedUI() => notLearnedPanelTransform.gameObject.SetActive(true);
     private void DisableLearnedUI() => notLearnedPanelTransform.gameObject.SetActive(false);
