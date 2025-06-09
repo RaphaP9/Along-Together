@@ -35,9 +35,9 @@ public class PlayerStateHandler : MonoBehaviour
         GameManager.OnStateChanged -= GameManager_OnStateChanged;
     }
 
-    private void Start()
+    private void Awake()
     {
-        //NOTE: Must Coincide with the first state Initialized By Game Manager (Zero Actions). Line can also be removed
+        //NOTE: If this method is on Start(), must coincide with the first state Initialized By Game Manager (Zero Actions). Line can also be removed
         SetPlayerState(startingState);
     }
 

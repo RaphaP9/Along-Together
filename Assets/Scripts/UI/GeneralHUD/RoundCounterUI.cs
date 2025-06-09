@@ -21,7 +21,6 @@ public class RoundCounterUI : MonoBehaviour
     private const string SHOWING_ANIMATION_NAME = "Showing";
     private const string HIDDEN_ANIMATION_NAME = "Hidden";
 
-
     private void OnEnable()
     {
         GeneralStagesManager.OnStageAndRoundInitialized += GeneralStagesManager_OnStageAndRoundInitialized;
