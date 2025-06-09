@@ -37,6 +37,7 @@ public class PlayerStateHandler : MonoBehaviour
 
     private void Start()
     {
+        //NOTE: Must Coincide with the first state Initialized By Game Manager (Zero Actions). Line can also be removed
         SetPlayerState(startingState);
     }
 
@@ -223,8 +224,8 @@ public class PlayerStateHandler : MonoBehaviour
     private void GameManager_OnStateInitialized(object sender, GameManager.OnStateInitializedEventArgs e)
     {
         ChangePlayerStateByGameState(e.state);
-
     }
+
     private void GameManager_OnStateChanged(object sender, GameManager.OnStateChangeEventArgs e)
     {
         ChangePlayerStateByGameState(e.newState);
