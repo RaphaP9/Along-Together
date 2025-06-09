@@ -18,7 +18,6 @@ public class PlayerHealthRegen : MonoBehaviour
     private void OnDisable()
     {
         GameManager.OnStateChanged -= GameManager_OnStateChanged;
-
     }
 
     private void HealFromHealthRegen()

@@ -16,7 +16,8 @@ MonoBehaviour:
   dialogueSentences:
   - localID: 0
     dialogueSpeakerSO: {fileID: 11400000, guid: a92f0bdce03b0a846ad4572db854db4a, type: 2}
-    sentenceText: Sentence1TextSentence1. TextSentence1TextSentence1Text.
+    sentenceText: Sentence1TextSentence1. TextSentence1TextSentence1Text. (Saltar
+      con click)
     speakerOnRight: 0
     triggerSentenceTransition: 0
     audioClip: {fileID: 0}

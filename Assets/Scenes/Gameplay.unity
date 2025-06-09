@@ -6782,8 +6782,8 @@ MonoBehaviour:
     playerSpawnPoint: {fileID: 39727139}
     spawnPointsHandler: {fileID: 212861834}
     stageConfiner: {fileID: 1867485836}
-  startingStageNumber: 2
-  startingRoundNumber: 0
+  startingStageNumber: 1
+  startingRoundNumber: 1
   roundState: 0
   currentStageGroup:
     stageSO: {fileID: 0}
@@ -11348,7 +11348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ee3ceace1172f47abd0f0bf3d15e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGold: 0
+  currentGold: 25
   debug: 1
 --- !u!1 &728717727
 GameObject:
@@ -26751,9 +26751,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1773330767}
-  - component: {fileID: 1773330770}
-  - component: {fileID: 1773330771}
-  - component: {fileID: 1773330778}
   m_Layer: 0
   m_Name: TestObject
   m_TagString: Untagged
@@ -26776,45 +26773,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1773330770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773330765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd79113fea1d9374abf418420fc19f90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scene: Test
-  transitionType: 1
---- !u!114 &1773330771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773330765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 749e5460e4e36a3468c3b5a8d8bf8782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1773330778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773330765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b8b6f420b515e4fa911cf623cba50f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  videoCinematicSO: {fileID: 11400000, guid: 0ed1469f2cad0bf40921317874613c8e, type: 2}
 --- !u!1001 &1777762132
 PrefabInstance:
   m_ObjectHideFlags: 0
