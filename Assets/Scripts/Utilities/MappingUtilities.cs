@@ -43,6 +43,15 @@ public static class MappingUtilities
     private const string LEVEL_3 = "Nivel 3";
     #endregion
 
+    #region Stage Consts
+    private const string STAGE_1_NAME = "Fase 1";
+    private const string STAGE_2_NAME = "Fase 2";
+    private const string STAGE_3_NAME = "Fase 3";
+    private const string STAGE_4_NAME = "Fase 4";
+    private const string STAGE_5_NAME = "Fase 5";
+    private const string UNDEFINED_STAGE_NAME = "Fase no definida";
+    #endregion
+
     private const string PERCENTAGE_CHARACTER = "%";
     private const string PLUS_CHARACTER = "+";
 
@@ -334,6 +343,25 @@ public static class MappingUtilities
             case AbilityLevel.Level3:
                 return LEVEL_3;
 
+        }
+    }
+
+    public static string MapStageName(int stageNumber)
+    {
+        switch (stageNumber)
+        {
+            case 1:
+                return STAGE_1_NAME;
+            case 2:
+                return STAGE_2_NAME;
+            case 3:
+                return STAGE_3_NAME;
+            case 4:
+                return STAGE_4_NAME;
+            case 5:
+                return STAGE_5_NAME;
+            default:
+                return UNDEFINED_STAGE_NAME;
         }
     }
 }
