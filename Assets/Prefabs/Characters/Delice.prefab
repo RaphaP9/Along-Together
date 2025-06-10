@@ -507,7 +507,7 @@ GameObject:
   - component: {fileID: 2613628452749778797}
   - component: {fileID: 4256363878830921393}
   m_Layer: 6
-  m_Name: TestCharacter
+  m_Name: Delice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

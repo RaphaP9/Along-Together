@@ -30,9 +30,9 @@ public class RunData
         currentStageNumber = 1;
         currentRoundNumber = 1;
 
-        currentGold = 25;
+        currentGold = 0;
 
-        currentCharacterID = 0;
+        currentCharacterID = 1;
 
         currentHealth = 0;
         currentShield = 0;

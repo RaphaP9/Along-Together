@@ -326,8 +326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runData:
-    currentStageNumber: 1
-    currentRoundNumber: 1
+    currentStageNumber: 0
+    currentRoundNumber: 0
     currentGold: 0
     currentCharacterID: 0
     currentHealth: 0
@@ -383,5 +383,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   perpetualData:
+    unlockedCharacterIDs: 01000000
     assetStats: []
     numericStats: []
