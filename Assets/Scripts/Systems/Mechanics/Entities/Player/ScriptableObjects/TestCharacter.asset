@@ -19,7 +19,7 @@ MonoBehaviour:
   color: {r: 0, g: 0, b: 0, a: 0}
   prefab: {fileID: 6380853313663446174, guid: a4901a14439d2ae4ebcbbdb0772c2191, type: 3}
   baseHealth: 10
-  baseShield: 10
+  baseShield: 0
   baseArmor: 0
   baseDodgeChance: 0
   baseAttackDamage: 4
@@ -34,6 +34,5 @@ MonoBehaviour:
   healColor: {r: 0.21314174, g: 0.7169812, b: 0.15895337, a: 1}
   shieldColor: {r: 0, g: 0, b: 0, a: 0}
   baseCooldownReduction: 0
-  statAffinities: 00000000
   objectsInventorySize: 5
   treatsInventorySize: 2

@@ -1,11 +1,82 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public static class DataUtilities 
 {
     private const bool DEBUG = true;
+
+    private const string PERPETUAL_DATA_PATH = "perpetualData.atdata";
+    private const string RUN_DATA_PATH = "runData.atdata";
+
+    #region Files Handling
+
+    public static bool HasSavedRunData()
+    {
+        return CheckIfDataPathExists(RUN_DATA_PATH);
+    }
+
+    public static void WipeRunData()
+    {
+        DeleteDataInPath(RUN_DATA_PATH);
+    }
+
+    public static void WipeAllData()
+    {
+        DeleteDataInPath(PERPETUAL_DATA_PATH);
+        DeleteDataInPath(RUN_DATA_PATH);
+    }
+
+    public static void DeleteDataInPaths(IEnumerable<string> dataPaths)
+    {
+        foreach (string dataPath in dataPaths)
+        {
+            DeleteDataInPath(dataPath);
+        }
+    }
+
+    public static void DeleteDataInPath(string dataPath)
+    {
+        string dirPath = Application.persistentDataPath;
+
+        string path = Path.Combine(dirPath, dataPath);
+
+        if (!File.Exists(path))
+        {
+            Debug.Log("No data to delete");
+        }
+        else
+        {
+            File.Delete(path);
+            Debug.Log("Data Deleted");
+        }
+    }
+
+    public static bool CheckIfDataPathsExist(IEnumerable<string> dataPaths)
+    {
+        foreach (string dataPath in dataPaths)
+        {
+            if (!CheckIfDataPathExists(dataPath)) return false;
+        }
+
+        return true;
+    }
+
+
+    public static bool CheckIfDataPathExists(string dataPath)
+    {
+        string dirPath = Application.persistentDataPath;
+        string path = Path.Combine(dirPath, dataPath);
+
+        if (File.Exists(path)) return true;
+
+        return false;
+    }
+
+    #endregion
+
 
     #region CharacterSO Translation
     public static CharacterSO TranslateCharacterIDToCharacterSO(int characterID)
