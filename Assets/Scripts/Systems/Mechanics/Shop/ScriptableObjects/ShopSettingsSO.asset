@@ -55,8 +55,8 @@ MonoBehaviour:
     - inventoryObjectRarity: 4
       weight: 0
       cap: 0
-  rerollBaseCost: 1
-  rerollCostIncreasePerReroll: 5
+  rerollBaseCost: 5
+  rerollCostIncreasePerReroll: 1
   objectsPool:
   - {fileID: 11400000, guid: caf4b2fb6b02de54e92635fd928de7e3, type: 2}
   - {fileID: 11400000, guid: 268922dd9b3c4ab4c8f18325733c2355, type: 2}
