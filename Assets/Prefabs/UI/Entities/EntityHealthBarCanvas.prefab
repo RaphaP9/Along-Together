@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3166605741344128934}
   - component: {fileID: 7972796682433683454}
   - component: {fileID: 8164980678282898794}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CurrentHealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 990351663560646860}
   - component: {fileID: 2683935522078413200}
   - component: {fileID: 3968453653611411717}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 5764596963611519947}
   - component: {fileID: 5745538275079051176}
   - component: {fileID: 649593926840332964}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MaxHealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 4022460739973658961}
   - component: {fileID: 6059149345703583834}
   - component: {fileID: 429668704413647799}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EntityHealthBarCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &429668704413647799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,7 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7413640610658753022}
   - component: {fileID: 52053650188006327}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBarTexts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +507,7 @@ GameObject:
   - component: {fileID: 8130221789639543379}
   - component: {fileID: 5050437190469052951}
   - component: {fileID: 8086376904673153036}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBarBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -583,7 +583,7 @@ GameObject:
   - component: {fileID: 6123351649692872658}
   - component: {fileID: 3593030841708941923}
   - component: {fileID: 7617210074222575576}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBarUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,7 +654,7 @@ GameObject:
   - component: {fileID: 1890381282226796591}
   - component: {fileID: 2161050301892749143}
   - component: {fileID: 8040885007354890027}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBarFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -730,7 +730,7 @@ GameObject:
   - component: {fileID: 5151713515274675229}
   - component: {fileID: 978448399346971197}
   - component: {fileID: 3020902580349933960}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Separator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
