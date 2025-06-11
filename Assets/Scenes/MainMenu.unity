@@ -1926,7 +1926,7 @@ GameObject:
   - component: {fileID: 1338331577}
   - component: {fileID: 1338331578}
   m_Layer: 0
-  m_Name: MainMenuScenesManager
+  m_Name: MainMenuNextScenesManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1959,6 +1959,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cdce03d5ac4b6c48b6e0226932a8e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  continueTransitionType: 0
+  continueScene: Gameplay
+  basicNewGameTransitionType: 0
+  basicNewGameScene: Gameplay
+  regularNewGameTransitionType: 0
+  regularNewGameScene: Gameplay
 --- !u!1 &1401596767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2430,12 +2436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e294d88f92761694ab58a77a5498bf91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  continueButton: {fileID: 327793604}
-  continueTransitionType: 0
-  continueScene: Gameplay
   newGameButton: {fileID: 996420078}
-  newGameTransitionType: 0
-  newGameScene: Gameplay
+  continueButton: {fileID: 327793604}
   optionsButton: {fileID: 152514523}
   optionsTransitionType: 0
   optionsScene: Options

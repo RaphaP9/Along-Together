@@ -6,7 +6,7 @@ using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
 
-public abstract class JSONDataPersistenceManager<T> : MonoBehaviour, IDataPersistenceManager where T : class, new()
+public abstract class JSONDataPersistenceManager<T> : MonoBehaviour, IDataPersistenceManager where T : DataModel, new()
 {
     [Header("Enablers")]
     [SerializeField] private bool enableDataPersistence;
@@ -142,7 +142,11 @@ public abstract class JSONDataPersistenceManager<T> : MonoBehaviour, IDataPersis
 
     #endregion
 
-    protected void NewData() => persistentData = new T();
+    protected void NewData()
+    {
+        persistentData = new T();
+        persistentData.Initialize();
+    }
 
     public void DeleteGameData()
     {

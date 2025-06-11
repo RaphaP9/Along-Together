@@ -8,6 +8,7 @@ public class SessionPerpetualDataContainer : MonoBehaviour
 
     [Header("Data")]
     [SerializeField] private PerpetualData perpetualData;
+
     public PerpetualData PerpetualData => perpetualData;
 
     #region Initialization
@@ -15,7 +16,6 @@ public class SessionPerpetualDataContainer : MonoBehaviour
     {
         SetSingleton();
         InitializeDataContainer();
-        InitializeFromGeneralGameSettings();
     }
 
     private void SetSingleton()
@@ -33,19 +33,21 @@ public class SessionPerpetualDataContainer : MonoBehaviour
     private void InitializeDataContainer()
     {
         perpetualData = new PerpetualData();
-    }
-
-    private void InitializeFromGeneralGameSettings()
-    {
-        SetUnlockedCharacterIDs(GeneralGameSettings.Instance.GetStartingUnlockedCharacterIDs());
+        perpetualData.Initialize();
     }
     #endregion
 
     public void SetPerpetualData(PerpetualData perpetualData) => this.perpetualData = perpetualData;
+    
     public void ResetPerpetualData()
     {
         InitializeDataContainer();
-        InitializeFromGeneralGameSettings();
+    }
+
+    public bool HasUnlockedCharacters()
+    {
+        if (perpetualData.unlockedCharacterIDs == GeneralGameSettings.Instance.GetStartingUnlockedCharacterIDs()) return false;
+        return true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

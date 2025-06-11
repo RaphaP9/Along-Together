@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class RunData
+public class RunData : DataModel
 {
     public int currentStageNumber;
     public int currentRoundNumber;
@@ -46,5 +46,21 @@ public class RunData
 
         abilityLevelGroups = new List<DataModeledAbilityLevelGroup>();
         abilitySlotGroups = new List<DataModeledAbilitySlotGroup>();
+    }
+
+    public override void Initialize()
+    {
+        if(GeneralGameSettings.Instance == null)
+        {
+            Debug.Log("GeneralGameSettings Instance is null. Can not Initialize DataModel.");
+            return;
+        }
+
+        currentStageNumber = GeneralGameSettings.Instance.GetStartingStage();
+        currentRoundNumber = GeneralGameSettings.Instance.GetStartingRound();
+
+        currentGold = GeneralGameSettings.Instance.GetStartingGoldQuantity();
+
+        currentCharacterID = GeneralGameSettings.Instance.GetDefaultCharacterID();
     }
 }

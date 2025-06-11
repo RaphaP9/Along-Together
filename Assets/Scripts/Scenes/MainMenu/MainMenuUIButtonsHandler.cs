@@ -5,15 +5,11 @@ using UnityEngine.UI;
 
 public class MainMenuUIButtonsHandler : MonoBehaviour
 {
-    [Header("Continue")]
-    [SerializeField] private Button continueButton;
-    [SerializeField] private TransitionType continueTransitionType;
-    [SerializeField] private string continueScene;
-
     [Header("NewGame")]
     [SerializeField] private Button newGameButton;
-    [SerializeField] private TransitionType newGameTransitionType;
-    [SerializeField] private string newGameScene;
+
+    [Header("Continue")]
+    [SerializeField] private Button continueButton;
 
     [Header("Options")]
     [SerializeField] private Button optionsButton;
@@ -41,8 +37,8 @@ public class MainMenuUIButtonsHandler : MonoBehaviour
 
     private void InitializeButtonsListeners()
     {
-        continueButton.onClick.AddListener(ContinueGame);
         newGameButton.onClick.AddListener(StartNewGame);
+        continueButton.onClick.AddListener(LoadContinueGameScene);
         optionsButton.onClick.AddListener(LoadOptionsScene);
         creditsButton.onClick.AddListener(LoadCreditsScene);
         quitButton.onClick.AddListener(QuitGame);
@@ -61,15 +57,9 @@ public class MainMenuUIButtonsHandler : MonoBehaviour
         else continueButton.gameObject.SetActive(false);
     }
 
-    private void ContinueGame() => ScenesManager.Instance.TransitionLoadTargetScene(continueScene, continueTransitionType);
 
-    private void StartNewGame()
-    {
-        DataUtilities.WipeRunData();
-        LoadNewGameScene();
-    }
-
-    private void LoadNewGameScene() => ScenesManager.Instance.TransitionLoadTargetScene(newGameScene, newGameTransitionType);
+    private void StartNewGame() => MainMenuNextScenesManager.Instance.StartNewGame();
+    private void LoadContinueGameScene() => MainMenuNextScenesManager.Instance.ContinueGame();
     private void LoadOptionsScene() => ScenesManager.Instance.TransitionLoadTargetScene(optionsScene, optionsTransitionType);
     private void LoadCreditsScene() => ScenesManager.Instance.TransitionLoadTargetScene(creditsScene, creditsTransitionType);
     private void DeleteData()

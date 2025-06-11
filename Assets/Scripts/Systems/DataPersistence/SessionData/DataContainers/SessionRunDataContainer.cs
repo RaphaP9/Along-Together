@@ -15,9 +15,7 @@ public class SessionRunDataContainer : MonoBehaviour
     private void Awake() //Remember this Awake Happens before all JSON awakes, initialization of container happens before JSON Load
     {
         SetSingleton();
-
         InitializeDataContainer();
-        InitializeFromGeneralGameSettings();
     }
 
     private void SetSingleton()
@@ -35,24 +33,15 @@ public class SessionRunDataContainer : MonoBehaviour
     private void InitializeDataContainer()
     {
         runData = new RunData();
+        runData.Initialize();
     }  
-
-    private void InitializeFromGeneralGameSettings()
-    {
-        SetCurrentStageNumber(GeneralGameSettings.Instance.GetStartingStage());
-        SetCurrentRoundNumber(GeneralGameSettings.Instance.GetStartingRound());
-
-        SetCurrentGold(GeneralGameSettings.Instance.GetStartingGoldQuantity());
-
-        SetCurrentCharacterID(GeneralGameSettings.Instance.GetDefaultCharacterID());    
-    }
     #endregion
 
     public void SetRunData(RunData runData) => this.runData = runData; 
+
     public void ResetRunData()
     {
         InitializeDataContainer();
-        InitializeFromGeneralGameSettings();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
