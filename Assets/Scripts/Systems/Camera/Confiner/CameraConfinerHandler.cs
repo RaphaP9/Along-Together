@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraStageConfinerHandler : MonoBehaviour
+public class CameraConfinerHandler : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private CinemachineVirtualCamera CMVCAM;
+    [SerializeField] private CinemachineConfiner2D cinemachineConfiner2D;
 
     [Header("Debug")]
     [SerializeField] private bool debug;
@@ -15,27 +15,37 @@ public class CameraStageConfinerHandler : MonoBehaviour
     {
         GeneralStagesManager.OnStageInitialized += GeneralStagesManager_OnStageInitialized;
         GeneralStagesManager.OnStageChange += GeneralStagesManager_OnStageChange;
+
+        CameraTransitionHandler.OnCameraTransitionPositionDeterminedPreFollow += CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow;
+        CameraTransitionHandler.OnCameraTransitionOutEnd += CameraTransitionHandler_OnCameraTransitionOutEnd;
     }
+
+
 
     private void OnDisable()
     {
         GeneralStagesManager.OnStageInitialized -= GeneralStagesManager_OnStageInitialized;
         GeneralStagesManager.OnStageChange -= GeneralStagesManager_OnStageChange;
+
+        CameraTransitionHandler.OnCameraTransitionPositionDeterminedPreFollow -= CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow;
+        CameraTransitionHandler.OnCameraTransitionOutEnd -= CameraTransitionHandler_OnCameraTransitionOutEnd;
     }
 
     private void SwitchConfiner(PolygonCollider2D confiner)
     {
-        CinemachineConfiner2D cinemachineConfiner2D = CMVCAM.GetComponent<CinemachineConfiner2D>();
-        
-        if(cinemachineConfiner2D == null)
-        {
-            if (debug) Debug.Log("CinemachineConfiner2D is null. Confiner switch will be ignored");
-            return;
-        }
-
         cinemachineConfiner2D.m_BoundingShape2D = confiner;
         cinemachineConfiner2D.enabled = false; //Force Reinitialization 
         cinemachineConfiner2D.enabled = true;
+    }
+
+    private void EnableConfiner()
+    {
+        cinemachineConfiner2D.enabled = true;
+    }
+
+    private void DisableConfiner()
+    {
+        cinemachineConfiner2D.enabled = false;
     }
 
     private void GeneralStagesManager_OnStageInitialized(object sender, GeneralStagesManager.OnStageChangeEventArgs e)
@@ -47,4 +57,15 @@ public class CameraStageConfinerHandler : MonoBehaviour
     {
         SwitchConfiner(e.stageGroup.stageConfiner);
     }
+
+    private void CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow(object sender, CameraTransitionHandler.OnCameraTransitionEventArgs e)
+    {
+        DisableConfiner();
+    }
+
+    private void CameraTransitionHandler_OnCameraTransitionOutEnd(object sender, CameraTransitionHandler.OnCameraTransitionEventArgs e)
+    {
+        EnableConfiner();
+    }
+
 }

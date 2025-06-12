@@ -9,7 +9,9 @@ public class CameraTransitionHandler : MonoBehaviour
     public static CameraTransitionHandler Instance { get; private set; }
 
     [Header("Components")]
+    [SerializeField] private Transform cameraRefferenceTransform;
     [SerializeField] private CinemachineVirtualCamera CMVCam;
+    [SerializeField] private CinemachineConfiner2D confiner2D;
 
     [Header("States")]
     [SerializeField] private State state;
@@ -34,6 +36,9 @@ public class CameraTransitionHandler : MonoBehaviour
     public static event EventHandler<OnCameraTransitionEventArgs> OnCameraTransitionInEnd;
     public static event EventHandler<OnCameraTransitionEventArgs> OnCameraTransitionOutStart;
     public static event EventHandler<OnCameraTransitionEventArgs> OnCameraTransitionOutEnd;
+
+    public static event EventHandler<OnCameraTransitionEventArgs> OnCameraTransitionPositionDeterminedPreFollow;
+    public static event EventHandler<OnCameraTransitionEventArgs> OnCameraTransitionPositionDeterminedPostFollow;
 
     public class OnCameraTransitionEventArgs : EventArgs
     {
@@ -99,16 +104,24 @@ public class CameraTransitionHandler : MonoBehaviour
         Transform previousCameraFollowTransform = currentCameraFollowTransform;
 
         GameObject cameraFollowGameObject = new GameObject("CameraFollowGameObject");
+        cameraFollowGameObject.transform.position = GeneralUtilities.SupressZComponent(cameraRefferenceTransform.position);
+
         Transform cameraFollowTransform = cameraFollowGameObject.transform;
 
         SetCurrentCameraFollowTransform(cameraFollowTransform);
         SetPreviousCameraDistance(CameraOrthoSizeHandler.Instance.OrthoSizeDefault);
 
-        currentCameraFollowTransform.position = previousCameraFollowTransform.position;
         CMVCam.Follow = currentCameraFollowTransform;
 
+        OnCameraTransitionPositionDeterminedPreFollow?.Invoke(this, new OnCameraTransitionEventArgs { cameraTransition = cameraTransition });
+
+        yield return null; //Wait 3 Frames
+        yield return null;
+
+        OnCameraTransitionPositionDeterminedPostFollow?.Invoke(this, new OnCameraTransitionEventArgs { cameraTransition = cameraTransition });
+
         Vector3 startingPositionIn = currentCameraFollowTransform.position;
-        Transform targetTransform = cameraTransition.useOriginalFollowPoint ? currentCameraFollowTransform : cameraTransition.targetTransform;
+        Transform targetTransform = cameraTransition.usePlayerFollowPoint ? playerCameraFollowPoint : cameraTransition.targetTransform;
 
         //If previous CameraFollowTransform wasn't the original playerCameraFollowTransform (Transition started while another transition was happening)
         if(previousCameraFollowTransform != playerCameraFollowPoint) Destroy(previousCameraFollowTransform.gameObject);
@@ -217,7 +230,7 @@ public class CameraTransition
     public string logToStart;
     public string logToEnd;
     [Space]
-    public bool useOriginalFollowPoint;
+    public bool usePlayerFollowPoint;
     public Transform targetTransform;
     [Space]
     [Range(0f, 4f)] public float stallTimeIn;

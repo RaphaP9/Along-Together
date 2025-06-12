@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     [Space]
     [SerializeField, Range(0f, 2f)] private float dialogueInterval;
 
+    [Header("Debug")]
+    [SerializeField] private bool ignoreGameFlow;
+
     public static event EventHandler OnTriggerDataSave;
 
     //Monologue is considered non GameState intrusive, can happen on combat,etc
@@ -31,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     public static event EventHandler<OnStateChangeEventArgs> OnStateChanged;
     public static event EventHandler<OnStateInitializedEventArgs> OnStateInitialized;
+
+    public static event EventHandler OnGameLost;
 
     #region Flags
     private bool firstUpdateLogicPerformed = false;
@@ -63,6 +68,8 @@ public class GameManager : MonoBehaviour
         GeneralStagesManager.OnRoundEnd += GeneralStagesManager_OnRoundEnd;
 
         DialogueManager.OnGeneralDialogueConcluded += DialogueManager_OnGeneralDialogueConcluded;
+
+        PlayerHealth.OnAnyPlayerDeath += PlayerHealth_OnAnyPlayerDeath;
     }
 
     private void OnDisable()
@@ -76,6 +83,8 @@ public class GameManager : MonoBehaviour
         GeneralStagesManager.OnRoundEnd -= GeneralStagesManager_OnRoundEnd;
 
         DialogueManager.OnGeneralDialogueConcluded -= DialogueManager_OnGeneralDialogueConcluded;
+
+        PlayerHealth.OnAnyPlayerDeath -= PlayerHealth_OnAnyPlayerDeath;
     }
 
     private void Awake()
@@ -135,7 +144,15 @@ public class GameManager : MonoBehaviour
     {
         if (firstUpdateLogicPerformed) return;
 
-        StartCoroutine(GameCoroutine());
+        if (ignoreGameFlow)
+        {
+            InitializeState(State.Combat);
+        }
+        else
+        {
+            StartCoroutine(GameCoroutine());
+        }
+
         firstUpdateLogicPerformed = true;
     }
 
@@ -269,6 +286,13 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    private void LoseGame()
+    {
+        StopAllCoroutines(); //Stop Game Coroutine
+        SetGameState(State.Lose);
+        OnGameLost?.Invoke(this, EventArgs.Empty);
+    }
+
     private void TriggerDataSave() => OnTriggerDataSave?.Invoke(this, EventArgs.Empty);
 
     #region Subscriptions
@@ -302,5 +326,9 @@ public class GameManager : MonoBehaviour
         dialogueConcluded = true;
     }
 
+    private void PlayerHealth_OnAnyPlayerDeath(object sender, EntityHealth.OnEntityDeathEventArgs e)
+    {
+        LoseGame();
+    }
     #endregion
 }

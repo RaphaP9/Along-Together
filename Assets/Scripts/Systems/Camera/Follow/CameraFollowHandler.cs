@@ -16,6 +16,9 @@ public class CameraFollowHandler : MonoBehaviour
 
     public static event EventHandler<OnCameraFollowPointEventArgs> OnCameraFollowPointSet;
 
+    private CinemachineTransposer cinemachineTransposer;
+    private Vector3 originalDamping;
+
     public class OnCameraFollowPointEventArgs : EventArgs
     {
         public Transform cameraFollowPoint;
@@ -25,12 +28,29 @@ public class CameraFollowHandler : MonoBehaviour
     {
         PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
         PlayerTeleporterManager.OnPlayerTeleported += PlayerTeleporterManager_OnPlayerTeleported;
+
+        CameraTransitionHandler.OnCameraTransitionPositionDeterminedPreFollow += CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow;
+        CameraTransitionHandler.OnCameraTransitionPositionDeterminedPostFollow += CameraTransitionHandler_OnCameraTransitionPositionDeterminedPostFollow;
     }
 
     private void OnDisable()
     {
         PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
         PlayerTeleporterManager.OnPlayerTeleported -= PlayerTeleporterManager_OnPlayerTeleported;
+
+        CameraTransitionHandler.OnCameraTransitionPositionDeterminedPreFollow -= CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow;
+        CameraTransitionHandler.OnCameraTransitionPositionDeterminedPostFollow -= CameraTransitionHandler_OnCameraTransitionPositionDeterminedPostFollow;
+    }
+
+    private void Awake()
+    {
+        cinemachineTransposer = CMVCAM.GetCinemachineComponent<CinemachineTransposer>();
+        InitializeDamping();
+    }
+
+    private void InitializeDamping()
+    {
+        originalDamping = new Vector3(cinemachineTransposer.m_XDamping, cinemachineTransposer.m_YDamping, cinemachineTransposer.m_ZDamping);
     }
 
     private Transform SeekCameraFollowPoint(Transform playerTransform)
@@ -54,21 +74,25 @@ public class CameraFollowHandler : MonoBehaviour
 
     private IEnumerator MoveInstanltyToNextPosition()
     {
-        CinemachineTransposer transposer = CMVCAM.GetCinemachineComponent<CinemachineTransposer>();
-
-        float originalXDamping = transposer.m_XDamping;
-        float originalYDamping = transposer.m_YDamping;
-        float originalZDamping = transposer.m_ZDamping;
-
-        transposer.m_XDamping = 0f;
-        transposer.m_YDamping = 0f;
-        transposer.m_ZDamping = 0f;
+        DisableDamping();
 
         yield return null;
 
-        transposer.m_XDamping = originalXDamping;
-        transposer.m_YDamping = originalYDamping;
-        transposer.m_ZDamping = originalZDamping;
+        EnableDamping();
+    }
+    
+    private void DisableDamping()
+    {
+        cinemachineTransposer.m_XDamping = 0f;
+        cinemachineTransposer.m_YDamping = 0f;
+        cinemachineTransposer.m_ZDamping = 0f;
+    }
+
+    private void EnableDamping()
+    {
+        cinemachineTransposer.m_XDamping = originalDamping.x;
+        cinemachineTransposer.m_YDamping = originalDamping.y;
+        cinemachineTransposer.m_ZDamping = originalDamping.z;
     }
 
     private void PlayerInstantiationHandler_OnPlayerInstantiation(object sender, PlayerInstantiationHandler.OnPlayerInstantiationEventArgs e)
@@ -84,4 +108,13 @@ public class CameraFollowHandler : MonoBehaviour
         StartCoroutine(MoveInstanltyToNextPosition());
     }
 
+    private void CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow(object sender, CameraTransitionHandler.OnCameraTransitionEventArgs e)
+    {
+        DisableDamping();
+    }
+
+    private void CameraTransitionHandler_OnCameraTransitionPositionDeterminedPostFollow(object sender, CameraTransitionHandler.OnCameraTransitionEventArgs e)
+    {
+        EnableDamping();
+    }
 }

@@ -5800,6 +5800,7 @@ GameObject:
   m_Component:
   - component: {fileID: 340343001}
   - component: {fileID: 340343002}
+  - component: {fileID: 340343003}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -5842,6 +5843,22 @@ MonoBehaviour:
   changeStateStartingTimer: 3
   changeStateEndingTimer: 3
   dialogueInterval: 1
+  ignoreGameFlow: 1
+--- !u!114 &340343003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340343000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37dcad3862b67b4db529cb05c48c2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToEndAfterLose: 4
+  loseScene: MainMenu
+  loseTransitionType: 0
 --- !u!1 &383226952
 GameObject:
   m_ObjectHideFlags: 0
@@ -18536,7 +18553,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7466c830eb6dea343b4d358efa723131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraRefferenceTransform: {fileID: 519420032}
   CMVCam: {fileID: 874266222}
+  confiner2D: {fileID: 874266223}
   state: 0
   playerCameraFollowPoint: {fileID: 0}
 --- !u!114 &1193925670
@@ -18579,7 +18598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d156c82100099d4bb0e1dd6a956ec0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CMVCAM: {fileID: 874266222}
+  cinemachineConfiner2D: {fileID: 874266223}
   debug: 1
 --- !u!1 &1195228777
 GameObject:
@@ -27007,6 +27026,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1773330767}
+  - component: {fileID: 1773330768}
   m_Layer: 0
   m_Name: TestObject
   m_TagString: Untagged
@@ -27029,6 +27049,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1773330768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773330765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749e5460e4e36a3468c3b5a8d8bf8782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1777762132
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31346,7 +31378,7 @@ MonoBehaviour:
   - id: 1
     logToStart: Start
     logToEnd: End
-    useOriginalFollowPoint: 1
+    usePlayerFollowPoint: 1
     targetTransform: {fileID: 2109542994}
     stallTimeIn: 0
     moveInTime: 2
