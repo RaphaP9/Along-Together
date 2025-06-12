@@ -17,18 +17,16 @@ public class CameraConfinerHandler : MonoBehaviour
         GeneralStagesManager.OnStageChange += GeneralStagesManager_OnStageChange;
 
         CameraTransitionHandler.OnCameraTransitionPositionDeterminedPreFollow += CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow;
-        CameraTransitionHandler.OnCameraTransitionOutEnd += CameraTransitionHandler_OnCameraTransitionOutEnd;
+        CameraTransitionHandler.OnCameraTransitionPositionDeterminedEnd += CameraTransitionHandler_OnCameraTransitionPositionDeterminedEnd;
     }
-
-
 
     private void OnDisable()
     {
         GeneralStagesManager.OnStageInitialized -= GeneralStagesManager_OnStageInitialized;
         GeneralStagesManager.OnStageChange -= GeneralStagesManager_OnStageChange;
 
-        CameraTransitionHandler.OnCameraTransitionPositionDeterminedPreFollow -= CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow;
-        CameraTransitionHandler.OnCameraTransitionOutEnd -= CameraTransitionHandler_OnCameraTransitionOutEnd;
+        CameraTransitionHandler.OnCameraTransitionPositionDeterminedEnd -= CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow;
+        CameraTransitionHandler.OnCameraTransitionOutEnd -= CameraTransitionHandler_OnCameraTransitionPositionDeterminedEnd;
     }
 
     private void SwitchConfiner(PolygonCollider2D confiner)
@@ -63,7 +61,7 @@ public class CameraConfinerHandler : MonoBehaviour
         DisableConfiner();
     }
 
-    private void CameraTransitionHandler_OnCameraTransitionOutEnd(object sender, CameraTransitionHandler.OnCameraTransitionEventArgs e)
+    private void CameraTransitionHandler_OnCameraTransitionPositionDeterminedEnd(object sender, CameraTransitionHandler.OnCameraTransitionEventArgs e)
     {
         EnableConfiner();
     }

@@ -18558,6 +18558,7 @@ MonoBehaviour:
   confiner2D: {fileID: 874266223}
   state: 0
   playerCameraFollowPoint: {fileID: 0}
+  cameraRefferenceBasePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1193925670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31378,7 +31379,7 @@ MonoBehaviour:
   - id: 1
     logToStart: Start
     logToEnd: End
-    usePlayerFollowPoint: 1
+    usePlayerFollowPoint: 0
     targetTransform: {fileID: 2109542994}
     stallTimeIn: 0
     moveInTime: 2

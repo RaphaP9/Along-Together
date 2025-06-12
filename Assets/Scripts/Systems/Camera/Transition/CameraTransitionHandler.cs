@@ -18,6 +18,7 @@ public class CameraTransitionHandler : MonoBehaviour
 
     [Header("Runtime Filled")]
     [SerializeField] private Transform playerCameraFollowPoint;
+    [SerializeField] private Vector3 cameraRefferenceBasePosition;
 
     public enum State {NotInitialized, FollowingPlayer, StallingIn, MovingIn, LookingTarget, MovingOut, StallingOut}
 
@@ -39,6 +40,7 @@ public class CameraTransitionHandler : MonoBehaviour
 
     public static event EventHandler<OnCameraTransitionEventArgs> OnCameraTransitionPositionDeterminedPreFollow;
     public static event EventHandler<OnCameraTransitionEventArgs> OnCameraTransitionPositionDeterminedPostFollow;
+    public static event EventHandler<OnCameraTransitionEventArgs> OnCameraTransitionPositionDeterminedEnd;
 
     public class OnCameraTransitionEventArgs : EventArgs
     {
@@ -104,7 +106,8 @@ public class CameraTransitionHandler : MonoBehaviour
         Transform previousCameraFollowTransform = currentCameraFollowTransform;
 
         GameObject cameraFollowGameObject = new GameObject("CameraFollowGameObject");
-        cameraFollowGameObject.transform.position = GeneralUtilities.SupressZComponent(cameraRefferenceTransform.position);
+        cameraRefferenceBasePosition = GeneralUtilities.SupressZComponent(cameraRefferenceTransform.position);
+        cameraFollowGameObject.transform.position = cameraRefferenceBasePosition;
 
         Transform cameraFollowTransform = cameraFollowGameObject.transform;
 
@@ -176,8 +179,8 @@ public class CameraTransitionHandler : MonoBehaviour
 
         while (positionDifferenceMagnitude > POSITION_DIFFERENCE_THRESHOLD || distanceDifferenceMagnitude > DISTANCE_DIFFERENCE_THRESHOLD)
         {
-            currentCameraFollowTransform.position = Vector3.Lerp(currentCameraFollowTransform.position, playerCameraFollowPoint.position, time / (cameraTransition.moveOutTime) * 1 / (MOVE_CAMERA_TIME_FACTOR * cameraTransition.moveOutTime) * Time.deltaTime);
-            positionDifferenceMagnitude = (currentCameraFollowTransform.position - playerCameraFollowPoint.position).magnitude;
+            currentCameraFollowTransform.position = Vector3.Lerp(currentCameraFollowTransform.position, cameraRefferenceBasePosition, time / (cameraTransition.moveOutTime) * 1 / (MOVE_CAMERA_TIME_FACTOR * cameraTransition.moveOutTime) * Time.deltaTime);
+            positionDifferenceMagnitude = (currentCameraFollowTransform.position - cameraRefferenceBasePosition).magnitude;
 
             CameraOrthoSizeHandler.Instance.LerpTowardsTargetDistance(previousCameraDistance, time / (cameraTransition.moveOutTime) * 1 / (DISTANCE_CAMERA_TIME_FACTOR * cameraTransition.moveOutTime));
             distanceDifferenceMagnitude = Math.Abs(CameraOrthoSizeHandler.Instance.Distance - previousCameraDistance);
@@ -192,7 +195,7 @@ public class CameraTransitionHandler : MonoBehaviour
 
         while (time <= cameraTransition.stallTimeOut) //To rectify position & camera distance during stallTimeOut
         {
-            currentCameraFollowTransform.position = playerCameraFollowPoint.position;
+            currentCameraFollowTransform.position = cameraRefferenceBasePosition;
             CameraOrthoSizeHandler.Instance.LerpTowardsTargetDistance(previousCameraDistance, time / (cameraTransition.stallTimeOut) * 1 / (DISTANCE_CAMERA_TIME_FACTOR * cameraTransition.stallTimeOut));
 
             time += Time.deltaTime;
@@ -204,6 +207,8 @@ public class CameraTransitionHandler : MonoBehaviour
 
         Destroy(currentCameraFollowTransform.gameObject);
         SetCurrentCameraFollowTransform(playerCameraFollowPoint);
+
+        OnCameraTransitionPositionDeterminedEnd?.Invoke(this, new OnCameraTransitionEventArgs { cameraTransition = cameraTransition });
 
         SetCameraState(State.FollowingPlayer);
 
