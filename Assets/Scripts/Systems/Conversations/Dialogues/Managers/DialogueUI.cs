@@ -15,6 +15,9 @@ public class DialogueUI : MonoBehaviour
     [Space]
     [SerializeField] private Image speakerImage;
     [SerializeField] private TextMeshProUGUI speakerNameText;
+    [Space]
+    [SerializeField] private Image dialogueBoxImage;
+    [SerializeField] private Image speakerBoxImage;
 
     [Header("Positions & Transforms")]
     [SerializeField] private RectTransform speakerGroupTransform;
@@ -134,6 +137,9 @@ public class DialogueUI : MonoBehaviour
         speakerImage.sprite = dialogueSentence.dialogueSpeakerSO.speakerImage;
         speakerNameText.text = dialogueSentence.dialogueSpeakerSO.speakerName;
         speakerNameText.color = dialogueSentence.dialogueSpeakerSO.nameColor;
+
+        dialogueBoxImage.sprite = dialogueSentence.dialogueBoxSprite;
+        speakerBoxImage.sprite = dialogueSentence.speakerBoxSprite;
 
         if (dialogueSentence.speakerOnRight) SetRightSpeakerUIPosition();
         else SetLeftSpeakerUIPosition();

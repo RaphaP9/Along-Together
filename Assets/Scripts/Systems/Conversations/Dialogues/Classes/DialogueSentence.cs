@@ -9,6 +9,10 @@ public class DialogueSentence
     public DialogueSpeakerSO dialogueSpeakerSO;
     [TextArea(3,10)] public string sentenceText;
     [Space]
+    public Sprite speakerSprite;
+    public Sprite dialogueBoxSprite;
+    public Sprite speakerBoxSprite;
+    [Space]
     public bool speakerOnRight;
     public bool triggerSentenceTransition;
     [Space]

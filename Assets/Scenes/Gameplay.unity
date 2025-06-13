@@ -5109,6 +5109,9 @@ MonoBehaviour:
     localID: 0
     dialogueSpeakerSO: {fileID: 0}
     sentenceText: 
+    speakerSprite: {fileID: 0}
+    dialogueBoxSprite: {fileID: 0}
+    speakerBoxSprite: {fileID: 0}
     speakerOnRight: 0
     triggerSentenceTransition: 0
     audioClip: {fileID: 0}
@@ -5761,7 +5764,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -400}
+  m_AnchoredPosition: {x: 100, y: -325}
   m_SizeDelta: {x: 350, y: 1000}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &333194370
@@ -8701,6 +8704,8 @@ MonoBehaviour:
   sentenceText: {fileID: 1489646105}
   speakerImage: {fileID: 393704044}
   speakerNameText: {fileID: 2123305983}
+  dialogueBoxImage: {fileID: 1141789063}
+  speakerBoxImage: {fileID: 1861658476}
   speakerGroupTransform: {fileID: 152032654}
   sentenceTextTransform: {fileID: 1489646104}
   leftSpeakerGroupPosition: {fileID: 1660536268}
@@ -8711,6 +8716,9 @@ MonoBehaviour:
     localID: 0
     dialogueSpeakerSO: {fileID: 0}
     sentenceText: 
+    speakerSprite: {fileID: 0}
+    dialogueBoxSprite: {fileID: 0}
+    speakerBoxSprite: {fileID: 0}
     speakerOnRight: 0
     triggerSentenceTransition: 0
     audioClip: {fileID: 0}
