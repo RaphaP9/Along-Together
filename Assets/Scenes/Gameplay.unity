@@ -5627,7 +5627,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -250}
+  m_AnchoredPosition: {x: 100, y: -400}
   m_SizeDelta: {x: 350, y: 1000}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &333194370
@@ -5843,7 +5843,7 @@ MonoBehaviour:
   changeStateStartingTimer: 3
   changeStateEndingTimer: 3
   dialogueInterval: 1
-  ignoreGameFlow: 1
+  ignoreGameFlow: 0
 --- !u!114 &340343003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18555,7 +18555,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraRefferenceTransform: {fileID: 519420032}
   CMVCam: {fileID: 874266222}
-  confiner2D: {fileID: 874266223}
   state: 0
   playerCameraFollowPoint: {fileID: 0}
   cameraRefferenceBasePosition: {x: 0, y: 0, z: 0}
@@ -31379,7 +31378,7 @@ MonoBehaviour:
   - id: 1
     logToStart: Start
     logToEnd: End
-    usePlayerFollowPoint: 0
+    usePlayerFollowPoint: 1
     targetTransform: {fileID: 2109542994}
     stallTimeIn: 0
     moveInTime: 2

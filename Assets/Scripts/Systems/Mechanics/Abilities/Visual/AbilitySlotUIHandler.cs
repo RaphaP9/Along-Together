@@ -17,12 +17,16 @@ public class AbilitySlotUIHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        if (abilitySlotHandler == null) return;
+
         abilitySlotHandler.OnAbilityVariantInitialized += AbilitySlotHandler_OnAbilityVariantInitialized;
         abilitySlotHandler.OnAbilityVariantSelected += AbilitySlotHandler_OnAbilityVariantSelected;
     }
 
     private void OnDisable()
     {
+        if (abilitySlotHandler == null) return;
+
         abilitySlotHandler.OnAbilityVariantInitialized -= AbilitySlotHandler_OnAbilityVariantInitialized;
         abilitySlotHandler.OnAbilityVariantSelected -= AbilitySlotHandler_OnAbilityVariantSelected;
     }
@@ -35,6 +39,7 @@ public class AbilitySlotUIHandler : MonoBehaviour
         abilityCooldownUIHandler.AssignAbility(e.abilityVariant);
         abilityLevelUIHandler.AssignAbility(e.abilityVariant);
     }
+
     private void AbilitySlotHandler_OnAbilityVariantSelected(object sender, AbilitySlotHandler.OnAbilityVariantSelectionEventArgs e)
     {
         SetAbilityImage(e.newAbilityVariant.AbilitySO.sprite);

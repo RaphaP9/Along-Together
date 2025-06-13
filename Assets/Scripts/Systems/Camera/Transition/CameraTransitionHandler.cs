@@ -11,7 +11,6 @@ public class CameraTransitionHandler : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Transform cameraRefferenceTransform;
     [SerializeField] private CinemachineVirtualCamera CMVCam;
-    [SerializeField] private CinemachineConfiner2D confiner2D;
 
     [Header("States")]
     [SerializeField] private State state;
