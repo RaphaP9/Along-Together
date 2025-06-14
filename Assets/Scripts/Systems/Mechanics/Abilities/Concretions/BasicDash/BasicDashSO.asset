@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0857a8a736186e4084cc008a35ea610, type: 3}
   m_Name: BasicDashSO
   m_EditorClassIdentifier: 
-  id: 1
+  id: 100
   abilityName: BasicDash
   sprite: {fileID: 21300000, guid: d56323ac0fa9f5144b3074969e8da2dd, type: 3}
   description: 
   abilityClassification: 3
+  statAffinities: 
   baseCooldown: 2
   dashDistance: 3
   dashTime: 0.25

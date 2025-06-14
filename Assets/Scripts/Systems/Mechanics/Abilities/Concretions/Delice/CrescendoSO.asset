@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb59618f8dfae3747805489c9242ec95, type: 3}
+  m_Name: CrescendoSO
+  m_EditorClassIdentifier: 
+  id: 10
+  abilityName: Crescendo
+  sprite: {fileID: 0}
+  description: Crescendo
+  abilityClassification: 4
+  statAffinities: 0a000000
+  numericEmbeddedStats:
+  - numericStatType: 10
+    numericStatModificationType: 1
+    value: 0.1
+  bonificationDuration: 3

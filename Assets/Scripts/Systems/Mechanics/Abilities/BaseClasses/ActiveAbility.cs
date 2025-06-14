@@ -25,7 +25,7 @@ public abstract class ActiveAbility : Ability, IActiveAbility
     }
     #endregion
 
-    #region Abstract Methods
+    #region Abstract Methods - Casting
     protected override void OnAbilityCastMethod()
     {
         base.OnAbilityCastMethod();
@@ -37,6 +37,9 @@ public abstract class ActiveAbility : Ability, IActiveAbility
         base.OnAbilityCastDeniedMethod();
     }
 
+    #endregion
+
+    #region Abstract Methods - Variants
     protected override void OnAbilityVariantActivationMethod()
     {
         abilityCooldownHandler.ResetCooldownTimer(); //Reset Cooldown On Activation
@@ -46,7 +49,9 @@ public abstract class ActiveAbility : Ability, IActiveAbility
     {
         //
     }
+    #endregion
 
+    #region Abstract Methods - Levels
     protected override void OnAbililityLevelInitializedMethod()
     {
         abilityCooldownHandler.ResetCooldownTimer(); //Reset Cooldown On Initialization
