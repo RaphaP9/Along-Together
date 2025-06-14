@@ -493,8 +493,8 @@ MonoBehaviour:
   - {fileID: 8942189645329353576}
   pushResistanceFactor: 0.2
   currentPushData:
-    pushForce: 0
-    actionRadius: 0
+    pushForce: 1
+    actionRadius: 1
   currentPushDirection: {x: 0, y: 0}
 --- !u!1 &7839226316697343315
 GameObject:
@@ -705,6 +705,7 @@ GameObject:
   - component: {fileID: 5971531763212200158}
   - component: {fileID: 8942189645329353576}
   - component: {fileID: 7482886143490242096}
+  - component: {fileID: 4501893738267745209}
   m_Layer: 7
   m_Name: TestProjectileEnemy
   m_TagString: Untagged
@@ -934,6 +935,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyIdentifier: {fileID: 8246813395085610927}
   enemyHealth: {fileID: 7613458921501402528}
+--- !u!114 &4501893738267745209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842554452767553323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae6c157d4a5429478bb85caa161bd6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody2D: {fileID: 1295730402221327}
+  terrainLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1001 &7403152548220421561
 PrefabInstance:
   m_ObjectHideFlags: 0

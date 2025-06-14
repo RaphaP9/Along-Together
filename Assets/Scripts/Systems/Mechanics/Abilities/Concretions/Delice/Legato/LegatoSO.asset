@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9600b9ff954911942b19d0cfe73b3699, type: 3}
+  m_Name: LegatoSO
+  m_EditorClassIdentifier: 
+  id: 13
+  abilityName: Legato
+  sprite: {fileID: 0}
+  description: Legato
+  abilityClassification: 4
+  statAffinities: 0a000000
+  baseCooldown: 10
+  flyDuration: 5
+  pushData:
+    pushForce: 7
+    actionRadius: 5

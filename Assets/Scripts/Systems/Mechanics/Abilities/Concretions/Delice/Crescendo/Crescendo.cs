@@ -29,6 +29,11 @@ public class Crescendo : PassiveAbility
         Ability.OnAnyAbilityCast -= Ability_OnAnyAbilityCast;
     }
 
+    #region Logic Methods
+    protected override void HandleFixedUpdateLogic() { }
+    protected override void HandleUpdateLogic() { }
+    #endregion
+
     private void HandleCrescendoTrigger()
     {
         if (!IsActiveVariant) return;
@@ -40,15 +45,15 @@ public class Crescendo : PassiveAbility
             return;
         }
 
-        OnAnyCrescendoTrigger?.Invoke(this, EventArgs.Empty);
-        OnCrescendoTrigger?.Invoke(this, EventArgs.Empty);
-
         StartCoroutine(CrescendoCoroutine());
     }
 
     private IEnumerator CrescendoCoroutine()
     {
         isCurrentlyActive = true;
+
+        OnAnyCrescendoTrigger?.Invoke(this, EventArgs.Empty);
+        OnCrescendoTrigger?.Invoke(this, EventArgs.Empty);
 
         string generatedGUID = GeneralUtilities.GenerateGUID();
         SetAbilityGUID(generatedGUID);
@@ -76,11 +81,6 @@ public class Crescendo : PassiveAbility
     private void SetAbilityGUID(string GUID) => activeAbilityGUID = GUID;
     private void ClearAbilityGUID() => activeAbilityGUID = "";
     private void ResetTimer() => CrescendoTimer = 0;
-
-    #region Logic Methods
-    protected override void HandleFixedUpdateLogic() { }
-    protected override void HandleUpdateLogic() { }
-    #endregion
 
     private void Ability_OnAnyAbilityCast(object sender, OnAbilityCastEventArgs e)
     {

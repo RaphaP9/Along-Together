@@ -52,6 +52,7 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
     private IEnumerator PushEnemyFromPointCoroutine(Vector2 point, PhysicPushData pushData)
     {
         IsPushing = true;
+        SetCurrentPushData(pushData);
 
         yield return null; //Let other scripts update their IDisplacement stuff
 
@@ -66,7 +67,9 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
             yield return null;
         }
 
-        _rigidbody2D.velocity = Vector2.zero;
+        StopRigidbody();
+        ClearCurrentPushData();
+
         IsPushing = false;
     }
     #endregion
@@ -84,8 +87,9 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
     private IEnumerator PushEnemyFromDirectionCoroutine(Vector2 direction, PhysicPushData pushData)
     {
         IsPushing = true;
+        SetCurrentPushData(pushData);
 
-        yield return null; //Let other scripts update their IDisplacement stuff
+        yield return null; //Let other scripts update their IDisplacement stuff (to stop movement, etc)
 
         Vector2 pushVector = direction.normalized * pushData.pushForce;
         _rigidbody2D.velocity = pushVector;
@@ -96,6 +100,9 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
             yield return null;
         }
 
+        StopRigidbody();
+        ClearCurrentPushData();
+
         IsPushing = false;
     }
 
@@ -104,10 +111,12 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
     private void SuddenEndPush()
     {
         StopAllCoroutines();
-        _rigidbody2D.velocity = Vector2.zero;
+        StopRigidbody();
 
         IsPushing = false;
     }
+
+    private void StopRigidbody() => _rigidbody2D.velocity = Vector2.zero;
 
     private Vector2 CalculatePushDirection(Vector2 pushOrigin)
     {
@@ -129,6 +138,9 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
 
         return true;
     }
+
+    private void SetCurrentPushData(PhysicPushData pushData) => currentPushData = pushData;
+    private void ClearCurrentPushData() => currentPushData = null;
 
     private void EntityHealth_OnEntityDeath(object sender, EntityHealth.OnEntityDeathEventArgs e)
     {

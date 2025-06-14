@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 8364510044175325432}
   - component: {fileID: 3257223475304700248}
   - component: {fileID: 1616814288529754153}
+  - component: {fileID: 3764755424996876340}
   m_Layer: 7
   m_Name: TestKamikazeEnemy
   m_TagString: Untagged
@@ -642,6 +643,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyIdentifier: {fileID: 5412602289760510124}
   enemyHealth: {fileID: 7913916363484433750}
+--- !u!114 &3764755424996876340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5642984722103945178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae6c157d4a5429478bb85caa161bd6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody2D: {fileID: 2329428769073550589}
+  terrainLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &6355513982871928407
 GameObject:
   m_ObjectHideFlags: 0

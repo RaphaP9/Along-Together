@@ -508,6 +508,7 @@ GameObject:
   - component: {fileID: 4661234364419359008}
   - component: {fileID: 2613628452749778797}
   - component: {fileID: 4256363878830921393}
+  - component: {fileID: 4224104677768573481}
   m_Layer: 6
   m_Name: Delice
   m_TagString: Untagged
@@ -662,6 +663,7 @@ MonoBehaviour:
   entityDodgeChanceStatResolver: {fileID: 8309975983145625986}
   dodgerComponents:
   - {fileID: 7573232495966570463}
+  - {fileID: 8682992959460049137}
   immunerComponents: []
   invulnerableTimeAfterTakingDamage: 1.5
   currentHealth: 0
@@ -711,6 +713,7 @@ MonoBehaviour:
     m_Bits: 128
   attackInterruptionComponents:
   - {fileID: 7573232495966570463}
+  - {fileID: 8682992959460049137}
   debug: 1
   characterIdentifier: {fileID: 1965199428449930878}
   weaponAimHandler: {fileID: 2672523740232767417}
@@ -741,6 +744,22 @@ MonoBehaviour:
   healthRegenStatResolver: {fileID: 3654785395795810660}
   shieldRegenStatResolver: {fileID: 6181913077647479785}
   playerHealth: {fileID: 6586126778679378193}
+--- !u!114 &4224104677768573481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851777789475013426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae6c157d4a5429478bb85caa161bd6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody2D: {fileID: 3125651546402793068}
+  terrainLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &2006719728032425277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,7 +1383,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5296085226168979441}
   m_Father: {fileID: 5386565058599454864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7233062201028402588
@@ -1380,8 +1400,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilitySlot: 4
-  abilityVariants: []
-  startingAbilityVariant: {fileID: 0}
+  abilityVariants:
+  - {fileID: 8682992959460049137}
+  startingAbilityVariant: {fileID: 8682992959460049137}
   activeAbilityVariant: {fileID: 0}
   debug: 1
 --- !u!1 &6546964152467631905
@@ -1665,6 +1686,104 @@ MonoBehaviour:
   startingAbilityVariant: {fileID: 7573232495966570463}
   activeAbilityVariant: {fileID: 0}
   debug: 1
+--- !u!1 &7154511969678053975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5296085226168979441}
+  - component: {fileID: 5984442852393537792}
+  - component: {fileID: 2505510130114074797}
+  - component: {fileID: 8682992959460049137}
+  - component: {fileID: 8114758222127837120}
+  m_Layer: 6
+  m_Name: Legato
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5296085226168979441
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7154511969678053975}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7891673171534345979}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5984442852393537792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7154511969678053975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364b8fe6fceea954881abe998a687f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySO: {fileID: 11400000, guid: 6342670a9e204934fb459d43b6f6d8bb, type: 2}
+--- !u!114 &2505510130114074797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7154511969678053975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1165cdfce28c73c4296259040587a264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityIdentifier: {fileID: 5984442852393537792}
+  maxLevel: 3
+  startingAbilityLevel: 0
+  abilityLevel: 0
+--- !u!114 &8682992959460049137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7154511969678053975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac8aabe177e0c646979fea81b0c8575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityIdentifier: {fileID: 5984442852393537792}
+  abilityLevelHandler: {fileID: 2505510130114074797}
+  abilitySlotHandler: {fileID: 7233062201028402588}
+  playerHealth: {fileID: 6586126778679378193}
+  cooldownReductionStatResolver: {fileID: 3287368004166176090}
+  abilityCooldownHandler: {fileID: 8114758222127837120}
+  pushLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &8114758222127837120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7154511969678053975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176c42760e5211c4ca39601426df9ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTimer: 0
 --- !u!1 &7279207625108799617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,6 +1938,7 @@ MonoBehaviour:
   - {fileID: 5969448670670345153}
   - {fileID: 8531194546525769567}
   - {fileID: 4493125982467729595}
+  - {fileID: 7233062201028402588}
 --- !u!114 &6695293978895852260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1833,6 +1953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityLevelHandlers:
   - {fileID: 3065388374016757048}
+  - {fileID: 2505510130114074797}
   - {fileID: 8223277899744677149}
   - {fileID: 5611075828277405468}
   - {fileID: 5577424398876266477}
@@ -2172,6 +2293,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8748098369468005127, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: abilitySlotHandler
+      value: 
+      objectReference: {fileID: 7233062201028402588}
     - target: {fileID: 9027641463166777602, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: abilitySlotHandler
       value: 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CrescendoSO", menuName = "ScriptableObjects/Abilities/Passive/Crescendo")]
+[CreateAssetMenu(fileName = "CrescendoSO", menuName = "ScriptableObjects/Abilities/Delice/Crescendo")]
 public class CrescendoSO : PassiveAbilitySO, IHasEmbeddedNumericStats
 {
     [Header("Specific Settings")]

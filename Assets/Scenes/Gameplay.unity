@@ -5980,7 +5980,7 @@ MonoBehaviour:
   changeStateStartingTimer: 3
   changeStateEndingTimer: 3
   dialogueInterval: 1
-  ignoreGameFlow: 1
+  ignoreGameFlow: 0
 --- !u!114 &340343003
 MonoBehaviour:
   m_ObjectHideFlags: 0
