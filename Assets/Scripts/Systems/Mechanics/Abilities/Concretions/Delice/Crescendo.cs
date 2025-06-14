@@ -10,6 +10,7 @@ public class Crescendo : PassiveAbility
 
     private CrescendoSO CrescendoSO => AbilitySO as CrescendoSO;
 
+    public static event EventHandler OnAnyCrescendoTrigger;
     public event EventHandler OnCrescendoTrigger;
 
     public float CrescendoTimer { get; private set; }
@@ -32,14 +33,16 @@ public class Crescendo : PassiveAbility
     {
         if (!IsActiveVariant) return;
 
-        //If is currently active, CrescendoCoroutine is happening, we can just reset the Crescendo Timer
+        //If is currently active, CrescendoCoroutine is happening, we can just reset the CrescendoTimer as we only want one Crescendo active at once
         if (isCurrentlyActive) 
         {
             ResetTimer();
             return;
         }
 
+        OnAnyCrescendoTrigger?.Invoke(this, EventArgs.Empty);
         OnCrescendoTrigger?.Invoke(this, EventArgs.Empty);
+
         StartCoroutine(CrescendoCoroutine());
     }
 
