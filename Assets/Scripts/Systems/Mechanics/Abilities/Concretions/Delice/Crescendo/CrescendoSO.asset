@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 10
   abilityName: Crescendo
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: c5fcf470d8e9bcb40a881deee47b8d29, type: 3}
   description: Crescendo
   abilityClassification: 4
   statAffinities: 0a000000
