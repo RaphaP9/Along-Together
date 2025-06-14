@@ -682,6 +682,7 @@ MonoBehaviour:
   entityMovementSpeedStatResolver: {fileID: 5930587708578372876}
   displacementComponents:
   - {fileID: 7573232495966570463}
+  - {fileID: 8470285721755601184}
   smoothVelocityFactor: 100
   smoothDirectionFactor: 100
   movementEnabled: 1
@@ -1282,6 +1283,58 @@ MonoBehaviour:
   attackInterruptionComponents:
   - {fileID: 7573232495966570463}
   playerStateHandler: {fileID: 2527459363889109172}
+--- !u!1 &6037700049842417909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8126987482274587312}
+  - component: {fileID: 8470285721755601184}
+  m_Layer: 7
+  m_Name: Physics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8126987482274587312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6037700049842417909}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 718122822509755242}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8470285721755601184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6037700049842417909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fa243a86851f74b8faa60f32da3f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody2D: {fileID: 3125651546402793068}
+  entityHealth: {fileID: 6586126778679378193}
+  pushImmunerComponents: []
+  pushResistanceFactor: 0.3
+  currentPushData:
+    pushForce: 0
+    actionRadius: 0
+  currentPushDirection: {x: 0, y: 0}
 --- !u!1 &6462796451184188670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1964,6 +2017,7 @@ Transform:
   - {fileID: 1923021454168013249}
   - {fileID: 6082782711582241170}
   - {fileID: 8691113849170376705}
+  - {fileID: 8126987482274587312}
   m_Father: {fileID: 6380853313663446174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4723791527582912311

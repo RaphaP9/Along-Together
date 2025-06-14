@@ -168,6 +168,7 @@ Transform:
   m_Children:
   - {fileID: 4997006968070370165}
   - {fileID: 9205830459438358144}
+  - {fileID: 7617875675407611243}
   m_Father: {fileID: 1504599749268194510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2442243168671979922
@@ -442,6 +443,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityHealth: {fileID: 7613458921501402528}
   _collider2D: {fileID: 5656605717586926970}
+--- !u!1 &5179661990812419634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7617875675407611243}
+  - component: {fileID: 1059355758177769345}
+  m_Layer: 7
+  m_Name: Physics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7617875675407611243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5179661990812419634}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3808987887232406224}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1059355758177769345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5179661990812419634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fa243a86851f74b8faa60f32da3f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody2D: {fileID: 1295730402221327}
+  entityHealth: {fileID: 7613458921501402528}
+  pushImmunerComponents:
+  - {fileID: 8942189645329353576}
+  pushResistanceFactor: 0.2
+  currentPushData:
+    pushForce: 0
+    actionRadius: 0
+  currentPushDirection: {x: 0, y: 0}
 --- !u!1 &7839226316697343315
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +900,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 1295730402221327}
   entityMovementSpeedStatResolver: {fileID: 6450892038403942360}
-  displacementComponents: []
+  displacementComponents:
+  - {fileID: 1059355758177769345}
   smoothVelocityFactor: 5
   smoothDirectionFactor: 5
   playerRelativeHandler: {fileID: 3204811641508873334}

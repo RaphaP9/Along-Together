@@ -66,6 +66,7 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
             yield return null;
         }
 
+        _rigidbody2D.velocity = Vector2.zero;
         IsPushing = false;
     }
     #endregion

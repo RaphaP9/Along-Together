@@ -322,6 +322,59 @@ MonoBehaviour:
   entityIdentifier: {fileID: 5412602289760510124}
   value: 0
   baseValue: 0
+--- !u!1 &4696648449792533694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8452174097737015610}
+  - component: {fileID: 6636710873421429321}
+  m_Layer: 7
+  m_Name: Physics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8452174097737015610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4696648449792533694}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6400603529631670028}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6636710873421429321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4696648449792533694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fa243a86851f74b8faa60f32da3f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody2D: {fileID: 2329428769073550589}
+  entityHealth: {fileID: 7913916363484433750}
+  pushImmunerComponents:
+  - {fileID: 3257223475304700248}
+  pushResistanceFactor: 0.2
+  currentPushData:
+    pushForce: 0
+    actionRadius: 0
+  currentPushDirection: {x: 0, y: 0}
 --- !u!1 &4993759363288360710
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +406,7 @@ Transform:
   m_Children:
   - {fileID: 2038073049732446937}
   - {fileID: 38826998240460628}
+  - {fileID: 8452174097737015610}
   m_Father: {fileID: 8009517623076321794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5642984722103945178
@@ -554,7 +608,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 2329428769073550589}
   entityMovementSpeedStatResolver: {fileID: 4062728885412004573}
-  displacementComponents: []
+  displacementComponents:
+  - {fileID: 6636710873421429321}
   smoothVelocityFactor: 5
   smoothDirectionFactor: 5
   playerRelativeHandler: {fileID: 8642607771193940538}
