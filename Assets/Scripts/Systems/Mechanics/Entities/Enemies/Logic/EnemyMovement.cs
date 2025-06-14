@@ -19,12 +19,16 @@ public class EnemyMovement : EntityMovement
 
     protected void MoveTowardsDirection(Vector2 direction)
     {
+        if (!CanApplyMovement()) return;
+
         Vector2 normalizedDirection = direction.normalized;
         _rigidbody2D.velocity = normalizedDirection * GetMovementSpeedValue();
     }
 
     protected void MoveTowardsPosition(Vector2 targetPosition)
     {
+        if (!CanApplyMovement()) return;
+
         Vector2 direction = targetPosition - GeneralUtilities.TransformPositionVector2(transform);
         direction.Normalize();
         _rigidbody2D.velocity = direction * GetMovementSpeedValue();

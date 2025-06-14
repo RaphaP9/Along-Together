@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawnHandler : MonoBehaviour
+public class EnemySpawnHandler : MonoBehaviour, IPushImmuner
 {
     [Header("Components")]
     [SerializeField] private EnemyIdentifier enemyIdentifier;
@@ -44,5 +44,7 @@ public class EnemySpawnHandler : MonoBehaviour
         OnAnyEnemySpawnComplete?.Invoke(this, new OnEnemySpawnEventArgs { enemySO = enemyIdentifier.EnemySO });
         OnEnemySpawnComplete?.Invoke(this, new OnEnemySpawnEventArgs { enemySO = enemyIdentifier.EnemySO });
     } 
+
+    public bool IsPushImmuning() => isSpawning;
 }
 

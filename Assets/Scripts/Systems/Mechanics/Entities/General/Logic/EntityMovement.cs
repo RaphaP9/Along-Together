@@ -26,4 +26,14 @@ public abstract class EntityMovement : MonoBehaviour
     private void GetDisplacementInterfaces() => displacements = GeneralUtilities.TryGetGenericsFromComponents<IDisplacement>(displacementComponents);
     protected float GetMovementSpeedValue() => entityMovementSpeedStatResolver.Value;
     public float GetCurrentSpeed() => _rigidbody2D.velocity.magnitude;
+
+    protected bool CanApplyMovement()
+    {
+        foreach (IDisplacement displacementAbility in displacements)
+        {
+            if (displacementAbility.IsDisplacing()) return false;
+        }
+
+        return true;
+    }
 }

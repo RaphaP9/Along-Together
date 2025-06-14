@@ -5980,7 +5980,7 @@ MonoBehaviour:
   changeStateStartingTimer: 3
   changeStateEndingTimer: 3
   dialogueInterval: 1
-  ignoreGameFlow: 0
+  ignoreGameFlow: 1
 --- !u!114 &340343003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27391,6 +27391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1773330767}
   - component: {fileID: 1773330768}
+  - component: {fileID: 1773330769}
   m_Layer: 0
   m_Name: TestObject
   m_TagString: Untagged
@@ -27425,6 +27426,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749e5460e4e36a3468c3b5a8d8bf8782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1773330769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773330765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3396cf61430962f4986507307b978df5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  physicPushData:
+    pushForce: 5
+    actionRadius: 3
+  pushLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  playerTransform: {fileID: 0}
 --- !u!1001 &1777762132
 PrefabInstance:
   m_ObjectHideFlags: 0

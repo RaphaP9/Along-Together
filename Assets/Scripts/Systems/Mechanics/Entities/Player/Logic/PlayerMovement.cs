@@ -94,14 +94,6 @@ public class PlayerMovement : EntityMovement
 
     #endregion
 
-    private bool CanApplyMovement()
-    {
-        foreach (IDisplacement displacementAbility in displacements)
-        {
-            if (displacementAbility.IsDisplacing()) return false;
-        }
-
-        return true;
-    }
+    
 
 }

@@ -170,4 +170,32 @@ public static class MechanicsUtilities
         }
     }
     #endregion
+
+    #region PhysicPush
+    public static void PushEntitiesFromPoint(Vector2 point, PhysicPushData pushData, LayerMask pushLayerMask, List<Transform> exeptionTransforms)
+    {
+        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInRange(point, pushData.actionRadius, pushLayerMask);
+
+        foreach (Transform exceptionTransform in exeptionTransforms)
+        {
+            detectedTransforms.Remove(exceptionTransform);
+        }
+
+        List<EntityPhysicPush> entityPhysicPushes = new List<EntityPhysicPush>();
+
+        foreach (Transform detectedTransform in detectedTransforms)
+        {
+            EntityPhysicPush entityPhysicPush = detectedTransform.GetComponentInChildren<EntityPhysicPush>();
+
+            if (entityPhysicPush == null) continue;
+
+            entityPhysicPushes.Add(entityPhysicPush);
+        }
+
+        foreach (EntityPhysicPush entityPhysicPush in entityPhysicPushes)
+        {
+            entityPhysicPush.PushEnemyFromPoint(point, pushData);
+        }
+    }
+    #endregion
 }
