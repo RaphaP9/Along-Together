@@ -1347,12 +1347,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 3125651546402793068}
+  _collider2D: {fileID: 412134474387252891}
   entityHealth: {fileID: 6586126778679378193}
   pushImmunerComponents: []
+  stopPushLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
   pushResistanceFactor: 0.3
   currentPushData:
-    pushForce: 0
-    actionRadius: 0
+    pushForce: 1
+    actionRadius: 1
   currentPushDirection: {x: 0, y: 0}
 --- !u!1 &6462796451184188670
 GameObject:

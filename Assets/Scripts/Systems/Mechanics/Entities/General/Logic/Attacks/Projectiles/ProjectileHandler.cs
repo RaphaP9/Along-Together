@@ -32,6 +32,8 @@ public class ProjectileHandler : MonoBehaviour
 
     public event EventHandler<OnProjectileEventArgs> OnProjectileSet;
 
+    private bool hasTriggeredImpact = false;
+
     public class OnProjectileEventArgs : EventArgs
     {
         public int id;
@@ -92,12 +94,14 @@ public class ProjectileHandler : MonoBehaviour
 
     private void ImpactProjectileTarget()
     {
+        hasTriggeredImpact = true;
         OnProjectileImpactTarget?.Invoke(this, new OnProjectileEventArgs { id = id , damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask});
         Destroy(gameObject);
     }
 
     private void ImpactProjectileRegular()
     {
+        hasTriggeredImpact = true;
         OnProjectileImpactRegular?.Invoke(this, new OnProjectileEventArgs { id = id, damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask });
         Destroy(gameObject);
     }
@@ -114,12 +118,16 @@ public class ProjectileHandler : MonoBehaviour
 
         if (GeneralUtilities.CheckGameObjectInLayerMask(collision.gameObject, targetLayerMask))
         {
+            Debug.Log("A");
+
+            if (hasTriggeredImpact) return;
             HandleDamageImpact(collision.transform, damageData);
             return;
         }
 
         if (GeneralUtilities.CheckGameObjectInLayerMask(collision.gameObject, impactLayerMask))
         {
+            if (hasTriggeredImpact) return;
             HandleRegularImpact(collision.transform, damageData);
             return;
         }

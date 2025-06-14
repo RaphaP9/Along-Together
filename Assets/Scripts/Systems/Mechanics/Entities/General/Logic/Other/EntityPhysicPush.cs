@@ -6,11 +6,14 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
 {
     [Header("Comonents")]
     [SerializeField] private Rigidbody2D _rigidbody2D;
+    [SerializeField] private Collider2D _collider2D;
+    [Space]
     [SerializeField] private EntityHealth entityHealth;
     [Space]
     [SerializeField] protected List<Component> pushImmunerComponents;
 
     [Header("Settings")]
+    [SerializeField] private LayerMask stopPushLayerMask;
     [SerializeField, Range(0f, 1f)] private float pushResistanceFactor;
 
     [Header("Runtime Filled")]
@@ -63,6 +66,8 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
 
         while(_rigidbody2D.velocity.magnitude > END_PUSH_THRESHOLD)
         {
+            if (_collider2D.IsTouchingLayers(stopPushLayerMask)) break;
+
             _rigidbody2D.AddForce(-pushVector* pushResistanceFactor);
             yield return null;
         }

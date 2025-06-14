@@ -488,9 +488,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 1295730402221327}
+  _collider2D: {fileID: 5656605717586926970}
   entityHealth: {fileID: 7613458921501402528}
   pushImmunerComponents:
   - {fileID: 8942189645329353576}
+  stopPushLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
   pushResistanceFactor: 0.2
   currentPushData:
     pushForce: 1
