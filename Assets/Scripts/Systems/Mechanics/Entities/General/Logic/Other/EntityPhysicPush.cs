@@ -68,7 +68,9 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
         {
             if (_collider2D.IsTouchingLayers(stopPushLayerMask)) break;
 
-            _rigidbody2D.AddForce(-pushVector* pushResistanceFactor);
+            Vector2 currentVelocityVector = _rigidbody2D.velocity.normalized;
+
+            _rigidbody2D.AddForce(pushData.pushForce * pushResistanceFactor * -currentVelocityVector);
             yield return null;
         }
 

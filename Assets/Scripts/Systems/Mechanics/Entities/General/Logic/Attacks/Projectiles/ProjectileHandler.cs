@@ -118,8 +118,6 @@ public class ProjectileHandler : MonoBehaviour
 
         if (GeneralUtilities.CheckGameObjectInLayerMask(collision.gameObject, targetLayerMask))
         {
-            Debug.Log("A");
-
             if (hasTriggeredImpact) return;
             HandleDamageImpact(collision.transform, damageData);
             return;

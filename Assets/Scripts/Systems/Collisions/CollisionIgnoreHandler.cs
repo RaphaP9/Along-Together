@@ -13,6 +13,8 @@ public class CollisionIgnoreHandler : MonoBehaviour
     {
         public int colliderLayerIndex;
         public int collideeLayerIndex;
+        [Space]
+        public bool enabled;
     }
 
     private void Awake()
@@ -24,6 +26,7 @@ public class CollisionIgnoreHandler : MonoBehaviour
     {
         foreach(CollisionIgnoreGroup collisionIgnoreGroup in collisionIgnoreGroups)
         {
+            if (!collisionIgnoreGroup.enabled) continue;
             Physics2D.IgnoreLayerCollision(collisionIgnoreGroup.colliderLayerIndex, collisionIgnoreGroup.collideeLayerIndex);
         }
     }
