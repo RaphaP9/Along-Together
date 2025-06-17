@@ -10,9 +10,6 @@ public abstract class EntityAimDirectionerHandler : MonoBehaviour
     [Header("RuntimeFilled")]
     [SerializeField] protected Vector2 aimDirection;
     [SerializeField] protected float aimAngle;
-    [Space]
-    [SerializeField] private Vector2 refferencedAimDirection;
-    [SerializeField] protected float refferencedAimAngle;
 
     public Vector2 AimDirection => aimDirection;
     public float AimAngle => aimAngle;

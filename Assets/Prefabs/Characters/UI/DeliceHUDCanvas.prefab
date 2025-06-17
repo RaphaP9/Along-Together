@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1995672309, guid: 1ed223addd777cb44a459f6175b37d30, type: 3}
+  m_Sprite: {fileID: 871373658, guid: 53682161741a5564b99e95aecd74d253, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -439,7 +439,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1009157235, guid: 1ed223addd777cb44a459f6175b37d30, type: 3}
+  m_Sprite: {fileID: 863908602, guid: 53682161741a5564b99e95aecd74d253, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -455671218, guid: 1ed223addd777cb44a459f6175b37d30, type: 3}
+  m_Sprite: {fileID: -199944824, guid: 53682161741a5564b99e95aecd74d253, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1296,7 +1296,7 @@ PrefabInstance:
     - target: {fileID: 4444947393850352044, guid: 974b9733bff452049ac97eb9ecaa5eee, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 216747402, guid: 1ed223addd777cb44a459f6175b37d30, type: 3}
+      objectReference: {fileID: 157059599, guid: 53682161741a5564b99e95aecd74d253, type: 3}
     - target: {fileID: 4964128132036613532, guid: 974b9733bff452049ac97eb9ecaa5eee, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1434,7 +1434,7 @@ PrefabInstance:
     - target: {fileID: 4444947393850352044, guid: 974b9733bff452049ac97eb9ecaa5eee, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -2106722712, guid: 1ed223addd777cb44a459f6175b37d30, type: 3}
+      objectReference: {fileID: -1090988960, guid: 53682161741a5564b99e95aecd74d253, type: 3}
     - target: {fileID: 4964128132036613532, guid: 974b9733bff452049ac97eb9ecaa5eee, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1581,6 +1581,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AbilityCSlotUI
       objectReference: {fileID: 0}
+    - target: {fileID: 4444947393850352044, guid: 974b9733bff452049ac97eb9ecaa5eee, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1267426855, guid: 53682161741a5564b99e95aecd74d253, type: 3}
     - target: {fileID: 4964128132036613532, guid: 974b9733bff452049ac97eb9ecaa5eee, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1714,7 +1718,7 @@ PrefabInstance:
     - target: {fileID: 4444947393850352044, guid: 974b9733bff452049ac97eb9ecaa5eee, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1377261859, guid: 1ed223addd777cb44a459f6175b37d30, type: 3}
+      objectReference: {fileID: 1563181301, guid: 53682161741a5564b99e95aecd74d253, type: 3}
     - target: {fileID: 4964128132036613532, guid: 974b9733bff452049ac97eb9ecaa5eee, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
