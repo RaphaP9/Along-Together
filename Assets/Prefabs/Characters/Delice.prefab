@@ -1284,6 +1284,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5668402913487765036}
   attackInterruptionComponents:
   - {fileID: 7573232495966570463}
+  - {fileID: 8682992959460049137}
   playerStateHandler: {fileID: 2527459363889109172}
 --- !u!1 &6037700049842417909
 GameObject:
