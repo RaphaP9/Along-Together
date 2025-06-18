@@ -15,13 +15,13 @@ MonoBehaviour:
   abilityLevelInfos:
   - abilityLevel: 1
     levelDescription: TemporalStatChangeLevel1
-    cardDescription: TemporalStatChangeLevel1
-    cardPrefab: {fileID: 0}
+    cardLevelDescription: TemporalStatChangeLevel1
+    cardPrefab: {fileID: 942588273161009724, guid: 9ff9fe2d73439d34c92ad941e73397d2, type: 3}
   - abilityLevel: 2
     levelDescription: TemporalStatChangeLevel2
-    cardDescription: TemporalStatChangeLevel2
-    cardPrefab: {fileID: 0}
+    cardLevelDescription: TemporalStatChangeLevel2
+    cardPrefab: {fileID: 942588273161009724, guid: 9ff9fe2d73439d34c92ad941e73397d2, type: 3}
   - abilityLevel: 3
     levelDescription: TemporalStatChangeLevel3
-    cardDescription: TemporalStatChangeLevel3
-    cardPrefab: {fileID: 0}
+    cardLevelDescription: TemporalStatChangeLevel3
+    cardPrefab: {fileID: 942588273161009724, guid: 9ff9fe2d73439d34c92ad941e73397d2, type: 3}

@@ -15,5 +15,5 @@ MonoBehaviour:
   abilityLevelInfos:
   - abilityLevel: 1
     levelDescription: CrescendoLevel1
-    cardDescription: CrescendoLevel1
-    cardPrefab: {fileID: 0}
+    cardLevelDescription: CrescendoLevel1
+    cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}

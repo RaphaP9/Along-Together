@@ -26,6 +26,6 @@ public class AbilityLevelInfo
     public AbilityLevel abilityLevel;
     [TextArea(3,10)] public string levelDescription;
     [Space]
-    [TextArea(3, 10)] public string cardDescription;
+    [TextArea(3, 10)] public string cardLevelDescription;
     public Transform cardPrefab;
 }

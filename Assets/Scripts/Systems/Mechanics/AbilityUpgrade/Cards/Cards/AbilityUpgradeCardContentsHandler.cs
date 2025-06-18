@@ -14,6 +14,7 @@ public class AbilityUpgradeCardContentsHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI abilityNameText;
     [SerializeField] private Image abilityImage;
     [SerializeField] private TextMeshProUGUI upgradeLevelText;
+    [SerializeField] private TextMeshProUGUI upgradeLevelDescription;
 
     private void OnEnable()
     {
@@ -26,18 +27,21 @@ public class AbilityUpgradeCardContentsHandler : MonoBehaviour
     }
 
     private void SetAbilityNameText(string text) => abilityNameText.text = text;
-    private void SetUpgradeLevelText(string text) => upgradeLevelText.text = text;
     private void SetAbilitySprite(Sprite sprite) => abilityImage.sprite = sprite;
+    private void SetUpgradeLevelText(string text) => upgradeLevelText.text = text;
+    private void SetUpgradeLevelDescription(string text) => upgradeLevelDescription.text = text;
 
-    private void CompleteSetUI(AbilityUpgradeCardInfo abilityUpgradeCardInfo)
+    private void CompleteSetUI(AbilityUpgradeCardInfo abilityUpgradeCardInfo, AbilityLevelInfo abilityLevelInfo)
     {
         SetAbilityNameText(abilityUpgradeCardInfo.abilitySO.abilityName);
-        SetUpgradeLevelText(MappingUtilities.MapAbilityLevel(abilityUpgradeCardInfo.upgradeLevel));
         SetAbilitySprite(abilityUpgradeCardInfo.abilitySO.sprite);
+
+        SetUpgradeLevelText(MappingUtilities.MapAbilityLevel(abilityUpgradeCardInfo.upgradeLevel));
+        SetUpgradeLevelDescription(abilityLevelInfo.cardLevelDescription);
     }
 
     private void AbilityUpgradeCardUI_OnAbilityUpgradeCardSet(object sender, AbilityUpgradeCardUI.OnAbilityUpgradeCardEventArgs e)
     {
-        CompleteSetUI(e.abilityUpgradeCardInfo);
+        CompleteSetUI(e.abilityUpgradeCardInfo, e.abilityLevelInfo);
     }
 }
