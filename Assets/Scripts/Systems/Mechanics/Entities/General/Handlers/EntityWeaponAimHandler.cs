@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public abstract class EntityWeaponAimHandler : MonoBehaviour
+public abstract class EntityWeaponAimHandler : MonoBehaviour, IDirectionerHandler
 {
     [Header("Entity Components")]
     [SerializeField] private EntityFacingDirectionHandler facingDirectionHandler;
@@ -97,4 +98,8 @@ public abstract class EntityWeaponAimHandler : MonoBehaviour
         weaponPivot.rotation = Quaternion.Euler(0f, 0f, pivotAngle);
     }
 
+    #region Interface Methods
+    public Vector2 GetDirection() => weaponAimDirection;
+    public float GetAngle() => weaponAimAngle;
+    #endregion
 }
