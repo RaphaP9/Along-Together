@@ -6,7 +6,6 @@ public class AbilityUpgradeCardsUIHandler : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] private Transform abilityUpgradeCardsContainer;
-    [SerializeField] private Transform abilityUpgradeCardPrefab;
 
     [Header("Debug")]
     [SerializeField] private bool debug;
@@ -41,7 +40,16 @@ public class AbilityUpgradeCardsUIHandler : MonoBehaviour
 
     private void CreateAbilityUpgradeCard(AbilityUpgradeCardInfo abilityUpgradeCardInfo)
     {
-        Transform abilityUpgradeCardUITransform = Instantiate(abilityUpgradeCardPrefab, abilityUpgradeCardsContainer);
+        AbilitySO abilitySO = abilityUpgradeCardInfo.abilitySO;
+        AbilityLevelInfo abilityLevelInfo = abilitySO.abilityInfoSO.GetAbilityLevelInfoByLevel(abilityUpgradeCardInfo.upgradeLevel);
+
+        if(abilityLevelInfo == null)
+        {
+            if (debug) Debug.Log($"Ability Level Info of Ability: {abilityUpgradeCardInfo.abilitySO.name} and Uprade Level: {abilityUpgradeCardInfo.upgradeLevel} does not exist. Can not instantiate card.");
+            return;
+        }
+
+        Transform abilityUpgradeCardUITransform = Instantiate(abilityLevelInfo.cardPrefab, abilityUpgradeCardsContainer);
 
         AbilityUpgradeCardUI abilityUpgradeCardUI = abilityUpgradeCardUITransform.GetComponent<AbilityUpgradeCardUI>();
 
@@ -51,7 +59,7 @@ public class AbilityUpgradeCardsUIHandler : MonoBehaviour
             return;
         }
 
-        abilityUpgradeCardUI.SetAbilityUpgradeCardInfo(abilityUpgradeCardInfo);
+        abilityUpgradeCardUI.SetAbilityUpgradeCardInfo(abilityUpgradeCardInfo, abilityLevelInfo);
     }
 
     private void AbilityUpgradeManager_OnAbilityUpgradesGenerated(object sender, AbilityUpgradeManager.OnAbilityUpgradesEventArgs e)

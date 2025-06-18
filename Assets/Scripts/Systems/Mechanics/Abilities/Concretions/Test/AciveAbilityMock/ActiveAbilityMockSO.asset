@@ -17,4 +17,6 @@ MonoBehaviour:
   sprite: {fileID: 0}
   description: Active Ability Mock for Testing
   abilityClassification: 5
+  abilityInfoSO: {fileID: 11400000, guid: d4e873cdc68b66847a095d87c031fd77, type: 2}
+  statAffinities: 
   baseCooldown: 1

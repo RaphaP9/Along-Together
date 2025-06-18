@@ -17,6 +17,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: d56323ac0fa9f5144b3074969e8da2dd, type: 3}
   description: 
   abilityClassification: 3
+  abilityInfoSO: {fileID: 11400000, guid: 0b8e4ece64bacec4f851f3fe28d3ec69, type: 2}
   statAffinities: 
   baseCooldown: 2
   dashDistance: 3
