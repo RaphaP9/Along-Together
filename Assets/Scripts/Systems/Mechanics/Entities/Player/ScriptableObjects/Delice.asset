@@ -34,5 +34,5 @@ MonoBehaviour:
   healColor: {r: 0.21314174, g: 0.7169812, b: 0.15895337, a: 1}
   shieldColor: {r: 0, g: 0.22846766, b: 0.23584908, a: 1}
   baseCooldownReduction: 0
-  objectsInventorySize: 5
-  treatsInventorySize: 2
+  objectsInventorySize: 15
+  treatsInventorySize: 5
