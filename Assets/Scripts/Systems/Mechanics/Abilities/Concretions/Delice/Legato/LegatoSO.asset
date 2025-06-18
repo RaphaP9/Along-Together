@@ -20,7 +20,9 @@ MonoBehaviour:
   abilityInfoSO: {fileID: 11400000, guid: bbf3645d9f73db84f9e90c5a366a86c8, type: 2}
   statAffinities: 0a000000
   baseCooldown: 10
-  flyDuration: 5
+  flyStartDuration: 0.5
+  flyDuration: 3
+  flyEndDuration: 0.5
   pushData:
     pushForce: 7
     actionRadius: 5
