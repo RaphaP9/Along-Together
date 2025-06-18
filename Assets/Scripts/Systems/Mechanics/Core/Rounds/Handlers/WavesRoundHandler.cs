@@ -20,9 +20,19 @@ public class WavesRoundHandler : RoundHandler
     public static event EventHandler<OnWavesRoundEventArgs> OnWavesRoundStart;
     public static event EventHandler<OnWavesRoundEventArgs> OnWavesRoundCompleted;
 
+    public static event EventHandler<OnWavesRoundWaveEventArgs> OnWavesRoundWaveStart;
+    public static event EventHandler<OnWavesRoundWaveEventArgs> OnWavesRoundWaveCompleted;
+
     public class OnWavesRoundEventArgs : EventArgs
     {
         public WavesRoundSO wavesRoundSO;
+    }
+
+    public class OnWavesRoundWaveEventArgs : EventArgs
+    {
+        public WavesRoundSO wavesRoundSO;
+        public int currentWave;
+        public int totalWaves;
     }
 
     protected override void SetSingleton()
@@ -79,6 +89,9 @@ public class WavesRoundHandler : RoundHandler
         while (currentWave < totalWaves)
         {
             SetCurrentWave(currentWave + 1);
+
+            OnWavesRoundWaveStart?.Invoke(this, new OnWavesRoundWaveEventArgs { wavesRoundSO = wavesRoundSO, currentWave = currentWave, totalWaves = totalWaves });
+
             SpawnWaveEnemies(wavesRoundSO.enemyWaves[currentWave-1], stageSpawnPointsHandler.GetEnabledSpawnPoints());
 
             while (remainingEnemiesInWave.Count > 0)
@@ -89,7 +102,9 @@ public class WavesRoundHandler : RoundHandler
                 yield return null;
             }
 
-            if(currentWave < totalWaves) yield return new WaitForSeconds(wavesRoundSO.waveSpawnInterval);
+            OnWavesRoundWaveCompleted?.Invoke(this, new OnWavesRoundWaveEventArgs { wavesRoundSO = wavesRoundSO, currentWave = currentWave, totalWaves = totalWaves });
+
+            if (currentWave < totalWaves) yield return new WaitForSeconds(wavesRoundSO.waveSpawnInterval); //Wait interval only if there are remaining waves
         }
 
         CompleteCurrentRound();
