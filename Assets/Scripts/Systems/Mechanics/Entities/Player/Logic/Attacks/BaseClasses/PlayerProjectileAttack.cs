@@ -8,6 +8,9 @@ public class PlayerProjectileAttack : PlayerAttack
     [SerializeField] protected Transform firePoint;
     [SerializeField] protected Transform projectilePrefab;
 
+    [Header("Interface Components")]
+    [SerializeField] private Component directionerHandlerComponent;
+
     [Header("Player Projectile Attack Settings")]
     [SerializeField] protected ProjectileDamageType projectileDamageType;
     [SerializeField, Range(0f,3f)] protected float projectileAreaRadius;
@@ -19,12 +22,20 @@ public class PlayerProjectileAttack : PlayerAttack
     [Space]
     [SerializeField, Range(0f, 15f)] protected float projectileDispersionAngle;
 
+    protected IDirectionerHandler directionerHandler;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        GeneralUtilities.TryGetGenericFromComponent(directionerHandlerComponent, out directionerHandler);
+    }
+
     protected override void Attack()
     {
         bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value);
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(entityAttackDamageStatResolver.Value, entityAttackCritDamageMultiplierStatResolver.Value) : entityAttackDamageStatResolver.Value;
 
-        Vector2 shootDirection = weaponAimHandler.WeaponAimDirection;
+        Vector2 shootDirection = directionerHandler.GetDirection();
         Vector2 processedShootDirection = MechanicsUtilities.DeviateShootDirection(shootDirection, projectileDispersionAngle);
 
         Vector2 position = firePoint.position;

@@ -681,9 +681,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 3125651546402793068}
   entityMovementSpeedStatResolver: {fileID: 5930587708578372876}
-  displacementComponents:
-  - {fileID: 7573232495966570463}
+  movementInterruptorComponents:
   - {fileID: 8470285721755601184}
+  - {fileID: 7573232495966570463}
   smoothVelocityFactor: 100
   smoothDirectionFactor: 100
   movementEnabled: 1
@@ -715,10 +715,10 @@ MonoBehaviour:
   - {fileID: 8682992959460049137}
   debug: 1
   characterIdentifier: {fileID: 1965199428449930878}
-  weaponAimHandler: {fileID: 2672523740232767417}
   attackTriggerType: 0
   firePoint: {fileID: 6335867028995148016}
   projectilePrefab: {fileID: 8073931636513284674, guid: 2d3a358fa169ae842bec906ece6900ab, type: 3}
+  directionerHandlerComponent: {fileID: 2672523740232767417}
   projectileDamageType: 0
   projectileAreaRadius: 0
   projectileImpactLayerMask:
@@ -726,7 +726,7 @@ MonoBehaviour:
     m_Bits: 4097
   projectileSpeed: 10
   projectileLifespan: 5
-  projectileDispersionAngle: 0
+  projectileDispersionAngle: 5
 --- !u!114 &4256363878830921393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1440,8 +1440,6 @@ MonoBehaviour:
   entityHealth: {fileID: 6586126778679378193}
   aimDirection: {x: 0, y: 0}
   aimAngle: 0
-  refferencedAimDirection: {x: 0, y: 0}
-  refferencedAimAngle: 0
   mouseDirectionHandler: {fileID: 4593777764411072900}
 --- !u!1 &6945838811755319683
 GameObject:
@@ -1586,8 +1584,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 3125651546402793068}
-  entityAimDirectioner: {fileID: 2977175279305093656}
   entityHealth: {fileID: 6586126778679378193}
+  directionerHandlerComponent: {fileID: 2977175279305093656}
   facingInterruptionComponents:
   - {fileID: 7573232495966570463}
   facingType: 1

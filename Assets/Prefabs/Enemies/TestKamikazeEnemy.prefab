@@ -612,7 +612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 2329428769073550589}
   entityMovementSpeedStatResolver: {fileID: 4062728885412004573}
-  displacementComponents:
+  movementInterruptorComponents:
   - {fileID: 6636710873421429321}
   smoothVelocityFactor: 5
   smoothDirectionFactor: 5
@@ -741,8 +741,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 2329428769073550589}
-  entityAimDirectioner: {fileID: 7279119486096882443}
   entityHealth: {fileID: 7913916363484433750}
+  directionerHandlerComponent: {fileID: 7279119486096882443}
   facingInterruptionComponents: []
   facingType: 1
   startingFacingDirection: {x: 1, y: 0}
@@ -920,8 +920,6 @@ MonoBehaviour:
   entityHealth: {fileID: 7913916363484433750}
   aimDirection: {x: 0, y: 0}
   aimAngle: 0
-  refferencedAimDirection: {x: 0, y: 0}
-  refferencedAimAngle: 0
   playerRelativeHandler: {fileID: 8642607771193940538}
   enemySpawnHandler: {fileID: 3257223475304700248}
 --- !u!1001 &7539015002380984492

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDisplacement
+public interface IMovementInterruptor
 {
     public bool IsDisplacing();
 }

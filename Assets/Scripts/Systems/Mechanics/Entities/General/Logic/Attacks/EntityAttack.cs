@@ -50,15 +50,17 @@ public abstract class EntityAttack : MonoBehaviour
     }
     #endregion
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        GetAttackInterruptionInterfaces();
+        attackInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IAttackInterruption>(attackInterruptionComponents);
     }
 
     protected abstract void Attack();
-    private void GetAttackInterruptionInterfaces() => attackInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IAttackInterruption>(attackInterruptionComponents);
+
     protected float GetAttackSpeed() => entityAttackSpeedStatResolver.Value;
+
     protected bool HasValidAttackSpeed() => entityAttackSpeedStatResolver.Value > 0f;
+
     protected float GetRevisedAttackSpeed()
     {
         if(!HasValidAttackSpeed()) return REVISED_PROOF_ATTACK_SPEED;

@@ -7,7 +7,6 @@ public abstract class PlayerAttack : EntityAttack
 {
     [Header("Player Attack Components")]
     [SerializeField] protected CharacterIdentifier characterIdentifier;
-    [SerializeField] protected EntityWeaponAimHandler weaponAimHandler;
 
     [Header("Player Attack Settings")]
     [SerializeField] protected AttackTriggerType attackTriggerType;

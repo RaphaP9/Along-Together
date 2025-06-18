@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityDeathColliderDisable : MonoBehaviour
+public class EntityColliderHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private EntityHealth entityHealth;

@@ -6,10 +6,10 @@ public class EntityFacingDirectionHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Rigidbody2D _rigidbody2D;
-    [SerializeField] private EntityAimDirectionerHandler entityAimDirectioner;
     [SerializeField] private EntityHealth entityHealth;
 
-    [Header("Components")]
+    [Header("Interface Components")]
+    [SerializeField] private Component directionerHandlerComponent;
     [SerializeField] private List<Component> facingInterruptionComponents;
 
     [Header("Settings")]
@@ -28,6 +28,7 @@ public class EntityFacingDirectionHandler : MonoBehaviour
     public Vector2 CurrentRawFacingDirection => currentRawFacingDirection;
     public bool IsOverridingFacingDirection => isOverridingFacingDirection;
 
+    private IDirectionerHandler directionerHandler;
     private List<IFacingInterruption> facingInterruptions;
 
     private enum FacingType { Rigidbody, Aim }
@@ -35,7 +36,8 @@ public class EntityFacingDirectionHandler : MonoBehaviour
 
     private void Awake()
     {
-        GetFacingInterruptionInterfaces();
+        GeneralUtilities.TryGetGenericFromComponent(directionerHandlerComponent, out directionerHandler);
+        facingInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IFacingInterruption>(facingInterruptionComponents);
     }
 
     private void Start()
@@ -48,9 +50,6 @@ public class EntityFacingDirectionHandler : MonoBehaviour
         HandleDirectionOverride();
         HandleFacingDirection();
     }
-
-    private void GetFacingInterruptionInterfaces() => facingInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IFacingInterruption>(facingInterruptionComponents);
-
 
     #region FacingDirectionOverride
 
@@ -109,7 +108,7 @@ public class EntityFacingDirectionHandler : MonoBehaviour
 
     private void HandleFacingDirectionByAim()
     {
-        Vector2 direction = entityAimDirectioner.AimDirection;
+        Vector2 direction = directionerHandler.GetDirection();
 
         if (currentRawFacingDirection != direction)
         {

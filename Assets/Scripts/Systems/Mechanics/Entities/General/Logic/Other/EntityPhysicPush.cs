@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityPhysicPush : MonoBehaviour, IDisplacement
+public class EntityPhysicPush : MonoBehaviour, IMovementInterruptor
 {
     [Header("Comonents")]
     [SerializeField] private Rigidbody2D _rigidbody2D;
@@ -38,10 +38,8 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
 
     protected virtual void Awake()
     {
-        GetPushImmunerInterfaces();
+        pushImmuners = GeneralUtilities.TryGetGenericsFromComponents<IPushImmuner>(pushImmunerComponents);
     }
-
-    private void GetPushImmunerInterfaces() => pushImmuners = GeneralUtilities.TryGetGenericsFromComponents<IPushImmuner>(pushImmunerComponents);
 
     #region Push From Point
     public void PushEnemyFromPoint(Vector2 point, PhysicPushData pushData)
@@ -96,7 +94,7 @@ public class EntityPhysicPush : MonoBehaviour, IDisplacement
         IsPushing = true;
         SetCurrentPushData(pushData);
 
-        yield return null; //Let other scripts update their IDisplacement stuff (to stop movement, etc)
+        yield return null; //Wait one frame to let other scripts update their IDisplacement stuff (to stop movement, etc)
 
         Vector2 pushVector = direction.normalized * pushData.pushForce;
         _rigidbody2D.velocity = pushVector;

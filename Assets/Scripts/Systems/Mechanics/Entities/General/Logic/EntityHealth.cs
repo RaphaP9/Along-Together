@@ -182,8 +182,8 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
     protected virtual void Awake()
     {
-        GetDodgerInterfaces();
-        GetImmunerInterfaces();
+        dodgers = GeneralUtilities.TryGetGenericsFromComponents<IDodger>(dodgerComponents);
+        immuners = GeneralUtilities.TryGetGenericsFromComponents<IImmuner>(immunerComponents);
     }
 
     protected virtual void InitializeHealth()
@@ -212,10 +212,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnEntityInitializedMethod();
     }
 
-    private void GetDodgerInterfaces() => dodgers = GeneralUtilities.TryGetGenericsFromComponents<IDodger>(dodgerComponents);
-    private void GetImmunerInterfaces() => immuners = GeneralUtilities.TryGetGenericsFromComponents<IImmuner>(immunerComponents);
-
-  
+ 
     #region Stats Clamping
     protected virtual void CheckCurrentHealthClamped()
     {

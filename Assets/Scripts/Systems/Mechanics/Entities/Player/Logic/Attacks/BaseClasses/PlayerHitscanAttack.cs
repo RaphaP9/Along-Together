@@ -8,6 +8,9 @@ public class PlayerHitscanAttack : PlayerAttack
     [Header("Player Hitscan Attack Components")]
     [SerializeField] protected Transform firePoint;
 
+    [Header("Interface Components")]
+    [SerializeField] private Component directionerHandlerComponent;
+
     [Header("Player Hitscan Attack Settings")]
     [SerializeField] protected LayerMask hitscanImpactLayerMask;
     [Space]
@@ -17,10 +20,18 @@ public class PlayerHitscanAttack : PlayerAttack
     public event EventHandler<OnPlayerHitscanRayShotEventArgs> OnPlayerHitscanRayShot;
     public static event EventHandler<OnPlayerHitscanRayShotEventArgs> OnAnyPlayerHitscanRayShot;
 
+    protected IDirectionerHandler directionerHandler;
+
     public class OnPlayerHitscanRayShotEventArgs : EventArgs
     {
         public Vector2 originPoint;
         public Vector2 hitPoint;
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        GeneralUtilities.TryGetGenericFromComponent(directionerHandlerComponent, out directionerHandler);
     }
 
     protected override void Attack()
@@ -28,7 +39,7 @@ public class PlayerHitscanAttack : PlayerAttack
         bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value);
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(entityAttackDamageStatResolver.Value, entityAttackCritDamageMultiplierStatResolver.Value) : entityAttackDamageStatResolver.Value;
 
-        Vector2 direction = weaponAimHandler.WeaponAimDirection;
+        Vector2 direction = directionerHandler.GetDirection();
         Vector2 processedDirection = MechanicsUtilities.DeviateShootDirection(direction, hitscanDispersionAngle);
 
         Vector2 position = firePoint.position;
@@ -78,6 +89,6 @@ public class PlayerHitscanAttack : PlayerAttack
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(firePoint.position, firePoint.position + GeneralUtilities.Vector2ToVector3(weaponAimHandler.WeaponAimDirection) * hitscanDistance);
+        Gizmos.DrawLine(firePoint.position, firePoint.position + GeneralUtilities.Vector2ToVector3(directionerHandler.GetDirection()) * hitscanDistance);
     }
 }

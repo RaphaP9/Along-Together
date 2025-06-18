@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class BasicDash : ActiveAbility, IDisplacement, IDodger, IAttackInterruption, IFacingInterruption
+public class BasicDash : ActiveAbility, IMovementInterruptor, IDodger, IAttackInterruption, IFacingInterruption
 {
     [Header("Specific Components")]
     [SerializeField] private MouseDirectionHandler mouseDirectionHandler;
