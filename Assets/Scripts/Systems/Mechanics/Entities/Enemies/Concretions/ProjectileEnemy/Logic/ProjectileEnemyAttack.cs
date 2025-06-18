@@ -6,11 +6,13 @@ using System;
 public class ProjectileEnemyAttack : EnemyAttack
 {
     [Header("Projectile Enemy Attack Components")]
-    [SerializeField] protected EnemyAimDirectionerHandler aimDirectionerHandler;
     [SerializeField] protected Transform firePoint;
     [SerializeField] protected Transform projectilePrefab;
 
-    [Header("Player Projectile Attack Settings")]
+    [Header("Interface Components")]
+    [SerializeField] private Component directionerHandlerComponent;
+
+    [Header("Projectile Settings")]
     [SerializeField] protected ProjectileDamageType projectileDamageType;
     [SerializeField, Range(0f, 3f)] protected float projectileAreaRadius;
     [Space]
@@ -37,11 +39,18 @@ public class ProjectileEnemyAttack : EnemyAttack
     public event EventHandler<OnProjectileEnemyAttackEventArgs> OnProjectileEnemyReload;
     public event EventHandler<OnProjectileEnemyAttackEventArgs> OnProjectileEnemyStopShooting;
 
+    protected IDirectionerHandler directionerHandler;
 
     public class OnProjectileEnemyAttackEventArgs : EventArgs
     {
         public ProjectileEnemySO projectileEnemySO;
         public Transform firePoint;
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        GeneralUtilities.TryGetGenericFromComponent(directionerHandlerComponent, out directionerHandler);
     }
 
     private void Start()
@@ -207,7 +216,7 @@ public class ProjectileEnemyAttack : EnemyAttack
         bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value);
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(entityAttackDamageStatResolver.Value, entityAttackCritDamageMultiplierStatResolver.Value) : entityAttackDamageStatResolver.Value;
 
-        Vector2 shootDirection = aimDirectionerHandler.AimDirection;
+        Vector2 shootDirection = directionerHandler.GetDirection();
         Vector2 processedShootDirection = MechanicsUtilities.DeviateShootDirection(shootDirection, projectileDispersionAngle);
 
         Vector2 position = firePoint.position;

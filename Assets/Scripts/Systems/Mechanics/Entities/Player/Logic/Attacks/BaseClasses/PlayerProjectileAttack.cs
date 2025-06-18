@@ -11,7 +11,7 @@ public class PlayerProjectileAttack : PlayerAttack
     [Header("Interface Components")]
     [SerializeField] private Component directionerHandlerComponent;
 
-    [Header("Player Projectile Attack Settings")]
+    [Header("Projectile Settings")]
     [SerializeField] protected ProjectileDamageType projectileDamageType;
     [SerializeField, Range(0f,3f)] protected float projectileAreaRadius;
     [Space]

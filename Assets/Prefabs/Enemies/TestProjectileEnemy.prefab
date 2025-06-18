@@ -876,9 +876,9 @@ MonoBehaviour:
   attackInterruptionComponents: []
   debug: 1
   enemyIdentifier: {fileID: 8246813395085610927}
-  aimDirectionerHandler: {fileID: 4013654955497290503}
   firePoint: {fileID: 2502583288736862255}
   projectilePrefab: {fileID: 8073931636513284674, guid: 87d0d4ca8c17e474483239c1477ec45b, type: 3}
+  directionerHandlerComponent: {fileID: 4013654955497290503}
   projectileDamageType: 0
   projectileAreaRadius: 0
   projectileImpactLayerMask:
