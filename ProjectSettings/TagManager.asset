@@ -44,6 +44,9 @@ TagManager:
   - name: EnvironmentBelow
     uniqueID: 3093839029
     locked: 0
+  - name: Shadows
+    uniqueID: 595185503
+    locked: 0
   - name: Entities
     uniqueID: 300410655
     locked: 0
