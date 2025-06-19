@@ -176,6 +176,7 @@ public class ObjectsInventoryManager : MonoBehaviour
         OnObjectInventorySizeSet?.Invoke(this, new OnObjectInventorySizeEventArgs { objectInventorySize = size });
     }
 
+    public int GetInventoryCapacity() => objectsInventorySize;
     public bool IsInventoryFull() => objectsInventory.Count >= objectsInventorySize;
 
     #region Subscriptions

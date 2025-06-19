@@ -365,7 +365,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1232649101
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.3773585, g: 0.20469919, b: 0.27252963, a: 1}
@@ -2012,11 +2012,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475f15c2e8df8e344acb7bbcf7437802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numericUIPrefab: {fileID: 4750588696306321746, guid: 32aba51868727e0498b3a3fdbce87f8c, type: 3}
+  feedbackPrefab: {fileID: 4750588696306321746, guid: 32aba51868727e0498b3a3fdbce87f8c, type: 3}
   YOffset: 0.3
   maxXOffset: 0.5
   debug: 1
-  feedbackColor: {r: 4.104765, g: 29.11988, b: 2.3350852, a: 1}
+  feedbackColor: {r: 0.21116498, g: 1.4980392, b: 0.12012581, a: 1}
 --- !u!1001 &128615720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2342,6 +2342,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
+--- !u!1 &147975291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 147975292}
+  m_Layer: 0
+  m_Name: DodgeFeedbackManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &147975292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147975291}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 467142618}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &148177429
 GameObject:
   m_ObjectHideFlags: 0
@@ -2809,7 +2840,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1232649101
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.151899, g: 0.13656996, b: 0.31132078, a: 1}
@@ -5809,7 +5840,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1232649101
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.3773585, g: 0.20469919, b: 0.27252963, a: 1}
@@ -7666,6 +7697,7 @@ Transform:
   - {fileID: 923215528}
   - {fileID: 116455713}
   - {fileID: 1338750800}
+  - {fileID: 147975292}
   m_Father: {fileID: 148177430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &471229172
@@ -10310,7 +10342,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1232649101
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.151899, g: 0.13656996, b: 0.31132078, a: 1}
@@ -11956,7 +11988,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -175}
+  m_AnchoredPosition: {x: 0, y: -135}
   m_SizeDelta: {x: 100, y: 75}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &713414310
@@ -13744,7 +13776,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: -100}
+  m_AnchoredPosition: {x: -50, y: -50}
   m_SizeDelta: {x: 160, y: 75}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &790405414
@@ -14831,7 +14863,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1232649101
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.151899, g: 0.13656996, b: 0.31132078, a: 1}
@@ -15600,11 +15632,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39aef35165b7324e9da6c71ec43e648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numericUIPrefab: {fileID: 4750588696306321746, guid: 1121aa258db619f40869d5b7d3b1aed2, type: 3}
+  feedbackPrefab: {fileID: 4750588696306321746, guid: 1121aa258db619f40869d5b7d3b1aed2, type: 3}
   YOffset: 0.3
   maxXOffset: 0.5
   debug: 1
-  feedbackColor: {r: 5.992157, g: 0.19785435, b: 0.19785435, a: 1}
+  feedbackColor: {r: 1.4980392, g: 0.04946359, b: 0.04946359, a: 1}
 --- !u!1 &928940241
 GameObject:
   m_ObjectHideFlags: 0
@@ -18277,11 +18309,11 @@ RectTransform:
   - {fileID: 932211903}
   m_Father: {fileID: 255969091}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -35, y: -225}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 300, y: 75}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1068463337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23197,7 +23229,7 @@ GameObject:
   - component: {fileID: 1338750800}
   - component: {fileID: 1338750801}
   m_Layer: 0
-  m_Name: GoldDroppedManager
+  m_Name: GoldFeedbackManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23230,11 +23262,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb7ec7b0537e1c14688d047555592242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numericUIPrefab: {fileID: 4750588696306321746, guid: 8a7314e93df0e4445b6a335bbf93ec84, type: 3}
+  feedbackPrefab: {fileID: 4750588696306321746, guid: 8a7314e93df0e4445b6a335bbf93ec84, type: 3}
   YOffset: 0.3
   maxXOffset: 0.5
   debug: 1
-  feedbackColor: {r: 4, g: 2.1633172, b: 0, a: 1}
+  feedbackColor: {r: 1.4980392, g: 0.7120071, b: 0, a: 1}
 --- !u!1 &1339425883
 GameObject:
   m_ObjectHideFlags: 0
@@ -33228,11 +33260,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d0d492536c1b440a9d08c9f6dccaac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numericUIPrefab: {fileID: 4750588696306321746, guid: ae73a4a8cb3563c4c9064c722509776e, type: 3}
+  feedbackPrefab: {fileID: 4750588696306321746, guid: ae73a4a8cb3563c4c9064c722509776e, type: 3}
   YOffset: 0.3
   maxXOffset: 0.5
   debug: 1
-  feedbackColor: {r: 5.992157, g: 0.19785435, b: 0.19785435, a: 1}
+  feedbackColor: {r: 1.4980392, g: 0.04946359, b: 0.04946359, a: 1}
 --- !u!1 &2034874574
 GameObject:
   m_ObjectHideFlags: 0
@@ -33401,7 +33433,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1232649101
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.3773585, g: 0.20469919, b: 0.27252963, a: 1}
@@ -34740,7 +34772,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1232649101
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.151899, g: 0.13656996, b: 0.31132078, a: 1}
@@ -35223,7 +35255,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1232649101
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.3773585, g: 0.20469919, b: 0.27252963, a: 1}
@@ -35342,11 +35374,11 @@ RectTransform:
   - {fileID: 1677505088}
   m_Father: {fileID: 1137749994}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 365}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -135}
   m_SizeDelta: {x: 400, y: 75}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2142934871
 MonoBehaviour:
   m_ObjectHideFlags: 0

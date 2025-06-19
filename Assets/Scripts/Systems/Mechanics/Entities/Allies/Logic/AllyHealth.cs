@@ -52,7 +52,7 @@ public class AllyHealth : EntityHealth
         OnAnyAllyDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damageData.damage, isCrit = damageData.isCrit, damageSource = damageData.damageSource });
     }
 
-    protected override void OnEntityHealthTakeDamageMethod(int damageTakenByHealth, int previousHealth, bool isCrit, IDamageSourceSO damageSource)
+    protected override void OnEntityHealthTakeDamageMethod(int damageTakenByHealth, int previousHealth, bool isCrit, IDamageSource damageSource)
     {
         base.OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, isCrit, damageSource);
 
@@ -79,7 +79,7 @@ public class AllyHealth : EntityHealth
         });
     }
 
-    protected override void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSourceSO damageSource)
+    protected override void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSource damageSource)
     {
         base.OnEntityShieldTakeDamageMethod(damageTakenByShield, previousShield, isCrit, damageSource);
 
@@ -107,7 +107,7 @@ public class AllyHealth : EntityHealth
 
     }
 
-    protected override void OnEntityHealMethod(int healAmount, int previousHealth, IHealSourceSO healSource)
+    protected override void OnEntityHealMethod(int healAmount, int previousHealth, IHealSource healSource)
     {
         base.OnEntityHealMethod(healAmount, previousHealth, healSource);
 
@@ -115,7 +115,7 @@ public class AllyHealth : EntityHealth
         OnAnyAllyHeal?.Invoke(this, new OnEntityHealEventArgs { healDone = healAmount, previousHealth = previousHealth, newHealth = currentHealth, maxHealth = entityMaxHealthStatResolver.Value, healSource = healSource, healReceiver = this });
     }
 
-    protected override void OnEntityShieldRestoredMethod(int shieldAmount, int previousShield, IShieldSourceSO shieldSource)
+    protected override void OnEntityShieldRestoredMethod(int shieldAmount, int previousShield, IShieldSource shieldSource)
     {
         base.OnEntityShieldRestoredMethod(shieldAmount, previousShield, shieldSource);
 
@@ -123,7 +123,7 @@ public class AllyHealth : EntityHealth
         OnAnyAllyShieldRestored?.Invoke(this, new OnEntityShieldRestoredEventArgs { shieldRestored = shieldAmount, previousShield = previousShield, newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, shieldSource = shieldSource, shieldReceiver = this });
     }
 
-    protected override void OnEntityDeathMethod(EntitySO entitySO, IDamageSourceSO damageSource)
+    protected override void OnEntityDeathMethod(EntitySO entitySO, IDamageSource damageSource)
     {
         base.OnEntityDeathMethod(entitySO, damageSource);
 

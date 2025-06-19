@@ -20,6 +20,6 @@ public class GoldFeedbackManager : NumericFeedbackManager
     private void GoldDropperManager_OnEntityDropGold(object sender, GoldDropperManager.OnEntityDropGoldEventArgs e)
     {
         Vector2 instantiationPosition = GetInstantiationPosition(e.entityPosition);
-        CreateFeedback(numericUIPrefab, instantiationPosition, e.goldAmount, feedbackColor);
+        CreateNumericFeedback(feedbackPrefab, instantiationPosition, e.goldAmount, feedbackColor);
     }
 }

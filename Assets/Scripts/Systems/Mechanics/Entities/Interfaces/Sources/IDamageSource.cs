@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageSourceSO 
+public interface IDamageSource 
 {
     public string GetDamageSourceName();
     public string GetDamageSourceDescription();

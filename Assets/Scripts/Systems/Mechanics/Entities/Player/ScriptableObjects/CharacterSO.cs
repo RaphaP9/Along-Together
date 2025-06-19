@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewCharacterSO", menuName = "ScriptableObjects/Entities/Characters/Character(Default)")]
-public class CharacterSO : EntitySO, IHealSourceSO, IShieldSourceSO
+public class CharacterSO : EntitySO, IHealSource, IShieldSource
 {
     [Header("Character Health Settings")]
     [Range(0, 10)] public int baseHealthRegen;
@@ -21,17 +21,15 @@ public class CharacterSO : EntitySO, IHealSourceSO, IShieldSourceSO
 
     public override DamageSourceClassification GetDamageSourceClassification() => DamageSourceClassification.Character;
 
-    #region IHealSourceSO Methods
+    #region IHealSource Methods
     public string GetHealSourceName() => entityName;
     public string GetHealSourceDescription() => description;
     public Sprite GetHealSourceSprite() => sprite;
-    public Color GetHealSourceColor() => healColor;
     #endregion
 
-    #region IShieldSourceSO Methods
+    #region IShieldSource Methods
     public string GetShieldSourceName() => entityName;
     public string GetShieldSourceDescription() => description;
     public Sprite GetShieldSourceSprite() => sprite;
-    public Color GetShieldSourceColor() => shieldColor;
     #endregion
 }

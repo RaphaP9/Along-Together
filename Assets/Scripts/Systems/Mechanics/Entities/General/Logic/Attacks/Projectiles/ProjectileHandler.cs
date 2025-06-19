@@ -23,7 +23,7 @@ public class ProjectileHandler : MonoBehaviour
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private LayerMask impactLayerMask;
 
-    private IDamageSourceSO damageSource;
+    private IDamageSource damageSource;
     private Rigidbody2D _rigidbody2D;
 
     public static event EventHandler<OnProjectileEventArgs> OnProjectileImpactTarget;
@@ -37,7 +37,7 @@ public class ProjectileHandler : MonoBehaviour
     public class OnProjectileEventArgs : EventArgs
     {
         public int id;
-        public IDamageSourceSO damageSource;
+        public IDamageSource damageSource;
         public Vector2 direction;
         public int damage;
         public bool isCrit; 
@@ -64,7 +64,7 @@ public class ProjectileHandler : MonoBehaviour
         HandleMovement();
     }
 
-    public void SetProjectile(IDamageSourceSO damageSource, Vector2 direction, int damage, bool isCrit, float speed, float lifespan, ProjectileDamageType damageType, float areaRadius, LayerMask targetLayerMask, LayerMask impactLayerMask)
+    public void SetProjectile(IDamageSource damageSource, Vector2 direction, int damage, bool isCrit, float speed, float lifespan, ProjectileDamageType damageType, float areaRadius, LayerMask targetLayerMask, LayerMask impactLayerMask)
     {
         this.damageSource = damageSource;
         this.direction = direction;

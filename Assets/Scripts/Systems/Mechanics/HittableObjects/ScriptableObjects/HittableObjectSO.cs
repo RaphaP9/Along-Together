@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewHittableObjectSO", menuName = "ScriptableObjects/HittableObjects/HittableObject(Default)")]
-public class HittableObjectSO : ScriptableObject, IAttackableSO
+public class HittableObjectSO : ScriptableObject, IAttackable
 {
     [Header("Hittable Object Identifiers")]
     public int id;
@@ -19,7 +19,6 @@ public class HittableObjectSO : ScriptableObject, IAttackableSO
     [Range(0, 5)] public int shield;
 
     #region IAttackableSO Methods
-    public Color GetAttackableColor() => color;
     public string GetAttackableName() => hittableObjectName;
     public string GetAttackableDescription() => description;
     public Sprite GetAttackableSprite() => sprite;

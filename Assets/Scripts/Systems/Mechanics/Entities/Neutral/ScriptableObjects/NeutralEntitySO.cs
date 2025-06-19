@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewNeutralEntitySO", menuName = "ScriptableObjects/Entities/NeutralEntities/NeutralEntity(Default)")]
-public class NeutralEntitySO : EntitySO, IGoldSourceSO
+public class NeutralEntitySO : EntitySO, IGoldSource
 {
     [Header("NeutralEntity Extra Settings")]
     [Range(0, 10)] public int goldDrop;
@@ -11,8 +11,7 @@ public class NeutralEntitySO : EntitySO, IGoldSourceSO
     [Range(1f, 5f)] public float spawnDuration;
     [Range(1f, 10f)] public float cleanupTime;
 
-    #region IGoldSourceSO Methods
-    public Color GetGoldSourceColor() => color;
+    #region IGoldSource Methods
     public string GetGoldSourceName() => entityName;
     public string GetGoldSourceDescription() => description;
     public Sprite GetGoldSourceSprite() => sprite;

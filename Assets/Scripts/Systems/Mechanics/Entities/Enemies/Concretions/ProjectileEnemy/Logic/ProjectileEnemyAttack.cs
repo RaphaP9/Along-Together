@@ -226,7 +226,7 @@ public class ProjectileEnemyAttack : EnemyAttack
         OnEntityAttackMethod(isCrit, damage);
     }
 
-    protected void InstantiateProjectile(IDamageSourceSO damageSource, Transform projectilePrefab, Vector2 position, Vector2 shootDirection, int damage, bool isCrit, float speed, float lifespan, ProjectileDamageType projectileDamageType, float areaRadius, LayerMask targetLayerMask, LayerMask impactLayerMask)
+    protected void InstantiateProjectile(IDamageSource damageSource, Transform projectilePrefab, Vector2 position, Vector2 shootDirection, int damage, bool isCrit, float speed, float lifespan, ProjectileDamageType projectileDamageType, float areaRadius, LayerMask targetLayerMask, LayerMask impactLayerMask)
     {
         Vector3 vector3Position = GeneralUtilities.Vector2ToVector3(position);
         Transform instantiatedProjectile = Instantiate(projectilePrefab, vector3Position, Quaternion.identity);

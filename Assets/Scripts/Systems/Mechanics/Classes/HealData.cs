@@ -1,9 +1,9 @@
 public class HealData
 {
     public int healAmount;
-    public IHealSourceSO healSource;
+    public IHealSource healSource;
 
-    public HealData(int healAmount, IHealSourceSO healSource)
+    public HealData(int healAmount, IHealSource healSource)
     {
         this.healAmount = healAmount;
         this.healSource = healSource;

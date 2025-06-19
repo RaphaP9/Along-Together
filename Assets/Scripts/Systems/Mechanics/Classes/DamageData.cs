@@ -2,14 +2,14 @@ public class DamageData
 {
     public int damage;
     public bool isCrit;
-    public IDamageSourceSO damageSource;
+    public IDamageSource damageSource;
     public bool canBeDodged;
     public bool canBeImmuned;
 
     public bool canBeInvulnerabled;
     public bool triggerInvulnerability;
 
-    public DamageData(int damage, bool isCrit, IDamageSourceSO damageSource, bool canBeDodged, bool canBeImmuned, bool canBeInvulnerabled, bool triggerInvulnerability)
+    public DamageData(int damage, bool isCrit, IDamageSource damageSource, bool canBeDodged, bool canBeImmuned, bool canBeInvulnerabled, bool triggerInvulnerability)
     {
         this.damage = damage;
         this.isCrit = isCrit;

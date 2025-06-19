@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewEnemySO", menuName = "ScriptableObjects/Entities/Enemies/Enemy(Default)")]
-public class EnemySO : EntitySO, IGoldSourceSO
+public class EnemySO : EntitySO, IGoldSource
 {
     [Header("Enemy Extra Settings")]
     [Range(0, 100)] public int goldDrop;
@@ -11,8 +11,7 @@ public class EnemySO : EntitySO, IGoldSourceSO
     [Range(1f, 5f)] public float spawnDuration;
     [Range(1f, 10f)] public float cleanupTime;
 
-    #region IGoldSourceSO Methods
-    public Color GetGoldSourceColor() => color;
+    #region IGoldSource Methods
     public string GetGoldSourceName() => entityName;
     public string GetGoldSourceDescription() => description;
     public Sprite GetGoldSourceSprite() => sprite;

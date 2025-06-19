@@ -20,6 +20,6 @@ public class HealFeedbackManager : NumericFeedbackManager
     private void EntityHealth_OnAnyEntityHeal(object sender, EntityHealth.OnEntityHealEventArgs e)
     {
         Vector2 instantiationPosition = GetInstantiationPosition((sender as EntityHealth).transform.position);
-        CreateFeedback(numericUIPrefab, instantiationPosition, e.healDone, feedbackColor);
+        CreateNumericFeedback(feedbackPrefab, instantiationPosition, e.healDone, feedbackColor);
     }
 }

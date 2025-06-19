@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EntitySO : ScriptableObject, IAttackableSO, IDamageSourceSO //All entities Have Health & Movement Stats
+public abstract class EntitySO : ScriptableObject, IAttackable, IDamageSource //All entities Have Health & Movement Stats
 {
     [Header("Entity Identifiers")]
     public int id;
@@ -35,13 +35,12 @@ public abstract class EntitySO : ScriptableObject, IAttackableSO, IDamageSourceS
     [Range(0f, 10f)] public float baseMovementSpeed;
 
     #region IAttackableSO Methods
-    public Color GetAttackableColor() => color;
     public string GetAttackableName() => entityName;
     public string GetAttackableDescription() => description;
     public Sprite GetAttackableSprite() => sprite;
     #endregion
 
-    #region IDamageSourceSO Methods
+    #region IDamageSource Methods
     public string GetDamageSourceName() => entityName;
     public string GetDamageSourceDescription() => description;
     public Sprite GetDamageSourceSprite() => sprite;

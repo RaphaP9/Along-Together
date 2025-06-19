@@ -1,9 +1,9 @@
 public class ShieldData
 {
     public int shieldAmount;
-    public IShieldSourceSO shieldSource;
+    public IShieldSource shieldSource;
 
-    public ShieldData(int shieldAmount, IShieldSourceSO shieldSource)
+    public ShieldData(int shieldAmount, IShieldSource shieldSource)
     {
         this.shieldAmount = shieldAmount;
         this.shieldSource = shieldSource;
