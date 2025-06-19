@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public static event EventHandler<OnStateInitializedEventArgs> OnStateInitialized;
 
     public static event EventHandler OnGameLost;
+    public static event EventHandler OnGameWon;
 
     #region Flags
     private bool firstUpdateLogicPerformed = false;
@@ -260,8 +261,8 @@ public class GameManager : MonoBehaviour
             #region Win Logic
             if (GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts())
             {
-                ChangeState(State.Win);
                 gameEnded = true;
+                WinGame();
                 break;
             }
             #endregion
@@ -285,6 +286,12 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+
+    private void WinGame()
+    {
+        ChangeState(State.Win);
+        OnGameWon?.Invoke(this, EventArgs.Empty);
+    }
 
     private void LoseGame()
     {

@@ -6,19 +6,29 @@ public class LogListener : MonoBehaviour
 {
     private void OnEnable()
     {
+        PlayerHealth.OnAnyPlayerHealthTakeDamage += PlayerHealth_OnAnyPlayerHealthTakeDamage;
         EntityExplosion.OnAnyEntityExplosion += EntityExplosion_OnAnyEntityExplosion;
+
+        GameManager.OnGameLost += GameManager_OnGameLost;
+        GameManager.OnGameWon += GameManager_OnGameWon;
     }
 
     private void OnDisable()
     {
+        PlayerHealth.OnAnyPlayerHealthTakeDamage -= PlayerHealth_OnAnyPlayerHealthTakeDamage;
         EntityExplosion.OnAnyEntityExplosion -= EntityExplosion_OnAnyEntityExplosion;
-    }
 
+        GameManager.OnGameLost -= GameManager_OnGameLost;
+        GameManager.OnGameWon -= GameManager_OnGameWon;
+    }
 
     #region Subscriptions
-    private void EntityExplosion_OnAnyEntityExplosion(object sender, EntityExplosion.OnEntityExplosionEventArgs e)
-    {
-        GameLogManager.Instance.Log("Entity/Explosion");
-    }
+
+    private void PlayerHealth_OnAnyPlayerHealthTakeDamage(object sender, EntityHealth.OnEntityHealthTakeDamageEventArgs e) => GameLogManager.Instance.Log("Player/TakeDamage");
+    private void EntityExplosion_OnAnyEntityExplosion(object sender, EntityExplosion.OnEntityExplosionEventArgs e) => GameLogManager.Instance.Log("Entity/Explosion");
+
+    private void GameManager_OnGameWon(object sender, System.EventArgs e) => GameLogManager.Instance.Log("Game/Win");
+    private void GameManager_OnGameLost(object sender, System.EventArgs e) => GameLogManager.Instance.Log("Game/Lose");
+
     #endregion
 }

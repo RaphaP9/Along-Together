@@ -6419,6 +6419,7 @@ GameObject:
   - component: {fileID: 340343001}
   - component: {fileID: 340343002}
   - component: {fileID: 340343003}
+  - component: {fileID: 340343004}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -6477,6 +6478,23 @@ MonoBehaviour:
   timeToEndAfterLose: 4
   loseScene: MainMenu
   loseTransitionType: 0
+  wipeRunDataOnLose: 1
+--- !u!114 &340343004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340343000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01df4a1c85af1b46b1992dc67000638, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToEndAfterWin: 4
+  winScene: MainMenu
+  winTransitionType: 0
+  wipeRunDataOnWin: 1
 --- !u!1 &383226952
 GameObject:
   m_ObjectHideFlags: 0
@@ -7080,6 +7098,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraShakes:
   - id: 1
+    logToShake: Player/TakeDamage
+    amplitude: 1
+    frequency: 2
+    shakeTime: 0.2
+    shakeFadeInTime: 0.05
+    shakeFadeOutTime: 0.05
+    enabled: 1
+  - id: 2
     logToShake: Entity/Explosion
     amplitude: 2
     frequency: 2
@@ -33878,6 +33904,32 @@ MonoBehaviour:
     moveOutTime: 2
     stallTimeOut: 0.5
     targetDistance: 3
+    endInTime: 0
+    enabled: 0
+  - id: 2
+    logToStart: Game/Lose
+    logToEnd: None
+    usePlayerFollowPoint: 1
+    targetTransform: {fileID: 0}
+    stallTimeIn: 0
+    moveInTime: 2
+    stallTime: 4
+    moveOutTime: 2
+    stallTimeOut: 0.5
+    targetDistance: 4
+    endInTime: 0
+    enabled: 1
+  - id: 3
+    logToStart: Game/Win
+    logToEnd: None
+    usePlayerFollowPoint: 1
+    targetTransform: {fileID: 0}
+    stallTimeIn: 0
+    moveInTime: 2
+    stallTime: 4
+    moveOutTime: 2
+    stallTimeOut: 0.5
+    targetDistance: 4
     endInTime: 0
     enabled: 1
 --- !u!4 &2079325150 stripped

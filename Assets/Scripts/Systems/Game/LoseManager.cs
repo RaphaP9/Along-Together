@@ -8,6 +8,8 @@ public class LoseManager : MonoBehaviour
     [SerializeField, Range(2f, 5f)] private float timeToEndAfterLose;
     [SerializeField] private string loseScene;
     [SerializeField] private TransitionType loseTransitionType;
+    [Space]
+    [SerializeField] private bool wipeRunDataOnLose;
 
     private void OnEnable()
     {
@@ -18,6 +20,16 @@ public class LoseManager : MonoBehaviour
     {
         GameManager.OnGameLost -= GameManager_OnGameLost;
     }
+    private void LoseGame()
+    {
+        if (wipeRunDataOnLose)
+        {
+            DataUtilities.WipeRunData();
+            SessionRunDataContainer.Instance.ResetRunData();
+        }
+
+        StartCoroutine(LoseGameCoroutine());
+    }
 
     private IEnumerator LoseGameCoroutine()
     {
@@ -27,6 +39,7 @@ public class LoseManager : MonoBehaviour
 
     private void GameManager_OnGameLost(object sender, System.EventArgs e)
     {
-        StartCoroutine(LoseGameCoroutine());
+        LoseGame();
     }
+
 }
