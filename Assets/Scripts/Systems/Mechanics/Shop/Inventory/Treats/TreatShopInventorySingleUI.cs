@@ -8,6 +8,8 @@ public class TreatShopInventorySingleUI : MonoBehaviour
     [Header("Runtime Filled")]
     [SerializeField] private TreatIdentified treatIdentified;
 
+    public TreatIdentified TreatIdentified => treatIdentified;
+
     public event EventHandler<OnTreatInventorySetEventArgs> OnTreatInventorySet;
     public class OnTreatInventorySetEventArgs : EventArgs
     {

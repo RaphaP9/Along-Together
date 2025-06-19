@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 5147465956693913697}
   - component: {fileID: 3391562257095371108}
   - component: {fileID: 8525096804690404618}
+  - component: {fileID: 2372004549449668998}
   m_Layer: 5
   m_Name: TreatShopInventoryUIPrefab
   m_TagString: Untagged
@@ -194,6 +195,20 @@ MonoBehaviour:
   rareBorder: {fileID: 0}
   epicBorder: {fileID: 0}
   legendaryBorder: {fileID: 0}
+--- !u!114 &2372004549449668998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877629605709992238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ede8304f1670e47b9c1f94694579b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treatShopInventorySingleUI: {fileID: 3391562257095371108}
+  isHovered: 0
 --- !u!1 &6945061627899145129
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,10 @@ public class ObjectShopInventorySingleUI : MonoBehaviour
     [Header("Runtime Filled")]
     [SerializeField] private ObjectIdentified objectIdentified;
 
+    public ObjectIdentified ObjectIdentified => objectIdentified;
+
     public event EventHandler<OnObjectInventorySetEventArgs> OnObjectInventorySet;
+
     public class OnObjectInventorySetEventArgs : EventArgs
     {
         public ObjectIdentified objectIdentified;
