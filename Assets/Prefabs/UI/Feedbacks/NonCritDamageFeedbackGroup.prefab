@@ -421,7 +421,9 @@ MonoBehaviour:
   displacementSpeed: 1
   minAngle: 89
   maxAngle: 91
-  numberText: {fileID: 8830431119094152469}
+  includePrefix: 0
+  prefix: 
+  feedbackText: {fileID: 8830431119094152469}
   chosenDirection: {x: 0, y: 0}
 --- !u!1 &5119683527604711257
 GameObject:

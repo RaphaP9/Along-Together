@@ -415,13 +415,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2685551385973015938}
+  feedbackText: {fileID: 8830431119094152469}
   spawnTime: 0.1
   showingTime: 0.5
   hidingTime: 0.5
   displacementSpeed: 1
   minAngle: 89
   maxAngle: 91
-  numberText: {fileID: 8830431119094152469}
+  includePrefix: 1
+  prefix: +
   chosenDirection: {x: 0, y: 0}
 --- !u!1 &5119683527604711257
 GameObject:

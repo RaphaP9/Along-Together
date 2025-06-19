@@ -17,6 +17,16 @@ public class FeedbackManager : MonoBehaviour
     protected void CreateFeedback(Transform prefab, Vector2 position, Color textColor)
     {
         Transform feedbackTransform = Instantiate(prefab, GeneralUtilities.Vector2ToVector3(position), Quaternion.identity);
+
+        FeedbackUI feedbackUI = feedbackTransform.GetComponentInChildren<FeedbackUI>();
+
+        if (feedbackUI == null)
+        {
+            if (debug) Debug.Log("Instantiated feedback does not contain a FeedbackUI component.");
+            return;
+        }
+
+        feedbackUI.SetFeedback(textColor);
     }
 
     protected Vector2 GetInstantiationPosition(Vector2 basePosition)
