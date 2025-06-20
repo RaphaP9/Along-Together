@@ -2252,8 +2252,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityLevelHandlers:
   - {fileID: 3065388374016757048}
-  - {fileID: 2505510130114074797}
   - {fileID: 2510777538800599704}
+  - {fileID: 2505510130114074797}
   - {fileID: 8223277899744677149}
   - {fileID: 5611075828277405468}
   debug: 1
