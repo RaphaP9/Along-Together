@@ -218,4 +218,29 @@ public static class MechanicsUtilities
         }
     }
     #endregion
+
+    #region StatusEffects
+
+    #region Slow
+    public static void SlowInAreas(List<Vector2> positions, float areaRadius, SlowStatusEffect slowStatusEffect, LayerMask layermask)
+    {
+        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInMultipleRanges(positions, areaRadius, layermask);
+
+        foreach (Transform detectedTransform in detectedTransforms)
+        {
+            SlowEntity(detectedTransform, slowStatusEffect);
+        }
+    }
+
+    public static void SlowEntity(Transform entityTransform, SlowStatusEffect slowStatusEffect)
+    {
+        EntitySlowStatusEffectHandler slowHandler = entityTransform.GetComponent<EntitySlowStatusEffectHandler>();
+
+        if(slowHandler == null) return;
+
+        slowHandler.SlowEntity(slowStatusEffect);
+    }
+    #endregion
+
+    #endregion
 }
