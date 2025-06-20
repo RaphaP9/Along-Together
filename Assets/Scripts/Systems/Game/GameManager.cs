@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private State state;
     [SerializeField] private State previousState;
 
+    [Header("Settings")]
+    [SerializeField] private bool abilityUpgradeOnFirstStageAndRound;
+
     [Header("Settings - Timers")]
     [SerializeField, Range(2f, 5f)] private float startingGameTimer;
     [Space]
@@ -21,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField, Range(2f, 5f)] private float changeStateEndingTimer;
     [Space]
     [SerializeField, Range(0f, 2f)] private float dialogueInterval;
+
 
     [Header("Debug")]
     [SerializeField] private bool ignoreGameFlow;
@@ -189,24 +193,28 @@ public class GameManager : MonoBehaviour
             #region Shop/AbilityUpgrade Logic
             if (GeneralStagesManager.Instance.CurrentRoundIsFirstFromCurrentStage())
             {
-                #region AbilityUpgrade Logic
-                if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) //Only Open AbilityUpgradeUI if can upgrade an ability
+                if ((GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts() && abilityUpgradeOnFirstStageAndRound) || !GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts())
                 {
-                    ChangeState(State.Upgrade);
-                    abilityUpgradeClosed = false;
-                    AbilityUpgradeOpeningManager.Instance.OpenAbilityUpgrade();
-                    yield return new WaitUntil(() => abilityUpgradeClosed);
-                    abilityUpgradeClosed = false;
+                    #region AbilityUpgrade Logic
+                    if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) //Only Open AbilityUpgradeUI if can upgrade an ability
+                    {
+                        ChangeState(State.Upgrade);
+                        abilityUpgradeClosed = false;
+                        AbilityUpgradeOpeningManager.Instance.OpenAbilityUpgrade();
+                        yield return new WaitUntil(() => abilityUpgradeClosed);
+                        abilityUpgradeClosed = false;
+                    }
+                    else
+                    {
+                        ChangeState(State.Shop);
+                        shopClosed = false;
+                        ShopOpeningManager.Instance.OpenShop();
+                        yield return new WaitUntil(() => shopClosed);
+                        shopClosed = false;
+                    }
+                    #endregion
+
                 }
-                else
-                {
-                    ChangeState(State.Shop);
-                    shopClosed = false;
-                    ShopOpeningManager.Instance.OpenShop();
-                    yield return new WaitUntil(() => shopClosed);
-                    shopClosed = false;
-                }
-                #endregion
             }
             else
             {

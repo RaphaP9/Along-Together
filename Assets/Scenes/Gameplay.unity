@@ -6948,6 +6948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   previousState: 0
+  abilityUpgradeOnFirstStageAndRound: 1
   startingGameTimer: 3
   roundStartingTime: 3
   roundEndingTime: 3

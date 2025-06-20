@@ -286,9 +286,21 @@ public class GeneralStagesManager : MonoBehaviour
         return stageGroup.stageSO.roundGroups[roundNumber - 1];
     }
 
+    private bool IsFirstStageGroup(StageGroup stageGroup) => stageGroup == stagesGroups[0];
     private bool IsLastStageGroup(StageGroup stageGroup) => stageGroup == stagesGroups[^1];
-    private bool IsLastRoundGroupFromStageGroup(StageGroup stageGroup, RoundGroup roundGroup) => roundGroup == stageGroup.stageSO.roundGroups[^1];
     private bool IsFirstRoundGroupFromStageGroup(StageGroup stageGroup, RoundGroup roundGroup) => roundGroup == stageGroup.stageSO.roundGroups[0];
+    private bool IsLastRoundGroupFromStageGroup(StageGroup stageGroup, RoundGroup roundGroup) => roundGroup == stageGroup.stageSO.roundGroups[^1];
+
+    private bool StageAndRoundNumberAreFirsts(StageGroup stageGroup, RoundGroup roundGroup)
+    {
+        if (IsFirstStageGroup(stageGroup))
+        {
+            if (IsFirstRoundGroupFromStageGroup(stageGroup, roundGroup)) return true;
+        }
+
+        return false;
+    }
+
     private bool StageAndRoundNumberAreLasts(StageGroup stageGroup, RoundGroup roundGroup)
     {
         if (IsLastStageGroup(stageGroup))
@@ -350,6 +362,7 @@ public class GeneralStagesManager : MonoBehaviour
 
     #region Public Methods
 
+    public bool CurrentStageAndRoundAreFirsts() => StageAndRoundNumberAreFirsts(currentStageGroup, currentRoundGroup);
     public bool CurrentRoundIsFirstFromCurrentStage() => IsFirstRoundGroupFromStageGroup(currentStageGroup, currentRoundGroup);
     public bool LastCompletedStageAndRoundNumberAreLasts() => StageAndRoundNumberAreLasts(lastCompletedStageGroup, lastCompletedRoundGroup);
     public bool LastCompletedRoundIsLastFromStage() => IsLastRoundGroupFromStageGroup(lastCompletedStageGroup, lastCompletedRoundGroup);
