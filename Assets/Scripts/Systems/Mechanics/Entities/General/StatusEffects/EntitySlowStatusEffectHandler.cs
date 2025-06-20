@@ -48,6 +48,7 @@ public class EntitySlowStatusEffectHandler : MonoBehaviour
         if(slowStatusEffects.Count <= 0)
         {
             slowPercentageResolvedValue = MIN_SLOW_PERCENTAGE_VALUE;
+            OnSlowStatusEffectValueRecauculated?.Invoke(this, new OnSlowStatusEffectValueEventArgs { slowValue = slowPercentageResolvedValue });
             return;
         }
 

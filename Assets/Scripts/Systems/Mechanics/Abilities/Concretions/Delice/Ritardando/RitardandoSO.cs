@@ -6,10 +6,12 @@ using UnityEngine;
 public class RitardandoSO : ActiveAbilitySO, IDamageSource
 {
     [Header("Specific Settings")]
-    [Range(1f, 5f)] public float damage;
+    [Range(1, 7)] public int damage;
     [ColorUsage(true, true)] public Color damageColor;
     [Space]
     public SlowStatusEffect slowStatusEffect;
+    [Space]
+    [Range(0f, 1f)] public float performanceTime;
 
     #region Damage Source Methods
     public DamageSourceClassification GetDamageSourceClassification() => DamageSourceClassification.Character;

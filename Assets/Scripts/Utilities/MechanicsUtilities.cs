@@ -234,7 +234,7 @@ public static class MechanicsUtilities
 
     public static void SlowEntity(Transform entityTransform, SlowStatusEffect slowStatusEffect)
     {
-        EntitySlowStatusEffectHandler slowHandler = entityTransform.GetComponent<EntitySlowStatusEffectHandler>();
+        EntitySlowStatusEffectHandler slowHandler = entityTransform.GetComponentInChildren<EntitySlowStatusEffectHandler>();
 
         if(slowHandler == null) return;
 

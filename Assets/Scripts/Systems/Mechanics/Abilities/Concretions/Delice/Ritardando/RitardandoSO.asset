@@ -20,9 +20,9 @@ MonoBehaviour:
   abilityInfoSO: {fileID: 11400000, guid: fac7843d3bc89c242a0b191251b5a010, type: 2}
   statAffinities: 
   baseCooldown: 7
-  damage: 1
+  damage: 5
   damageColor: {r: 0.8396226, g: 0.13861692, b: 0.548962, a: 1}
   slowStatusEffect:
-    originGUID: 
-    duration: 0
-    slowPercentage: 0
+    duration: 2.5
+    slowPercentage: 0.8
+  performanceTime: 0.5

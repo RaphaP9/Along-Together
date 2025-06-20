@@ -92,7 +92,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4669092448496720726}
+  - {fileID: 787752498441240998}
   m_Father: {fileID: 5386565058599454864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4493125982467729595
@@ -109,108 +109,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilitySlot: 3
   abilityVariants:
-  - {fileID: 8470413022457330166}
-  startingAbilityVariant: {fileID: 8470413022457330166}
+  - {fileID: 2412851267031932804}
+  startingAbilityVariant: {fileID: 2412851267031932804}
   activeAbilityVariant: {fileID: 0}
   debug: 1
---- !u!1 &1376360663945388064
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4669092448496720726}
-  - component: {fileID: 4591576310225339193}
-  - component: {fileID: 5577424398876266477}
-  - component: {fileID: 8470413022457330166}
-  - component: {fileID: 8397176443843121625}
-  m_Layer: 6
-  m_Name: TemporalStatsChangeActiveAbility
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4669092448496720726
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1376360663945388064}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 389461692359508210}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4591576310225339193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1376360663945388064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 364b8fe6fceea954881abe998a687f09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilitySO: {fileID: 11400000, guid: fa8e30561bdb20d4e832fb1056c8ec1e, type: 2}
---- !u!114 &5577424398876266477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1376360663945388064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1165cdfce28c73c4296259040587a264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityIdentifier: {fileID: 4591576310225339193}
-  maxLevel: 3
-  startingAbilityLevel: 0
-  abilityLevel: 0
---- !u!114 &8470413022457330166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1376360663945388064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e0a1cedfe3195b4fa1d99c86d790a07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityIdentifier: {fileID: 4591576310225339193}
-  abilityLevelHandler: {fileID: 5577424398876266477}
-  abilitySlotHandler: {fileID: 4493125982467729595}
-  playerHealth: {fileID: 6586126778679378193}
-  abilityInterruptionComponents: []
-  cooldownReductionStatResolver: {fileID: 3287368004166176090}
-  abilityCooldownHandler: {fileID: 8397176443843121625}
-  onlyOneActiveAtOnce: 0
-  activeAbilityGUIDs: []
---- !u!114 &8397176443843121625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1376360663945388064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 176c42760e5211c4ca39601426df9ee0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownTimer: 0
 --- !u!1 &1520426018347751691
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +678,7 @@ MonoBehaviour:
     m_Bits: 128
   attackInterruptionComponents:
   - {fileID: 7573232495966570463}
+  - {fileID: 2412851267031932804}
   - {fileID: 8682992959460049137}
   debug: 1
   characterIdentifier: {fileID: 1965199428449930878}
@@ -1003,6 +906,114 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7077925278160448707}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2958937891181653708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 787752498441240998}
+  - component: {fileID: 848678648918398948}
+  - component: {fileID: 2510777538800599704}
+  - component: {fileID: 2412851267031932804}
+  - component: {fileID: 3134053531977257851}
+  m_Layer: 6
+  m_Name: Ritardando
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &787752498441240998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2958937891181653708}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 389461692359508210}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &848678648918398948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2958937891181653708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364b8fe6fceea954881abe998a687f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySO: {fileID: 11400000, guid: 21b2625d967706140a14167f51185c03, type: 2}
+--- !u!114 &2510777538800599704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2958937891181653708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1165cdfce28c73c4296259040587a264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityIdentifier: {fileID: 848678648918398948}
+  maxLevel: 3
+  startingAbilityLevel: 0
+  abilityLevel: 0
+--- !u!114 &2412851267031932804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2958937891181653708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b38aae65ca1784e95de68c68ddb29a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityIdentifier: {fileID: 848678648918398948}
+  abilityLevelHandler: {fileID: 2510777538800599704}
+  abilitySlotHandler: {fileID: 4493125982467729595}
+  playerHealth: {fileID: 6586126778679378193}
+  abilityInterruptionComponents:
+  - {fileID: 2412851267031932804}
+  - {fileID: 8682992959460049137}
+  cooldownReductionStatResolver: {fileID: 3287368004166176090}
+  abilityCooldownHandler: {fileID: 3134053531977257851}
+  effectLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  areaTransforms:
+  - {fileID: 6018386457086868603}
+  - {fileID: 6301488533947270225}
+  - {fileID: 2667988105839119167}
+  - {fileID: 8630169012846010125}
+  - {fileID: 2483593855647320057}
+  areaRadius: 1
+--- !u!114 &3134053531977257851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2958937891181653708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176c42760e5211c4ca39601426df9ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTimer: 0
 --- !u!1 &3069412420397820189
 GameObject:
   m_ObjectHideFlags: 0
@@ -1513,6 +1524,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5668402913487765036}
   attackInterruptionComponents:
   - {fileID: 7573232495966570463}
+  - {fileID: 2412851267031932804}
   - {fileID: 8682992959460049137}
   playerStateHandler: {fileID: 2527459363889109172}
 --- !u!1 &6037700049842417909
@@ -2050,6 +2062,7 @@ MonoBehaviour:
   abilitySlotHandler: {fileID: 7233062201028402588}
   playerHealth: {fileID: 6586126778679378193}
   abilityInterruptionComponents:
+  - {fileID: 2412851267031932804}
   - {fileID: 8682992959460049137}
   cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 8114758222127837120}
@@ -2240,9 +2253,9 @@ MonoBehaviour:
   abilityLevelHandlers:
   - {fileID: 3065388374016757048}
   - {fileID: 2505510130114074797}
+  - {fileID: 2510777538800599704}
   - {fileID: 8223277899744677149}
   - {fileID: 5611075828277405468}
-  - {fileID: 5577424398876266477}
   debug: 1
 --- !u!114 &7071924974927239523
 MonoBehaviour:

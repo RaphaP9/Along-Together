@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1368430173010e24182da80dbc92c42e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowResistance: 0.086
+  slowResistance: 0
   slowStatusEffects: []
   slowPercentageResolvedValue: 0
 --- !u!1 &7364808272163929362
