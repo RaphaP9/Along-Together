@@ -4,20 +4,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopObjectCardContentsHandler : MonoBehaviour
+public class InventorObjectHoverUIContentsHandler : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private ShopObjectCardUI shopObjectCardUI;
+    [SerializeField] private InventoryObjectHoverUIHandler inventoryObjectHoverUI;
 
     [Header("UI Components")]
     [SerializeField] private TextMeshProUGUI objectNameText;
     [SerializeField] private Image objectImage;
     [SerializeField] private TextMeshProUGUI objectClassificationText;
+    [SerializeField] private TextMeshProUGUI objectDescriptionText;
+    [SerializeField] private TextMeshProUGUI objectSellPriceText;
     [Space]
     [SerializeField] private Transform numericStatsContainer;
     [SerializeField] private Transform numericStatUISample;
-    [Space]
-    [SerializeField] private TextMeshProUGUI objectDescriptionText;
     [Space]
     [SerializeField] private List<Image> borders;
 
@@ -33,13 +33,13 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        shopObjectCardUI.OnInventoryObjectSet += ShopObjectCardUI_OnInventoryObjectSet;
-    }
-    private void OnDisable()
-    {
-        shopObjectCardUI.OnInventoryObjectSet -= ShopObjectCardUI_OnInventoryObjectSet;
+        inventoryObjectHoverUI.OnGenericInventoryObjectIdentifiedSet += InventoryObjectHoverUI_OnGenericInventoryObjectIdentifiedSet;
     }
 
+    private void OnDisable()
+    {
+        inventoryObjectHoverUI.OnGenericInventoryObjectIdentifiedSet -= InventoryObjectHoverUI_OnGenericInventoryObjectIdentifiedSet;
+    }
     public void CompleteSetUI(InventoryObjectSO inventoryObjectSO)
     {
         SetObjectNameText(inventoryObjectSO);
@@ -47,7 +47,7 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
         SetObjectClassificationText(inventoryObjectSO);
         SetBordersColor(inventoryObjectSO);
         SetObjectDescriptionText(inventoryObjectSO);
-
+        SetObjectSellPriceText(inventoryObjectSO);
         GenerateNumericStats(inventoryObjectSO);
     }
 
@@ -55,7 +55,8 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     private void SetObjectImage(InventoryObjectSO inventoryObjectSO) => objectImage.sprite = inventoryObjectSO.sprite;
     private void SetObjectClassificationText(InventoryObjectSO inventoryObjectSO) => objectClassificationText.text = MappingUtilities.MapInventoryObjectRarityType(inventoryObjectSO);
     private void SetObjectDescriptionText(InventoryObjectSO inventoryObjectSO) => objectDescriptionText.text = inventoryObjectSO.description;
-    
+    private void SetObjectSellPriceText(InventoryObjectSO inventoryObjectSO) => objectSellPriceText.text = inventoryObjectSO.sellPrice.ToString();
+
     private void SetBordersColor(InventoryObjectSO inventoryObjectSO)
     {
         Color color;
@@ -87,7 +88,7 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     {
         ClearNumericStatsContainer();
 
-        if(inventoryObjectSO.GetNumericEmbeddedStats().Count <= 0)
+        if (inventoryObjectSO.GetNumericEmbeddedStats().Count <= 0)
         {
             numericStatsContainer.gameObject.SetActive(false);
             return;
@@ -123,9 +124,8 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
         }
     }
 
-    private void ShopObjectCardUI_OnInventoryObjectSet(object sender, ShopObjectCardUI.OnInventoryObjectEventArgs e)
+    private void InventoryObjectHoverUI_OnGenericInventoryObjectIdentifiedSet(object sender, InventoryObjectHoverUIHandler.OnGenericInventoryObjectEventArgs e)
     {
-        CompleteSetUI(e.inventoryObjectSO);
+        CompleteSetUI(e.genericInventoryObjectIdentified.inventoryObjectSO);
     }
-
 }

@@ -18418,7 +18418,7 @@ GameObject:
   - component: {fileID: 983062037}
   - component: {fileID: 983062036}
   m_Layer: 5
-  m_Name: PriceText
+  m_Name: SellPriceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20404,6 +20404,7 @@ GameObject:
   - component: {fileID: 1085287477}
   - component: {fileID: 1085287480}
   - component: {fileID: 1085287479}
+  - component: {fileID: 1085287481}
   m_Layer: 5
   m_Name: InventoryObjectHoverUI
   m_TagString: Untagged
@@ -20499,6 +20500,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryObjectHoverUI: {fileID: 1085287477}
   animator: {fileID: 1085287478}
+--- !u!114 &1085287481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085287474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31cb59c4548640a4b81d00de7e3abe4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryObjectHoverUI: {fileID: 1085287477}
+  objectNameText: {fileID: 153003789}
+  objectImage: {fileID: 449521600}
+  objectClassificationText: {fileID: 1487295688}
+  objectDescriptionText: {fileID: 1242465833}
+  objectSellPriceText: {fileID: 983062036}
+  numericStatsContainer: {fileID: 1917448548}
+  numericStatUISample: {fileID: 2054181406}
+  borders:
+  - {fileID: 1948913709}
+  - {fileID: 239720695}
+  - {fileID: 490810107}
+  commonColor: {r: 0.25882354, g: 0.6313726, b: 1, a: 1}
+  uncommonColor: {r: 0, g: 0.62352943, b: 0.101960786, a: 1}
+  rareColor: {r: 0.74509805, g: 0.15686275, b: 0.15686275, a: 1}
+  epicColor: {r: 0.85882354, g: 0.11764706, b: 0.53333336, a: 1}
+  legendaryColor: {r: 1, g: 0.5882353, b: 0, a: 1}
+  debug: 1
 --- !u!1 &1091803582
 GameObject:
   m_ObjectHideFlags: 0
