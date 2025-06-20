@@ -20445,6 +20445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba73507361ac9d4eae2ccb57619fa96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rectTransformRefference: {fileID: 877909165}
   inventoryObjectHoverUIButtonsHandler: {fileID: 1085287479}
   currentGenericInventoryObjectIdentified:
     assignedGUID: 
@@ -20462,7 +20463,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 77ec9b22b67b2de4080853a4f873c2b0, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0

@@ -6,6 +6,7 @@ using UnityEngine;
 public class InventoryObjectHoverUIHandler : MonoBehaviour
 {
     [Header("Components")]
+    [SerializeField] private RectTransform rectTransformRefference;
     [SerializeField] private InventoryObjectHoverUIButtonsHandler inventoryObjectHoverUIButtonsHandler;
 
     [Header("Runtime Filled")]
@@ -86,11 +87,13 @@ public class InventoryObjectHoverUIHandler : MonoBehaviour
     #endregion
 
     #region Method Handlers
-    private void HandleHoverEnter(string GUID, InventoryObjectSO inventoryObjectSO)
+    private void HandleHoverEnter(string GUID, InventoryObjectSO inventoryObjectSO, UIHoverHandler.PivotQuadrant pivotQuadrant)
     {
         if (pressedLock) return;
 
         if(ValuesCoincideWithRegisteredGenericInventoryObject(GUID, inventoryObjectSO)) return;
+
+        GeneralUtilities.AdjustRectTransformPivotToScreenQuadrant(rectTransformRefference, pivotQuadrant.screenQuadrant, pivotQuadrant.rectTransformPoint);
 
         SetCurrentGenericInventoryObjectIdentified(GUID, inventoryObjectSO);
         OnGenericInventoryObjectIdentifiedSet?.Invoke(this, new OnGenericInventoryObjectEventArgs { genericInventoryObjectIdentified = currentGenericInventoryObjectIdentified });
@@ -127,7 +130,7 @@ public class InventoryObjectHoverUIHandler : MonoBehaviour
     #region Object Subscriptions
     private void ObjectShopInventoryHoverHandler_OnObjectShopInventoryHoverEnter(object sender, ObjectShopInventoryHoverHandler.OnObjectShopInventoryHoverEventArgs e)
     {
-        HandleHoverEnter(e.objectIdentified.assignedGUID, e.objectIdentified.objectSO);
+        HandleHoverEnter(e.objectIdentified.assignedGUID, e.objectIdentified.objectSO, e.pivotQuadrant);
     }
 
     private void ObjectShopInventoryHoverHandler_OnObjectShopInventoryHoverExit(object sender, ObjectShopInventoryHoverHandler.OnObjectShopInventoryHoverEventArgs e)
@@ -144,7 +147,7 @@ public class InventoryObjectHoverUIHandler : MonoBehaviour
     #region Treat Subscriptions
     private void TreatShopInventoryHoverHandler_OnTreatShopInventoryHoverEnter(object sender, TreatShopInventoryHoverHandler.OnTreatShopInventoryHoverEventArgs e)
     {
-        HandleHoverEnter(e.treatIdentified.assignedGUID, e.treatIdentified.treatSO);
+        HandleHoverEnter(e.treatIdentified.assignedGUID, e.treatIdentified.treatSO, e.pivotQuadrant);
     }
 
     private void TreatShopInventoryHoverHandler_OnTreatShopInventoryHoverExit(object sender, TreatShopInventoryHoverHandler.OnTreatShopInventoryHoverEventArgs e)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699723a33aa6d91428cbf19ad440a0ed, type: 3}
   m_Name: TestTreatSO3
   m_EditorClassIdentifier: 
-  id: 0
+  id: 2003
   _name: TestTreat3
   objectRarity: 0
   description: 
@@ -20,3 +20,4 @@ MonoBehaviour:
   price: 35
   sellPrice: 10
   numericEmbeddedStats: []
+  recommendedCharacters: []

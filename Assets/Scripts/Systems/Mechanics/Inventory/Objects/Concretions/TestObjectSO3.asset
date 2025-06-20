@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc55077aa9fe9a04aaa8b464a478063b, type: 3}
   m_Name: TestObjectSO3
   m_EditorClassIdentifier: 
-  id: 1
+  id: 1003
   _name: TestObject3
   objectRarity: 0
   description: TestObject
@@ -23,3 +23,4 @@ MonoBehaviour:
   - numericStatType: 6
     numericStatModificationType: 1
     value: -0.3
+  recommendedCharacters: []

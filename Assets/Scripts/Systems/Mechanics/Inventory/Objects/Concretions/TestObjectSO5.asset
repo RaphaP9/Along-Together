@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc55077aa9fe9a04aaa8b464a478063b, type: 3}
   m_Name: TestObjectSO5
   m_EditorClassIdentifier: 
-  id: 1
+  id: 1005
   _name: TestObject5
   objectRarity: 0
   description: Sample Desciption AAA
@@ -26,3 +26,4 @@ MonoBehaviour:
   - numericStatType: 3
     numericStatModificationType: 0
     value: -0.5
+  recommendedCharacters: []

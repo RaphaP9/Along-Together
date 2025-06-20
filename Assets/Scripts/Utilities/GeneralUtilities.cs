@@ -254,6 +254,46 @@ public static class GeneralUtilities
     }
     #endregion
 
+    #region Rect Transforms
+    public static ScreenQuadrant GetScreenQuadrant(RectTransform rectTransform, Camera camera = null)
+    {
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(camera,rectTransform.position);
+
+        float screenWidth = Screen.width;
+        float screenHeight = Screen.height;
+
+        bool isLeft = screenPoint.x < screenWidth/2f;
+        bool isBottom = screenPoint.y < screenHeight / 2f;
+
+        if (isBottom && isLeft) return ScreenQuadrant.BottomLeft;
+        if (isBottom && !isLeft) return ScreenQuadrant.BottomRight;
+        if (!isBottom && isLeft) return ScreenQuadrant.TopLeft;
+
+        return ScreenQuadrant.TopRight;
+    }
+
+    public static void AdjustRectTransformPivotToScreenQuadrant(RectTransform rectTransform, ScreenQuadrant screenQuadrant, RectTransform pivotRectTransform)
+    {
+        switch (screenQuadrant)
+        {
+            case ScreenQuadrant.BottomLeft:
+                rectTransform.pivot = new Vector2(0, 0);
+                break;
+            case ScreenQuadrant.BottomRight:
+                rectTransform.pivot = new Vector2(1, 0);
+                break;
+            case ScreenQuadrant.TopLeft:
+                rectTransform.pivot = new Vector2(0, 1);
+                break;
+            case ScreenQuadrant.TopRight:
+                rectTransform.pivot = new Vector2(1, 1);
+                break;
+        }
+
+        rectTransform.position = pivotRectTransform.position;
+    }
+    #endregion
+
     #region LayerMasks
     public static bool CheckGameObjectInLayerMask(GameObject gameObject, LayerMask layerMask) => ((1 << gameObject.layer) & layerMask) != 0;
 

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System;
 using UnityEngine.UI;
 
-public class ObjectShopInventoryHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ObjectShopInventoryHoverHandler : UIHoverHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Components")]
     [SerializeField] private ObjectShopInventorySingleUI objectShopInventorySingleUI;
@@ -26,6 +26,7 @@ public class ObjectShopInventoryHoverHandler : MonoBehaviour, IPointerEnterHandl
     public class OnObjectShopInventoryHoverEventArgs : EventArgs
     {
         public ObjectIdentified objectIdentified;
+        public PivotQuadrant pivotQuadrant;
     }
 
     private void Awake()
@@ -46,8 +47,10 @@ public class ObjectShopInventoryHoverHandler : MonoBehaviour, IPointerEnterHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        PivotQuadrant pivotQuadrant = GetPivotQuadrantByScreenQuadrant(GeneralUtilities.GetScreenQuadrant(rectTransformRefference));
+
         isHovered = true;
-        OnObjectShopInventoryHoverEnter?.Invoke(this, new OnObjectShopInventoryHoverEventArgs { objectIdentified = objectShopInventorySingleUI.ObjectIdentified });
+        OnObjectShopInventoryHoverEnter?.Invoke(this, new OnObjectShopInventoryHoverEventArgs { objectIdentified = objectShopInventorySingleUI.ObjectIdentified, pivotQuadrant = pivotQuadrant });
     }
 
     public void OnPointerExit(PointerEventData eventData)
