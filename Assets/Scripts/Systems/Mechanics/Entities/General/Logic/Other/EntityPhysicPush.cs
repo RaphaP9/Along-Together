@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityPhysicPush : MonoBehaviour, IMovementInterruptor
+public class EntityPhysicPush : MonoBehaviour, IMovementInterruption
 {
     [Header("Comonents")]
     [SerializeField] private Rigidbody2D _rigidbody2D;
@@ -130,7 +130,7 @@ public class EntityPhysicPush : MonoBehaviour, IMovementInterruptor
         return pushDirection;
     }
 
-    public bool IsDisplacing() => IsPushing;
+    public bool IsInterruptingMovement() => IsPushing;
 
     private bool CanPush()
     {

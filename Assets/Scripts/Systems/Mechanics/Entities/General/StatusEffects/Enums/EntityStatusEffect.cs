@@ -1,6 +1,6 @@
 public enum EntityStatusEffectType 
 {
-    Slowed,
-    SlowedAttack,
-    Poisoned
+    Slow,
+    Poison,
+    Burn
 }

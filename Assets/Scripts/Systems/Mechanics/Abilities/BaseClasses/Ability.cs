@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Ability : MonoBehaviour
+public abstract class Ability : MonoBehaviour, IAbilityInterruption //Some Abilities Can interrupt other ability castings
 {
     [Header("Ability Components")]
     [SerializeField] protected AbilityIdentifier abilityIdentifier;
@@ -11,6 +11,10 @@ public abstract class Ability : MonoBehaviour
     [SerializeField] protected AbilitySlotHandler abilitySlotHandler;
     [Space]
     [SerializeField] protected PlayerHealth playerHealth;
+    [Space]
+    [SerializeField] protected List<Component> abilityInterruptionComponents;
+
+    private List<IAbilityInterruption> abilityInterruptions;
 
     public AbilityLevelHandler AbilityLevelHandler => abilityLevelHandler;
     public AbilitySO AbilitySO => abilityIdentifier.AbilitySO;
@@ -62,6 +66,11 @@ public abstract class Ability : MonoBehaviour
         abilityLevelHandler.OnAbilityLevelSet -= AbilityLevelHandler_OnAbilityLevelSet;
     }
 
+    protected virtual void Awake()
+    {
+        abilityInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IAbilityInterruption>(abilityInterruptionComponents);
+    }
+
     protected virtual void Update()
     {
         HandleUpdateLogic();
@@ -85,6 +94,10 @@ public abstract class Ability : MonoBehaviour
             OnAbilityCastDeniedMethod();
         }
     }
+
+    #region Interface Methods
+    public virtual bool IsInterruptingAbility() => false;
+    #endregion
 
     #region Abstract Methods
     protected abstract void HandleUpdateLogic();
@@ -115,10 +128,14 @@ public abstract class Ability : MonoBehaviour
         if (!playerHealth.IsAlive()) return false;
         if (AbilitySO.GetAbilityType() == AbilityType.Passive) return false; //Can not cast if only passive
 
+        foreach(IAbilityInterruption abilityInterruption in abilityInterruptions)
+        {
+            if(abilityInterruption.IsInterruptingAbility()) return false;
+        }
+
         return true;
     }
     #endregion
-
 
     #region Subscriptions
     private void PlayerAbilitySlotsVariantsHandler_OnAbilityVariantInitialized(object sender, AbilitySlotHandler.OnAbilityVariantInitializationEventArgs e)

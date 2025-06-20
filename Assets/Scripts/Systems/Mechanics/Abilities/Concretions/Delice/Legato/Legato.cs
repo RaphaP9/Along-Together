@@ -29,20 +29,13 @@ public class Legato : ActiveAbility, IDodger, IAttackInterruption
     #region Interface Methods
     public bool IsDodging() => isCurrentlyActive;
     public bool IsInterruptingAttack() => isCurrentlyActive;
+    public override bool IsInterruptingAbility() => isCurrentlyActive;
     #endregion
 
     #region Logic Methods
     protected override void HandleFixedUpdateLogic() { }
     protected override void HandleUpdateLogic() { }
     #endregion
-
-    public override bool CanCastAbility()
-    {
-        if (!base.CanCastAbility()) return false;
-        if (isCurrentlyActive) return false;
-
-        return true;
-    }
 
     protected override void OnAbilityCastMethod()
     {

@@ -16,11 +16,11 @@ public abstract class EntityMovement : MonoBehaviour
     [SerializeField, Range(1f, 100f)] protected float smoothDirectionFactor = 5f;
 
 
-    protected List<IMovementInterruptor> movementInterruptors;
+    protected List<IMovementInterruption> movementInterruptors;
 
     protected virtual void Awake()
     {
-        movementInterruptors = GeneralUtilities.TryGetGenericsFromComponents<IMovementInterruptor>(movementInterruptorComponents);
+        movementInterruptors = GeneralUtilities.TryGetGenericsFromComponents<IMovementInterruption>(movementInterruptorComponents);
     }
 
     protected float GetMovementSpeedValue() => entityMovementSpeedStatResolver.Value;
@@ -28,9 +28,9 @@ public abstract class EntityMovement : MonoBehaviour
 
     protected bool CanApplyMovement()
     {
-        foreach (IMovementInterruptor displacementAbility in movementInterruptors)
+        foreach (IMovementInterruption displacementAbility in movementInterruptors)
         {
-            if (displacementAbility.IsDisplacing()) return false;
+            if (displacementAbility.IsInterruptingMovement()) return false;
         }
 
         return true;

@@ -131,6 +131,7 @@ MonoBehaviour:
   abilityLevelHandler: {fileID: 5577424398876266477}
   abilitySlotHandler: {fileID: 4493125982467729595}
   playerHealth: {fileID: 6586126778679378193}
+  abilityInterruptionComponents: []
   cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 8397176443843121625}
   onlyOneActiveAtOnce: 0
@@ -822,6 +823,7 @@ MonoBehaviour:
   abilityLevelHandler: {fileID: 3065388374016757048}
   abilitySlotHandler: {fileID: 5969448670670345153}
   playerHealth: {fileID: 6586126778679378193}
+  abilityInterruptionComponents: []
   activeAbilityGUID: 
 --- !u!1 &2789317529658951925
 GameObject:
@@ -1177,6 +1179,7 @@ MonoBehaviour:
   abilityLevelHandler: {fileID: 5611075828277405468}
   abilitySlotHandler: {fileID: 8531194546525769567}
   playerHealth: {fileID: 6586126778679378193}
+  abilityInterruptionComponents: []
   cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 6423833680700352654}
 --- !u!114 &6423833680700352654
@@ -1868,6 +1871,8 @@ MonoBehaviour:
   abilityLevelHandler: {fileID: 2505510130114074797}
   abilitySlotHandler: {fileID: 7233062201028402588}
   playerHealth: {fileID: 6586126778679378193}
+  abilityInterruptionComponents:
+  - {fileID: 8682992959460049137}
   cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 8114758222127837120}
   pushLayerMask:
@@ -1966,6 +1971,7 @@ MonoBehaviour:
   abilityLevelHandler: {fileID: 8223277899744677149}
   abilitySlotHandler: {fileID: 8531194546525769567}
   playerHealth: {fileID: 6586126778679378193}
+  abilityInterruptionComponents: []
   cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 1263218695718187337}
   mouseDirectionHandler: {fileID: 4593777764411072900}
