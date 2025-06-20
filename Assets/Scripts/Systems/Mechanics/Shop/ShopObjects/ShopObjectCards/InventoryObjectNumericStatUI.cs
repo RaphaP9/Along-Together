@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ShopObjectCardNumericStatUI : MonoBehaviour
+public class InventoryObjectNumericStatUI : MonoBehaviour
 {
     [Header("Runtime Filled")]
     [SerializeField] private NumericEmbeddedStat numericEmbeddedStat;

@@ -103,7 +103,7 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     {
         Transform numericStatUI = Instantiate(numericStatUISample, numericStatsContainer);
 
-        ShopObjectCardNumericStatUI shopObjectCardNumericStatUI = numericStatUI.GetComponent<ShopObjectCardNumericStatUI>();
+        InventoryObjectNumericStatUI shopObjectCardNumericStatUI = numericStatUI.GetComponent<InventoryObjectNumericStatUI>();
 
         if (shopObjectCardNumericStatUI == null)
         {

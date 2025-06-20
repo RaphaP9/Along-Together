@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3716514909003891338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226895dbfb37fb844ae64d739df055a4, type: 3}
+  m_Script: {fileID: 11500000, guid: c17afb9da87dd2347ab8146182a9f314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   numericEmbeddedStat:
@@ -1236,9 +1236,9 @@ MonoBehaviour:
     value: 0
   statValueText: {fileID: 1691425822695550799}
   statNameText: {fileID: 8920004132047153537}
-  positiveColor: {r: 0.3127893, g: 0.9339623, b: 0.55421686, a: 1}
+  positiveColor: {r: 0.3137255, g: 0.93333334, b: 0.5529412, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
-  negativeColor: {r: 1, g: 0.4575472, b: 0.4575472, a: 1}
+  negativeColor: {r: 1, g: 0.45882353, b: 0.45882353, a: 1}
 --- !u!1 &3988338433351577687
 GameObject:
   m_ObjectHideFlags: 0
