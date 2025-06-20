@@ -118,7 +118,7 @@ public class TreatsInventoryManager : MonoBehaviour
         OnTreatRemovedFromInventory?.Invoke(this, new OnTreatEventArgs { treatIdentified = treatToRemove });
     }
 
-    private void RemoveTreatFromInventoryByGUID(string GUID)
+    public void RemoveTreatFromInventoryByGUID(string GUID)
     {
         TreatIdentified treatToRemove = FindTreatByGUID(GUID);
 

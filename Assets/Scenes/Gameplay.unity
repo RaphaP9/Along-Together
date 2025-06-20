@@ -20400,7 +20400,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1085287475}
+  - component: {fileID: 1085287478}
   - component: {fileID: 1085287477}
+  - component: {fileID: 1085287480}
+  - component: {fileID: 1085287479}
   m_Layer: 5
   m_Name: InventoryObjectHoverUI
   m_TagString: Untagged
@@ -20441,10 +20444,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba73507361ac9d4eae2ccb57619fa96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryObjectHoverUIButtonsHandler: {fileID: 1085287479}
   currentGenericInventoryObjectIdentified:
     assignedGUID: 
     inventoryObjectSO: {fileID: 0}
   pressedLock: 0
+--- !u!95 &1085287478
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085287474}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 77ec9b22b67b2de4080853a4f873c2b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1085287479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085287474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac388c9185f9b20488bf5374dc59b157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryObjectHoverUIHandler: {fileID: 1085287477}
+  sellButton: {fileID: 351286668}
+  backButton: {fileID: 136813913}
+--- !u!114 &1085287480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085287474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b87669ad1ea7240b6ee7cd2f996ed8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryObjectHoverUI: {fileID: 1085287477}
+  animator: {fileID: 1085287478}
 --- !u!1 &1091803582
 GameObject:
   m_ObjectHideFlags: 0
@@ -25891,7 +25945,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1382946868}
-  - component: {fileID: 1382946869}
   m_Layer: 5
   m_Name: TooltipHoverUI
   m_TagString: Untagged
@@ -25919,18 +25972,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &1382946869
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382946867}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1389995888
 GameObject:
   m_ObjectHideFlags: 0

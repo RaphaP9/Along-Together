@@ -5,15 +5,22 @@ using UnityEngine;
 
 public class InventoryObjectHoverUIHandler : MonoBehaviour
 {
+    [Header("Components")]
+    [SerializeField] private InventoryObjectHoverUIButtonsHandler inventoryObjectHoverUIButtonsHandler;
+
     [Header("Runtime Filled")]
     [SerializeField] private GenericInventoryObjectIdentified currentGenericInventoryObjectIdentified;
     [SerializeField] private bool pressedLock;
+
+    public GenericInventoryObjectIdentified CurrentGenericInventoryObjectIdentified => currentGenericInventoryObjectIdentified;
 
     public event EventHandler<OnGenericInventoryObjectEventArgs> OnGenericInventoryObjectIdentifiedSet;
 
     public event EventHandler<OnGenericInventoryObjectEventArgs> OnHoverOpening;
     public event EventHandler<OnGenericInventoryObjectEventArgs> OnHoverClosing;
+
     public event EventHandler<OnGenericInventoryObjectEventArgs> OnPressEnabling;
+    public event EventHandler<OnGenericInventoryObjectEventArgs> OnPressDisabling;
 
     public class OnGenericInventoryObjectEventArgs : EventArgs
     {
@@ -30,7 +37,8 @@ public class InventoryObjectHoverUIHandler : MonoBehaviour
         TreatShopInventoryHoverHandler.OnTreatShopInventoryHoverExit += TreatShopInventoryHoverHandler_OnTreatShopInventoryHoverExit;
         TreatShopInventoryHoverHandler.OnTreatShopInventoryPressed += TreatShopInventoryHoverHandler_OnTreatShopInventoryPressed;
 
-        //
+        inventoryObjectHoverUIButtonsHandler.OnSellButtonPressed += InventoryObjectHoverUIButtonsHandler_OnSellButtonPressed;
+        inventoryObjectHoverUIButtonsHandler.OnBackButtonPressed += InventoryObjectHoverUIButtonsHandler_OnBackButtonPressed;
     }
 
     private void OnDisable()
@@ -43,7 +51,8 @@ public class InventoryObjectHoverUIHandler : MonoBehaviour
         TreatShopInventoryHoverHandler.OnTreatShopInventoryHoverExit -= TreatShopInventoryHoverHandler_OnTreatShopInventoryHoverExit;
         TreatShopInventoryHoverHandler.OnTreatShopInventoryPressed -= TreatShopInventoryHoverHandler_OnTreatShopInventoryPressed;
 
-        //
+        inventoryObjectHoverUIButtonsHandler.OnSellButtonPressed -= InventoryObjectHoverUIButtonsHandler_OnSellButtonPressed;
+        inventoryObjectHoverUIButtonsHandler.OnBackButtonPressed -= InventoryObjectHoverUIButtonsHandler_OnBackButtonPressed;
     }
 
     private void Start()
@@ -66,7 +75,7 @@ public class InventoryObjectHoverUIHandler : MonoBehaviour
         return true;
     }
 
-    private bool HasRegisteredGenericInventoryObject()
+    public bool HasRegisteredGenericInventoryObject()
     {
         if (currentGenericInventoryObjectIdentified == null) return false;
         if (currentGenericInventoryObjectIdentified.assignedGUID == "") return false;
@@ -105,6 +114,14 @@ public class InventoryObjectHoverUIHandler : MonoBehaviour
         pressedLock = true;
         OnPressEnabling?.Invoke(this, new OnGenericInventoryObjectEventArgs {genericInventoryObjectIdentified = currentGenericInventoryObjectIdentified });
     }
+
+    private void HandlePressEnd()
+    {
+        ClearCurrentGenericInventoryObjectIdentified();
+
+        pressedLock = false;
+        OnPressDisabling?.Invoke(this, new OnGenericInventoryObjectEventArgs {genericInventoryObjectIdentified = CurrentGenericInventoryObjectIdentified });
+    }
     #endregion
 
     #region Object Subscriptions
@@ -140,5 +157,17 @@ public class InventoryObjectHoverUIHandler : MonoBehaviour
         HandlePress(e.treatIdentified.assignedGUID, e.treatIdentified.treatSO);
     }
 
+    #endregion
+
+    #region Buttons Handle Subscriptions
+    private void InventoryObjectHoverUIButtonsHandler_OnSellButtonPressed(object sender, EventArgs e)
+    {
+        HandlePressEnd();
+    }
+
+    private void InventoryObjectHoverUIButtonsHandler_OnBackButtonPressed(object sender, EventArgs e)
+    {
+        HandlePressEnd();
+    }
     #endregion
 }

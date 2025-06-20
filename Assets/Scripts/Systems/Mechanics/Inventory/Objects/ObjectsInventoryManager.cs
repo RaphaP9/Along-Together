@@ -118,7 +118,7 @@ public class ObjectsInventoryManager : MonoBehaviour
         OnObjectRemovedFromInventory?.Invoke(this, new OnObjectEventArgs { objectIdentified = objectToRemove });
     }
 
-    private void RemoveObjectFromInventoryByGUID(string GUID)
+    public void RemoveObjectFromInventoryByGUID(string GUID)
     {
         ObjectIdentified objectToRemove = FindObjectByGUID(GUID);
 
