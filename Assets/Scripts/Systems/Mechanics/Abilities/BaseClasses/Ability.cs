@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Ability : MonoBehaviour, IAbilityInterruption //Some Abilities Can interrupt other ability castings
+public abstract class Ability : MonoBehaviour, IAbilityInterruption, IAttackInterruption//Some Abilities Can interrupt other ability castings or attacks
 {
     [Header("Ability Components")]
     [SerializeField] protected AbilityIdentifier abilityIdentifier;
@@ -97,6 +97,7 @@ public abstract class Ability : MonoBehaviour, IAbilityInterruption //Some Abili
 
     #region Interface Methods
     public virtual bool IsInterruptingAbility() => false;
+    public virtual bool IsInterruptingAttack() => false;
     #endregion
 
     #region Abstract Methods

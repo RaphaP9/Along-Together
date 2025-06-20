@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class EntityMovementSpeedStatResolver : EntityFloatStatResolver
 {
-    protected override float CalculateStat() => entityIdentifier.EntitySO.baseMovementSpeed; 
+    [Header("Entity Components")]
+    [SerializeField] protected EntitySlowStatusEffectHandler entitySlowStatusEffectHandler;
+
+    protected override float CalculateStat() => entityIdentifier.EntitySO.baseMovementSpeed * (1-entitySlowStatusEffectHandler.SlowPercentageResolvedValue); 
     protected override float CalculateBaseValue() => entityIdentifier.EntitySO.baseMovementSpeed;
 }
 

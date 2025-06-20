@@ -9,20 +9,28 @@ public class PlayerMovementSpeedStatResolver : EntityMovementSpeedStatResolver
     protected virtual void OnEnable()
     {
         MovementSpeedStatResolver.OnMovementSpeedResolverUpdated += MovementSpeedStatResolver_OnMovementSpeedResolverUpdated;
+        entitySlowStatusEffectHandler.OnSlowStatusEffectValueRecauculated += EntitySlowStatusEffectHandler_OnSlowStatusEffectValueRecauculated;
     }
 
     protected virtual void OnDisable()
     {
         MovementSpeedStatResolver.OnMovementSpeedResolverUpdated -= MovementSpeedStatResolver_OnMovementSpeedResolverUpdated;
+        entitySlowStatusEffectHandler.OnSlowStatusEffectValueRecauculated -= EntitySlowStatusEffectHandler_OnSlowStatusEffectValueRecauculated;
     }
 
     protected override float CalculateStat()
     {
-        return MovementSpeedStatResolver.Instance.ResolveStatFloat(CharacterIdentifier.CharacterSO.baseMovementSpeed);
+        float resolvedValue = MovementSpeedStatResolver.Instance.ResolveStatFloat(CharacterIdentifier.CharacterSO.baseMovementSpeed) * (1 - entitySlowStatusEffectHandler.SlowPercentageResolvedValue);
+        return resolvedValue;
     }
 
     private void MovementSpeedStatResolver_OnMovementSpeedResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
     {
         RecalculateStat();
+    }
+
+    private void EntitySlowStatusEffectHandler_OnSlowStatusEffectValueRecauculated(object sender, EntitySlowStatusEffectHandler.OnSlowStatusEffectValueEventArgs e)
+    {
+        RecalculateStat(); //Leave this line to trigger OnEntityStatUpdated event (HUD values update)
     }
 }

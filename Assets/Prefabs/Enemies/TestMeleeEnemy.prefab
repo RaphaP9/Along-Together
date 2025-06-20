@@ -346,6 +346,53 @@ MonoBehaviour:
   renderingRefference: {fileID: 8487410976662839087}
   UICanvases:
   - {fileID: 2494907179216300403}
+--- !u!1 &6618769600869202621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3535007268611562509}
+  - component: {fileID: 1474584047537736009}
+  m_Layer: 7
+  m_Name: StatusEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3535007268611562509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6618769600869202621}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5719115479572525603}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1474584047537736009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6618769600869202621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1368430173010e24182da80dbc92c42e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowResistance: 0.086
+  slowStatusEffects: []
+  slowPercentageResolvedValue: 0
 --- !u!1 &7364808272163929362
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +423,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2992046016174195782}
+  - {fileID: 3535007268611562509}
   - {fileID: 5686678035536537750}
   - {fileID: 829534243774602271}
   m_Father: {fileID: 8171095813524711411}
@@ -571,6 +619,7 @@ MonoBehaviour:
   entityIdentifier: {fileID: 6224107339905634441}
   value: 0
   baseValue: 0
+  entitySlowStatusEffectHandler: {fileID: 1474584047537736009}
 --- !u!1 &8818197760844270851
 GameObject:
   m_ObjectHideFlags: 0

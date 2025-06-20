@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Legato : ActiveAbility, IDodger, IAttackInterruption
+public class Legato : ActiveAbility, IDodger 
 {
     [Header("Specific Settings")]
     [SerializeField] private LayerMask pushLayerMask;
@@ -25,10 +25,9 @@ public class Legato : ActiveAbility, IDodger, IAttackInterruption
 
     private bool isCurrentlyActive;
 
-
     #region Interface Methods
     public bool IsDodging() => isCurrentlyActive;
-    public bool IsInterruptingAttack() => isCurrentlyActive;
+    public override bool IsInterruptingAttack() => isCurrentlyActive;
     public override bool IsInterruptingAbility() => isCurrentlyActive;
     #endregion
 
