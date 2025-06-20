@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 13
   abilityName: Legato
-  sprite: {fileID: 21300000, guid: dbfce6d4d80aef64c89c8ba4e426883d, type: 3}
+  sprite: {fileID: 21300000, guid: e1e360c83bd9ca34c9eb4c6082bcc62f, type: 3}
   description: Legato
   abilityClassification: 4
   abilityInfoSO: {fileID: 11400000, guid: bbf3645d9f73db84f9e90c5a366a86c8, type: 2}

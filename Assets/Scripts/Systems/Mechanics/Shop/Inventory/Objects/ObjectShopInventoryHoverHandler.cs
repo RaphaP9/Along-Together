@@ -3,36 +3,57 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using UnityEngine.UI;
 
 public class ObjectShopInventoryHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Components")]
     [SerializeField] private ObjectShopInventorySingleUI objectShopInventorySingleUI;
+    [SerializeField] private Button button;
 
     [Header("Runtime Filled")]
     [SerializeField] private bool isHovered;
+    [SerializeField] private bool isPressed;
 
     public bool IsHovered => isHovered;
+    public bool IsPressed => isPressed;
 
     public static event EventHandler<OnObjectShopInventoryHoverEventArgs> OnObjectShopInventoryHoverEnter;
     public static event EventHandler<OnObjectShopInventoryHoverEventArgs> OnObjectShopInventoryHoverExit;
+
+    public static event EventHandler<OnObjectShopInventoryHoverEventArgs> OnObjectShopInventoryPressed;
 
     public class OnObjectShopInventoryHoverEventArgs : EventArgs
     {
         public ObjectIdentified objectIdentified;
     }
 
+    private void Awake()
+    {
+        InitializeButtonsListeners();
+    }
+
+    private void InitializeButtonsListeners()
+    {
+        button.onClick.AddListener(OnButtonPressed);
+    }
+
+    public void OnButtonPressed()
+    {
+        isPressed = true;
+        OnObjectShopInventoryPressed?.Invoke(this, new OnObjectShopInventoryHoverEventArgs { objectIdentified = objectShopInventorySingleUI.ObjectIdentified });
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovered = true;
         OnObjectShopInventoryHoverEnter?.Invoke(this, new OnObjectShopInventoryHoverEventArgs { objectIdentified = objectShopInventorySingleUI.ObjectIdentified });
-        Debug.Log("Object Hovered");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         isHovered = false;
+        isPressed = false;
         OnObjectShopInventoryHoverExit?.Invoke(this, new OnObjectShopInventoryHoverEventArgs { objectIdentified = objectShopInventorySingleUI.ObjectIdentified });
-        Debug.Log("Object Unhovered");
     }
 }
