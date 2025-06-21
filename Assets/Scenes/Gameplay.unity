@@ -6948,7 +6948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   previousState: 0
-  abilityUpgradeOnFirstStageAndRound: 1
+  tutorializedRun: 0
   startingGameTimer: 3
   roundStartingTime: 3
   roundEndingTime: 3
@@ -16322,6 +16322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneDataSaveLoader: {fileID: 716470182}
+  gameManager: {fileID: 340343002}
   generalStagesManager: {fileID: 457582225}
   goldManager: {fileID: 727390538}
   playerCharacterManager: {fileID: 1944359882}

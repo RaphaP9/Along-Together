@@ -792,7 +792,7 @@ MonoBehaviour:
     m_Bits: 4097
   projectileSpeed: 10
   projectileLifespan: 5
-  projectileDispersionAngle: 5
+  projectileDispersionAngle: 2
   staccato: {fileID: 7920790296143757481}
 --- !u!114 &4256363878830921393
 MonoBehaviour:

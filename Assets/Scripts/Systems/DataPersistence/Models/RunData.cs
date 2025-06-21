@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class RunData : DataModel
 {
+    public bool tutorializedRun;
+    [Space]
     public int currentStageNumber;
     public int currentRoundNumber;
     [Space]

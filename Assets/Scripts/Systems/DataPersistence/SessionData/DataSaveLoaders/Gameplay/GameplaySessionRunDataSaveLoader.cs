@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 {
     [Header("Data Scripts - Already On Scene")]
+    [SerializeField] private GameManager gameManager;
+    [Space]
     [SerializeField] private GeneralStagesManager generalStagesManager;
     [Space]
     [SerializeField] private GoldManager goldManager;   
@@ -35,6 +37,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
     public override void LoadRuntimeData()
     {
+        LoadTutorializedRunBoolean();
+
         LoadCurrentStageNumber();
         LoadCurrentRoundNumber();
 
@@ -80,6 +84,12 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     #endregion
 
     #region LoadMethods
+    private void LoadTutorializedRunBoolean()
+    {
+        if (gameManager == null) return;
+        gameManager.SetTutorializedRun(SessionRunDataContainer.Instance.RunData.tutorializedRun);
+    }
+
     private void LoadCurrentStageNumber()
     {
         if (generalStagesManager == null) return;
@@ -175,6 +185,11 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
     #region SaveMethods
 
+    private void SaveTutorializedRunDataContainer()
+    {
+        if (gameManager == null) return;
+        SessionRunDataContainer.Instance.SetTutorializedRunBoolean(gameManager.TutorializedRun);
+    }
     private void SaveCurrentStageNumber()
     {
         if (generalStagesManager == null) return;
