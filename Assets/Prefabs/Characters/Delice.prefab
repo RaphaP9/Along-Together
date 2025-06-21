@@ -1,5 +1,105 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &327659462094011716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8593492536507121332}
+  - component: {fileID: 6063287776894061161}
+  - component: {fileID: 7765195211558829070}
+  - component: {fileID: 7920790296143757481}
+  - component: {fileID: 4074279293245445000}
+  m_Layer: 6
+  m_Name: Staccato
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8593492536507121332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327659462094011716}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3196710238795072990}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6063287776894061161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327659462094011716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364b8fe6fceea954881abe998a687f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySO: {fileID: 11400000, guid: d349475ca93ed7d4a8c5a5b849b5e1ae, type: 2}
+--- !u!114 &7765195211558829070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327659462094011716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1165cdfce28c73c4296259040587a264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityIdentifier: {fileID: 6063287776894061161}
+  maxLevel: 3
+  startingAbilityLevel: 0
+  abilityLevel: 0
+--- !u!114 &7920790296143757481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327659462094011716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7492a01043e7247837dd23dd0a5269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityIdentifier: {fileID: 6063287776894061161}
+  abilityLevelHandler: {fileID: 7765195211558829070}
+  abilitySlotHandler: {fileID: 8531194546525769567}
+  playerHealth: {fileID: 6586126778679378193}
+  abilityInterruptionComponents:
+  - {fileID: 7920790296143757481}
+  - {fileID: 2412851267031932804}
+  - {fileID: 8682992959460049137}
+  cooldownReductionStatResolver: {fileID: 3287368004166176090}
+  abilityCooldownHandler: {fileID: 4074279293245445000}
+  activeAbilityGUID: 
+--- !u!114 &4074279293245445000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327659462094011716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176c42760e5211c4ca39601426df9ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTimer: 0
 --- !u!1 &372993678682867215
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +727,7 @@ MonoBehaviour:
   entityArmorStatResolver: {fileID: 1745675015781674559}
   entityDodgeChanceStatResolver: {fileID: 8309975983145625986}
   dodgerComponents:
-  - {fileID: 7573232495966570463}
+  - {fileID: 0}
   - {fileID: 8682992959460049137}
   immunerComponents: []
   invulnerableTimeAfterTakingDamage: 1.5
@@ -649,7 +749,7 @@ MonoBehaviour:
   entityMovementSpeedStatResolver: {fileID: 5930587708578372876}
   movementInterruptorComponents:
   - {fileID: 8470285721755601184}
-  - {fileID: 7573232495966570463}
+  - {fileID: 0}
   smoothVelocityFactor: 100
   smoothDirectionFactor: 100
   movementEnabled: 1
@@ -677,7 +777,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   attackInterruptionComponents:
-  - {fileID: 7573232495966570463}
+  - {fileID: 7920790296143757481}
   - {fileID: 2412851267031932804}
   - {fileID: 8682992959460049137}
   debug: 1
@@ -987,6 +1087,7 @@ MonoBehaviour:
   abilitySlotHandler: {fileID: 4493125982467729595}
   playerHealth: {fileID: 6586126778679378193}
   abilityInterruptionComponents:
+  - {fileID: 7920790296143757481}
   - {fileID: 2412851267031932804}
   - {fileID: 8682992959460049137}
   cooldownReductionStatResolver: {fileID: 3287368004166176090}
@@ -1204,102 +1305,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &4330250828371384196
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7380819930257380479}
-  - component: {fileID: 5328163113391621430}
-  - component: {fileID: 5611075828277405468}
-  - component: {fileID: 1280386860473701626}
-  - component: {fileID: 6423833680700352654}
-  m_Layer: 6
-  m_Name: ActiveAbilityMock
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7380819930257380479
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330250828371384196}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3196710238795072990}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5328163113391621430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330250828371384196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 364b8fe6fceea954881abe998a687f09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilitySO: {fileID: 11400000, guid: 9267755db900af943ad68566a86d6198, type: 2}
---- !u!114 &5611075828277405468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330250828371384196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1165cdfce28c73c4296259040587a264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityIdentifier: {fileID: 5328163113391621430}
-  maxLevel: 3
-  startingAbilityLevel: 0
-  abilityLevel: 0
---- !u!114 &1280386860473701626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330250828371384196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abf03ba5761832449920c39d3b7aa345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityIdentifier: {fileID: 5328163113391621430}
-  abilityLevelHandler: {fileID: 5611075828277405468}
-  abilitySlotHandler: {fileID: 8531194546525769567}
-  playerHealth: {fileID: 6586126778679378193}
-  abilityInterruptionComponents: []
-  cooldownReductionStatResolver: {fileID: 3287368004166176090}
-  abilityCooldownHandler: {fileID: 6423833680700352654}
---- !u!114 &6423833680700352654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330250828371384196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 176c42760e5211c4ca39601426df9ee0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownTimer: 0
 --- !u!1 &4386130886447601218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,7 +1528,7 @@ MonoBehaviour:
   entityHealth: {fileID: 6586126778679378193}
   spriteRenderer: {fileID: 5668402913487765036}
   attackInterruptionComponents:
-  - {fileID: 7573232495966570463}
+  - {fileID: 7920790296143757481}
   - {fileID: 2412851267031932804}
   - {fileID: 8682992959460049137}
   playerStateHandler: {fileID: 2527459363889109172}
@@ -1896,7 +1901,7 @@ MonoBehaviour:
   entityHealth: {fileID: 6586126778679378193}
   directionerHandlerComponent: {fileID: 2977175279305093656}
   facingInterruptionComponents:
-  - {fileID: 7573232495966570463}
+  - {fileID: 0}
   facingType: 1
   startingFacingDirection: {x: 1, y: 0}
   minimumRigidbodyVelocity: 1
@@ -1958,8 +1963,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3296231075715405042}
-  - {fileID: 7380819930257380479}
+  - {fileID: 8593492536507121332}
   m_Father: {fileID: 5386565058599454864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8531194546525769567
@@ -1976,9 +1980,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilitySlot: 2
   abilityVariants:
-  - {fileID: 7573232495966570463}
-  - {fileID: 1280386860473701626}
-  startingAbilityVariant: {fileID: 7573232495966570463}
+  - {fileID: 7920790296143757481}
+  startingAbilityVariant: {fileID: 7920790296143757481}
   activeAbilityVariant: {fileID: 0}
   debug: 1
 --- !u!1 &7154511969678053975
@@ -2062,6 +2065,7 @@ MonoBehaviour:
   abilitySlotHandler: {fileID: 7233062201028402588}
   playerHealth: {fileID: 6586126778679378193}
   abilityInterruptionComponents:
+  - {fileID: 7920790296143757481}
   - {fileID: 2412851267031932804}
   - {fileID: 8682992959460049137}
   cooldownReductionStatResolver: {fileID: 3287368004166176090}
@@ -2076,107 +2080,6 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7154511969678053975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 176c42760e5211c4ca39601426df9ee0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownTimer: 0
---- !u!1 &7279207625108799617
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3296231075715405042}
-  - component: {fileID: 1897673595700632218}
-  - component: {fileID: 8223277899744677149}
-  - component: {fileID: 7573232495966570463}
-  - component: {fileID: 1263218695718187337}
-  m_Layer: 6
-  m_Name: BasicDash
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3296231075715405042
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7279207625108799617}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3196710238795072990}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1897673595700632218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7279207625108799617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 364b8fe6fceea954881abe998a687f09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilitySO: {fileID: 11400000, guid: 0689710761c5add46b325ddca21e2d61, type: 2}
---- !u!114 &8223277899744677149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7279207625108799617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1165cdfce28c73c4296259040587a264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityIdentifier: {fileID: 1897673595700632218}
-  maxLevel: 3
-  startingAbilityLevel: 0
-  abilityLevel: 0
---- !u!114 &7573232495966570463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7279207625108799617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ede1ee0cc33f1e43887a114a4fbd563, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityIdentifier: {fileID: 1897673595700632218}
-  abilityLevelHandler: {fileID: 8223277899744677149}
-  abilitySlotHandler: {fileID: 8531194546525769567}
-  playerHealth: {fileID: 6586126778679378193}
-  abilityInterruptionComponents: []
-  cooldownReductionStatResolver: {fileID: 3287368004166176090}
-  abilityCooldownHandler: {fileID: 1263218695718187337}
-  mouseDirectionHandler: {fileID: 4593777764411072900}
-  movementDirectionHandler: {fileID: 4053781653671632281}
-  _rigidbody2D: {fileID: 3125651546402793068}
-  directionMode: 1
-  currentDashDirection: {x: 0, y: 0}
---- !u!114 &1263218695718187337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7279207625108799617}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 176c42760e5211c4ca39601426df9ee0, type: 3}
@@ -2252,10 +2155,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityLevelHandlers:
   - {fileID: 3065388374016757048}
+  - {fileID: 7765195211558829070}
   - {fileID: 2510777538800599704}
   - {fileID: 2505510130114074797}
-  - {fileID: 8223277899744677149}
-  - {fileID: 5611075828277405468}
   debug: 1
 --- !u!114 &7071924974927239523
 MonoBehaviour:
@@ -2356,7 +2258,6 @@ MonoBehaviour:
   facingDirectionHandler: {fileID: 4295945866100084352}
   playerHealth: {fileID: 6586126778679378193}
   playerMovement: {fileID: 4661234364419359008}
-  basicDash: {fileID: 7573232495966570463}
 --- !u!114 &3840282726937612099
 MonoBehaviour:
   m_ObjectHideFlags: 0
