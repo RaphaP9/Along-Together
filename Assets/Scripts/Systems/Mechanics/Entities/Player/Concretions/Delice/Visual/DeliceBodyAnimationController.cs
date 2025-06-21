@@ -31,14 +31,19 @@ public class DeliceBodyAnimationController : CharacterBodyAnimationController
         legato.OnLegatoCompleted += Legato_OnLegatoCompleted;
     }
 
-
-
-
-
-
     protected override void OnDisable()
     {
         base.OnDisable();
+        staccato.OnStaccatoPerformanceStart -= Staccato_OnStaccatoPerformanceStart;
+        staccato.OnStaccatoPerformanceEnd -= Staccato_OnStaccatoPerformanceEnd;
+
+        ritardando.OnRitardandoPerformanceStart -= Ritardando_OnRitardandoPerformanceStart;
+        ritardando.OnRitardandoPerformanceEnd -= Ritardando_OnRitardandoPerformanceEnd;
+
+        legato.OnLegatoStarting -= Legato_OnLegatoStarting;
+        legato.OnLegatoStart -= Legato_OnLegatoStart;
+        legato.OnLegatoEnding -= Legato_OnLegatoEnding;
+        legato.OnLegatoCompleted -= Legato_OnLegatoCompleted;
     }
 
     #region Subscriptions
