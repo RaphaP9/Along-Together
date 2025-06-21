@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerDistanceCoveredManager : MonoBehaviour
 {
+    public static PlayerDistanceCoveredManager Instance {  get; private set; }
+
     [Header("Runtime Filled")]
     [SerializeField] private float playerDistanceCovered;
     [SerializeField] private PlayerMovement playerMovement;
@@ -20,9 +22,26 @@ public class PlayerDistanceCoveredManager : MonoBehaviour
         PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
     }
 
+    private void Awake()
+    {
+        SetSingleton();
+    }
+
     private void Update()
     {
         HandleDistanceCoveredUpdate();
+    }
+
+    private void SetSingleton()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void HandleDistanceCoveredUpdate()

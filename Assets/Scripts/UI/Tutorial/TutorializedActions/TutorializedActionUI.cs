@@ -9,8 +9,8 @@ public abstract class TutorializedActionUI : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [Header("Settings")]
-    [SerializeField] private float openTime;
-    [SerializeField] private float closeTime;
+    [SerializeField, Range (0f,2f)] private float openTime;
+    [SerializeField, Range(0f, 2f)] private float closeTime;
 
     private const string SHOW_TRIGGER = "Show";
     private const string HIDE_TRIGGER = "Hide";
@@ -19,6 +19,7 @@ public abstract class TutorializedActionUI : MonoBehaviour
     public static event EventHandler<OnTutorializedActionEventArgs> OnTutorializedActionUIClose;
 
     protected bool isActive = false;
+    protected bool tutorialConditionMet = false;
 
     public class OnTutorializedActionEventArgs : EventArgs
     {
@@ -35,6 +36,23 @@ public abstract class TutorializedActionUI : MonoBehaviour
         TutorialOpeningManager.OnTutorializedActionOpen -= TutorialOpeningManager_OnTutorializedActionOpen;
     }
 
+    private void Update()
+    {
+        HandleUpdateConditionMeeting();
+    }
+
+    private void HandleUpdateConditionMeeting() //Some TutorializedActions Should Be Checked In Update (Ex. Distance Covered) if not, only override CheckCondition() to false
+    {
+        if (tutorialConditionMet) return;
+        if (!CheckCondition()) return;
+
+        CloseTutorializedAction();
+
+        tutorialConditionMet = true;
+    }
+
+    #region Animations
+
     private void ShowUI()
     {
         animator.ResetTrigger(HIDE_TRIGGER);
@@ -46,7 +64,9 @@ public abstract class TutorializedActionUI : MonoBehaviour
         animator.ResetTrigger(SHOW_TRIGGER);
         animator.SetTrigger(HIDE_TRIGGER);
     }
+    #endregion
 
+    #region Open & Close Logic
     protected void OpenTutorializedAction()
     {
         StartCoroutine(OpenTutorializedActionCoroutine());
@@ -76,8 +96,12 @@ public abstract class TutorializedActionUI : MonoBehaviour
 
         isActive = false;
     }
+    #endregion
 
+    #region Abstract Methods
     public abstract TutorializedAction GetTutorializedAction();
+    protected abstract bool CheckCondition();
+    #endregion
 
     private void TutorialOpeningManager_OnTutorializedActionOpen(object sender, TutorialOpeningManager.OnTutorializedActionEventArgs e)
     {

@@ -321,8 +321,7 @@ public class GameManager : MonoBehaviour
 
             if (GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //If round 1-1
             {
-                //Open Tutorial Panel For Movement (wait for condition)
-                Debug.Log("MovementTurotialPanel");
+                yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.Movement));
 
                 //Open Tutorial Panel For Attack (wait for condition)
                 Debug.Log("AttackTutorial Panel");
@@ -441,7 +440,7 @@ public class GameManager : MonoBehaviour
         #endregion
     }
 
-    private IEnumerator OpenTutorializedAction(TutorializedAction tutorializedAction)
+    private IEnumerator TutorializedActionCoroutine(TutorializedAction tutorializedAction)
     {
         ChangeState(State.Tutorial);
 

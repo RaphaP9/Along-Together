@@ -19546,7 +19546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6358c05232f78ca4d9e5777ee52109f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentOpenTutorializedAction: 0
+  currentActiveTutorializedActionUI: {fileID: 0}
 --- !u!1 &1025603778
 GameObject:
   m_ObjectHideFlags: 0
@@ -26355,6 +26355,7 @@ GameObject:
   - component: {fileID: 1384869643}
   - component: {fileID: 1384869644}
   - component: {fileID: 1384869645}
+  - component: {fileID: 1384869646}
   m_Layer: 5
   m_Name: MovementTutorializedAction
   m_TagString: Untagged
@@ -26390,7 +26391,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384869642}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -26404,7 +26405,7 @@ Animator:
   m_GameObject: {fileID: 1384869642}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b80d868a7d067284784eb157bf0458eb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -26415,6 +26416,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1384869646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384869642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a856edc4b41214ca1f95fe22ede309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1384869645}
+  openTime: 0.5
+  closeTime: 0.5
+  distanceCoveredToMetTutorializationCondition: 20
 --- !u!1 &1389995888
 GameObject:
   m_ObjectHideFlags: 0
@@ -31081,7 +31098,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 99, y: 0}
+  m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1683267731

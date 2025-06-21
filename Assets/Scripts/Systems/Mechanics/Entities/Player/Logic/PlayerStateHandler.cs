@@ -206,6 +206,7 @@ public class PlayerStateHandler : MonoBehaviour
             case GameManager.State.BeginningCombat:
             case GameManager.State.EndingCombat:
             case GameManager.State.Combat:
+            case GameManager.State.Tutorial:
                 SetPlayerState(PlayerState.Combat);
                 break;
             case GameManager.State.Shop:
