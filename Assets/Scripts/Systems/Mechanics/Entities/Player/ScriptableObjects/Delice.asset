@@ -23,7 +23,7 @@ MonoBehaviour:
   baseArmor: 0
   baseDodgeChance: 0
   baseAttackDamage: 4
-  baseAttackSpeed: 3
+  baseAttackSpeed: 2
   baseAttackCritChance: 0
   baseAttackCritDamageMultiplier: 1.5
   baseLifesteal: 0

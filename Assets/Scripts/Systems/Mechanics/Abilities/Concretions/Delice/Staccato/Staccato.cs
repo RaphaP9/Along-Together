@@ -91,4 +91,6 @@ public class Staccato : ActiveAbility
 
     private void SetAbilityGUID(string GUID) => activeAbilityGUID = GUID;
     private void ClearAbilityGUID() => activeAbilityGUID = "";
+
+    public float GetBurstInterval() => StaccatoSO.burstInterval;
 }

@@ -727,7 +727,6 @@ MonoBehaviour:
   entityArmorStatResolver: {fileID: 1745675015781674559}
   entityDodgeChanceStatResolver: {fileID: 8309975983145625986}
   dodgerComponents:
-  - {fileID: 0}
   - {fileID: 8682992959460049137}
   immunerComponents: []
   invulnerableTimeAfterTakingDamage: 1.5
@@ -749,7 +748,6 @@ MonoBehaviour:
   entityMovementSpeedStatResolver: {fileID: 5930587708578372876}
   movementInterruptorComponents:
   - {fileID: 8470285721755601184}
-  - {fileID: 0}
   smoothVelocityFactor: 100
   smoothDirectionFactor: 100
   movementEnabled: 1
@@ -794,6 +792,7 @@ MonoBehaviour:
   projectileSpeed: 10
   projectileLifespan: 5
   projectileDispersionAngle: 5
+  staccato: {fileID: 7920790296143757481}
 --- !u!114 &4256363878830921393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1900,8 +1899,7 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 3125651546402793068}
   entityHealth: {fileID: 6586126778679378193}
   directionerHandlerComponent: {fileID: 2977175279305093656}
-  facingInterruptionComponents:
-  - {fileID: 0}
+  facingInterruptionComponents: []
   facingType: 1
   startingFacingDirection: {x: 1, y: 0}
   minimumRigidbodyVelocity: 1

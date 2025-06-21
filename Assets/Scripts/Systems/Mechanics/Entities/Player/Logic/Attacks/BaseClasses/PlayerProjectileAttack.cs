@@ -32,6 +32,11 @@ public class PlayerProjectileAttack : PlayerAttack
 
     protected override void Attack()
     {
+        ShootProjectile(projectilePrefab);
+    }
+
+    protected void ShootProjectile(Transform projectilePrefab)
+    {
         bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value);
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(entityAttackDamageStatResolver.Value, entityAttackCritDamageMultiplierStatResolver.Value) : entityAttackDamageStatResolver.Value;
 
