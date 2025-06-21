@@ -18,6 +18,8 @@ public class CharacterBodyAnimationController : MonoBehaviour
     protected const string MOVEMENT_BLEND_TREE_NAME = "MovementBlendTree";
     protected const string DEATH_ANIMATION_NAME = "Death";
 
+    protected bool isDead = false;
+
     protected virtual void OnEnable()
     {
         playerHealth.OnPlayerDeath += PlayerHealth_OnPlayerDeath;
@@ -45,12 +47,18 @@ public class CharacterBodyAnimationController : MonoBehaviour
         animator.SetFloat(FACE_Y_FLOAT, facingDirectionHandler.CurrentFacingDirection.y);
     }
 
-    protected void PlayAnimation(string animationName) => animator.Play(animationName);
+    protected void PlayAnimation(string animationName, bool playEvenAfterDeath = false)
+    {
+        if (isDead && !playEvenAfterDeath) return;
+
+        animator.Play(animationName);
+    }
 
     #region Subscriptions
     private void PlayerHealth_OnPlayerDeath(object sender, System.EventArgs e)
     {
         PlayAnimation(DEATH_ANIMATION_NAME);
+        isDead = true;
     }
     #endregion
 }

@@ -2259,6 +2259,9 @@ MonoBehaviour:
   facingDirectionHandler: {fileID: 4295945866100084352}
   playerHealth: {fileID: 6586126778679378193}
   playerMovement: {fileID: 4661234364419359008}
+  staccato: {fileID: 7920790296143757481}
+  ritardando: {fileID: 2412851267031932804}
+  legato: {fileID: 8682992959460049137}
 --- !u!114 &3840282726937612099
 MonoBehaviour:
   m_ObjectHideFlags: 0
