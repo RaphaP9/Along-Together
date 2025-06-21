@@ -362,6 +362,14 @@ public class GeneralStagesManager : MonoBehaviour
 
     #region Public Methods
 
+    public bool CurrentStageAndRoundAreValues(int stageNumber, int roundNumber)
+    {
+        if(currentStageNumber != stageNumber) return false;
+        if(currentRoundNumber != roundNumber) return false;
+
+        return true;
+    }
+
     public bool CurrentStageAndRoundAreFirsts() => StageAndRoundNumberAreFirsts(currentStageGroup, currentRoundGroup);
     public bool CurrentRoundIsFirstFromCurrentStage() => IsFirstRoundGroupFromStageGroup(currentStageGroup, currentRoundGroup);
     public bool LastCompletedStageAndRoundNumberAreLasts() => StageAndRoundNumberAreLasts(lastCompletedStageGroup, lastCompletedRoundGroup);
