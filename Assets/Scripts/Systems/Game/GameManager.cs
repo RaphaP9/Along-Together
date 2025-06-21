@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public static event EventHandler OnTriggerDataSave;
 
     //Monologue is considered non GameState intrusive, can happen on combat,etc
-    public enum State {StartingGame, BeginningCombat, Combat, EndingCombat, Shop, Upgrade, BeginningChangingStage, EndingChangingStage, Cinematic, Dialogue, Lose, Win, Tutorial} 
+    public enum State {StartingGame, BeginningCombat, Combat, EndingCombat, Shop, Upgrade, BeginningChangingStage, EndingChangingStage, Cinematic, Dialogue, Lose, Win, TutorialRestricted, TutorialFree} 
 
     public State GameState => state;
     public bool TutorializedRun => tutorializedRun;
