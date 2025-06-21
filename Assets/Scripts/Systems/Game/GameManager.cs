@@ -11,9 +11,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private State state;
     [SerializeField] private State previousState;
 
-    [Header("Settings - Tutorial")]
-    [SerializeField] private bool tutorializedRun;
-
     [Header("Settings - Timers")]
     [SerializeField, Range(2f, 5f)] private float startingGameTimer;
     [Space]
@@ -25,13 +22,19 @@ public class GameManager : MonoBehaviour
     [Space]
     [SerializeField, Range(0f, 2f)] private float dialogueInterval;
 
+    [Header("Settings - Tutorial")]
+    [SerializeField] private bool tutorializedRun;
+
+    [Header("Settings - Timers - Tutorial")]
+    [SerializeField, Range(0f, 2f)] private float tutorializedActionInterval;
+
     [Header("Debug")]
     [SerializeField] private bool ignoreGameFlow;
 
     public static event EventHandler OnTriggerDataSave;
 
     //Monologue is considered non GameState intrusive, can happen on combat,etc
-    public enum State {StartingGame, BeginningCombat, Combat, EndingCombat, Shop, Upgrade, BeginningChangingStage, EndingChangingStage, Cinematic, Dialogue, Lose, Win, TutorialRestricted, TutorialFree} 
+    public enum State {StartingGame, BeginningCombat, Combat, EndingCombat, Shop, Upgrade, BeginningChangingStage, EndingChangingStage, Cinematic, Dialogue, Lose, Win, Tutorial} 
 
     public State GameState => state;
     public bool TutorializedRun => tutorializedRun;
@@ -48,7 +51,7 @@ public class GameManager : MonoBehaviour
     private bool shopClosed = false;
     private bool abilityUpgradeClosed = false;
     private bool roundEnded = false;
-    private bool tutorialClosed = false;
+    private bool tutorializedActionClosed = false;
     //private bool cinematicConcluded = false;
     #endregion
 
@@ -76,6 +79,10 @@ public class GameManager : MonoBehaviour
         DialogueManager.OnGeneralDialogueConcluded += DialogueManager_OnGeneralDialogueConcluded;
 
         PlayerHealth.OnAnyPlayerDeath += PlayerHealth_OnAnyPlayerDeath;
+
+        ////////
+
+        TutorialOpeningManager.OnTutorializedActionClosed += TutorialOpeningManager_OnTutorializedActionClose;
     }
 
     private void OnDisable()
@@ -91,6 +98,10 @@ public class GameManager : MonoBehaviour
         DialogueManager.OnGeneralDialogueConcluded -= DialogueManager_OnGeneralDialogueConcluded;
 
         PlayerHealth.OnAnyPlayerDeath -= PlayerHealth_OnAnyPlayerDeath;
+
+        ////////
+
+        TutorialOpeningManager.OnTutorializedActionClosed -= TutorialOpeningManager_OnTutorializedActionClose;
     }
 
     private void Awake()
@@ -267,7 +278,7 @@ public class GameManager : MonoBehaviour
             #endregion
 
             #region Shop/AbilityUpgrade Logic
-            if ((GeneralStagesManager.Instance.CurrentRoundIsFirstFromCurrentStage() && !GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) || GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1,2)) //Skip AbilityUpgrade if First Stage&Round, Open it on Round 1-2
+            if (GeneralStagesManager.Instance.CurrentRoundIsFirstFromCurrentStage() && !GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //Skip AbilityUpgrade if First Stage&Round
             {
                 #region AbilityUpgrade Logic
                 if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) //Only Open AbilityUpgradeUI if can upgrade an ability
@@ -280,11 +291,48 @@ public class GameManager : MonoBehaviour
                 }
                 #endregion
             }
+            else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 2)) //Open it on Round 1-2 with respective tutorial Panel
+            {
+                //Open AbilityUpgradeTutorialPanel (dont wait for condition)
+                Debug.Log("AbilityUpgradeTutorialPanel");
+                #region AbilityUpgrade Logic
+                if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) //Only Open AbilityUpgradeUI if can upgrade an ability
+                {
+                    yield return StartCoroutine(AbilityUpgradeCoroutine());
+                }
+                else
+                {
+                    yield return StartCoroutine(ShopCoroutine());
+                }
+                #endregion
+            }
+            else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //Open shop on stage 1-3 with respective tutorial Panel
+            {
+                //Open ShopTutorialPanel (dont wait for condition)
+                Debug.Log("ShopTutorialPanel");
+                yield return StartCoroutine(ShopCoroutine());
+            }
             else if (!GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //Skip Shop if First Stage&Round
             {
                 yield return StartCoroutine(ShopCoroutine());
             }
             #endregion
+
+
+            if (GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //If round 1-1
+            {
+                //Open Tutorial Panel For Movement (wait for condition)
+                Debug.Log("MovementTurotialPanel");
+
+                //Open Tutorial Panel For Attack (wait for condition)
+                Debug.Log("AttackTutorial Panel");
+            }
+
+            if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1,2)) //if round 1-2
+            {
+                //Open Tutorial Panel for Ability Casting(wait for condition)
+                Debug.Log("Ability Casting Panel");
+            }
 
             #region CompleteCombat Logic
             yield return StartCoroutine(CompleteCombatCoroutine());
@@ -322,7 +370,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    #region UtilityCoroutines
+    #region Utility Coroutines
     private IEnumerator AbilityUpgradeCoroutine()
     {
         ChangeState(State.Upgrade);
@@ -355,10 +403,12 @@ public class GameManager : MonoBehaviour
         ChangeState(State.Dialogue);
 
         yield return new WaitForSeconds(dialogueInterval);
+
         dialogueConcluded = false;
         DialogueTriggerHandler.Instance.PlayDialogueWithConditions(characterSO, stageNumber, roundNumber, dialogueChronology);
         yield return new WaitUntil(() => dialogueConcluded);
         dialogueConcluded = false;
+
         yield return new WaitForSeconds(dialogueInterval);
     }
 
@@ -389,6 +439,20 @@ public class GameManager : MonoBehaviour
         ChangeState(State.EndingCombat);
         yield return new WaitForSeconds(roundEndingTime);
         #endregion
+    }
+
+    private IEnumerator OpenTutorializedAction(TutorializedAction tutorializedAction)
+    {
+        ChangeState(State.Tutorial);
+
+        yield return new WaitForSeconds(tutorializedActionInterval);
+
+        tutorializedActionClosed = false;
+        TutorialOpeningManager.Instance.OpenTutorializedAction(tutorializedAction);
+        yield return new WaitUntil(() => tutorializedActionClosed);
+        tutorializedActionClosed = false;
+
+        yield return new WaitForSeconds(tutorializedActionInterval);
     }
     #endregion
 
@@ -444,6 +508,13 @@ public class GameManager : MonoBehaviour
     private void PlayerHealth_OnAnyPlayerDeath(object sender, EntityHealth.OnEntityDeathEventArgs e)
     {
         LoseGame();
+    }
+
+    //////
+
+    private void TutorialOpeningManager_OnTutorializedActionClose(object sender, TutorialOpeningManager.OnTutorializedActionEventArgs e)
+    {
+        tutorializedActionClosed = true;
     }
     #endregion
 }

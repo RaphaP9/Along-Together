@@ -70,8 +70,6 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
         OnAnyLegatoStarting?.Invoke(this, EventArgs.Empty);
         OnLegatoStarting?.Invoke(this, EventArgs.Empty);
 
-        Debug.Log("LegatoStarting");
-
         isStarting = true;
 
         yield return new WaitForSeconds(LegatoSO.flyStartDuration);
@@ -81,8 +79,6 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
         OnAnyLegatoStart?.Invoke(this, EventArgs.Empty);
         OnLegatoStart?.Invoke(this, EventArgs.Empty);
 
-        Debug.Log("LegatoStart");
-
         while (LegatoTimer < GetDuration())
         {
             LegatoTimer += Time.deltaTime;
@@ -91,8 +87,6 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
 
         OnAnyLegatoEnding?.Invoke(this, EventArgs.Empty);
         OnLegatoEnding?.Invoke(this, EventArgs.Empty);
-
-        Debug.Log("LegatoEnding");
 
         isEnding = true;
 
@@ -105,8 +99,6 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
 
         OnAnyLegatoCompleted?.Invoke(this, EventArgs.Empty);
         OnLegatoCompleted?.Invoke(this, EventArgs.Empty);
-
-        Debug.Log("LegatoCompleted");
     }
 
     private float GetDuration() //Maybe duration is not exactly FlyDuration (Longer duration due to Ability Level,etc)
