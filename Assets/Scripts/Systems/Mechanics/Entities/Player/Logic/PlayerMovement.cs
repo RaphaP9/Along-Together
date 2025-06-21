@@ -22,7 +22,6 @@ public class PlayerMovement : EntityMovement
 
     public Vector2 SmoothDirectionInput { get; private set; }
     public Vector2 FinalMoveValue { get; private set; }
-
     public Vector2 ScaledMovementVector { get; private set; }
     public bool MovementEnabled => movementEnabled;
     #endregion

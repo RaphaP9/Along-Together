@@ -15,8 +15,8 @@ public abstract class EntityMovement : MonoBehaviour
     [SerializeField, Range(1f, 100f)] protected float smoothVelocityFactor = 5f;
     [SerializeField, Range(1f, 100f)] protected float smoothDirectionFactor = 5f;
 
-
     protected List<IMovementInterruption> movementInterruptors;
+    public float DistanceCovered { get; private set; } = 0f;
 
     protected virtual void Awake()
     {
@@ -26,6 +26,7 @@ public abstract class EntityMovement : MonoBehaviour
     protected virtual void Update()
     {
         HandleMovementStopByInterruptors();
+        HandleDistanceCovered();
     }
 
     protected float GetMovementSpeedValue() => entityMovementSpeedStatResolver.Value;
@@ -48,5 +49,10 @@ public abstract class EntityMovement : MonoBehaviour
         {
             if (movementInterruptor.IsInterruptingMovement() && movementInterruptor.StopMovementOnInterruption()) Stop();     
         }
+    }
+
+    protected void HandleDistanceCovered()
+    {
+        DistanceCovered += _rigidbody2D.velocity.magnitude * Time.deltaTime;
     }
 }

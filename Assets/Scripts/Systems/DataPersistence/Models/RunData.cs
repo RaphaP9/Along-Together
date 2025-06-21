@@ -29,6 +29,8 @@ public class RunData : DataModel
 
     public RunData()
     {
+        tutorializedRun = false;
+
         currentStageNumber = 1;
         currentRoundNumber = 1;
 
