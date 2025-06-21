@@ -12,7 +12,7 @@ public class EnemyMovement : EntityMovement
     public void MoveTowardsPlayerPosition() => MoveTowardsPosition(playerRelativeHandler.PlayerPosition);
     public void StopOnCurrentPosition() => Stop();
 
-    protected void Stop()
+    public override void Stop()
     {
         _rigidbody2D.velocity = Vector2.zero;
     }

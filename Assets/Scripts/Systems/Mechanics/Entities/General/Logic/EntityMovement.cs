@@ -23,8 +23,14 @@ public abstract class EntityMovement : MonoBehaviour
         movementInterruptors = GeneralUtilities.TryGetGenericsFromComponents<IMovementInterruption>(movementInterruptorComponents);
     }
 
+    protected virtual void Update()
+    {
+        HandleMovementStopByInterruptors();
+    }
+
     protected float GetMovementSpeedValue() => entityMovementSpeedStatResolver.Value;
     public float GetCurrentSpeed() => _rigidbody2D.velocity.magnitude;
+    public abstract void Stop();
 
     protected bool CanApplyMovement()
     {
@@ -34,5 +40,13 @@ public abstract class EntityMovement : MonoBehaviour
         }
 
         return true;
+    }
+
+    protected void HandleMovementStopByInterruptors()
+    {
+        foreach (IMovementInterruption movementInterruptor in movementInterruptors)
+        {
+            if (movementInterruptor.IsInterruptingMovement() && movementInterruptor.StopMovementOnInterruption()) Stop();     
+        }
     }
 }

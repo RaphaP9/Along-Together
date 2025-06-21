@@ -131,6 +131,7 @@ public class EntityPhysicPush : MonoBehaviour, IMovementInterruption
     }
 
     public bool IsInterruptingMovement() => IsPushing;
+    public bool StopMovementOnInterruption() => false;  
 
     private bool CanPush()
     {

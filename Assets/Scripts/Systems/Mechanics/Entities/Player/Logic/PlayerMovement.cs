@@ -27,7 +27,6 @@ public class PlayerMovement : EntityMovement
     public bool MovementEnabled => movementEnabled;
     #endregion
 
-
     #region Logic
     public void HandleMovement() //Called By PlayerStateHandler
     {
@@ -49,7 +48,7 @@ public class PlayerMovement : EntityMovement
         _rigidbody2D.velocity = new Vector2(ScaledMovementVector.x, ScaledMovementVector.y);
     }
 
-    public void Stop() //Called By PlayerStateHandler
+    public override void Stop() //Called By PlayerStateHandler
     {
         FinalMoveValue = Vector2.zero;
         _rigidbody2D.velocity = Vector2.zero;

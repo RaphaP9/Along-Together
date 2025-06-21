@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IMovementInterruption
 {
     public bool IsInterruptingMovement();
+    public bool StopMovementOnInterruption();
 }

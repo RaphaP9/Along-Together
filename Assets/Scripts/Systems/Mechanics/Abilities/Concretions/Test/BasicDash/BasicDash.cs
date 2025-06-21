@@ -47,6 +47,7 @@ public class BasicDash : ActiveAbility, IMovementInterruption, IDodger, IFacingI
 
     #region Interface Methods
     public bool IsInterruptingMovement() => isDashing;
+    public bool StopMovementOnInterruption() => false;
     public bool IsDodging() => isDashing;
     public override bool IsInterruptingAttack() => isDashing;
     public bool IsInterruptingFacing() => isDashing;

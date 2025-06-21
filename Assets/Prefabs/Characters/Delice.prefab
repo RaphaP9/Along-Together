@@ -748,6 +748,7 @@ MonoBehaviour:
   entityMovementSpeedStatResolver: {fileID: 5930587708578372876}
   movementInterruptorComponents:
   - {fileID: 8470285721755601184}
+  - {fileID: 8682992959460049137}
   smoothVelocityFactor: 100
   smoothDirectionFactor: 100
   movementEnabled: 1

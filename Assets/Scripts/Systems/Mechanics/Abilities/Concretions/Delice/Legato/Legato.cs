@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Legato : ActiveAbility, IDodger, IFacingInterruption
+public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInterruption
 {
     [Header("Specific Settings")]
     [SerializeField] private LayerMask pushLayerMask;
@@ -29,8 +29,13 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption
 
     #region Interface Methods
     public bool IsDodging() => isCurrentlyActive;
+    ///
     public bool IsInterruptingFacing() => isStarting || isEnding;
     public Vector2 GetFacingDirection() => new Vector2(0f, -1f); //FacingDown
+    ///
+    public bool IsInterruptingMovement() => isStarting || isEnding;
+    public bool StopMovementOnInterruption() => true;
+    ///
     public override bool IsInterruptingAttack() => isCurrentlyActive;
     public override bool IsInterruptingAbility() => isCurrentlyActive;
     #endregion
