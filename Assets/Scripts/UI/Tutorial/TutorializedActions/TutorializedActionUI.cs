@@ -67,12 +67,12 @@ public abstract class TutorializedActionUI : MonoBehaviour
     #endregion
 
     #region Open & Close Logic
-    protected void OpenTutorializedAction()
+    protected virtual void OpenTutorializedAction()
     {
         StartCoroutine(OpenTutorializedActionCoroutine());
     }
 
-    protected void CloseTutorializedAction()
+    protected virtual void CloseTutorializedAction()
     {
         StartCoroutine (CloseTutorializedActionCoroutine());
     }

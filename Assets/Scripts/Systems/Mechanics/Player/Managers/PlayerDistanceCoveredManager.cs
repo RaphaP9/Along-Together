@@ -51,6 +51,8 @@ public class PlayerDistanceCoveredManager : MonoBehaviour
         playerDistanceCovered = playerMovement.DistanceCovered;
     }
 
+    public void ResetDistanceCovered() => playerDistanceCovered = 0f;
+
     private void PlayerInstantiationHandler_OnPlayerInstantiation(object sender, PlayerInstantiationHandler.OnPlayerInstantiationEventArgs e)
     {
         playerMovement = e.playerTransform.GetComponentInChildren<PlayerMovement>();

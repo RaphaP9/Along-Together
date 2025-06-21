@@ -38,6 +38,7 @@ public class PlayerAttackCounterManager : MonoBehaviour
         }
     }
     private void IncreaseAttacksPerformed(int quantity) => attacksPerformed += quantity;
+    public void ResetAttacksPerformed() => attacksPerformed = 0;
 
     private void PlayerAttack_OnAnyPlayerAttack(object sender, PlayerAttack.OnPlayerAttackEventArgs e)
     {

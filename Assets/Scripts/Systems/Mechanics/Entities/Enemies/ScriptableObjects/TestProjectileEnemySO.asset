@@ -22,7 +22,7 @@ MonoBehaviour:
   prefab: {fileID: 1504599749268194510, guid: 7ca476a64904ae74791a47e0f17b43a2, type: 3}
   baseHealth: 20
   baseShield: 0
-  baseArmor: 10
+  baseArmor: 0
   baseDodgeChance: 0
   baseAttackDamage: 1
   baseAttackSpeed: 1
