@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UIElements;
 
-public class Ritardando : ActiveAbility
+public class Ritardando : ActiveAbility, IFacingInterruption
 {
     [Header("Specific Settings")]
     [SerializeField] private LayerMask effectLayerMask; //For both damage & slow
@@ -22,6 +23,8 @@ public class Ritardando : ActiveAbility
     private bool isPerforming = false;
 
     #region Interface Methods
+    public bool IsInterruptingFacing() => isPerforming;
+    public Vector2 GetFacingDirection() => new Vector2(0f, -1f); //FacingDown
     public override bool IsInterruptingAttack() => isPerforming;
     public override bool IsInterruptingAbility() => isPerforming;
     #endregion

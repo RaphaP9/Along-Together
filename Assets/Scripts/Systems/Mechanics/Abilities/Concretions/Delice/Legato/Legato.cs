@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Legato : ActiveAbility, IDodger 
+public class Legato : ActiveAbility, IDodger, IFacingInterruption
 {
     [Header("Specific Settings")]
     [SerializeField] private LayerMask pushLayerMask;
@@ -23,10 +23,14 @@ public class Legato : ActiveAbility, IDodger
     public float LegatoTimer { get; private set; }
     public float Duration => GetDuration();
 
-    private bool isCurrentlyActive;
+    private bool isCurrentlyActive = false;
+    private bool isStarting = false;
+    private bool isEnding = false;
 
     #region Interface Methods
     public bool IsDodging() => isCurrentlyActive;
+    public bool IsInterruptingFacing() => isStarting || isEnding;
+    public Vector2 GetFacingDirection() => new Vector2(0f, -1f); //FacingDown
     public override bool IsInterruptingAttack() => isCurrentlyActive;
     public override bool IsInterruptingAbility() => isCurrentlyActive;
     #endregion
@@ -63,7 +67,11 @@ public class Legato : ActiveAbility, IDodger
 
         Debug.Log("LegatoStarting");
 
+        isStarting = true;
+
         yield return new WaitForSeconds(LegatoSO.flyStartDuration);
+
+        isStarting = false;
 
         OnAnyLegatoStart?.Invoke(this, EventArgs.Empty);
         OnLegatoStart?.Invoke(this, EventArgs.Empty);
@@ -81,8 +89,11 @@ public class Legato : ActiveAbility, IDodger
 
         Debug.Log("LegatoEnding");
 
+        isEnding = true;
+
         yield return new WaitForSeconds(LegatoSO.flyEndDuration);
 
+        isEnding = false;
         isCurrentlyActive = false;
 
         MechanicsUtilities.PushEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(transform), LegatoSO.pushData, pushLayerMask);

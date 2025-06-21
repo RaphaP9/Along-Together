@@ -1899,7 +1899,10 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 3125651546402793068}
   entityHealth: {fileID: 6586126778679378193}
   directionerHandlerComponent: {fileID: 2977175279305093656}
-  facingInterruptionComponents: []
+  facingInterruptionComponents:
+  - {fileID: 7920790296143757481}
+  - {fileID: 2412851267031932804}
+  - {fileID: 8682992959460049137}
   facingType: 1
   startingFacingDirection: {x: 1, y: 0}
   minimumRigidbodyVelocity: 1

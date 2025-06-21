@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Staccato : ActiveAbility
+public class Staccato : ActiveAbility, IFacingInterruption
 {
     [Header("Specific Runtime Filled")]
     [SerializeField] private string activeAbilityGUID;
@@ -24,9 +24,11 @@ public class Staccato : ActiveAbility
 
     private bool isPerforming = false;
 
-    public bool IsCurrentlyActive { get; private set; } = false; 
+    public bool IsCurrentlyActive { get; private set; } = false;
 
     #region Interface Methods
+    public bool IsInterruptingFacing() => isPerforming;
+    public Vector2 GetFacingDirection() => new Vector2(0f, -1f); //FacingDown
     public override bool IsInterruptingAttack() => isPerforming;
     public override bool IsInterruptingAbility() => isPerforming;
     #endregion
