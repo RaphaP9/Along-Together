@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 12
   abilityName: Ritardando
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: d9c9c8c64320d0341a401cfaa5e9fe10, type: 3}
   description: Ritardando
   abilityClassification: 0
   abilityInfoSO: {fileID: 11400000, guid: fac7843d3bc89c242a0b191251b5a010, type: 2}
