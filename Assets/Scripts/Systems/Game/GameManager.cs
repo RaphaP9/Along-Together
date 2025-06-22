@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Settings - Timers - Tutorial")]
     [SerializeField, Range(0f, 2f)] private float tutorializedActionInterval;
+    [SerializeField, Range(0f, 2f)] private float betweenTutorializedActionsTime;
 
     [Header("Debug")]
     [SerializeField] private bool ignoreGameFlow;
@@ -322,9 +323,8 @@ public class GameManager : MonoBehaviour
             if (GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //If round 1-1
             {
                 yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.Movement));
-
-                //Open Tutorial Panel For Attack (wait for condition)
-                Debug.Log("AttackTutorial Panel");
+                yield return new WaitForSeconds(betweenTutorializedActionsTime);
+                yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.Attack));
             }
 
             if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1,2)) //if round 1-2
