@@ -11,6 +11,8 @@ public class TutorialOpeningManager : MonoBehaviour
     [SerializeField] private TutorializedActionUI currentActiveTutorializedActionUI;
 
     public static event EventHandler<OnTutorializedActionEventArgs> OnTutorializedActionOpen;
+    public static event EventHandler<OnTutorializedActionEventArgs> OnCurrentTutorializedActionClosed;
+
     public static event EventHandler<OnTutorializedActionEventArgs> OnTutorializedActionClosed;
 
     public static event EventHandler OnEveryTutorializedActionClose;
@@ -64,7 +66,7 @@ public class TutorialOpeningManager : MonoBehaviour
 
     public void CloseTutorializedAction(TutorializedAction tutorializedAction)
     {
-        OnTutorializedActionClosed?.Invoke(this, new OnTutorializedActionEventArgs { tutorializedAction = tutorializedAction });
+        OnCurrentTutorializedActionClosed?.Invoke(this, new OnTutorializedActionEventArgs { tutorializedAction = tutorializedAction });
     }
 
     public void CloseEveryTutorializedAction()
@@ -79,8 +81,17 @@ public class TutorialOpeningManager : MonoBehaviour
     }
     private void TutorializedActionUI_OnTutorializedActionUIClose(object sender, TutorializedActionUI.OnTutorializedActionEventArgs e)
     {
-        OnTutorializedActionClosed?.Invoke(this, new OnTutorializedActionEventArgs { tutorializedAction = e.tutorializedActionUI.GetTutorializedAction() });
-        ClearCurrentActiveTutorializedActionUI();
+        if(currentActiveTutorializedActionUI == e.tutorializedActionUI)
+        {
+            OnCurrentTutorializedActionClosed?.Invoke(this, new OnTutorializedActionEventArgs { tutorializedAction = e.tutorializedActionUI.GetTutorializedAction() });
+            OnTutorializedActionClosed?.Invoke(this, new OnTutorializedActionEventArgs { tutorializedAction = e.tutorializedActionUI.GetTutorializedAction() });
+            ClearCurrentActiveTutorializedActionUI();
+        }
+        else
+        {
+            OnTutorializedActionClosed?.Invoke(this, new OnTutorializedActionEventArgs { tutorializedAction = e.tutorializedActionUI.GetTutorializedAction() });
+            ClearCurrentActiveTutorializedActionUI();
+        }
     }
 
     #endregion

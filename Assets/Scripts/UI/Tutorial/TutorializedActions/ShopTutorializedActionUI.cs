@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ShopTutorializedActionUI : TutorializedActionUI
 {
+    private bool eventConditionMet = false;
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -20,23 +22,20 @@ public class ShopTutorializedActionUI : TutorializedActionUI
     }
 
     public override TutorializedAction GetTutorializedAction() => TutorializedAction.Shop;
-    protected override bool CheckCondition() => false;
+
+    protected override bool CheckCondition()
+    {
+        if (!isDetectingCondition) return false;
+        return eventConditionMet;
+    }
 
     private void ShopOpeningManager_OnShopClose(object sender, EventArgs e)
     {
-        if (!isActive) return;
-        if (tutorialConditionMet) return;
-
-        tutorialConditionMet = true;
-        CloseTutorializedAction();
+        eventConditionMet = true;
     }
 
     private void ShopOpeningManager_OnShopCloseImmediately(object sender, EventArgs e)
     {
-        if (!isActive) return;
-        if (tutorialConditionMet) return;
-
-        tutorialConditionMet = true;
-        CloseTutorializedAction();
+        eventConditionMet = true;
     }
 }

@@ -17,6 +17,8 @@ public class MovementTutorializedActionUI : TutorializedActionUI
 
     protected override bool CheckCondition()
     {
+        if (!isDetectingCondition) return false;
+
         if (PlayerDistanceCoveredManager.Instance.PlayerDistanceCovered >= distanceCoveredToMetTutorializationCondition) return true;
         return false;
     }

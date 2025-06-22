@@ -18,7 +18,9 @@ public abstract class TutorializedActionUI : MonoBehaviour
     public static event EventHandler<OnTutorializedActionEventArgs> OnTutorializedActionUIOpen;
     public static event EventHandler<OnTutorializedActionEventArgs> OnTutorializedActionUIClose;
 
+    protected bool isDetectingCondition = false;
     protected bool isActive = false;
+
     protected bool tutorialConditionMet = false;
 
     public class OnTutorializedActionEventArgs : EventArgs
@@ -41,7 +43,7 @@ public abstract class TutorializedActionUI : MonoBehaviour
         HandleUpdateConditionMeeting();
     }
 
-    private void HandleUpdateConditionMeeting() //Some TutorializedActions Should Be Checked In Update (Ex. Distance Covered) if not, only override CheckCondition() to false
+    private void HandleUpdateConditionMeeting()
     {
         if (!isActive) return;
         if (tutorialConditionMet) return;
@@ -79,6 +81,8 @@ public abstract class TutorializedActionUI : MonoBehaviour
 
     private IEnumerator OpenTutorializedActionCoroutine()
     {
+        isDetectingCondition = true;
+
         yield return new WaitForSeconds(openTime);
 
         isActive = true;
@@ -89,6 +93,8 @@ public abstract class TutorializedActionUI : MonoBehaviour
 
     private IEnumerator CloseTutorializedActionCoroutine()
     {
+        isDetectingCondition = false;
+
         yield return new WaitForSeconds (closeTime);
 
         HideUI();

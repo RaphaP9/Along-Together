@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Settings - Timers - Tutorial")]
     [SerializeField, Range(0f, 2f)] private float tutorializedActionInterval;
-    [SerializeField, Range(0f, 2f)] private float betweenTutorializedActionsTime;
+    [SerializeField, Range(0f, 2f)] private float afterTutorializationTime;
+    [SerializeField, Range(0f, 2f)] private float afterUITutorializationTime;
 
     [Header("Debug")]
     [SerializeField] private bool ignoreGameFlow;
@@ -83,7 +84,7 @@ public class GameManager : MonoBehaviour
 
         ////////
 
-        TutorialOpeningManager.OnTutorializedActionClosed += TutorialOpeningManager_OnTutorializedActionClose;
+        TutorialOpeningManager.OnCurrentTutorializedActionClosed += TutorialOpeningManager_OnTutorializedActionClose;
     }
 
     private void OnDisable()
@@ -102,7 +103,7 @@ public class GameManager : MonoBehaviour
 
         ////////
 
-        TutorialOpeningManager.OnTutorializedActionClosed -= TutorialOpeningManager_OnTutorializedActionClose;
+        TutorialOpeningManager.OnCurrentTutorializedActionClosed -= TutorialOpeningManager_OnTutorializedActionClose;
     }
 
     private void Awake()
@@ -305,6 +306,8 @@ public class GameManager : MonoBehaviour
                     yield return StartCoroutine(ShopCoroutine());
                 }
                 #endregion
+
+                yield return new WaitForSeconds(afterUITutorializationTime);
             }
             else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //If Round 1-3 Open Shop With Tutorialization
             {
@@ -321,13 +324,15 @@ public class GameManager : MonoBehaviour
             if (GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //If round 1-1
             {
                 yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.Movement));
-                yield return new WaitForSeconds(betweenTutorializedActionsTime);
+                yield return new WaitForSeconds(afterTutorializationTime);
                 yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.Attack));
+                yield return new WaitForSeconds(afterTutorializationTime);
             }
 
             if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1,2)) //if round 1-2
             {
                 yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.AbilityCasting));
+                yield return new WaitForSeconds(afterTutorializationTime);
             }
 
             #region CompleteCombat Logic

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AbilityCastingTutorializedActionUI : TutorializedActionUI
 {
+    private bool eventConditionMet = false;
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -17,14 +19,14 @@ public class AbilityCastingTutorializedActionUI : TutorializedActionUI
     }
 
     public override TutorializedAction GetTutorializedAction() => TutorializedAction.AbilityCasting;
-    protected override bool CheckCondition() => false;
+    protected override bool CheckCondition()
+    {
+        if (!isDetectingCondition) return false;
+        return eventConditionMet;
+    }
 
     private void Ability_OnAnyAbilityCast(object sender, Ability.OnAbilityCastEventArgs e)
     {
-        if (!isActive) return;
-        if (tutorialConditionMet) return;
-
-        tutorialConditionMet = true;
-        CloseTutorializedAction();
+        eventConditionMet = true;
     }
 }

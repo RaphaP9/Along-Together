@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class AbilityUpgradeTutorializedActionUI : TutorializedActionUI
 {
+    private bool eventConditionMet = false;
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -20,23 +22,19 @@ public class AbilityUpgradeTutorializedActionUI : TutorializedActionUI
     }
 
     public override TutorializedAction GetTutorializedAction() => TutorializedAction.AbilityUpgrade;
-    protected override bool CheckCondition() => false;
+    protected override bool CheckCondition()
+    {
+        if (!isDetectingCondition) return false;
+        return eventConditionMet;
+    }
 
     private void AbilityUpgradeOpeningManager_OnAbilityUpgradeClose(object sender, EventArgs e)
     {
-        if (!isActive) return;
-        if (tutorialConditionMet) return;
-
-        tutorialConditionMet = true;
-        CloseTutorializedAction();
+        eventConditionMet = true;
     }
 
     private void AbilityUpgradeOpeningManager_OnAbilityUpgradeCloseImmediately(object sender, EventArgs e)
     {
-        if (!isActive) return;
-        if (tutorialConditionMet) return;
-
-        tutorialConditionMet = true;
-        CloseTutorializedAction();
+        eventConditionMet = true;
     }
 }

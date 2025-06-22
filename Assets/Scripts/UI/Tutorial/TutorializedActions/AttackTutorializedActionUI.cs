@@ -17,6 +17,8 @@ public class AttackTutorializedActionUI : TutorializedActionUI
 
     protected override bool CheckCondition()
     {
+        if (!isDetectingCondition) return false;
+
         if (PlayerAttackCounterManager.Instance.AttacksPerformed >= attacksPerformedToMetTutorializationCondition) return true;
         return false;
     }

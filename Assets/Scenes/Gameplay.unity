@@ -3845,7 +3845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 186128700}
-  openTime: 1.5
+  openTime: 0.5
   closeTime: 0.5
 --- !u!1 &186593513
 GameObject:
@@ -7736,7 +7736,8 @@ MonoBehaviour:
   dialogueInterval: 1
   tutorializedRun: 0
   tutorializedActionInterval: 0.5
-  betweenTutorializedActionsTime: 0
+  afterTutorializationTime: 1
+  afterUITutorializationTime: 1
   ignoreGameFlow: 0
 --- !u!1001 &342144884
 PrefabInstance:
@@ -29429,7 +29430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1377437561}
-  openTime: 0.15
+  openTime: 0.5
   closeTime: 0.1
 --- !u!1 &1382946867
 GameObject:
@@ -38714,7 +38715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1892983573}
-  openTime: 0.15
+  openTime: 0.5
   closeTime: 0.1
 --- !u!1001 &1894246275
 PrefabInstance:
