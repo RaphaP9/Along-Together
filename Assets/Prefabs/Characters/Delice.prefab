@@ -2018,7 +2018,8 @@ MonoBehaviour:
   minimumRigidbodyVelocity: 1
   currentRawFacingDirection: {x: 0, y: 0}
   currentFacingDirection: {x: 0, y: 0}
-  isOverridingFacingDirection: 0
+  isInterruptingFacing: 0
+  isOverridingFacing: 0
   overridenDirection: {x: 0, y: 0}
 --- !u!114 &2672523740232767417
 MonoBehaviour:
@@ -2398,6 +2399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4069439219325082044}
   facingDirectionHandler: {fileID: 4295945866100084352}
+  playerStateHandler: {fileID: 2527459363889109172}
   playerHealth: {fileID: 6586126778679378193}
   playerMovement: {fileID: 4661234364419359008}
   staccato: {fileID: 7920790296143757481}
