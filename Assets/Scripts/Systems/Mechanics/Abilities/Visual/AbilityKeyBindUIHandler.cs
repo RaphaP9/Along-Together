@@ -34,7 +34,17 @@ public class AbilityKeyBindUIHandler : MonoBehaviour
         HandleFirstUpdateLogic();
     }
 
-    private void HandleUIShowing(AbilityLevel abilityLevel)
+    private void HandleFirstUpdateLogic() //Performed in first update to make sure AbilityLevelHandler has already initialized the AbilityLevel (Initializes on Start())
+    {
+        if (firstUpdateLogicPerformed) return;
+
+        firstUpdateLogicPerformed = true;
+
+        if (ability == null) return;
+        HandleKeyBindUIShowing(ability.AbilityLevel);
+    }
+
+    private void HandleKeyBindUIShowing(AbilityLevel abilityLevel)
     {
         if(abilitySlot == AbilitySlot.Passive)
         {
@@ -58,19 +68,9 @@ public class AbilityKeyBindUIHandler : MonoBehaviour
         SetAbility(ability);
 
         if (!firstUpdateLogicPerformed) return;
-        HandleUIShowing(ability.AbilityLevel);
+        HandleKeyBindUIShowing(ability.AbilityLevel);
     }
     #endregion
-
-    private void HandleFirstUpdateLogic() //Performed in first update to make sure AbilityLevelHandler has already initialized the AbilityLevel (Initializes on Start())
-    {
-        if (firstUpdateLogicPerformed) return;
-
-        firstUpdateLogicPerformed = true;
-
-        if (ability == null) return;
-        HandleUIShowing(ability.AbilityLevel);
-    }
 
     private void EnableKeyBindUI() => keyBindUITransform.gameObject.SetActive(true);
     private void DisableKeyBindUI() => keyBindUITransform.gameObject.SetActive(false);
@@ -87,14 +87,14 @@ public class AbilityKeyBindUIHandler : MonoBehaviour
     {
         if (ability?.AbilitySO != e.abilitySO) return;
 
-        HandleUIShowing(e.abilityLevel);
+        HandleKeyBindUIShowing(e.abilityLevel);
     }
 
     private void AbilityLevelHandler_OnAnyAbilityLevelSet(object sender, AbilityLevelHandler.OnAbilityLevelEventArgs e)
     {
         if (ability?.AbilitySO != e.abilitySO) return;
 
-        HandleUIShowing(e.abilityLevel);
+        HandleKeyBindUIShowing(e.abilityLevel);
     }
     #endregion
 }

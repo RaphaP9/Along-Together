@@ -12,6 +12,7 @@ public class AbilitySlotUIHandler : MonoBehaviour
     [SerializeField] private AbilityCooldownUIHandler abilityCooldownUIHandler;
     [SerializeField] private AbilityLevelUIHandler abilityLevelUIHandler;
     [SerializeField] private AbilityKeyBindUIHandler abilityKeyBindUIHandler;
+    [SerializeField] private AbilityHoverHandler abilityHoverUIHandler;
 
     [Header("UI Components")]
     [SerializeField] private Image abilityImage; 
@@ -51,6 +52,7 @@ public class AbilitySlotUIHandler : MonoBehaviour
         abilityCooldownUIHandler.AssignAbility(e.abilityVariant);
         abilityLevelUIHandler.AssignAbility(e.abilityVariant);
         abilityKeyBindUIHandler.AssignAbility(e.abilityVariant);
+        abilityHoverUIHandler.AssignAbility(e.abilityVariant);
     }
 
     private void AbilitySlotHandler_OnAbilityVariantSelected(object sender, AbilitySlotHandler.OnAbilityVariantSelectionEventArgs e)
@@ -59,5 +61,6 @@ public class AbilitySlotUIHandler : MonoBehaviour
         abilityCooldownUIHandler.AssignAbility(e.newAbilityVariant);
         abilityLevelUIHandler.AssignAbility(e.newAbilityVariant);
         abilityKeyBindUIHandler.AssignAbility(e.newAbilityVariant);
+        abilityHoverUIHandler.AssignAbility(e.newAbilityVariant);
     }
 }

@@ -30,10 +30,19 @@ public class AbilityLevelUIHandler : MonoBehaviour
         AbilityLevelHandler.OnAnyAbilityLevelSet -= AbilityLevelHandler_OnAnyAbilityLevelSet;
     }
 
-
     private void Update()
     {
         HandleFirstUpdateLogic();
+    }
+
+    private void HandleFirstUpdateLogic() //Performed in first update to make sure AbilityLevelHandler has already initialized the AbilityLevel (Initializes on Start())
+    {
+        if (firstUpdateLogicPerformed) return;
+
+        firstUpdateLogicPerformed = true;
+
+        if (ability == null) return;
+        HandleUI(ability.AbilityLevel);
     }
 
     #region Public Methods
@@ -45,16 +54,6 @@ public class AbilityLevelUIHandler : MonoBehaviour
         HandleUI(ability.AbilityLevel);
     }
     #endregion
-
-    private void HandleFirstUpdateLogic() //Performed in first update to make sure AbilityLevelHandler has already initialized the AbilityLevel (Initializes on Start())
-    {
-        if (firstUpdateLogicPerformed) return;
-
-        firstUpdateLogicPerformed = true;
-
-        if (ability == null) return;
-        HandleUI(ability.AbilityLevel);
-    }
 
     private void HandleUI(AbilityLevel abilityLevel)
     {
