@@ -11402,7 +11402,7 @@ MonoBehaviour:
   animator: {fileID: 516012590}
   openTime: 0.5
   closeTime: 0.5
-  attacksPerformedToMetTutorializationCondition: 15
+  attacksPerformedToMetTutorializationCondition: 10
 --- !u!95 &516012590
 Animator:
   serializedVersion: 5

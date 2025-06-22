@@ -24,6 +24,6 @@ MonoBehaviour:
   - numericStatType: 7
     numericStatModificationType: 1
     value: 0.25
-  duration: 4
+  duration: 2.5
   performanceTime: 0.5
   burstInterval: 0.05

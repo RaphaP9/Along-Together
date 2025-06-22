@@ -5,7 +5,7 @@ using UnityEngine;
 public class AttackTutorializedActionUI : TutorializedActionUI
 {
     [Header("Specific Settings")]
-    [SerializeField, Range(10, 20f)] private int attacksPerformedToMetTutorializationCondition;
+    [SerializeField, Range(5, 20f)] private int attacksPerformedToMetTutorializationCondition;
 
     protected override void OpenTutorializedAction()
     {

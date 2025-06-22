@@ -292,10 +292,9 @@ public class GameManager : MonoBehaviour
                 }
                 #endregion
             }
-            else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 2)) //Open it on Round 1-2 with respective tutorial Panel
+            else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 2)) //If Round 1-2 Open AbilityUpgrade with Tutorialization
             {
                 TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.AbilityUpgrade);
-
                 #region AbilityUpgrade Logic
                 if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) //Only Open AbilityUpgradeUI if can upgrade an ability
                 {
@@ -307,12 +306,12 @@ public class GameManager : MonoBehaviour
                 }
                 #endregion
             }
-            else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //Open shop on stage 1-3 with respective tutorial Panel
+            else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //If Round 1-3 Open Shop With Tutorialization
             {
                 TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.Shop);
                 yield return StartCoroutine(ShopCoroutine());
             }
-            else if (!GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //Skip Shop if First Stage&Round
+            else if (!GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //Open Shop on further rounds
             {
                 yield return StartCoroutine(ShopCoroutine());
             }

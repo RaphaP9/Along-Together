@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityLevelInfos:
   - abilityLevel: 1
-    levelDescription: Legato Level1
-    cardLevelDescription: Legato Level1
+    levelDescription: "Delice alza vuelo durante un corto periodo de tiempo durante
+      el cual esquiva todos los ataques. Mientras esta habilidad est\xE9 activa,
+      Delice no puede atacar."
+    cardLevelDescription: "Delice alza vuelo durante un corto periodo de tiempo durante
+      el cual esquiva todos los ataques. Mientras esta habilidad est\xE9 activa,
+      Delice no puede atacar."
     cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
   - abilityLevel: 2
     levelDescription: Legato Level2
