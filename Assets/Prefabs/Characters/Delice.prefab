@@ -2535,6 +2535,10 @@ PrefabInstance:
       propertyPath: abilitySlotHandler
       value: 
       objectReference: {fileID: 4493125982467729595}
+    - target: {fileID: 2555135637825454360, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3142892379634932960, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2594,6 +2598,22 @@ PrefabInstance:
     - target: {fileID: 6230169858455676317, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_Name
       value: DeliceHUDCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6238215074804770943, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6238215074804770943, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6238215074804770943, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6238215074804770943, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6607938803619685459, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: playerHealth

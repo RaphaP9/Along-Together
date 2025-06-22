@@ -11,6 +11,7 @@ public class AbilitySlotUIHandler : MonoBehaviour
     [Space]
     [SerializeField] private AbilityCooldownUIHandler abilityCooldownUIHandler;
     [SerializeField] private AbilityLevelUIHandler abilityLevelUIHandler;
+    [SerializeField] private AbilityKeyBindUIHandler abilityKeyBindUIHandler;
 
     [Header("UI Components")]
     [SerializeField] private Image abilityImage; 
@@ -31,13 +32,25 @@ public class AbilitySlotUIHandler : MonoBehaviour
         abilitySlotHandler.OnAbilityVariantSelected -= AbilitySlotHandler_OnAbilityVariantSelected;
     }
 
+    private void Awake()
+    {
+        InjectKeyBindAbilitySlot();
+    }
+
     private void SetAbilityImage(Sprite sprite) => abilityImage.sprite = sprite;
+
+    private void InjectKeyBindAbilitySlot()
+    {
+        if (abilitySlotHandler == null) return;
+        abilityKeyBindUIHandler.SetAbilitySlot(abilitySlotHandler.AbilitySlot);
+    }
 
     private void AbilitySlotHandler_OnAbilityVariantInitialized(object sender, AbilitySlotHandler.OnAbilityVariantInitializationEventArgs e)
     {
         SetAbilityImage(e.abilityVariant.AbilitySO.sprite);
         abilityCooldownUIHandler.AssignAbility(e.abilityVariant);
         abilityLevelUIHandler.AssignAbility(e.abilityVariant);
+        abilityKeyBindUIHandler.AssignAbility(e.abilityVariant);
     }
 
     private void AbilitySlotHandler_OnAbilityVariantSelected(object sender, AbilitySlotHandler.OnAbilityVariantSelectionEventArgs e)
@@ -45,5 +58,6 @@ public class AbilitySlotUIHandler : MonoBehaviour
         SetAbilityImage(e.newAbilityVariant.AbilitySO.sprite);
         abilityCooldownUIHandler.AssignAbility(e.newAbilityVariant);
         abilityLevelUIHandler.AssignAbility(e.newAbilityVariant);
+        abilityKeyBindUIHandler.AssignAbility(e.newAbilityVariant);
     }
 }
