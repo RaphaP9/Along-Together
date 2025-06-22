@@ -12,10 +12,10 @@ public class EntityScaleFlipper : MonoBehaviour
 
     private void Update()
     {
-        HandleFacingDueToAim();
+        HandleFlipDueToFacing();
     }
 
-    private void HandleFacingDueToAim()
+    private void HandleFlipDueToFacing()
     {
         if (facingDirectionHandler.IsFacingRight())
         {
