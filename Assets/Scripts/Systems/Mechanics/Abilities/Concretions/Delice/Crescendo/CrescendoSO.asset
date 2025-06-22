@@ -22,5 +22,5 @@ MonoBehaviour:
   numericEmbeddedStats:
   - numericStatType: 10
     numericStatModificationType: 1
-    value: 0.1
+    value: 0.25
   bonificationDuration: 3
