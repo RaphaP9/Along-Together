@@ -2399,7 +2399,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4069439219325082044}
   facingDirectionHandler: {fileID: 4295945866100084352}
-  playerStateHandler: {fileID: 2527459363889109172}
   playerHealth: {fileID: 6586126778679378193}
   playerMovement: {fileID: 4661234364419359008}
   staccato: {fileID: 7920790296143757481}
@@ -2528,6 +2527,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6380853313663446174}
     m_Modifications:
+    - target: {fileID: 31444874932727482, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 358880456356310998, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: abilitySlotHandler
       value: 
@@ -2547,6 +2550,14 @@ PrefabInstance:
     - target: {fileID: 3142892379634932960, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4039914182825136175, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_text
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5011708461004096766, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
+      propertyPath: m_text
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5922115022602504756, guid: f0b2e7b0e09a2ea40842a9b79c369baa, type: 3}
       propertyPath: m_AnchorMax.y
