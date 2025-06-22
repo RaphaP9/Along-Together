@@ -20,7 +20,7 @@ public class PlayerHitscanAttack : PlayerAttack
     public event EventHandler<OnPlayerHitscanRayShotEventArgs> OnPlayerHitscanRayShot;
     public static event EventHandler<OnPlayerHitscanRayShotEventArgs> OnAnyPlayerHitscanRayShot;
 
-    protected IDirectionerHandler directionerHandler;
+    protected IDirectionHandler directionerHandler;
 
     public class OnPlayerHitscanRayShotEventArgs : EventArgs
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterWeaponScaleFlipper : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private PlayerAimDirectionerHandler aimDirectionerHandler;
+    [SerializeField] private PlayerAimDirectionHandler aimDirectionerHandler;
     [SerializeField] private Transform transformToFlip;
 
     private bool facingRight = true;

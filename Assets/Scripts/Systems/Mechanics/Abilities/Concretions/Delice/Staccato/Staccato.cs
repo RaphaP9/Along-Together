@@ -28,8 +28,11 @@ public class Staccato : ActiveAbility, IFacingInterruption
 
     #region Interface Methods
     public bool IsInterruptingFacing() => isPerforming;
+    public bool OverrideFacingDirection() => true;
     public Vector2 GetFacingDirection() => new Vector2(0f, -1f); //FacingDown
+    /////////////////////////////////////////////////////////////////////
     public override bool IsInterruptingAttack() => isPerforming;
+    /////////////////////////////////////////////////////////////////////
     public override bool IsInterruptingAbility() => isPerforming;
     #endregion
 

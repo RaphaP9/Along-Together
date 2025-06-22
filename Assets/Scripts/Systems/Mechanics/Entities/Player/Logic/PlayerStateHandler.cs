@@ -12,7 +12,7 @@ public class PlayerStateHandler : MonoBehaviour
     [Space]
     [SerializeField] private PlayerFacingDirectionHandler playerFacingDirectionHandler;
     [SerializeField] private PlayerWeaponAimHandler playerWeaponAimHandler;
-    [SerializeField] private PlayerAimDirectionerHandler playerAimDirectionerHandler;
+    [SerializeField] private PlayerAimDirectionHandler playerAimDirectionerHandler;
 
     [Header("Settings")]
     [SerializeField] private PlayerState startingState;

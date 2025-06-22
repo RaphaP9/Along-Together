@@ -595,6 +595,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 718122822509755242}
+  - {fileID: 2211721623861604991}
   - {fileID: 6248436503809636389}
   - {fileID: 8522307488823897240}
   - {fileID: 5386565058599454864}
@@ -706,7 +707,7 @@ MonoBehaviour:
   playerAbilitiesCastingHandler: {fileID: 7071924974927239523}
   playerFacingDirectionHandler: {fileID: 4295945866100084352}
   playerWeaponAimHandler: {fileID: 2672523740232767417}
-  playerAimDirectionerHandler: {fileID: 2977175279305093656}
+  playerAimDirectionerHandler: {fileID: 8259161917859060450}
   startingState: 0
   playerState: 0
 --- !u!114 &6586126778679378193
@@ -810,6 +811,51 @@ MonoBehaviour:
   healthRegenStatResolver: {fileID: 3654785395795810660}
   shieldRegenStatResolver: {fileID: 6181913077647479785}
   playerHealth: {fileID: 6586126778679378193}
+--- !u!1 &1977812988520784575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2211721623861604991}
+  - component: {fileID: 5439356008757002290}
+  m_Layer: 6
+  m_Name: AimDirectioner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2211721623861604991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977812988520784575}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6380853313663446174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5439356008757002290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977812988520784575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593615e649016a44b879e7f029421edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityAimDirectionHandler: {fileID: 8259161917859060450}
 --- !u!1 &2006719728032425277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1752,9 +1798,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6248436503809636389}
-  - component: {fileID: 2977175279305093656}
+  - component: {fileID: 5807690871720614132}
   m_Layer: 6
-  m_Name: AimDirectioner
+  m_Name: FacingDirectioner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1776,7 +1822,7 @@ Transform:
   - {fileID: 7077925278160448707}
   m_Father: {fileID: 6380853313663446174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2977175279305093656
+--- !u!114 &5807690871720614132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1785,13 +1831,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6546964152467631905}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd829a020d1d0a44aac2088cf638672b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d9fc60df3961ca46a41e0ff5d32cf7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityHealth: {fileID: 6586126778679378193}
-  aimDirection: {x: 0, y: 0}
-  aimAngle: 0
-  mouseDirectionHandler: {fileID: 4593777764411072900}
+  entityFacingDirectionHandler: {fileID: 4295945866100084352}
 --- !u!1 &6629710281205740686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,7 +1925,7 @@ GameObject:
   - component: {fileID: 6082782711582241170}
   - component: {fileID: 4053781653671632281}
   - component: {fileID: 4593777764411072900}
-  - component: {fileID: 318218253055371520}
+  - component: {fileID: 8259161917859060450}
   - component: {fileID: 4295945866100084352}
   - component: {fileID: 2672523740232767417}
   m_Layer: 6
@@ -1935,7 +1978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalizedMouseDirection: {x: 0, y: 0}
---- !u!114 &318218253055371520
+--- !u!114 &8259161917859060450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1944,15 +1987,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7063982094058207045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 375b0e6aa81312142bd846cdea5ec351, type: 3}
+  m_Script: {fileID: 11500000, guid: 7beec9c96a2c03c41b9692cbce2522b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 1
-  enemiesLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  detectedEnemies: []
-  debug: 0
+  entityHealth: {fileID: 6586126778679378193}
+  aimDirection: {x: 0, y: 0}
+  aimAngle: 0
+  mouseDirectionHandler: {fileID: 4593777764411072900}
 --- !u!114 &4295945866100084352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1967,7 +2008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 3125651546402793068}
   entityHealth: {fileID: 6586126778679378193}
-  directionerHandlerComponent: {fileID: 2977175279305093656}
+  directionHandlerComponent: {fileID: 8259161917859060450}
   facingInterruptionComponents:
   - {fileID: 7920790296143757481}
   - {fileID: 2412851267031932804}

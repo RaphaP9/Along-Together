@@ -22,7 +22,7 @@ public class PlayerProjectileAttack : PlayerAttack
     [Space]
     [SerializeField, Range(0f, 15f)] protected float projectileDispersionAngle;
 
-    protected IDirectionerHandler directionerHandler;
+    protected IDirectionHandler directionerHandler;
 
     protected override void Awake()
     {

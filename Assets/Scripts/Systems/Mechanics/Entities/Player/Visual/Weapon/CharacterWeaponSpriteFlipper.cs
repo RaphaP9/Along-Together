@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterWeaponSpriteFlipper : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private PlayerAimDirectionerHandler aimDirectionerHandler;
+    [SerializeField] private PlayerAimDirectionHandler aimDirectionerHandler;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     private bool facingRight = true;

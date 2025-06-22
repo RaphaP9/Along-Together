@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.UIElements;
 
 public class Ritardando : ActiveAbility, IFacingInterruption
 {
@@ -24,8 +23,11 @@ public class Ritardando : ActiveAbility, IFacingInterruption
 
     #region Interface Methods
     public bool IsInterruptingFacing() => isPerforming;
-    public Vector2 GetFacingDirection() => new Vector2(0f, -1f); //FacingDown
+    public bool OverrideFacingDirection() => false;
+    public Vector2 GetFacingDirection() => new Vector2(0f, -1f); //Override Facing Direction is False, so this does not matter
+    /////////////////////////////////////////////////////////////////////
     public override bool IsInterruptingAttack() => isPerforming;
+    /////////////////////////////////////////////////////////////////////
     public override bool IsInterruptingAbility() => isPerforming;
     #endregion
 

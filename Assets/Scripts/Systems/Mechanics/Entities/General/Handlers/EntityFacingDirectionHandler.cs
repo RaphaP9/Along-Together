@@ -9,7 +9,7 @@ public class EntityFacingDirectionHandler : MonoBehaviour
     [SerializeField] private EntityHealth entityHealth;
 
     [Header("Interface Components")]
-    [SerializeField] private Component directionerHandlerComponent;
+    [SerializeField] private Component directionHandlerComponent;
     [SerializeField] private List<Component> facingInterruptionComponents;
 
     [Header("Settings")]
@@ -21,14 +21,19 @@ public class EntityFacingDirectionHandler : MonoBehaviour
     [SerializeField] private Vector2 currentRawFacingDirection;
     [SerializeField] private Vector2Int currentFacingDirection;
     [Space]
-    [SerializeField] private bool isOverridingFacingDirection;
+    [SerializeField] private bool isInterruptingFacing;
+    [SerializeField] private bool isOverridingFacing;
     [SerializeField] private Vector2 overridenDirection;
 
     public Vector2Int CurrentFacingDirection => currentFacingDirection;
     public Vector2 CurrentRawFacingDirection => currentRawFacingDirection;
-    public bool IsOverridingFacingDirection => isOverridingFacingDirection;
+    public bool IsInterruptingFacingDirection => isInterruptingFacing;
+    public bool IsOverridingFacingDirection => isOverridingFacing;
 
-    private IDirectionerHandler directionerHandler;
+    public float RawFacingAngle => GeneralUtilities.GetVector2AngleDegrees(currentRawFacingDirection);
+    public float FacingAngle => GeneralUtilities.GetVector2AngleDegrees(currentFacingDirection);
+
+    private IDirectionHandler directionHandler;
     private List<IFacingInterruption> facingInterruptions;
 
     private enum FacingType { Rigidbody, Aim }
@@ -36,7 +41,7 @@ public class EntityFacingDirectionHandler : MonoBehaviour
 
     private void Awake()
     {
-        GeneralUtilities.TryGetGenericFromComponent(directionerHandlerComponent, out directionerHandler);
+        GeneralUtilities.TryGetGenericFromComponent(directionHandlerComponent, out directionHandler);
         facingInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IFacingInterruption>(facingInterruptionComponents);
     }
 
@@ -47,30 +52,46 @@ public class EntityFacingDirectionHandler : MonoBehaviour
 
     public void HandleFacing() //Called By the corresponding entity StateHandler: PlayerStateHandler, MeleeEnemyStateHandler, etc
     {
-        HandleDirectionOverride();
+        HandleDirectionInterruption();
         HandleFacingDirection();
     }
 
     #region FacingDirectionOverride
 
-    private void HandleDirectionOverride()
+    private void HandleDirectionInterruption()
     {
         if (!CanFace()) return;
+
+        int interruptorsCount = 0;
+        bool hasOverrider = false;
 
         foreach (IFacingInterruption facingInterruptionAbility in facingInterruptions)
         {
             if (facingInterruptionAbility.IsInterruptingFacing())
             {
-                isOverridingFacingDirection = true;
-                overridenDirection = facingInterruptionAbility.GetFacingDirection();
+                interruptorsCount++;
 
-                RecalculateFacingDirections(overridenDirection);
-                return;
+                if (facingInterruptionAbility.OverrideFacingDirection())
+                {
+                    isOverridingFacing = true;
+                    overridenDirection = facingInterruptionAbility.GetFacingDirection();
+
+                    RecalculateFacingDirections(overridenDirection);
+
+                    hasOverrider = true;
+                    break;
+                }
             }
         }
 
-        isOverridingFacingDirection = false;
-        overridenDirection = Vector2.zero;
+        isInterruptingFacing = interruptorsCount > 0;
+
+        if (hasOverrider) isOverridingFacing = true;
+        else
+        {
+            isOverridingFacing = false;
+            overridenDirection = Vector2.zero;
+        }
     }
 
     #endregion
@@ -79,7 +100,7 @@ public class EntityFacingDirectionHandler : MonoBehaviour
     private void HandleFacingDirection()
     {
         if (!CanFace()) return;
-        if (isOverridingFacingDirection) return;
+        if (isInterruptingFacing) return;
 
         switch (facingType)
         {
@@ -108,7 +129,7 @@ public class EntityFacingDirectionHandler : MonoBehaviour
 
     private void HandleFacingDirectionByAim()
     {
-        Vector2 direction = directionerHandler.GetDirection();
+        Vector2 direction = directionHandler.GetDirection();
 
         if (currentRawFacingDirection != direction)
         {

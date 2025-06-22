@@ -51,6 +51,7 @@ public class BasicDash : ActiveAbility, IMovementInterruption, IDodger, IFacingI
     public bool IsDodging() => isDashing;
     public override bool IsInterruptingAttack() => isDashing;
     public bool IsInterruptingFacing() => isDashing;
+    public bool OverrideFacingDirection() => true;
     public Vector2 GetFacingDirection() => currentDashDirection;
     #endregion
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAimDirectionerHandler : EntityAimDirectionerHandler
+public class EnemyAimDirectionHandler : EntityAimDirectionHandler
 {
     [Header("Enemy Components")]
     [SerializeField] private PlayerRelativeHandler playerRelativeHandler;

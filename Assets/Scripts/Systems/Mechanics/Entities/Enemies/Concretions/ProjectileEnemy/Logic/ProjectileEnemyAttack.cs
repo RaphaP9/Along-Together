@@ -39,7 +39,7 @@ public class ProjectileEnemyAttack : EnemyAttack
     public event EventHandler<OnProjectileEnemyAttackEventArgs> OnProjectileEnemyReload;
     public event EventHandler<OnProjectileEnemyAttackEventArgs> OnProjectileEnemyStopShooting;
 
-    protected IDirectionerHandler directionerHandler;
+    protected IDirectionHandler directionerHandler;
 
     public class OnProjectileEnemyAttackEventArgs : EventArgs
     {

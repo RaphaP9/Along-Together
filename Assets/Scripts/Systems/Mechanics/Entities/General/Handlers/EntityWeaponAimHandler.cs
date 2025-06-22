@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public abstract class EntityWeaponAimHandler : MonoBehaviour, IDirectionerHandler
+public abstract class EntityWeaponAimHandler : MonoBehaviour, IDirectionHandler
 {
     [Header("Entity Components")]
     [SerializeField] private EntityFacingDirectionHandler facingDirectionHandler;

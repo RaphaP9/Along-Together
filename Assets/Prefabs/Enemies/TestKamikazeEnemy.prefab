@@ -600,7 +600,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 7913916363484433750}
   enemyMovement: {fileID: 8364510044175325432}
   enemyCleanup: {fileID: 1616814288529754153}
-  enemyAimDirectionerHandler: {fileID: 7279119486096882443}
+  enemyAimDirectionerHandler: {fileID: 3022047183746974249}
   playerRelativeHandler: {fileID: 8642607771193940538}
   enemyFacingDirectionHandler: {fileID: 8668006828377196939}
   kamikazeEnemyExplosion: {fileID: 8811045212219346871}
@@ -738,6 +738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 38826998240460628}
   - component: {fileID: 8642607771193940538}
+  - component: {fileID: 3022047183746974249}
   - component: {fileID: 8668006828377196939}
   - component: {fileID: 4320675161030885442}
   m_Layer: 7
@@ -779,6 +780,23 @@ MonoBehaviour:
   distanceToPlayer: 0
   directionToPlayer: {x: 0, y: 0}
   angleToPlayer: 0
+--- !u!114 &3022047183746974249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6474608541862640292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449f549023080254eb2adfabb3e3fa13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityHealth: {fileID: 7913916363484433750}
+  aimDirection: {x: 0, y: 0}
+  aimAngle: 0
+  playerRelativeHandler: {fileID: 8642607771193940538}
+  enemySpawnHandler: {fileID: 3257223475304700248}
 --- !u!114 &8668006828377196939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,7 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 2329428769073550589}
   entityHealth: {fileID: 7913916363484433750}
-  directionerHandlerComponent: {fileID: 7279119486096882443}
+  directionHandlerComponent: {fileID: 3022047183746974249}
   facingInterruptionComponents: []
   facingType: 1
   startingFacingDirection: {x: 1, y: 0}
@@ -932,7 +950,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4250990555095487142}
-  - component: {fileID: 7279119486096882443}
+  - component: {fileID: 5637591511081928051}
   m_Layer: 7
   m_Name: AimDirectioner
   m_TagString: Untagged
@@ -956,7 +974,7 @@ Transform:
   - {fileID: 521433831724078515}
   m_Father: {fileID: 8009517623076321794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7279119486096882443
+--- !u!114 &5637591511081928051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -965,14 +983,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9131174235564801329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8e0b126dbd227448d3f3d8cdd102e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 593615e649016a44b879e7f029421edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityHealth: {fileID: 7913916363484433750}
-  aimDirection: {x: 0, y: 0}
-  aimAngle: 0
-  playerRelativeHandler: {fileID: 8642607771193940538}
-  enemySpawnHandler: {fileID: 3257223475304700248}
+  entityAimDirectionHandler: {fileID: 3022047183746974249}
 --- !u!1001 &3802172944875775471
 PrefabInstance:
   m_ObjectHideFlags: 0

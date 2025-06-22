@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EntityAimDirectionerHandler : MonoBehaviour, IDirectionerHandler
+public abstract class EntityAimDirectionHandler : MonoBehaviour, IDirectionHandler
 {
     [Header("Components")]
     [SerializeField] protected EntityHealth entityHealth;
@@ -31,14 +31,10 @@ public abstract class EntityAimDirectionerHandler : MonoBehaviour, IDirectionerH
     {
         aimDirection = CalculateAimDirection();
         aimAngle = CalculateAimAngle();
-
-        UpdateRotation(aimAngle);
     }
 
     protected abstract Vector2 CalculateAimDirection();
     protected abstract float CalculateAimAngle();
-
-    private void UpdateRotation(float aimAngle) => transform.rotation = Quaternion.Euler(0, 0, aimAngle);
     public bool IsAimingRight() => aimDirection.x >= 0;
 
     #region Interface Methods

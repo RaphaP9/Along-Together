@@ -29,14 +29,16 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
 
     #region Interface Methods
     public bool IsDodging() => isCurrentlyActive;
-    ///
+    /////////////////////////////////////////////////////////////////////
     public bool IsInterruptingFacing() => isStarting || isEnding;
+    public bool OverrideFacingDirection() => true;
     public Vector2 GetFacingDirection() => new Vector2(0f, -1f); //FacingDown
-    ///
+    /////////////////////////////////////////////////////////////////////
     public bool IsInterruptingMovement() => isStarting || isEnding;
     public bool StopMovementOnInterruption() => true;
-    ///
+    ////////////////////////////////////////////////////////////////////
     public override bool IsInterruptingAttack() => isCurrentlyActive;
+    /////////////////////////////////////////////////////////////////////
     public override bool IsInterruptingAbility() => isCurrentlyActive;
     #endregion
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAimDirectionerHandler : EntityAimDirectionerHandler
+public class PlayerAimDirectionHandler : EntityAimDirectionHandler
 {
     [Header("Player Components")]
     [SerializeField] private MouseDirectionHandler mouseDirectionHandler;

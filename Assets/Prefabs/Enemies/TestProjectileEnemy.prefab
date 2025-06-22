@@ -394,14 +394,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4581753590694036717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8e0b126dbd227448d3f3d8cdd102e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 593615e649016a44b879e7f029421edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityHealth: {fileID: 7613458921501402528}
-  aimDirection: {x: 0, y: 0}
-  aimAngle: 0
-  playerRelativeHandler: {fileID: 3204811641508873334}
-  enemySpawnHandler: {fileID: 8942189645329353576}
+  entityAimDirectionHandler: {fileID: 5870027502446117420}
 --- !u!1 &4614559186583191531
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,6 +408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9205830459438358144}
   - component: {fileID: 3204811641508873334}
+  - component: {fileID: 5870027502446117420}
   - component: {fileID: 4210701699229654129}
   - component: {fileID: 3525343234226037308}
   m_Layer: 7
@@ -453,6 +450,23 @@ MonoBehaviour:
   distanceToPlayer: 0
   directionToPlayer: {x: 0, y: 0}
   angleToPlayer: 0
+--- !u!114 &5870027502446117420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4614559186583191531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449f549023080254eb2adfabb3e3fa13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityHealth: {fileID: 7613458921501402528}
+  aimDirection: {x: 0, y: 0}
+  aimAngle: 0
+  playerRelativeHandler: {fileID: 3204811641508873334}
+  enemySpawnHandler: {fileID: 8942189645329353576}
 --- !u!114 &4210701699229654129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,7 +481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 1295730402221327}
   entityHealth: {fileID: 7613458921501402528}
-  directionerHandlerComponent: {fileID: 4013654955497290503}
+  directionHandlerComponent: {fileID: 5870027502446117420}
   facingInterruptionComponents: []
   facingType: 1
   startingFacingDirection: {x: 1, y: 0}
@@ -876,7 +890,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 7613458921501402528}
   enemyMovement: {fileID: 5971531763212200158}
   enemyCleanup: {fileID: 7482886143490242096}
-  enemyAimDirectionerHandler: {fileID: 4013654955497290503}
+  enemyAimDirectionerHandler: {fileID: 5870027502446117420}
   playerRelativeHandler: {fileID: 3204811641508873334}
   enemyFacingDirectionHandler: {fileID: 4210701699229654129}
   projectileEnemyAttack: {fileID: 5914679703919730462}
@@ -929,7 +943,7 @@ MonoBehaviour:
   enemyIdentifier: {fileID: 8246813395085610927}
   firePoint: {fileID: 2502583288736862255}
   projectilePrefab: {fileID: 8073931636513284674, guid: 87d0d4ca8c17e474483239c1477ec45b, type: 3}
-  directionerHandlerComponent: {fileID: 4013654955497290503}
+  directionerHandlerComponent: {fileID: 5870027502446117420}
   projectileDamageType: 0
   projectileAreaRadius: 0
   projectileImpactLayerMask:
