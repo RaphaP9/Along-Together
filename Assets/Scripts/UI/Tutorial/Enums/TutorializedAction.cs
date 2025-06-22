@@ -7,6 +7,6 @@ public enum TutorializedAction
     Movement,
     Attack,
     AbilityUpgrade,
-    AbilityCast,
+    AbilityCasting,
     Shop
 }

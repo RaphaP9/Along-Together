@@ -1,0 +1,42 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ShopTutorializedActionUI : TutorializedActionUI
+{
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        ShopOpeningManager.OnShopClose += ShopOpeningManager_OnShopClose;
+        ShopOpeningManager.OnShopCloseImmediately += ShopOpeningManager_OnShopCloseImmediately;
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        ShopOpeningManager.OnShopClose -= ShopOpeningManager_OnShopClose;
+        ShopOpeningManager.OnShopCloseImmediately -= ShopOpeningManager_OnShopCloseImmediately;
+    }
+
+    public override TutorializedAction GetTutorializedAction() => TutorializedAction.Shop;
+    protected override bool CheckCondition() => false;
+
+    private void ShopOpeningManager_OnShopClose(object sender, EventArgs e)
+    {
+        if (!isActive) return;
+        if (tutorialConditionMet) return;
+
+        tutorialConditionMet = true;
+        CloseTutorializedAction();
+    }
+
+    private void ShopOpeningManager_OnShopCloseImmediately(object sender, EventArgs e)
+    {
+        if (!isActive) return;
+        if (tutorialConditionMet) return;
+
+        tutorialConditionMet = true;
+        CloseTutorializedAction();
+    }
+}

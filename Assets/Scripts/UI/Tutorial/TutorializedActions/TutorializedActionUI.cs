@@ -43,12 +43,12 @@ public abstract class TutorializedActionUI : MonoBehaviour
 
     private void HandleUpdateConditionMeeting() //Some TutorializedActions Should Be Checked In Update (Ex. Distance Covered) if not, only override CheckCondition() to false
     {
+        if (!isActive) return;
         if (tutorialConditionMet) return;
         if (!CheckCondition()) return;
 
-        CloseTutorializedAction();
-
         tutorialConditionMet = true;
+        CloseTutorializedAction();
     }
 
     #region Animations
@@ -79,9 +79,9 @@ public abstract class TutorializedActionUI : MonoBehaviour
 
     private IEnumerator OpenTutorializedActionCoroutine()
     {
-        isActive = true;
-
         yield return new WaitForSeconds(openTime);
+
+        isActive = true;
 
         OnTutorializedActionUIOpen?.Invoke(this, new OnTutorializedActionEventArgs { tutorializedActionUI = this });
         ShowUI();

@@ -294,8 +294,8 @@ public class GameManager : MonoBehaviour
             }
             else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 2)) //Open it on Round 1-2 with respective tutorial Panel
             {
-                //Open AbilityUpgradeTutorialPanel (dont wait for condition)
-                Debug.Log("AbilityUpgradeTutorialPanel");
+                TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.AbilityUpgrade);
+
                 #region AbilityUpgrade Logic
                 if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) //Only Open AbilityUpgradeUI if can upgrade an ability
                 {
@@ -309,8 +309,7 @@ public class GameManager : MonoBehaviour
             }
             else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //Open shop on stage 1-3 with respective tutorial Panel
             {
-                //Open ShopTutorialPanel (dont wait for condition)
-                Debug.Log("ShopTutorialPanel");
+                TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.Shop);
                 yield return StartCoroutine(ShopCoroutine());
             }
             else if (!GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //Skip Shop if First Stage&Round
@@ -329,8 +328,7 @@ public class GameManager : MonoBehaviour
 
             if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1,2)) //if round 1-2
             {
-                //Open Tutorial Panel for Ability Casting(wait for condition)
-                Debug.Log("Ability Casting Panel");
+                yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.AbilityCasting));
             }
 
             #region CompleteCombat Logic
