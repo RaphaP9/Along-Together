@@ -16,7 +16,7 @@ public class StageChangeUI : MonoBehaviour
         GameManager.OnStateChanged += GameManager_OnStateChanged;
     }
 
-    private void ODisable()
+    private void OnDisable()
     {
         GameManager.OnStateChanged -= GameManager_OnStateChanged;
     }
@@ -47,5 +47,4 @@ public class StageChangeUI : MonoBehaviour
             return;
         }
     }
-
 }

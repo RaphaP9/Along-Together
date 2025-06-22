@@ -12,17 +12,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private State previousState;
 
     [Header("Settings - Timers")]
-    [SerializeField, Range(2f, 5f)] private float startingGameTimer;
+    [SerializeField, Range(2f, 10f)] private float startingGameTimer;
     [Space]
     [SerializeField, Range(2f, 5f)] private float roundStartingTime;
     [SerializeField, Range(2f, 5f)] private float roundEndingTime;
     [Space]
-    [SerializeField, Range(2f, 5f)] private float changeStateStartingTimer;
-    [SerializeField, Range(2f, 5f)] private float changeStateEndingTimer;
+    [SerializeField, Range(2f, 10f)] private float changeStageStartingTimer;
+    [SerializeField, Range(2f, 10f)] private float changeStageEndingTimer;
     [Space]
     [SerializeField, Range(0f, 2f)] private float dialogueInterval;
 
-    [Header("Settings - Tutorial")]
+    [Header("Settings - Tutorial - Runtime Filled")]
     [SerializeField] private bool tutorializedRun;
 
     [Header("Settings - Timers - Tutorial")]
@@ -393,10 +393,10 @@ public class GameManager : MonoBehaviour
     private IEnumerator ChangeStageCoroutine()
     {
         ChangeState(State.BeginningChangingStage);
-        yield return new WaitForSeconds(changeStateStartingTimer);
+        yield return new WaitForSeconds(changeStageStartingTimer);
         GeneralStagesManager.Instance.ChangeToCurrentStage();
         ChangeState(State.EndingChangingStage);
-        yield return new WaitForSeconds(changeStateEndingTimer);
+        yield return new WaitForSeconds(changeStageEndingTimer);
     }
 
     private IEnumerator DialogueCoroutine(CharacterSO characterSO, int stageNumber, int roundNumber, DialogueChronology dialogueChronology)
