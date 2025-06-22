@@ -61,11 +61,6 @@ public class InventoryObjectHoverUIHandler : MonoBehaviour
         pressedLock = false;
     }
 
-    #region Get & Set
-    private void ClearCurrentGenericInventoryObjectIdentified() => currentGenericInventoryObjectIdentified = null;
-    private void SetCurrentGenericInventoryObjectIdentified(string GUID, InventoryObjectSO inventoryObjectSO) => currentGenericInventoryObjectIdentified = new GenericInventoryObjectIdentified { assignedGUID = GUID, inventoryObjectSO = inventoryObjectSO };
-    #endregion
-
     #region Utility Methods
     private bool ValuesCoincideWithRegisteredGenericInventoryObject(string GUID, InventoryObjectSO inventoryObjectSO)
     {
@@ -125,6 +120,11 @@ public class InventoryObjectHoverUIHandler : MonoBehaviour
         pressedLock = false;
         OnPressDisabling?.Invoke(this, new OnGenericInventoryObjectEventArgs {genericInventoryObjectIdentified = CurrentGenericInventoryObjectIdentified });
     }
+    #endregion
+
+    #region Get & Set
+    private void SetCurrentGenericInventoryObjectIdentified(string GUID, InventoryObjectSO inventoryObjectSO) => currentGenericInventoryObjectIdentified = new GenericInventoryObjectIdentified { assignedGUID = GUID, inventoryObjectSO = inventoryObjectSO };
+    private void ClearCurrentGenericInventoryObjectIdentified() => currentGenericInventoryObjectIdentified = null;
     #endregion
 
     #region Object Subscriptions

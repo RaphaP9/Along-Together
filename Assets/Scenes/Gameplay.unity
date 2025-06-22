@@ -19516,6 +19516,8 @@ GameObject:
   - component: {fileID: 893944499}
   - component: {fileID: 893944500}
   - component: {fileID: 893944501}
+  - component: {fileID: 893944503}
+  - component: {fileID: 893944502}
   m_Layer: 5
   m_Name: AbilityHoverUI
   m_TagString: Untagged
@@ -19555,7 +19557,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: c4e7b3f392739bc459bf0ebe99197896, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -19576,6 +19578,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f66c260832b2d347a5a7c6a1113525b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rectTransformRefference: {fileID: 540229360}
+  currentAbility: {fileID: 0}
+--- !u!114 &893944502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893944498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9433cb46ec7e364681a29022a0f8abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &893944503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893944498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc057f493cda5f41be91f2f57f45dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityHoverUIHandler: {fileID: 893944501}
+  animator: {fileID: 893944500}
 --- !u!1 &905944770
 GameObject:
   m_ObjectHideFlags: 0
