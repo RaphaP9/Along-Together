@@ -8,9 +8,12 @@ public static class MechanicsUtilities
     public const float PERSPECTIVE_SCALE_Y = 1f;
 
     private const int ARMOR_THRESHOLD_50_PERCENT = 10;
+
+    private const float COOLDOWN_REDUCTION_50_PERCENT = 1f;
+    private const float ABILITY_COOLDOWN_MIN_VALUE = 0.5f;
+
     private const int EXECUTE_DAMAGE = 999;
 
-    private const float ABILITY_COOLDOWN_MIN_VALUE = 0.5f;
 
     #region Perspective
     public static Vector2 ScaleVector2ToPerspective(Vector2 baseVector)
@@ -49,7 +52,7 @@ public static class MechanicsUtilities
     {
         if(armor < 0) armor = 0;
 
-        float rawResultingDamage = (float) baseDamage / (1 + armor/ARMOR_THRESHOLD_50_PERCENT);
+        float rawResultingDamage = (float) baseDamage / (1 + armor/ARMOR_THRESHOLD_50_PERCENT); // ARMOR MITIGATION FORMULA!
         int roundedResultingDamage = Mathf.CeilToInt(rawResultingDamage);
 
         return roundedResultingDamage;
@@ -153,6 +156,14 @@ public static class MechanicsUtilities
     #endregion
 
     #region Abilities
+    public static float ProcessAbilityCooldown(float baseCooldown, float normalizedCooldownReduction)
+    {
+        if(normalizedCooldownReduction < 0f) normalizedCooldownReduction = 0f;
+
+        float processedCooldown = baseCooldown / (1 + normalizedCooldownReduction/COOLDOWN_REDUCTION_50_PERCENT); //COOLDOWN REDUCTION FORMULA!
+        processedCooldown = processedCooldown < ABILITY_COOLDOWN_MIN_VALUE ? ABILITY_COOLDOWN_MIN_VALUE : processedCooldown;
+        return processedCooldown;
+    }
 
     public static AbilityLevel GetNextAbilityLevel(AbilityLevel previousAbilityLevel)
     {

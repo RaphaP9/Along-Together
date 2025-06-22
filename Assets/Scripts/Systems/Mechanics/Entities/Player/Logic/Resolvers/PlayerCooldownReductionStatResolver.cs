@@ -28,9 +28,7 @@ public class PlayerCooldownReductionStatResolver : EntityFloatStatResolver
 
     public float GetAbilityCooldown(float abilityOriginalCooldown)
     {
-        float newCooldown = abilityOriginalCooldown * (1 - value);
-        newCooldown = newCooldown <= MechanicsUtilities.GetAbilityCooldownMinValue() ? MechanicsUtilities.GetAbilityCooldownMinValue() : newCooldown;
-
+        float newCooldown = MechanicsUtilities.ProcessAbilityCooldown(abilityOriginalCooldown, value);
         return newCooldown;
     }
 
