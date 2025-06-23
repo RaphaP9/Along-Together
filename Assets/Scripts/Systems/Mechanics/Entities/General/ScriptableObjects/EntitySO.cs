@@ -14,14 +14,14 @@ public abstract class EntitySO : ScriptableObject, IAttackable, IDamageSource //
     public Transform prefab;
 
     [Header("Entity Health Settings")]
-    [Range(0, 20)] public int baseHealth;
-    [Range(0, 20)] public int baseShield;
+    [Range(0, 1000)] public int baseHealth;
+    [Range(0, 1000)] public int baseShield;
     [Range(0, 20)] public int baseArmor;
     [Space]
     [Range(0, 1)] public float baseDodgeChance;
 
     [Header("Entity Damage Settings")]
-    [Range(0, 10)] public int baseAttackDamage;
+    [Range(0, 30)] public int baseAttackDamage;
     [Range(0.1f, 3f)] public float baseAttackSpeed;
     [Space]
     [Range(0f, 1f)] public float baseAttackCritChance;
