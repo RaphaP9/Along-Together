@@ -32,9 +32,14 @@ public abstract class NumericStatResolver : StatResolver
         float multiplierValue = ResolveMultiplierValue();
         float replacementValue = ResolveReplacementValue();
 
-        if (replacementValue != NON_EXISTENT_REPLACEMENT_VALUE) return replacementValue;
+        if (replacementValue != NON_EXISTENT_REPLACEMENT_VALUE)
+        {
+            replacementValue = MechanicsUtilities.ClampNumericStat(replacementValue, GetNumericStatType());
+            return replacementValue;
+        }
 
         float resolvedStat = (baseValue + additiveValue) * multiplierValue;
+        resolvedStat = MechanicsUtilities.ClampNumericStat(resolvedStat, GetNumericStatType());
 
         return resolvedStat;    
     }

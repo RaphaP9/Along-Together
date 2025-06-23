@@ -14,6 +14,49 @@ public static class MechanicsUtilities
 
     private const int EXECUTE_DAMAGE = 999;
 
+    #region Clamping Consts
+    public const int MIN_MAX_HEALTH = 5;
+    public const int MAX_MAX_HEALTH = 1000;
+
+    public const int MIN_MAX_SHIELD = 0;
+    public const int MAX_MAX_SHIELD = 1000;
+
+    public const int MIN_ARMOR = 0;
+    public const int MAX_ARMOR = 1000;
+
+    public const float MIN_DODGE_CHANCE = 0f;
+    public const float MAX_DODGE_CHANCE = 0.9f;
+
+    public const float MIN_MOVEMENT_SPEED = 1f;
+    public const float MAX_MOVEMENT_SPEED = 20f;
+
+    public const float MIN_ATTACK_DAMAGE = 1f;
+    public const float MAX_ATTACK_DAMAGE = 20f;
+
+    public const float MIN_ATTACK_SPEED = 0.3f;
+    public const float MAX_ATTACK_SPEED = 10f;
+
+    public const float MIN_CRIT_CHANCE = 0f;
+    public const float MAX_CRIT_CHANCE = 1f;
+
+    public const float MIN_CRIT_MULT = 0.5f;
+    public const float MAX_CRIT_MULT = 3f;
+
+    public const int MIN_HEALTH_REGEN = 0;
+    public const int MAX_HEALTH_REGEN = 20;
+
+    public const int MIN_SHIELD_REGEN = 0;
+    public const int MAX_SHIELD_REGEN = 20;
+
+    public const float MIN_LIFESTEAL = 0f;
+    public const float MAX_LIFESTEAL = 1f;
+
+    public const float MIN_COOLDOWN_REDUCTION = 0f;
+    public const float MAX_COOLDOWN_REDUCTION = 1f;
+
+    public const int MIN_GOLD_EARNED_STAT = 0;
+    public const int MAX_GOLD_EARNED_STAT = 1000;
+    #endregion
 
     #region Perspective
     public static Vector2 ScaleVector2ToPerspective(Vector2 baseVector)
@@ -26,7 +69,6 @@ public static class MechanicsUtilities
     #region Const GetMethods
     public static int GetArmor50PercentThreshold() => ARMOR_THRESHOLD_50_PERCENT;
     public static int GetExecuteDamage() => EXECUTE_DAMAGE;
-
     public static float GetAbilityCooldownMinValue() => ABILITY_COOLDOWN_MIN_VALUE;
     #endregion
 
@@ -152,6 +194,50 @@ public static class MechanicsUtilities
     #endregion
 
     #region Stats
+    public static float ClampNumericStat(float baseValue, NumericStatType numericStatType)
+    {
+        switch (numericStatType)
+        {
+            case NumericStatType.MaxHealth:
+                return ClampNumericStat(baseValue, MIN_MAX_HEALTH, MAX_MAX_HEALTH);
+            case NumericStatType.MaxShield:
+                return ClampNumericStat(baseValue, MIN_MAX_SHIELD, MAX_MAX_SHIELD);
+            case NumericStatType.Armor:
+                return ClampNumericStat(baseValue, MIN_ARMOR, MAX_ARMOR);
+            case NumericStatType.DodgeChance:
+                return ClampNumericStat(baseValue, MIN_DODGE_CHANCE, MAX_DODGE_CHANCE);
+            case NumericStatType.MovementSpeed:
+                return ClampNumericStat(baseValue, MIN_MOVEMENT_SPEED, MAX_MOVEMENT_SPEED);
+            case NumericStatType.AttackDamage:
+                return ClampNumericStat(baseValue, MIN_ATTACK_DAMAGE, MAX_ATTACK_DAMAGE);
+            case NumericStatType.AttackSpeed:
+                return ClampNumericStat(baseValue, MIN_ATTACK_SPEED, MAX_ATTACK_SPEED);
+            case NumericStatType.AttackCritChance:
+                return ClampNumericStat(baseValue, MIN_CRIT_CHANCE, MAX_CRIT_CHANCE);
+            case NumericStatType.AttackCritDamageMultiplier:
+                return ClampNumericStat(baseValue, MIN_CRIT_MULT, MAX_CRIT_MULT);
+            case NumericStatType.HealthRegen:
+                return ClampNumericStat(baseValue, MIN_HEALTH_REGEN, MAX_HEALTH_REGEN);
+            case NumericStatType.ShieldRegen:
+                return ClampNumericStat(baseValue, MIN_SHIELD_REGEN, MAX_SHIELD_REGEN);
+            case NumericStatType.Lifesteal:
+                return ClampNumericStat(baseValue, MIN_LIFESTEAL, MAX_LIFESTEAL);
+            case NumericStatType.CooldownReduction:
+                return ClampNumericStat(baseValue, MIN_COOLDOWN_REDUCTION, MAX_COOLDOWN_REDUCTION);
+            case NumericStatType.Gold:
+                return ClampNumericStat(baseValue, MIN_GOLD_EARNED_STAT, MAX_GOLD_EARNED_STAT);
+            default: //Default is Unclamped
+                return baseValue;
+        }
+    }
+
+    public static float ClampNumericStat(float baseValue, float minValue, float maxValue)
+    {
+        float clampedValue = baseValue > maxValue ? maxValue : baseValue;
+        clampedValue = baseValue < minValue ? minValue : baseValue;
+
+        return clampedValue;
+    }
 
     #endregion
 

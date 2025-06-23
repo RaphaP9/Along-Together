@@ -23,7 +23,6 @@ public class TimedRoundCounterUI : MonoBehaviour
         TimedRoundHandler.OnTimedRoundCompleted += TimedRoundHandler_OnTimedRoundCompleted;
     }
 
-
     private void OnDisable()
     {
         TimedRoundHandler.OnTimedRoundStart -= TimedRoundHandler_OnTimedRoundStart;

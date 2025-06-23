@@ -40,6 +40,7 @@ public class InventorObjectHoverUIContentsHandler : MonoBehaviour
     {
         inventoryObjectHoverUI.OnGenericInventoryObjectIdentifiedSet -= InventoryObjectHoverUI_OnGenericInventoryObjectIdentifiedSet;
     }
+
     public void CompleteSetUI(InventoryObjectSO inventoryObjectSO)
     {
         SetObjectNameText(inventoryObjectSO);
