@@ -7,7 +7,7 @@ public class KamikazeEnemySO : EnemySO
 {
     [Header("Kamikaze Enemy Settings")]
     [Range(0.5f, 10f)] public int explosionDamage;
-    [Range(0.5f, 3f)] public float explosionRadius;
+    [Range(0.5f, 5f)] public float explosionRadius;
     [Space]
     [Range(0.5f, 5f)] public float detectionRange;
     [Range(0.5f, 5f)] public float explosionTime;
