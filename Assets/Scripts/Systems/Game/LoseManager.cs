@@ -20,6 +20,7 @@ public class LoseManager : MonoBehaviour
     {
         GameManager.OnGameLost -= GameManager_OnGameLost;
     }
+
     private void LoseGame()
     {
         if (wipeRunDataOnLose)
