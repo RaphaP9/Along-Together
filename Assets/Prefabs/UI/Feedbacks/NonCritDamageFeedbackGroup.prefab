@@ -415,6 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2685551385973015938}
+  feedbackText: {fileID: 8830431119094152469}
   spawnTime: 0.1
   showingTime: 0.5
   hidingTime: 0.5
@@ -423,7 +424,6 @@ MonoBehaviour:
   maxAngle: 91
   includePrefix: 0
   prefix: 
-  feedbackText: {fileID: 8830431119094152469}
   chosenDirection: {x: 0, y: 0}
 --- !u!1 &5119683527604711257
 GameObject:
@@ -443,7 +443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &876233870430263179
 RectTransform:
   m_ObjectHideFlags: 0
@@ -458,10 +458,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4915560703687724685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1.2500001, y: -1}
+  m_SizeDelta: {x: 0.4, y: 0.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3075095947532970899
 CanvasRenderer:

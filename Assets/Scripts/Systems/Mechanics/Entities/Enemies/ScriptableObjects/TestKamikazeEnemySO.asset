@@ -29,10 +29,10 @@ MonoBehaviour:
   baseLifesteal: 0
   damageColor: {r: 1.4980392, g: 0.04946359, b: 0.04946359, a: 1}
   baseMovementSpeed: 1
-  goldDrop: 5
+  goldDrop: 4
   spawnDuration: 3
   cleanupTime: 3
-  explosionDamage: 1
+  explosionDamage: 3
   explosionRadius: 2
   detectionRange: 2
   explosionTime: 1

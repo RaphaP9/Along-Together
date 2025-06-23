@@ -10,17 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55077aa9fe9a04aaa8b464a478063b, type: 3}
-  m_Name: TestObjectSO
+  m_Name: Object_Uncommon_1
   m_EditorClassIdentifier: 
-  id: 1001
-  _name: TestObject1
-  objectRarity: 0
-  description: TestObject
+  id: 2001
+  _name: Object_Uncommon_1
+  objectRarity: 1
+  description: Object_Uncommon_1
   sprite: {fileID: 0}
-  price: 10
-  sellPrice: 5
+  price: 20
+  sellPrice: 14
   numericEmbeddedStats:
   - numericStatType: 0
     numericStatModificationType: 0
-    value: 2
+    value: 4
+  - numericStatType: 4
+    numericStatModificationType: 0
+    value: 1
   recommendedCharacters: []
