@@ -55,7 +55,12 @@ public class EnemyAnimationController : MonoBehaviour
         animator.SetFloat(FACE_Y_FLOAT, facingDirectionHandler.CurrentFacingDirection.y);
     }
 
-    protected void PlayAnimation(string animationName) => animator.Play(animationName);
+    protected void PlayAnimation(string animationName, bool playEvenAfterDeath = false)
+    {
+        if (isDead && !playEvenAfterDeath) return;
+
+        animator.Play(animationName);
+    }
 
     #region Subscriptions
     private void EnemySpawnHandler_OnEnemySpawnStart(object sender, EnemySpawnHandler.OnEnemySpawnEventArgs e)
@@ -70,8 +75,8 @@ public class EnemyAnimationController : MonoBehaviour
 
     protected virtual void EnemyHealth_OnEnemyDeath(object sender, System.EventArgs e)
     {
-        isDead = true;
         PlayAnimation(DEATH_ANIMATION_NAME);
+        isDead = true;
     }
     #endregion
 }

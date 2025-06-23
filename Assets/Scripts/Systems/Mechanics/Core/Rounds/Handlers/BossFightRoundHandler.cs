@@ -91,7 +91,7 @@ public class BossFightRoundHandler : RoundHandler
         ClearCurrentRound();
         ResetCurrentRoundElapsedTime();
 
-        EnemiesManager.Instance.ExecuteAllActiveEnemies(); //There should be no active enemies anyway
+        EnemiesManager.Instance.ExecuteAllActiveEnemies(); //There should be no active enemies anyway, unless boss spawns enemies
     }
 
     private void SpawnBoss(EnemySO bossEnemySO, Vector3 position)

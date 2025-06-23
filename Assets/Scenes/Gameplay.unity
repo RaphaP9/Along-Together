@@ -12021,6 +12021,14 @@ MonoBehaviour:
     playerSpawnPoint: {fileID: 505236911}
     spawnPointsHandler: {fileID: 632627708}
     stageConfiner: {fileID: 1908488623}
+  - stageSO: {fileID: 11400000, guid: d4e36f7ae57504744bf53d17bb3b32e1, type: 2}
+    playerSpawnPoint: {fileID: 1978534041}
+    spawnPointsHandler: {fileID: 580886876}
+    stageConfiner: {fileID: 221733525}
+  - stageSO: {fileID: 11400000, guid: 61120e7f929e61940849c4006588413a, type: 2}
+    playerSpawnPoint: {fileID: 1444664435}
+    spawnPointsHandler: {fileID: 1744587458}
+    stageConfiner: {fileID: 187029171}
   startingStageNumber: 1
   startingRoundNumber: 1
   roundState: 0
@@ -39930,7 +39938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDistanceToPlayer: 2
-  maxDistanceToPlayer: 7
+  maxDistanceToPlayer: 9
   gizmosColor: {r: 0.91974485, g: 1, b: 0, a: 1}
   debug: 1
 --- !u!1001 &1545063100
