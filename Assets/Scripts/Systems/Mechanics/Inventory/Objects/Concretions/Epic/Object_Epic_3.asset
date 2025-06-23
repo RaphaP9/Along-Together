@@ -16,7 +16,7 @@ MonoBehaviour:
   _name: Object_Epic_3
   objectRarity: 3
   description: Object_Epic_3 Description
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: af33c4b35928bd344928a59cca80c2e1, type: 3}
   price: 40
   sellPrice: 28
   numericEmbeddedStats:
