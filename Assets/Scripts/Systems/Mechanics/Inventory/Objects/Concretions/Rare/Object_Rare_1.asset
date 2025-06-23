@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 699723a33aa6d91428cbf19ad440a0ed, type: 3}
-  m_Name: TestTreatSO
+  m_Script: {fileID: 11500000, guid: cc55077aa9fe9a04aaa8b464a478063b, type: 3}
+  m_Name: Object_Rare_1
   m_EditorClassIdentifier: 
-  id: 2001
-  _name: TestTreat1
-  objectRarity: 0
-  description: Treat1
+  id: 1301
+  _name: Object_Rare_1
+  objectRarity: 2
+  description: Object_Rare_1 Description
   sprite: {fileID: 0}
-  price: 35
-  sellPrice: 10
+  price: 30
+  sellPrice: 21
   numericEmbeddedStats:
   - numericStatType: 7
     numericStatModificationType: 1
-    value: 0.2
+    value: 0.15
   recommendedCharacters: []

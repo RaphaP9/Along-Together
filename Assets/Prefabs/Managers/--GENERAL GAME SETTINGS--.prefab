@@ -48,5 +48,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
   startingStage: 1
   startingRound: 1
-  startingGoldQuantity: 30
+  startingGoldQuantity: 20
   defaultCharacter: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}

@@ -424,6 +424,8 @@ MonoBehaviour:
   maxAngle: 91
   includePrefix: 0
   prefix: 
+  includeSuffix: 1
+  suffix: '!'
   chosenDirection: {x: 0, y: 0}
 --- !u!1 &5119683527604711257
 GameObject:

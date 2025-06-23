@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc55077aa9fe9a04aaa8b464a478063b, type: 3}
   m_Name: Object_Uncommon_2
   m_EditorClassIdentifier: 
-  id: 2002
+  id: 1202
   _name: Object_Uncommon_2
   objectRarity: 1
-  description: Object_Uncommon_2
+  description: Object_Uncommon_2 Description
   sprite: {fileID: 0}
   price: 20
   sellPrice: 14

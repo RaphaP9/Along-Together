@@ -20,6 +20,9 @@ public class FeedbackUI : MonoBehaviour
     [Space]
     [SerializeField] protected bool includePrefix;
     [SerializeField] protected string prefix;
+    [Space]
+    [SerializeField] protected bool includeSuffix;
+    [SerializeField] protected string suffix;
 
     [Header("Runtime Filled")]
     [SerializeField] private Vector2 chosenDirection;
@@ -75,6 +78,7 @@ public class FeedbackUI : MonoBehaviour
     protected void SetText(string text)
     {
         text = includePrefix ? prefix + text : text;
+        text = includeSuffix ? text + suffix : text;
         feedbackText.text = text;
     }
 

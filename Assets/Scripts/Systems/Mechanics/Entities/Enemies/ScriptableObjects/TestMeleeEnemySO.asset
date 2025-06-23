@@ -22,14 +22,14 @@ MonoBehaviour:
   baseShield: 0
   baseArmor: 0
   baseDodgeChance: 0
-  baseAttackDamage: 1
+  baseAttackDamage: 2
   baseAttackSpeed: 1
   baseAttackCritChance: 0
   baseAttackCritDamageMultiplier: 0.5
   baseLifesteal: 0
   damageColor: {r: 1.4980392, g: 0.04946359, b: 0.04946359, a: 1}
   baseMovementSpeed: 1
-  goldDrop: 2
+  goldDrop: 1
   spawnDuration: 3
   cleanupTime: 3
   attackDistance: 1

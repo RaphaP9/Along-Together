@@ -39934,7 +39934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDistanceToPlayer: 2
-  maxDistanceToPlayer: 9
+  maxDistanceToPlayer: 7.5
   gizmosColor: {r: 0.91974485, g: 1, b: 0, a: 1}
   debug: 1
 --- !u!1001 &1545063100

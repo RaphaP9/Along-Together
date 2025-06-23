@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55077aa9fe9a04aaa8b464a478063b, type: 3}
-  m_Name: Object_Common_5
+  m_Name: Object_Rare_4
   m_EditorClassIdentifier: 
-  id: 1105
-  _name: Object_Common_5
-  objectRarity: 0
-  description: Object_Common_5 Description
+  id: 1304
+  _name: Object_Rare_4
+  objectRarity: 2
+  description: Object_Rare_4 Description
   sprite: {fileID: 0}
-  price: 10
-  sellPrice: 7
+  price: 30
+  sellPrice: 21
   numericEmbeddedStats:
   - numericStatType: 6
-    numericStatModificationType: 1
-    value: 0.1
+    numericStatModificationType: 0
+    value: 2
   - numericStatType: 0
     numericStatModificationType: 0
     value: -2
