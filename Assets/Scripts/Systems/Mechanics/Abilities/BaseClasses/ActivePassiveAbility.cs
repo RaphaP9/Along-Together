@@ -5,44 +5,15 @@ using UnityEngine;
 public abstract class ActivePassiveAbility : Ability, IActiveAbility, IPassiveAbility
 {
     [Header("Active Ability Components")]
+    [SerializeField] protected PlayerCooldownReductionStatResolver cooldownReductionStatResolver;
     [SerializeField] protected AbilityCooldownHandler abilityCooldownHandler;
 
-    [Header("Ability Runtime Filled")]
-    [SerializeField] protected float abilityCooldownTime;
-
     public AbilityCooldownHandler AbilityCooldownHandler => abilityCooldownHandler;
-    private ActivePassiveAbilitySO ActivePassiveAbilitSO => AbilitySO as ActivePassiveAbilitySO;
-
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        CooldownReductionStatResolver.OnCooldownResolverUpdated += CooldownStatResolver_OnCooldownResolverUpdated;
-    }
-
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-        CooldownReductionStatResolver.OnCooldownResolverUpdated -= CooldownStatResolver_OnCooldownResolverUpdated;
-    }
-
-    protected virtual void Start()
-    {
-        InitializeActiveAbility();
-    }
-
-    private void InitializeActiveAbility()
-    {
-        abilityCooldownTime = CalculateAbilityCooldown();
-    }
-
-    private void RecalculateAbilityCooldownTime()
-    {
-        abilityCooldownTime = CalculateAbilityCooldown();
-    }
+    private ActivePassiveAbilitySO ActivePassiveAbilitySO => AbilitySO as ActivePassiveAbilitySO;
+    public float ProcessedAbilityCooldown => cooldownReductionStatResolver.GetAbilityCooldown(ActivePassiveAbilitySO.baseCooldown);
 
     #region InterfaceMethods
-    public float CalculateAbilityCooldown() => CooldownReductionStatResolver.Instance.ResolveStatFloat(ActivePassiveAbilitSO.baseCooldown);
+    public float CalculateAbilityCooldown() => cooldownReductionStatResolver.GetAbilityCooldown(ActivePassiveAbilitySO.baseCooldown);
     public bool AbilityCastInput() => abilitySlotHandler.GetAssociatedDownInput();
     public override bool CanCastAbility()
     {
@@ -53,11 +24,11 @@ public abstract class ActivePassiveAbility : Ability, IActiveAbility, IPassiveAb
     }
     #endregion
 
-    #region Abstract Methods
+    #region Abstract Methods - Casting
     protected override void OnAbilityCastMethod()
     {
         base.OnAbilityCastMethod();
-        abilityCooldownHandler.SetCooldownTimer(abilityCooldownTime);
+        abilityCooldownHandler.SetCooldownTimer(ProcessedAbilityCooldown);
     }
 
     protected override void OnAbilityCastDeniedMethod()
@@ -65,6 +36,9 @@ public abstract class ActivePassiveAbility : Ability, IActiveAbility, IPassiveAb
         base.OnAbilityCastDeniedMethod();
     }
 
+    #endregion
+
+    #region Abstract Methods - Variants
     protected override void OnAbilityVariantActivationMethod()
     {
         abilityCooldownHandler.ResetCooldownTimer(); //Reset Cooldown On Activation
@@ -76,10 +50,15 @@ public abstract class ActivePassiveAbility : Ability, IActiveAbility, IPassiveAb
     }
     #endregion
 
-    #region Subscriptions
-    private void CooldownStatResolver_OnCooldownResolverUpdated(object sender, NumericStatResolver.OnNumericResolverEventArgs e)
+    #region Abstract Methods - Levels
+    protected override void OnAbililityLevelInitializedMethod()
     {
-        RecalculateAbilityCooldownTime();
+        abilityCooldownHandler.ResetCooldownTimer(); //Reset Cooldown On Initialization
+    }
+
+    protected override void OnAbililityLevelSetMethod()
+    {
+        abilityCooldownHandler.ResetCooldownTimer(); //Reset Cooldown On LevelSet
     }
     #endregion
 }

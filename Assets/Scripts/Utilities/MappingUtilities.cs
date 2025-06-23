@@ -30,7 +30,7 @@ public static class MappingUtilities
     private const string ATTACK_SPEED_STAT = "Vel. de Ataque";
     private const string ATTACK_CRIT_CHANCE_STAT = "Prob. de Crítico";
     private const string ATTACK_CRIT_DAMAGE_MULTIPLIER_STAT = "Daño Crítico";
-    private const string COOLDOWN_REDUCTION_STAT = "Red. de Enfriamiento";
+    private const string COOLDOWN_REDUCTION_STAT = "R. de Enfriamiento";
     private const string LIFESTEAL_STAT = "Robo de Vida";
     private const string MOVEMENT_SPEED_STAT = "Vel. de Movimiento";
     private const string GOLD_STAT = "Riqueza";

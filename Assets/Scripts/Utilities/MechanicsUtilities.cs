@@ -246,8 +246,14 @@ public static class MechanicsUtilities
     {
         if(normalizedCooldownReduction < 0f) normalizedCooldownReduction = 0f;
 
-        float processedCooldown = baseCooldown / (1 + normalizedCooldownReduction/COOLDOWN_REDUCTION_50_PERCENT); //COOLDOWN REDUCTION FORMULA!
+        float processedCooldown = baseCooldown * (1 - normalizedCooldownReduction);
+
+        /*
+        float processedCooldown = baseCooldown / (1 + normalizedCooldownReduction/COOLDOWN_REDUCTION_50_PERCENT); //COOLDOWN REDUCTION ALT FORMULA!
+        */
+
         processedCooldown = processedCooldown < ABILITY_COOLDOWN_MIN_VALUE ? ABILITY_COOLDOWN_MIN_VALUE : processedCooldown;
+
         return processedCooldown;
     }
 

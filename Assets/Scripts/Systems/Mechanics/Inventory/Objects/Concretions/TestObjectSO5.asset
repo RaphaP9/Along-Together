@@ -22,8 +22,8 @@ MonoBehaviour:
   numericEmbeddedStats:
   - numericStatType: 0
     numericStatModificationType: 0
-    value: -1
-  - numericStatType: 3
+    value: 1
+  - numericStatType: 12
     numericStatModificationType: 0
-    value: -0.5
+    value: 0.37
   recommendedCharacters: []
