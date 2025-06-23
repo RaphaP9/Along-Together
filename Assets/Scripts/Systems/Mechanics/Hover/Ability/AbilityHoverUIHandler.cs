@@ -39,7 +39,10 @@ public class AbilityHoverUIHandler : MonoBehaviour
     #region Method Handlers
     private void HandleHoverEnter(Ability ability, UIHoverHandler.PivotQuadrant pivotQuadrant)
     {
-        if (ability == currentAbility) return;
+        if (currentAbility != null)
+        {
+            if (ability.AbilitySlot == currentAbility.AbilitySlot) return;
+        }
 
         GeneralUtilities.AdjustRectTransformPivotToScreenQuadrant(rectTransformRefference, pivotQuadrant.screenQuadrant, pivotQuadrant.rectTransformPoint);
 
@@ -50,7 +53,10 @@ public class AbilityHoverUIHandler : MonoBehaviour
 
     private void HandleHoverExit(Ability ability)
     {
-        if (ability != currentAbility) return;
+        if (currentAbility != null)
+        {
+            if (ability.AbilitySlot != currentAbility.AbilitySlot) return;
+        }
 
         OnHoverClosing?.Invoke(this, new OnAbilityEventArgs { ability = currentAbility });
         ClearCurrentAbility();
