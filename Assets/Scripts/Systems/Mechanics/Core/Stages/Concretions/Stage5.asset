@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageName: Fase 5
   roundGroups:
-  - difficultyTier: 5
+  - difficultyTier: 2
     rounds:
     - {fileID: 11400000, guid: 72ee8e434057c634f904aabcf40566d7, type: 2}
-  - difficultyTier: 5
+  - difficultyTier: 2
     rounds:
     - {fileID: 11400000, guid: 5d20211cd6d8e0d45b9d2706f9fbe91b, type: 2}
-  - difficultyTier: 5
+  - difficultyTier: 2
     rounds:
     - {fileID: 11400000, guid: e5eb736a84e9d1e46a858d02f9a189d3, type: 2}
-  - difficultyTier: 5
+  - difficultyTier: 2
     rounds:
     - {fileID: 11400000, guid: 0919af714936a1b48aef88b2df89de5a, type: 2}
-  - difficultyTier: 5
+  - difficultyTier: 2
     rounds:
     - {fileID: 11400000, guid: aca83e2c159b713468e06a36485c61e2, type: 2}

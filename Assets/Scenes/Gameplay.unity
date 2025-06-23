@@ -42984,7 +42984,7 @@ MonoBehaviour:
   timeToEndAfterWin: 4
   winScene: MainMenu
   winTransitionType: 0
-  wipeRunDataOnWin: 1
+  wipeRunDataOnWin: 0
 --- !u!1001 &1686668880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46252,7 +46252,7 @@ MonoBehaviour:
   timeToEndAfterLose: 4
   loseScene: MainMenu
   loseTransitionType: 0
-  wipeRunDataOnLose: 1
+  wipeRunDataOnLose: 0
 --- !u!1 &1804321864
 GameObject:
   m_ObjectHideFlags: 0
