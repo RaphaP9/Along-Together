@@ -12,14 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b86b7ea8c536eb41a2fd853d4e7fb25, type: 3}
   m_Name: Stage4
   m_EditorClassIdentifier: 
-  stageName: Stage4 Name
+  stageName: Fase 4
   roundGroups:
-  - difficultyTier: 5
+  - difficultyTier: 3
     rounds:
-    - {fileID: 11400000, guid: 4b8a1a36ac742b441bd8b83606620656, type: 2}
-    - {fileID: 11400000, guid: 4b8a1a36ac742b441bd8b83606620656, type: 2}
-    - {fileID: 11400000, guid: 4b8a1a36ac742b441bd8b83606620656, type: 2}
-  - difficultyTier: 5
+    - {fileID: 11400000, guid: 72ee8e434057c634f904aabcf40566d7, type: 2}
+  - difficultyTier: 3
     rounds:
-    - {fileID: 11400000, guid: dd6d3dbf75cde324f87d71a890e314ed, type: 2}
-    - {fileID: 11400000, guid: dd6d3dbf75cde324f87d71a890e314ed, type: 2}
+    - {fileID: 11400000, guid: 5d20211cd6d8e0d45b9d2706f9fbe91b, type: 2}
+  - difficultyTier: 3
+    rounds:
+    - {fileID: 11400000, guid: e5eb736a84e9d1e46a858d02f9a189d3, type: 2}
+  - difficultyTier: 3
+    rounds:
+    - {fileID: 11400000, guid: 0919af714936a1b48aef88b2df89de5a, type: 2}
+  - difficultyTier: 3
+    rounds:
+    - {fileID: 11400000, guid: aca83e2c159b713468e06a36485c61e2, type: 2}
