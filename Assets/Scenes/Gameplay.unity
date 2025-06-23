@@ -29034,10 +29034,15 @@ MonoBehaviour:
   objectSellPriceText: {fileID: 983062036}
   numericStatsContainer: {fileID: 1917448548}
   numericStatUISample: {fileID: 2054181406}
-  borders:
-  - {fileID: 1948913709}
+  borderImage: {fileID: 1948913709}
+  secondaryBorders:
   - {fileID: 239720695}
   - {fileID: 490810107}
+  commonBorder: {fileID: 0}
+  uncommonBorder: {fileID: 0}
+  rareBorder: {fileID: 0}
+  epicBorder: {fileID: 0}
+  legendaryBorder: {fileID: 0}
   commonColor: {r: 0.25882354, g: 0.6313726, b: 1, a: 1}
   uncommonColor: {r: 0, g: 0.62352943, b: 0.101960786, a: 1}
   rareColor: {r: 0.74509805, g: 0.15686275, b: 0.15686275, a: 1}
@@ -49184,7 +49189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

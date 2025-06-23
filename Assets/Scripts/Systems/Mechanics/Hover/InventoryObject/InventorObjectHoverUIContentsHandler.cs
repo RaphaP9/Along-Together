@@ -19,9 +19,16 @@ public class InventorObjectHoverUIContentsHandler : MonoBehaviour
     [SerializeField] private Transform numericStatsContainer;
     [SerializeField] private Transform numericStatUISample;
     [Space]
-    [SerializeField] private List<Image> borders;
+    [SerializeField] private Image borderImage;
+    [SerializeField] private List<Image> secondaryBorders;
 
     [Header("Settings")]
+    [SerializeField] private Sprite commonBorder;
+    [SerializeField] private Sprite uncommonBorder;
+    [SerializeField] private Sprite rareBorder;
+    [SerializeField] private Sprite epicBorder;
+    [SerializeField] private Sprite legendaryBorder;
+    [Space]
     [SerializeField] private Color commonColor;
     [SerializeField] private Color uncommonColor;
     [SerializeField] private Color rareColor;
@@ -46,7 +53,9 @@ public class InventorObjectHoverUIContentsHandler : MonoBehaviour
         SetObjectNameText(inventoryObjectSO);
         SetObjectImage(inventoryObjectSO);
         SetObjectClassificationText(inventoryObjectSO);
-        SetBordersColor(inventoryObjectSO);
+        SetBorderSpriteByRarity(inventoryObjectSO);
+        SetSecondaryBordersColor(inventoryObjectSO);
+
         SetObjectDescriptionText(inventoryObjectSO);
         SetObjectSellPriceText(inventoryObjectSO);
         GenerateNumericStats(inventoryObjectSO);
@@ -57,8 +66,34 @@ public class InventorObjectHoverUIContentsHandler : MonoBehaviour
     private void SetObjectClassificationText(InventoryObjectSO inventoryObjectSO) => objectClassificationText.text = MappingUtilities.MapInventoryObjectRarityType(inventoryObjectSO);
     private void SetObjectDescriptionText(InventoryObjectSO inventoryObjectSO) => objectDescriptionText.text = inventoryObjectSO.description;
     private void SetObjectSellPriceText(InventoryObjectSO inventoryObjectSO) => objectSellPriceText.text = inventoryObjectSO.sellPrice.ToString();
+    private void SetBorderSpriteByRarity(InventoryObjectSO inventoryObjectSO)
+    {
+        Sprite sprite;
 
-    private void SetBordersColor(InventoryObjectSO inventoryObjectSO)
+        switch (inventoryObjectSO.objectRarity)
+        {
+            case Rarity.Common:
+            default:
+                sprite = commonBorder;
+                break;
+            case Rarity.Uncommon:
+                sprite = uncommonBorder;
+                break;
+            case Rarity.Rare:
+                sprite = rareBorder;
+                break;
+            case Rarity.Epic:
+                sprite = epicBorder;
+                break;
+            case Rarity.Legendary:
+                sprite = legendaryBorder;
+                break;
+        }
+
+        borderImage.sprite = sprite;
+    }
+
+    private void SetSecondaryBordersColor(InventoryObjectSO inventoryObjectSO)
     {
         Color color;
 
@@ -82,7 +117,7 @@ public class InventorObjectHoverUIContentsHandler : MonoBehaviour
                 break;
         }
 
-        UIUtilities.SetImagesColor(borders, color);
+        UIUtilities.SetImagesColor(secondaryBorders, color);
     }
 
     private void GenerateNumericStats(InventoryObjectSO inventoryObjectSO)
