@@ -256,8 +256,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 965413458942197093}
   - {fileID: 5078010278577374645}
+  - {fileID: 965413458942197093}
   - {fileID: 721383785259821250}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -296,11 +296,11 @@ MonoBehaviour:
   treatShopInventorySingleUI: {fileID: 3391562257095371108}
   borderImage: {fileID: 4367697595740440921}
   treatImage: {fileID: 6151349953891277639}
-  commonBorder: {fileID: 0}
-  uncommonBorder: {fileID: 0}
-  rareBorder: {fileID: 0}
-  epicBorder: {fileID: 0}
-  legendaryBorder: {fileID: 0}
+  commonBorder: {fileID: 21300000, guid: 71b83a73a300090469948639d789e578, type: 3}
+  uncommonBorder: {fileID: 21300000, guid: 393b8560e096cf14d9821e90ff2b352c, type: 3}
+  rareBorder: {fileID: 21300000, guid: dc265bf0c077ea843bf12952d9b3275c, type: 3}
+  epicBorder: {fileID: 21300000, guid: 5af74785a591e074881cb05ddaa2bebb, type: 3}
+  legendaryBorder: {fileID: 21300000, guid: 2372011d4878c5d4db14ccce4b68b278, type: 3}
 --- !u!114 &2372004549449668998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,7 +427,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 157059599, guid: 53682161741a5564b99e95aecd74d253, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 71b83a73a300090469948639d789e578, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
