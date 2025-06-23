@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64fc29406bef0874099e644c58362ffe, type: 3}
-  m_Name: Round1-3
+  m_Name: Round2-4
   m_EditorClassIdentifier: 
-  roundID: 1003
-  RoundTier: 6
-  duration: 25
-  baseSpawnInterval: 3.5
+  roundID: 2004
+  RoundTier: 5
+  duration: 35
+  baseSpawnInterval: 3
   proceduralRoundEnemyGroups:
   - enemySO: {fileID: 11400000, guid: 8a3ede3befcbc3c4dab36331a3e15506, type: 2}
     weight: 10
   - enemySO: {fileID: 11400000, guid: 8a187a977c2394c4ca5bc25d399c13ab, type: 2}
-    weight: 3
+    weight: 10
