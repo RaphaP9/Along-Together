@@ -5,9 +5,9 @@ using UnityEngine;
 public abstract class TreatHandler : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private TreatSO treatSO;
+    [SerializeField] private List<InventoryObjectSO> inventoryObjectsToActivate;
 
-    public TreatSO TreatSO => treatSO;
+    public List<InventoryObjectSO> InventoryObjectsToActivate => inventoryObjectsToActivate;
 
     private void Awake()
     {
@@ -16,5 +16,21 @@ public abstract class TreatHandler : MonoBehaviour
 
     protected abstract void SetSingleton();
 
-    protected virtual bool TreatEnabled() => TreatsInventoryManager.Instance.HasTreatSOInInventory(treatSO);
+    protected virtual bool TreatEnabled()
+    {
+        foreach(InventoryObjectSO inventoryObjectSO in inventoryObjectsToActivate)
+        {
+            switch (inventoryObjectSO.GetInventoryObjectType())
+            {
+                case InventoryObjectType.Object:
+                    if (ObjectsInventoryManager.Instance.HasObjectSOInInventory(inventoryObjectSO as ObjectSO)) return true;
+                    break;
+                case InventoryObjectType.Treat:
+                    if (TreatsInventoryManager.Instance.HasTreatSOInInventory(inventoryObjectSO as TreatSO)) return true;
+                    break;
+            }
+        }
+
+        return false;
+    }
 }
