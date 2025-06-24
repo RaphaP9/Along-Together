@@ -431,7 +431,7 @@ public class GameManager : MonoBehaviour
         #region LoadNextRound Logic
         if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts()) //Load Next Round&Stage and Save Data
         {
-            GeneralStagesManager.Instance.LoadNextRoundAndStage();
+            GeneralStagesManager.Instance.LoadNextRoundAndStage(); //IMPORTANT: First Load New Values, then save data
             TriggerDataSave();
         }
         #endregion

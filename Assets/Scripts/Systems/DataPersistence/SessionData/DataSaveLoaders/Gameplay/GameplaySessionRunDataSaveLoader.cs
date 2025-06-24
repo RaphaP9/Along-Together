@@ -61,6 +61,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
     public override void SaveRuntimeData()
     {
+        SaveTutorializedRunBoolean();
+
         SaveCurrentStageNumber();
         SaveCurrentRoundNumber();
 
@@ -185,7 +187,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
     #region SaveMethods
 
-    private void SaveTutorializedRunDataContainer()
+    private void SaveTutorializedRunBoolean()
     {
         if (gameManager == null) return;
         SessionRunDataContainer.Instance.SetTutorializedRunBoolean(gameManager.TutorializedRun);

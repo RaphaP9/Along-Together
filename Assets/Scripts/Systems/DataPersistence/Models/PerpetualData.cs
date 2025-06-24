@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class PerpetualData : DataModel
 {
+    public bool hasCompletedTutorial;
     public List<int> unlockedCharacterIDs;
 
     public List<DataModeledAssetStat> assetStats;
@@ -12,6 +13,7 @@ public class PerpetualData : DataModel
 
     public PerpetualData()
     {
+        hasCompletedTutorial = false;
         unlockedCharacterIDs = new List<int>();
         numericStats = new List<DataModeledNumericStat>();
         assetStats = new List<DataModeledAssetStat>();

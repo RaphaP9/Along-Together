@@ -11,6 +11,9 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     //Runtime Filled
     private Transform playerTransform;
 
+    private const int MIN_STAGE_TO_COMPLETE_TUTORIAL = 1;
+    private const int MIN_ROUND_TO_COMPLETE_TUTORIAL = 3;
+
     private void OnEnable()
     {
         PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
@@ -30,6 +33,8 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
 
     public override void SaveRuntimeData()
     {
+        SaveHasCompletedTutorial();
+
         SavePerpetualNumericStats();
         SavePerpetualAssetStats();
     }
@@ -50,6 +55,26 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     #endregion
 
     #region SaveMethods
+    private void SaveHasCompletedTutorial()
+    {
+        if(GeneralStagesManager.Instance == null) return;
+        if(GameManager.Instance == null) return;
+
+        bool isRunTutorialized = GameManager.Instance.TutorializedRun;
+        int currentStage = GeneralStagesManager.Instance.CurrentStageNumber;
+        int currentRound = GeneralStagesManager.Instance.CurrentRoundNumber;
+
+        if (!isRunTutorialized)
+        {
+            SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(true);
+        }
+        else
+        {
+            if(currentStage >= MIN_STAGE_TO_COMPLETE_TUTORIAL && currentRound > MIN_ROUND_TO_COMPLETE_TUTORIAL) SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(true);
+            else SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(false);
+        }
+    }
+
     private void SavePerpetualNumericStats()
     {
         if (perpetualNumericStatModifierManager == null) return;

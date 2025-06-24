@@ -4374,8 +4374,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 186128700}
-  openTime: 0.5
-  closeTime: 0.5
+  openTime: 0.25
+  closeTime: 0.1
 --- !u!1 &186593513
 GameObject:
   m_ObjectHideFlags: 0
@@ -9238,16 +9238,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   previousState: 0
-  startingGameTimer: 4
+  startingGameTimer: 5
   roundStartingTime: 2
   roundEndingTime: 2
   changeStageStartingTimer: 3
-  changeStageEndingTimer: 4
+  changeStageEndingTimer: 5
   dialogueInterval: 1
   tutorializedRun: 0
   tutorializedActionInterval: 0.5
-  afterTutorializationTime: 1
-  afterUITutorializationTime: 1
+  afterTutorializationTime: 0.5
+  afterUITutorializationTime: 0.5
   ignoreGameFlow: 0
 --- !u!1001 &342144884
 PrefabInstance:
@@ -14057,8 +14057,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 516012590}
-  openTime: 0.5
-  closeTime: 0.5
+  openTime: 0.25
+  closeTime: 0.1
   attacksPerformedToMetTutorializationCondition: 10
 --- !u!95 &516012590
 Animator:
@@ -33130,7 +33130,7 @@ MonoBehaviour:
   animator: {fileID: 1260449581}
   stageNameText: {fileID: 990243787}
   timeToShowStageName: 1
-  timeShowingStageName: 2.25
+  timeShowingStageName: 3.25
 --- !u!95 &1260449581
 Animator:
   serializedVersion: 5
@@ -35907,8 +35907,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1384869645}
-  openTime: 0.5
-  closeTime: 0.5
+  openTime: 0.25
+  closeTime: 0.1
   distanceCoveredToMetTutorializationCondition: 20
 --- !u!1 &1388170010
 GameObject:
