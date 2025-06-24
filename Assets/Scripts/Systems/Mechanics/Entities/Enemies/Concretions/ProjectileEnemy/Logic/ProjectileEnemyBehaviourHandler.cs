@@ -117,7 +117,10 @@ public class ProjectileEnemyBehaviourHandler : EnemyBehaviourHandler
         }
     }
 
-    private void AttackingPlayerLogic() { }
+    private void AttackingPlayerLogic()
+    {
+        enemyMovement.StopOnCurrentPosition();
+    }
 
     private void DeadLogic() { }
 

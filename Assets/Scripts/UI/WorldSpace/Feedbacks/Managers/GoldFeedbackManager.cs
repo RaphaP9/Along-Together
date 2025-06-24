@@ -9,17 +9,16 @@ public class GoldFeedbackManager : NumericFeedbackManager
 
     private void OnEnable()
     {
-        GoldDropperManager.OnEntityDropGold += GoldDropperManager_OnEntityDropGold;
+        GoldManager.OnTangibleGoldCollected += GoldManager_OnTangibleGoldCollected;
     }
-
     private void OnDisable()
     {
-        GoldDropperManager.OnEntityDropGold -= GoldDropperManager_OnEntityDropGold;
+        GoldManager.OnTangibleGoldCollected -= GoldManager_OnTangibleGoldCollected;
     }
 
-    private void GoldDropperManager_OnEntityDropGold(object sender, GoldDropperManager.OnEntityDropGoldEventArgs e)
+    private void GoldManager_OnTangibleGoldCollected(object sender, GoldManager.OnTangibleGoldEventArgs e)
     {
-        Vector2 instantiationPosition = GetInstantiationPosition(e.entityPosition);
+        Vector2 instantiationPosition = GetInstantiationPosition(e.position);
         CreateNumericFeedback(feedbackPrefab, instantiationPosition, e.goldAmount, feedbackColor);
     }
 }

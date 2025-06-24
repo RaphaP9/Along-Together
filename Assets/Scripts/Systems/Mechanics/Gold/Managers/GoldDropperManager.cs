@@ -7,16 +7,18 @@ public class GoldDropperManager : MonoBehaviour
 {
     public static GoldDropperManager Instance { get; private set; }
 
-    public static event EventHandler<OnEntityDropGoldEventArgs> OnEntityDropGold;
+    [Header("Setting")]
+    [SerializeField] private List<GoldValuePrefab> goldValuePrefabs;
 
     [Header("Debug")]
     [SerializeField] private bool debug;
 
-    public class OnEntityDropGoldEventArgs : EventArgs
+    [System.Serializable]
+    public class GoldValuePrefab
     {
-        public int goldAmount;
-        public Vector2 entityPosition;
-    }        
+        public Transform goldPrefab;
+        public int value;
+    }
 
     private void OnEnable()
     {
@@ -48,11 +50,26 @@ public class GoldDropperManager : MonoBehaviour
 
     private void DropEntityGoldAtPosition(int goldAmount, Vector2 entityPosition)
     {
-        if (goldAmount <= 0) return;
+        int goldAlreadyDropped = 0;
 
-        int goldDropped = GoldManager.Instance.AddGold(goldAmount);
+        foreach(GoldValuePrefab goldValuePrefab in goldValuePrefabs)
+        {
+            if (goldAlreadyDropped == goldAmount) break;
 
-        OnEntityDropGold?.Invoke(this, new OnEntityDropGoldEventArgs { goldAmount = goldDropped, entityPosition = entityPosition });
+            int prefabsToDrop = (goldAmount- goldAlreadyDropped) / goldValuePrefab.value;
+            if (prefabsToDrop <= 0) continue;
+
+            for (int i = 0; i < prefabsToDrop; i++)
+            {
+                CreateGoldPrefabAtPosition(goldValuePrefab.goldPrefab, entityPosition);
+                goldAlreadyDropped += goldValuePrefab.value;
+            }
+        }
+    }
+
+    private void CreateGoldPrefabAtPosition(Transform prefab, Vector2 position)
+    {
+        Transform goldTransform = Instantiate(prefab, GeneralUtilities.Vector2ToVector3(position), Quaternion.identity);
     }
 
     private void HandleGoldDrop(object sender, EntityHealth.OnEntityDeathEventArgs e)

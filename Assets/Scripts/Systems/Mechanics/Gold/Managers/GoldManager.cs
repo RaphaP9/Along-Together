@@ -22,6 +22,8 @@ public class GoldManager : MonoBehaviour
 
     public static event EventHandler<OnGoldSpentDeniedEventArgs> OnGoldSpentDenied;
 
+    public static event EventHandler<OnTangibleGoldEventArgs> OnTangibleGoldCollected;
+
     public class OnGoldEventArgs : EventArgs
     {
         public int currentGold;
@@ -37,6 +39,22 @@ public class GoldManager : MonoBehaviour
     {
         public int goldToSpend;
         public int currentGold;
+    }
+
+    public class OnTangibleGoldEventArgs : EventArgs
+    {
+        public int goldAmount;
+        public Vector2 position;
+    }
+
+    private void OnEnable()
+    {
+        GoldCollection.OnAnyGoldCollected += GoldCollection_OnAnyGoldCollected;
+    }
+
+    private void OnDisable()
+    {
+        GoldCollection.OnAnyGoldCollected -= GoldCollection_OnAnyGoldCollected;
     }
 
     private void Awake()
@@ -106,6 +124,18 @@ public class GoldManager : MonoBehaviour
     }
 
     public bool CanSpendGold(int goldToSpend) => currentGold >= goldToSpend;
-
     public void SetCurrentGold(int setterGold) => currentGold = setterGold;
+
+    private void AddTangibleGold(int value, Vector2 position)
+    {
+        int realAddedValue = AddGold(value);
+        OnTangibleGoldCollected?.Invoke(this, new OnTangibleGoldEventArgs { goldAmount = realAddedValue, position = position });
+    }
+
+    #region Subscriptions
+    private void GoldCollection_OnAnyGoldCollected(object sender, GoldCollection.OnGoldEventArgs e)
+    {
+        AddTangibleGold(e.value, e.position);   
+    }
+    #endregion
 }
