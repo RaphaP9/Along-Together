@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4218531509883813995}
   - component: {fileID: 6469591813978157181}
   - component: {fileID: 6555358700867857069}
+  - component: {fileID: 1518551645567045109}
   m_Layer: 14
   m_Name: Gold1
   m_TagString: Untagged
@@ -111,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e172b8d858caf4e9e5b17bf1f78387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 1
+  value: 5
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -128,6 +129,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 4218531509883813995}
+  terrainLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
   minImpulse: 9
   maxImpulse: 9.5
   minVelAngle: 135
@@ -135,9 +139,27 @@ MonoBehaviour:
   minTimeToStop: 0.3
   maxTimeToStop: 0.55
   basePlayerDetectionRange: 1.5
-  moveTowardsPlayerSmoothFactor: 10
+  moveTowardsPlayerSmoothFactor: 7
+  moveTowardsPlayerRoundEndSmoothFactor: 15
   chosenAngle: 0
   chosenDirection: {x: 0, y: 0}
+--- !u!114 &1518551645567045109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2688988209474201317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e509bc81b8d1980429d7302a87b67bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldMovement: {fileID: 6555358700867857069}
+  minTimeToStartDespawning: 10
+  maxToStartDespawning: 12
+  minTimeToDespawn: 6
+  maxTimeToDespawn: 6.5
 --- !u!1 &2974979151331855644
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,6 +201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 853777338636423651}
   - component: {fileID: 7263590257960439232}
+  - component: {fileID: 5472591817971677949}
   m_Layer: 14
   m_Name: Visual
   m_TagString: Untagged
@@ -218,6 +241,20 @@ MonoBehaviour:
   spriteRenderers:
   - {fileID: 42487555020869607}
   respectListingOrder: 1
+--- !u!114 &5472591817971677949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3022166122824731592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 515d7046c3cbbbe428a3a6790b34f1fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8302249530932692015}
+  goldDespawnHandler: {fileID: 1518551645567045109}
 --- !u!1 &4426129420679657414
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,8 +265,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7377148563447050953}
   - component: {fileID: 42487555020869607}
+  - component: {fileID: 8302249530932692015}
   m_Layer: 14
-  m_Name: Circle
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,8 +326,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1761373133
-  m_SortingLayer: 7
+  m_SortingLayerID: 300410655
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.936637, g: 1, b: 0.5330188, a: 1}
@@ -302,3 +340,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &8302249530932692015
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4426129420679657414}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0106391a1e113914eb91eaa83fed735f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

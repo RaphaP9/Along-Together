@@ -3922,9 +3922,9 @@ MonoBehaviour:
   goldValuePrefabs:
   - goldPrefab: {fileID: 1741156650806868140, guid: d5f4145c5815c8c44afe17b4e2768bb1, type: 3}
     value: 10
-  - goldPrefab: {fileID: 1741156650806868140, guid: 2de24cd3faec5a944a5f3383dbf4bdfa, type: 3}
+  - goldPrefab: {fileID: 1741156650806868140, guid: b8ae2c4bfeaf92648b2825fad47b6b6e, type: 3}
     value: 5
-  - goldPrefab: {fileID: 1741156650806868140, guid: 5eaf8feaae326564396af287427d568b, type: 3}
+  - goldPrefab: {fileID: 1741156650806868140, guid: 041243628a254e64dbaa47becd30b6d8, type: 3}
     value: 1
   debug: 1
 --- !u!1 &147975291
