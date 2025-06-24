@@ -176,7 +176,7 @@ public class PlayerStateHandler : MonoBehaviour
     }
     #endregion
 
-    #region NoCombat Logics
+    #region Rest Logics
     private void RestLogicUpdate()
     {
         
@@ -204,11 +204,11 @@ public class PlayerStateHandler : MonoBehaviour
                 SetPlayerState(PlayerState.ZeroActions);
                 break;
             case GameManager.State.BeginningCombat:
-            case GameManager.State.EndingCombat:
             case GameManager.State.Combat:
             case GameManager.State.Tutorial:
                 SetPlayerState(PlayerState.Combat);
                 break;
+            case GameManager.State.EndingCombat:
             case GameManager.State.Shop:
             case GameManager.State.Upgrade:
             case GameManager.State.Win:

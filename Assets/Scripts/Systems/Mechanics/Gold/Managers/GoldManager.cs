@@ -129,6 +129,8 @@ public class GoldManager : MonoBehaviour
     private void AddTangibleGold(int value, Vector2 position)
     {
         int realAddedValue = AddGold(value);
+
+        if (GameManager.Instance.GameState != GameManager.State.Combat) return; //Only Events On Combat
         OnTangibleGoldCollected?.Invoke(this, new OnTangibleGoldEventArgs { goldAmount = realAddedValue, position = position });
     }
 

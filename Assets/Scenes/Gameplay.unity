@@ -11088,11 +11088,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   previousState: 0
-  startingGameTimer: 2
-  roundStartingTime: 2
+  startingGameTimer: 2.5
+  roundStartingTime: 2.5
   roundEndingTime: 2
   changeStageStartingTimer: 3
-  changeStageEndingTimer: 5
+  changeStageEndingTimer: 3
   dialogueInterval: 1
   tutorializedRun: 0
   tutorializedActionInterval: 0.5

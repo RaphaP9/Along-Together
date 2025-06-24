@@ -140,7 +140,7 @@ MonoBehaviour:
   maxTimeToStop: 0.55
   basePlayerDetectionRange: 1.5
   moveTowardsPlayerSmoothFactor: 7
-  moveTowardsPlayerRoundEndSmoothFactor: 15
+  moveTowardsPlayerRoundEndSmoothFactor: 3
   chosenAngle: 0
   chosenDirection: {x: 0, y: 0}
 --- !u!114 &1518551645567045109
