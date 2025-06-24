@@ -9,8 +9,6 @@ public class CharacterSO : EntitySO, IHealSource, IShieldSource
     [Header("Character Health Settings")]
     [Range(0, 10)] public int baseHealthRegen;
     [Range(0, 10)] public int baseShieldRegen;
-    [ColorUsage(true, true)] public Color healColor;
-    [ColorUsage(true, true)] public Color shieldColor;
 
     [Header("Character Cooldown Settings")]
     [Range(0f, 1f)] public float baseCooldownReduction;
