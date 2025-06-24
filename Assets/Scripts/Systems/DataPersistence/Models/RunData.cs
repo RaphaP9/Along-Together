@@ -29,7 +29,7 @@ public class RunData : DataModel
 
     public RunData()
     {
-        tutorializedRun = true;
+        tutorializedRun = false;
 
         currentStageNumber = 1;
         currentRoundNumber = 1;
@@ -59,6 +59,10 @@ public class RunData : DataModel
             Debug.Log("GeneralGameSettings Instance is null. Can not Initialize DataModel.");
             return;
         }
+
+        //JSON Perpetual Data Loads Before Run Data
+        //PerpetualData is Ready before RunData, it is safe to call the following line
+        tutorializedRun = !SessionPerpetualDataContainer.Instance.PerpetualData.hasCompletedTutorial;
 
         currentStageNumber = GeneralGameSettings.Instance.GetStartingStage();
         currentRoundNumber = GeneralGameSettings.Instance.GetStartingRound();
