@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviour
             #endregion
 
             #region Shop/AbilityUpgrade Logic
-            if (GeneralStagesManager.Instance.CurrentRoundIsFirstFromCurrentStage())
+            if (GeneralStagesManager.Instance.CurrentRoundIsFirstFromCurrentStage() && !GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //Skip AbilityUpgrade if First Stage&Round
             {
                 #region AbilityUpgrade Logic
                 if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) //Only Open AbilityUpgradeUI if can upgrade an ability
@@ -216,7 +216,26 @@ public class GameManager : MonoBehaviour
                 }
                 #endregion
             }
-            else
+            else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 2)) //If Round 1-2 Open AbilityUpgrade with Tutorialization
+            {
+                #region AbilityUpgrade Logic
+                if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) //Only Open AbilityUpgradeUI if can upgrade an ability
+                {
+                    yield return StartCoroutine(AbilityUpgradeCoroutine());
+                }
+                else
+                {
+                    yield return StartCoroutine(ShopCoroutine());
+                }
+                #endregion
+
+                yield return new WaitForSeconds(afterUITutorializationTime);
+            }
+            else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //If Round 1-3 Open Shop With Tutorialization
+            {
+                yield return StartCoroutine(ShopCoroutine());
+            }
+            else if (!GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts())//Open Shop on further rounds
             {
                 yield return StartCoroutine(ShopCoroutine());
             }
@@ -229,7 +248,7 @@ public class GameManager : MonoBehaviour
             #region PostCombat Dialogue Logic
             if (DialogueTriggerHandler.Instance.ExistDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PostCombat))
             {
-                yield return StartCoroutine(DialogueCoroutine(characterSO,stageNumber,roundNumber, DialogueChronology.PostCombat));
+                yield return StartCoroutine(DialogueCoroutine(characterSO, stageNumber, roundNumber, DialogueChronology.PostCombat));
             }
             #endregion
 
@@ -314,7 +333,7 @@ public class GameManager : MonoBehaviour
                 TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.Shop);
                 yield return StartCoroutine(ShopCoroutine());
             }
-            else if (!GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //Open Shop on further rounds
+            else if(!GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //Open Shop on further rounds
             {
                 yield return StartCoroutine(ShopCoroutine());
             }
