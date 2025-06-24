@@ -29,6 +29,7 @@ MonoBehaviour:
   baseLifesteal: 0
   damageColor: {r: 1.4980392, g: 0.04946359, b: 0.04946359, a: 1}
   baseMovementSpeed: 5
+  pushResistanceFactor: 2
   baseHealthRegen: 0
   baseShieldRegen: 0
   healColor: {r: 0.21314174, g: 0.7169812, b: 0.15895337, a: 1}

@@ -8,7 +8,7 @@ public abstract class SortingOrderRenderingHandler : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Transform renderingRefference;
 
-    private int previousSortingOrder = 0;
+    protected int previousSortingOrder = 0;
 
     private const int DECIMAL_PRECISION = 2;
 
@@ -25,7 +25,6 @@ public abstract class SortingOrderRenderingHandler : MonoBehaviour
     private void HandleSortingOrder()
     {
         int newSortingOrder = CalculateSortingOrderDueToPosition();
-        if (newSortingOrder == previousSortingOrder) return;
 
         UpdateSortingOrder(newSortingOrder);
 

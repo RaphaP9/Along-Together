@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawnHandler : MonoBehaviour, IPushImmuner
+public class EnemySpawnHandler : MonoBehaviour, IPushImmuner, IAttackInterruption, IMovementInterruption
 {
     [Header("Components")]
     [SerializeField] private EnemyIdentifier enemyIdentifier;
@@ -23,6 +23,16 @@ public class EnemySpawnHandler : MonoBehaviour, IPushImmuner
     public class OnEnemySpawnEventArgs
     {
         public EnemySO enemySO;
+    }
+
+    private void OnEnable()
+    {
+        enemyHealth.OnEnemyDeath += EnemyHealth_OnEnemyDeath;
+    }
+
+    private void OnDisable()
+    {
+        enemyHealth.OnEnemyDeath -= EnemyHealth_OnEnemyDeath;
     }
 
     private void Start()
@@ -46,5 +56,14 @@ public class EnemySpawnHandler : MonoBehaviour, IPushImmuner
     } 
 
     public bool IsPushImmuning() => isSpawning;
+    public bool IsInterruptingMovement() => isSpawning;
+    public bool StopMovementOnInterruption() => true; 
+    public bool IsInterruptingAttack() => isSpawning;   
+
+    private void EnemyHealth_OnEnemyDeath(object sender, EntityHealth.OnEntityDeathEventArgs e)
+    {
+        StopAllCoroutines();
+        isSpawning = false;
+    }
 }
 

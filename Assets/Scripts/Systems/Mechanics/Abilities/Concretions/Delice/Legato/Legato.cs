@@ -34,7 +34,7 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
     public bool OverrideFacingDirection() => true;
     public Vector2 GetFacingDirection() => new Vector2(0f, -1f); //FacingDown
     /////////////////////////////////////////////////////////////////////
-    public bool IsInterruptingMovement() => isStarting || isEnding;
+    public bool IsInterruptingMovement() => false; // isStarting || isEnding;
     public bool StopMovementOnInterruption() => true;
     ////////////////////////////////////////////////////////////////////
     public override bool IsInterruptingAttack() => isCurrentlyActive;

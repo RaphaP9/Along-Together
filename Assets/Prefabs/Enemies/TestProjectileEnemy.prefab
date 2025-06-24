@@ -550,6 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fa243a86851f74b8faa60f32da3f1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityIdentifier: {fileID: 8246813395085610927}
   _rigidbody2D: {fileID: 1295730402221327}
   _collider2D: {fileID: 5656605717586926970}
   entityHealth: {fileID: 7613458921501402528}
@@ -558,7 +559,6 @@ MonoBehaviour:
   stopPushLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  pushResistanceFactor: 0.2
   currentPushData:
     pushForce: 1
     actionRadius: 1

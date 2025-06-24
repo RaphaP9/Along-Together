@@ -5,6 +5,7 @@ using UnityEngine;
 public class EntityPhysicPush : MonoBehaviour, IMovementInterruption
 {
     [Header("Comonents")]
+    [SerializeField] private EntityIdentifier entityIdentifier;
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private Collider2D _collider2D;
     [Space]
@@ -14,7 +15,6 @@ public class EntityPhysicPush : MonoBehaviour, IMovementInterruption
 
     [Header("Settings")]
     [SerializeField] private LayerMask stopPushLayerMask;
-    [SerializeField, Range(0f, 1f)] private float pushResistanceFactor;
 
     [Header("Runtime Filled")]
     [SerializeField] private PhysicPushData currentPushData;
@@ -68,8 +68,8 @@ public class EntityPhysicPush : MonoBehaviour, IMovementInterruption
 
             Vector2 currentVelocityVector = _rigidbody2D.velocity.normalized;
 
-            _rigidbody2D.AddForce(pushData.pushForce * pushResistanceFactor * -currentVelocityVector);
-            yield return null;
+            _rigidbody2D.AddForce(pushData.pushForce * entityIdentifier.EntitySO.pushResistanceFactor * -currentVelocityVector);
+            yield return new WaitForFixedUpdate();
         }
 
         StopRigidbody();
@@ -101,8 +101,8 @@ public class EntityPhysicPush : MonoBehaviour, IMovementInterruption
 
         while (_rigidbody2D.velocity.magnitude <= END_PUSH_THRESHOLD)
         {
-            _rigidbody2D.AddForce(-pushVector * pushResistanceFactor);
-            yield return null;
+            _rigidbody2D.AddForce(-pushVector * entityIdentifier.EntitySO.pushResistanceFactor);
+            yield return new WaitForFixedUpdate();
         }
 
         StopRigidbody();

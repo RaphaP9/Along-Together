@@ -33,6 +33,7 @@ public abstract class EntitySO : ScriptableObject, IAttackable, IDamageSource //
 
     [Header("Entity Movement Settings")]
     [Range(0f, 10f)] public float baseMovementSpeed;
+    [Range(0.5f, 10f)] public float pushResistanceFactor;
 
     #region IAttackableSO Methods
     public string GetAttackableName() => entityName;

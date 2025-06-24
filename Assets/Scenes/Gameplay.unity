@@ -9238,11 +9238,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   previousState: 0
-  startingGameTimer: 7.5
-  roundStartingTime: 2.5
-  roundEndingTime: 3
+  startingGameTimer: 4
+  roundStartingTime: 2
+  roundEndingTime: 2
   changeStageStartingTimer: 3
-  changeStageEndingTimer: 7.5
+  changeStageEndingTimer: 4
   dialogueInterval: 1
   tutorializedRun: 0
   tutorializedActionInterval: 0.5
@@ -33129,8 +33129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1260449581}
   stageNameText: {fileID: 990243787}
-  timeToShowStageName: 2
-  timeShowingStageName: 4
+  timeToShowStageName: 1
+  timeShowingStageName: 2.25
 --- !u!95 &1260449581
 Animator:
   serializedVersion: 5

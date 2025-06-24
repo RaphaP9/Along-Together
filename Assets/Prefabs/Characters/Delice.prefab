@@ -1687,6 +1687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fa243a86851f74b8faa60f32da3f1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityIdentifier: {fileID: 1965199428449930878}
   _rigidbody2D: {fileID: 3125651546402793068}
   _collider2D: {fileID: 412134474387252891}
   entityHealth: {fileID: 6586126778679378193}
@@ -1694,7 +1695,6 @@ MonoBehaviour:
   stopPushLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  pushResistanceFactor: 0.3
   currentPushData:
     pushForce: 1
     actionRadius: 1
@@ -2359,7 +2359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6543428868650559586}
   - component: {fileID: 3243932913206162116}
-  - component: {fileID: 3840282726937612099}
+  - component: {fileID: 1100136422778095076}
   m_Layer: 6
   m_Name: BodyVisual
   m_TagString: Untagged
@@ -2404,7 +2404,7 @@ MonoBehaviour:
   staccato: {fileID: 7920790296143757481}
   ritardando: {fileID: 2412851267031932804}
   legato: {fileID: 8682992959460049137}
---- !u!114 &3840282726937612099
+--- !u!114 &1100136422778095076
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2413,14 +2413,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8502199646678721002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd0677dbead101408d8d381b4a763b8, type: 3}
+  m_Script: {fileID: 11500000, guid: cbc5af84231883c4683205b4d70b80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   renderingRefference: {fileID: 6821514096472661047}
-  spriteRenderers:
+  entityFacingDirectionHandler: {fileID: 4295945866100084352}
+  bodySpriteRenderers:
   - {fileID: 1724196336011256719}
+  weaponSpriteRenderers:
   - {fileID: 5668402913487765036}
   respectListingOrder: 1
+  yMinFacingDirectionToBeLookingUp: -0.1
 --- !u!1 &8529961401906286131
 GameObject:
   m_ObjectHideFlags: 0

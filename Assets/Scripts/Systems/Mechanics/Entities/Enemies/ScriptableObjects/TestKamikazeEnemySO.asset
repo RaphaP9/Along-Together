@@ -29,6 +29,7 @@ MonoBehaviour:
   baseLifesteal: 0
   damageColor: {r: 1.4980392, g: 0.04946359, b: 0.04946359, a: 1}
   baseMovementSpeed: 1.75
+  pushResistanceFactor: 1.5
   goldDrop: 3
   spawnDuration: 3
   cleanupTime: 3

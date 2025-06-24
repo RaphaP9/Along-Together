@@ -148,6 +148,9 @@ public class EntityFacingDirectionHandler : MonoBehaviour
     private void SetCurrentFacingDirection(Vector2Int facingDirection) => currentFacingDirection = facingDirection;
 
     public bool IsFacingRight() => currentRawFacingDirection.x >= 0;
+    public bool Is8DirFacingRight() => currentFacingDirection.x >= 0;
+    public bool IsFacingUp() => currentRawFacingDirection.y >= 0;
+    public bool Is8DirFacingUp() => currentFacingDirection.x >= 0;
 
     #endregion
 
