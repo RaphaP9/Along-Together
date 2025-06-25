@@ -22,7 +22,7 @@ public static class MappingUtilities
     #region Numeric Stat Consts
     private const string MAX_HEALTH_STAT = "Vida Máxima";
     private const string MAX_SHIELD_STAT = "Escudo Máximo";
-    private const string HEALTH_REGEN_STAT = "Regen. de Vida";
+    private const string HEALTH_REGEN_STAT = "Regen. por Ronda";
     private const string SHIELD_REGEN_STAT = "Regen. de Escudo";
     private const string ARMOR_STAT = "Armadura";
     private const string DODGE_CHANCE_STAT = "Evasión";

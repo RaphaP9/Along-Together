@@ -22,7 +22,7 @@ public class GoldManager : MonoBehaviour
 
     public static event EventHandler<OnGoldSpentDeniedEventArgs> OnGoldSpentDenied;
 
-    public static event EventHandler<OnTangibleGoldEventArgs> OnTangibleGoldCollected;
+    public static event EventHandler<OnTangibleGoldEventArgs> OnProcessedGoldCollected;
 
     public class OnGoldEventArgs : EventArgs
     {
@@ -126,18 +126,16 @@ public class GoldManager : MonoBehaviour
     public bool CanSpendGold(int goldToSpend) => currentGold >= goldToSpend;
     public void SetCurrentGold(int setterGold) => currentGold = setterGold;
 
-    private void AddTangibleGold(int value, Vector2 position)
+    private void ProcessGoldCollected(int value, Vector2 position)
     {
-        int realAddedValue = AddGold(value);
-
-        if (GameManager.Instance.GameState != GameManager.State.Combat) return; //Only Events On Combat
-        OnTangibleGoldCollected?.Invoke(this, new OnTangibleGoldEventArgs { goldAmount = realAddedValue, position = position });
+        int processedGold = AddGold(value);
+        OnProcessedGoldCollected?.Invoke(this, new OnTangibleGoldEventArgs { goldAmount = processedGold, position = position });
     }
 
     #region Subscriptions
     private void GoldCollection_OnAnyGoldCollected(object sender, GoldCollection.OnGoldEventArgs e)
     {
-        AddTangibleGold(e.value, e.position);   
+        ProcessGoldCollected(e.value, e.position);   
     }
     #endregion
 }

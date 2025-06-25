@@ -9,15 +9,17 @@ public class GoldFeedbackManager : NumericFeedbackManager
 
     private void OnEnable()
     {
-        GoldManager.OnTangibleGoldCollected += GoldManager_OnTangibleGoldCollected;
-    }
-    private void OnDisable()
-    {
-        GoldManager.OnTangibleGoldCollected -= GoldManager_OnTangibleGoldCollected;
+        GoldManager.OnProcessedGoldCollected += GoldManager_OnProcessedGoldCollected;
     }
 
-    private void GoldManager_OnTangibleGoldCollected(object sender, GoldManager.OnTangibleGoldEventArgs e)
+    private void OnDisable()
     {
+        GoldManager.OnProcessedGoldCollected -= GoldManager_OnProcessedGoldCollected;
+    }
+
+    private void GoldManager_OnProcessedGoldCollected(object sender, GoldManager.OnTangibleGoldEventArgs e)
+    {
+        if (GameManager.Instance.GameState != GameManager.State.Combat) return; //Only Gold Feedbacks on Combat
         Vector2 instantiationPosition = GetInstantiationPosition(e.position);
         CreateNumericFeedback(feedbackPrefab, instantiationPosition, e.goldAmount, feedbackColor);
     }
