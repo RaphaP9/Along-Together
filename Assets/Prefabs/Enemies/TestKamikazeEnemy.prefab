@@ -645,7 +645,7 @@ MonoBehaviour:
   explosionLayermask:
     serializedVersion: 2
     m_Bits: 64
-  explodeOnDeath: 1
+  explodeOnDeath: 0
   enemyIdentifier: {fileID: 5412602289760510124}
   kamikazeExplosionState: 0
 --- !u!114 &8364510044175325432
