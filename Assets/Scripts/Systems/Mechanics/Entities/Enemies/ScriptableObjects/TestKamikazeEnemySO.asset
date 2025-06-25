@@ -18,7 +18,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   color: {r: 0, g: 0, b: 0, a: 0}
   prefab: {fileID: 8009517623076321794, guid: 98dcce3c5293abb4eb6446fecb7e7700, type: 3}
-  baseHealth: 40
+  baseHealth: 25
   baseShield: 0
   baseArmor: 0
   baseDodgeChance: 0
@@ -35,5 +35,5 @@ MonoBehaviour:
   cleanupTime: 3
   explosionDamage: 6
   explosionRadius: 3
-  detectionRange: 3
+  detectionRange: 1.75
   explosionTime: 1

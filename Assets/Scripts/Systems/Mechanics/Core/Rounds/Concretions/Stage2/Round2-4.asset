@@ -15,7 +15,7 @@ MonoBehaviour:
   roundID: 2004
   RoundTier: 5
   duration: 40
-  baseSpawnInterval: 3
+  baseSpawnInterval: 2.5
   proceduralRoundEnemyGroups:
   - enemySO: {fileID: 11400000, guid: 8a3ede3befcbc3c4dab36331a3e15506, type: 2}
     weight: 10

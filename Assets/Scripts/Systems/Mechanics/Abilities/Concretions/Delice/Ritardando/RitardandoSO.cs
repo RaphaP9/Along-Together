@@ -6,7 +6,7 @@ using UnityEngine;
 public class RitardandoSO : ActiveAbilitySO, IDamageSource
 {
     [Header("Specific Settings")]
-    [Range(1, 10)] public int damage;
+    [Range(1, 20)] public int damage;
     [ColorUsage(true, true)] public Color damageColor;
     [Space]
     public SlowStatusEffect slowStatusEffect;

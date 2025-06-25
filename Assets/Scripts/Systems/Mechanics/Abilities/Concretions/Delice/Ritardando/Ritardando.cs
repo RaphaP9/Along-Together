@@ -22,7 +22,7 @@ public class Ritardando : ActiveAbility, IFacingInterruption
     private bool isPerforming = false;
 
     #region Interface Methods
-    public bool IsInterruptingFacing() => isPerforming;
+    public bool IsInterruptingFacing() => false; // isPerforming;
     public bool OverrideFacingDirection() => false;
     public Vector2 GetFacingDirection() => new Vector2(0f, -1f); //Override Facing Direction is False, so this does not matter
     /////////////////////////////////////////////////////////////////////

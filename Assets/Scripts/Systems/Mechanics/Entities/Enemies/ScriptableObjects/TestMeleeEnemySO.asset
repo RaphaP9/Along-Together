@@ -18,7 +18,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   color: {r: 0, g: 0, b: 0, a: 0}
   prefab: {fileID: 8171095813524711411, guid: ad84cde8775b00a4fb9c69e7cc4ec3a8, type: 3}
-  baseHealth: 20
+  baseHealth: 10
   baseShield: 0
   baseArmor: 0
   baseDodgeChance: 0

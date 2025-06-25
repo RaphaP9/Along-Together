@@ -65,7 +65,10 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
         }
     }
 
-    private void SpawningLogic() { }
+    private void SpawningLogic() 
+    {
+        enemyMovement.StopOnCurrentPosition();
+    }
 
     private void FollowingPlayerLogic()
     {

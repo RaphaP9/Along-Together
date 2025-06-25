@@ -69,7 +69,10 @@ public class ProjectileEnemyBehaviourHandler : EnemyBehaviourHandler
         }
     }
 
-    private void SpawningLogic() { }
+    private void SpawningLogic()
+    {
+        enemyMovement.StopOnCurrentPosition();
+    }
 
     private void FollowingPlayerLogic()
     {
