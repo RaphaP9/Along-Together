@@ -8,7 +8,7 @@ public class GeneralStagesManager : MonoBehaviour
     public static GeneralStagesManager Instance { get; private set; }
 
     [Header("Lists")]
-    [SerializeField] private List<StageGroup> stagesGroups;
+    [SerializeField] private List<CharacterStageGroupList> characterStageGroupLists;
 
     [Header("Settings")]
     [SerializeField] private int startingStageNumber;
@@ -18,6 +18,7 @@ public class GeneralStagesManager : MonoBehaviour
     [SerializeField] private RoundState roundState;
 
     [Header("Runtime Filled")]
+    [SerializeField] private CharacterStageGroupList currentCharacterStageGroupList;
     [SerializeField] private StageGroup currentStageGroup;
     [SerializeField] private RoundGroup currentRoundGroup;
     [SerializeField] private RoundSO currentRound;
@@ -32,7 +33,8 @@ public class GeneralStagesManager : MonoBehaviour
     [SerializeField] private bool debug;
 
     #region Properties
-    public List<StageGroup> StagesGroups => stagesGroups;
+    public List<CharacterStageGroupList> CharacterStageGroupLists => characterStageGroupLists;
+    public CharacterStageGroupList CurrentCharacterStageGroupList => currentCharacterStageGroupList;
     public StageGroup CurrentStage => currentStageGroup;
     public RoundGroup CurrentRoundGroup => currentRoundGroup;
     public RoundSO CurrentRound => currentRound;
@@ -106,11 +108,13 @@ public class GeneralStagesManager : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerCharacterManager.OnPlayerCharacterSetPreInstantiation += PlayerCharacterManager_OnPlayerCharacterSetPreInstantiation;
         RoundHandler.OnRoundCompleted += RoundHandler_OnRoundCompleted;
     }
 
     private void OnDisable()
     {
+        PlayerCharacterManager.OnPlayerCharacterSetPreInstantiation -= PlayerCharacterManager_OnPlayerCharacterSetPreInstantiation;
         RoundHandler.OnRoundCompleted -= RoundHandler_OnRoundCompleted;
     }
 
@@ -124,8 +128,6 @@ public class GeneralStagesManager : MonoBehaviour
         SetRoundState(RoundState.NotOnRound);
         ClearLastCompletedStageGroup();
         ClearLastCompletedtRoundGroup();
-
-        InitializeStage();
     }
 
     private void SetSingleton()
@@ -141,6 +143,27 @@ public class GeneralStagesManager : MonoBehaviour
         }
     }
 
+    #region Called By Player Character Manager Subscription
+    private void SelectCharacterStageGroupList(CharacterSO characterSO)
+    {
+        bool found = false;
+
+        foreach(CharacterStageGroupList characterStageGroupList in characterStageGroupLists)
+        {
+            if(characterStageGroupList.chartacterSO == characterSO)
+            {
+                currentCharacterStageGroupList = characterStageGroupList;
+                found = true;
+                break;
+            }
+        }
+
+        if(!found)
+        {
+            if (debug) Debug.Log($"CharacterStageGroupList for Character: {characterSO.entityName} could not be found. Selecting first element from CharacterStageGroupLists");
+            currentCharacterStageGroupList = characterStageGroupLists[0];
+        }
+    }
 
     private void InitializeStage()
     {
@@ -171,6 +194,7 @@ public class GeneralStagesManager : MonoBehaviour
 
         OnStageAndRoundInitialized?.Invoke(this, new OnStageAndRoundEventArgs {stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = currentStageNumber, roundNumber = currentRoundNumber });
     }
+    #endregion
 
     #region Rounds
     public void StartCurrentRound() //RoundBlockIncludes Starting and Ending Time periods
@@ -255,13 +279,13 @@ public class GeneralStagesManager : MonoBehaviour
     {
         if (stageNumber <= 0) return null;
 
-        if (stageNumber > stagesGroups.Count)
+        if (stageNumber > currentCharacterStageGroupList.stageGroups.Count)
         {
             //if (debug) Debug.Log($"Stages are less than Stage Number: {stageNumber}. Returning null.");
             return null;
         }
 
-        return stagesGroups[stageNumber - 1];
+        return currentCharacterStageGroupList.stageGroups[stageNumber - 1];
     }
 
     private RoundGroup LocateRoundGroupByRoundNumber(int stageNumber, int roundNumber)
@@ -286,8 +310,8 @@ public class GeneralStagesManager : MonoBehaviour
         return stageGroup.stageSO.roundGroups[roundNumber - 1];
     }
 
-    private bool IsFirstStageGroup(StageGroup stageGroup) => stageGroup == stagesGroups[0];
-    private bool IsLastStageGroup(StageGroup stageGroup) => stageGroup == stagesGroups[^1];
+    private bool IsFirstStageGroup(StageGroup stageGroup) => stageGroup == currentCharacterStageGroupList.stageGroups[0];
+    private bool IsLastStageGroup(StageGroup stageGroup) => stageGroup == currentCharacterStageGroupList.stageGroups[^1];
     private bool IsFirstRoundGroupFromStageGroup(StageGroup stageGroup, RoundGroup roundGroup) => roundGroup == stageGroup.stageSO.roundGroups[0];
     private bool IsLastRoundGroupFromStageGroup(StageGroup stageGroup, RoundGroup roundGroup) => roundGroup == stageGroup.stageSO.roundGroups[^1];
 
@@ -464,7 +488,7 @@ public class GeneralStagesManager : MonoBehaviour
     private void SetCurrentRoundNumber(int roundNumber) => currentRoundNumber = roundNumber;
     private void ResetCurrentRoundNumber() => currentRoundNumber = 0;
 
-    public int GetStagesCount() => stagesGroups.Count;
+    public int GetStagesCount() => currentCharacterStageGroupList.stageGroups.Count;
 
     private void SetLastCompletedStageGroup(StageGroup stageGroup) => lastCompletedStageGroup = stageGroup;
     private void ClearLastCompletedStageGroup() => lastCompletedStageGroup = null;
@@ -511,12 +535,25 @@ public class GeneralStagesManager : MonoBehaviour
     #endregion
 
     #region Subscriptions
+    private void PlayerCharacterManager_OnPlayerCharacterSetPreInstantiation(object sender, PlayerCharacterManager.OnPlayerCharacterEventArgs e)
+    {
+        SelectCharacterStageGroupList(e.characterSO);
+        InitializeStage();
+    }
+
     private void RoundHandler_OnRoundCompleted(object sender, RoundHandler.OnRoundEventArgs e)
     {
         if (currentRound != e.roundSO) return;
         currentRoundEnded = true;
     }
     #endregion
+}
+
+[System.Serializable]
+public class CharacterStageGroupList
+{
+    public CharacterSO chartacterSO;
+    public List<StageGroup> stageGroups;
 }
 
 [System.Serializable]

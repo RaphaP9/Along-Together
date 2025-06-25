@@ -14184,26 +14184,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1f34e2fcf073e41934996d72b2109a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stagesGroups:
-  - stageSO: {fileID: 11400000, guid: 47368ed2adf26cc46a90c445e4e62a02, type: 2}
-    playerSpawnPoint: {fileID: 830161888}
-    spawnPointsHandler: {fileID: 1236280672}
-    stageConfiner: {fileID: 1028830456}
-  - stageSO: {fileID: 11400000, guid: a390d5ef5adf9764ba85b14abcce050e, type: 2}
-    playerSpawnPoint: {fileID: 39727139}
-    spawnPointsHandler: {fileID: 498999165}
-    stageConfiner: {fileID: 1867485836}
-  - stageSO: {fileID: 11400000, guid: 012da0849f6ac714d8d450c72f48cd88, type: 2}
-    playerSpawnPoint: {fileID: 505236911}
-    spawnPointsHandler: {fileID: 917301604}
-    stageConfiner: {fileID: 1908488623}
-  - stageSO: {fileID: 11400000, guid: d4e36f7ae57504744bf53d17bb3b32e1, type: 2}
-    playerSpawnPoint: {fileID: 1978534041}
-    spawnPointsHandler: {fileID: 2068496211}
-    stageConfiner: {fileID: 221733525}
+  characterStageGroupLists:
+  - chartacterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
+    stageGroups:
+    - stageSO: {fileID: 11400000, guid: 47368ed2adf26cc46a90c445e4e62a02, type: 2}
+      playerSpawnPoint: {fileID: 830161888}
+      spawnPointsHandler: {fileID: 1236280672}
+      stageConfiner: {fileID: 1028830456}
+    - stageSO: {fileID: 11400000, guid: a390d5ef5adf9764ba85b14abcce050e, type: 2}
+      playerSpawnPoint: {fileID: 39727139}
+      spawnPointsHandler: {fileID: 498999165}
+      stageConfiner: {fileID: 1867485836}
+    - stageSO: {fileID: 11400000, guid: 012da0849f6ac714d8d450c72f48cd88, type: 2}
+      playerSpawnPoint: {fileID: 505236911}
+      spawnPointsHandler: {fileID: 917301604}
+      stageConfiner: {fileID: 1908488623}
+    - stageSO: {fileID: 11400000, guid: d4e36f7ae57504744bf53d17bb3b32e1, type: 2}
+      playerSpawnPoint: {fileID: 1978534041}
+      spawnPointsHandler: {fileID: 2068496211}
+      stageConfiner: {fileID: 221733525}
   startingStageNumber: 1
   startingRoundNumber: 1
   roundState: 0
+  currentCharacterStageGroupList:
+    chartacterSO: {fileID: 0}
+    stageGroups: []
   currentStageGroup:
     stageSO: {fileID: 0}
     playerSpawnPoint: {fileID: 0}
