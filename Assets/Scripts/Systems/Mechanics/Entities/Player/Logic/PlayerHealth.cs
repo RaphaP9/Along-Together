@@ -37,6 +37,14 @@ public class PlayerHealth : EntityHealth
     public void SetCurrentHealth(int setterHealth) => currentHealth = setterHealth;
     public void SetCurrentShield(int setterShield) => currentShield = setterShield;
 
+    public override bool AvoidDamagePassThrough()
+    {
+        if (base.AvoidDamagePassThrough()) return true;
+        if (GameManager.Instance.GameState != GameManager.State.Combat) return true; //Only Take Damage While On Combat
+
+        return false;
+    }
+
     #region Virtual Event Methods
 
     protected override void OnEntityInitializedMethod()

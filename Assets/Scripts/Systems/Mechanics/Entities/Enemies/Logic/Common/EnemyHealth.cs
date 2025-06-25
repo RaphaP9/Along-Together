@@ -39,7 +39,7 @@ public class EnemyHealth : EntityHealth
 
     public override bool AvoidDamagePassThrough()
     {
-        if (!IsAlive()) return true;
+        if (base.AvoidDamagePassThrough()) return true;
         if (enemySpawnHandler.IsSpawning) return true;
 
         return false;

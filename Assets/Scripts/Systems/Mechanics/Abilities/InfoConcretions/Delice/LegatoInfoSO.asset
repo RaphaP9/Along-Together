@@ -17,17 +17,15 @@ MonoBehaviour:
     levelDescription: Delice alza vuelo durante un periodo de tiempo. Al aterrizar
       empuja a todos los enemigos adyacentes. Durante el vuelo, Delice esquiva todos
       los ataques, pero no puede atacar ni lanzar habilidades.
-    cardLevelDescription: Delice alza vuelo durante un periodo de tiempo. Al aterrizar
-      empuja a todos los enemigos adyacentes. Durante el vuelo, Delice esquiva todos
-      los ataques, pero no puede atacar ni lanzar habilidades.
+    cardLevelDescription: Delice alza vuelo y esquiva todos los ataques. Al aterrizar
+      empuja a los enemigos.
     cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
   - abilityLevel: 1
     levelDescription: Delice alza vuelo durante un periodo de tiempo. Al aterrizar
       empuja a todos los enemigos adyacentes. Durante el vuelo, Delice esquiva todos
       los ataques, pero no puede atacar ni lanzar habilidades.
-    cardLevelDescription: Delice alza vuelo durante un periodo de tiempo. Al aterrizar
-      empuja a todos los enemigos adyacentes. Durante el vuelo, Delice esquiva todos
-      los ataques, pero no puede atacar ni lanzar habilidades.
+    cardLevelDescription: Delice alza vuelo y esquiva todos los ataques. Al aterrizar
+      empuja a los enemigos.
     cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
   - abilityLevel: 2
     levelDescription: Legato Level2

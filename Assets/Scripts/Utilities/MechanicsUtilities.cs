@@ -15,7 +15,7 @@ public static class MechanicsUtilities
     private const int EXECUTE_DAMAGE = 999;
 
     #region Clamping Consts
-    public const int MIN_MAX_HEALTH = 5;
+    public const int MIN_MAX_HEALTH = 1;
     public const int MAX_MAX_HEALTH = 1000;
 
     public const int MIN_MAX_SHIELD = 0;
