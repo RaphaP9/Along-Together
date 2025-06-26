@@ -75570,6 +75570,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 457582224}
+  - {fileID: 2060695343}
   m_Father: {fileID: 2073201990}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1530149774
@@ -98967,6 +98968,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2060695342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2060695343}
+  - component: {fileID: 2060695344}
+  m_Layer: 0
+  m_Name: StageEventsDefiner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2060695343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060695342}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1529448328}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2060695344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060695342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd1bffdc90cf8444b988bbbce039c4cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2062058808
 GameObject:
   m_ObjectHideFlags: 0
@@ -99636,19 +99681,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransitions:
-  - id: 1
-    logToStart: Start
-    logToEnd: End
-    usePlayerFollowPoint: 1
-    targetTransform: {fileID: 2109542994}
-    stallTimeIn: 0
-    moveInTime: 2
-    stallTime: 4
-    moveOutTime: 2
-    stallTimeOut: 0.5
-    targetDistance: 3
-    endInTime: 0
-    enabled: 0
   - id: 2
     logToStart: Game/Lose
     logToEnd: None
@@ -101507,37 +101539,6 @@ MonoBehaviour:
   inGameOptionsContentAnimator: {fileID: 1735607570}
   inGameAudioOptionsContentAnimator: {fileID: 618386752}
   inGameGraphicsOptionsContentAnimator: {fileID: 1333497108}
---- !u!1 &2109542993
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2109542994}
-  m_Layer: 0
-  m_Name: Test Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2109542994
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2109542993}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2112825297
 GameObject:
   m_ObjectHideFlags: 0
@@ -103735,7 +103736,6 @@ SceneRoots:
   - {fileID: 1806193819}
   - {fileID: 733911089}
   - {fileID: 448386993}
-  - {fileID: 2109542994}
   - {fileID: 1773330767}
   - {fileID: 1187068121}
   - {fileID: 1203586434}
