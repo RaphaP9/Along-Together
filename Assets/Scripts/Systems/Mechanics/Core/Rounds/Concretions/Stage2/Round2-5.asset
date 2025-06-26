@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundID: 2005
   RoundTier: 5
-  waveSpawnInterval: 2
+  waveSpawnInterval: 1
   enemyWaves:
   - enemies:
     - {fileID: 11400000, guid: 8a3ede3befcbc3c4dab36331a3e15506, type: 2}

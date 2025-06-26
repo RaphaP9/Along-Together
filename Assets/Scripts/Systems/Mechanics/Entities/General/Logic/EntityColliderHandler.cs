@@ -5,23 +5,21 @@ using UnityEngine;
 public class EntityColliderHandler : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private EntityHealth entityHealth;
-    [SerializeField] private Collider2D _collider2D;
+    [SerializeField] protected EntityHealth entityHealth;
+    [SerializeField] protected Collider2D _collider2D;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         entityHealth.OnEntityDeath += EntityHealth_OnEntityDeath;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         entityHealth.OnEntityDeath -= EntityHealth_OnEntityDeath;
     }
 
-    private void DisableCollider()
-    {
-        _collider2D.enabled = false;
-    }
+    protected void EnableCollider() => _collider2D.enabled = true;
+    protected void DisableCollider() => _collider2D.enabled = false;
 
     private void EntityHealth_OnEntityDeath(object sender, System.EventArgs e)
     {

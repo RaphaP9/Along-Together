@@ -953,7 +953,7 @@ GameObject:
   - component: {fileID: 2524694192382131667}
   - component: {fileID: 2829695336235368088}
   - component: {fileID: 4615393358422545409}
-  - component: {fileID: 3260634903693636641}
+  - component: {fileID: 870924297238661267}
   m_Layer: 7
   m_Name: Handlers
   m_TagString: Untagged
@@ -1035,7 +1035,7 @@ MonoBehaviour:
   isOverridingFacing: 0
   overridenDirection: {x: 0, y: 0}
   enemySpawnHandler: {fileID: 7521818973245002023}
---- !u!114 &3260634903693636641
+--- !u!114 &870924297238661267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1044,11 +1044,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8967624295568605925}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfc67e81da6d72443be75709bfa405e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ca0dd704018a8042952b687499cfeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entityHealth: {fileID: 5108009791445493210}
   _collider2D: {fileID: 6837081020803590227}
+  enemySpawnHandler: {fileID: 7521818973245002023}
 --- !u!1001 &1534907680946638882
 PrefabInstance:
   m_ObjectHideFlags: 0

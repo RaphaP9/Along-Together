@@ -77,6 +77,7 @@ public class CameraFollowHandler : MonoBehaviour
         DisableDamping();
 
         yield return null;
+        yield return null;
 
         EnableDamping();
     }
