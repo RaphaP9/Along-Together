@@ -276,7 +276,6 @@ public class GeneralStagesManager : MonoBehaviour
     #endregion
 
     #region UtilityMethods
-
     private StageGroup LocateStageGroupByStageNumber(int stageNumber)
     {
         if (stageNumber <= 0) return null;
@@ -335,53 +334,6 @@ public class GeneralStagesManager : MonoBehaviour
         }
 
         return false;
-    }
-
-
-    private bool StageAndRoundNumberExist(int stageNumber, int roundNumber)
-    {
-        StageGroup stageGroup = LocateStageGroupByStageNumber(stageNumber);
-        RoundGroup roundGroup = LocateRoundGroupByRoundNumber(stageNumber, roundNumber);
-
-        if (stageGroup == null) return false;
-        if (roundGroup == null) return false;
-
-        return true;
-    }
-
-    private int GetNextStageNumberByStageAndRoundNumbers(int stageNumber, int roundNumber)
-    {
-        StageGroup stageGroup = LocateStageGroupByStageNumber(stageNumber);
-
-        if (stageGroup == null) return NOT_FOUND_VALUE; //If Not found stage
-
-        RoundGroup roundGroup = LocateRoundGroupByRoundNumber(stageNumber, roundNumber);
-
-        if (roundGroup == null) return NOT_FOUND_VALUE; //If Not found round
-
-        if (IsLastRoundGroupFromStageGroup(stageGroup, roundGroup))
-        {
-            if (IsLastStageGroup(stageGroup)) return LAST_VALUE; //If last round and last stage
-
-            return stageNumber + 1; // If last round but not last stage
-        }
-
-        return stageNumber; //If neither last round nor last stage
-    }
-
-    private int GetNextRoundNumberByStageAndRoundNumbers(int stageNumber, int roundNumber)
-    {
-        StageGroup stageGroup = LocateStageGroupByStageNumber(stageNumber);
-
-        if (stageGroup == null) return NOT_FOUND_VALUE; //If Not found stage
-
-        RoundGroup roundGroup = LocateRoundGroupByRoundNumber(stageNumber, roundNumber);
-
-        if (roundGroup == null) return NOT_FOUND_VALUE; //If Not found round
-
-        if (IsLastRoundGroupFromStageGroup(stageGroup, roundGroup)) return LAST_VALUE;
-
-        return roundNumber + 1; //If not last roundgroup from stage group
     }
 
     #endregion
