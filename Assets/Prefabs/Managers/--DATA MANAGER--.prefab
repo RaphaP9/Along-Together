@@ -124,6 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595adedafe09d374580058504ceccd0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  JSONPerpetualDataPersistenceManager: {fileID: 8760021311983487090}
+  JSONRunDataPersistenceManager: {fileID: 2701710326143417633}
 --- !u!1 &4167956191503538801
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runData:
+    tutorializedRun: 0
     currentStageNumber: 0
     currentRoundNumber: 0
     currentGold: 0
@@ -334,7 +337,6 @@ MonoBehaviour:
     currentShield: 0
     objects: []
     treats: []
-    assetStats: []
     numericStats: []
     abilityLevelGroups: []
     abilitySlotGroups: []
@@ -383,6 +385,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   perpetualData:
+    hasCompletedTutorial: 0
     unlockedCharacterIDs: 01000000
-    assetStats: []
-    numericStats: []

@@ -271,11 +271,11 @@ public class GameManager : MonoBehaviour
             #endregion
 
             #region Shop & AbilityUpgrade Tutorialization
-            if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 2))
+            if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 2)) //Ability Upgrade Tutorialization on 1-2 
             {
                 TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.AbilityUpgrade);
             }
-            else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3))
+            else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //Shop Tutorialization on 1-2 
             {
                 TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.Shop);
             }

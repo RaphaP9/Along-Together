@@ -58,7 +58,7 @@ public class RunData : DataModel
             return;
         }
 
-        //JSON Perpetual Data Loads Before Run Data
+        //JSON Perpetual Data Loads Before Run Data (Loaded From JSON into Data Containers)
         //PerpetualData is Ready before RunData, it is safe to call the following line
         tutorializedRun = !SessionPerpetualDataContainer.Instance.PerpetualData.hasCompletedTutorial;
 

@@ -29,11 +29,11 @@ public class MainMenuUIButtonsHandler : MonoBehaviour
     {
         InitializeButtonsListeners();
     }
+
     private void Start()
     {
         CheckContiueButtonAvailable();
     }
-
 
     private void InitializeButtonsListeners()
     {
@@ -56,7 +56,6 @@ public class MainMenuUIButtonsHandler : MonoBehaviour
         if (enable) continueButton.gameObject.SetActive(true);
         else continueButton.gameObject.SetActive(false);
     }
-
 
     private void StartNewGame() => MainMenuNextScenesManager.Instance.StartNewGame();
     private void LoadContinueGameScene() => MainMenuNextScenesManager.Instance.ContinueGame();

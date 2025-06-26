@@ -9,6 +9,10 @@ public class GeneralDataSaveLoader : MonoBehaviour
 {
     public static GeneralDataSaveLoader Instance { get; private set; }
 
+    [Header("Components")]
+    [SerializeField] private JSONPerpetualDataPersistenceManager JSONPerpetualDataPersistenceManager;
+    [SerializeField] private JSONRunDataPersistenceManager JSONRunDataPersistenceManager;   
+
     public static event EventHandler OnDataLoadStart;
     public static event EventHandler OnDataLoadComplete;
 
@@ -51,12 +55,8 @@ public class GeneralDataSaveLoader : MonoBehaviour
     {
         OnDataLoadStart?.Invoke(this, EventArgs.Empty);
 
-        List<IDataPersistenceManager> dataPersistenceManagers = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistenceManager>().ToList();
-
-        foreach (IDataPersistenceManager dataPersistenceManager in dataPersistenceManagers)
-        {
-            dataPersistenceManager.LoadData();
-        }
+        JSONPerpetualDataPersistenceManager.LoadData(); //NOTE: Order is important
+        JSONRunDataPersistenceManager.LoadData();
 
         OnDataLoadComplete?.Invoke(this, EventArgs.Empty);
     }
@@ -65,16 +65,8 @@ public class GeneralDataSaveLoader : MonoBehaviour
     {
         OnDataLoadStart?.Invoke(this, EventArgs.Empty);
 
-        List<IDataPersistenceManager> dataPersistenceManagers = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistenceManager>().ToList();
-
-        List<Task> loadTasks = new List<Task>();
-
-        foreach (IDataPersistenceManager dataPersistenceManager in dataPersistenceManagers)
-        {
-            loadTasks.Add(dataPersistenceManager.LoadDataAsync());
-        }
-
-        await Task.WhenAll(loadTasks);
+        await JSONPerpetualDataPersistenceManager.LoadDataAsync();
+        await JSONRunDataPersistenceManager.LoadDataAsync();
 
         OnDataLoadComplete?.Invoke(this, EventArgs.Empty);
     }
@@ -109,12 +101,8 @@ public class GeneralDataSaveLoader : MonoBehaviour
     {
         OnDataSaveStart?.Invoke(this, EventArgs.Empty);
 
-        List<IDataPersistenceManager> dataPersistenceManagers = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistenceManager>().ToList();
-
-        foreach (IDataPersistenceManager dataPersistenceManager in dataPersistenceManagers)
-        {
-            dataPersistenceManager.SaveData();
-        }
+        JSONPerpetualDataPersistenceManager.SaveData();
+        JSONRunDataPersistenceManager.SaveData();
 
         OnDataSaveComplete?.Invoke(this, EventArgs.Empty);
     }
@@ -123,16 +111,8 @@ public class GeneralDataSaveLoader : MonoBehaviour
     {
         OnDataSaveStart?.Invoke(this, EventArgs.Empty);
 
-        List<IDataPersistenceManager> dataPersistenceManagers = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistenceManager>().ToList();
-
-        List<Task> saveTasks = new List<Task>();
-
-        foreach (IDataPersistenceManager dataPersistenceManager in dataPersistenceManagers)
-        {
-            saveTasks.Add(dataPersistenceManager.SaveDataAsync());
-        }
-
-        await Task.WhenAll(saveTasks);
+        await JSONPerpetualDataPersistenceManager.SaveDataAsync();
+        await JSONRunDataPersistenceManager.SaveDataAsync();
 
         OnDataSaveComplete?.Invoke(this, EventArgs.Empty);
     }
