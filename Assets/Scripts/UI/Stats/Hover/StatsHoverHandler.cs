@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class StatsHoverHandler : UIHoverHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Components")]
-    [SerializeField] private StatInfoSO statSO;
+    [SerializeField] private StatInfoSO statInfoSO;
 
     [Header("Runtime Filled")]
     [SerializeField] private bool isHovered;
@@ -19,7 +19,7 @@ public class StatsHoverHandler : UIHoverHandler, IPointerEnterHandler, IPointerE
 
     public class OnStatHoverEventArgs : EventArgs
     {
-        public StatInfoSO statSO;
+        public StatInfoSO statInfoSO;
         public PivotQuadrant pivotQuadrant;
     }
 
@@ -27,12 +27,12 @@ public class StatsHoverHandler : UIHoverHandler, IPointerEnterHandler, IPointerE
     {
         PivotQuadrant pivotQuadrant = GetPivotQuadrantByScreenQuadrant(GeneralUtilities.GetScreenQuadrant(rectTransformRefference));
         isHovered = true;
-        OnStatHoverEnter?.Invoke(this, new OnStatHoverEventArgs { statSO = statSO, pivotQuadrant = pivotQuadrant });
+        OnStatHoverEnter?.Invoke(this, new OnStatHoverEventArgs { statInfoSO = statInfoSO, pivotQuadrant = pivotQuadrant });
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         isHovered = false;
-        OnStatHoverExit?.Invoke(this, new OnStatHoverEventArgs { statSO = statSO });
+        OnStatHoverExit?.Invoke(this, new OnStatHoverEventArgs { statInfoSO = statInfoSO });
     }
 }
