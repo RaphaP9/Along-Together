@@ -53,7 +53,6 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         LoadTreats();
 
         LoadRunNumericStats();
-        LoadRunAssetStats();
 
         LoadCharacterAbilityLevels();
         LoadCharacterSlotsAbilityVariants();
@@ -77,7 +76,6 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         SaveTreats();
 
         SaveRunNumericStats();
-        SaveRunAssetStats();
 
         SaveCharacterAbilityLevels();
         SaveCharacterSlotsAbilityVariants();
@@ -126,12 +124,6 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         if (treatsInventoryManager == null) return;
         treatsInventoryManager.SetTreatsInventory(DataUtilities.TranslateDataModeledTreatsToTreatsIdentified(SessionRunDataContainer.Instance.RunData.treats));
-    }
-
-    private void LoadRunAssetStats()
-    {
-        if (runAssetStatModifierManager == null) return;
-        runAssetStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledAssetStatsToAssetStatModifiers(SessionRunDataContainer.Instance.RunData.assetStats));
     }
 
     private void LoadRunNumericStats()
@@ -232,12 +224,6 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         if (runNumericStatModifierManager == null) return;
         SessionRunDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataModeledNumericStats(runNumericStatModifierManager.NumericStatModifiers));
-    }
-
-    private void SaveRunAssetStats()
-    {
-        if (runAssetStatModifierManager == null) return;
-        SessionRunDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataModeledAssetStats(runAssetStatModifierManager.AssetStatModifiers));
     }
 
     private void SavePlayerCurrentHealth()

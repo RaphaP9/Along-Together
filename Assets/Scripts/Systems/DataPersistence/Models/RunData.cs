@@ -21,7 +21,6 @@ public class RunData : DataModel
     [Space]
     public List<DataModeledTreat> treats;
     [Space]
-    public List<DataModeledAssetStat> assetStats;
     public List<DataModeledNumericStat> numericStats;
     [Space]
     public List<DataModeledAbilityLevelGroup> abilityLevelGroups;
@@ -46,7 +45,6 @@ public class RunData : DataModel
         treats = new List<DataModeledTreat>();
 
         numericStats = new List<DataModeledNumericStat>();
-        assetStats = new List<DataModeledAssetStat>(); 
 
         abilityLevelGroups = new List<DataModeledAbilityLevelGroup>();
         abilitySlotGroups = new List<DataModeledAbilitySlotGroup>();

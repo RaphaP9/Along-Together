@@ -54,6 +54,4 @@ public class SessionPerpetualDataContainer : MonoBehaviour
 
     public void SetHasCompletedTutorial(bool hasCompletedTutorial) => perpetualData.hasCompletedTutorial = hasCompletedTutorial;
     public void SetUnlockedCharacterIDs(List<int> unlockedCharacterIDs) => perpetualData.unlockedCharacterIDs = unlockedCharacterIDs;
-    public void SetNumericStats(List<DataModeledNumericStat> dataModeledNumericStats) => perpetualData.numericStats = dataModeledNumericStats;
-    public void SetAssetStats(List<DataModeledAssetStat> dataModeledAssetStats) => perpetualData.assetStats = dataModeledAssetStats;
 }

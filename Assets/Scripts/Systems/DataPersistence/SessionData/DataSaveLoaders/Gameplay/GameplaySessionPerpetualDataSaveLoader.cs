@@ -27,31 +27,17 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     #region Abstract Methods
     public override void LoadRuntimeData()
     {
-        LoadPerpetualNumericStats();
-        LoadPerpetualAssetStats();
+
     }
 
     public override void SaveRuntimeData()
     {
         SaveHasCompletedTutorial();
-
-        SavePerpetualNumericStats();
-        SavePerpetualAssetStats();
     }
     #endregion
 
     #region LoadMethods
-    private void LoadPerpetualAssetStats()
-    {
-        if (perpetualAssetStatModifierManager == null) return;
-        perpetualAssetStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledAssetStatsToAssetStatModifiers(SessionPerpetualDataContainer.Instance.PerpetualData.assetStats));
-    }
 
-    private void LoadPerpetualNumericStats()
-    {
-        if(perpetualNumericStatModifierManager == null) return;
-        perpetualNumericStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledNumericStatsToNumericStatModifiers(SessionPerpetualDataContainer.Instance.PerpetualData.numericStats));
-    }
     #endregion
 
     #region SaveMethods
@@ -73,18 +59,6 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
             if(currentStage >= MIN_STAGE_TO_COMPLETE_TUTORIAL && currentRound > MIN_ROUND_TO_COMPLETE_TUTORIAL) SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(true);
             else SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(false);
         }
-    }
-
-    private void SavePerpetualNumericStats()
-    {
-        if (perpetualNumericStatModifierManager == null) return;
-        SessionPerpetualDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataModeledNumericStats(perpetualNumericStatModifierManager.NumericStatModifiers));
-    }
-
-    private void SavePerpetualAssetStats()
-    {
-        if (perpetualAssetStatModifierManager == null) return;
-        SessionPerpetualDataContainer.Instance.SetAssetStats(DataUtilities.TranslateAssetStatModifiersToDataModeledAssetStats(perpetualAssetStatModifierManager.AssetStatModifiers));
     }
     #endregion
 

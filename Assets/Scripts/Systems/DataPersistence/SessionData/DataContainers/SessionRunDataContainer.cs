@@ -61,7 +61,6 @@ public class SessionRunDataContainer : MonoBehaviour
     public void SetTreats(List<DataModeledTreat> dataModeledTreats) => runData.treats = dataModeledTreats;
 
     public void SetNumericStats(List<DataModeledNumericStat> dataModeledNumericStats) => runData.numericStats = dataModeledNumericStats;
-    public void SetAssetStats(List<DataModeledAssetStat> dataModeledAssetStats) => runData.assetStats = dataModeledAssetStats;
 
     public void SetAbilityLevels(List<DataModeledAbilityLevelGroup> dataModeledAbilityLevelGroups) => runData.abilityLevelGroups = dataModeledAbilityLevelGroups;
     public void SetAbilitySlotsVariants(List<DataModeledAbilitySlotGroup> dataModeledAbilitySlotGroups) => runData.abilitySlotGroups = dataModeledAbilitySlotGroups;
