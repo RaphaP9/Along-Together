@@ -325,23 +325,23 @@ public static class MechanicsUtilities
     #region StatusEffects
 
     #region Slow
-    public static void SlowInAreas(List<Vector2> positions, float areaRadius, SlowStatusEffect slowStatusEffect, LayerMask layermask)
+    public static void TemporalSlowInAreas(List<Vector2> positions, float areaRadius, TemporalSlowStatusEffect temporalSlowStatusEffect, LayerMask layermask)
     {
         List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInMultipleRanges(positions, areaRadius, layermask);
 
         foreach (Transform detectedTransform in detectedTransforms)
         {
-            SlowEntity(detectedTransform, slowStatusEffect);
+            TemporalSlowEntity(detectedTransform, temporalSlowStatusEffect);
         }
     }
 
-    public static void SlowEntity(Transform entityTransform, SlowStatusEffect slowStatusEffect)
+    public static void TemporalSlowEntity(Transform entityTransform, TemporalSlowStatusEffect temporalSlowStatusEffect)
     {
         EntitySlowStatusEffectHandler slowHandler = entityTransform.GetComponentInChildren<EntitySlowStatusEffectHandler>();
 
         if(slowHandler == null) return;
 
-        slowHandler.SlowEntity(slowStatusEffect);
+        slowHandler.TemporalAddSlowStatusEffect(temporalSlowStatusEffect);
     }
     #endregion
 

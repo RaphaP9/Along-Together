@@ -9,7 +9,7 @@ public class RitardandoSO : ActiveAbilitySO, IDamageSource
     [Range(1, 20)] public int damage;
     [ColorUsage(true, true)] public Color damageColor;
     [Space]
-    public SlowStatusEffect slowStatusEffect;
+    public TemporalSlowStatusEffect tenporalSlowStatusEffect;
     [Space]
     [Range(0f, 1f)] public float performanceTime;
 

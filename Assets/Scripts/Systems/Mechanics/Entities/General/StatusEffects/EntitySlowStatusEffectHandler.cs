@@ -27,18 +27,26 @@ public class EntitySlowStatusEffectHandler : MonoBehaviour
         public float slowValue;
     }
 
-    public void SlowEntity(SlowStatusEffect slowStatusEffect)
+    public void TemporalAddSlowStatusEffect(TemporalSlowStatusEffect temporalSlowStatusEffect)
     {
-        StartCoroutine(AddSlowStatusEffectForDurationTime(slowStatusEffect));
+        StartCoroutine(TemporalAddSlowStatusEffectCoroutine(temporalSlowStatusEffect));
     }
 
-    private IEnumerator AddSlowStatusEffectForDurationTime(SlowStatusEffect slowStatusEffect)
+    private IEnumerator TemporalAddSlowStatusEffectCoroutine(TemporalSlowStatusEffect temporalSlowStatusEffect)
+    {
+        AddSlowStatusEffect(temporalSlowStatusEffect);
+        yield return new WaitForSeconds(temporalSlowStatusEffect.duration);
+        RemoveSlowStatusEffect(temporalSlowStatusEffect);
+    }
+
+    public void AddSlowStatusEffect(SlowStatusEffect slowStatusEffect)
     {
         slowStatusEffects.Add(slowStatusEffect);
         RecalculateSlowPercentageResolvedValue();
+    }
 
-        yield return new WaitForSeconds(slowStatusEffect.duration);
-
+    public void RemoveSlowStatusEffect(SlowStatusEffect slowStatusEffect)
+    {
         slowStatusEffects.Remove(slowStatusEffect);
         RecalculateSlowPercentageResolvedValue();
     }

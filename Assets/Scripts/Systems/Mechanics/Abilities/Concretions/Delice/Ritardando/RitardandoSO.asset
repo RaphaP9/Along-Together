@@ -22,7 +22,7 @@ MonoBehaviour:
   baseCooldown: 6
   damage: 10
   damageColor: {r: 1, g: 0.4575472, b: 0.77574575, a: 1}
-  slowStatusEffect:
-    duration: 2
+  tenporalSlowStatusEffect:
     slowPercentage: 0.8
+    duration: 2
   performanceTime: 0.5

@@ -59,7 +59,7 @@ public class Ritardando : ActiveAbility, IFacingInterruption
         DamageData damageData = new DamageData(RitardandoSO.damage, false, RitardandoSO, false, true, true, true);
 
         MechanicsUtilities.DealDamageInAreas(GeneralUtilities.TransformPositionVector2List(areaTransforms), areaRadius, damageData, effectLayerMask);
-        MechanicsUtilities.SlowInAreas(GeneralUtilities.TransformPositionVector2List(areaTransforms), areaRadius, RitardandoSO.slowStatusEffect, effectLayerMask);
+        MechanicsUtilities.TemporalSlowInAreas(GeneralUtilities.TransformPositionVector2List(areaTransforms), areaRadius, RitardandoSO.tenporalSlowStatusEffect, effectLayerMask);
 
         isPerforming = false;
 
