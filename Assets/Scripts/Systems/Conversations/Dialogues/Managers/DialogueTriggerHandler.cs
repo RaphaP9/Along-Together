@@ -18,6 +18,7 @@ public class DialogueTriggerHandler : MonoBehaviour
         foreach(DialogueGroup dialogueGroup in dialogueGroups)
         {
             if (!dialogueGroup.enabled) continue;
+            if (dialogueGroup.onlyTutorializedRun && !GameManager.Instance.TutorializedRun) continue;
 
             if (dialogueGroup.characterSO != characterSO) continue;
             if (dialogueGroup.stageNumber != stageNumber) continue;
@@ -89,5 +90,6 @@ public class DialogueGroup
     public DialogueChronology dialogueChronology;
     public DialogueSO dialogueSO;
     [Space]
+    public bool onlyTutorializedRun;
     public bool enabled;
 }

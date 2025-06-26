@@ -49645,16 +49645,11 @@ MonoBehaviour:
   dialogueGroups:
   - characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
     stageNumber: 1
-    roundNumber: 1
-    dialogueChronology: 0
-    dialogueSO: {fileID: 11400000, guid: 445ad903ac87bc84b85586945209bfa0, type: 2}
-    enabled: 0
-  - characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
-    stageNumber: 1
-    roundNumber: 1
+    roundNumber: 2
     dialogueChronology: 1
-    dialogueSO: {fileID: 11400000, guid: 791dcadc0a5c9c24790065f702cc0e59, type: 2}
-    enabled: 0
+    dialogueSO: {fileID: 11400000, guid: 445ad903ac87bc84b85586945209bfa0, type: 2}
+    onlyTutorializedRun: 1
+    enabled: 1
   debug: 1
 --- !u!1 &990243785
 GameObject:
