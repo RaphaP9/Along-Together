@@ -9,6 +9,9 @@ public class StageEventsDefiner : MonoBehaviour
     private const int SECOND_ROUND = 2;
     private const int FIRST_STAGE = 1;
 
+    private const int MIN_STAGE_TO_COMPLETE_TUTORIAL = 1;
+    private const int MIN_ROUND_TO_COMPLETE_TUTORIAL = 3;
+
     private void Awake()
     {
         SetSingleton();
@@ -48,6 +51,19 @@ public class StageEventsDefiner : MonoBehaviour
         {
             if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) return true;
         }
+
+        return false;
+    }
+
+    public bool IsTutorialCompleted()
+    {
+        bool isRunTutorialized = GameManager.Instance.TutorializedRun;
+        int currentStage = GeneralStagesManager.Instance.CurrentStageNumber;
+        int currentRound = GeneralStagesManager.Instance.CurrentRoundNumber;
+
+        if (!isRunTutorialized) return true;
+        if (currentStage > MIN_STAGE_TO_COMPLETE_TUTORIAL) return true;
+        if (currentStage == MIN_STAGE_TO_COMPLETE_TUTORIAL && currentRound > MIN_ROUND_TO_COMPLETE_TUTORIAL) return true;
 
         return false;
     }

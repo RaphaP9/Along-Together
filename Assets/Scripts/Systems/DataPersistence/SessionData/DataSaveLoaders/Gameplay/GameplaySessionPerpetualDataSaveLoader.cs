@@ -45,20 +45,10 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     {
         if(GeneralStagesManager.Instance == null) return;
         if(GameManager.Instance == null) return;
+        if(StageEventsDefiner.Instance == null) return;
 
-        bool isRunTutorialized = GameManager.Instance.TutorializedRun;
-        int currentStage = GeneralStagesManager.Instance.CurrentStageNumber;
-        int currentRound = GeneralStagesManager.Instance.CurrentRoundNumber;
-
-        if (!isRunTutorialized)
-        {
-            SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(true);
-        }
-        else
-        {
-            if(currentStage >= MIN_STAGE_TO_COMPLETE_TUTORIAL && currentRound > MIN_ROUND_TO_COMPLETE_TUTORIAL) SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(true);
-            else SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(false);
-        }
+        if (StageEventsDefiner.Instance.IsTutorialCompleted()) SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(true);
+        else SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(false);
     }
     #endregion
 
