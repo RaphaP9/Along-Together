@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4113916bcab3f4191fdcd67b40cafc, type: 3}
   m_Name: AttackCritChanceSO
   m_EditorClassIdentifier: 
-  statName: "Multiplicador de Cr\xEDtico"
+  statName: "Probabilidad de Cr\xEDtico"
   sprite: {fileID: 0}
   description: "Probabilidad de asestar un ataque cr\xEDtico."

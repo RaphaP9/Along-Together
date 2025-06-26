@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4113916bcab3f4191fdcd67b40cafc, type: 3}
   m_Name: HealthRegenSO
   m_EditorClassIdentifier: 
-  statName: "Renegeraci\xF3n por Ronda"
+  statName: "Renegeraci\xF3n de Vida"
   sprite: {fileID: 0}
   description: "Cantidad de restauraci\xF3n de vida entre rondas."
