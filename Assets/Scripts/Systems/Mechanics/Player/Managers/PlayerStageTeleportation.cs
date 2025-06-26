@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerStageTeleportation : MonoBehaviour
 {
+    [Header("Components")]
+    [SerializeField] private Transform stagePoint;
+
     private void OnEnable()
     {
         GeneralStagesManager.OnStageInitialized += GeneralStagesManager_OnStageInitialized;
@@ -16,13 +19,13 @@ public class PlayerStageTeleportation : MonoBehaviour
         GeneralStagesManager.OnStageChange -= GeneralStagesManager_OnStageChange;
     }
 
-    private void GeneralStagesManager_OnStageChange(object sender, GeneralStagesManager.OnStageChangeEventArgs e)
-    {
-        PlayerTeleporterManager.Instance.TeleportPlayerToPosition(GeneralStagesManager.Instance.GetPlayerSpawnPointPositionFromStageGroup(e.stageGroup), true);
-    }
-
     private void GeneralStagesManager_OnStageInitialized(object sender, GeneralStagesManager.OnStageChangeEventArgs e)
     {
-        PlayerTeleporterManager.Instance.TeleportPlayerToPosition(GeneralStagesManager.Instance.GetPlayerSpawnPointPositionFromStageGroup(e.stageGroup), true);
+        PlayerTeleporterManager.Instance.TeleportPlayerToPosition(GeneralUtilities.TransformPositionVector2(stagePoint), true);
+    }
+
+    private void GeneralStagesManager_OnStageChange(object sender, GeneralStagesManager.OnStageChangeEventArgs e)
+    {
+        PlayerTeleporterManager.Instance.TeleportPlayerToPosition(GeneralUtilities.TransformPositionVector2(stagePoint), true);
     }
 }

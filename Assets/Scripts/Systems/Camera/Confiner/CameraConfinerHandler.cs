@@ -48,12 +48,12 @@ public class CameraConfinerHandler : MonoBehaviour
 
     private void GeneralStagesManager_OnStageInitialized(object sender, GeneralStagesManager.OnStageChangeEventArgs e)
     {
-        SwitchConfiner(e.stageGroup.stageConfiner);
+        SwitchConfiner(e.stageGroup.stageHandler.StageConfiner);
     }
 
     private void GeneralStagesManager_OnStageChange(object sender, GeneralStagesManager.OnStageChangeEventArgs e)
     {
-        SwitchConfiner(e.stageGroup.stageConfiner);
+        SwitchConfiner(e.stageGroup.stageHandler.StageConfiner);
     }
 
     private void CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow(object sender, CameraTransitionHandler.OnCameraTransitionEventArgs e)

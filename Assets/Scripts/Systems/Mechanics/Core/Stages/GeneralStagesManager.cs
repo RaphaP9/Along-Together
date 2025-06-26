@@ -10,6 +10,9 @@ public class GeneralStagesManager : MonoBehaviour
     [Header("Lists")]
     [SerializeField] private List<CharacterStageGroupList> characterStageGroupLists;
 
+    [Header("Components")]
+    [SerializeField] private Transform stagePoint;
+
     [Header("Settings")]
     [SerializeField] private int startingStageNumber;
     [SerializeField] private int startingRoundNumber;
@@ -33,17 +36,13 @@ public class GeneralStagesManager : MonoBehaviour
     [SerializeField] private bool debug;
 
     #region Properties
-    public List<CharacterStageGroupList> CharacterStageGroupLists => characterStageGroupLists;
-    public CharacterStageGroupList CurrentCharacterStageGroupList => currentCharacterStageGroupList;
-    public StageGroup CurrentStage => currentStageGroup;
-    public RoundGroup CurrentRoundGroup => currentRoundGroup;
-    public RoundSO CurrentRound => currentRound;
-
     public int CurrentStageNumber => currentStageNumber;
     public int CurrentRoundNumber => currentRoundNumber;
     #endregion
 
-    private enum RoundState { NotOnRound, OnRound}
+    private enum RoundState {NotOnRound, OnRound}
+    private StageGroup previousStageGroup;
+    private RoundGroup previousRoundGroup;
 
     #region Events
     public static event EventHandler<OnStageAndRoundEventArgs> OnStageAndRoundInitialized;
@@ -95,12 +94,15 @@ public class GeneralStagesManager : MonoBehaviour
         public StageGroup stageGroup;
     }
     #endregion
-    
+
+    #region Consts
+
     private const int FIRTS_STAGE_NUMBER = 1;
     private const int FIRST_ROUND_NUMBER = 1;
 
     private const int NOT_FOUND_VALUE = 0;
     private const int LAST_VALUE = -1;
+    #endregion
 
     #region Flags
     private bool currentRoundEnded = false;
@@ -255,13 +257,13 @@ public class GeneralStagesManager : MonoBehaviour
         switch (roundSO.GetRoundType())
         {
             case RoundType.Timed:
-                TimedRoundHandler.Instance.StartTimedRound(roundSO as TimedRoundSO, stageGroup.spawnPointsHandler);
+                TimedRoundHandler.Instance.StartTimedRound(roundSO as TimedRoundSO, stageGroup.stageHandler.StageSpawnPointsHandler);
                 break;
             case RoundType.Waves:
-                WavesRoundHandler.Instance.StartWavesRound(roundSO as WavesRoundSO, stageGroup.spawnPointsHandler);
+                WavesRoundHandler.Instance.StartWavesRound(roundSO as WavesRoundSO, stageGroup.stageHandler.StageSpawnPointsHandler);
                 break;
             case RoundType.BossFight:
-                BossFightRoundHandler.Instance.StartBossFightRound(roundSO as BossFightRoundSO, stageGroup.spawnPointsHandler);
+                BossFightRoundHandler.Instance.StartBossFightRound(roundSO as BossFightRoundSO, stageGroup.stageHandler.StageSpawnPointsHandler);
                 break;
         }
     }
@@ -398,6 +400,7 @@ public class GeneralStagesManager : MonoBehaviour
     public bool CurrentRoundIsFirstFromCurrentStage() => IsFirstRoundGroupFromStageGroup(currentStageGroup, currentRoundGroup);
     public bool LastCompletedStageAndRoundNumberAreLasts() => StageAndRoundNumberAreLasts(lastCompletedStageGroup, lastCompletedRoundGroup);
     public bool LastCompletedRoundIsLastFromStage() => IsLastRoundGroupFromStageGroup(lastCompletedStageGroup, lastCompletedRoundGroup);
+
     public void LoadNextRoundAndStage()
     {
         int previousStageNumber = currentStageNumber;
@@ -408,7 +411,7 @@ public class GeneralStagesManager : MonoBehaviour
 
         if (previousStageGroup == null)
         {
-            if (debug) Debug.Log("Cant not define previousStageGroup. Can not load next Round And Stage.");
+            if (debug) Debug.Log("Can not define previousStageGroup. Can not load next Round And Stage.");
             return;
         }
 
@@ -455,12 +458,14 @@ public class GeneralStagesManager : MonoBehaviour
             return;
         }
 
+        SetPreviousStageGroup(previousStageGroup);
+        SetPreviousRoundGroup(previousRoundGroup);
+
         SetCurrentStageGroup(newStageGroup);
         SetCurrentRoundGroup(newRoundGroup);
 
         SetCurrentStageNumber(newStageNumber);
         SetCurrentRoundNumber(newRoundNumber);
-
 
         OnStageAndRoundLoad?.Invoke(this, new OnStageAndRoundLoadEventArgs { previousStageGroup = previousStageGroup, previousRoundGroup = previousRoundGroup, previousStageNumber = previousStageNumber, previousRoundNumber = previousRoundNumber, 
         newStageGroup = newStageGroup, newRoundGroup = newRoundGroup, newStageNumber = newStageNumber, newRoundNumber = newRoundNumber});
@@ -474,36 +479,25 @@ public class GeneralStagesManager : MonoBehaviour
     private void SetRoundState(RoundState roundState) => this.roundState = roundState;
 
     private void SetCurrentStageGroup(StageGroup stageGroup) => currentStageGroup = stageGroup;
-    private void ClearCurrentStageGroup() => currentStageGroup = null;
-
     private void SetCurrentRoundGroup(RoundGroup roundGroup) => currentRoundGroup = roundGroup;
-    private void ClearCurrentRoundGroup() => currentRoundGroup = null;
-
     private void SetCurrentRound(RoundSO round) => currentRound = round;
     private void ClearCurrentRound() => currentRound = null;
 
+    private void SetPreviousStageGroup(StageGroup stageGroup) => previousStageGroup = stageGroup;
+    private void SetPreviousRoundGroup(RoundGroup roundGroup) => previousRoundGroup = roundGroup;
+
     private void SetCurrentStageNumber(int stageNumber) => currentStageNumber = stageNumber;
-    private void ResetCurrentStageNumber() => currentStageNumber = 0;
-
     private void SetCurrentRoundNumber(int roundNumber) => currentRoundNumber = roundNumber;
-    private void ResetCurrentRoundNumber() => currentRoundNumber = 0;
-
-    public int GetStagesCount() => currentCharacterStageGroupList.stageGroups.Count;
 
     private void SetLastCompletedStageGroup(StageGroup stageGroup) => lastCompletedStageGroup = stageGroup;
     private void ClearLastCompletedStageGroup() => lastCompletedStageGroup = null;
 
     private void SetLastCompletedRoundGroup(RoundGroup roundGroup) => lastCompletedRoundGroup = roundGroup;
     private void ClearLastCompletedtRoundGroup() => lastCompletedRoundGroup = null;
-
-
-    public Vector2 GetPlayerSpawnPointPositionFromCurrentStageGroup() => GeneralUtilities.SupressZComponent(currentStageGroup.playerSpawnPoint.position);
-    public Vector2 GetPlayerSpawnPointPositionFromStageGroup(StageGroup stageGroup) => GeneralUtilities.SupressZComponent(stageGroup.playerSpawnPoint.position);
-
     #endregion
 
     #region StageChange
-    public void InitializeToCurrentStage()
+    public void InitializeToCurrentStage() //Called By Game Manager
     {
         if (currentStageGroup == null)
         {
@@ -511,10 +505,11 @@ public class GeneralStagesManager : MonoBehaviour
             return;
         }
 
+        RepositionStageGroupToStagePoint(currentStageGroup);
         OnStageInitialized?.Invoke(this, new OnStageChangeEventArgs { stageGroup = currentStageGroup });
     }
 
-    public void ChangeToCurrentStage()
+    public void ChangeToCurrentStage() //Called By Game Manager
     {
         if (!CanChangeStage()) return;
 
@@ -524,6 +519,9 @@ public class GeneralStagesManager : MonoBehaviour
             return;
         }
 
+        RepositionStageGroupToOriginalStagePoint(previousStageGroup);
+        RepositionStageGroupToStagePoint(currentStageGroup);
+
         OnStageChange?.Invoke(this, new OnStageChangeEventArgs { stageGroup = currentStageGroup });        
     }
 
@@ -532,6 +530,10 @@ public class GeneralStagesManager : MonoBehaviour
         if (roundState != RoundState.NotOnRound) return false;
         return true;
     }
+
+    private void RepositionStageGroupToStagePoint(StageGroup stageGroup) => stageGroup.stageHandler.transform.position = stagePoint.position;
+    private void RepositionStageGroupToOriginalStagePoint(StageGroup stageGroup) => stageGroup.stageHandler.transform.position = stageGroup.stageHandler.OriginalStagePoint.position;
+
     #endregion
 
     #region Subscriptions
@@ -560,7 +562,5 @@ public class CharacterStageGroupList
 public class StageGroup
 {
     public StageSO stageSO;
-    public Transform playerSpawnPoint;
-    public StageSpawnPointsHandler spawnPointsHandler;
-    public PolygonCollider2D stageConfiner;
+    public StageHandler stageHandler;
 }
