@@ -20033,15 +20033,15 @@ MonoBehaviour:
       stageConfiner: {fileID: 1028830456}
     - stageSO: {fileID: 11400000, guid: a390d5ef5adf9764ba85b14abcce050e, type: 2}
       playerSpawnPoint: {fileID: 39727139}
-      spawnPointsHandler: {fileID: 0}
+      spawnPointsHandler: {fileID: 749059668}
       stageConfiner: {fileID: 1867485836}
     - stageSO: {fileID: 11400000, guid: 012da0849f6ac714d8d450c72f48cd88, type: 2}
       playerSpawnPoint: {fileID: 505236911}
-      spawnPointsHandler: {fileID: 0}
+      spawnPointsHandler: {fileID: 1289742257}
       stageConfiner: {fileID: 1908488623}
     - stageSO: {fileID: 11400000, guid: d4e36f7ae57504744bf53d17bb3b32e1, type: 2}
       playerSpawnPoint: {fileID: 1978534041}
-      spawnPointsHandler: {fileID: 0}
+      spawnPointsHandler: {fileID: 778010840}
       stageConfiner: {fileID: 221733525}
   startingStageNumber: 1
   startingRoundNumber: 1
