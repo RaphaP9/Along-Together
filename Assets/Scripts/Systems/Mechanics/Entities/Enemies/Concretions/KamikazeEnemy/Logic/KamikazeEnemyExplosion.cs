@@ -20,11 +20,9 @@ public class KamikazeEnemyExplosion : EnemyExplosion
     public static event EventHandler<OnKamikazeEnemyExplosionEventArgs> OnAnyKamikazeEnemyExplosion;
     public event EventHandler<OnKamikazeEnemyExplosionEventArgs> OnKamikazeEnemyExplosion;
 
-    public class OnKamikazeEnemyExplosionEventArgs : EventArgs
+    public class OnKamikazeEnemyExplosionEventArgs : OnEnemyExplosionEventArgs
     {
         public KamikazeEnemySO kamikazeEnemySO;
-        public List<Transform> explosionPoints;
-        public int explosionDamage;
     }
 
     private void Start()
@@ -136,16 +134,16 @@ public class KamikazeEnemyExplosion : EnemyExplosion
 
         entityHealth.Execute(executeDamageData); 
 
-        OnEntityExplosionMethod(damage);
+        OnEntityExplosionMethod(damage, KamikazeEnemySO.explosionRadius, GeneralUtilities.TransformPositionVector2(transform));
     }
 
     #region Virtual Event Methods
-    protected override void OnEntityExplosionMethod(int damage)
+    protected override void OnEntityExplosionMethod(int damage, float explosionRadius, Vector2 position)
     {
-        base.OnEntityExplosionMethod(damage);
+        base.OnEntityExplosionMethod(damage, explosionRadius, position);
 
-        OnAnyKamikazeEnemyExplosion?.Invoke(this, new OnKamikazeEnemyExplosionEventArgs { kamikazeEnemySO = KamikazeEnemySO, explosionPoints = explosionPoints, explosionDamage = damage });
-        OnKamikazeEnemyExplosion?.Invoke(this, new OnKamikazeEnemyExplosionEventArgs { kamikazeEnemySO = KamikazeEnemySO, explosionPoints = explosionPoints, explosionDamage = damage });
+        OnAnyKamikazeEnemyExplosion?.Invoke(this, new OnKamikazeEnemyExplosionEventArgs { kamikazeEnemySO = KamikazeEnemySO, enemySO = KamikazeEnemySO, explosionPoints = explosionPoints, explosionDamage = damage, explosionRadius = explosionRadius, position = position });
+        OnKamikazeEnemyExplosion?.Invoke(this, new OnKamikazeEnemyExplosionEventArgs { kamikazeEnemySO = KamikazeEnemySO, enemySO = KamikazeEnemySO, explosionPoints = explosionPoints, explosionDamage = damage, explosionRadius = explosionRadius, position = position });
     }
     #endregion
 

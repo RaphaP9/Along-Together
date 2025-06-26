@@ -28,6 +28,8 @@ public abstract class EntityExplosion : MonoBehaviour
     {
         public List<Transform> explosionPoints;
         public int explosionDamage;
+        public float explosionRadius;
+        public Vector2 position;
     }
 
     public class OnEntityExplosionCompletedEventArgs
@@ -57,10 +59,10 @@ public abstract class EntityExplosion : MonoBehaviour
     protected abstract void Explode();
 
     #region Virtual Event Methods
-    protected virtual void OnEntityExplosionMethod(int explosionDamage)
+    protected virtual void OnEntityExplosionMethod(int explosionDamage, float explosionRadius, Vector2 position)
     {
-        OnEntityExplosion?.Invoke(this, new OnEntityExplosionEventArgs { explosionPoints = explosionPoints, explosionDamage = explosionDamage });
-        OnAnyEntityExplosion?.Invoke(this, new OnEntityExplosionEventArgs { explosionPoints = explosionPoints, explosionDamage = explosionDamage });
+        OnEntityExplosion?.Invoke(this, new OnEntityExplosionEventArgs { explosionPoints = explosionPoints, explosionDamage = explosionDamage, explosionRadius = explosionRadius, position = position });
+        OnAnyEntityExplosion?.Invoke(this, new OnEntityExplosionEventArgs { explosionPoints = explosionPoints, explosionDamage = explosionDamage, explosionRadius = explosionRadius, position = position });
     }
 
     protected virtual void OnEntityExplosionCompletedMethod()
