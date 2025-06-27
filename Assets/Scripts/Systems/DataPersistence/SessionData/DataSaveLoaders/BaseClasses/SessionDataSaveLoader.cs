@@ -7,6 +7,6 @@ public abstract class SessionDataSaveLoader : MonoBehaviour
     [Header("Components")]
     [SerializeField] protected SceneDataSaveLoader sceneDataSaveLoader;
 
-    public abstract void LoadRuntimeData(); //Data Injection
-    public abstract void SaveRuntimeData(); //Data Extraction
+    public abstract void InjectAllDataFromDataContainers(); //Data Injection
+    public abstract void ExtractAllDataToDataContainers(); //Data Extraction
 }

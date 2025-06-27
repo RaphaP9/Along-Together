@@ -35,7 +35,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
     #region Abstract Methods
 
-    public override void LoadRuntimeData()
+    public override void InjectAllDataFromDataContainers()
     {
         LoadTutorializedRunBoolean();
 
@@ -58,7 +58,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         LoadCharacterSlotsAbilityVariants();
     }
 
-    public override void SaveRuntimeData()
+    public override void ExtractAllDataToDataContainers()
     {
         SaveTutorializedRunBoolean();
 

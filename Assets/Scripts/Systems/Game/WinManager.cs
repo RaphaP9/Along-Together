@@ -12,7 +12,12 @@ public class WinManager : MonoBehaviour
     [Space]
     [SerializeField] private bool wipeRunDataOnWin;
 
-    public static event EventHandler OnTriggerDataSaveOnRunCompleted;
+    public static event EventHandler<OnWinEventArgs> OnTriggerDataSaveOnRunCompleted;
+
+    public class OnWinEventArgs : EventArgs
+    {
+        public CharacterSO characterSO;
+    }
 
     private void OnEnable()
     {
@@ -43,7 +48,7 @@ public class WinManager : MonoBehaviour
         ScenesManager.Instance.TransitionLoadTargetScene(winScene, winTransitionType);
     }
 
-    private void TriggerDataSave() => OnTriggerDataSaveOnRunCompleted?.Invoke(this, EventArgs.Empty);
+    private void TriggerDataSave() => OnTriggerDataSaveOnRunCompleted?.Invoke(this, new OnWinEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO});
 
     private void GameManager_OnGameWon(object sender, System.EventArgs e)
     {

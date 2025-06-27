@@ -18,7 +18,6 @@ public class GeneralGameSettings : MonoBehaviour
     [SerializeField] private List<CharacterSO> startingUnlockedCharacters;
     [SerializeField] private List<RunCompletedCharactersUnlocked> runCompletedCharactersUnlockedList;
 
-
     #region Initialization
     private void Awake()
     {
@@ -55,6 +54,16 @@ public class GeneralGameSettings : MonoBehaviour
         }
 
         return IDs;
+    }
+
+    public List<CharacterSO> GetRunCompletedUnlockedCharactersByCharacterSO(CharacterSO characterSO)
+    {
+        foreach (RunCompletedCharactersUnlocked element in runCompletedCharactersUnlockedList)
+        {
+            if (element.characterSO == characterSO) return element.unlockedCharacters;
+        }
+
+        return new List<CharacterSO>();
     }
 }
 

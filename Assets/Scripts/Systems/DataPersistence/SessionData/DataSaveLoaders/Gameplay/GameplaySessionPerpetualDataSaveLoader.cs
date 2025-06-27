@@ -25,12 +25,12 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     }
 
     #region Abstract Methods
-    public override void LoadRuntimeData()
+    public override void InjectAllDataFromDataContainers()
     {
 
     }
 
-    public override void SaveRuntimeData()
+    public override void ExtractAllDataToDataContainers()
     {
         SaveHasCompletedTutorial();
     }

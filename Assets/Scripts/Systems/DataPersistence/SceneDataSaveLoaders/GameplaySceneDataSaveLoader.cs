@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
@@ -37,6 +38,11 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
         await GeneralDataSaveLoader.Instance.CompleteDataSaveAsync();
     }
 
+    public async void HandleDataSaveOnRunCompleted()
+    {
+        
+    }
+
     #region Subscriptions
     private void GameManager_OnTriggerDataSaveOnRoundEnd(object sender, System.EventArgs e)
     {
@@ -44,7 +50,7 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
     }
     private void WinManager_OnTriggerDataSaveOnRunCompleted(object sender, System.EventArgs e)
     {
-        //Should save dataa with new unlocked Characters
+        HandleDataSaveOnRunCompleted();
     }
 
     private void LoseManager_OnTriggerDataSaveOnRunLost(object sender, System.EventArgs e)

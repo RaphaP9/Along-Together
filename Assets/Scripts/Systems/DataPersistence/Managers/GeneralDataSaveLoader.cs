@@ -41,17 +41,18 @@ public class GeneralDataSaveLoader : MonoBehaviour
     #region Load
     public void CompleteDataLoad()
     {
-        LoadPersistentData();
-        LoadSessionData();
+        LoadJSONData();
+        LoadDataContainersData();
     }
 
     public async Task CompleteDataLoadAsync()
     {
-        await LoadPersistentDataAsync();
-        LoadSessionData();
+        await LoadJSONDataAsync();
+        LoadDataContainersData();
     }
 
-    public void LoadPersistentData()
+    #region JSON Load
+    public void LoadJSONData()
     {
         OnDataLoadStart?.Invoke(this, EventArgs.Empty);
 
@@ -61,7 +62,7 @@ public class GeneralDataSaveLoader : MonoBehaviour
         OnDataLoadComplete?.Invoke(this, EventArgs.Empty);
     }
 
-    public async Task LoadPersistentDataAsync()
+    public async Task LoadJSONDataAsync()
     {
         OnDataLoadStart?.Invoke(this, EventArgs.Empty);
 
@@ -70,14 +71,15 @@ public class GeneralDataSaveLoader : MonoBehaviour
 
         OnDataLoadComplete?.Invoke(this, EventArgs.Empty);
     }
+    #endregion
 
-    public void LoadSessionData()
+    public void LoadDataContainersData()
     {
         List<SessionDataSaveLoader> sessionDataSaveLoaders = FindObjectsOfType<SessionDataSaveLoader>().ToList();
 
         foreach (SessionDataSaveLoader sessionDataSaveLoader in sessionDataSaveLoaders)
         {
-            sessionDataSaveLoader.LoadRuntimeData();
+            sessionDataSaveLoader.InjectAllDataFromDataContainers();
         }
     }
 
@@ -87,17 +89,18 @@ public class GeneralDataSaveLoader : MonoBehaviour
     #region Save
     public void CompleteDataSave()
     {
-        SaveSessionData();
-        SavePersistentData();
+        SaveDataContainersData();
+        SaveJSONData();
     }
 
     public async Task CompleteDataSaveAsync()
     {
-        SaveSessionData();
-        await SavePersistentDataAsync();
+        SaveDataContainersData();
+        await SaveJSONDataAsync();
     }
 
-    public void SavePersistentData()
+    #region JSON Save
+    public void SaveJSONData()
     {
         OnDataSaveStart?.Invoke(this, EventArgs.Empty);
 
@@ -107,7 +110,7 @@ public class GeneralDataSaveLoader : MonoBehaviour
         OnDataSaveComplete?.Invoke(this, EventArgs.Empty);
     }
 
-    public async Task SavePersistentDataAsync()
+    public async Task SaveJSONDataAsync()
     {
         OnDataSaveStart?.Invoke(this, EventArgs.Empty);
 
@@ -116,14 +119,15 @@ public class GeneralDataSaveLoader : MonoBehaviour
 
         OnDataSaveComplete?.Invoke(this, EventArgs.Empty);
     }
+    #endregion
 
-    public void SaveSessionData()
+    public void SaveDataContainersData()
     {
         List<SessionDataSaveLoader> sessionDataSaveLoaders = FindObjectsOfType<SessionDataSaveLoader>().ToList();
 
         foreach (SessionDataSaveLoader sessionDataSaveLoader in sessionDataSaveLoaders)
         {
-            sessionDataSaveLoader.SaveRuntimeData();
+            sessionDataSaveLoader.ExtractAllDataToDataContainers();
         }
     }
     #endregion

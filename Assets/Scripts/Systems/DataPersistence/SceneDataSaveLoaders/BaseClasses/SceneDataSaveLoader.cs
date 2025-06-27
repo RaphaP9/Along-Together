@@ -30,11 +30,11 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
                 GeneralDataSaveLoader.Instance.CompleteDataLoad();
                 break;
             case LoadMode.JSONDataLoad:
-                GeneralDataSaveLoader.Instance.LoadPersistentData();
+                GeneralDataSaveLoader.Instance.LoadJSONData();
                 break;
             case LoadMode.SessionDataLoad:
             default:
-                GeneralDataSaveLoader.Instance.LoadSessionData();
+                GeneralDataSaveLoader.Instance.LoadDataContainersData();
                 break;
             case LoadMode.NoLoad:
                 break;
@@ -49,11 +49,11 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
                 GeneralDataSaveLoader.Instance.CompleteDataSave();
                 break;
             case SaveMode.JSONDataSave:
-                GeneralDataSaveLoader.Instance.SavePersistentData();
+                GeneralDataSaveLoader.Instance.SaveJSONData();
                 break;
             case SaveMode.SessionDataSave:
             default:
-                GeneralDataSaveLoader.Instance.SaveSessionData();
+                GeneralDataSaveLoader.Instance.SaveDataContainersData();
                 break;
             case SaveMode.NoSave:
                 break;
