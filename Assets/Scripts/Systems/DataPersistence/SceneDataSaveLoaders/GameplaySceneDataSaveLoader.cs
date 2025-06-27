@@ -8,12 +8,16 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
 
     private void OnEnable()
     {
-        GameManager.OnTriggerDataSave += GameManager_OnTriggerDataSave;
+        GameManager.OnTriggerDataSaveOnRoundEnd += GameManager_OnTriggerDataSaveOnRoundEnd;
+        WinManager.OnTriggerDataSaveOnRunCompleted += WinManager_OnTriggerDataSaveOnRunCompleted;
+        LoseManager.OnTriggerDataSaveOnRunLost += LoseManager_OnTriggerDataSaveOnRunLost;
     }
 
     private void OnDisable()
     {
-        GameManager.OnTriggerDataSave -= GameManager_OnTriggerDataSave;
+        GameManager.OnTriggerDataSaveOnRoundEnd -= GameManager_OnTriggerDataSaveOnRoundEnd;
+        WinManager.OnTriggerDataSaveOnRunCompleted -= WinManager_OnTriggerDataSaveOnRunCompleted;
+        LoseManager.OnTriggerDataSaveOnRunLost -= LoseManager_OnTriggerDataSaveOnRunLost;
     }
 
     protected override void SetSingleton()
@@ -28,8 +32,25 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
         }
     }
 
-    private void GameManager_OnTriggerDataSave(object sender, System.EventArgs e)
+    public async void HandleDataSaveMidRounds() //Async Methods!, Public (Called by other classes)
     {
-        HandleDynamicDataSave();
+        await GeneralDataSaveLoader.Instance.CompleteDataSaveAsync();
     }
+
+    #region Subscriptions
+    private void GameManager_OnTriggerDataSaveOnRoundEnd(object sender, System.EventArgs e)
+    {
+        HandleDataSaveMidRounds();
+    }
+    private void WinManager_OnTriggerDataSaveOnRunCompleted(object sender, System.EventArgs e)
+    {
+        //Should save dataa with new unlocked Characters
+    }
+
+    private void LoseManager_OnTriggerDataSaveOnRunLost(object sender, System.EventArgs e)
+    {
+        //
+    }
+
+    #endregion
 }

@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool ignoreGameFlow;
 
-    public static event EventHandler OnTriggerDataSave;
+    public static event EventHandler OnTriggerDataSaveOnRoundEnd;
 
     //Monologue is considered non GameState intrusive, can happen on combat,etc
     public enum State {StartingGame, BeginningCombat, Combat, EndingCombat, Shop, Upgrade, BeginningChangingStage, EndingChangingStage, Cinematic, Dialogue, Lose, Win, Tutorial} 
@@ -445,7 +445,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    private void TriggerDataSave() => OnTriggerDataSave?.Invoke(this, EventArgs.Empty);
+    private void TriggerDataSave() => OnTriggerDataSaveOnRoundEnd?.Invoke(this, EventArgs.Empty);
     public void SetTutorializedRun(bool tutorializedRun) => this.tutorializedRun = tutorializedRun;
 
     #region Subscriptions

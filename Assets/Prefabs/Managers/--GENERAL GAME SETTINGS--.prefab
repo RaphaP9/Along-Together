@@ -44,9 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4d746585623314f8f4cfd680623c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingUnlockedCharacters:
-  - {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
   startingStage: 1
   startingRound: 1
   startingGoldQuantity: 20
   defaultCharacter: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
+  startingUnlockedCharacters:
+  - {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
+  runCompletedCharactersUnlockedList:
+  - characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
+    unlockedCharacters: []

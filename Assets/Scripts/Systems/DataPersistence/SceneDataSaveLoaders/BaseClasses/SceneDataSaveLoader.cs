@@ -8,7 +8,6 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
     [SerializeField] private LoadMode awakeLoadMode;
     [SerializeField] private bool allowDynamicLoad; //Only Session Data Loads Dinamically
     [Space]
-    [SerializeField] private SaveMode dynamicSaveMode;
     [SerializeField] private SaveMode applicationQuitSaveMode; //Only Unity Editor
 
     //CompleteDataLoad/Save performs both JSON and session data operations
@@ -38,27 +37,6 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
                 GeneralDataSaveLoader.Instance.LoadSessionData();
                 break;
             case LoadMode.NoLoad:
-                break;
-        }
-    }
-
-    public bool CanLoadDataDynamically() => allowDynamicLoad;
-
-    public async void HandleDynamicDataSave() //Async Methods!, Public (Called by other classes)
-    {
-        switch (dynamicSaveMode)
-        {
-            case SaveMode.CompleteDataSave:
-                await GeneralDataSaveLoader.Instance.CompleteDataSaveAsync();
-                break;
-            case SaveMode.JSONDataSave:
-                await GeneralDataSaveLoader.Instance.SavePersistentDataAsync();
-                break;
-            case SaveMode.SessionDataSave:
-            default:
-                GeneralDataSaveLoader.Instance.SaveSessionData();
-                break;
-            case SaveMode.NoSave:
                 break;
         }
     }

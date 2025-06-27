@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LoseManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class LoseManager : MonoBehaviour
     [SerializeField] private TransitionType loseTransitionType;
     [Space]
     [SerializeField] private bool wipeRunDataOnLose;
+
+    public static event EventHandler OnTriggerDataSaveOnRunLost;
 
     private void OnEnable()
     {
@@ -23,6 +26,8 @@ public class LoseManager : MonoBehaviour
 
     private void LoseGame()
     {
+        TriggerDataSave();
+
         if (wipeRunDataOnLose)
         {
             DataUtilities.WipeRunData();
@@ -37,6 +42,8 @@ public class LoseManager : MonoBehaviour
         yield return new WaitForSeconds(timeToEndAfterLose);
         ScenesManager.Instance.TransitionLoadTargetScene(loseScene, loseTransitionType);
     }
+
+    private void TriggerDataSave() => OnTriggerDataSaveOnRunLost?.Invoke(this, EventArgs.Empty);
 
     private void GameManager_OnGameLost(object sender, System.EventArgs e)
     {

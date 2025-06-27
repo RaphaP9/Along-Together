@@ -277,8 +277,6 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         playerTransform = e.playerTransform;
 
-        if (!sceneDataSaveLoader.CanLoadDataDynamically()) return;
-
         LoadPlayerCurrentHealth();
         LoadPlayerCurrentShield();
 

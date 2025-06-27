@@ -6,15 +6,18 @@ public class GeneralGameSettings : MonoBehaviour
 {
     public static GeneralGameSettings Instance { get; private set; }
 
-    [Header("Game Settings")]
-    [SerializeField] private List<CharacterSO> startingUnlockedCharacters;
-    [Space]
+    [Header("Base Game Settings")]
     [SerializeField] private int startingStage;
     [SerializeField] private int startingRound;
     [Space]
     [SerializeField] private int startingGoldQuantity;
     [Space]
     [SerializeField] private CharacterSO defaultCharacter;
+
+    [Header("Character Unlock Settings")]
+    [SerializeField] private List<CharacterSO> startingUnlockedCharacters;
+    [SerializeField] private List<RunCompletedCharactersUnlocked> runCompletedCharactersUnlockedList;
+
 
     #region Initialization
     private void Awake()
@@ -53,4 +56,11 @@ public class GeneralGameSettings : MonoBehaviour
 
         return IDs;
     }
+}
+
+[System.Serializable]
+public class RunCompletedCharactersUnlocked
+{
+    public CharacterSO characterSO;
+    public List<CharacterSO> unlockedCharacters;
 }

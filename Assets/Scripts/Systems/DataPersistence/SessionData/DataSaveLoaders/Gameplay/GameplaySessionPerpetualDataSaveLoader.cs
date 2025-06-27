@@ -47,6 +47,7 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
         if(GameManager.Instance == null) return;
         if(StageEventsDefiner.Instance == null) return;
 
+        //Stage Events Definer Checks if tutorial has been completed
         if (StageEventsDefiner.Instance.IsTutorialCompleted()) SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(true);
         else SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(false);
     }
@@ -57,8 +58,6 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     private void PlayerInstantiationHandler_OnPlayerInstantiation(object sender, PlayerInstantiationHandler.OnPlayerInstantiationEventArgs e)
     {
         playerTransform = e.playerTransform;
-
-        if (!sceneDataSaveLoader.CanLoadDataDynamically()) return;
     }
     #endregion
 }
