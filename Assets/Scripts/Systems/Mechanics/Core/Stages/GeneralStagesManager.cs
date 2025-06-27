@@ -36,6 +36,7 @@ public class GeneralStagesManager : MonoBehaviour
     [SerializeField] private bool debug;
 
     #region Properties
+    public StageGroup CurrentStageGroup => currentStageGroup;
     public int CurrentStageNumber => currentStageNumber;
     public int CurrentRoundNumber => currentRoundNumber;
     #endregion
