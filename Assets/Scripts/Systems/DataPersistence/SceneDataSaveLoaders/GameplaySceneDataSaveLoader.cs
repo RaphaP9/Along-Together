@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
@@ -9,14 +10,16 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
 
     private void OnEnable()
     {
-        GameManager.OnTriggerDataSaveOnRoundEnd += GameManager_OnTriggerDataSaveOnRoundEnd;
+        GameManager.OnTriggerDataSaveOnRoundCompleted += GameManager_OnTriggerDataSaveOnRoundCompleted;
+        GameManager.OnTriggerDataSaveOnTutorialCompleted += GameManager_OnTriggerDataSaveOnTutorialCompleted;
         WinManager.OnTriggerDataSaveOnRunCompleted += WinManager_OnTriggerDataSaveOnRunCompleted;
         LoseManager.OnTriggerDataSaveOnRunLost += LoseManager_OnTriggerDataSaveOnRunLost;
     }
 
     private void OnDisable()
     {
-        GameManager.OnTriggerDataSaveOnRoundEnd -= GameManager_OnTriggerDataSaveOnRoundEnd;
+        GameManager.OnTriggerDataSaveOnRoundCompleted -= GameManager_OnTriggerDataSaveOnRoundCompleted;
+        GameManager.OnTriggerDataSaveOnTutorialCompleted -= GameManager_OnTriggerDataSaveOnTutorialCompleted;
         WinManager.OnTriggerDataSaveOnRunCompleted -= WinManager_OnTriggerDataSaveOnRunCompleted;
         LoseManager.OnTriggerDataSaveOnRunLost -= LoseManager_OnTriggerDataSaveOnRunLost;
     }
@@ -33,24 +36,51 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
         }
     }
 
-    private async void HandleDataSaveMidRounds() => await GeneralDataSaveLoader.Instance.SaveAllJSONDataAsync(); //MidRounds Update both Run and Perpetual Data
-    private async void HandleDataSaveOnRunCompleted() => await GeneralDataSaveLoader.Instance.SavePerpetualJSONDataAsync(); //On Win Only Update Perpetual Data
-    private async void HandleDataSaveOnRunLost() => await GeneralDataSaveLoader.Instance.SavePerpetualJSONDataAsync(); //On Lose Only Update Perpetual Data
+    #region Data Save Handlers
+    private async Task HandleAllDataSave()
+    {
+        try
+        {
+            await GeneralDataSaveLoader.Instance.SaveAllJSONDataAsync();//MidRounds Update both Run and Perpetual Data
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Save failed: {ex}");
+        }
+    }
+
+    private async Task HandlePerpetualDataSave()
+    {
+        try
+        {
+            await GeneralDataSaveLoader.Instance.SavePerpetualJSONDataAsync(); //On Win Only Update Perpetual Data
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Save failed: {ex}");
+        }
+    }
+    #endregion
 
     #region Subscriptions
-    private void GameManager_OnTriggerDataSaveOnRoundEnd(object sender, System.EventArgs e)
+    private async Task GameManager_OnTriggerDataSaveOnRoundCompleted()
     {
-        HandleDataSaveMidRounds();
-    }
-    private void WinManager_OnTriggerDataSaveOnRunCompleted(object sender, System.EventArgs e)
-    {
-        HandleDataSaveOnRunCompleted();
+        await HandleAllDataSave();
     }
 
-    private void LoseManager_OnTriggerDataSaveOnRunLost(object sender, System.EventArgs e)
+    private async Task GameManager_OnTriggerDataSaveOnTutorialCompleted()
     {
-        HandleDataSaveOnRunLost();
+        await HandlePerpetualDataSave();
     }
 
+    private async Task WinManager_OnTriggerDataSaveOnRunCompleted()
+    {
+        await HandlePerpetualDataSave();
+    }
+
+    private async Task LoseManager_OnTriggerDataSaveOnRunLost()
+    {
+        await HandlePerpetualDataSave();
+    }
     #endregion
 }

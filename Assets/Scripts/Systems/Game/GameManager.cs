@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,14 +34,17 @@ public class GameManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool ignoreGameFlow;
 
-    public static event EventHandler<OnRoundCompletedEventArgs> OnRoundCompleted;
-    public static event EventHandler OnTriggerDataSaveOnRoundEnd;
-
     //Monologue is considered non GameState intrusive, can happen on combat,etc
     public enum State {StartingGame, BeginningCombat, Combat, EndingCombat, Shop, Upgrade, BeginningChangingStage, EndingChangingStage, Cinematic, Dialogue, Lose, Win, Tutorial} 
 
     public State GameState => state;
     public bool TutorializedRun => tutorializedRun;
+
+    public static event EventHandler<OnRoundCompletedEventArgs> OnRoundCompleted;
+    public static Func<Task> OnTriggerDataSaveOnRoundCompleted;
+
+    public static event EventHandler OnTutorialCompleted;
+    public static Func<Task> OnTriggerDataSaveOnTutorialCompleted;
 
     public static event EventHandler<OnStateChangeEventArgs> OnStateChanged;
     public static event EventHandler<OnStateInitializedEventArgs> OnStateInitialized;
@@ -213,7 +217,7 @@ public class GameManager : MonoBehaviour
                 {
                     TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.AbilityUpgrade);
                 }
-                else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //Shop Tutorialization on 1-2 
+                else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //Shop Tutorialization on 1-3
                 {
                     TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.Shop);
                 }
@@ -248,7 +252,16 @@ public class GameManager : MonoBehaviour
                     yield return new WaitForSeconds(afterTutorializationTime);
                 }
                 #endregion
+
+                #region Tutorial Completion
+                if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //Complete Tutorial on 1-3
+                {
+                    CompleteTutorial();
+                }
+                #endregion
             }
+
+
 
             #region CompleteCombat Logic
             yield return StartCoroutine(CompleteCombatCoroutine());
@@ -349,7 +362,7 @@ public class GameManager : MonoBehaviour
             GeneralStagesManager.Instance.LoadNextRoundAndStage(); //IMPORTANT: First Load New Values, then save data
 
             OnRoundCompleted?.Invoke(this, new OnRoundCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
-            OnTriggerDataSaveOnRoundEnd?.Invoke(this, EventArgs.Empty);
+            OnTriggerDataSaveOnRoundCompleted?.Invoke();
         }
         #endregion
 
@@ -386,6 +399,14 @@ public class GameManager : MonoBehaviour
         StopAllCoroutines(); //Stop Game Coroutine
         SetGameState(State.Lose);
         OnGameLost?.Invoke(this, EventArgs.Empty);
+    }
+    #endregion
+
+    #region Tutorial
+    private void CompleteTutorial()
+    {
+        OnTutorialCompleted?.Invoke(this, EventArgs.Empty);
+        OnTriggerDataSaveOnTutorialCompleted?.Invoke();
     }
     #endregion
 

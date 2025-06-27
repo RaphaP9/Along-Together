@@ -11,46 +11,42 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     //Runtime Filled
     private Transform playerTransform;
 
-    private const int MIN_STAGE_TO_COMPLETE_TUTORIAL = 1;
-    private const int MIN_ROUND_TO_COMPLETE_TUTORIAL = 3;
-
     private void OnEnable()
     {
         PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
+
+        GameManager.OnRoundCompleted += GameManager_OnRoundCompleted;
+        GameManager.OnTutorialCompleted += GameManager_OnTutorialCompleted;
+
+        WinManager.OnRunCompleted += WinManager_OnRunCompleted;
+        LoseManager.OnRunLost += LoseManager_OnRunLost;
     }
 
     private void OnDisable()
     {
         PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
+
+        GameManager.OnRoundCompleted -= GameManager_OnRoundCompleted;
+        GameManager.OnTutorialCompleted -= GameManager_OnTutorialCompleted;
+
+        WinManager.OnRunCompleted -= WinManager_OnRunCompleted;
+        LoseManager.OnRunLost -= LoseManager_OnRunLost;
     }
 
     #region Abstract Methods
     public override void InjectAllDataFromDataContainers()
     {
-
+        //
     }
 
     public override void ExtractAllDataToDataContainers()
     {
-        SaveHasCompletedTutorial();
+        //
     }
     #endregion
 
     #region LoadMethods
 
-    #endregion
-
-    #region SaveMethods
-    private void SaveHasCompletedTutorial()
-    {
-        if(GeneralStagesManager.Instance == null) return;
-        if(GameManager.Instance == null) return;
-        if(StageEventsDefiner.Instance == null) return;
-
-        //Stage Events Definer Checks if tutorial has been completed
-        if (StageEventsDefiner.Instance.IsTutorialCompleted()) SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(true);
-        else SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(false);
-    }
     #endregion
 
 
@@ -59,5 +55,27 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     {
         playerTransform = e.playerTransform;
     }
+    #endregion
+
+    #region Data Update Subscriptions
+    private void GameManager_OnRoundCompleted(object sender, GameManager.OnRoundCompletedEventArgs e)
+    {
+        //
+    }
+
+    private void GameManager_OnTutorialCompleted(object sender, System.EventArgs e)
+    {
+        SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(true);
+    }
+    private void WinManager_OnRunCompleted(object sender, WinManager.OnRunCompletedEventArgs e)
+    {
+        SessionPerpetualDataContainer.Instance.AddUnlockedCharacterIDs(GeneralGameSettings.Instance.GetRunCompletedUnlockedCharacterIDsByCharacterSO(e.characterSO));
+    }
+
+    private void LoseManager_OnRunLost(object sender, LoseManager.OnRunLostEventArgs e)
+    {
+        //
+    }
+
     #endregion
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class WinManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class WinManager : MonoBehaviour
     [SerializeField] private bool wipeRunDataOnWin;
 
     public static event EventHandler<OnRunCompletedEventArgs> OnRunCompleted;
-    public static event EventHandler OnTriggerDataSaveOnRunCompleted;
+    public static Func<Task> OnTriggerDataSaveOnRunCompleted;
 
     public class OnRunCompletedEventArgs : EventArgs
     {
@@ -33,7 +34,7 @@ public class WinManager : MonoBehaviour
     private void WinGame()
     {
         OnRunCompleted?.Invoke(this, new OnRunCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
-        OnTriggerDataSaveOnRunCompleted?.Invoke(this, EventArgs.Empty);
+        OnTriggerDataSaveOnRunCompleted?.Invoke();
 
         if (wipeRunDataOnWin)
         {

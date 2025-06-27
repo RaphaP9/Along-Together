@@ -11,7 +11,7 @@ public class SessionRunDataContainer : MonoBehaviour
 
     public RunData RunData => runData;
 
-    #region Initialization
+    #region Initialization & Settings
     private void Awake() //Remember this Awake Happens before all JSON awakes, initialization of container happens before JSON Load
     {
         SetSingleton();
@@ -35,7 +35,6 @@ public class SessionRunDataContainer : MonoBehaviour
         runData = new RunData();
         runData.Initialize();
     }  
-    #endregion
 
     public void SetRunData(RunData runData) => this.runData = runData; 
 
@@ -43,6 +42,7 @@ public class SessionRunDataContainer : MonoBehaviour
     {
         InitializeDataContainer();
     }
+    #endregion
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void SetTutorializedRunBoolean(bool tutorializedRun) => runData.tutorializedRun = tutorializedRun;

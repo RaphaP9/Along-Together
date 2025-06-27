@@ -26,113 +26,140 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     private void OnEnable()
     {
         PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
+
+        GameManager.OnRoundCompleted += GameManager_OnRoundCompleted;
     }
 
     private void OnDisable()
     {
         PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
+
+        GameManager.OnRoundCompleted -= GameManager_OnRoundCompleted;
     }
 
     #region Abstract Methods
 
     public override void InjectAllDataFromDataContainers()
     {
-        LoadTutorializedRunBoolean();
+        InjectTutorializedRunBoolean();
 
-        LoadCurrentStageNumber();
-        LoadCurrentRoundNumber();
+        InjectCurrentStageNumber();
+        InjectCurrentRoundNumber();
 
-        LoadCurrentGold();
+        InjectCurrentGold();
 
-        LoadCurrentCharacter();
+        InjectCurrentCharacter();
 
-        LoadPlayerCurrentHealth();
-        LoadPlayerCurrentShield();
+        InjectPlayerCurrentHealth();
+        InjectPlayerCurrentShield();
 
-        LoadObjects();
-        LoadTreats();
+        InjectObjects();
+        InjectTreats();
 
-        LoadRunNumericStats();
+        InjectRunNumericStats();
 
-        LoadCharacterAbilityLevels();
-        LoadCharacterSlotsAbilityVariants();
+        InjectCharacterAbilityLevels();
+        InjectCharacterSlotsAbilityVariants();
     }
 
     public override void ExtractAllDataToDataContainers()
     {
-        SaveTutorializedRunBoolean();
+        ExtractTutorializedRunBoolean();
 
-        SaveCurrentStageNumber();
-        SaveCurrentRoundNumber();
+        ExtractCurrentStageNumber();
+        ExtractCurrentRoundNumber();
 
-        SaveCurrentGold();
+        ExtracturrentGold();
 
-        SavePlayerCurrentCharacter();
+        ExtractPlayerCurrentCharacter();
 
-        SavePlayerCurrentHealth();
-        SavePlayerCurrentShield();
+        ExtractPlayerCurrentHealth();
+        ExtractPlayerCurrentShield();
 
-        SaveObjects();
-        SaveTreats();
+        ExtractObjects();
+        ExtractTreats();
 
-        SaveRunNumericStats();
+        ExtractRunNumericStats();
 
-        SaveCharacterAbilityLevels();
-        SaveCharacterSlotsAbilityVariants();
+        ExtractCharacterAbilityLevels();
+        ExtractCharacterSlotsAbilityVariants();
     }
 
     #endregion
 
-    #region LoadMethods
-    private void LoadTutorializedRunBoolean()
+    private void ExtractAllCurrentRoundDataToDataContainers()
+    {
+        ExtractTutorializedRunBoolean();
+
+        ExtractCurrentStageNumber();
+        ExtractCurrentRoundNumber();
+
+        ExtracturrentGold();
+
+        ExtractPlayerCurrentCharacter();
+
+        ExtractPlayerCurrentHealth();
+        ExtractPlayerCurrentShield();
+
+        ExtractObjects();
+        ExtractTreats();
+
+        ExtractRunNumericStats();
+
+        ExtractCharacterAbilityLevels();
+        ExtractCharacterSlotsAbilityVariants();
+    }
+
+    #region Injection Methods
+    private void InjectTutorializedRunBoolean()
     {
         if (gameManager == null) return;
         gameManager.SetTutorializedRun(SessionRunDataContainer.Instance.RunData.tutorializedRun);
     }
 
-    private void LoadCurrentStageNumber()
+    private void InjectCurrentStageNumber()
     {
         if (generalStagesManager == null) return;
         generalStagesManager.SetStartingStageNumber(SessionRunDataContainer.Instance.RunData.currentStageNumber);
     }
 
-    private void LoadCurrentRoundNumber()
+    private void InjectCurrentRoundNumber()
     {
         if (generalStagesManager == null) return;
         generalStagesManager.SetStartingRoundNumber(SessionRunDataContainer.Instance.RunData.currentRoundNumber);
     }
 
-    private void LoadCurrentGold()
+    private void InjectCurrentGold()
     {
         if (goldManager == null) return;
         goldManager.SetCurrentGold(SessionRunDataContainer.Instance.RunData.currentGold);
     }
 
-    private void LoadCurrentCharacter()
+    private void InjectCurrentCharacter()
     {
         if (playerCharacterManager == null) return;
         playerCharacterManager.SetCharacterSO(DataUtilities.TranslateCharacterIDToCharacterSO(SessionRunDataContainer.Instance.RunData.currentCharacterID));
     }
 
-    private void LoadObjects()
+    private void InjectObjects()
     {
         if (objectsInventoryManager == null) return;
         objectsInventoryManager.SetObjectsInventory(DataUtilities.TranslateDataModeledObjectsToObjectsIdentified(SessionRunDataContainer.Instance.RunData.objects));
     }
 
-    private void LoadTreats()
+    private void InjectTreats()
     {
         if (treatsInventoryManager == null) return;
         treatsInventoryManager.SetTreatsInventory(DataUtilities.TranslateDataModeledTreatsToTreatsIdentified(SessionRunDataContainer.Instance.RunData.treats));
     }
 
-    private void LoadRunNumericStats()
+    private void InjectRunNumericStats()
     {
         if(runNumericStatModifierManager == null) return;
         runNumericStatModifierManager.SetStatList(DataUtilities.TranslateDataModeledNumericStatsToNumericStatModifiers(SessionRunDataContainer.Instance.RunData.numericStats));
     }
 
-    private void LoadPlayerCurrentHealth()
+    private void InjectPlayerCurrentHealth()
     {
         if(playerTransform == null) return;
 
@@ -143,7 +170,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         playerHealth.SetCurrentHealth(SessionRunDataContainer.Instance.RunData.currentHealth);
     }
 
-    private void LoadPlayerCurrentShield()
+    private void InjectPlayerCurrentShield()
     {
         if (playerTransform == null) return;
 
@@ -154,7 +181,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         playerHealth.SetCurrentShield(SessionRunDataContainer.Instance.RunData.currentShield);
     }
 
-    private void LoadCharacterAbilityLevels()
+    private void InjectCharacterAbilityLevels()
     {
         if (playerTransform == null) return;
 
@@ -165,7 +192,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         playerAbilityLevelsHandler.SetStartingAbilityLevels(DataUtilities.TranslateDataModeledAbilityLevelGroupsToPrimitiveAbilityLevelGroups(SessionRunDataContainer.Instance.RunData.abilityLevelGroups));
     }
 
-    private void LoadCharacterSlotsAbilityVariants()
+    private void InjectCharacterSlotsAbilityVariants()
     {
         if (playerTransform == null) return;
 
@@ -177,56 +204,55 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     }
     #endregion
 
-    #region SaveMethods
-
-    private void SaveTutorializedRunBoolean()
+    #region Extraction Methods
+    private void ExtractTutorializedRunBoolean()
     {
         if (gameManager == null) return;
         SessionRunDataContainer.Instance.SetTutorializedRunBoolean(gameManager.TutorializedRun);
     }
-    private void SaveCurrentStageNumber()
+    private void ExtractCurrentStageNumber()
     {
         if (generalStagesManager == null) return;
         SessionRunDataContainer.Instance.SetCurrentStageNumber(generalStagesManager.CurrentStageNumber);
     }
 
-    private void SaveCurrentRoundNumber()
+    private void ExtractCurrentRoundNumber()
     {
         if (generalStagesManager == null) return;
         SessionRunDataContainer.Instance.SetCurrentRoundNumber(generalStagesManager.CurrentRoundNumber);
     }
 
-    private void SaveCurrentGold()
+    private void ExtracturrentGold()
     {
         if(goldManager == null) return;
         SessionRunDataContainer.Instance.SetCurrentGold(goldManager.CurrentGold);
     }
 
-    private void SavePlayerCurrentCharacter()
+    private void ExtractPlayerCurrentCharacter()
     {
         if (playerCharacterManager == null) return;
         SessionRunDataContainer.Instance.SetCurrentCharacterID(playerCharacterManager.CharacterSO.id);
     }
 
-    private void SaveObjects()
+    private void ExtractObjects()
     {
         if (objectsInventoryManager == null) return;
         SessionRunDataContainer.Instance.SetObjects(DataUtilities.TranslateObjectsIdentifiedToDataModeledObjects(objectsInventoryManager.ObjectsInventory));
     }
 
-    private void SaveTreats()
+    private void ExtractTreats()
     {
         if (treatsInventoryManager == null) return;
         SessionRunDataContainer.Instance.SetTreats(DataUtilities.TranslateTreatsIdentifiedToDataModeledTreats(treatsInventoryManager.TreatsInventory));
     }
 
-    private void SaveRunNumericStats()
+    private void ExtractRunNumericStats()
     {
         if (runNumericStatModifierManager == null) return;
         SessionRunDataContainer.Instance.SetNumericStats(DataUtilities.TranslateNumericStatModifiersToDataModeledNumericStats(runNumericStatModifierManager.NumericStatModifiers));
     }
 
-    private void SavePlayerCurrentHealth()
+    private void ExtractPlayerCurrentHealth()
     {
         if (playerTransform == null) return;
 
@@ -237,7 +263,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         SessionRunDataContainer.Instance.SetCurrentHealth(playerHealth.CurrentHealth);
     }
 
-    private void SavePlayerCurrentShield()
+    private void ExtractPlayerCurrentShield()
     {
         if (playerTransform == null) return;
 
@@ -248,7 +274,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         SessionRunDataContainer.Instance.SetCurrentShield(playerHealth.CurrentShield);
     }
 
-    private void SaveCharacterAbilityLevels()
+    private void ExtractCharacterAbilityLevels()
     {
         if (playerTransform == null) return;
 
@@ -259,7 +285,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         SessionRunDataContainer.Instance.SetAbilityLevels(DataUtilities.TranslatePrimitiveAbilityLevelGroupsToDataModeledAbilityLevelGroups(playerAbilityLevelsHandler.GetPrimitiveAbilityLevelGroups()));
     }
 
-    private void SaveCharacterSlotsAbilityVariants()
+    private void ExtractCharacterSlotsAbilityVariants()
     {
         if (playerTransform == null) return;
 
@@ -277,11 +303,19 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         playerTransform = e.playerTransform;
 
-        LoadPlayerCurrentHealth();
-        LoadPlayerCurrentShield();
+        InjectPlayerCurrentHealth();
+        InjectPlayerCurrentShield();
 
-        LoadCharacterAbilityLevels();
-        LoadCharacterSlotsAbilityVariants();
+        InjectCharacterAbilityLevels();
+        InjectCharacterSlotsAbilityVariants();
     }
+    #endregion
+
+    #region Data Update Subscriptions
+    private void GameManager_OnRoundCompleted(object sender, GameManager.OnRoundCompletedEventArgs e)
+    {
+        ExtractAllCurrentRoundDataToDataContainers();
+    }
+
     #endregion
 }

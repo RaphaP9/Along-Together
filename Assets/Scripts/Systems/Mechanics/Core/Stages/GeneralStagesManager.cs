@@ -182,12 +182,18 @@ public class GeneralStagesManager : MonoBehaviour
             SetCurrentStageNumber(FIRTS_STAGE_NUMBER);
             SetCurrentRoundNumber(FIRST_ROUND_NUMBER);
 
+            stageGroup = LocateStageGroupByStageNumber(currentStageNumber);
+            roundGroup = LocateRoundGroupByRoundNumber(currentStageNumber, currentRoundNumber);
+
             if (debug) Debug.Log("Could not locate StageGroup on Initialization, reseting Stage & Round Numbers to Initials.");
         }
         else if (roundGroup == null)
         {
             SetCurrentStageNumber(FIRTS_STAGE_NUMBER);
             SetCurrentRoundNumber(FIRST_ROUND_NUMBER);
+
+            stageGroup = LocateStageGroupByStageNumber(currentStageNumber);
+            roundGroup = LocateRoundGroupByRoundNumber(currentStageNumber, currentRoundNumber);
 
             if (debug) Debug.Log("Could not locate RoundGroup on Initialization, reseting Stage & Round Numbers to Initials.");
         }
