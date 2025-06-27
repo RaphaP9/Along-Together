@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class PerpetualData : DataModel
     public bool hasCompletedTutorial;
     public int timesEnteredGame;
     public List<int> unlockedCharacterIDs;
+
+    public List<DataModeledCharacterData> dataModeledCharacterDataList;
 
     public PerpetualData()
     {
@@ -25,5 +28,21 @@ public class PerpetualData : DataModel
         }
 
         unlockedCharacterIDs = GeneralGameSettings.Instance.GetStartingUnlockedCharacterIDs();
+        dataModeledCharacterDataList = CreateDataModeledCharacterDataList();
+    }
+
+    private List<DataModeledCharacterData> CreateDataModeledCharacterDataList()
+    {
+        List<DataModeledCharacterData> dataModeledCharacterDataList = new List<DataModeledCharacterData>();
+
+        if (CharacterAssetLibrary.Instance == null) return dataModeledCharacterDataList;
+
+        foreach (CharacterSO characterSO in CharacterAssetLibrary.Instance.Characters)
+        {
+            DataModeledCharacterData dataModeledCharacterData = new DataModeledCharacterData(characterSO.id, 0, 0, 0); //Initialize Times played, won and lost to 0;
+            dataModeledCharacterDataList.Add(dataModeledCharacterData);
+        }
+
+        return dataModeledCharacterDataList;
     }
 }
