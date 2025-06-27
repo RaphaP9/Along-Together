@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool ignoreGameFlow;
 
+    public static event EventHandler<OnRoundCompletedEventArgs> OnRoundCompleted;
     public static event EventHandler OnTriggerDataSaveOnRoundEnd;
 
     //Monologue is considered non GameState intrusive, can happen on combat,etc
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
     //private bool cinematicConcluded = false;
     #endregion
 
+    #region EventArgs Classes
     public class OnStateChangeEventArgs : EventArgs
     {
         public State previousState;
@@ -67,6 +69,12 @@ public class GameManager : MonoBehaviour
     {
         public State state;
     }
+
+    public class OnRoundCompletedEventArgs : EventArgs
+    {
+        public CharacterSO characterSO;
+    }
+    #endregion
 
     private void OnEnable()
     {
@@ -167,19 +175,15 @@ public class GameManager : MonoBehaviour
         {
             InitializeState(State.Combat);
         }
-        else if (tutorializedRun)
+        else
         {
-            StartCoroutine(TutorializedGameCoroutine());
-        }
-        else 
-        {
-            StartCoroutine(RegularGameCoroutine());
+            StartCoroutine(GameCoroutine());
         }
 
         firstUpdateLogicPerformed = true;
     }
 
-    private IEnumerator RegularGameCoroutine()
+    private IEnumerator GameCoroutine()
     {
         CharacterSO characterSO = PlayerCharacterManager.Instance.CharacterSO;
         int stageNumber = GeneralStagesManager.Instance.CurrentStageNumber;
@@ -202,84 +206,19 @@ public class GameManager : MonoBehaviour
             }
             #endregion
 
-            #region Shop/AbilityUpgrade Logic
-            if (StageEventsDefiner.Instance.OpenAbilityUpgradeThisRound())
+            if (tutorializedRun)
             {
-                yield return StartCoroutine(AbilityUpgradeCoroutine());
+                #region Shop & AbilityUpgrade Tutorialization
+                if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 2)) //Ability Upgrade Tutorialization on 1-2 
+                {
+                    TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.AbilityUpgrade);
+                }
+                else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //Shop Tutorialization on 1-2 
+                {
+                    TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.Shop);
+                }
+                #endregion
             }
-            else if (StageEventsDefiner.Instance.OpenShopOnThisRound())
-            {
-                yield return StartCoroutine(ShopCoroutine());
-            }
-            #endregion
-
-            #region CompleteCombat Logic
-            yield return StartCoroutine(CompleteCombatCoroutine());
-            #endregion
-
-            #region PostCombat Dialogue Logic
-            if (DialogueTriggerHandler.Instance.ExistDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PostCombat))
-            {
-                yield return StartCoroutine(DialogueCoroutine(characterSO, stageNumber, roundNumber, DialogueChronology.PostCombat));
-            }
-            #endregion
-
-            #region Win Logic
-            if (GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts())
-            {
-                gameEnded = true;
-                WinGame();
-                break;
-            }
-            #endregion
-
-            #region ChangeStage Logic
-            if (GeneralStagesManager.Instance.LastCompletedRoundIsLastFromStage())
-            {
-                yield return StartCoroutine(ChangeStageCoroutine());
-            }
-            #endregion
-
-            #region Update Stage&Round Values In-Between Rounds
-            stageNumber = GeneralStagesManager.Instance.CurrentStageNumber;
-            roundNumber = GeneralStagesManager.Instance.CurrentRoundNumber;
-            #endregion
-        }
-    }
-
-    private IEnumerator TutorializedGameCoroutine()
-    {
-        CharacterSO characterSO = PlayerCharacterManager.Instance.CharacterSO;
-        int stageNumber = GeneralStagesManager.Instance.CurrentStageNumber;
-        int roundNumber = GeneralStagesManager.Instance.CurrentRoundNumber;
-
-        bool gameEnded = false;
-
-        InitializeState(State.StartingGame);
-        GeneralStagesManager.Instance.InitializeToCurrentStage();
-
-        yield return new WaitForSeconds(startingGameTimer);
-
-        while (!gameEnded)
-        {
-            #region PreCombat Dialogue Logic
-            if (DialogueTriggerHandler.Instance.ExistDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PreCombat))
-            {
-                yield return StartCoroutine(DialogueCoroutine(characterSO, stageNumber, roundNumber, DialogueChronology.PreCombat));
-
-            }
-            #endregion
-
-            #region Shop & AbilityUpgrade Tutorialization
-            if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 2)) //Ability Upgrade Tutorialization on 1-2 
-            {
-                TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.AbilityUpgrade);
-            }
-            else if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //Shop Tutorialization on 1-2 
-            {
-                TutorialOpeningManager.Instance.OpenTutorializedAction(TutorializedAction.Shop);
-            }
-            #endregion
 
             #region Shop/AbilityUpgrade Logic
             if (StageEventsDefiner.Instance.OpenAbilityUpgradeThisRound())
@@ -292,21 +231,24 @@ public class GameManager : MonoBehaviour
             }
             #endregion
 
-            #region Movement & Attack Tutorialization
-            if (GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //If round 1-1
+            if (tutorializedRun)
             {
-                yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.Movement));
-                yield return new WaitForSeconds(afterTutorializationTime);
-                yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.Attack));
-                yield return new WaitForSeconds(afterTutorializationTime);
-            }
+                #region Movement & Attack Tutorialization
+                if (GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) //If round 1-1
+                {
+                    yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.Movement));
+                    yield return new WaitForSeconds(afterTutorializationTime);
+                    yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.Attack));
+                    yield return new WaitForSeconds(afterTutorializationTime);
+                }
 
-            if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1,2)) //if round 1-2
-            {
-                yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.AbilityCasting));
-                yield return new WaitForSeconds(afterTutorializationTime);
+                if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 2)) //if round 1-2
+                {
+                    yield return StartCoroutine(TutorializedActionCoroutine(TutorializedAction.AbilityCasting));
+                    yield return new WaitForSeconds(afterTutorializationTime);
+                }
+                #endregion
             }
-            #endregion
 
             #region CompleteCombat Logic
             yield return StartCoroutine(CompleteCombatCoroutine());
@@ -405,7 +347,9 @@ public class GameManager : MonoBehaviour
         if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts()) //Load Next Round&Stage and Save Data
         {
             GeneralStagesManager.Instance.LoadNextRoundAndStage(); //IMPORTANT: First Load New Values, then save data
-            TriggerDataSave();
+
+            OnRoundCompleted?.Invoke(this, new OnRoundCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
+            OnTriggerDataSaveOnRoundEnd?.Invoke(this, EventArgs.Empty);
         }
         #endregion
 
@@ -430,7 +374,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region  Win & Lose
+    #region  Win&Lose 
     private void WinGame()
     {
         ChangeState(State.Win);
@@ -445,7 +389,6 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    private void TriggerDataSave() => OnTriggerDataSaveOnRoundEnd?.Invoke(this, EventArgs.Empty);
     public void SetTutorializedRun(bool tutorializedRun) => this.tutorializedRun = tutorializedRun;
 
     #region Subscriptions

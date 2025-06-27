@@ -6,13 +6,11 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private LoadMode awakeLoadMode;
-    [SerializeField] private bool allowDynamicLoad; //Only Session Data Loads Dinamically
-    [Space]
     [SerializeField] private SaveMode applicationQuitSaveMode; //Only Unity Editor
 
     //CompleteDataLoad/Save performs both JSON and session data operations
-    private enum LoadMode {CompleteDataLoad, JSONDataLoad, SessionDataLoad, NoLoad}
-    private enum SaveMode {CompleteDataSave, JSONDataSave, SessionDataSave, NoSave}
+    private enum LoadMode {CompleteDataLoad, InjectionFromContainers, NoLoad}
+    private enum SaveMode {CompleteDataSave, ExtractionToContainers, NoSave}
 
     protected virtual void Awake()
     {
@@ -27,14 +25,11 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
         switch (awakeLoadMode)
         {
             case LoadMode.CompleteDataLoad:
-                GeneralDataSaveLoader.Instance.CompleteDataLoad();
+                GeneralDataSaveLoader.Instance.CompleteDataLoad(); // Loads All JSON Data and Injects To Containers
                 break;
-            case LoadMode.JSONDataLoad:
-                GeneralDataSaveLoader.Instance.LoadJSONData();
-                break;
-            case LoadMode.SessionDataLoad:
+            case LoadMode.InjectionFromContainers:
             default:
-                GeneralDataSaveLoader.Instance.LoadDataContainersData();
+                GeneralDataSaveLoader.Instance.InjectAllDataFromContainers();
                 break;
             case LoadMode.NoLoad:
                 break;
@@ -46,14 +41,11 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
         switch (applicationQuitSaveMode)
         {
             case SaveMode.CompleteDataSave:
-                GeneralDataSaveLoader.Instance.CompleteDataSave();
+                GeneralDataSaveLoader.Instance.CompleteDataSave(); // Extracts All Data To Containers and Saves ALL JSON Data
                 break;
-            case SaveMode.JSONDataSave:
-                GeneralDataSaveLoader.Instance.SaveJSONData();
-                break;
-            case SaveMode.SessionDataSave:
+            case SaveMode.ExtractionToContainers:
             default:
-                GeneralDataSaveLoader.Instance.SaveDataContainersData();
+                GeneralDataSaveLoader.Instance.ExtractAllDataToContainers();
                 break;
             case SaveMode.NoSave:
                 break;

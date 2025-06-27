@@ -33,15 +33,9 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
         }
     }
 
-    public async void HandleDataSaveMidRounds() //Async Methods!, Public (Called by other classes)
-    {
-        await GeneralDataSaveLoader.Instance.CompleteDataSaveAsync();
-    }
-
-    public async void HandleDataSaveOnRunCompleted()
-    {
-        await GeneralDataSaveLoader.Instance.CompleteDataSaveAsync();
-    }
+    private async void HandleDataSaveMidRounds() => await GeneralDataSaveLoader.Instance.SaveAllJSONDataAsync(); //MidRounds Update both Run and Perpetual Data
+    private async void HandleDataSaveOnRunCompleted() => await GeneralDataSaveLoader.Instance.SavePerpetualJSONDataAsync(); //On Win Only Update Perpetual Data
+    private async void HandleDataSaveOnRunLost() => await GeneralDataSaveLoader.Instance.SavePerpetualJSONDataAsync(); //On Lose Only Update Perpetual Data
 
     #region Subscriptions
     private void GameManager_OnTriggerDataSaveOnRoundEnd(object sender, System.EventArgs e)
@@ -55,7 +49,7 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
 
     private void LoseManager_OnTriggerDataSaveOnRunLost(object sender, System.EventArgs e)
     {
-        //
+        HandleDataSaveOnRunLost();
     }
 
     #endregion

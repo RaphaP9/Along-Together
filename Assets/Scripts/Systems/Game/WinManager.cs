@@ -33,8 +33,7 @@ public class WinManager : MonoBehaviour
     private void WinGame()
     {
         OnRunCompleted?.Invoke(this, new OnRunCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
-
-        TriggerDataSave();
+        OnTriggerDataSaveOnRunCompleted?.Invoke(this, EventArgs.Empty);
 
         if (wipeRunDataOnWin)
         {
@@ -50,8 +49,6 @@ public class WinManager : MonoBehaviour
         yield return new WaitForSeconds(timeToEndAfterWin);
         ScenesManager.Instance.TransitionLoadTargetScene(winScene, winTransitionType);
     }
-
-    private void TriggerDataSave() => OnTriggerDataSaveOnRunCompleted?.Invoke(this, EventArgs.Empty);
 
     private void GameManager_OnGameWon(object sender, System.EventArgs e)
     {

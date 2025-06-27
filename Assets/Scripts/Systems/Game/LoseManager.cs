@@ -12,7 +12,13 @@ public class LoseManager : MonoBehaviour
     [Space]
     [SerializeField] private bool wipeRunDataOnLose;
 
+    public static event EventHandler<OnRunLostEventArgs> OnRunLost;
     public static event EventHandler OnTriggerDataSaveOnRunLost;
+
+    public class OnRunLostEventArgs : EventArgs
+    {
+        public CharacterSO characterSO;
+    }
 
     private void OnEnable()
     {
@@ -26,7 +32,8 @@ public class LoseManager : MonoBehaviour
 
     private void LoseGame()
     {
-        TriggerDataSave();
+        OnRunLost?.Invoke(this, new OnRunLostEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
+        OnTriggerDataSaveOnRunLost?.Invoke(this, EventArgs.Empty);
 
         if (wipeRunDataOnLose)
         {
@@ -42,8 +49,6 @@ public class LoseManager : MonoBehaviour
         yield return new WaitForSeconds(timeToEndAfterLose);
         ScenesManager.Instance.TransitionLoadTargetScene(loseScene, loseTransitionType);
     }
-
-    private void TriggerDataSave() => OnTriggerDataSaveOnRunLost?.Invoke(this, EventArgs.Empty);
 
     private void GameManager_OnGameLost(object sender, System.EventArgs e)
     {
