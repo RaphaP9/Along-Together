@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SessionPerpetualDataContainer : MonoBehaviour
 {
@@ -10,6 +11,16 @@ public class SessionPerpetualDataContainer : MonoBehaviour
     [SerializeField] private PerpetualData perpetualData;
 
     public PerpetualData PerpetualData => perpetualData;
+
+    private void OnEnable()
+    {
+        WinManager.OnRunCompleted += WinManager_OnRunCompleted;
+    }
+
+    private void OnDisable()
+    {
+        WinManager.OnRunCompleted -= WinManager_OnRunCompleted;
+    }
 
     #region Initialization
     private void Awake() //Remember this Awake Happens before all JSON awakes, initialization of container happens before JSON Load
@@ -50,8 +61,22 @@ public class SessionPerpetualDataContainer : MonoBehaviour
         return true;
     }
 
+    private void AddUnlockedCharacterIDs(List<int> characterIDs)
+    {
+        perpetualData.unlockedCharacterIDs.AddRange(characterIDs);
+        perpetualData.unlockedCharacterIDs = perpetualData.unlockedCharacterIDs.Distinct().ToList();
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void SetHasCompletedTutorial(bool hasCompletedTutorial) => perpetualData.hasCompletedTutorial = hasCompletedTutorial;
     public void SetUnlockedCharacterIDs(List<int> unlockedCharacterIDs) => perpetualData.unlockedCharacterIDs = unlockedCharacterIDs;
+
+    #region Subscriptions
+
+    private void WinManager_OnRunCompleted(object sender, WinManager.OnRunCompletedEventArgs e)
+    {
+        AddUnlockedCharacterIDs(GeneralGameSettings.Instance.GetRunCompletedUnlockedCharacterIDsByCharacterSO(e.characterSO));
+    }
+    #endregion
 }

@@ -12,9 +12,10 @@ public class WinManager : MonoBehaviour
     [Space]
     [SerializeField] private bool wipeRunDataOnWin;
 
-    public static event EventHandler<OnWinEventArgs> OnTriggerDataSaveOnRunCompleted;
+    public static event EventHandler<OnRunCompletedEventArgs> OnRunCompleted;
+    public static event EventHandler OnTriggerDataSaveOnRunCompleted;
 
-    public class OnWinEventArgs : EventArgs
+    public class OnRunCompletedEventArgs : EventArgs
     {
         public CharacterSO characterSO;
     }
@@ -31,6 +32,8 @@ public class WinManager : MonoBehaviour
 
     private void WinGame()
     {
+        OnRunCompleted?.Invoke(this, new OnRunCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
+
         TriggerDataSave();
 
         if (wipeRunDataOnWin)
@@ -48,7 +51,7 @@ public class WinManager : MonoBehaviour
         ScenesManager.Instance.TransitionLoadTargetScene(winScene, winTransitionType);
     }
 
-    private void TriggerDataSave() => OnTriggerDataSaveOnRunCompleted?.Invoke(this, new OnWinEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO});
+    private void TriggerDataSave() => OnTriggerDataSaveOnRunCompleted?.Invoke(this, EventArgs.Empty);
 
     private void GameManager_OnGameWon(object sender, System.EventArgs e)
     {

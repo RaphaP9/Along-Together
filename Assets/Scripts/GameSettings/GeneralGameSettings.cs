@@ -56,7 +56,21 @@ public class GeneralGameSettings : MonoBehaviour
         return IDs;
     }
 
-    public List<CharacterSO> GetRunCompletedUnlockedCharactersByCharacterSO(CharacterSO characterSO)
+    public List<int> GetRunCompletedUnlockedCharacterIDsByCharacterSO(CharacterSO characterSO)
+    {
+        List<CharacterSO> unlockedCharacters = GetRunCompletedUnlockedCharactersByCharacterSO(characterSO);
+
+        List<int> unlockedCharacterIDs = new List<int>();
+
+        foreach(CharacterSO character in unlockedCharacters)
+        {
+            unlockedCharacterIDs.Add(character.id);
+        }
+
+        return unlockedCharacterIDs;
+    }
+
+    private List<CharacterSO> GetRunCompletedUnlockedCharactersByCharacterSO(CharacterSO characterSO)
     {
         foreach (RunCompletedCharactersUnlocked element in runCompletedCharactersUnlockedList)
         {

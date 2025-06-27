@@ -40,7 +40,7 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
 
     public async void HandleDataSaveOnRunCompleted()
     {
-        
+        await GeneralDataSaveLoader.Instance.CompleteDataSaveAsync();
     }
 
     #region Subscriptions
