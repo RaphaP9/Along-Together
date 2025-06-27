@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Threading.Tasks;
 
 public class LoseManager : MonoBehaviour
 {
@@ -14,7 +13,6 @@ public class LoseManager : MonoBehaviour
     [SerializeField] private bool wipeRunDataOnLose;
 
     public static event EventHandler<OnRunLostEventArgs> OnDataUpdateOnRunLost;
-    public static Func<Task> OnTriggerDataSaveOnRunLost;
 
     public class OnRunLostEventArgs : EventArgs
     {
@@ -34,7 +32,6 @@ public class LoseManager : MonoBehaviour
     private void LoseGame()
     {
         OnDataUpdateOnRunLost?.Invoke(this, new OnRunLostEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
-        OnTriggerDataSaveOnRunLost?.Invoke();
 
         if (wipeRunDataOnLose)
         {

@@ -409,9 +409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   awakeLoadMode: 0
-  allowDynamicLoad: 1
-  dynamicSaveMode: 0
-  applicationQuitSaveMode: 3
+  applicationQuitSaveMode: 2
 --- !u!1 &255131202
 GameObject:
   m_ObjectHideFlags: 0

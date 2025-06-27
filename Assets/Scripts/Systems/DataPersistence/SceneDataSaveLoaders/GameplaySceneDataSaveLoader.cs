@@ -10,18 +10,20 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
 
     private void OnEnable()
     {
-        GameManager.OnTriggerDataSaveOnRoundCompleted += GameManager_OnTriggerDataSaveOnRoundCompleted;
-        GameManager.OnTriggerDataSaveOnTutorialCompleted += GameManager_OnTriggerDataSaveOnTutorialCompleted;
-        WinManager.OnTriggerDataSaveOnRunCompleted += WinManager_OnTriggerDataSaveOnRunCompleted;
-        LoseManager.OnTriggerDataSaveOnRunLost += LoseManager_OnTriggerDataSaveOnRunLost;
+        GameplaySessionRunDataSaveLoader.OnTriggerDataSaveOnRoundCompleted += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRoundCompleted;
+
+        GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnTutorialCompleted += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnTutorialCompleted;
+        GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunCompleted += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunCompleted;
+        GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunLost += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunLost;
     }
 
     private void OnDisable()
     {
-        GameManager.OnTriggerDataSaveOnRoundCompleted -= GameManager_OnTriggerDataSaveOnRoundCompleted;
-        GameManager.OnTriggerDataSaveOnTutorialCompleted -= GameManager_OnTriggerDataSaveOnTutorialCompleted;
-        WinManager.OnTriggerDataSaveOnRunCompleted -= WinManager_OnTriggerDataSaveOnRunCompleted;
-        LoseManager.OnTriggerDataSaveOnRunLost -= LoseManager_OnTriggerDataSaveOnRunLost;
+        GameplaySessionRunDataSaveLoader.OnTriggerDataSaveOnRoundCompleted -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRoundCompleted;
+
+        GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnTutorialCompleted -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnTutorialCompleted;
+        GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunCompleted -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunCompleted;
+        GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunLost -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunLost;
     }
 
     protected override void SetSingleton()
@@ -49,6 +51,18 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
         }
     }
 
+    private async Task HandleRunDataSave()
+    {
+        try
+        {
+            await GeneralDataSaveLoader.Instance.SaveRunJSONDataAsync();//MidRounds Update both Run and Perpetual Data
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Save failed: {ex}");
+        }
+    }
+
     private async Task HandlePerpetualDataSave()
     {
         try
@@ -63,22 +77,22 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
     #endregion
 
     #region Subscriptions
-    private async Task GameManager_OnTriggerDataSaveOnRoundCompleted()
+    private async Task GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRoundCompleted()
     {
-        await HandleAllDataSave();
+        await HandleRunDataSave();
     }
 
-    private async Task GameManager_OnTriggerDataSaveOnTutorialCompleted()
-    {
-        await HandlePerpetualDataSave();
-    }
-
-    private async Task WinManager_OnTriggerDataSaveOnRunCompleted()
+    private async Task GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnTutorialCompleted()
     {
         await HandlePerpetualDataSave();
     }
 
-    private async Task LoseManager_OnTriggerDataSaveOnRunLost()
+    private async Task GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunCompleted()
+    {
+        await HandlePerpetualDataSave();
+    }
+
+    private async Task GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunLost()
     {
         await HandlePerpetualDataSave();
     }

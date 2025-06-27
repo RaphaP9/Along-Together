@@ -6,11 +6,13 @@ using UnityEngine;
 public class PerpetualData : DataModel
 {
     public bool hasCompletedTutorial;
+    public int timesEnteredGame;
     public List<int> unlockedCharacterIDs;
 
     public PerpetualData()
     {
         hasCompletedTutorial = false;
+        timesEnteredGame = 0;
         unlockedCharacterIDs = new List<int>();
     }
 

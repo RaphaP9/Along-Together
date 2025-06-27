@@ -59,6 +59,6 @@ public class SessionPerpetualDataContainer : MonoBehaviour
         perpetualData.unlockedCharacterIDs = perpetualData.unlockedCharacterIDs.Distinct().ToList();
     }
 
+    public void IncreaseTimesEnteredGame() => perpetualData.timesEnteredGame = perpetualData.timesEnteredGame + 1;
     public void SetHasCompletedTutorial(bool hasCompletedTutorial) => perpetualData.hasCompletedTutorial = hasCompletedTutorial;
-    public void SetUnlockedCharacterIDs(List<int> unlockedCharacterIDs) => perpetualData.unlockedCharacterIDs = unlockedCharacterIDs;
 }

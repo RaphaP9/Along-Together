@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,10 +40,7 @@ public class GameManager : MonoBehaviour
     public bool TutorializedRun => tutorializedRun;
 
     public static event EventHandler<OnRoundCompletedEventArgs> OnDataUpdateOnRoundCompleted;
-    public static Func<Task> OnTriggerDataSaveOnRoundCompleted;
-
     public static event EventHandler OnDataUpdateOnTutorialCompleted;
-    public static Func<Task> OnTriggerDataSaveOnTutorialCompleted;
 
     public static event EventHandler<OnStateChangeEventArgs> OnStateChanged;
     public static event EventHandler<OnStateInitializedEventArgs> OnStateInitialized;
@@ -256,7 +252,7 @@ public class GameManager : MonoBehaviour
                 #region Tutorial Completion
                 if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(1, 3)) //Complete Tutorial on 1-3
                 {
-                    CompleteTutorial();
+                    OnDataUpdateOnTutorialCompleted?.Invoke(this, EventArgs.Empty);
                 }
                 #endregion
             }
@@ -362,7 +358,6 @@ public class GameManager : MonoBehaviour
             GeneralStagesManager.Instance.LoadNextRoundAndStage(); //IMPORTANT: First Load New Values, then save data
 
             OnDataUpdateOnRoundCompleted?.Invoke(this, new OnRoundCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
-            OnTriggerDataSaveOnRoundCompleted?.Invoke();
         }
         #endregion
 
@@ -399,14 +394,6 @@ public class GameManager : MonoBehaviour
         StopAllCoroutines(); //Stop Game Coroutine
         SetGameState(State.Lose);
         OnGameLost?.Invoke(this, EventArgs.Empty);
-    }
-    #endregion
-
-    #region Tutorial
-    private void CompleteTutorial()
-    {
-        OnDataUpdateOnTutorialCompleted?.Invoke(this, EventArgs.Empty);
-        OnTriggerDataSaveOnTutorialCompleted?.Invoke();
     }
     #endregion
 

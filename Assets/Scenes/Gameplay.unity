@@ -22708,6 +22708,7 @@ MonoBehaviour:
   lastCompletedRoundGroup:
     difficultyTier: 0
     rounds: []
+  hasCompletedAllRounds: 0
   debug: 1
 --- !u!1001 &458870759
 PrefabInstance:
@@ -76787,7 +76788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDistanceToPlayer: 2
   maxDistanceToPlayer: 7.5
-  gizmosColor: {r: 0.91974485, g: 1, b: 0, a: 1}
+  gizmosColor: {r: 0.92156863, g: 1, b: 0, a: 1}
   debug: 1
 --- !u!1001 &1544389092
 PrefabInstance:

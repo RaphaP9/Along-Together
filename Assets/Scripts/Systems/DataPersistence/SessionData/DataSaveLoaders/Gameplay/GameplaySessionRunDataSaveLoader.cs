@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 {
@@ -22,6 +24,8 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
 
     //Runtime Filled
     private Transform playerTransform;
+
+    public static Func<Task> OnTriggerDataSaveOnRoundCompleted;
 
     private void OnEnable()
     {
@@ -315,6 +319,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     private void GameManager_OnDataUpdateOnRoundCompleted(object sender, GameManager.OnRoundCompletedEventArgs e)
     {
         ExtractAllCurrentRoundDataToDataContainers();
+        OnTriggerDataSaveOnRoundCompleted?.Invoke();
     }
 
     #endregion
