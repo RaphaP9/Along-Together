@@ -8,8 +8,11 @@ public class WelcomeSceneManager : MonoBehaviour
     public static WelcomeSceneManager Instance { get; private set; }
 
     [Header("Settings")]
-    [SerializeField] private string nextScene;
-    [SerializeField] private TransitionType nextSceneTransitionType;
+    [SerializeField] private string regularNextScene;
+    [SerializeField] private TransitionType regularNextSceneTransitionType;
+    [Space]
+    [SerializeField] private string firstSessionNextScene;
+    [SerializeField] private TransitionType firstSessionNextSceneTransitionType;
 
     public static event EventHandler OnAnyKeyPressed;
 
@@ -41,6 +44,13 @@ public class WelcomeSceneManager : MonoBehaviour
         if (!Input.anyKeyDown) return;
 
         OnAnyKeyPressed?.Invoke(this, EventArgs.Empty);
-        ScenesManager.Instance.TransitionLoadTargetScene(nextScene, nextSceneTransitionType);
+
+        NextSceneLogic();
+    }
+
+    private void NextSceneLogic()
+    {
+        if(SessionPerpetualDataContainer.Instance.PerpetualData.timesEnteredGame <= 0) ScenesManager.Instance.TransitionLoadTargetScene(firstSessionNextScene, firstSessionNextSceneTransitionType); //If never entered the game, go to firstSessionScene
+        else ScenesManager.Instance.TransitionLoadTargetScene(regularNextScene, regularNextSceneTransitionType); //Else, go to regular scene
     }
 }

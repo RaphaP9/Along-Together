@@ -325,8 +325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4483d730d58e29148a7b92887889aed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: MainMenu
-  nextSceneTransitionType: 0
+  regularNextScene: MainMenu
+  regularNextSceneTransitionType: 0
+  firstSessionNextScene: MainMenu
+  firstSessionNextSceneTransitionType: 0
 --- !u!1001 &990673811
 PrefabInstance:
   m_ObjectHideFlags: 0

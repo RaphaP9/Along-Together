@@ -4456,7 +4456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 1767330298}
   transitionType: 0
-  nextScene: Gameplay
+  nextScene: MainMenu
 --- !u!1 &1394234216
 GameObject:
   m_ObjectHideFlags: 0
