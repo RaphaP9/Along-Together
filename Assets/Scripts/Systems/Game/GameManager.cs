@@ -40,10 +40,10 @@ public class GameManager : MonoBehaviour
     public State GameState => state;
     public bool TutorializedRun => tutorializedRun;
 
-    public static event EventHandler<OnRoundCompletedEventArgs> OnRoundCompleted;
+    public static event EventHandler<OnRoundCompletedEventArgs> OnDataUpdateOnRoundCompleted;
     public static Func<Task> OnTriggerDataSaveOnRoundCompleted;
 
-    public static event EventHandler OnTutorialCompleted;
+    public static event EventHandler OnDataUpdateOnTutorialCompleted;
     public static Func<Task> OnTriggerDataSaveOnTutorialCompleted;
 
     public static event EventHandler<OnStateChangeEventArgs> OnStateChanged;
@@ -361,7 +361,7 @@ public class GameManager : MonoBehaviour
         {
             GeneralStagesManager.Instance.LoadNextRoundAndStage(); //IMPORTANT: First Load New Values, then save data
 
-            OnRoundCompleted?.Invoke(this, new OnRoundCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
+            OnDataUpdateOnRoundCompleted?.Invoke(this, new OnRoundCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
             OnTriggerDataSaveOnRoundCompleted?.Invoke();
         }
         #endregion
@@ -405,7 +405,7 @@ public class GameManager : MonoBehaviour
     #region Tutorial
     private void CompleteTutorial()
     {
-        OnTutorialCompleted?.Invoke(this, EventArgs.Empty);
+        OnDataUpdateOnTutorialCompleted?.Invoke(this, EventArgs.Empty);
         OnTriggerDataSaveOnTutorialCompleted?.Invoke();
     }
     #endregion

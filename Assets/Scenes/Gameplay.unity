@@ -82834,7 +82834,7 @@ MonoBehaviour:
   timeToEndAfterWin: 4
   winScene: MainMenu
   winTransitionType: 0
-  wipeRunDataOnWin: 1
+  wipeRunDataOnWin: 0
 --- !u!1001 &1685841484
 PrefabInstance:
   m_ObjectHideFlags: 0

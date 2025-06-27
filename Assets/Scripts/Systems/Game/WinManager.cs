@@ -13,7 +13,7 @@ public class WinManager : MonoBehaviour
     [Space]
     [SerializeField] private bool wipeRunDataOnWin;
 
-    public static event EventHandler<OnRunCompletedEventArgs> OnRunCompleted;
+    public static event EventHandler<OnRunCompletedEventArgs> OnDataUpdateOnRunCompleted;
     public static Func<Task> OnTriggerDataSaveOnRunCompleted;
 
     public class OnRunCompletedEventArgs : EventArgs
@@ -33,7 +33,7 @@ public class WinManager : MonoBehaviour
 
     private void WinGame()
     {
-        OnRunCompleted?.Invoke(this, new OnRunCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
+        OnDataUpdateOnRunCompleted?.Invoke(this, new OnRunCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
         OnTriggerDataSaveOnRunCompleted?.Invoke();
 
         if (wipeRunDataOnWin)

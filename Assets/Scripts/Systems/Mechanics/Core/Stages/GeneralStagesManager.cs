@@ -31,11 +31,14 @@ public class GeneralStagesManager : MonoBehaviour
     [Space]
     [SerializeField] private StageGroup lastCompletedStageGroup;
     [SerializeField] private RoundGroup lastCompletedRoundGroup;
+    [Space]
+    [SerializeField] private bool hasCompletedAllRounds;
 
     [Header("Debug")]
     [SerializeField] private bool debug;
 
     #region Properties
+    public bool HasCompletedAllRounds => hasCompletedAllRounds;
     public StageGroup CurrentStageGroup => currentStageGroup;
     public int CurrentStageNumber => currentStageNumber;
     public int CurrentRoundNumber => currentRoundNumber;
@@ -254,6 +257,9 @@ public class GeneralStagesManager : MonoBehaviour
         SetLastCompletedRoundGroup(currentRoundGroup);
 
         SetRoundState(RoundState.NotOnRound);
+
+        CheckAllRoundsCompleted();
+
         OnRoundEnd?.Invoke(this, new OnRoundEventArgs { stageGroup = stageGroup, roundGroup = roundGroup, stageNumber = stageNumber, roundNumber = roundNumber, roundSO = roundSO });
 
         ClearCurrentRound();
@@ -279,6 +285,12 @@ public class GeneralStagesManager : MonoBehaviour
     {
         if(roundState != RoundState.NotOnRound) return false;
         return true;
+    }
+
+    private void CheckAllRoundsCompleted()
+    {
+        if(LastCompletedStageAndRoundNumberAreLasts()) hasCompletedAllRounds = true;
+        else hasCompletedAllRounds = false;
     }
     #endregion
 

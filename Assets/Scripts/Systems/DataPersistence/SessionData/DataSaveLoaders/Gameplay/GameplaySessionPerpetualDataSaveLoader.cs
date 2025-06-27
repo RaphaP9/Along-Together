@@ -15,22 +15,22 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     {
         PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
 
-        GameManager.OnRoundCompleted += GameManager_OnRoundCompleted;
-        GameManager.OnTutorialCompleted += GameManager_OnTutorialCompleted;
+        GameManager.OnDataUpdateOnRoundCompleted += GameManager_OnDataUpdateOnRoundCompleted;
+        GameManager.OnDataUpdateOnTutorialCompleted += GameManager_OnDataUpdateOnTutorialCompleted;
 
-        WinManager.OnRunCompleted += WinManager_OnRunCompleted;
-        LoseManager.OnRunLost += LoseManager_OnRunLost;
+        WinManager.OnDataUpdateOnRunCompleted += WinManager_OnDataUpdateOnRunCompleted;
+        LoseManager.OnDataUpdateOnRunLost += LoseManager_OnDataUpdateOnRunLost;
     }
 
     private void OnDisable()
     {
         PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
 
-        GameManager.OnRoundCompleted -= GameManager_OnRoundCompleted;
-        GameManager.OnTutorialCompleted -= GameManager_OnTutorialCompleted;
+        GameManager.OnDataUpdateOnRoundCompleted -= GameManager_OnDataUpdateOnRoundCompleted;
+        GameManager.OnDataUpdateOnTutorialCompleted -= GameManager_OnDataUpdateOnTutorialCompleted;
 
-        WinManager.OnRunCompleted -= WinManager_OnRunCompleted;
-        LoseManager.OnRunLost -= LoseManager_OnRunLost;
+        WinManager.OnDataUpdateOnRunCompleted -= WinManager_OnDataUpdateOnRunCompleted;
+        LoseManager.OnDataUpdateOnRunLost -= LoseManager_OnDataUpdateOnRunLost;
     }
 
     #region Abstract Methods
@@ -58,24 +58,24 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     #endregion
 
     #region Data Update Subscriptions
-    private void GameManager_OnRoundCompleted(object sender, GameManager.OnRoundCompletedEventArgs e)
+    private void GameManager_OnDataUpdateOnRoundCompleted(object sender, GameManager.OnRoundCompletedEventArgs e)
     {
         //
     }
 
-    private void GameManager_OnTutorialCompleted(object sender, System.EventArgs e)
+    private void GameManager_OnDataUpdateOnTutorialCompleted(object sender, System.EventArgs e)
     {
         SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(true);
     }
-    private void WinManager_OnRunCompleted(object sender, WinManager.OnRunCompletedEventArgs e)
+
+    private void WinManager_OnDataUpdateOnRunCompleted(object sender, WinManager.OnRunCompletedEventArgs e)
     {
         SessionPerpetualDataContainer.Instance.AddUnlockedCharacterIDs(GeneralGameSettings.Instance.GetRunCompletedUnlockedCharacterIDsByCharacterSO(e.characterSO));
     }
 
-    private void LoseManager_OnRunLost(object sender, LoseManager.OnRunLostEventArgs e)
+    private void LoseManager_OnDataUpdateOnRunLost(object sender, LoseManager.OnRunLostEventArgs e)
     {
         //
     }
-
     #endregion
 }

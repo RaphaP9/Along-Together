@@ -27,14 +27,14 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
 
-        GameManager.OnRoundCompleted += GameManager_OnRoundCompleted;
+        GameManager.OnDataUpdateOnRoundCompleted += GameManager_OnDataUpdateOnRoundCompleted;
     }
 
     private void OnDisable()
     {
         PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
 
-        GameManager.OnRoundCompleted -= GameManager_OnRoundCompleted;
+        GameManager.OnDataUpdateOnRoundCompleted -= GameManager_OnDataUpdateOnRoundCompleted;
     }
 
     #region Abstract Methods
@@ -312,7 +312,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     #endregion
 
     #region Data Update Subscriptions
-    private void GameManager_OnRoundCompleted(object sender, GameManager.OnRoundCompletedEventArgs e)
+    private void GameManager_OnDataUpdateOnRoundCompleted(object sender, GameManager.OnRoundCompletedEventArgs e)
     {
         ExtractAllCurrentRoundDataToDataContainers();
     }

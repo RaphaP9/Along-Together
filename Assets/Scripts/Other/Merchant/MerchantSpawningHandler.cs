@@ -54,6 +54,7 @@ public class MerchantSpawningHandler : MonoBehaviour
         yield return new WaitForSeconds(timeToSpawn);
 
         if (!StageEventsDefiner.Instance.OpenShopOnThisRound()) yield break;
+        if (GeneralStagesManager.Instance.HasCompletedAllRounds) yield break;
 
         Vector2 spawnPosition = Vector2.zero;
         bool positionFound = ChoosePositionToSpawn(out spawnPosition);
@@ -68,7 +69,6 @@ public class MerchantSpawningHandler : MonoBehaviour
         yield return new WaitForSeconds(timeToDespawn);
         OnMerchantDespawn?.Invoke(this, EventArgs.Empty);
     }
-
 
     private bool ChoosePositionToSpawn(out Vector2 chosenPosition)
     {
