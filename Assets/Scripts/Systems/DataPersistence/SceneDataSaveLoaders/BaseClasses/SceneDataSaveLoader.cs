@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public abstract class SceneDataSaveLoader : MonoBehaviour
 {
@@ -52,6 +54,43 @@ public abstract class SceneDataSaveLoader : MonoBehaviour
         }
     }
 
+    #region Data Save Handlers
+    protected async Task HandleAllDataSave()
+    {
+        try
+        {
+            await GeneralDataSaveLoader.Instance.SaveAllJSONDataAsync();//MidRounds Update both Run and Perpetual Data
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Save failed: {ex}");
+        }
+    }
+
+    protected async Task HandleRunDataSave()
+    {
+        try
+        {
+            await GeneralDataSaveLoader.Instance.SaveRunJSONDataAsync();//MidRounds Update both Run and Perpetual Data
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Save failed: {ex}");
+        }
+    }
+
+    protected async Task HandlePerpetualDataSave()
+    {
+        try
+        {
+            await GeneralDataSaveLoader.Instance.SavePerpetualJSONDataAsync(); //On Win Only Update Perpetual Data
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Save failed: {ex}");
+        }
+    }
+    #endregion
     private void OnApplicationQuit()
     {
         HandleDataSaveOnQuit();

@@ -38,44 +38,6 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
         }
     }
 
-    #region Data Save Handlers
-    private async Task HandleAllDataSave()
-    {
-        try
-        {
-            await GeneralDataSaveLoader.Instance.SaveAllJSONDataAsync();//MidRounds Update both Run and Perpetual Data
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Save failed: {ex}");
-        }
-    }
-
-    private async Task HandleRunDataSave()
-    {
-        try
-        {
-            await GeneralDataSaveLoader.Instance.SaveRunJSONDataAsync();//MidRounds Update both Run and Perpetual Data
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Save failed: {ex}");
-        }
-    }
-
-    private async Task HandlePerpetualDataSave()
-    {
-        try
-        {
-            await GeneralDataSaveLoader.Instance.SavePerpetualJSONDataAsync(); //On Win Only Update Perpetual Data
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Save failed: {ex}");
-        }
-    }
-    #endregion
-
     #region Subscriptions
     private async Task GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRoundCompleted()
     {

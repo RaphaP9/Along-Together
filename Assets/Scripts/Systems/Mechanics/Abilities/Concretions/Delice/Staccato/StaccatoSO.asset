@@ -19,11 +19,11 @@ MonoBehaviour:
   abilityClassification: 4
   abilityInfoSO: {fileID: 11400000, guid: 84913a6022ae64b4e9dd412fcd054415, type: 2}
   statAffinities: 
-  baseCooldown: 10
+  baseCooldown: 7
   numericEmbeddedStats:
   - numericStatType: 7
     numericStatModificationType: 1
     value: 0.25
-  duration: 2.5
+  duration: 1.5
   performanceTime: 0.5
   burstInterval: 0.05

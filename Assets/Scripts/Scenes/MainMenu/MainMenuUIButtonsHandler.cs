@@ -61,9 +61,14 @@ public class MainMenuUIButtonsHandler : MonoBehaviour
     private void LoadContinueGameScene() => MainMenuNextScenesManager.Instance.ContinueGame();
     private void LoadOptionsScene() => ScenesManager.Instance.TransitionLoadTargetScene(optionsScene, optionsTransitionType);
     private void LoadCreditsScene() => ScenesManager.Instance.TransitionLoadTargetScene(creditsScene, creditsTransitionType);
+
     private void DeleteData()
     {
+        SessionRunDataContainer.Instance.ResetRunData(); //Reset the Run Data in Data Container
+        SessionPerpetualDataContainer.Instance.ResetPerpetualData(); //Reset the Perpetual Data in Data Container
+
         DataUtilities.WipeAllData();
+
         CheckContiueButtonAvailable();
     }
     private void QuitGame() => ScenesManager.Instance.QuitGame();

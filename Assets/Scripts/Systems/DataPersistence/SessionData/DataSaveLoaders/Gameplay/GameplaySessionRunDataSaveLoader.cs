@@ -9,17 +9,16 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     [Header("Data Scripts - Already On Scene")]
     [SerializeField] private GameManager gameManager;
     [Space]
+    [SerializeField] private PlayerCharacterManager playerCharacterManager;
+    [Space]
     [SerializeField] private GeneralStagesManager generalStagesManager;
     [Space]
     [SerializeField] private GoldManager goldManager;   
-    [Space]
-    [SerializeField] private PlayerCharacterManager playerCharacterManager;
     [Space]
     [SerializeField] private ObjectsInventoryManager objectsInventoryManager;
     [Space]
     [SerializeField] private TreatsInventoryManager treatsInventoryManager;
     [Space]
-    [SerializeField] private RunAssetStatModifierManager runAssetStatModifierManager;
     [SerializeField] private RunNumericStatModifierManager runNumericStatModifierManager;
 
     //Runtime Filled
@@ -47,12 +46,12 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         InjectTutorializedRunBoolean();
 
+        InjectCurrentCharacter();
+
         InjectCurrentStageNumber();
         InjectCurrentRoundNumber();
 
         InjectCurrentGold();
-
-        InjectCurrentCharacter();
 
         InjectPlayerCurrentHealth();
         InjectPlayerCurrentShield();
@@ -70,12 +69,12 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         ExtractTutorializedRunBoolean();
 
+        ExtractPlayerCurrentCharacter();
+
         ExtractCurrentStageNumber();
         ExtractCurrentRoundNumber();
 
-        ExtracturrentGold();
-
-        ExtractPlayerCurrentCharacter();
+        ExtractCurrentGold();
 
         ExtractPlayerCurrentHealth();
         ExtractPlayerCurrentShield();
@@ -95,12 +94,12 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
     {
         ExtractTutorializedRunBoolean();
 
+        ExtractPlayerCurrentCharacter();
+
         ExtractCurrentStageNumber();
         ExtractCurrentRoundNumber();
 
-        ExtracturrentGold();
-
-        ExtractPlayerCurrentCharacter();
+        ExtractCurrentGold();
 
         ExtractPlayerCurrentHealth();
         ExtractPlayerCurrentShield();
@@ -226,7 +225,7 @@ public class GameplaySessionRunDataSaveLoader : SessionDataSaveLoader
         SessionRunDataContainer.Instance.SetCurrentRoundNumber(generalStagesManager.CurrentRoundNumber);
     }
 
-    private void ExtracturrentGold()
+    private void ExtractCurrentGold()
     {
         if(goldManager == null) return;
         SessionRunDataContainer.Instance.SetCurrentGold(goldManager.CurrentGold);

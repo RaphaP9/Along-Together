@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
 {
-    [Header("Data Scripts - Already On Scene")]
-    [SerializeField] private PerpetualAssetStatModifierManager perpetualAssetStatModifierManager;
-    [SerializeField] private PerpetualNumericStatModifierManager perpetualNumericStatModifierManager;
-
     //Runtime Filled
     private Transform playerTransform;
 
