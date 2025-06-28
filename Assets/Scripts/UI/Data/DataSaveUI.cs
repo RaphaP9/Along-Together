@@ -15,7 +15,12 @@ public class DataSaveUI : MonoBehaviour
 
     private const string SHOWING_ANIMATION = "Showing";
 
+    private const float INDICATOR_OUT_SAFE_TIME = 1f;
+
     private bool dataSaveCompleted = false;
+    private bool showingIndicator = false;
+
+
 
     private void OnEnable()
     {
@@ -43,6 +48,8 @@ public class DataSaveUI : MonoBehaviour
 
     private IEnumerator DataSaveIndicatorCoroutine()
     {
+        showingIndicator = true;
+
         ShowIndicator();
 
         yield return new WaitUntil(() => dataSaveCompleted);
@@ -51,11 +58,16 @@ public class DataSaveUI : MonoBehaviour
         yield return new WaitForSecondsRealtime(minimumShowingInidicatorTime);
 
         HideIndicator();
+
+        yield return new WaitForSeconds(INDICATOR_OUT_SAFE_TIME);
+
+        showingIndicator = false;
     }
 
     #region Subscriptions
     private void GeneralDataSaveLoader_OnDataSaveStart(object sender, System.EventArgs e)
     {
+        if (showingIndicator) return;
         StartCoroutine(DataSaveIndicatorCoroutine());
     }
 

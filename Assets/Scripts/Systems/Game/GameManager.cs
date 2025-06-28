@@ -353,17 +353,22 @@ public class GameManager : MonoBehaviour
         #endregion
 
         #region LoadNextRound Logic
-        if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts()) //Load Next Round&Stage and Save Data
+        if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts()) //Load Next Round & Stage to GeneralStagesManager
         {
-            GeneralStagesManager.Instance.LoadNextRoundAndStage(); //IMPORTANT: First Load New Values, then save data
-
-            OnDataUpdateOnRoundCompleted?.Invoke(this, new OnRoundCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
+            GeneralStagesManager.Instance.LoadNextRoundAndStage();
         }
         #endregion
 
         #region EndingCombat Logic
         ChangeState(State.EndingCombat);
         yield return new WaitForSeconds(roundEndingTime);
+        #endregion
+
+        #region DataUpdate Logic
+        if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts()) //Save Data
+        {
+            OnDataUpdateOnRoundCompleted?.Invoke(this, new OnRoundCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
+        }
         #endregion
     }
 
