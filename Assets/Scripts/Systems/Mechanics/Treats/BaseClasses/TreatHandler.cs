@@ -9,12 +9,21 @@ public abstract class TreatHandler : MonoBehaviour
 
     public List<InventoryObjectSO> InventoryObjectsToActivate => inventoryObjectsToActivate;
 
+    private bool previouslyEnabled = false;
+
     private void Awake()
     {
         SetSingleton();
     }
 
+    protected virtual void Update()
+    {
+        HandleTreatEnable();
+    }
+
     protected abstract void SetSingleton();
+    protected abstract void OnTreatEnableMethod();
+    protected abstract void OnTreatDisableMethod();
 
     protected virtual bool TreatEnabled()
     {
@@ -32,5 +41,21 @@ public abstract class TreatHandler : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void HandleTreatEnable()
+    {
+        bool currentlyEnabled = TreatEnabled();
+
+        if(!previouslyEnabled && currentlyEnabled)
+        {
+            OnTreatEnableMethod();
+        }
+        else if(previouslyEnabled && !currentlyEnabled)
+        {
+            OnTreatDisableMethod();
+        }
+
+        previouslyEnabled = currentlyEnabled;       
     }
 }

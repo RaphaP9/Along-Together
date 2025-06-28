@@ -45,12 +45,6 @@ public class WelcomeSceneManager : MonoBehaviour
 
         OnAnyKeyPressed?.Invoke(this, EventArgs.Empty);
 
-        NextSceneLogic();
-    }
-
-    private void NextSceneLogic()
-    {
-        if(SessionPerpetualDataContainer.Instance.PerpetualData.timesEnteredGame <= 0) ScenesManager.Instance.TransitionLoadTargetScene(firstSessionNextScene, firstSessionNextSceneTransitionType); //If never entered the game, go to firstSessionScene
-        else ScenesManager.Instance.TransitionLoadTargetScene(regularNextScene, regularNextSceneTransitionType); //Else, go to regular scene
+        GeneralSceneSettings.Instance.TransitionToStartingScene();
     }
 }

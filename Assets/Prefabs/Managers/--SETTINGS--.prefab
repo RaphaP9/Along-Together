@@ -97,6 +97,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939a7a333c274d841812686175616d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regularStartingScene: MainMenu
+  regularStartingSceneTransitionType: 0
+  firstSessionStartingScene: MainMenu
+  firstSessionStartingSceneTransitionType: 0
+  characterSpecificScenes:
+  - characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
+    firstRunScene: Gameplay
+    firstRunTransitionType: 0
+    firstWinScene: MainMenu
+    firstWinTransitionType: 0
+    firstLoseScene: MainMenu
+    firstLoseTransitionType: 0
 --- !u!1 &9105105835301189499
 GameObject:
   m_ObjectHideFlags: 0

@@ -66,6 +66,8 @@ public class AbilityCooldownHandler : MonoBehaviour
 
     public void ReduceCooldown(float reductionTime)
     {
+        if(cooldownTimer <= 0f) return;
+
         float previousCooldownTimer = cooldownTimer;
         cooldownTimer = cooldownTimer - reductionTime < 0f? 0f: cooldownTimer - reductionTime;
 

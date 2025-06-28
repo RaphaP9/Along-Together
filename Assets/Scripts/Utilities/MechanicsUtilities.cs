@@ -346,4 +346,14 @@ public static class MechanicsUtilities
     #endregion
 
     #endregion
+
+    #region Odds
+    public static bool GetProbability(float normalizedProbability)
+    {
+        float randomNumber = Random.Range(0f, 1f);
+
+        if (normalizedProbability > randomNumber) return true;
+        return false;
+    }
+    #endregion
 }
