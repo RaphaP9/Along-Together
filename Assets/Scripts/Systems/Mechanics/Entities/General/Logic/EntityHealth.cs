@@ -256,7 +256,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         if (AvoidDamageTakeHits()) return true;
 
-        if (invulnerableAfterTakingDamage) return true;
+        if (invulnerableAfterTakingDamage && damageData.canBeInvulnerabled) return true;
 
         if (IsImmuneByAbility() && damageData.canBeImmuned)
         {
@@ -407,13 +407,12 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     #region Invulnerability After Taking Damage
     protected void HandleInvulnerabilityAfterTakingDamage()
     {
+        if (invulnerableTimeAfterTakingDamage <= 0) return;
         StartCoroutine(InvulnerabilityAfterTakingDamageCoroutine());
     }
 
     protected IEnumerator InvulnerabilityAfterTakingDamageCoroutine()
     {
-        if(invulnerableTimeAfterTakingDamage <=0) yield break;
-
         invulnerableAfterTakingDamage = true;
 
         yield return new WaitForSeconds(invulnerableTimeAfterTakingDamage);

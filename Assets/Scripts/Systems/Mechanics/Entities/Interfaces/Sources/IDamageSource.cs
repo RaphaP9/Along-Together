@@ -17,5 +17,6 @@ public enum DamageSourceClassification
     Character,
     Enemy,
     NeutralEntity,
-    Ally
+    Ally,
+    Treat
 }

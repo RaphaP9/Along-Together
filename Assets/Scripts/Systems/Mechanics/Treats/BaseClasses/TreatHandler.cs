@@ -5,11 +5,11 @@ using UnityEngine;
 public abstract class TreatHandler : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private List<InventoryObjectSO> inventoryObjectsToActivate;
+    [SerializeField] protected TreatConfigSO treatConfigSO;
 
-    public List<InventoryObjectSO> InventoryObjectsToActivate => inventoryObjectsToActivate;
+    protected List<InventoryObjectSO> InventoryObjectsToActivate => treatConfigSO.activatorInventoryObjects;
 
-    private bool previouslyEnabled = false;
+    protected bool previouslyEnabled = false;
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public abstract class TreatHandler : MonoBehaviour
 
     protected virtual bool TreatEnabled()
     {
-        foreach(InventoryObjectSO inventoryObjectSO in inventoryObjectsToActivate)
+        foreach(InventoryObjectSO inventoryObjectSO in treatConfigSO.activatorInventoryObjects)
         {
             switch (inventoryObjectSO.GetInventoryObjectType())
             {
