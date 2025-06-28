@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.U2D;
 
 public class ObjectsShopUIHandler : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] private Transform shopInventoryObjectCardsContainer;
-    [SerializeField] private Transform shopInventoryObjectCardPrefab;
+    [Space]
+    [SerializeField] private Transform commonCardPrefab;
+    [SerializeField] private Transform uncommonCardPrefab;
+    [SerializeField] private Transform rareCardPrefab;
+    [SerializeField] private Transform epicCardPrefab;
+    [SerializeField] private Transform legendaryCardPrefab;
     [Space]
     [SerializeField] private Button rerollButton;
     [SerializeField] private Toggle lockShopToggle;
@@ -83,7 +89,8 @@ public class ObjectsShopUIHandler : MonoBehaviour
 
     private void CreateInventoryObjectShopItem(InventoryObjectSO inventoryObjectSO)
     {
-        Transform shopInventoryObjectCard = Instantiate(shopInventoryObjectCardPrefab, shopInventoryObjectCardsContainer);
+        Transform cardPrefab = ChooseCardPrefabByRarity(inventoryObjectSO);
+        Transform shopInventoryObjectCard = Instantiate(cardPrefab, shopInventoryObjectCardsContainer);
 
         ShopObjectCardUI shopObjectCardUI = shopInventoryObjectCard.GetComponent<ShopObjectCardUI>();
 
@@ -94,6 +101,24 @@ public class ObjectsShopUIHandler : MonoBehaviour
         }
 
         shopObjectCardUI.SetInventoryObject(inventoryObjectSO);
+    }
+
+    private Transform ChooseCardPrefabByRarity(InventoryObjectSO inventoryObjectSO)
+    {
+        switch (inventoryObjectSO.objectRarity)
+        {
+            case Rarity.Common:
+            default:
+                return commonCardPrefab;
+            case Rarity.Uncommon:
+                return uncommonCardPrefab;
+            case Rarity.Rare:
+                return rareCardPrefab;
+            case Rarity.Epic:
+                return epicCardPrefab;
+            case Rarity.Legendary:
+                return legendaryCardPrefab;
+        }
     }
 
     #region Subscriptions
