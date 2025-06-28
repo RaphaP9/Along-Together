@@ -7,9 +7,14 @@ public abstract class TreatHandler : MonoBehaviour
     [Header("Components")]
     [SerializeField] protected TreatConfigSO treatConfigSO;
 
+    [Header("Runtime Filled")]
+    [SerializeField] protected bool isCurrentlyActiveByInventoryObjects;
+    [SerializeField] protected bool isMeetingCondition;
+
     protected List<InventoryObjectSO> InventoryObjectsToActivate => treatConfigSO.activatorInventoryObjects;
 
-    protected bool previouslyEnabled = false;
+    protected bool previouslyActiveByInventoryObjects = false;
+    protected bool previouslyMeetingCondition = false;
 
     private void Awake()
     {
@@ -18,14 +23,22 @@ public abstract class TreatHandler : MonoBehaviour
 
     protected virtual void Update()
     {
-        HandleTreatEnable();
+        HandleTreatActiveByInventoryObjects();
+        HandleTreatEnablementByConditio();
     }
 
+    #region Abstract Methods
     protected abstract void SetSingleton();
-    protected abstract void OnTreatEnableMethod();
-    protected abstract void OnTreatDisableMethod();
 
-    protected virtual bool TreatEnabled()
+    protected abstract void OnTreatActivatedByInventoryObjectsMethod(); //Will trigger as soon as activeByInventoryObjects
+    protected abstract void OnTreatDeactivatedByInventoryObjectsMethod();//Will trigger as soon as deactiveByInventoryObjects
+
+    protected abstract void OnTreatEnablementByConditionMethod(); //Will be triggered as soon as meeting condition and  was activeByInventoryObject/ as soon as active by activeByInventoryObjects and was meeting condition
+    protected abstract void OnTreatDisablementByConditionMethod(); //Will be triggered as soon as not meeting condition and was activeByInventoryObject / as soon as deactiveByInventoryObject and was meeting condition
+
+    protected abstract bool EnablementCondition();
+    #endregion
+    private bool IsActiveByInventoryObjects()
     {
         foreach(InventoryObjectSO inventoryObjectSO in treatConfigSO.activatorInventoryObjects)
         {
@@ -43,19 +56,39 @@ public abstract class TreatHandler : MonoBehaviour
         return false;
     }
 
-    private void HandleTreatEnable()
+    private void HandleTreatActiveByInventoryObjects()
     {
-        bool currentlyEnabled = TreatEnabled();
+        bool currentlyActiveByInventoryObjects = IsActiveByInventoryObjects();
 
-        if(!previouslyEnabled && currentlyEnabled)
+        if(!previouslyActiveByInventoryObjects && currentlyActiveByInventoryObjects)
         {
-            OnTreatEnableMethod();
+            OnTreatActivatedByInventoryObjectsMethod();
+            if (isMeetingCondition) OnTreatEnablementByConditionMethod();
         }
-        else if(previouslyEnabled && !currentlyEnabled)
+        else if(previouslyActiveByInventoryObjects && !currentlyActiveByInventoryObjects)
         {
-            OnTreatDisableMethod();
+            OnTreatDeactivatedByInventoryObjectsMethod();
+            if (isMeetingCondition) OnTreatDisablementByConditionMethod();
         }
 
-        previouslyEnabled = currentlyEnabled;       
+        isCurrentlyActiveByInventoryObjects = currentlyActiveByInventoryObjects;
+        previouslyActiveByInventoryObjects = isCurrentlyActiveByInventoryObjects;       
+    }
+
+    private void HandleTreatEnablementByConditio()
+    {
+        bool meetingCondition = EnablementCondition();
+
+        if (!previouslyMeetingCondition && meetingCondition)
+        {
+            if(isCurrentlyActiveByInventoryObjects) OnTreatEnablementByConditionMethod();
+        }
+        else if (previouslyMeetingCondition && !meetingCondition)
+        {
+            if (isCurrentlyActiveByInventoryObjects) OnTreatDisablementByConditionMethod();
+        }
+
+        isMeetingCondition = meetingCondition;
+        previouslyMeetingCondition = isMeetingCondition;
     }
 }
