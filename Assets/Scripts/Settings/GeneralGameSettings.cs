@@ -29,7 +29,6 @@ public class GeneralGameSettings : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
