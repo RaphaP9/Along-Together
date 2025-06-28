@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TreatHandler : MonoBehaviour
+public abstract class TreatEffectHandler : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] protected TreatConfigSO treatConfigSO;
+    [SerializeField] protected TreatEffectSO treatEffectSO;
 
     [Header("Runtime Filled")]
     [SerializeField] protected bool isCurrentlyActiveByInventoryObjects;
     [SerializeField] protected bool isMeetingCondition;
 
-    protected List<InventoryObjectSO> InventoryObjectsToActivate => treatConfigSO.activatorInventoryObjects;
+    protected List<InventoryObjectSO> InventoryObjectsToActivate => treatEffectSO.activatorInventoryObjects;
 
     protected bool previouslyActiveByInventoryObjects = false;
     protected bool previouslyMeetingCondition = false;
@@ -24,7 +24,7 @@ public abstract class TreatHandler : MonoBehaviour
 
     public class OnTreatConfigEventArgs : EventArgs
     {
-        public TreatConfigSO treatConfigSO;
+        public TreatEffectSO treatConfigSO;
     }
 
     private void Awake()
@@ -35,7 +35,7 @@ public abstract class TreatHandler : MonoBehaviour
     protected virtual void Update()
     {
         HandleTreatActiveByInventoryObjects();
-        HandleTreatEnablementByConditio();
+        HandleTreatEnablementByCondition();
     }
 
     #region Abstract/Virtual Methods
@@ -43,22 +43,22 @@ public abstract class TreatHandler : MonoBehaviour
 
     protected virtual void OnTreatActivatedByInventoryObjectsMethod() //Will trigger as soon as activeByInventoryObjects
     {
-        OnTreatActivatedByInventoryObjects?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatConfigSO });
+        OnTreatActivatedByInventoryObjects?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatEffectSO });
     }
 
     protected virtual void OnTreatDeactivatedByInventoryObjectsMethod()//Will trigger as soon as deactiveByInventoryObjects
     {
-        OnTreatDeactivatedByInventoryObjects?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatConfigSO});
+        OnTreatDeactivatedByInventoryObjects?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatEffectSO});
     }
 
     protected virtual void OnTreatEnablementByConditionMethod() //Will be triggered as soon as meeting condition and  was activeByInventoryObject/ as soon as active by activeByInventoryObjects and was meeting condition
     {
-        OnTreatEnablementByCondition?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatConfigSO });
+        OnTreatEnablementByCondition?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatEffectSO });
     }
 
     protected virtual void OnTreatDisablementByConditionMethod() //Will be triggered as soon as not meeting condition and was activeByInventoryObject / as soon as deactiveByInventoryObject and was meeting condition
     {
-        OnTreatDisablementByCondition?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatConfigSO });
+        OnTreatDisablementByCondition?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatEffectSO });
     }
 
     protected virtual bool EnablementCondition() => true; //As default the EnablementCondition will always be met, override in inheritances otherwise
@@ -67,7 +67,7 @@ public abstract class TreatHandler : MonoBehaviour
     #region Logic Of Activation By InvObjects / Enablement By Condition
     private bool IsActiveByInventoryObjects()
     {
-        foreach(InventoryObjectSO inventoryObjectSO in treatConfigSO.activatorInventoryObjects)
+        foreach(InventoryObjectSO inventoryObjectSO in treatEffectSO.activatorInventoryObjects)
         {
             switch (inventoryObjectSO.GetInventoryObjectType())
             {
@@ -102,7 +102,7 @@ public abstract class TreatHandler : MonoBehaviour
         previouslyActiveByInventoryObjects = isCurrentlyActiveByInventoryObjects;       
     }
 
-    private void HandleTreatEnablementByConditio()
+    private void HandleTreatEnablementByCondition()
     {
         bool meetingCondition = EnablementCondition();
 

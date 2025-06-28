@@ -11277,7 +11277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1efac87094d8ba14f90d7de62a29b9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treatConfigSO: {fileID: 11400000, guid: 86ecac0c4916f6c41887f7400a4b0118, type: 2}
+  treatEffectSO: {fileID: 11400000, guid: 86ecac0c4916f6c41887f7400a4b0118, type: 2}
   isCurrentlyActiveByInventoryObjects: 0
   isMeetingCondition: 0
 --- !u!1 &221733523

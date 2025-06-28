@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExecuteTreatHandler : TreatHandler
+public class ExecuteTreatEffectHandler : TreatEffectHandler
 {
-    public static ExecuteTreatHandler Instance { get; private set; }
+    public static ExecuteTreatEffectHandler Instance { get; private set; }
 
-    private ExecuteTreatConfigSO ExecuteTreatConfigSO => treatConfigSO as ExecuteTreatConfigSO;
+    private ExecuteTreatEffectSO ExecuteTreatConfigSO => treatEffectSO as ExecuteTreatEffectSO;
 
     public static event EventHandler<OnExecuteTreatExecutionEventArgs> OnExecuteTreatExecution; 
 

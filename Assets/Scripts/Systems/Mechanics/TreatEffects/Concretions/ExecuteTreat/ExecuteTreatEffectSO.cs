@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ExecuteTreatConfig", menuName = "ScriptableObjects/TreatConfig/ExecuteTreatConfig")]
-public class ExecuteTreatConfigSO : TreatConfigSO, IDamageSource
+[CreateAssetMenu(fileName = "ExecuteTreatEffectSO", menuName = "ScriptableObjects/TreatEffects/ExecuteTreatEffect")]
+public class ExecuteTreatEffectSO : TreatEffectSO, IDamageSource
 {
     [Header("Specific Settings")]
     [Range(1,10)] public int healthExecuteThreshold;

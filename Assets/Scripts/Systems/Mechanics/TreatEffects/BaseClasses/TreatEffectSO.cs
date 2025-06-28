@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TreatConfigSO : ScriptableObject
+public abstract class TreatEffectSO : ScriptableObject
 {
     [Header("Activator Inventory Objects")]
     public List<InventoryObjectSO> activatorInventoryObjects;
