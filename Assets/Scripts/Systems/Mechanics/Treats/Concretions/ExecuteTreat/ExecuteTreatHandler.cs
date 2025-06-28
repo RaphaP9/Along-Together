@@ -39,14 +39,6 @@ public class ExecuteTreatHandler : TreatHandler
         }
     }
 
-    #region Abstract Methods
-    protected override void OnTreatActivatedByInventoryObjectsMethod() { Debug.Log("Enabled By InvObjects."); }
-    protected override void OnTreatDeactivatedByInventoryObjectsMethod() { Debug.Log("Disabled By InvObjects."); }
-    protected override void OnTreatEnablementByConditionMethod() { Debug.Log("Enabled By Condition."); }
-    protected override void OnTreatDisablementByConditionMethod() { Debug.Log("Disabled By Condition."); }
-    protected override bool EnablementCondition() => true;
-    #endregion
-
     private void HandleEnemyExecution(EnemyHealth enemyHealth, int resultingDamageHealth)
     {
         if (!enemyHealth.IsAlive()) return; //Do not execute if already dead
