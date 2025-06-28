@@ -86,9 +86,15 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
         }
     }
 
-    private void AttackingPlayerLogic() { }
+    private void AttackingPlayerLogic()
+    {
+        enemyMovement.StopOnCurrentPosition();
+    }
 
-    private void DeadLogic() { }
+    private void DeadLogic()
+    {
+        enemyMovement.StopOnCurrentPosition();
+    }
 
     private void SetState(MeleeEnemyState state) => meleeEnemyState = state;
 

@@ -94,8 +94,8 @@ public abstract class TreatHandler : MonoBehaviour
         }
         else if(previouslyActiveByInventoryObjects && !currentlyActiveByInventoryObjects)
         {
-            OnTreatDeactivatedByInventoryObjectsMethod();
             if (isMeetingCondition) OnTreatDisablementByConditionMethod();
+            OnTreatDeactivatedByInventoryObjectsMethod();
         }
 
         isCurrentlyActiveByInventoryObjects = currentlyActiveByInventoryObjects;

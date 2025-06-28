@@ -81,9 +81,15 @@ public class KamikazeEnemyBehaviourHandler : EnemyBehaviourHandler
         }
     }
 
-    private void ExplodingLogic() { }
+    private void ExplodingLogic()
+    {
+        enemyMovement.StopOnCurrentPosition();
+    }
 
-    private void DeadLogic() { }
+    private void DeadLogic()
+    {
+        enemyMovement.StopOnCurrentPosition();
+    }
 
     private void SetState(KamikazeEnemyState state) => kamikazeEnemyState = state;
 

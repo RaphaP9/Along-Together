@@ -39,15 +39,18 @@ public class ExecuteTreatHandler : TreatHandler
         }
     }
 
-    private void HandleEnemyExecution(EnemyHealth enemyHealth, int resultingDamageHealth)
+    private void HandleEnemyExecution(object sender, EntityHealth.OnEntityHealthTakeDamageEventArgs e)
     {
+        EnemyHealth enemyHealth = sender as EnemyHealth;
+
         if (!enemyHealth.IsAlive()) return; //Do not execute if already dead
-        if (resultingDamageHealth > ExecuteTreatConfigSO.healthExecuteThreshold) return; //Do not execute if above threshold
+        if (e.newHealth > ExecuteTreatConfigSO.healthExecuteThreshold) return; //Do not execute if above threshold
+        if (e.damageSource.GetDamageSourceClassification() != DamageSourceClassification.Character) return; //Must be damaged by character
 
         ExecuteDamageData executeDamageData = new ExecuteDamageData(true, ExecuteTreatConfigSO, true, true);
 
         enemyHealth.Execute(executeDamageData);
-        OnExecuteTreatExecution?.Invoke(this, new OnExecuteTreatExecutionEventArgs { enemyHealth = enemyHealth, healthEnemyHadToExecute = resultingDamageHealth });
+        OnExecuteTreatExecution?.Invoke(this, new OnExecuteTreatExecutionEventArgs { enemyHealth = enemyHealth, healthEnemyHadToExecute = e.newHealth });
     }
 
     private void EnemyHealth_OnAnyEnemyHealthTakeDamage(object sender, EntityHealth.OnEntityHealthTakeDamageEventArgs e)
@@ -55,6 +58,6 @@ public class ExecuteTreatHandler : TreatHandler
         if (!isCurrentlyActiveByInventoryObjects) return;
         if (!isMeetingCondition) return; //In this treat condition is always true
 
-        HandleEnemyExecution(sender as EnemyHealth, e.newHealth);
+        HandleEnemyExecution(sender , e);
     }
 }

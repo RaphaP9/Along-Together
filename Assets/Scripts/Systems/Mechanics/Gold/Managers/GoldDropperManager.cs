@@ -74,8 +74,7 @@ public class GoldDropperManager : MonoBehaviour
 
     private void HandleGoldDrop(object sender, EntityHealth.OnEntityDeathEventArgs e)
     {
-        if (e.damageSource.GetDamageSourceClassification() == DamageSourceClassification.Enemy) return;
-        if (e.damageSource.GetDamageSourceClassification() == DamageSourceClassification.NeutralEntity) return;
+        if (e.damageSource.GetDamageSourceClassification() != DamageSourceClassification.Character) return; //Must have been killed by player
 
         int goldAmount = (e.entitySO as EnemySO).goldDrop;
         Vector2 position = GeneralUtilities.SupressZComponent((sender as EntityHealth).transform.position);

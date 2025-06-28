@@ -125,7 +125,10 @@ public class ProjectileEnemyBehaviourHandler : EnemyBehaviourHandler
         enemyMovement.StopOnCurrentPosition();
     }
 
-    private void DeadLogic() { }
+    private void DeadLogic()
+    {
+        enemyMovement.StopOnCurrentPosition();
+    }
 
     private void SetState(ProjectileEnemyState state) => projectileEnemyState = state;
 
@@ -141,7 +144,6 @@ public class ProjectileEnemyBehaviourHandler : EnemyBehaviourHandler
     public bool OnAttackRange() => !OnTooFarDistance() && !OnTooCloseDistance();
 
     #endregion
-
 
     #region Susbcriptions
 
