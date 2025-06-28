@@ -101,14 +101,20 @@ MonoBehaviour:
   regularStartingSceneTransitionType: 0
   firstSessionStartingScene: MainMenu
   firstSessionStartingSceneTransitionType: 0
-  characterSpecificScenes:
+  regularRunScene: Gameplay
+  regularRunSceneTransitionType: 0
+  regularWinScene: MainMenu
+  regularWinSceneTransitionType: 0
+  regularLoseScene: MainMenu
+  regularLoseSceneTransitionType: 0
+  characterSpecificScenesList:
   - characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
     firstRunScene: Gameplay
-    firstRunTransitionType: 0
+    firstRunSceneTransitionType: 0
     firstWinScene: MainMenu
-    firstWinTransitionType: 0
+    firstWinSceneTransitionType: 0
     firstLoseScene: MainMenu
-    firstLoseTransitionType: 0
+    firstLoseSceneTransitionType: 0
 --- !u!1 &9105105835301189499
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,8 +7,6 @@ public class WinManager : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField, Range(2f, 5f)] private float timeToEndAfterWin;
-    [SerializeField] private string winScene;
-    [SerializeField] private TransitionType winTransitionType;
     [Space]
     [SerializeField] private bool wipeRunDataOnWin;
 
@@ -45,7 +43,7 @@ public class WinManager : MonoBehaviour
     private IEnumerator WinGameCoroutine()
     {
         yield return new WaitForSeconds(timeToEndAfterWin);
-        ScenesManager.Instance.TransitionLoadTargetScene(winScene, winTransitionType);
+        GeneralSceneSettings.Instance.TransitionToWinScene();
     }
 
     private void GameManager_OnGameWon(object sender, System.EventArgs e)

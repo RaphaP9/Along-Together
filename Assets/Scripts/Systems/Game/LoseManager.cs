@@ -7,8 +7,6 @@ public class LoseManager : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField, Range(2f, 5f)] private float timeToEndAfterLose;
-    [SerializeField] private string loseScene;
-    [SerializeField] private TransitionType loseTransitionType;
     [Space]
     [SerializeField] private bool wipeRunDataOnLose;
 
@@ -45,7 +43,7 @@ public class LoseManager : MonoBehaviour
     private IEnumerator LoseGameCoroutine()
     {
         yield return new WaitForSeconds(timeToEndAfterLose);
-        ScenesManager.Instance.TransitionLoadTargetScene(loseScene, loseTransitionType);
+        GeneralSceneSettings.Instance.TransitionToLoseScene();
     }
 
     private void GameManager_OnGameLost(object sender, System.EventArgs e)

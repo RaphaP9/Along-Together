@@ -54,14 +54,14 @@ public class SessionPerpetualDataContainer : MonoBehaviour
         return true;
     }
 
-    public DataModeledCharacterData GetDataModeledCharacterDataByCharacterSO(CharacterSO characterSO)
+    public DataModeledCharacterData GetDataModeledCharacterDataByCharacterID(int characterID)
     {
         foreach(DataModeledCharacterData dataModeledCharacterData in perpetualData.dataModeledCharacterDataList)
         {
-            if(dataModeledCharacterData.characterID == characterSO.id) return dataModeledCharacterData;
+            if(dataModeledCharacterData.characterID == characterID) return dataModeledCharacterData;
         }
 
-        Debug.Log($"Could not find DataModeledCharacterData for CharacterSO: {characterSO.entityName}");
+        Debug.Log($"Could not find DataModeledCharacterData for CharacterID: {characterID}");
         return null;
     }
     #endregion
@@ -74,21 +74,21 @@ public class SessionPerpetualDataContainer : MonoBehaviour
 
     public void IncreaseCharacterRunsPlayed(CharacterSO characterSO)
     {
-        DataModeledCharacterData dataModeledCharacterData = GetDataModeledCharacterDataByCharacterSO(characterSO);
+        DataModeledCharacterData dataModeledCharacterData = GetDataModeledCharacterDataByCharacterID(characterSO.id);
         if (dataModeledCharacterData == null) return;
         dataModeledCharacterData.runsPlayed += 1;
     }
 
     public void IncreaseCharacterRunsWon(CharacterSO characterSO)
     {
-        DataModeledCharacterData dataModeledCharacterData = GetDataModeledCharacterDataByCharacterSO(characterSO);
+        DataModeledCharacterData dataModeledCharacterData = GetDataModeledCharacterDataByCharacterID(characterSO.id);
         if (dataModeledCharacterData == null) return;
         dataModeledCharacterData.runsWon += 1;
     }
 
     public void IncreaseCharacterRunsLost(CharacterSO characterSO)
     {
-        DataModeledCharacterData dataModeledCharacterData = GetDataModeledCharacterDataByCharacterSO(characterSO);
+        DataModeledCharacterData dataModeledCharacterData = GetDataModeledCharacterDataByCharacterID(characterSO.id);
         if (dataModeledCharacterData == null) return;
         dataModeledCharacterData.runsLost += 1;
     }

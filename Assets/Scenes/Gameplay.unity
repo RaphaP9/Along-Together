@@ -82810,8 +82810,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToEndAfterWin: 4
-  winScene: MainMenu
-  winTransitionType: 0
   wipeRunDataOnWin: 0
 --- !u!1001 &1685841484
 PrefabInstance:
@@ -87790,8 +87788,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToEndAfterLose: 4
-  loseScene: MainMenu
-  loseTransitionType: 0
   wipeRunDataOnLose: 1
 --- !u!1 &1804321864
 GameObject:
