@@ -28,10 +28,10 @@ public class PerpetualData : DataModel
         }
 
         unlockedCharacterIDs = GeneralGameSettings.Instance.GetStartingUnlockedCharacterIDs();
-        dataModeledCharacterDataList = CreateDataModeledCharacterDataList();
+        dataModeledCharacterDataList = InitializeDataModeledCharacterDataList();
     }
 
-    private List<DataModeledCharacterData> CreateDataModeledCharacterDataList()
+    private List<DataModeledCharacterData> InitializeDataModeledCharacterDataList()
     {
         List<DataModeledCharacterData> dataModeledCharacterDataList = new List<DataModeledCharacterData>();
 

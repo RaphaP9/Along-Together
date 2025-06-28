@@ -12710,7 +12710,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255469451}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -12764,8 +12764,8 @@ MonoBehaviour:
   shopInventoryObjectCardsContainer: {fileID: 244417946}
   commonCardPrefab: {fileID: 1747514880988364668, guid: 3c221cee12cdb35498d253160444e951, type: 3}
   uncommonCardPrefab: {fileID: 1747514880988364668, guid: 20f23b0856f1e714ea5e137504e35e33, type: 3}
-  rareCardPrefab: {fileID: 1747514880988364668, guid: f84371dc071f3374298480f652bc1c0c, type: 3}
-  epicCardPrefab: {fileID: 1747514880988364668, guid: a21f887dbd6c63c47a0368217241429d, type: 3}
+  rareCardPrefab: {fileID: 1747514880988364668, guid: a21f887dbd6c63c47a0368217241429d, type: 3}
+  epicCardPrefab: {fileID: 1747514880988364668, guid: f84371dc071f3374298480f652bc1c0c, type: 3}
   legendaryCardPrefab: {fileID: 1747514880988364668, guid: 02e64614f57ebd34db63dacd6b0bc352, type: 3}
   rerollButton: {fileID: 2126281972}
   lockShopToggle: {fileID: 453283025}

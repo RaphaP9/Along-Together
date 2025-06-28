@@ -47,11 +47,24 @@ public class SessionPerpetualDataContainer : MonoBehaviour
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    #region Utility Methods
     public bool HasUnlockedCharacters()
     {
         if (perpetualData.unlockedCharacterIDs == GeneralGameSettings.Instance.GetStartingUnlockedCharacterIDs()) return false;
         return true;
     }
+
+    public DataModeledCharacterData GetDataModeledCharacterDataByCharacterSO(CharacterSO characterSO)
+    {
+        foreach(DataModeledCharacterData dataModeledCharacterData in perpetualData.dataModeledCharacterDataList)
+        {
+            if(dataModeledCharacterData.characterID == characterSO.id) return dataModeledCharacterData;
+        }
+
+        Debug.Log($"Could not find DataModeledCharacterData for CharacterSO: {characterSO.entityName}");
+        return null;
+    }
+    #endregion
 
     public void AddUnlockedCharacterIDs(List<int> characterIDs)
     {
@@ -59,6 +72,27 @@ public class SessionPerpetualDataContainer : MonoBehaviour
         perpetualData.unlockedCharacterIDs = perpetualData.unlockedCharacterIDs.Distinct().ToList();
     }
 
-    public void IncreaseTimesEnteredGame() => perpetualData.timesEnteredGame = perpetualData.timesEnteredGame + 1;
+    public void IncreaseCharacterRunsPlayed(CharacterSO characterSO)
+    {
+        DataModeledCharacterData dataModeledCharacterData = GetDataModeledCharacterDataByCharacterSO(characterSO);
+        if (dataModeledCharacterData == null) return;
+        dataModeledCharacterData.runsPlayed += 1;
+    }
+
+    public void IncreaseCharacterRunsWon(CharacterSO characterSO)
+    {
+        DataModeledCharacterData dataModeledCharacterData = GetDataModeledCharacterDataByCharacterSO(characterSO);
+        if (dataModeledCharacterData == null) return;
+        dataModeledCharacterData.runsWon += 1;
+    }
+
+    public void IncreaseCharacterRunsLost(CharacterSO characterSO)
+    {
+        DataModeledCharacterData dataModeledCharacterData = GetDataModeledCharacterDataByCharacterSO(characterSO);
+        if (dataModeledCharacterData == null) return;
+        dataModeledCharacterData.runsLost += 1;
+    }
+
+    public void IncreaseTimesEnteredGame() => perpetualData.timesEnteredGame +=1;
     public void SetHasCompletedTutorial(bool hasCompletedTutorial) => perpetualData.hasCompletedTutorial = hasCompletedTutorial;
 }

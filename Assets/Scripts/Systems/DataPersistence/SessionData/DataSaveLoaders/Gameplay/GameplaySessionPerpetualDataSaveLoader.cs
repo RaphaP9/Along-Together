@@ -64,13 +64,19 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
 
     private void WinManager_OnDataUpdateOnRunCompleted(object sender, WinManager.OnRunCompletedEventArgs e)
     {
+        SessionPerpetualDataContainer.Instance.IncreaseCharacterRunsPlayed(PlayerCharacterManager.Instance.CharacterSO);
+        SessionPerpetualDataContainer.Instance.IncreaseCharacterRunsWon(PlayerCharacterManager.Instance.CharacterSO);
+
         SessionPerpetualDataContainer.Instance.AddUnlockedCharacterIDs(GeneralGameSettings.Instance.GetRunCompletedUnlockedCharacterIDsByCharacterSO(e.characterSO));
+
         OnTriggerDataSaveOnRunCompleted?.Invoke();
     }
 
     private void LoseManager_OnDataUpdateOnRunLost(object sender, LoseManager.OnRunLostEventArgs e)
     {
-        //Maybe Update Something on the Perpetual Data Container
+        SessionPerpetualDataContainer.Instance.IncreaseCharacterRunsPlayed(PlayerCharacterManager.Instance.CharacterSO);
+        SessionPerpetualDataContainer.Instance.IncreaseCharacterRunsLost(PlayerCharacterManager.Instance.CharacterSO);
+
         OnTriggerDataSaveOnRunLost?.Invoke();
     }
     #endregion
