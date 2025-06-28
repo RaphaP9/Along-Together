@@ -22,6 +22,6 @@ public class CritDamageFeedbackManager : NumericFeedbackManager
         if (!e.isCrit) return;
 
         Vector2 instantiationPosition = GetInstantiationPosition((sender as EntityHealth).transform.position);
-        CreateNumericFeedback(feedbackPrefab, instantiationPosition, e.damageTakenByHealth, e.damageSource.GetDamageSourceColor());
+        CreateNumericFeedback(feedbackPrefab, instantiationPosition, e.rawDamage, e.damageSource.GetDamageSourceColor());
     }
 }

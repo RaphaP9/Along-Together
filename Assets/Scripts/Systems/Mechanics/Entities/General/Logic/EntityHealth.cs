@@ -94,6 +94,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     public class OnEntityShieldTakeDamageEventArgs : EventArgs
     {
         public int damageTakenByShield;
+        public int rawDamage;
 
         public int previousShield;
         public int newShield;
@@ -108,6 +109,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     public class OnEntityHealthTakeDamageEventArgs : EventArgs
     {
         public int damageTakenByHealth;
+        public int rawDamage;
 
         public int previousHealth;
         public int newHealth;
@@ -287,12 +289,12 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
 
         if(damageTakenByShield > 0)
         {
-            OnEntityShieldTakeDamageMethod(damageTakenByShield, previousShield, damageData.isCrit, damageData.damageSource);
+            OnEntityShieldTakeDamageMethod(damageTakenByShield, armorMitigatedDamage, previousShield, damageData.isCrit, damageData.damageSource);
         }
 
         if(damageTakenByHealth > 0)
         {
-            OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, damageData.isCrit, damageData.damageSource);
+            OnEntityHealthTakeDamageMethod(damageTakenByHealth, armorMitigatedDamage, previousHealth, damageData.isCrit, damageData.damageSource);
         }
 
         if(damageData.triggerInvulnerability) HandleInvulnerabilityAfterTakingDamage();
@@ -323,12 +325,12 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
          
         if(damageTakenByShield > 0)
         {
-            if(executeDamageData.triggerShieldTakeDamageEvents) OnEntityShieldTakeDamageMethod(damageTakenByShield, previousShield, executeDamageData.isCrit, executeDamageData.damageSource);
+            if(executeDamageData.triggerShieldTakeDamageEvents) OnEntityShieldTakeDamageMethod(damageTakenByShield, executeDamageData.executeDamage, previousShield, executeDamageData.isCrit, executeDamageData.damageSource);
         }
 
         if(damageTakenByHealth > 0)
         {
-            if (executeDamageData.triggerHealthTakeDamageEvents) OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, executeDamageData.isCrit, executeDamageData.damageSource);
+            if (executeDamageData.triggerHealthTakeDamageEvents) OnEntityHealthTakeDamageMethod(damageTakenByHealth, executeDamageData.executeDamage, previousHealth, executeDamageData.isCrit, executeDamageData.damageSource);
         }
 
         OnEntityDeathMethod(entityIdentifier.EntitySO, executeDamageData.damageSource);
@@ -440,21 +442,21 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
         OnAnyEntityImmune?.Invoke(this, new OnEntityImmuneEventArgs { damageImmuned = damageData.damage, isCrit = damageData.isCrit, damageSource = damageData.damageSource });
     }
 
-    protected virtual void OnEntityHealthTakeDamageMethod(int damageTakenByHealth, int previousHealth, bool isCrit, IDamageSource damageSource)
+    protected virtual void OnEntityHealthTakeDamageMethod(int damageTakenByHealth, int rawDamage, int previousHealth, bool isCrit, IDamageSource damageSource)
     {
-        OnEntityHealthTakeDamage?.Invoke(this, new OnEntityHealthTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, previousHealth = previousHealth, 
+        OnEntityHealthTakeDamage?.Invoke(this, new OnEntityHealthTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, rawDamage = rawDamage, previousHealth = previousHealth, 
         newHealth = currentHealth, maxHealth = entityMaxHealthStatResolver.Value, isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
 
-        OnAnyEntityHealthTakeDamage?.Invoke(this, new OnEntityHealthTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, previousHealth = previousHealth, 
+        OnAnyEntityHealthTakeDamage?.Invoke(this, new OnEntityHealthTakeDamageEventArgs {damageTakenByHealth = damageTakenByHealth, rawDamage= rawDamage, previousHealth = previousHealth, 
         newHealth = currentHealth, maxHealth = entityMaxHealthStatResolver.Value, isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
     }
 
-    protected virtual void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSource damageSource)
+    protected virtual void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int rawDamage, int previousShield, bool isCrit, IDamageSource damageSource)
     {
-        OnEntityShieldTakeDamage?.Invoke(this, new OnEntityShieldTakeDamageEventArgs {damageTakenByShield = damageTakenByShield, previousShield = previousShield, 
+        OnEntityShieldTakeDamage?.Invoke(this, new OnEntityShieldTakeDamageEventArgs {damageTakenByShield = damageTakenByShield, rawDamage = rawDamage, previousShield = previousShield, 
         newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
 
-        OnAnyEntityShieldTakeDamage?.Invoke(this, new OnEntityShieldTakeDamageEventArgs {damageTakenByShield = damageTakenByShield, previousShield = previousShield, 
+        OnAnyEntityShieldTakeDamage?.Invoke(this, new OnEntityShieldTakeDamageEventArgs {damageTakenByShield = damageTakenByShield, rawDamage= rawDamage, previousShield = previousShield, 
         newShield = currentShield, maxShield = entityMaxShieldStatResolver.Value, isCrit = isCrit, damageSource = damageSource, damageReceiver = this});
 
     }

@@ -52,13 +52,14 @@ public class AllyHealth : EntityHealth
         OnAnyAllyDodge?.Invoke(this, new OnEntityDodgeEventArgs { damageDodged = damageData.damage, isCrit = damageData.isCrit, damageSource = damageData.damageSource });
     }
 
-    protected override void OnEntityHealthTakeDamageMethod(int damageTakenByHealth, int previousHealth, bool isCrit, IDamageSource damageSource)
+    protected override void OnEntityHealthTakeDamageMethod(int damageTakenByHealth, int rawDamage, int previousHealth, bool isCrit, IDamageSource damageSource)
     {
-        base.OnEntityHealthTakeDamageMethod(damageTakenByHealth, previousHealth, isCrit, damageSource);
+        base.OnEntityHealthTakeDamageMethod(damageTakenByHealth, rawDamage, previousHealth, isCrit, damageSource);
 
         OnAllyHealthTakeDamage?.Invoke(this, new OnEntityHealthTakeDamageEventArgs
         {
             damageTakenByHealth = damageTakenByHealth,
+            rawDamage = rawDamage,
             previousHealth = previousHealth,
             newHealth = currentHealth,
             maxHealth = entityMaxHealthStatResolver.Value,
@@ -70,6 +71,7 @@ public class AllyHealth : EntityHealth
         OnAnyAllyHealthTakeDamage?.Invoke(this, new OnEntityHealthTakeDamageEventArgs
         {
             damageTakenByHealth = damageTakenByHealth,
+            rawDamage = rawDamage,
             previousHealth = previousHealth,
             newHealth = currentHealth,
             maxHealth = entityMaxHealthStatResolver.Value,
@@ -79,13 +81,14 @@ public class AllyHealth : EntityHealth
         });
     }
 
-    protected override void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int previousShield, bool isCrit, IDamageSource damageSource)
+    protected override void OnEntityShieldTakeDamageMethod(int damageTakenByShield, int rawDamage, int previousShield, bool isCrit, IDamageSource damageSource)
     {
-        base.OnEntityShieldTakeDamageMethod(damageTakenByShield, previousShield, isCrit, damageSource);
+        base.OnEntityShieldTakeDamageMethod(damageTakenByShield, rawDamage, previousShield, isCrit, damageSource);
 
         OnAllyShieldTakeDamage?.Invoke(this, new OnEntityShieldTakeDamageEventArgs
         {
             damageTakenByShield = damageTakenByShield,
+            rawDamage = rawDamage,
             previousShield = previousShield,
             newShield = currentShield,
             maxShield = entityMaxShieldStatResolver.Value,
@@ -97,6 +100,7 @@ public class AllyHealth : EntityHealth
         OnAnyAllyShieldTakeDamage?.Invoke(this, new OnEntityShieldTakeDamageEventArgs
         {
             damageTakenByShield = damageTakenByShield,
+            rawDamage = rawDamage,
             previousShield = previousShield,
             newShield = currentShield,
             maxShield = entityMaxShieldStatResolver.Value,
