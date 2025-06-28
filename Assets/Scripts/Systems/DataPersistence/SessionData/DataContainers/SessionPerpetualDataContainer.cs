@@ -50,7 +50,7 @@ public class SessionPerpetualDataContainer : MonoBehaviour
     #region Utility Methods
     public bool HasUnlockedCharacters()
     {
-        if (perpetualData.unlockedCharacterIDs == GeneralGameSettings.Instance.GetStartingUnlockedCharacterIDs()) return false;
+        if (GeneralUtilities.ListsHaveSameContents(perpetualData.unlockedCharacterIDs, GeneralGameSettings.Instance.GetStartingUnlockedCharacterIDs())) return false; 
         return true;
     }
 

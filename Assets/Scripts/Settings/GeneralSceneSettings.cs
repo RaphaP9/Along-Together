@@ -13,8 +13,9 @@ public class GeneralSceneSettings : MonoBehaviour
     [SerializeField] private string firstSessionStartingScene;
     [SerializeField] private TransitionType firstSessionStartingSceneTransitionType;
 
-    //[Header("Play Scene Settings")]
-    //[SerializeField] private 
+    [Header("New Game Scene Settings")]
+    [SerializeField] private string characterSelectionScene;
+    [SerializeField] private TransitionType characterSelectionSceneTransitionType;
 
     [Header("Run Scene Settings")]
     [SerializeField] private string regularRunScene;
@@ -60,6 +61,16 @@ public class GeneralSceneSettings : MonoBehaviour
     {
         if (ShouldTransitionToFirstSessionStartingScene()) ScenesManager.Instance.TransitionLoadTargetScene(firstSessionStartingScene, firstSessionStartingSceneTransitionType);
         else ScenesManager.Instance.TransitionLoadTargetScene(regularStartingScene, regularStartingSceneTransitionType);
+    }
+    #endregion
+
+    #region PlayScene
+    private bool ShouldTransitionToCharacterSelectionScene() => SessionPerpetualDataContainer.Instance.HasUnlockedCharacters();
+
+    public void TransitionToNewGameScene()
+    {
+        if (ShouldTransitionToCharacterSelectionScene()) ScenesManager.Instance.TransitionLoadTargetScene(characterSelectionScene, characterSelectionSceneTransitionType);
+        else TransitionToRunScene();
     }
     #endregion
 

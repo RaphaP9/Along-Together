@@ -355,6 +355,15 @@ public static class GeneralUtilities
         return listA.SequenceEqual(listB);
     }
 
+    public static bool ListsHaveSameContents<T>(List<T> listA, List<T> listB)
+    {
+        HashSet<T> setA = new HashSet<T>(listA);
+        HashSet<T> setB = new HashSet<T>(listB);
+        bool hasSameContents = setA.SetEquals(setB);
+
+        return hasSameContents;
+    }
+
     #endregion
 
     #region Generics

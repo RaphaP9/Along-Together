@@ -101,6 +101,8 @@ MonoBehaviour:
   regularStartingSceneTransitionType: 0
   firstSessionStartingScene: MainMenu
   firstSessionStartingSceneTransitionType: 0
+  characterSelectionScene: Gameplay
+  characterSelectionSceneTransitionType: 0
   regularRunScene: Gameplay
   regularRunSceneTransitionType: 0
   regularWinScene: MainMenu

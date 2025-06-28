@@ -10,14 +10,6 @@ public class MainMenuNextScenesManager : MonoBehaviour
     [SerializeField] private TransitionType continueTransitionType;
     [SerializeField] private string continueScene;
 
-    [Header("Basic Run")]
-    [SerializeField] private TransitionType basicNewGameTransitionType;
-    [SerializeField] private string basicNewGameScene;
-
-    [Header("Regular Run")]
-    [SerializeField] private TransitionType regularNewGameTransitionType;
-    [SerializeField] private string regularNewGameScene;
-
     private void Awake()
     {
         SetSingleton();
@@ -45,20 +37,6 @@ public class MainMenuNextScenesManager : MonoBehaviour
         DataUtilities.WipeRunData(); //Delete JSON Run Data
         SessionRunDataContainer.Instance.ResetRunData(); //Reset the Run Data in Data Container
 
-        string newGameScene;
-        TransitionType newGameTransitionType;
-
-        if (SessionPerpetualDataContainer.Instance.HasUnlockedCharacters())
-        {
-            newGameScene = regularNewGameScene;
-            newGameTransitionType = regularNewGameTransitionType;
-        }
-        else
-        {
-            newGameScene = basicNewGameScene;
-            newGameTransitionType = basicNewGameTransitionType;
-        }
-
-        ScenesManager.Instance.TransitionLoadTargetScene(newGameScene, newGameTransitionType); //Do not Delete Any Data
+        GeneralSceneSettings.Instance.TransitionToNewGameScene();
     }
 }

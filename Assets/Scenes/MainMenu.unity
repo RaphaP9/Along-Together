@@ -2002,10 +2002,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   continueTransitionType: 0
   continueScene: Gameplay
-  basicNewGameTransitionType: 0
-  basicNewGameScene: Gameplay
-  regularNewGameTransitionType: 0
-  regularNewGameScene: Gameplay
 --- !u!1 &1401596767
 GameObject:
   m_ObjectHideFlags: 0
