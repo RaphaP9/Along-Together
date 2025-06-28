@@ -27,6 +27,9 @@ public class NeutralEntityHealth : EntityHealth
     public static event EventHandler<OnEntityDeathEventArgs> OnAnyNeutralEntityDeath;
     public event EventHandler<OnEntityDeathEventArgs> OnNeutralEntityDeath;
 
+    public static event EventHandler<OnEntityDeathEventArgs> OnAnyNeutralEntityExecuted;
+    public event EventHandler<OnEntityDeathEventArgs> OnNeutralEntityExecuted;
+
     public static event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnAnyNeutralEntityCurrentHealthClamped;
     public event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnNeutralEntityCurrentHealthClamped;
 
@@ -97,6 +100,13 @@ public class NeutralEntityHealth : EntityHealth
 
         OnNeutralEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as NeutralEntitySO, damageSource = damageSource });
         OnAnyNeutralEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as NeutralEntitySO, damageSource = damageSource });
+    }
+    protected override void OnEntityExecutedMethod(EntitySO entitySO, IDamageSource damageSource)
+    {
+        base.OnEntityExecutedMethod(entitySO, damageSource);
+
+        OnNeutralEntityExecuted?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as AllySO, damageSource = damageSource });
+        OnAnyNeutralEntityExecuted?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as AllySO, damageSource = damageSource });
     }
 
     protected override void OnEntityCurrentHealthClampedMethod()

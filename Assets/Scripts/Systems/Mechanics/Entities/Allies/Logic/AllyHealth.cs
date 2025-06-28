@@ -27,6 +27,9 @@ public class AllyHealth : EntityHealth
     public static event EventHandler<OnEntityDeathEventArgs> OnAnyAllyDeath;
     public event EventHandler<OnEntityDeathEventArgs> OnAllyDeath;
 
+    public static event EventHandler<OnEntityDeathEventArgs> OnAnyAllyExecuted;
+    public event EventHandler<OnEntityDeathEventArgs> OnAllyExecuted;
+
     public static event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnAnyAllyCurrentHealthClamped;
     public event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnAllyCurrentHealthClamped;
 
@@ -133,6 +136,14 @@ public class AllyHealth : EntityHealth
 
         OnAllyDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as AllySO, damageSource = damageSource });
         OnAnyAllyDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as AllySO, damageSource = damageSource });
+    }
+
+    protected override void OnEntityExecutedMethod(EntitySO entitySO, IDamageSource damageSource)
+    {
+        base.OnEntityExecutedMethod(entitySO, damageSource);
+
+        OnAllyExecuted?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as AllySO, damageSource = damageSource });
+        OnAnyAllyExecuted?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO as AllySO, damageSource = damageSource });
     }
 
     protected override void OnEntityCurrentHealthClampedMethod()

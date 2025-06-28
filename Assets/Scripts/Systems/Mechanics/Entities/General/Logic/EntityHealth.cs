@@ -60,6 +60,9 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     public static event EventHandler<OnEntityDeathEventArgs> OnAnyEntityDeath;
     public event EventHandler<OnEntityDeathEventArgs> OnEntityDeath;
 
+    public static event EventHandler<OnEntityDeathEventArgs> OnAnyEntityExecuted;
+    public event EventHandler<OnEntityDeathEventArgs> OnEntityExecuted;
+
     public static event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnAnyEntityCurrentHealthClamped;
     public event EventHandler<OnEntityCurrentHealthClampedEventArgs> OnEntityCurrentHealthClamped;
 
@@ -333,6 +336,7 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
             if (executeDamageData.triggerHealthTakeDamageEvents) OnEntityHealthTakeDamageMethod(damageTakenByHealth, executeDamageData.executeDamage, previousHealth, executeDamageData.isCrit, executeDamageData.damageSource);
         }
 
+        OnEntityExecutedMethod(entityIdentifier.EntitySO, executeDamageData.damageSource);
         OnEntityDeathMethod(entityIdentifier.EntitySO, executeDamageData.damageSource);
     }
 
@@ -476,6 +480,12 @@ public abstract class EntityHealth : MonoBehaviour, IHasHealth
     {
         OnEntityDeath?.Invoke(this, new OnEntityDeathEventArgs {entitySO = entitySO, damageSource = damageSource});
         OnAnyEntityDeath?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO, damageSource = damageSource });
+    }
+
+    protected virtual void OnEntityExecutedMethod(EntitySO entitySO, IDamageSource damageSource)
+    {
+        OnEntityExecuted?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO, damageSource = damageSource });
+        OnAnyEntityExecuted?.Invoke(this, new OnEntityDeathEventArgs { entitySO = entitySO, damageSource = damageSource });
     }
 
     //
