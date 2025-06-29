@@ -8,8 +8,6 @@ public abstract class StackingTreatEffectHandler : TreatEffectHandler
     [Header("Stacking Runtime Filled")]
     [SerializeField] protected int stacks;
 
-    protected bool isStacking = false;
-
     public static event EventHandler<OnStackEventArgs> OnStacksGained;
     public static event EventHandler<OnStackEventArgs> OnStacksLost;
     public static event EventHandler<OnStackEventArgs> OnStacksSet;

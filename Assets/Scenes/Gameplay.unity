@@ -11299,7 +11299,7 @@ GameObject:
   - component: {fileID: 220290191}
   - component: {fileID: 220290192}
   m_Layer: 0
-  m_Name: ExecuteTreat
+  m_Name: ExecuteTreatEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54101,7 +54101,7 @@ GameObject:
   - component: {fileID: 1096128623}
   - component: {fileID: 1096128624}
   m_Layer: 0
-  m_Name: BonusDamageLowHealthTreat
+  m_Name: BonusDamageLowHealthTreatEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

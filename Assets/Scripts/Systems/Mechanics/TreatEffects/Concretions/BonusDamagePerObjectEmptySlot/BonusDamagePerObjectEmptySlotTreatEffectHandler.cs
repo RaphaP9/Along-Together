@@ -39,19 +39,19 @@ public class BonusDamagePerObjectEmptySlotTreatEffectHandler : StatusStackingTre
     }
 
     protected override string GetRefferencialGUID() => BonusDamagePerObjectEmptySlotTreatEffectSO.refferencialGUID;
+
     protected override int GetStacksByStatus()
     {
         int stacks = ObjectsInventoryManager.Instance.GetEmptySlots() < 0 ? 0 : ObjectsInventoryManager.Instance.GetEmptySlots();
         return stacks;
     }
 
-
     #region Subscriptions
     private void ObjectsInventoryManager_OnObjectAddedToInventory(object sender, ObjectsInventoryManager.OnObjectEventArgs e)
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
         if (!isMeetingCondition) return;
-        if (!isStacking) return;
+
         SetProportionalStatForStacksByStatus();
     }
 
@@ -59,7 +59,7 @@ public class BonusDamagePerObjectEmptySlotTreatEffectHandler : StatusStackingTre
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
         if (!isMeetingCondition) return;
-        if (!isStacking) return;
+
         SetProportionalStatForStacksByStatus();
     }
     #endregion

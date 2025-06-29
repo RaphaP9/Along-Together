@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class RoundStackingTreatEffectHandler : StackingTreatEffectHandler
 {
+
+    protected bool onRound = false;
+
     protected virtual void OnEnable()
     {
         GameManager.OnStateChanged += GameManager_OnStateChanged;
@@ -44,14 +47,14 @@ public abstract class RoundStackingTreatEffectHandler : StackingTreatEffectHandl
     {
         if (e.newState == GameManager.State.Combat)
         {
-            isStacking = true;
+            onRound = true;
             return;
         }
 
         if (e.previousState == GameManager.State.Combat)
         {
             ResetStacks();
-            isStacking = false;
+            onRound = false;
             return;
         }
     }

@@ -6,7 +6,6 @@ public abstract class PermanentStackingTreatEffectHandler : StackingTreatEffectH
 {
     private void Start()
     {
-        isStacking = true;
         RecoverSavedStacks();
     }
 

@@ -46,7 +46,6 @@ public class PermanentAttackDamageStackingPerObjectSoldTreatEffectHandler : Perm
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
         if (!isMeetingCondition) return;
-        if (!isStacking) return;
 
         AddStacks(1);
     }
@@ -55,7 +54,6 @@ public class PermanentAttackDamageStackingPerObjectSoldTreatEffectHandler : Perm
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
         if (!isMeetingCondition) return;
-        if (!isStacking) return;
 
         AddStacks(1);
     }

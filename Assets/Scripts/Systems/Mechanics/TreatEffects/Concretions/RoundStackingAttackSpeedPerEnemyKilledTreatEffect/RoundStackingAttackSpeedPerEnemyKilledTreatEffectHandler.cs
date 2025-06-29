@@ -45,7 +45,7 @@ public class RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler : RoundSta
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
         if (!isMeetingCondition) return;
-        if (!isStacking) return;
+        if (!onRound) return;
         if (e.damageSource.GetDamageSourceClassification() != DamageSourceClassification.Character) return;
         AddStacks(1);
     }

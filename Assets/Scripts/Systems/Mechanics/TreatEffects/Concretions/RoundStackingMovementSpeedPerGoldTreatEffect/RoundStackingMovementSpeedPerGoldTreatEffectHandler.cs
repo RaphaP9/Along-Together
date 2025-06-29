@@ -45,7 +45,7 @@ public class RoundStackingMovementSpeedPerGoldTreatEffectHandler : RoundStacking
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
         if (!isMeetingCondition) return;
-        if (!isStacking) return;
+        if (!onRound) return;
         AddStacks(1);
     }
     #endregion

@@ -6,7 +6,6 @@ using UnityEngine;
 public class RoundStackingDamagePerGoldTreatEffectHandler : RoundStackingTreatEffectHandler
 {
     public static RoundStackingDamagePerGoldTreatEffectHandler Instance { get; private set; }
-
     private RoundStackingDamagePerGoldTreatEffectSO RoundStackingDamagePerGoldTreatEffectSO => treatEffectSO as RoundStackingDamagePerGoldTreatEffectSO;
 
     protected override void OnEnable()
@@ -46,7 +45,7 @@ public class RoundStackingDamagePerGoldTreatEffectHandler : RoundStackingTreatEf
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
         if (!isMeetingCondition) return;
-        if (!isStacking) return;
+        if (!onRound) return;
         AddStacks(1);
     }
     #endregion
