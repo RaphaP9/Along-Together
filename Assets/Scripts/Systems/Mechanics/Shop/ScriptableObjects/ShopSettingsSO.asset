@@ -19,7 +19,7 @@ MonoBehaviour:
     cap: 3
   - inventoryObjectType: 1
     weight: 20
-    cap: 0
+    cap: 1
   stageShopInventoryObjectRaritySettings:
   - stageNumber: 1
     shopInventoryObjectRaritySettings:

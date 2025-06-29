@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93e96e2ead93e1b4cab3b19fdef82ea9, type: 3}
-  m_Name: PermanentAttackDamageStackingPerObjectSoldSO
+  m_Name: PermanentAttackDamageStackingPerObjectSoldTreatEffectSO
   m_EditorClassIdentifier: 
   activatorInventoryObjects:
   - {fileID: 11400000, guid: 02de4dd2773720443a4ac31108ee3144, type: 2}
-  treatName: PermanentAttackDamageStackingPerObjectSold
+  treatName: PermanentAttackDamageStackingPerObjectSoldTreatEffect
   sprite: {fileID: 0}
-  description: PermanentAttackDamageStackingPerObjectSold
-  refferencialGUID: GUID_PermanentAttackDamageStackingPerObjectSoldSO
+  description: PermanentAttackDamageStackingPerObjectSoldTreatEffect
+  refferencialGUID: GUID_PermanentAttackDamageStackingPerObjectSoldTreatEffect
   statPerStack:
     numericStatType: 6
     numericStatModificationType: 0

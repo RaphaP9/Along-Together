@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PermanentAttackDamageStackingPerObjectSoldHandler : PermanentStackingTreatEffectHandler
+public class PermanentAttackDamageStackingPerObjectSoldTreatEffectHandler : PermanentStackingTreatEffectHandler
 {
-    public static PermanentAttackDamageStackingPerObjectSoldHandler Instance { get; private set; }
+    public static PermanentAttackDamageStackingPerObjectSoldTreatEffectHandler Instance { get; private set; }
 
-    private PermanentAttackDamageStackingPerObjectSoldSO PermanentAttackDamageStackingPerObjectSoldSO => treatEffectSO as PermanentAttackDamageStackingPerObjectSoldSO;
+    private PermanentAttackDamageStackingPerObjectSoldTreatEffectSO PermanentAttackDamageStackingPerObjectSoldSO => treatEffectSO as PermanentAttackDamageStackingPerObjectSoldTreatEffectSO;
 
     protected void OnEnable()
     {
-        EnemyHealth.OnAnyEnemyDeath += EnemyHealth_OnAnyEnemyDeath;
+        ShopSeller.OnObjectSold += ShopSeller_OnObjectSold;
+        ShopSeller.OnTreatSold += ShopSeller_OnTreatSold;
     }
 
     protected void OnDisable()
     {
-        EnemyHealth.OnAnyEnemyDeath -= EnemyHealth_OnAnyEnemyDeath;
+        ShopSeller.OnObjectSold -= ShopSeller_OnObjectSold;
+        ShopSeller.OnTreatSold -= ShopSeller_OnTreatSold;
     }
 
     protected override string GetRefferencialGUID() => PermanentAttackDamageStackingPerObjectSoldSO.refferencialGUID;
@@ -40,12 +42,21 @@ public class PermanentAttackDamageStackingPerObjectSoldHandler : PermanentStacki
     }
 
     #region Subscriptions
-    private void EnemyHealth_OnAnyEnemyDeath(object sender, EntityHealth.OnEntityDeathEventArgs e)
+    private void ShopSeller_OnObjectSold(object sender, ShopSeller.OnObjectSoldEventArgs e)
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
         if (!isMeetingCondition) return;
         if (!isStacking) return;
-        if (e.damageSource.GetDamageSourceClassification() != DamageSourceClassification.Character) return;
+
+        AddStacks(1);
+    }
+
+    private void ShopSeller_OnTreatSold(object sender, ShopSeller.OnTreatSoldEventArgs e)
+    {
+        if (!isCurrentlyActiveByInventoryObjects) return;
+        if (!isMeetingCondition) return;
+        if (!isStacking) return;
+
         AddStacks(1);
     }
     #endregion

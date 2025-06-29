@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98649b71cd341864b8a8abf6f06d2be9, type: 3}
   m_Name: ExecuteTreatConfig
   m_EditorClassIdentifier: 
-  activatorInventoryObjects:
-  - {fileID: 11400000, guid: 02de4dd2773720443a4ac31108ee3144, type: 2}
+  activatorInventoryObjects: []
   treatName: Execute Treat
   sprite: {fileID: 0}
   description: Execute Treat
