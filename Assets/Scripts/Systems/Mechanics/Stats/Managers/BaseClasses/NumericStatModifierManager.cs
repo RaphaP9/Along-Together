@@ -54,6 +54,21 @@ public abstract class NumericStatModifierManager : StatModifierManager
         return true;
     }
 
+    public void AddSingleNumericStatModifier(string originGUID, NumericEmbeddedStat numericEmbeddedStat)
+    {
+        if (numericEmbeddedStat == null)
+        {
+            if (debug) Debug.Log("NumericEmbeddedStat is null. StatModifier will not be added");
+            return;
+        }
+
+        if (numericEmbeddedStat.GetStatValueType() != GetStatValueType()) return; //If not numeric, return 
+
+        NumericStatModifier numericStatModifier = new NumericStatModifier { originGUID = originGUID, numericStatType = numericEmbeddedStat.numericStatType, numericStatModificationType = numericEmbeddedStat.numericStatModificationType, value = numericEmbeddedStat.value };
+        numericStatModifiers.Add(numericStatModifier);
+        UpdateStats();
+    }
+
     public override void RemoveStatModifiersByGUID(string originGUID)
     {
         if (originGUID == "")
