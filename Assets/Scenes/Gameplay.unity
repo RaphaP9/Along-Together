@@ -7603,13 +7603,13 @@ Transform:
   - {fileID: 1984772640}
   - {fileID: 786458908}
   - {fileID: 762883208}
-  - {fileID: 183850461}
   - {fileID: 770913001}
   - {fileID: 1212177089}
   - {fileID: 241521932}
   - {fileID: 1427446508}
   - {fileID: 576036529}
   - {fileID: 467142618}
+  - {fileID: 183850461}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &148216061
@@ -9442,6 +9442,7 @@ Transform:
   - {fileID: 1096128623}
   - {fileID: 1143615004}
   - {fileID: 2073784922}
+  - {fileID: 1532200095}
   m_Father: {fileID: 148177430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &184821225
@@ -76114,6 +76115,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152cbba09ff02864a843bc8214db386d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1532200094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1532200095}
+  - component: {fileID: 1532200096}
+  m_Layer: 0
+  m_Name: RoundStackingAttackSpeedPerEnemyKilledTreatEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1532200095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532200094}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 183850461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1532200096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532200094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bac60d04e4189a4ea8b1a22716786ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treatEffectSO: {fileID: 11400000, guid: 6e7171f6cee5be549a1d37164fb1aa74, type: 2}
+  isCurrentlyActiveByInventoryObjects: 0
+  isMeetingCondition: 0
+  stacks: 0
 --- !u!1001 &1535543127
 PrefabInstance:
   m_ObjectHideFlags: 0
