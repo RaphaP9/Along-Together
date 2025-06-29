@@ -36,7 +36,7 @@ public class RoundStackingMovementSpeedPerGoldTreatEffectHandler : RoundStacking
     protected override void AddStacks(int quantity)
     {
         base.AddStacks(quantity);
-        TemporalNumericStatModifierManager.Instance.AddSingleNumericStatModifier(GetRefferencialGUID(), MechanicsUtilities.GenerateProportionalNumericStatPerStack(stacks, RoundStackingMovementSpeedPerGoldTreatEffectSO.statPerStack));
+        AddProportionalStatForStacks(RoundStackingMovementSpeedPerGoldTreatEffectSO.statPerStack);
     }
 
 

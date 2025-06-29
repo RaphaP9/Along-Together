@@ -28,6 +28,17 @@ public abstract class RoundStackingTreatEffectHandler : StackingTreatEffectHandl
         TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(GetRefferencialGUID());
     }
 
+    protected override void AddProportionalStatForStacks(NumericEmbeddedStat numericEmbeddedStatPerStack)
+    {
+        TemporalNumericStatModifierManager.Instance.AddSingleNumericStatModifier(GetRefferencialGUID(), MechanicsUtilities.GenerateProportionalNumericStatPerStack(stacks, numericEmbeddedStatPerStack));
+    }
+
+    protected override void OnTreatDeactivatedByInventoryObjectsMethod()
+    {
+        base.OnTreatDeactivatedByInventoryObjectsMethod();
+        TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(GetRefferencialGUID()); //Remove Stacks from Run Numeric Stat Modifier List
+    }
+
     #region Subscriptions
     private void GameManager_OnStateChanged(object sender, GameManager.OnStateChangeEventArgs e)
     {

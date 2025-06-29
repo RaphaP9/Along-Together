@@ -39,7 +39,7 @@ public class RoundStackingDamagePerGoldTreatEffectHandler : RoundStackingTreatEf
     protected override void AddStacks(int quantity)
     {
         base.AddStacks(quantity);
-        TemporalNumericStatModifierManager.Instance.AddSingleNumericStatModifier(GetRefferencialGUID(), MechanicsUtilities.GenerateProportionalNumericStatPerStack(stacks, RoundStackingDamagePerGoldTreatEffectSO.statPerStack));
+        AddProportionalStatForStacks(RoundStackingDamagePerGoldTreatEffectSO.statPerStack);
     }
 
     #region Subscriptions

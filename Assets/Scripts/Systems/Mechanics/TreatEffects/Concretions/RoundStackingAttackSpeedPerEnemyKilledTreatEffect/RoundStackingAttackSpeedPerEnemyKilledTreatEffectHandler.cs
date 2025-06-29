@@ -8,7 +8,6 @@ public class RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler : RoundSta
 
     private RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO => treatEffectSO as RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO;
 
-
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -38,7 +37,7 @@ public class RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler : RoundSta
     protected override void AddStacks(int quantity)
     {
         base.AddStacks(quantity);
-        TemporalNumericStatModifierManager.Instance.AddSingleNumericStatModifier(GetRefferencialGUID(), MechanicsUtilities.GenerateProportionalNumericStatPerStack(stacks, RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.statPerStack));
+        AddProportionalStatForStacks(RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.statPerStack);
     }
 
     #region Subscriptions

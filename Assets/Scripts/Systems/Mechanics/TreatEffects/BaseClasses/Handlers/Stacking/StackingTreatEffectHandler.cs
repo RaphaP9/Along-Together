@@ -26,6 +26,8 @@ public abstract class StackingTreatEffectHandler : TreatEffectHandler
         ResetStacks();
     }
 
+    protected abstract void AddProportionalStatForStacks(NumericEmbeddedStat numericEmbeddedStatPerStack);
+
     #region Utility Stack Methods
 
     protected virtual void AddStacks(int quantity)
