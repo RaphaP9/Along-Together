@@ -20,7 +20,6 @@ public class RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler : Stacking
         GameManager.OnStateChanged -= GameManager_OnStateChanged;
     }
 
-
     protected override void SetSingleton()
     {
         if (Instance == null)
@@ -84,6 +83,8 @@ public class RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler : Stacking
 
     private void EnemyHealth_OnAnyEnemyDeath(object sender, EntityHealth.OnEntityDeathEventArgs e)
     {
+        if (!isCurrentlyActiveByInventoryObjects) return;
+        if (!isMeetingCondition) return;
         if (!isStacking) return;
         if (e.damageSource.GetDamageSourceClassification() != DamageSourceClassification.Character) return;
         AddStacks(1);

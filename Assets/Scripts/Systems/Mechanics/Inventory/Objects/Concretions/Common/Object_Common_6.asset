@@ -23,7 +23,7 @@ MonoBehaviour:
   - numericStatType: 3
     numericStatModificationType: 0
     value: 0.1
-  - numericStatType: 6
+  - numericStatType: 8
     numericStatModificationType: 0
-    value: -1
+    value: 0.5
   recommendedCharacters: []

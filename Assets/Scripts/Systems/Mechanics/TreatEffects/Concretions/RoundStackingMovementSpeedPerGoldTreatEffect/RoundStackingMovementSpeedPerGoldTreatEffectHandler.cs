@@ -83,6 +83,8 @@ public class RoundStackingMovementSpeedPerGoldTreatEffectHandler : StackingTreat
 
     private void GoldCollection_OnAnyGoldCollected(object sender, GoldCollection.OnGoldEventArgs e)
     {
+        if (!isCurrentlyActiveByInventoryObjects) return;
+        if (!isMeetingCondition) return;
         if (!isStacking) return;
         AddStacks(1);
     }
