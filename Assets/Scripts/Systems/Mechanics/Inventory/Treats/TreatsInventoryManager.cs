@@ -177,6 +177,8 @@ public class TreatsInventoryManager : MonoBehaviour
     }
 
     public int GetInventoryCapacity() => treatsInventorySize;
+    public int GetTreatsInInventory() => treatsInventory.Count;
+    public int GetEmptySlots() => treatsInventorySize - treatsInventory.Count;
     public bool IsInventoryFull() => treatsInventory.Count >= treatsInventorySize;
 
     #region Subscriptions

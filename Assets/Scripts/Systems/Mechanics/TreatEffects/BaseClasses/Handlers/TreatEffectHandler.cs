@@ -17,12 +17,12 @@ public abstract class TreatEffectHandler : MonoBehaviour
     protected bool previouslyActiveByInventoryObjects = false;
     protected bool previouslyMeetingCondition = false;
 
-    public static event EventHandler<OnTreatConfigEventArgs> OnTreatActivatedByInventoryObjects;
-    public static event EventHandler<OnTreatConfigEventArgs> OnTreatDeactivatedByInventoryObjects;
-    public static event EventHandler<OnTreatConfigEventArgs> OnTreatEnablementByCondition;
-    public static event EventHandler<OnTreatConfigEventArgs> OnTreatDisablementByCondition;
+    public static event EventHandler<OnTreatEffectEventArgs> OnTreatEffectActivatedByInventoryObjects;
+    public static event EventHandler<OnTreatEffectEventArgs> OnTreatEffectDeactivatedByInventoryObjects;
+    public static event EventHandler<OnTreatEffectEventArgs> OnTreatEffectEnablementByCondition;
+    public static event EventHandler<OnTreatEffectEventArgs> OnTreatEffectDisablementByCondition;
 
-    public class OnTreatConfigEventArgs : EventArgs
+    public class OnTreatEffectEventArgs : EventArgs
     {
         public TreatEffectSO treatConfigSO;
     }
@@ -41,24 +41,24 @@ public abstract class TreatEffectHandler : MonoBehaviour
     #region Abstract/Virtual Methods
     protected abstract void SetSingleton();
 
-    protected virtual void OnTreatActivatedByInventoryObjectsMethod() //Will trigger as soon as activeByInventoryObjects
+    protected virtual void OnTreatEffectActivatedByInventoryObjectsMethod() //Will trigger as soon as activeByInventoryObjects
     {
-        OnTreatActivatedByInventoryObjects?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatEffectSO });
+        OnTreatEffectActivatedByInventoryObjects?.Invoke(this, new OnTreatEffectEventArgs { treatConfigSO = treatEffectSO });
     }
 
-    protected virtual void OnTreatDeactivatedByInventoryObjectsMethod()//Will trigger as soon as deactiveByInventoryObjects
+    protected virtual void OnTreatEffectDeactivatedByInventoryObjectsMethod()//Will trigger as soon as deactiveByInventoryObjects
     {
-        OnTreatDeactivatedByInventoryObjects?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatEffectSO});
+        OnTreatEffectDeactivatedByInventoryObjects?.Invoke(this, new OnTreatEffectEventArgs { treatConfigSO = treatEffectSO});
     }
 
-    protected virtual void OnTreatEnablementByConditionMethod() //Will be triggered as soon as meeting condition and  was activeByInventoryObject/ as soon as active by activeByInventoryObjects and was meeting condition
+    protected virtual void OnTreatEffectEnablementByConditionMethod() //Will be triggered as soon as meeting condition and  was activeByInventoryObject/ as soon as active by activeByInventoryObjects and was meeting condition
     {
-        OnTreatEnablementByCondition?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatEffectSO });
+        OnTreatEffectEnablementByCondition?.Invoke(this, new OnTreatEffectEventArgs { treatConfigSO = treatEffectSO });
     }
 
-    protected virtual void OnTreatDisablementByConditionMethod() //Will be triggered as soon as not meeting condition and was activeByInventoryObject / as soon as deactiveByInventoryObject and was meeting condition
+    protected virtual void OnTreatEffectDisablementByConditionMethod() //Will be triggered as soon as not meeting condition and was activeByInventoryObject / as soon as deactiveByInventoryObject and was meeting condition
     {
-        OnTreatDisablementByCondition?.Invoke(this, new OnTreatConfigEventArgs { treatConfigSO = treatEffectSO });
+        OnTreatEffectDisablementByCondition?.Invoke(this, new OnTreatEffectEventArgs { treatConfigSO = treatEffectSO });
     }
 
     protected virtual bool EnablementCondition() => true; //As default the EnablementCondition will always be met, override in inheritances otherwise
@@ -89,13 +89,13 @@ public abstract class TreatEffectHandler : MonoBehaviour
 
         if(!previouslyActiveByInventoryObjects && currentlyActiveByInventoryObjects)
         {
-            OnTreatActivatedByInventoryObjectsMethod();
-            if (isMeetingCondition) OnTreatEnablementByConditionMethod();
+            OnTreatEffectActivatedByInventoryObjectsMethod();
+            if (isMeetingCondition) OnTreatEffectEnablementByConditionMethod();
         }
         else if(previouslyActiveByInventoryObjects && !currentlyActiveByInventoryObjects)
         {
-            if (isMeetingCondition) OnTreatDisablementByConditionMethod();
-            OnTreatDeactivatedByInventoryObjectsMethod();
+            if (isMeetingCondition) OnTreatEffectDisablementByConditionMethod();
+            OnTreatEffectDeactivatedByInventoryObjectsMethod();
         }
 
         isCurrentlyActiveByInventoryObjects = currentlyActiveByInventoryObjects;
@@ -108,11 +108,11 @@ public abstract class TreatEffectHandler : MonoBehaviour
 
         if (!previouslyMeetingCondition && meetingCondition)
         {
-            if(isCurrentlyActiveByInventoryObjects) OnTreatEnablementByConditionMethod();
+            if(isCurrentlyActiveByInventoryObjects) OnTreatEffectEnablementByConditionMethod();
         }
         else if (previouslyMeetingCondition && !meetingCondition)
         {
-            if (isCurrentlyActiveByInventoryObjects) OnTreatDisablementByConditionMethod();
+            if (isCurrentlyActiveByInventoryObjects) OnTreatEffectDisablementByConditionMethod();
         }
 
         isMeetingCondition = meetingCondition;

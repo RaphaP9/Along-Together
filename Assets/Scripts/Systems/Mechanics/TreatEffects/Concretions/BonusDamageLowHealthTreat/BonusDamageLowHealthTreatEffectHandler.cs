@@ -35,17 +35,17 @@ public class BonusDamageLowHealthTreatEffectHandler : TreatEffectHandler
     }
 
     #region VirtualMethods
-    protected override void OnTreatEnablementByConditionMethod()
+    protected override void OnTreatEffectEnablementByConditionMethod()
     {
-        base.OnTreatEnablementByConditionMethod();
+        base.OnTreatEffectEnablementByConditionMethod();
 
         OnBonusDamageLowHealthTreatEffectEnabled?.Invoke(this, EventArgs.Empty);    
         TemporalNumericStatModifierManager.Instance.AddStatModifiers(BonusDamageLowHealthTreatEffectSO.refferencialGUID, BonusDamageLowHealthTreatEffectSO);
     }
 
-    protected override void OnTreatDisablementByConditionMethod() 
+    protected override void OnTreatEffectDisablementByConditionMethod() 
     {
-        base.OnTreatDisablementByConditionMethod();
+        base.OnTreatEffectDisablementByConditionMethod();
         TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(BonusDamageLowHealthTreatEffectSO.refferencialGUID);
     }
 

@@ -20,9 +20,9 @@ public abstract class StackingTreatEffectHandler : TreatEffectHandler
         public int stacks;
     }
 
-    protected override void OnTreatDeactivatedByInventoryObjectsMethod() //The default behavior is to reset the stacks as soon as you don't have any inventoryObject that activates the treat
+    protected override void OnTreatEffectDeactivatedByInventoryObjectsMethod() //The default behavior is to reset the stacks as soon as you don't have any inventoryObject that activates the treat
     {
-        base.OnTreatDeactivatedByInventoryObjectsMethod();
+        base.OnTreatEffectDeactivatedByInventoryObjectsMethod();
         ResetStacks();
     }
 

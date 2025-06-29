@@ -53,9 +53,9 @@ public abstract class PermanentStackingTreatEffectHandler : StackingTreatEffectH
         RunNumericStatModifierManager.Instance.AddSingleNumericStatModifier(GetRefferencialGUID(), MechanicsUtilities.GenerateProportionalNumericStatPerStack(stacks, numericEmbeddedStatPerStack));
     }
 
-    protected override void OnTreatDeactivatedByInventoryObjectsMethod() 
+    protected override void OnTreatEffectDeactivatedByInventoryObjectsMethod() 
     {
-        base.OnTreatDeactivatedByInventoryObjectsMethod();
+        base.OnTreatEffectDeactivatedByInventoryObjectsMethod();
         RunNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(GetRefferencialGUID()); //Remove Stacks from Run Numeric Stat Modifier List
     }
 }

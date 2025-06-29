@@ -2,19 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class RoundStackingTreatEffectHandler : StackingTreatEffectHandler
+public abstract class StatusStackingTreatEffectHandler : StackingTreatEffectHandler
 {
-    protected virtual void OnEnable()
-    {
-        GameManager.OnStateChanged += GameManager_OnStateChanged;
-    }
-
-    protected virtual void OnDisable()
-    {
-        GameManager.OnStateChanged -= GameManager_OnStateChanged;
-    }
-
     protected abstract string GetRefferencialGUID();
+    protected abstract int GetStacksByStatus();
 
     protected override void AddStacks(int quantity)
     {
@@ -33,27 +24,25 @@ public abstract class RoundStackingTreatEffectHandler : StackingTreatEffectHandl
         TemporalNumericStatModifierManager.Instance.AddSingleNumericStatModifier(GetRefferencialGUID(), MechanicsUtilities.GenerateProportionalNumericStatPerStack(stacks, numericEmbeddedStatPerStack));
     }
 
+    protected override void OnTreatEffectActivatedByInventoryObjectsMethod()
+    {
+        base.OnTreatEffectActivatedByInventoryObjectsMethod();
+        SetProportionalStatForStacksByStatus();
+    }
+
     protected override void OnTreatEffectDeactivatedByInventoryObjectsMethod()
     {
         base.OnTreatEffectDeactivatedByInventoryObjectsMethod();
-        TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(GetRefferencialGUID()); //Remove Stacks from Temporal Numeric Stat Modifier List
+        TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(GetRefferencialGUID()); 
     }
 
-    #region Subscriptions
-    private void GameManager_OnStateChanged(object sender, GameManager.OnStateChangeEventArgs e)
+    protected virtual void SetProportionalStatForStacksByStatus()
     {
-        if (e.newState == GameManager.State.Combat)
-        {
-            isStacking = true;
-            return;
-        }
+        TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(GetRefferencialGUID());
 
-        if (e.previousState == GameManager.State.Combat)
-        {
-            ResetStacks();
-            isStacking = false;
-            return;
-        }
+        int stacks = GetStacksByStatus();
+        if (stacks <= 0) return;
+
+        SetStacks(stacks); //Adding to Temporal Numeric... will be done in inheritances
     }
-    #endregion
 }
