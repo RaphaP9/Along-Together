@@ -4,6 +4,11 @@ using UnityEngine;
 
 public abstract class StatusStackingTreatEffectHandler : StackingTreatEffectHandler
 {
+    private void Start()
+    {
+        isStacking = true;
+    }
+
     protected abstract string GetRefferencialGUID();
     protected abstract int GetStacksByStatus();
 

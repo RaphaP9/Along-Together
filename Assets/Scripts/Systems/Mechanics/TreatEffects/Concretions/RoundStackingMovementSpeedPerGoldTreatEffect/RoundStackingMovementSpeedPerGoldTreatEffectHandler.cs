@@ -19,8 +19,6 @@ public class RoundStackingMovementSpeedPerGoldTreatEffectHandler : RoundStacking
         GoldCollection.OnAnyGoldCollected -= GoldCollection_OnAnyGoldCollected;
     }
 
-    protected override string GetRefferencialGUID() => RoundStackingMovementSpeedPerGoldTreatEffectSO.refferencialGUID;
-
     protected override void SetSingleton()
     {
         if (Instance == null)
@@ -32,6 +30,8 @@ public class RoundStackingMovementSpeedPerGoldTreatEffectHandler : RoundStacking
             Destroy(gameObject);
         }
     }
+
+    protected override string GetRefferencialGUID() => RoundStackingMovementSpeedPerGoldTreatEffectSO.refferencialGUID;
 
     protected override void AddStacks(int quantity)
     {

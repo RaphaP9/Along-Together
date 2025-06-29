@@ -21,9 +21,6 @@ public class RoundStackingDamagePerGoldTreatEffectHandler : RoundStackingTreatEf
         GoldCollection.OnAnyGoldCollected -= GoldCollection_OnAnyGoldCollected;
     }
 
-    protected override string GetRefferencialGUID() => RoundStackingDamagePerGoldTreatEffectSO.refferencialGUID;
-
-
     protected override void SetSingleton()
     {
         if (Instance == null)
@@ -35,6 +32,8 @@ public class RoundStackingDamagePerGoldTreatEffectHandler : RoundStackingTreatEf
             Destroy(gameObject);
         }
     }
+
+    protected override string GetRefferencialGUID() => RoundStackingDamagePerGoldTreatEffectSO.refferencialGUID;
 
     protected override void AddStacks(int quantity)
     {

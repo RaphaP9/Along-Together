@@ -20,9 +20,6 @@ public class PermanentAttackDamageStackingPerObjectSoldTreatEffectHandler : Perm
         ShopSeller.OnTreatSold -= ShopSeller_OnTreatSold;
     }
 
-    protected override string GetRefferencialGUID() => PermanentAttackDamageStackingPerObjectSoldSO.refferencialGUID;
-    protected override NumericEmbeddedStat GetRefferencialNumericEmbeddedStatPerStack() => PermanentAttackDamageStackingPerObjectSoldSO.statPerStack;
-
     protected override void SetSingleton()
     {
         if (Instance == null)
@@ -34,6 +31,9 @@ public class PermanentAttackDamageStackingPerObjectSoldTreatEffectHandler : Perm
             Destroy(gameObject);
         }
     }
+
+    protected override string GetRefferencialGUID() => PermanentAttackDamageStackingPerObjectSoldSO.refferencialGUID;
+    protected override NumericEmbeddedStat GetRefferencialNumericEmbeddedStatPerStack() => PermanentAttackDamageStackingPerObjectSoldSO.statPerStack;
 
     protected override void AddStacks(int quantity)
     {

@@ -22,6 +22,7 @@ public class CritAttackHealTreatEffectHandler : TreatEffectHandler
     private void OnDisable()
     {
         PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
+        EnemyHealth.OnAnyEnemyHealthTakeDamage -= EnemyHealth_OnAnyEnemyHealthTakeDamage;
     }
 
     protected override void SetSingleton()

@@ -20,8 +20,6 @@ public class RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler : RoundSta
         EnemyHealth.OnAnyEnemyDeath -= EnemyHealth_OnAnyEnemyDeath;
     }
 
-    protected override string GetRefferencialGUID() => RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.refferencialGUID;
-
     protected override void SetSingleton()
     {
         if (Instance == null)
@@ -33,6 +31,8 @@ public class RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler : RoundSta
             Destroy(gameObject);
         }
     }
+
+    protected override string GetRefferencialGUID() => RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.refferencialGUID;
 
     protected override void AddStacks(int quantity)
     {
