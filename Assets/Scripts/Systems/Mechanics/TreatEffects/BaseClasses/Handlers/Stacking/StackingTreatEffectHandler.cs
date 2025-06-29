@@ -12,12 +12,21 @@ public abstract class StackingTreatEffectHandler : TreatEffectHandler
 
     public static event EventHandler<OnStackEventArgs> OnStacksGained;
     public static event EventHandler<OnStackEventArgs> OnStacksLost;
+    public static event EventHandler<OnStackEventArgs> OnStacksSet;
     public static event EventHandler<OnStackEventArgs> OnStacksReset;
 
     public class OnStackEventArgs : EventArgs
     {
         public int stacks;
     }
+
+    protected override void OnTreatDeactivatedByInventoryObjectsMethod() //The default behavior is to reset the stacks as soon as you don't have any inventoryObject that activates the treat
+    {
+        base.OnTreatDeactivatedByInventoryObjectsMethod();
+        ResetStacks();
+    }
+
+    #region Utility Stack Methods
 
     protected virtual void AddStacks(int quantity)
     {
@@ -31,9 +40,16 @@ public abstract class StackingTreatEffectHandler : TreatEffectHandler
         OnStacksLost?.Invoke(this, new OnStackEventArgs { stacks = stacks });
     }
 
+    protected virtual void SetStacks(int quantity)
+    {
+        stacks = quantity;
+        OnStacksSet?.Invoke(this, new OnStackEventArgs { stacks = stacks });
+    }
+
     protected virtual void ResetStacks()
     {
         stacks = 0;
         OnStacksReset?.Invoke(this, new OnStackEventArgs { stacks = stacks });
     }
+    #endregion
 }

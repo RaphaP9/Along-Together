@@ -3,23 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoundStackingDamagePerGoldTreatEffectHandler : StackingTreatEffectHandler
+public class RoundStackingDamagePerGoldTreatEffectHandler : RoundStackingTreatEffectHandler
 {
     public static RoundStackingDamagePerGoldTreatEffectHandler Instance { get; private set; }
 
     private RoundStackingDamagePerGoldTreatEffectSO RoundStackingDamagePerGoldTreatEffectSO => treatEffectSO as RoundStackingDamagePerGoldTreatEffectSO;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         GoldCollection.OnAnyGoldCollected += GoldCollection_OnAnyGoldCollected;
-        GameManager.OnStateChanged += GameManager_OnStateChanged;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         GoldCollection.OnAnyGoldCollected -= GoldCollection_OnAnyGoldCollected;
-        GameManager.OnStateChanged -= GameManager_OnStateChanged;
     }
+
+    protected override string GetRefferencialGUID() => RoundStackingDamagePerGoldTreatEffectSO.refferencialGUID;
 
 
     protected override void SetSingleton()
@@ -34,54 +36,13 @@ public class RoundStackingDamagePerGoldTreatEffectHandler : StackingTreatEffectH
         }
     }
 
-    protected override void OnTreatDeactivatedByInventoryObjectsMethod()
-    {
-        base.OnTreatDeactivatedByInventoryObjectsMethod();
-        ResetStacks();
-    }
-
     protected override void AddStacks(int quantity)
     {
         base.AddStacks(quantity);
-        TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(RoundStackingDamagePerGoldTreatEffectSO.refferencialGUID); //Remove Stats from previous stacked value
-        TemporalNumericStatModifierManager.Instance.AddSingleNumericStatModifier(RoundStackingDamagePerGoldTreatEffectSO.refferencialGUID, GetStatPerStack(stacks));
+        TemporalNumericStatModifierManager.Instance.AddSingleNumericStatModifier(GetRefferencialGUID(), MechanicsUtilities.GenerateProportionalNumericStatPerStack(stacks, RoundStackingDamagePerGoldTreatEffectSO.statPerStack));
     }
 
-    protected override void ResetStacks()
-    {
-        base.ResetStacks();
-        TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(RoundStackingDamagePerGoldTreatEffectSO.refferencialGUID);
-    }
-
-    private NumericEmbeddedStat GetStatPerStack(int stacks)
-    {
-        NumericEmbeddedStat stackedEmbeddedStat = new NumericEmbeddedStat
-        {
-            numericStatType = RoundStackingDamagePerGoldTreatEffectSO.statPerStack.numericStatType,
-            numericStatModificationType = RoundStackingDamagePerGoldTreatEffectSO.statPerStack.numericStatModificationType,
-            value = RoundStackingDamagePerGoldTreatEffectSO.statPerStack.value * stacks
-        };
-
-        return stackedEmbeddedStat;
-    }
-
-
-    private void GameManager_OnStateChanged(object sender, GameManager.OnStateChangeEventArgs e)
-    {
-        if(e.newState == GameManager.State.Combat)
-        {
-            isStacking = true;
-            return;
-        }
-
-        if(e.previousState == GameManager.State.Combat)
-        {
-            ResetStacks();
-            isStacking = false;
-            return;
-        }
-    }
-
+    #region Subscriptions
     private void GoldCollection_OnAnyGoldCollected(object sender, GoldCollection.OnGoldEventArgs e)
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
@@ -89,4 +50,5 @@ public class RoundStackingDamagePerGoldTreatEffectHandler : StackingTreatEffectH
         if (!isStacking) return;
         AddStacks(1);
     }
+    #endregion
 }

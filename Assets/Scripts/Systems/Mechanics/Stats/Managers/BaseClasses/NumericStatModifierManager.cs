@@ -83,5 +83,27 @@ public abstract class NumericStatModifierManager : StatModifierManager
     }
     #endregion
 
+    public NumericStatModifier GetFirstNumericStatModifierByGUID(string GUID)
+    {
+        foreach(NumericStatModifier numericStatModifier in numericStatModifiers)
+        {
+            if(numericStatModifier.originGUID == GUID) return numericStatModifier;
+        }
+        
+        return null;
+    }
+
+    public NumericStatModifier GetFirstNumericStatModifierByGUIDAndNumericStatType(string GUID, NumericStatType numericStatType)
+    {
+        foreach (NumericStatModifier numericStatModifier in numericStatModifiers)
+        {
+            if (numericStatModifier.originGUID != GUID) continue;
+            if (numericStatModifier.numericStatType != numericStatType) continue;
+            return numericStatModifier;
+        }
+
+        return null;
+    }
+
     public void SetStatList(List<NumericStatModifier> setterList) => numericStatModifiers.AddRange(setterList); //Add, NOT Replace!
 }

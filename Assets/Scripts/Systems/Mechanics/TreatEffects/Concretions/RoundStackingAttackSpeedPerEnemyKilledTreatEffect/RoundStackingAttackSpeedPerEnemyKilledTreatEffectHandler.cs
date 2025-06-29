@@ -2,23 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler : StackingTreatEffectHandler
+public class RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler : RoundStackingTreatEffectHandler
 {
     public static RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler Instance { get; private set; }
 
     private RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO => treatEffectSO as RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO;
 
-    private void OnEnable()
+
+    protected override void OnEnable()
     {
+        base.OnEnable();
         EnemyHealth.OnAnyEnemyDeath += EnemyHealth_OnAnyEnemyDeath;
-        GameManager.OnStateChanged += GameManager_OnStateChanged;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         EnemyHealth.OnAnyEnemyDeath -= EnemyHealth_OnAnyEnemyDeath;
-        GameManager.OnStateChanged -= GameManager_OnStateChanged;
     }
+
+    protected override string GetRefferencialGUID() => RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.refferencialGUID;
 
     protected override void SetSingleton()
     {
@@ -32,55 +35,13 @@ public class RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler : Stacking
         }
     }
 
-    protected override void OnTreatDeactivatedByInventoryObjectsMethod()
-    {
-        base.OnTreatDeactivatedByInventoryObjectsMethod();
-        ResetStacks();
-    }
-
     protected override void AddStacks(int quantity)
     {
         base.AddStacks(quantity);
-        TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.refferencialGUID); //Remove Stats from previous stacked value
-        TemporalNumericStatModifierManager.Instance.AddSingleNumericStatModifier(RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.refferencialGUID, GetStatPerStack(stacks));
+        TemporalNumericStatModifierManager.Instance.AddSingleNumericStatModifier(GetRefferencialGUID(), MechanicsUtilities.GenerateProportionalNumericStatPerStack(stacks, RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.statPerStack));
     }
 
-    protected override void ResetStacks()
-    {
-        base.ResetStacks();
-        TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.refferencialGUID);
-    }
-
-    private NumericEmbeddedStat GetStatPerStack(int stacks)
-    {
-        NumericEmbeddedStat stackedEmbeddedStat = new NumericEmbeddedStat
-        {
-            numericStatType = RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.statPerStack.numericStatType,
-            numericStatModificationType = RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.statPerStack.numericStatModificationType,
-            value = RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO.statPerStack.value * stacks
-        };
-
-        return stackedEmbeddedStat;
-    }
-
-
-    private void GameManager_OnStateChanged(object sender, GameManager.OnStateChangeEventArgs e)
-    {
-        if (e.newState == GameManager.State.Combat)
-        {
-            isStacking = true;
-            return;
-        }
-
-        if (e.previousState == GameManager.State.Combat)
-        {
-            ResetStacks();
-            isStacking = false;
-            return;
-        }
-    }
-
-
+    #region Subscriptions
     private void EnemyHealth_OnAnyEnemyDeath(object sender, EntityHealth.OnEntityDeathEventArgs e)
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
@@ -89,4 +50,5 @@ public class RoundStackingAttackSpeedPerEnemyKilledTreatEffectHandler : Stacking
         if (e.damageSource.GetDamageSourceClassification() != DamageSourceClassification.Character) return;
         AddStacks(1);
     }
+    #endregion
 }

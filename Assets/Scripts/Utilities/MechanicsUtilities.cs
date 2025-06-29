@@ -239,6 +239,18 @@ public static class MechanicsUtilities
         return clampedValue;
     }
 
+    public static NumericEmbeddedStat GenerateProportionalNumericStatPerStack(int stacks, NumericEmbeddedStat numericEmbeddedStatPerStack)
+    {
+        NumericEmbeddedStat stackedEmbeddedStat = new NumericEmbeddedStat
+        {
+            numericStatType = numericEmbeddedStatPerStack.numericStatType,
+            numericStatModificationType = numericEmbeddedStatPerStack.numericStatModificationType,
+            value = numericEmbeddedStatPerStack.value * stacks
+        };
+
+        return stackedEmbeddedStat;
+    }
+
     #endregion
 
     #region Abilities
@@ -350,9 +362,12 @@ public static class MechanicsUtilities
     #region Odds
     public static bool GetProbability(float normalizedProbability)
     {
+        if(normalizedProbability <= 0) return false;
+        if(normalizedProbability >= 1) return true;
+
         float randomNumber = Random.Range(0f, 1f);
 
-        if (normalizedProbability > randomNumber) return true;
+        if (normalizedProbability >= randomNumber) return true;
         return false;
     }
     #endregion
