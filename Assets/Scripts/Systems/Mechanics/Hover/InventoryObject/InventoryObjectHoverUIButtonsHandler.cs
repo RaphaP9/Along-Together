@@ -38,27 +38,14 @@ public class InventoryObjectHoverUIButtonsHandler : MonoBehaviour
             switch (inventoryObjectHoverUIHandler.CurrentGenericInventoryObjectIdentified.inventoryObjectSO.GetInventoryObjectType())
             {
                 case InventoryObjectType.Object:
-                    HandleObjectSell(inventoryObjectHoverUIHandler.CurrentGenericInventoryObjectIdentified);
+                    ShopSeller.Instance.SellObject(new ObjectIdentified { assignedGUID = inventoryObjectHoverUIHandler.CurrentGenericInventoryObjectIdentified.assignedGUID, objectSO = inventoryObjectHoverUIHandler.CurrentGenericInventoryObjectIdentified.inventoryObjectSO as ObjectSO });
                     break;
                 case InventoryObjectType.Treat:
-                    HandleTreatSell(inventoryObjectHoverUIHandler.CurrentGenericInventoryObjectIdentified);
+                    ShopSeller.Instance.SellTreat(new TreatIdentified { assignedGUID = inventoryObjectHoverUIHandler.CurrentGenericInventoryObjectIdentified.assignedGUID, treatSO = inventoryObjectHoverUIHandler.CurrentGenericInventoryObjectIdentified.inventoryObjectSO as TreatSO });
                     break;
             }
         }
 
         OnSellButtonPressed?.Invoke(this, EventArgs.Empty);
     }
-
-    private void HandleObjectSell(GenericInventoryObjectIdentified genericInventoryObjectIdentified)
-    {
-        GoldManager.Instance.AddGold(genericInventoryObjectIdentified.inventoryObjectSO.sellPrice);
-        ObjectsInventoryManager.Instance.RemoveObjectFromInventoryByGUID(genericInventoryObjectIdentified.assignedGUID);
-    }
-
-    private void HandleTreatSell(GenericInventoryObjectIdentified genericInventoryObjectIdentified)
-    {
-        GoldManager.Instance.AddGold(genericInventoryObjectIdentified.inventoryObjectSO.sellPrice);
-        TreatsInventoryManager.Instance.RemoveTreatFromInventoryByGUID(genericInventoryObjectIdentified.assignedGUID);
-    }
-
 }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e96e2ead93e1b4cab3b19fdef82ea9, type: 3}
+  m_Name: PermanentAttackDamageStackingPerObjectSoldSO
+  m_EditorClassIdentifier: 
+  activatorInventoryObjects:
+  - {fileID: 11400000, guid: 02de4dd2773720443a4ac31108ee3144, type: 2}
+  treatName: PermanentAttackDamageStackingPerObjectSold
+  sprite: {fileID: 0}
+  description: PermanentAttackDamageStackingPerObjectSold
+  refferencialGUID: GUID_PermanentAttackDamageStackingPerObjectSoldSO
+  statPerStack:
+    numericStatType: 6
+    numericStatModificationType: 0
+    value: 1
