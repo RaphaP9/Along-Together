@@ -67,9 +67,8 @@ public class DialogueTriggerHandler : MonoBehaviour
             return;
         }
 
-        dialogueGroup.hasBeenPlayed = true;
-
         DialogueManager.Instance.StartDialogue(dialogueGroup.dialogueSO);
+        dialogueGroup.hasBeenPlayed = true;
     }
 
     private DialogueGroup FindDialogueGroupWithConditions(CharacterSO characterSO, int stageNumber, int roundNumber, DialogueChronology dialogueChronology)
@@ -91,45 +90,49 @@ public class DialogueTriggerHandler : MonoBehaviour
     #endregion
 
     #region Save/Load Related Methods
-    public void InjectDialoguesPlayed(List<DataModeledCharacterData> dataModeledCharacterDataList)
+    public void SetDialoguesPlayed(List<DataModeledCharacterData> dataModeledCharacterDataList)
     {
         foreach(DataModeledCharacterData dataModeledCharacterData in dataModeledCharacterDataList)
         {
-            InjectDialoguesPlayedOfCharacter(dataModeledCharacterData.characterID, dataModeledCharacterData.dialoguesPlayedIDs);
+            InjectDialoguesPlayedOfCharacter(dataModeledCharacterData);
         }
     }
 
-    private void InjectDialoguesPlayedOfCharacter(int characterID, List<int> dialoguesPlayedIDs)
+    private void InjectDialoguesPlayedOfCharacter(DataModeledCharacterData dataModeledCharacterData)
     {
         if (CharacterAssetLibrary.Instance == null) return;
 
-        CharacterSO characterSO = CharacterAssetLibrary.Instance.GetCharacterSOByID(characterID);
+        CharacterSO characterSO = CharacterAssetLibrary.Instance.GetCharacterSOByID(dataModeledCharacterData.characterID);
 
         if(characterSO == null)
         {
-            if (debug) Debug.Log($"Could not find Character with ID: {characterID}. Dialogues Played injection will be ignored."); 
+            if (debug) Debug.Log($"Could not find Character with ID: {dataModeledCharacterData.characterID}. Dialogues Played injection will be ignored.");
+            return;
         }
 
         foreach(DialogueGroup dialogueGroup in dialogueGroups)
         {
             if (characterSO != dialogueGroup.characterSO) continue;
-            if (!dialoguesPlayedIDs.Contains(dialogueGroup.id)) continue;
+            if (!dataModeledCharacterData.dialoguesPlayedIDs.Contains(dialogueGroup.id)) continue;
 
             dialogueGroup.hasBeenPlayed = true;
         }
     }
 
-    public List<PrimitiveDialogueGroup> GetPrimitiveDialogueGroups()
+    public List<PrimitiveDialogueGroup> GetPlayedPrimitiveDialogueGroups()
     {
         List<PrimitiveDialogueGroup> primitiveDialogueGroups = new List<PrimitiveDialogueGroup>();
 
         foreach(DialogueGroup dialogueGroup in dialogueGroups)
         {
+            if(!dialogueGroup.hasBeenPlayed) continue;
+
             PrimitiveDialogueGroup primitiveDialogueGroup = new PrimitiveDialogueGroup { characterSO = dialogueGroup.characterSO, id = dialogueGroup.id, hasBeenPlayed = dialogueGroup.hasBeenPlayed };
             primitiveDialogueGroups.Add(primitiveDialogueGroup);
         }
 
         return primitiveDialogueGroups;
     }
+
     #endregion
 }

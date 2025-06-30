@@ -257,8 +257,6 @@ public class GameManager : MonoBehaviour
                 #endregion
             }
 
-
-
             #region CompleteCombat Logic
             yield return StartCoroutine(CompleteCombatCoroutine());
             #endregion
@@ -267,6 +265,13 @@ public class GameManager : MonoBehaviour
             if (DialogueTriggerHandler.Instance.ExistDialogueWithConditions(characterSO, stageNumber, roundNumber, DialogueChronology.PostCombat))
             {
                 yield return StartCoroutine(DialogueCoroutine(characterSO, stageNumber, roundNumber, DialogueChronology.PostCombat));
+            }
+            #endregion
+
+            #region DataUpdate Logic
+            if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts()) //Save Data
+            {
+                OnDataUpdateOnRoundCompleted?.Invoke(this, new OnRoundCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
             }
             #endregion
 
@@ -362,13 +367,6 @@ public class GameManager : MonoBehaviour
         #region EndingCombat Logic
         ChangeState(State.EndingCombat);
         yield return new WaitForSeconds(roundEndingTime);
-        #endregion
-
-        #region DataUpdate Logic
-        if (!GeneralStagesManager.Instance.LastCompletedStageAndRoundNumberAreLasts()) //Save Data
-        {
-            OnDataUpdateOnRoundCompleted?.Invoke(this, new OnRoundCompletedEventArgs { characterSO = PlayerCharacterManager.Instance.CharacterSO });
-        }
         #endregion
     }
 

@@ -32157,6 +32157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneDataSaveLoader: {fileID: 716470182}
+  dialogueTriggerHandler: {fileID: 988425550}
 --- !u!1001 &662837579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49115,9 +49116,30 @@ MonoBehaviour:
     roundNumber: 2
     dialogueChronology: 1
     dialogueSO: {fileID: 11400000, guid: 445ad903ac87bc84b85586945209bfa0, type: 2}
-    hasBeenPlayed: 0
-    onlyTutorializedRun: 1
     enabled: 1
+    onlyTutorializedRun: 1
+    playEvenIfAlreadyPlayed: 0
+    hasBeenPlayed: 0
+  - id: 2
+    characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
+    stageNumber: 1
+    roundNumber: 3
+    dialogueChronology: 1
+    dialogueSO: {fileID: 11400000, guid: 35edf1b5af21f4e47a17203e1bc72880, type: 2}
+    enabled: 1
+    onlyTutorializedRun: 0
+    playEvenIfAlreadyPlayed: 0
+    hasBeenPlayed: 0
+  - id: 3
+    characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
+    stageNumber: 1
+    roundNumber: 4
+    dialogueChronology: 1
+    dialogueSO: {fileID: 11400000, guid: 49381f65fbddb8144857819a6c5010d7, type: 2}
+    enabled: 1
+    onlyTutorializedRun: 0
+    playEvenIfAlreadyPlayed: 0
+    hasBeenPlayed: 0
   debug: 1
 --- !u!1 &990243785
 GameObject:

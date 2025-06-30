@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
 {
+    [Header("Data Scripts - Already On Scene")]
+    [SerializeField] private DialogueTriggerHandler dialogueTriggerHandler;
+
     //Runtime Filled
     private Transform playerTransform;
 
@@ -37,17 +40,29 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     #region Abstract Methods
     public override void InjectAllDataFromDataContainers()
     {
-        //
+        InjectCharactersPlayedDialogues();
     }
 
     public override void ExtractAllDataToDataContainers()
     {
-        //
+        ExtractCharactersPlayedDialogues();
     }
     #endregion
 
-    #region LoadMethods
+    #region InjectionMethods
+    private void InjectCharactersPlayedDialogues()
+    {
+        if (dialogueTriggerHandler == null) return;
+        dialogueTriggerHandler.SetDialoguesPlayed(SessionPerpetualDataContainer.Instance.PerpetualData.dataModeledCharacterDataList);
+    }
+    #endregion
 
+    #region Extraction Methods
+    private void ExtractCharactersPlayedDialogues()
+    {
+        if (dialogueTriggerHandler == null) return;
+        SessionPerpetualDataContainer.Instance.AddCharactersDialoguesPlayed(dialogueTriggerHandler.GetPlayedPrimitiveDialogueGroups());
+    }
     #endregion
 
 
@@ -67,7 +82,7 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
 
     private void GameManager_OnDataUpdateOnRoundCompleted(object sender, GameManager.OnRoundCompletedEventArgs e)
     {
-        //SetDialoguesTriggered
+        ExtractCharactersPlayedDialogues();
         OnTriggerDataSaveOnRoundCompleted?.Invoke();
     }
 

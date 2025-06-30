@@ -64,7 +64,10 @@ public class SessionPerpetualDataContainer : MonoBehaviour
         Debug.Log($"Could not find DataModeledCharacterData for CharacterID: {characterID}");
         return null;
     }
+
     #endregion
+    public void SetHasCompletedTutorial(bool hasCompletedTutorial) => perpetualData.hasCompletedTutorial = hasCompletedTutorial;
+    public void IncreaseTimesEnteredGame() => perpetualData.timesEnteredGame +=1;
 
     public void AddUnlockedCharacterIDs(List<int> characterIDs)
     {
@@ -93,6 +96,21 @@ public class SessionPerpetualDataContainer : MonoBehaviour
         dataModeledCharacterData.runsLost += 1;
     }
 
-    public void IncreaseTimesEnteredGame() => perpetualData.timesEnteredGame +=1;
-    public void SetHasCompletedTutorial(bool hasCompletedTutorial) => perpetualData.hasCompletedTutorial = hasCompletedTutorial;
+    public void AddCharactersDialoguesPlayed(List<PrimitiveDialogueGroup> primitiveDialogueGroups)
+    {
+        foreach(PrimitiveDialogueGroup primitiveDialogueGroup in primitiveDialogueGroups)
+        {
+            AddCharacterDialoguesPlayed(primitiveDialogueGroup);
+        }
+    }
+
+    private void AddCharacterDialoguesPlayed(PrimitiveDialogueGroup primitiveDialogueGroup)
+    {
+        DataModeledCharacterData dataModeledCharacterData = GetDataModeledCharacterDataByCharacterID(primitiveDialogueGroup.characterSO.id);
+        if (dataModeledCharacterData == null) return;
+
+        if (dataModeledCharacterData.dialoguesPlayedIDs.Contains(primitiveDialogueGroup.id)) return;
+        dataModeledCharacterData.dialoguesPlayedIDs.Add(primitiveDialogueGroup.id);
+    }
+
 }
