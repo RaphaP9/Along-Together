@@ -44,6 +44,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DevMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7689595-d822-406d-9f68-cce13f5117a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -66,6 +75,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Stats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9cea857a-75ba-4836-9201-77e8c2e01438"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DevMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -274,6 +294,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
         m_UI_Stats = m_UI.FindAction("Stats", throwIfNotFound: true);
+        m_UI_DevMenu = m_UI.FindAction("DevMenu", throwIfNotFound: true);
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
@@ -351,12 +372,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Pause;
     private readonly InputAction m_UI_Stats;
+    private readonly InputAction m_UI_DevMenu;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
         public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pause => m_Wrapper.m_UI_Pause;
         public InputAction @Stats => m_Wrapper.m_UI_Stats;
+        public InputAction @DevMenu => m_Wrapper.m_UI_DevMenu;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -372,6 +395,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Stats.started += instance.OnStats;
             @Stats.performed += instance.OnStats;
             @Stats.canceled += instance.OnStats;
+            @DevMenu.started += instance.OnDevMenu;
+            @DevMenu.performed += instance.OnDevMenu;
+            @DevMenu.canceled += instance.OnDevMenu;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -382,6 +408,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Stats.started -= instance.OnStats;
             @Stats.performed -= instance.OnStats;
             @Stats.canceled -= instance.OnStats;
+            @DevMenu.started -= instance.OnDevMenu;
+            @DevMenu.performed -= instance.OnDevMenu;
+            @DevMenu.canceled -= instance.OnDevMenu;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -603,6 +632,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnPause(InputAction.CallbackContext context);
         void OnStats(InputAction.CallbackContext context);
+        void OnDevMenu(InputAction.CallbackContext context);
     }
     public interface IMovementActions
     {

@@ -44,7 +44,16 @@ public class NewUIInput : UIInput
         if (!CanProcessInput()) return false;
         if (InputOnCooldown()) return false;
 
-        bool pauseInput = playerInputActions.UI.Stats.WasPerformedThisFrame();
-        return pauseInput;
+        bool statsInput = playerInputActions.UI.Stats.WasPerformedThisFrame();
+        return statsInput;
+    }
+
+    public override bool GetDevMenuDown()
+    {
+        if (!CanProcessInput()) return false;
+        if (InputOnCooldown()) return false;
+
+        bool devMenuInput = playerInputActions.UI.DevMenu.WasPerformedThisFrame();
+        return devMenuInput;
     }
 }
