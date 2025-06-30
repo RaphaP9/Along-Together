@@ -10,6 +10,7 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     private Transform playerTransform;
 
     public static Func<Task> OnTriggerDataSaveOnTutorialCompleted;
+    public static Func<Task> OnTriggerDataSaveOnRoundCompleted;
     public static Func<Task> OnTriggerDataSaveOnRunLost;
     public static Func<Task> OnTriggerDataSaveOnRunCompleted;
 
@@ -18,6 +19,7 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
         PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
 
         GameManager.OnDataUpdateOnTutorialCompleted += GameManager_OnDataUpdateOnTutorialCompleted;
+        GameManager.OnDataUpdateOnRoundCompleted += GameManager_OnDataUpdateOnRoundCompleted;
         WinManager.OnDataUpdateOnRunCompleted += WinManager_OnDataUpdateOnRunCompleted;
         LoseManager.OnDataUpdateOnRunLost += LoseManager_OnDataUpdateOnRunLost;
     }
@@ -27,6 +29,7 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
         PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
 
         GameManager.OnDataUpdateOnTutorialCompleted -= GameManager_OnDataUpdateOnTutorialCompleted;
+        GameManager.OnDataUpdateOnRoundCompleted -= GameManager_OnDataUpdateOnRoundCompleted;
         WinManager.OnDataUpdateOnRunCompleted -= WinManager_OnDataUpdateOnRunCompleted;
         LoseManager.OnDataUpdateOnRunLost -= LoseManager_OnDataUpdateOnRunLost;
     }
@@ -60,6 +63,12 @@ public class GameplaySessionPerpetualDataSaveLoader : SessionDataSaveLoader
     {
         SessionPerpetualDataContainer.Instance.SetHasCompletedTutorial(true);
         OnTriggerDataSaveOnTutorialCompleted?.Invoke();
+    }
+
+    private void GameManager_OnDataUpdateOnRoundCompleted(object sender, GameManager.OnRoundCompletedEventArgs e)
+    {
+        //SetDialoguesTriggered
+        OnTriggerDataSaveOnRoundCompleted?.Invoke();
     }
 
     private void WinManager_OnDataUpdateOnRunCompleted(object sender, WinManager.OnRunCompletedEventArgs e)

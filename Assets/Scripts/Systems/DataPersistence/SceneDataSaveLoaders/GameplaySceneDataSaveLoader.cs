@@ -10,8 +10,9 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
 
     private void OnEnable()
     {
-        GameplaySessionRunDataSaveLoader.OnTriggerDataSaveOnRoundCompleted += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRoundCompleted;
+        GameplaySessionRunDataSaveLoader.OnTriggerDataSaveOnRoundCompleted += GameplaySessionRunDataSaveLoader_OnTriggerDataSaveOnRoundCompleted;
 
+        GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRoundCompleted += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRoundCompleted;
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnTutorialCompleted += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnTutorialCompleted;
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunCompleted += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunCompleted;
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunLost += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunLost;
@@ -19,8 +20,9 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
 
     private void OnDisable()
     {
-        GameplaySessionRunDataSaveLoader.OnTriggerDataSaveOnRoundCompleted -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRoundCompleted;
+        GameplaySessionRunDataSaveLoader.OnTriggerDataSaveOnRoundCompleted -= GameplaySessionRunDataSaveLoader_OnTriggerDataSaveOnRoundCompleted;
 
+        GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRoundCompleted -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRoundCompleted;
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnTutorialCompleted -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnTutorialCompleted;
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunCompleted -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunCompleted;
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunLost -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunLost;
@@ -38,10 +40,17 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
         }
     }
 
-    #region Subscriptions
-    private async Task GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRoundCompleted()
+    #region Run Subscriptions
+    private async Task GameplaySessionRunDataSaveLoader_OnTriggerDataSaveOnRoundCompleted()
     {
         await HandleRunDataSave();
+    }
+    #endregion
+
+    #region Perpetual Subscriptions
+    private async Task GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRoundCompleted()
+    {
+        await HandlePerpetualDataSave();
     }
 
     private async Task GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnTutorialCompleted()

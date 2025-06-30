@@ -90,7 +90,8 @@ public class DialogueTriggerHandler : MonoBehaviour
     }
     #endregion
 
-    private void InjectDialoguesPlayed(List<DataModeledCharacterData> dataModeledCharacterDataList)
+    #region Save/Load Related Methods
+    public void InjectDialoguesPlayed(List<DataModeledCharacterData> dataModeledCharacterDataList)
     {
         foreach(DataModeledCharacterData dataModeledCharacterData in dataModeledCharacterDataList)
         {
@@ -117,4 +118,18 @@ public class DialogueTriggerHandler : MonoBehaviour
             dialogueGroup.hasBeenPlayed = true;
         }
     }
+
+    public List<PrimitiveDialogueGroup> GetPrimitiveDialogueGroups()
+    {
+        List<PrimitiveDialogueGroup> primitiveDialogueGroups = new List<PrimitiveDialogueGroup>();
+
+        foreach(DialogueGroup dialogueGroup in dialogueGroups)
+        {
+            PrimitiveDialogueGroup primitiveDialogueGroup = new PrimitiveDialogueGroup { characterSO = dialogueGroup.characterSO, id = dialogueGroup.id, hasBeenPlayed = dialogueGroup.hasBeenPlayed };
+            primitiveDialogueGroups.Add(primitiveDialogueGroup);
+        }
+
+        return primitiveDialogueGroups;
+    }
+    #endregion
 }
