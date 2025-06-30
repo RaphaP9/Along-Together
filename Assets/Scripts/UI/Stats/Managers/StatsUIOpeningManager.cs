@@ -80,6 +80,7 @@ public class StatsUIOpeningManager : MonoBehaviour
         HasOpenedThisFrame = false;
 
         if (!StatsInput) return;
+        if(!CanListenToInput()) return;
 
         if (!isOpen)
         {
@@ -94,6 +95,15 @@ public class StatsUIOpeningManager : MonoBehaviour
 
             if (setInputOnCooldown) UIInput.SetInputOnCooldown();
         }
+    }
+
+    private bool CanListenToInput()
+    {
+        if (GameManager.Instance.GameState == GameManager.State.BeginningCombat) return true;
+        if (GameManager.Instance.GameState == GameManager.State.EndingCombat) return true;
+        if (GameManager.Instance.GameState == GameManager.State.Combat) return true;
+
+        return false;
     }
 
     private void OpenStatsInmediately()
