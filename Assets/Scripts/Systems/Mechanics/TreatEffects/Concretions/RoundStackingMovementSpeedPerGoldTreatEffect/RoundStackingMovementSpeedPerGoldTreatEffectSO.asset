@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7df9eed21c184f84ab6e85c8c219c195, type: 3}
   m_Name: RoundStackingMovementSpeedPerGoldTreatEffectSO
   m_EditorClassIdentifier: 
-  activatorInventoryObjects:
-  - {fileID: 11400000, guid: 8921104c166fb1c46a534a34709b98e5, type: 2}
+  activatorInventoryObjects: []
   treatName: RoundStackingMovementSpeedPerGoldTreatEffect
   sprite: {fileID: 0}
   description: RoundStackingMovementSpeedPerGoldTreatEffect

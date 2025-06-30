@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -8,12 +11,15 @@ public class DataModeledCharacterData
     public int runsPlayed;
     public int runsWon;
     public int runsLost;
+    [Space]
+    public List<int> dialoguesPlayed;
 
-    public DataModeledCharacterData(int characterID, int runsPlayed, int runsWon, int runsLost)
+    public DataModeledCharacterData(int characterID)
     {
         this.characterID = characterID;
-        this.runsPlayed = runsPlayed;
-        this.runsWon = runsWon;
-        this.runsLost = runsLost;
+        runsPlayed = 0;
+        runsWon = 0;
+        runsLost = 0;
+        dialoguesPlayed = new List<int>();
     }
 }

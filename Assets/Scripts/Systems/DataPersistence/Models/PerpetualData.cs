@@ -39,7 +39,7 @@ public class PerpetualData : DataModel
 
         foreach (CharacterSO characterSO in CharacterAssetLibrary.Instance.Characters)
         {
-            DataModeledCharacterData dataModeledCharacterData = new DataModeledCharacterData(characterSO.id, 0, 0, 0); //Initialize Times played, won and lost to 0;
+            DataModeledCharacterData dataModeledCharacterData = new DataModeledCharacterData(characterSO.id); 
             dataModeledCharacterDataList.Add(dataModeledCharacterData);
         }
 

@@ -53,6 +53,7 @@ public class ExecuteTreatEffectHandler : TreatEffectHandler
         OnExecuteTreatExecution?.Invoke(this, new OnExecuteTreatExecutionEventArgs { enemyHealth = enemyHealth, healthEnemyHadToExecute = e.newHealth });
     }
 
+    #region Subscriptions
     private void EnemyHealth_OnAnyEnemyHealthTakeDamage(object sender, EntityHealth.OnEntityHealthTakeDamageEventArgs e)
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
@@ -60,4 +61,5 @@ public class ExecuteTreatEffectHandler : TreatEffectHandler
 
         HandleEnemyExecution(sender , e);
     }
+    #endregion
 }

@@ -59,6 +59,7 @@ public class EnemyExplosionTreatEffectHandler : TreatEffectHandler
         OnTreatExplosion?.Invoke(this, new OnTreatExplosionEventArgs { damage = damageData.damage, explosionRadius = EnemyExplosionTreatEffectSO.explosionRadius, position = position });
     }
 
+    #region Subscriptions
     private void EnemyHealth_OnAnyEnemyDeath(object sender, EntityHealth.OnEntityDeathEventArgs e)
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
@@ -66,4 +67,5 @@ public class EnemyExplosionTreatEffectHandler : TreatEffectHandler
 
         HandleTreatExplosion(sender, e);
     }
+    #endregion
 }

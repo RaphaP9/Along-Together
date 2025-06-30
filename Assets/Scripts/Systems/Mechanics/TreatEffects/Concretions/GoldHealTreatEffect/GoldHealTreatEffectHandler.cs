@@ -1,13 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-public class CritAttackHealTreatEffectHandler : TreatEffectHandler
+public class GoldHealTreatEffectHandler : TreatEffectHandler
 {
-    public static CritAttackHealTreatEffectHandler Instance { get; private set; }
+    public static GoldHealTreatEffectHandler Instance { get; private set; }
 
-    private CritAttackHealTreatEffectSO CritAttackHealTreatEffectSO => treatEffectSO as CritAttackHealTreatEffectSO;
+    private GoldHealTreatEffectSO GoldHealTreatEffectSO => treatEffectSO as GoldHealTreatEffectSO;
 
     private PlayerHealth playerHealth;
 
@@ -16,13 +16,13 @@ public class CritAttackHealTreatEffectHandler : TreatEffectHandler
     private void OnEnable()
     {
         PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
-        EnemyHealth.OnAnyEnemyHealthTakeDamage += EnemyHealth_OnAnyEnemyHealthTakeDamage;
+        GoldCollection.OnAnyGoldCollected += GoldCollection_OnAnyGoldCollected;
     }
 
     private void OnDisable()
     {
         PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
-        EnemyHealth.OnAnyEnemyHealthTakeDamage -= EnemyHealth_OnAnyEnemyHealthTakeDamage;
+        GoldCollection.OnAnyGoldCollected -= GoldCollection_OnAnyGoldCollected;
     }
 
     protected override void SetSingleton()
@@ -39,11 +39,11 @@ public class CritAttackHealTreatEffectHandler : TreatEffectHandler
 
     private void HandleHeal()
     {
-        bool probability = MechanicsUtilities.GetProbability(CritAttackHealTreatEffectSO.healProbability);
+        bool probability = MechanicsUtilities.GetProbability(GoldHealTreatEffectSO.healProbability);
 
         if (!probability) return;
 
-        HealData healData = new HealData(CritAttackHealTreatEffectSO.healPerCrit, CritAttackHealTreatEffectSO);
+        HealData healData = new HealData(GoldHealTreatEffectSO.healPerGold, GoldHealTreatEffectSO);
         playerHealth.Heal(healData);
 
         OnHealByTreat?.Invoke(this, EventArgs.Empty);
@@ -55,12 +55,11 @@ public class CritAttackHealTreatEffectHandler : TreatEffectHandler
         playerHealth = e.playerTransform.GetComponentInChildren<PlayerHealth>();
     }
 
-    private void EnemyHealth_OnAnyEnemyHealthTakeDamage(object sender, EntityHealth.OnEntityHealthTakeDamageEventArgs e)
+    private void GoldCollection_OnAnyGoldCollected(object sender, GoldCollection.OnGoldEventArgs e)
     {
         if (!isCurrentlyActiveByInventoryObjects) return;
         if (!isMeetingCondition) return;
-        if (!e.isCrit) return;
-        if (e.damageSource.GetDamageSourceClassification() != DamageSourceClassification.Character) return;
+        if (GameManager.Instance.GameState != GameManager.State.Combat) return; //Must be in combat
 
         HandleHeal();
     }

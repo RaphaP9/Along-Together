@@ -52,9 +52,10 @@ public class BonusDamageLowHealthTreatEffectHandler : TreatEffectHandler
     protected override bool EnablementCondition() => playerHealth.CurrentHealth <= BonusDamageLowHealthTreatEffectSO.healthThreshold;
     #endregion
 
-
+    #region Subscriptions
     private void PlayerInstantiationHandler_OnPlayerInstantiation(object sender, PlayerInstantiationHandler.OnPlayerInstantiationEventArgs e)
     {
         playerHealth = e.playerTransform.GetComponentInChildren<PlayerHealth>();
     }
+    #endregion
 }
