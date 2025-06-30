@@ -127,7 +127,7 @@ public class JSONNewtonsoftDataServiceNoEncryption : IDataService
         catch (Exception e)
         {
             Debug.LogError($"Failed to load data due to: {e.Message} {e.StackTrace}");
-            throw e;
+            return default;
         }
     }
 
@@ -150,7 +150,7 @@ public class JSONNewtonsoftDataServiceNoEncryption : IDataService
         catch (Exception e)
         {
             Debug.LogError($"Failed to load data due to: {e.Message} {e.StackTrace}");
-            throw e;
+            return default;
         }
     }
     #endregion

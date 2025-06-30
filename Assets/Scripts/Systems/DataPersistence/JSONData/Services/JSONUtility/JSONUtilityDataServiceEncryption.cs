@@ -113,7 +113,7 @@ public class JSONUtilityDataServiceEncryption : IDataService
             catch (Exception e)
             {
                 Debug.LogError($"Failed to load data due to: {e.Message} {e.StackTrace}");
-                throw e;
+                return default;
             }
         }
 
@@ -142,7 +142,7 @@ public class JSONUtilityDataServiceEncryption : IDataService
             catch (Exception e)
             {
                 Debug.LogError($"Failed to load data due to: {e.Message} {e.StackTrace}");
-                throw e;
+                return default;
             }
         }
 
