@@ -12,7 +12,7 @@ public class DataModeledCharacterData
     public int runsWon;
     public int runsLost;
     [Space]
-    public List<int> dialoguesPlayed;
+    public List<int> dialoguesPlayedIDs;
 
     public DataModeledCharacterData(int characterID)
     {
@@ -20,6 +20,6 @@ public class DataModeledCharacterData
         runsPlayed = 0;
         runsWon = 0;
         runsLost = 0;
-        dialoguesPlayed = new List<int>();
+        dialoguesPlayedIDs = new List<int>();
     }
 }

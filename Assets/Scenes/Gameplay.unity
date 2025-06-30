@@ -49109,11 +49109,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueGroups:
-  - characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
+  - id: 1
+    characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
     stageNumber: 1
     roundNumber: 2
     dialogueChronology: 1
     dialogueSO: {fileID: 11400000, guid: 445ad903ac87bc84b85586945209bfa0, type: 2}
+    hasBeenPlayed: 0
     onlyTutorializedRun: 1
     enabled: 1
   debug: 1

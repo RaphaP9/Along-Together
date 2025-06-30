@@ -12,56 +12,6 @@ public class DialogueTriggerHandler : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool debug;
 
-    #region Public Methods
-    public bool ExistDialogueWithConditions(CharacterSO characterSO, int stageNumber, int roundNumber, DialogueChronology dialogueChronology)
-    {
-        foreach(DialogueGroup dialogueGroup in dialogueGroups)
-        {
-            if (!dialogueGroup.enabled) continue;
-            if (dialogueGroup.onlyTutorializedRun && !GameManager.Instance.TutorializedRun) continue;
-
-            if (dialogueGroup.characterSO != characterSO) continue;
-            if (dialogueGroup.stageNumber != stageNumber) continue;
-            if (dialogueGroup.roundNumber != roundNumber) continue;
-            if (dialogueGroup.dialogueChronology != dialogueChronology) continue;
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public void PlayDialogueWithConditions(CharacterSO characterSO, int stageNumber, int roundNumber, DialogueChronology dialogueChronology)
-    {
-        DialogueSO dialogueSO = FindDialogueWithConditions(characterSO,stageNumber, roundNumber,dialogueChronology);
-
-        if(dialogueSO == null)
-        {
-            if (debug) Debug.Log("DialogueSO was not found. Dialogue Play will be ignored.");
-            return;
-        }
-
-        DialogueManager.Instance.StartDialogue(dialogueSO);
-    }
-
-    private DialogueSO FindDialogueWithConditions(CharacterSO characterSO, int stageNumber, int roundNumber, DialogueChronology dialogueChronology)
-    {
-        foreach (DialogueGroup dialogueGroup in dialogueGroups)
-        {
-            if (!dialogueGroup.enabled) continue;
-
-            if (dialogueGroup.characterSO != characterSO) continue;
-            if (dialogueGroup.stageNumber != stageNumber) continue;
-            if (dialogueGroup.roundNumber != roundNumber) continue;
-            if (dialogueGroup.dialogueChronology != dialogueChronology) continue;
-
-            return dialogueGroup.dialogueSO;
-        }
-
-        return null;
-    }
-    #endregion
-
     private void Awake()
     {
         SetSingleton();
@@ -79,17 +29,92 @@ public class DialogueTriggerHandler : MonoBehaviour
             Destroy(gameObject);
         }
     }
-}
 
-[System.Serializable]
-public class DialogueGroup
-{
-    public CharacterSO characterSO;
-    public int stageNumber;
-    public int roundNumber;
-    public DialogueChronology dialogueChronology;
-    public DialogueSO dialogueSO;
-    [Space]
-    public bool onlyTutorializedRun;
-    public bool enabled;
+
+    #region Public Methods
+    public bool ExistDialogueWithConditions(CharacterSO characterSO, int stageNumber, int roundNumber, DialogueChronology dialogueChronology)
+    {
+        foreach(DialogueGroup dialogueGroup in dialogueGroups)
+        {
+            if (!dialogueGroup.enabled) continue;
+            if (dialogueGroup.hasBeenPlayed && !dialogueGroup.playEvenIfAlreadyPlayed) continue;
+            if (dialogueGroup.onlyTutorializedRun && !GameManager.Instance.TutorializedRun) continue;
+
+            if (dialogueGroup.characterSO != characterSO) continue;
+            if (dialogueGroup.stageNumber != stageNumber) continue;
+            if (dialogueGroup.roundNumber != roundNumber) continue;
+            if (dialogueGroup.dialogueChronology != dialogueChronology) continue;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public void PlayDialogueWithConditions(CharacterSO characterSO, int stageNumber, int roundNumber, DialogueChronology dialogueChronology)
+    {
+        DialogueGroup dialogueGroup = FindDialogueGroupWithConditions(characterSO, stageNumber, roundNumber,dialogueChronology);
+
+        if(dialogueGroup == null)
+        {
+            if (debug) Debug.Log("DialogueGroup was not found. Dialogue Play will be ignored.");
+            return;
+        }
+
+        if(dialogueGroup.dialogueSO == null)
+        {
+            if (debug) Debug.Log("DialogueSO is null. Dialogue Play will be ignored.");
+            return;
+        }
+
+        dialogueGroup.hasBeenPlayed = true;
+
+        DialogueManager.Instance.StartDialogue(dialogueGroup.dialogueSO);
+    }
+
+    private DialogueGroup FindDialogueGroupWithConditions(CharacterSO characterSO, int stageNumber, int roundNumber, DialogueChronology dialogueChronology)
+    {
+        foreach (DialogueGroup dialogueGroup in dialogueGroups)
+        {
+            if (!dialogueGroup.enabled) continue;
+
+            if (dialogueGroup.characterSO != characterSO) continue;
+            if (dialogueGroup.stageNumber != stageNumber) continue;
+            if (dialogueGroup.roundNumber != roundNumber) continue;
+            if (dialogueGroup.dialogueChronology != dialogueChronology) continue;
+
+            return dialogueGroup;
+        }
+
+        return null;
+    }
+    #endregion
+
+    private void InjectDialoguesPlayed(List<DataModeledCharacterData> dataModeledCharacterDataList)
+    {
+        foreach(DataModeledCharacterData dataModeledCharacterData in dataModeledCharacterDataList)
+        {
+            InjectDialoguesPlayedOfCharacter(dataModeledCharacterData.characterID, dataModeledCharacterData.dialoguesPlayedIDs);
+        }
+    }
+
+    private void InjectDialoguesPlayedOfCharacter(int characterID, List<int> dialoguesPlayedIDs)
+    {
+        if (CharacterAssetLibrary.Instance == null) return;
+
+        CharacterSO characterSO = CharacterAssetLibrary.Instance.GetCharacterSOByID(characterID);
+
+        if(characterSO == null)
+        {
+            if (debug) Debug.Log($"Could not find Character with ID: {characterID}. Dialogues Played injection will be ignored."); 
+        }
+
+        foreach(DialogueGroup dialogueGroup in dialogueGroups)
+        {
+            if (characterSO != dialogueGroup.characterSO) continue;
+            if (!dialoguesPlayedIDs.Contains(dialogueGroup.id)) continue;
+
+            dialogueGroup.hasBeenPlayed = true;
+        }
+    }
 }
