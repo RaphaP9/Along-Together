@@ -13001,7 +13001,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255469451}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -85946,7 +85946,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7f70ead6fb7afe3439428780b8bce4ac, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 43da19cb9af6af446a3506c9c1b7009a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -86095,7 +86095,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6b1792bbe573bc94d8c2c0ac66f90e3a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd2ff961a83934a4a88027a206a92b10, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
