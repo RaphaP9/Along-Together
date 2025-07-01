@@ -10,10 +10,20 @@ public class MusicPoolSO : ScriptableObject
     public AudioClip optionsMusic;
     public AudioClip creditsMusic;
 
-    [Header("Delice")]
-    public AudioClip Delice_Stage1;
-    public AudioClip Delice_Stage2;
-    public AudioClip Delice_Stage3;
-    public AudioClip Delice_Stage4;
-    public AudioClip Delice_Stage5;
+    [Header("Gameplay")]
+    public List<CharacterStagesMusicGroup> CharacterStagesMusicGroupList;
+}
+
+[System.Serializable]
+public class CharacterStagesMusicGroup
+{
+    public CharacterSO characterSO;
+    public List<StageAudioClipGroup> stageAudioClipGroups;
+}
+
+[System.Serializable]
+public class StageAudioClipGroup
+{
+    public int stageNumber;
+    public AudioClip audioClip;
 }

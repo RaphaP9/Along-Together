@@ -81,7 +81,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9cea857a-75ba-4836-9201-77e8c2e01438"",
-                    ""path"": ""<Keyboard>/backspace"",
+                    ""path"": ""<Keyboard>/f12"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

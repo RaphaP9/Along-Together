@@ -25,8 +25,8 @@ public class CameraConfinerHandler : MonoBehaviour
         GeneralStagesManager.OnStageInitialized -= GeneralStagesManager_OnStageInitialized;
         GeneralStagesManager.OnStageChange -= GeneralStagesManager_OnStageChange;
 
-        CameraTransitionHandler.OnCameraTransitionPositionDeterminedEnd -= CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow;
-        CameraTransitionHandler.OnCameraTransitionOutEnd -= CameraTransitionHandler_OnCameraTransitionPositionDeterminedEnd;
+        CameraTransitionHandler.OnCameraTransitionPositionDeterminedPreFollow -= CameraTransitionHandler_OnCameraTransitionPositionDeterminedPreFollow;
+        CameraTransitionHandler.OnCameraTransitionPositionDeterminedEnd -= CameraTransitionHandler_OnCameraTransitionPositionDeterminedEnd;
     }
 
     private void SwitchConfiner(PolygonCollider2D confiner)

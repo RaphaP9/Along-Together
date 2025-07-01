@@ -44,37 +44,45 @@ public class GameplayMusicManager : MonoBehaviour
     private AudioClip GetGameplayMusicToPlay(int stageNumber)
     {
         CharacterSO characterSO = PlayerCharacterManager.Instance.CharacterSO;
-        AudioClip musicToPlay;
+        CharacterStagesMusicGroup characterStagesMusicGroup = GetCharacterStagesMusicGroup(characterSO);
 
-        switch (characterSO.id)
+        if(characterStagesMusicGroup == null)
         {
-            case 1: //Delice has ID:1
-            default:
-                musicToPlay = GetDeliceMusic(stageNumber);
-                break;
-
+            Debug.Log($"Can not find CharacterStagesMusicGroup for Character: {characterSO.entityName}");
+            return null;
         }
 
-        return musicToPlay;
+        StageAudioClipGroup stageAudioClipGroup = GetStageAudioClipGroup(characterStagesMusicGroup, stageNumber);
+
+        if (stageAudioClipGroup == null)
+        {
+            Debug.Log($"Can not find StageAudioClipGroup for Stage: {stageNumber}");
+            return null;
+        }
+
+
+        return stageAudioClipGroup.audioClip;
     }
 
-    #region Character Musics To Play
-    private AudioClip GetDeliceMusic(int stageNumber)
+    #region Utility Methods
+    private CharacterStagesMusicGroup GetCharacterStagesMusicGroup(CharacterSO characterSO)
     {
-        switch (stageNumber)
+        foreach(CharacterStagesMusicGroup characterStagesMusicGroup in musicPoolSO.CharacterStagesMusicGroupList)
         {
-            case 1:
-            default:
-                return musicPoolSO.Delice_Stage1;
-            case 2:
-                return musicPoolSO.Delice_Stage2;
-            case 3:
-                return musicPoolSO.Delice_Stage3;
-            case 4:
-                return musicPoolSO.Delice_Stage4;
-            case 5:
-                return musicPoolSO.Delice_Stage5;
+            if(characterStagesMusicGroup.characterSO == characterSO) return characterStagesMusicGroup;
         }
+
+        return null;
+    }
+
+    private StageAudioClipGroup GetStageAudioClipGroup(CharacterStagesMusicGroup characterStagesMusicGroup, int stageNumber)
+    {
+        foreach(StageAudioClipGroup stageAudioClipGroup in characterStagesMusicGroup.stageAudioClipGroups)
+        {
+            if(stageAudioClipGroup.stageNumber == stageNumber) return stageAudioClipGroup;
+        }
+
+        return null;
     }
     #endregion
 
