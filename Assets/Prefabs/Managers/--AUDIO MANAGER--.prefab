@@ -235,9 +235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicPoolSO: {fileID: 11400000, guid: f65d0916b71fdfe44bff2e1a107bcba0, type: 2}
-  fadeOutTime: 0.5
-  fadeInTime: 0.5
-  muteTime: 0.1
+  fadeOutTime: 1
+  fadeInTime: 1
   fadeOutTimeCinematics: 0.5
   fadeInTimeCinematics: 0.5
   currentGameplayMusic: {fileID: 0}

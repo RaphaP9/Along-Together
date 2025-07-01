@@ -96,6 +96,7 @@ public class GeneralStagesManager : MonoBehaviour
     public class OnStageChangeEventArgs : EventArgs
     {
         public StageGroup stageGroup;
+        public int stageNumber;
     }
     #endregion
 
@@ -477,7 +478,7 @@ public class GeneralStagesManager : MonoBehaviour
         }
 
         RepositionStageGroupToStagePoint(currentStageGroup);
-        OnStageInitialized?.Invoke(this, new OnStageChangeEventArgs { stageGroup = currentStageGroup });
+        OnStageInitialized?.Invoke(this, new OnStageChangeEventArgs { stageGroup = currentStageGroup, stageNumber = currentStageNumber });
     }
 
     public void ChangeToCurrentStage() //Called By Game Manager
@@ -493,7 +494,7 @@ public class GeneralStagesManager : MonoBehaviour
         RepositionStageGroupToOriginalStagePoint(previousStageGroup);
         RepositionStageGroupToStagePoint(currentStageGroup);
 
-        OnStageChange?.Invoke(this, new OnStageChangeEventArgs { stageGroup = currentStageGroup });        
+        OnStageChange?.Invoke(this, new OnStageChangeEventArgs { stageGroup = currentStageGroup, stageNumber = currentStageNumber });        
     }
 
     private bool CanChangeStage()

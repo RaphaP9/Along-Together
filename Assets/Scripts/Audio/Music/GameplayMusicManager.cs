@@ -8,10 +8,9 @@ public class GameplayMusicManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] private MusicPoolSO musicPoolSO;
 
-    [Header("Gameplay Music Transition Settings")]
-    [SerializeField,Range(0.1f,2f)]  private float fadeOutTime;
+    [Header("Gameplay Music Change Settings")]
+    [SerializeField,Range(0.1f, 2f)]  private float fadeOutTime;
     [SerializeField, Range(0.1f, 2f)] private float fadeInTime;
-    [SerializeField, Range(0.1f, 2f)] private float muteTime;
 
     [Header("Cinematic Gameplay Music Fade Settings")]
     [SerializeField, Range(0.1f, 2f)] private float fadeOutTimeCinematics;
@@ -22,12 +21,105 @@ public class GameplayMusicManager : MonoBehaviour
 
     private void OnEnable()
     {
-       
-    }
+        GeneralStagesManager.OnStageInitialized += GeneralStagesManager_OnStageInitialized;
+        GeneralStagesManager.OnStageChange += GeneralStagesManager_OnStageChange;
 
+        GameManager.OnStateChanged += GameManager_OnStateChanged;
+    }
 
     private void OnDisable()
     {
-       
+        GeneralStagesManager.OnStageInitialized -= GeneralStagesManager_OnStageInitialized;
+        GeneralStagesManager.OnStageChange -= GeneralStagesManager_OnStageChange;
+
+        GameManager.OnStateChanged -= GameManager_OnStateChanged;
     }
+
+    private void PlayGameplayMusic(int stageNumber)
+    {
+        AudioClip musicToPlay = GetGameplayMusicToPlay(stageNumber);
+        PlayGameplayMusic(musicToPlay);
+    }
+
+    private AudioClip GetGameplayMusicToPlay(int stageNumber)
+    {
+        CharacterSO characterSO = PlayerCharacterManager.Instance.CharacterSO;
+        AudioClip musicToPlay;
+
+        switch (characterSO.id)
+        {
+            case 1: //Delice has ID:1
+            default:
+                musicToPlay = GetDeliceMusic(stageNumber);
+                break;
+
+        }
+
+        return musicToPlay;
+    }
+
+    #region Character Musics To Play
+    private AudioClip GetDeliceMusic(int stageNumber)
+    {
+        switch (stageNumber)
+        {
+            case 1:
+            default:
+                return musicPoolSO.Delice_Stage1;
+            case 2:
+                return musicPoolSO.Delice_Stage2;
+            case 3:
+                return musicPoolSO.Delice_Stage3;
+            case 4:
+                return musicPoolSO.Delice_Stage4;
+            case 5:
+                return musicPoolSO.Delice_Stage5;
+        }
+    }
+    #endregion
+
+    private void PlayGameplayMusic(AudioClip gameplayMusic)
+    {
+        MusicManager.Instance.PlayMusic(gameplayMusic);
+        currentGameplayMusic = gameplayMusic;
+
+        Debug.Log($"GameplayMusicPlay: {gameplayMusic}");
+    }
+
+    private IEnumerator FadeMusicOutCoroutine()
+    {
+        yield return StartCoroutine(MusicVolumeFadeManager.Instance.FadeOutVolumeCoroutine(fadeOutTime));
+    }
+
+    private IEnumerator FadeMusicInCoroutine()
+    {
+        yield return StartCoroutine(MusicVolumeFadeManager.Instance.FadeInVolumeCoroutine(fadeInTime));
+    }
+
+    #region Subscriptions
+    private void GeneralStagesManager_OnStageInitialized(object sender, GeneralStagesManager.OnStageChangeEventArgs e)
+    {
+        PlayGameplayMusic(e.stageNumber);
+    }
+
+    private void GeneralStagesManager_OnStageChange(object sender, GeneralStagesManager.OnStageChangeEventArgs e)
+    {
+        PlayGameplayMusic(e.stageNumber);
+    }
+
+    private void GameManager_OnStateChanged(object sender, GameManager.OnStateChangeEventArgs e)
+    {
+        if (e.newState == GameManager.State.BeginningChangingStage)
+        {
+            StartCoroutine(FadeMusicOutCoroutine());
+            return;
+        }
+
+        if (e.newState == GameManager.State.EndingChangingStage)
+        {
+            StartCoroutine(FadeMusicInCoroutine()); 
+            return;
+        }
+    }
+    #endregion
 }

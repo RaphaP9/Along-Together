@@ -10,7 +10,10 @@ public class MusicPoolSO : ScriptableObject
     public AudioClip optionsMusic;
     public AudioClip creditsMusic;
 
-    [Header("Gameplay")]
-    public AudioClip gameplayMusic;
-
+    [Header("Delice")]
+    public AudioClip Delice_Stage1;
+    public AudioClip Delice_Stage2;
+    public AudioClip Delice_Stage3;
+    public AudioClip Delice_Stage4;
+    public AudioClip Delice_Stage5;
 }
