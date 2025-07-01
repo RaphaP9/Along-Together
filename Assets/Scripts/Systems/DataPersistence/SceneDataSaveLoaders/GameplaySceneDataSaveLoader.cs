@@ -16,6 +16,8 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnTutorialCompleted += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnTutorialCompleted;
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunCompleted += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunCompleted;
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunLost += GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunLost;
+
+        DevMenuUIButtonsHandler.OnTriggerForceJSONSave += DevMenuUIButtonsHandler_OnTriggerForceJSONSave; 
     }
 
     private void OnDisable()
@@ -26,6 +28,8 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnTutorialCompleted -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnTutorialCompleted;
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunCompleted -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunCompleted;
         GameplaySessionPerpetualDataSaveLoader.OnTriggerDataSaveOnRunLost -= GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunLost;
+
+        DevMenuUIButtonsHandler.OnTriggerForceJSONSave -= DevMenuUIButtonsHandler_OnTriggerForceJSONSave;
     }
 
     protected override void SetSingleton()
@@ -66,6 +70,13 @@ public class GameplaySceneDataSaveLoader : SceneDataSaveLoader
     private async Task GameplaySessionPerpetualDataSaveLoader_OnTriggerDataSaveOnRunLost()
     {
         await HandlePerpetualDataSave();
+    }
+    #endregion
+
+    #region DevMenu Subscriptions
+    private async Task DevMenuUIButtonsHandler_OnTriggerForceJSONSave()
+    {
+        await HandleRunDataSave();
     }
     #endregion
 }
