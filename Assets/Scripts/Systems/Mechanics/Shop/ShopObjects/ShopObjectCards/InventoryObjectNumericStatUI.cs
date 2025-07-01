@@ -45,6 +45,8 @@ public class InventoryObjectNumericStatUI : MonoBehaviour
                 break;
         }
 
+        if (numericEmbeddedStat.numericStatModificationType == NumericStatModificationType.Replacement) SetStatValueTextColor(neutralColor); //Replacement Values Are Always Neutral
+
         string processedValueText = MappingUtilities.ProcessObjectNumericStatValueToString(numericEmbeddedStat.numericStatType, numericEmbeddedStat.numericStatModificationType, numericEmbeddedStat.value);
 
         SetStatValueText(processedValueText);

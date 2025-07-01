@@ -173,7 +173,9 @@ public static class MappingUtilities
                 break;
         }
 
-        if (value > 0f) processedString = PLUS_CHARACTER + processedString; //Add plus character to values over 0
+        if(numericStatModificationType == NumericStatModificationType.Replacement) return processedString;
+
+        if (value > 0f) processedString = PLUS_CHARACTER + processedString; //Add plus character to values over 0 that are not Replacements
 
         return processedString;
     }

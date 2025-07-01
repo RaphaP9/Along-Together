@@ -60,7 +60,6 @@ public class GameplayMusicManager : MonoBehaviour
             return null;
         }
 
-
         return stageAudioClipGroup.audioClip;
     }
 

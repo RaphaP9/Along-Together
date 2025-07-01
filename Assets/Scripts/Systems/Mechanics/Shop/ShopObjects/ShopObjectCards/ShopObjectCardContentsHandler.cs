@@ -49,16 +49,17 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     {
         ClearNumericStatsContainer();
 
-        if(inventoryObjectSO.GetNumericEmbeddedStats().Count <= 0)
-        {
-            numericStatsContainer.gameObject.SetActive(false);
-            return;
-        }
+        int printedNumericStats = 0; 
 
         foreach (NumericEmbeddedStat numericEmbeddedStat in inventoryObjectSO.GetNumericEmbeddedStats())
         {
+            if (numericEmbeddedStat.numericStatModificationType == NumericStatModificationType.Replacement) continue; //NOTE: Replacement Stats Are not Printed!
+
             CreateNumericStat(numericEmbeddedStat);
+            printedNumericStats++;
         }
+
+        if (printedNumericStats <= 0) numericStatsContainer.gameObject.SetActive(false);
     }
 
     private void CreateNumericStat(NumericEmbeddedStat numericEmbeddedStat)
