@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d8fef6d0016d8048b0f50a71aafab69, type: 3}
   m_Name: RoundStackingAttackSpeedPerEnemyKilledTreatEffectSO
   m_EditorClassIdentifier: 
-  activatorInventoryObjects:
-  - {fileID: 11400000, guid: df70edf7f81faa94e885653acf3f78cd, type: 2}
+  activatorInventoryObjects: []
   treatName: RoundStackingAttackSpeedPerEnemyKilledTreatEffect
   sprite: {fileID: 0}
   description: RoundStackingAttackSpeedPerEnemyKilledTreatEffect

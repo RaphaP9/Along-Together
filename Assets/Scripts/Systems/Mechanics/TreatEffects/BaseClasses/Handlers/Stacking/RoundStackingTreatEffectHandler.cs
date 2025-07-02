@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class RoundStackingTreatEffectHandler : StackingTreatEffectHandler
 {
-
     protected bool onRound = false;
 
     protected virtual void OnEnable()

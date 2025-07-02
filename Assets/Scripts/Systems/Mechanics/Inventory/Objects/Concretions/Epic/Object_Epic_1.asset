@@ -15,15 +15,18 @@ MonoBehaviour:
   id: 1401
   _name: Object_Epic_1
   objectRarity: 3
-  description: Object_Epic_1 Description
+  description: "Tu vida m\xE1xima se fija en 1"
   sprite: {fileID: 21300000, guid: af33c4b35928bd344928a59cca80c2e1, type: 3}
   price: 40
   sellPrice: 28
   numericEmbeddedStats:
-  - numericStatType: 6
+  - numericStatType: 10
     numericStatModificationType: 1
-    value: 0.25
-  - numericStatType: 12
-    numericStatModificationType: 0
-    value: 0.05
+    value: 2
+  - numericStatType: 7
+    numericStatModificationType: 1
+    value: 0.3
+  - numericStatType: 0
+    numericStatModificationType: 2
+    value: 1
   recommendedCharacters: []
