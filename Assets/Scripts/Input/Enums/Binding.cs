@@ -11,9 +11,9 @@ public enum Binding
     
     Attack,
 
-    Ability1, 
-    Ability2, 
-    Ability3,
+    AbilityA, 
+    AbilityB, 
+    AbilityC,
 
     SkipDialogue,
 

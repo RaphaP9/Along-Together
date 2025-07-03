@@ -12,6 +12,8 @@ public class CentralizedInputSystemManager : MonoBehaviour
 
     public static EventHandler<OnPlayerInputActionsEventArgs> OnPlayerInputActionsInitialized;
 
+    private Dictionary<Binding, BindingData> bindingsDictionary;
+
     public static event EventHandler<OnRebindingEventArgs> OnRebindingStarted;
     public static event EventHandler<OnRebindingEventArgs> OnRebindingCompleted;
 
@@ -29,6 +31,7 @@ public class CentralizedInputSystemManager : MonoBehaviour
     {
         SetSingleton();
         InitializePlayerInputActions();
+        InitializeBindingsDictionary();
     }
 
     private void SetSingleton()
@@ -41,6 +44,30 @@ public class CentralizedInputSystemManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+
+    private void InitializeBindingsDictionary()
+    {
+        bindingsDictionary = new Dictionary<Binding, BindingData>
+        {
+            { Binding.MoveUp,       new BindingData(PlayerInputActions.Movement.Move, 1)},
+            { Binding.MoveDown,     new BindingData(PlayerInputActions.Movement.Move, 2)},
+            { Binding.MoveLeft,     new BindingData(PlayerInputActions.Movement.Move, 3)},
+            { Binding.MoveRight,    new BindingData(PlayerInputActions.Movement.Move, 4)},
+
+            { Binding.Attack,       new BindingData(PlayerInputActions.Attack.Attack, 0)},
+
+            { Binding.AbilityA,     new BindingData(PlayerInputActions.Abilities.AbilityA, 0)},
+            { Binding.AbilityB,     new BindingData(PlayerInputActions.Abilities.AbilityB, 0)},
+            { Binding.AbilityC,     new BindingData(PlayerInputActions.Abilities.AbilityC, 0)},
+
+            { Binding.SkipDialogue, new BindingData(PlayerInputActions.Conversations.Skip, 0)},
+
+            { Binding.Stats,        new BindingData(PlayerInputActions.UI.Stats, 0)},
+            { Binding.DevMenu,      new BindingData(PlayerInputActions.UI.DevMenu, 0)},
+            { Binding.Pause,        new BindingData(PlayerInputActions.UI.Pause, 0)},
+        };
     }
 
     private void InitializePlayerInputActions()
@@ -70,88 +97,20 @@ public class CentralizedInputSystemManager : MonoBehaviour
     #region Getters
     public string GetBindingText(Binding binding)
     {
-        switch (binding)
-        {
-            default:
-            case Binding.MoveUp:
-                return PlayerInputActions.Movement.Move.bindings[1].ToDisplayString();
-            case Binding.MoveDown:
-                return PlayerInputActions.Movement.Move.bindings[2].ToDisplayString();
-            case Binding.MoveLeft:
-                return PlayerInputActions.Movement.Move.bindings[3].ToDisplayString();
-            case Binding.MoveRight:
-                return PlayerInputActions.Movement.Move.bindings[4].ToDisplayString();
-            case Binding.Attack:
-                return PlayerInputActions.Attack.Attack.bindings[0].ToDisplayString();
-            case Binding.Ability1:
-                return PlayerInputActions.Abilities.AbilityA.bindings[0].ToDisplayString();
-            case Binding.Ability2:
-                return PlayerInputActions.Abilities.AbilityB.bindings[0].ToDisplayString();
-            case Binding.Ability3:
-                return PlayerInputActions.Abilities.AbilityC.bindings[0].ToDisplayString();
-            case Binding.SkipDialogue:
-                return PlayerInputActions.Conversations.Skip.bindings[0].ToDisplayString();
-            case Binding.Stats:
-                return PlayerInputActions.UI.Stats.bindings[0].ToDisplayString();
-            case Binding.DevMenu:
-                return PlayerInputActions.UI.DevMenu.bindings[0].ToDisplayString();
-            case Binding.Pause:
-                return PlayerInputActions.UI.Pause.bindings[0].ToDisplayString();
-        }
+        BindingData bindingData = bindingsDictionary[binding];
+        return bindingData.inputAction.bindings[bindingData.bindingIndex].ToDisplayString();
     }
 
-    private InputAction GetBindingInputAction(Binding binding)
+    public InputAction GetBindingInputAction(Binding binding)
     {
-        switch (binding)
-        {
-            default:
-            case Binding.MoveUp:
-            case Binding.MoveDown:
-            case Binding.MoveLeft:
-            case Binding.MoveRight:
-                return PlayerInputActions.Movement.Move;
-            case Binding.Attack:
-                return PlayerInputActions.Attack.Attack;
-            case Binding.Ability1:
-                return PlayerInputActions.Abilities.AbilityA;
-            case Binding.Ability2:
-                return PlayerInputActions.Abilities.AbilityB;
-            case Binding.Ability3:
-                return PlayerInputActions.Abilities.AbilityC;
-            case Binding.SkipDialogue:
-                return PlayerInputActions.Conversations.Skip;
-            case Binding.Stats:
-                return PlayerInputActions.UI.Stats;
-            case Binding.DevMenu:
-                return PlayerInputActions.UI.DevMenu;
-            case Binding.Pause:
-                return PlayerInputActions.UI.Pause;
-        }
+        BindingData bindingData = bindingsDictionary[binding];
+        return bindingData.inputAction;
     }
 
-    private int GetBindingIndex(Binding binding)
+    public int GetBindingIndex(Binding binding)
     {
-        switch (binding)
-        {
-            default:
-            case Binding.MoveUp:
-                return 1;
-            case Binding.MoveDown:
-                return 2;
-            case Binding.MoveLeft:
-                return 3;
-            case Binding.MoveRight:
-                return 4;
-            case Binding.Attack:
-            case Binding.Ability1:
-            case Binding.Ability2:
-            case Binding.Ability3:
-            case Binding.SkipDialogue:
-            case Binding.Stats:
-            case Binding.DevMenu:
-            case Binding.Pause:
-                return 0;
-        }
+        BindingData bindingData = bindingsDictionary[binding];
+        return bindingData.bindingIndex;
     }
     #endregion
 
@@ -169,6 +128,7 @@ public class CentralizedInputSystemManager : MonoBehaviour
                 callback.Dispose();
                 EnableAllActionMaps();
                 OnRebindingCompleted?.Invoke(this, new OnRebindingEventArgs { binding = binding });
-            });
+            }).Start();
     }
 }
+
