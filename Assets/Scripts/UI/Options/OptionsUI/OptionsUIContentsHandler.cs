@@ -8,6 +8,7 @@ public class OptionsUIContentsHandler : MonoBehaviour
     [SerializeField] private Animator mainContentAnimator;
     [SerializeField] private Animator audioOptionsContentAnimator;
     [SerializeField] private Animator graphicsOptionsContentAnimator;
+    [SerializeField] private Animator controlsOptionsContentAnimator;
 
     private const string SHOW_TRIGGER = "Show";
     private const string HIDE_TRIGGER = "Hide";
@@ -27,6 +28,7 @@ public class OptionsUIContentsHandler : MonoBehaviour
         mainContentAnimator.SetTrigger(SHOW_TRIGGER);
         audioOptionsContentAnimator.SetTrigger(HIDE_TRIGGER);
         graphicsOptionsContentAnimator.SetTrigger(HIDE_TRIGGER);
+        controlsOptionsContentAnimator.SetTrigger(HIDE_TRIGGER);
     }
 
     public void ShowAudioOptionsContent()
@@ -36,6 +38,7 @@ public class OptionsUIContentsHandler : MonoBehaviour
         audioOptionsContentAnimator.SetTrigger(SHOW_TRIGGER);
         mainContentAnimator.SetTrigger(HIDE_TRIGGER);
         graphicsOptionsContentAnimator.SetTrigger(HIDE_TRIGGER);
+        controlsOptionsContentAnimator.SetTrigger(HIDE_TRIGGER);
     }
 
     public void ShowGraphicsOptionsContent()
@@ -45,6 +48,17 @@ public class OptionsUIContentsHandler : MonoBehaviour
         graphicsOptionsContentAnimator.SetTrigger(SHOW_TRIGGER);
         mainContentAnimator.SetTrigger(HIDE_TRIGGER);
         audioOptionsContentAnimator.SetTrigger(HIDE_TRIGGER);
+        controlsOptionsContentAnimator.SetTrigger(HIDE_TRIGGER);
+    }
+
+    public void ShowControlsOptionsContent()
+    {
+        controlsOptionsContentAnimator.ResetTrigger(HIDE_TRIGGER);
+
+        controlsOptionsContentAnimator.SetTrigger(SHOW_TRIGGER);
+        mainContentAnimator.SetTrigger(HIDE_TRIGGER);
+        audioOptionsContentAnimator.SetTrigger(HIDE_TRIGGER);
+        graphicsOptionsContentAnimator.SetTrigger(HIDE_TRIGGER);
     }
 
     public void ResetContents()
@@ -52,9 +66,11 @@ public class OptionsUIContentsHandler : MonoBehaviour
         mainContentAnimator.ResetTrigger(HIDE_TRIGGER);
         audioOptionsContentAnimator.ResetTrigger(HIDE_TRIGGER);
         graphicsOptionsContentAnimator.ResetTrigger(HIDE_TRIGGER);
+        controlsOptionsContentAnimator.SetTrigger(HIDE_TRIGGER);
 
         mainContentAnimator.Play(SHOWING_CONTENT_ANIMATION);
         audioOptionsContentAnimator.Play(HIDDEN_CONTENT_ANIMATION);
         graphicsOptionsContentAnimator.Play(HIDDEN_CONTENT_ANIMATION);
+        controlsOptionsContentAnimator.Play(HIDDEN_CONTENT_ANIMATION);
     }
 }

@@ -11,6 +11,7 @@ public class OptionsUIMainContentButtonsHandler : MonoBehaviour
     [Header("UI Components")]
     [SerializeField] private Button audioOptionsButton;
     [SerializeField] private Button graphicsOptionsButton;
+    [SerializeField] private Button controlsOptionsButton;
 
     private void Awake()
     {
@@ -21,8 +22,10 @@ public class OptionsUIMainContentButtonsHandler : MonoBehaviour
     {
         audioOptionsButton.onClick.AddListener(ShowAudioContent);
         graphicsOptionsButton.onClick.AddListener(ShowGraphicsContent);
+        controlsOptionsButton.onClick.AddListener(ShowControlsContent);
     }
 
     private void ShowAudioContent() => optionsUIContentsHandler.ShowAudioOptionsContent();
     private void ShowGraphicsContent() => optionsUIContentsHandler.ShowGraphicsOptionsContent();
+    private void ShowControlsContent() => optionsUIContentsHandler.ShowControlsOptionsContent();
 }
