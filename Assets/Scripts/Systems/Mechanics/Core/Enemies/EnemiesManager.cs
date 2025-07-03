@@ -154,6 +154,8 @@ public class EnemiesManager : MonoBehaviour
         activeEnemies.Remove(enemy);
     }
 
+    public int GetActiveEnemiesCount() => activeEnemies.Count;
+
     #region Subscriptions
     private void EnemyCleanupHandler_OnAnyEnemyCleanup(object sender, EnemyCleanupHandler.OnEnemyCleanUpEventArgs e)
     {

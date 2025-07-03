@@ -52,7 +52,9 @@ public class GoldDropperManager : MonoBehaviour
     {
         int goldAlreadyDropped = 0;
 
-        foreach(GoldValuePrefab goldValuePrefab in goldValuePrefabs)
+        goldAmount = GoldResolver.Instance.ResolveStatInt(goldAmount);
+
+        foreach (GoldValuePrefab goldValuePrefab in goldValuePrefabs)
         {
             if (goldAlreadyDropped == goldAmount) break;
 
