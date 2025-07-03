@@ -4,10 +4,10 @@ using UnityEngine;
 
 public enum Binding 
 {
-    Move_Up,
-    Move_Down, 
-    Move_Left, 
-    Move_Right,
+    MoveUp,
+    MoveDown, 
+    MoveLeft, 
+    MoveRight,
     
     Attack,
 
