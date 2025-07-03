@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseUIInGameAudioOptionsContentButtonsHandler : MonoBehaviour
+public class PauseUIInGameAnyOptionsContentButtonsHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private PauseUIContentsHandler pauseUIContentsHandler;
