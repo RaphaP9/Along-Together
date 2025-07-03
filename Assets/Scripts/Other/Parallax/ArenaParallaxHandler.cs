@@ -21,10 +21,11 @@ public class ArenaParallaxHandler : MonoBehaviour
     {
         if (PlayerTransformRegister.Instance == null) return;
         if (PlayerTransformRegister.Instance.PlayerTransform == null) return;
-        if (Vector3.Distance(PlayerTransformRegister.Instance.PlayerTransform.position, arenaCenterRefference.position) > DISTANCE_THRESHOLD_TO_UPDATE) return;
-
 
         Vector2 playerOffsetFromCenter = GeneralUtilities.SupressZComponent(PlayerTransformRegister.Instance.PlayerTransform.position - arenaCenterRefference.position);
-        transform.localPosition = new Vector3(-playerOffsetFromCenter.x * displacementMultipliers.x, -playerOffsetFromCenter.y * displacementMultipliers.y, 0f);
+
+        if (playerOffsetFromCenter.magnitude > DISTANCE_THRESHOLD_TO_UPDATE) return;
+       
+        transform.localPosition = new Vector3(playerOffsetFromCenter.x * displacementMultipliers.x, playerOffsetFromCenter.y * displacementMultipliers.y, 0f);
     }
 }
