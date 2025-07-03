@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BonusDamagePerObjectEmptySlotTreatEffectSO
   m_EditorClassIdentifier: 
   activatorInventoryObjects:
-  - {fileID: 11400000, guid: caf4b2fb6b02de54e92635fd928de7e3, type: 2}
+  - {fileID: 11400000, guid: 2b2dc3fc5fdb4214882031155ecf2eaa, type: 2}
   treatName: BonusDamagePerObjectEmptySlotTreatEffect
   sprite: {fileID: 0}
   description: BonusDamagePerObjectEmptySlotTreatEffect

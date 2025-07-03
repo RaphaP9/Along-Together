@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyExplosionTreatEffectSO
   m_EditorClassIdentifier: 
   activatorInventoryObjects:
-  - {fileID: 11400000, guid: 268922dd9b3c4ab4c8f18325733c2355, type: 2}
+  - {fileID: 11400000, guid: 090818f51cdaf1a42b83f580a8ee7a23, type: 2}
   treatName: EnemyExplosionTreatEffect
   sprite: {fileID: 0}
   description: EnemyExplosionTreatEffect

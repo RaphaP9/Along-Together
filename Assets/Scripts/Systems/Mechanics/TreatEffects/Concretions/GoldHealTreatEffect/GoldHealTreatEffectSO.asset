@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoldHealTreatEffectSO
   m_EditorClassIdentifier: 
   activatorInventoryObjects:
-  - {fileID: 11400000, guid: 8921104c166fb1c46a534a34709b98e5, type: 2}
+  - {fileID: 11400000, guid: b660a1e748c804c46a76a14ca215ea6d, type: 2}
   treatName: GoldHealTreatEffect
   sprite: {fileID: 0}
   description: GoldHealTreatEffectSO

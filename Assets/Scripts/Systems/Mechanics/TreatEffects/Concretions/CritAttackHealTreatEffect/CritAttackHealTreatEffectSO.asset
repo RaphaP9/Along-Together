@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b14c026d10a3e42bcbf604e8f241c0, type: 3}
   m_Name: CritAttackHealTreatEffectSO
   m_EditorClassIdentifier: 
-  activatorInventoryObjects: []
+  activatorInventoryObjects:
+  - {fileID: 11400000, guid: af882b6d676d50642904516bf17cde6a, type: 2}
   treatName: CritAttackHealTreatEffect
   sprite: {fileID: 0}
   description: CritAttackHealTreatEffect

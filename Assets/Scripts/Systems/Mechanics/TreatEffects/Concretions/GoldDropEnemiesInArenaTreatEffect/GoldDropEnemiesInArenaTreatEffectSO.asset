@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoldDropEnemiesInArenaTreatEffectSO
   m_EditorClassIdentifier: 
   activatorInventoryObjects:
-  - {fileID: 11400000, guid: 6ba4a054da834094fa775315dc7dd830, type: 2}
+  - {fileID: 11400000, guid: 0b15350a21d56514abbbdbc0a66d6633, type: 2}
   treatName: GoldDropEnemiesInArenaTreatEffect
   sprite: {fileID: 0}
   description: GoldDropEnemiesInArenaTreatEffect

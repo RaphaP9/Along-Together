@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PermanentAttackDamageStackingPerObjectSoldTreatEffectSO
   m_EditorClassIdentifier: 
   activatorInventoryObjects:
-  - {fileID: 11400000, guid: 02de4dd2773720443a4ac31108ee3144, type: 2}
+  - {fileID: 11400000, guid: 79cb1ec46f518d943915170e016d4c79, type: 2}
   treatName: PermanentAttackDamageStackingPerObjectSoldTreatEffect
   sprite: {fileID: 0}
   description: PermanentAttackDamageStackingPerObjectSoldTreatEffect

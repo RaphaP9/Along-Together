@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b27a1d11b355524c8c999ce22b84181, type: 3}
   m_Name: RoundStackingDamagePerGoldTreatEffectSO
   m_EditorClassIdentifier: 
-  activatorInventoryObjects: []
+  activatorInventoryObjects:
+  - {fileID: 11400000, guid: 2f8e09d1b55afc441ab395edd7fc328e, type: 2}
   treatName: RoundStackingDamagePerGoldTreatEffect
   sprite: {fileID: 0}
   description: RoundStackingDamagePerGoldTreatEffect

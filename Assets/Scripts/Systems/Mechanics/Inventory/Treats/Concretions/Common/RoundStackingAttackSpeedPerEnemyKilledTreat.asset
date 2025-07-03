@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 699723a33aa6d91428cbf19ad440a0ed, type: 3}
-  m_Name: Treat_Common_1
+  m_Name: RoundStackingAttackSpeedPerEnemyKilledTreat
   m_EditorClassIdentifier: 
-  id: 2101
-  _name: Treat_Common_1
+  id: 2105
+  _name: RoundStackingAttackSpeedPerEnemyKilledTreat
   objectRarity: 0
-  description: Treat_Common_1
+  description: RoundStackingAttackSpeedPerEnemyKilledTreat
   sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
-  price: 35
-  sellPrice: 20
+  price: 10
+  sellPrice: 7
   numericEmbeddedStats: []
   recommendedCharacters: []

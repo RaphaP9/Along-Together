@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98649b71cd341864b8a8abf6f06d2be9, type: 3}
-  m_Name: ExecuteTreatConfig
+  m_Name: ExecuteTreatEffect
   m_EditorClassIdentifier: 
-  activatorInventoryObjects: []
+  activatorInventoryObjects:
+  - {fileID: 11400000, guid: 1505598d537f98848aea47ce31447da2, type: 2}
   treatName: Execute Treat
   sprite: {fileID: 0}
   description: Execute Treat

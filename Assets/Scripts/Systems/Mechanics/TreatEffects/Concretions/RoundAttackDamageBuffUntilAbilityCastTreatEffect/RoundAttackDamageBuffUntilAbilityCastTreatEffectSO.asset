@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RoundAttackDamageBuffUntilAbilityCastTreatEffectSO
   m_EditorClassIdentifier: 
   activatorInventoryObjects:
-  - {fileID: 11400000, guid: df70edf7f81faa94e885653acf3f78cd, type: 2}
+  - {fileID: 11400000, guid: b34e6e05daf24414f877f937d3e9e5d3, type: 2}
   treatName: RoundAttackDamageBuffUntilAbilityCastTreatEffect
   sprite: {fileID: 0}
   description: RoundAttackDamageBuffUntilAbilityCastTreatEffect
