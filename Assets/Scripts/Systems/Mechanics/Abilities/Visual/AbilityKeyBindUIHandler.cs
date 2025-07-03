@@ -20,18 +20,20 @@ public class AbilityKeyBindUIHandler : MonoBehaviour
         AbilityLevelHandler.OnAnyAbilityLevelInitialized += AbilityLevelHandler_OnAnyAbilityLevelInitialized;
         AbilityLevelHandler.OnAnyAbilityLevelSet += AbilityLevelHandler_OnAnyAbilityLevelSet;
 
-        //Later Subscribe to a Keybind Remapping Manager and verify change if this.abilitySlot == e.abilitySlot
+        CentralizedInputSystemManager.OnRebindingCompleted += CentralizedInputSystemManager_OnRebindingCompleted;
     }
 
     private void OnDisable()
     {
         AbilityLevelHandler.OnAnyAbilityLevelInitialized -= AbilityLevelHandler_OnAnyAbilityLevelInitialized;
         AbilityLevelHandler.OnAnyAbilityLevelSet -= AbilityLevelHandler_OnAnyAbilityLevelSet;
+
+        CentralizedInputSystemManager.OnRebindingCompleted -= CentralizedInputSystemManager_OnRebindingCompleted;
     }
 
     private void Start()
     {
-        
+        UpdateKeyBindText();
     }
 
     private void Update()
@@ -77,14 +79,36 @@ public class AbilityKeyBindUIHandler : MonoBehaviour
     }
     #endregion
 
+    #region Enable & Disable
     private void EnableKeyBindUI() => keyBindUITransform.gameObject.SetActive(true);
     private void DisableKeyBindUI() => keyBindUITransform.gameObject.SetActive(false);
+    #endregion
 
     #region Setters
     private void SetAbility(Ability ability) => this.ability = ability;
     private void ClearAbility() => ability = null;
 
     public void SetAbilitySlot(AbilitySlot abilitySlot) => this.abilitySlot = abilitySlot;
+    #endregion
+
+    #region Update KeyBind Text
+    private void UpdateKeyBindText()
+    {
+        switch (abilitySlot)
+        {
+            case AbilitySlot.AbilityA:
+                SetKeyBindText(CentralizedInputSystemManager.Instance.GetBindingText(Binding.AbilityA));
+                break;
+            case AbilitySlot.AbilityB:
+                SetKeyBindText(CentralizedInputSystemManager.Instance.GetBindingText(Binding.AbilityB));
+                break;
+            case AbilitySlot.AbilityC:
+                SetKeyBindText(CentralizedInputSystemManager.Instance.GetBindingText(Binding.AbilityC));
+                break;
+        }
+    }
+
+    private void SetKeyBindText(string text) => keyBindText.text = text;
     #endregion
 
     #region Subscriptions
@@ -101,5 +125,11 @@ public class AbilityKeyBindUIHandler : MonoBehaviour
 
         HandleKeyBindUIShowing(e.abilityLevel);
     }
+
+    private void CentralizedInputSystemManager_OnRebindingCompleted(object sender, CentralizedInputSystemManager.OnRebindingEventArgs e)
+    {
+        UpdateKeyBindText();
+    }
+
     #endregion
 }
