@@ -30,7 +30,6 @@ public class PauseUIMainContentButtonsHandler : MonoBehaviour
 
     private void ShowInGameOptionsContent() => pauseUIContentsHandler.ShowInGameOptionsContent();
 
-
     private void BackToMenu()
     {
         ScenesManager.Instance.TransitionLoadTargetScene(mainMenuScene, menuTransitionType);

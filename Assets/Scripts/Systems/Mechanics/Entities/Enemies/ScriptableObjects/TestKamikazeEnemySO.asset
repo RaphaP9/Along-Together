@@ -18,7 +18,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   color: {r: 0, g: 0, b: 0, a: 0}
   prefab: {fileID: 8009517623076321794, guid: 98dcce3c5293abb4eb6446fecb7e7700, type: 3}
-  baseHealth: 25
+  baseHealth: 35
   baseShield: 0
   baseArmor: 0
   baseDodgeChance: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
   baseAttackCritDamageMultiplier: 0.5
   baseLifesteal: 0
   damageColor: {r: 0.5647059, g: 0.039215688, b: 0.039215688, a: 1}
-  baseMovementSpeed: 2.25
+  baseMovementSpeed: 3
   pushResistanceFactor: 1.5
   goldDrop: 3
   spawnDuration: 2.5

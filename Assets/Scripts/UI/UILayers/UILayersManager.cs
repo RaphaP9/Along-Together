@@ -68,8 +68,12 @@ public class UILayersManager : MonoBehaviour
     {
         if (!CloseInput) return;
         if (!UILayerActive) return;
-        if (PauseManager.Instance.GamePausedThisFrame) return;
 
+        if(PauseManager.Instance != null)
+        {
+            if (PauseManager.Instance.GamePausedThisFrame) return;
+        }
+        
         OnUILayerCloseInput?.Invoke(this, new OnUILayerCloseInputEventArgs { UILayerToClose = _UILayers[^1] });
         UIInput.SetInputOnCooldown();
     }

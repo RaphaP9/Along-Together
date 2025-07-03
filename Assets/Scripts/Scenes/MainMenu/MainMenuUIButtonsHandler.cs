@@ -10,11 +10,8 @@ public class MainMenuUIButtonsHandler : MonoBehaviour
 
     [Header("Continue")]
     [SerializeField] private Button continueButton;
-
-    [Header("Options")]
-    [SerializeField] private Button optionsButton;
-    [SerializeField] private TransitionType optionsTransitionType;
-    [SerializeField] private string optionsScene;
+    [SerializeField] private TransitionType continueTransitionType;
+    [SerializeField] private string continueScene;
 
     [Header("Credits")]
     [SerializeField] private Button creditsButton;
@@ -39,7 +36,6 @@ public class MainMenuUIButtonsHandler : MonoBehaviour
     {
         newGameButton.onClick.AddListener(StartNewGame);
         continueButton.onClick.AddListener(LoadContinueGameScene);
-        optionsButton.onClick.AddListener(LoadOptionsScene);
         creditsButton.onClick.AddListener(LoadCreditsScene);
         quitButton.onClick.AddListener(QuitGame);
         deleteDataButton.onClick.AddListener(DeleteData);
@@ -57,10 +53,15 @@ public class MainMenuUIButtonsHandler : MonoBehaviour
         else continueButton.gameObject.SetActive(false);
     }
 
-    private void StartNewGame() => MainMenuNextScenesManager.Instance.StartNewGame();
-    private void LoadContinueGameScene() => MainMenuNextScenesManager.Instance.ContinueGame();
-    private void LoadOptionsScene() => ScenesManager.Instance.TransitionLoadTargetScene(optionsScene, optionsTransitionType);
+    private void LoadContinueGameScene() => ScenesManager.Instance.TransitionLoadTargetScene(continueScene, continueTransitionType); //Do not Delete Any Data
     private void LoadCreditsScene() => ScenesManager.Instance.TransitionLoadTargetScene(creditsScene, creditsTransitionType);
+    private void StartNewGame()
+    {
+        DataUtilities.WipeRunData(); //Delete JSON Run Data
+        SessionRunDataContainer.Instance.ResetRunData(); //Reset the Run Data in Data Container
+
+        GeneralSceneSettings.Instance.TransitionToNewGameScene();
+    }
 
     private void DeleteData()
     {
