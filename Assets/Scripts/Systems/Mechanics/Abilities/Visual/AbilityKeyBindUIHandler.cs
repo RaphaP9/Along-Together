@@ -29,6 +29,11 @@ public class AbilityKeyBindUIHandler : MonoBehaviour
         AbilityLevelHandler.OnAnyAbilityLevelSet -= AbilityLevelHandler_OnAnyAbilityLevelSet;
     }
 
+    private void Start()
+    {
+        
+    }
+
     private void Update()
     {
         HandleFirstUpdateLogic();
