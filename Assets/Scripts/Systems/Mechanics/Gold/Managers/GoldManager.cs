@@ -91,8 +91,7 @@ public class GoldManager : MonoBehaviour
     {
         if (goldToAdd <= 0) return 0;
 
-        //int realGoldAdded = GoldResolver.Instance.ResolveStatInt(goldToAdd); //Increase or change gold according to buffs
-        int realGoldAdded = goldToAdd;
+        int realGoldAdded = GoldResolver.Instance.ResolveStatInt(goldToAdd); //Increase or change gold according to buffs
 
         if (realGoldAdded <= 0) return 0;
 

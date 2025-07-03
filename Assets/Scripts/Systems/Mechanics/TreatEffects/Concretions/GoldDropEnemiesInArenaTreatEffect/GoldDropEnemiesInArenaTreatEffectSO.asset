@@ -18,7 +18,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   description: GoldDropEnemiesInArenaTreatEffect
   refferencialGUID: GUID_GoldDropEnemiesInArenaTreatEffect
-  enemiesInArenaThreshold: 7
+  enemiesInArenaThreshold: 5
   numericEmbeddedStats:
   - numericStatType: 13
     numericStatModificationType: 1
