@@ -104,6 +104,16 @@ public class GoldManager : MonoBehaviour
         return realGoldAdded;
     }
 
+    public void AddGoldRaw(int goldToAdd) //Returns the real gold amount added
+    {
+        if (goldToAdd <= 0) return;
+
+        int previousGold = currentGold;
+        currentGold += goldToAdd;
+
+        OnGoldAdded?.Invoke(this, new OnGoldChangedEventArgs { previousGold = previousGold, newGold = currentGold });
+    }
+
     public int SpendGold(int goldToSpend) //Returns the real gold amount spent
     {
         if (goldToSpend <= 0) return 0;

@@ -43,7 +43,7 @@ public class DevMenuUIButtonsHandler : MonoBehaviour
 
     private void AddGold()
     {
-        GoldManager.Instance.AddGold(goldToAdd);
+        GoldManager.Instance.AddGoldRaw(goldToAdd);
     }
 
     private void ReloadScene()
