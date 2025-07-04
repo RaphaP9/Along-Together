@@ -79,8 +79,10 @@ public class ShopObjectCardPurchaseHandler : MonoBehaviour
         purchaseButton.onClick.AddListener(() => HandlePurchase(inventoryObjectSO));
     }
 
+    #region Subscriptions
     private void ShopObjectCardUI_OnInventoryObjectSet(object sender, ShopObjectCardUI.OnInventoryObjectEventArgs e)
     {
         UpdateButtonListener(e.inventoryObjectSO);
     }
+    #endregion
 }

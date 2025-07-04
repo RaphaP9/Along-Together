@@ -18,4 +18,4 @@ MonoBehaviour:
       de movimiento al usar alguna habilidad."
     cardLevelDescription: "Delice obtiene una bonificaci\xF3n temporal del velocidad
       de movimiento al usar alguna habilidad."
-    cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}

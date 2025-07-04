@@ -18,18 +18,18 @@ MonoBehaviour:
       a todos los enemigos en un cono frente a ella."
     cardLevelDescription: "Delice lanza una melod\xEDa que da\xF1a y ralentiza brevemente
       a todos los enemigos en un cono frente a ella."
-    cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 1
     levelDescription: "Delice lanza una melod\xEDa que da\xF1a y ralentiza brevemente
       a todos los enemigos en un cono frente a ella."
     cardLevelDescription: "Delice lanza una melod\xEDa que da\xF1a y ralentiza brevemente
       a todos los enemigos en un cono frente a ella."
-    cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 2
     levelDescription: Ritardando Level2
     cardLevelDescription: Ritardando Level2
-    cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 3
     levelDescription: Ritardando Level3
     cardLevelDescription: Ritardando Level3
-    cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}

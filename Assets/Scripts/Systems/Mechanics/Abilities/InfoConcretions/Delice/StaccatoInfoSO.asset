@@ -18,18 +18,18 @@ MonoBehaviour:
       de tiempo. Durante este periodo, Delice aumenta su velocidad de ataque."
     cardLevelDescription: "Los ataques de Delice se vuelven r\xE1fagas durante un
       periodo de tiempo. Durante este periodo, Delice aumenta su velocidad de ataque."
-    cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 1
     levelDescription: "Los ataques de Delice se vuelven r\xE1fagas durante un periodo
       de tiempo. Durante este periodo, Delice aumenta su velocidad de ataque."
     cardLevelDescription: "Los ataques de Delice se vuelven r\xE1fagas durante un
       periodo de tiempo. Durante este periodo, Delice aumenta su velocidad de ataque."
-    cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 2
     levelDescription: Staccato Level2
     cardLevelDescription: Staccato Level2
-    cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 3
     levelDescription: Staccato Level3
     cardLevelDescription: Staccato Level3
-    cardPrefab: {fileID: 942588273161009724, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}

@@ -16,12 +16,12 @@ MonoBehaviour:
   - abilityLevel: 1
     levelDescription: ActiveAbilityMockLevel1
     cardLevelDescription: ActiveAbilityMockLevel1
-    cardPrefab: {fileID: 942588273161009724, guid: 9ff9fe2d73439d34c92ad941e73397d2, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 2
     levelDescription: ActiveAbilityMockLevel2
     cardLevelDescription: ActiveAbilityMockLevel2
-    cardPrefab: {fileID: 942588273161009724, guid: 9ff9fe2d73439d34c92ad941e73397d2, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 3
     levelDescription: ActiveAbilityMockLevel3
     cardLevelDescription: ActiveAbilityMockLevel3
-    cardPrefab: {fileID: 942588273161009724, guid: 9ff9fe2d73439d34c92ad941e73397d2, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
