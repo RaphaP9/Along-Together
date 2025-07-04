@@ -22,6 +22,7 @@ public class AbilityUpgradeTutorializedActionUI : TutorializedActionUI
     }
 
     public override TutorializedAction GetTutorializedAction() => TutorializedAction.AbilityUpgrade;
+
     protected override bool CheckCondition()
     {
         if (!isDetectingCondition) return false;

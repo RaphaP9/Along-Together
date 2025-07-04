@@ -1,25 +1,74 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AttackTutorializedActionUI : TutorializedActionUI
 {
+    [Header("Specific Components")]
+    [SerializeField] private Image completionBar;
+
     [Header("Specific Settings")]
     [SerializeField, Range(5, 20f)] private int attacksPerformedToMetTutorializationCondition;
+    [SerializeField, Range (1f,100f)] private float smoothFillFactor;
 
-    protected override void OpenTutorializedAction()
+    [Header("Runtime Filled")]
+    [SerializeField] private int attacksPerformed;
+
+    private const float LERP_STOP_THRESHOLD = 0.05f;
+
+    public int AttacksPerformed => attacksPerformed;
+
+    protected override void OnEnable()
     {
-        PlayerAttackCounterManager.Instance.ResetAttacksPerformed();
-        base.OpenTutorializedAction();
+        base.OnEnable();
+        PlayerAttack.OnAnyPlayerAttack += PlayerAttack_OnAnyPlayerAttack;
     }
 
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        PlayerAttack.OnAnyPlayerAttack -= PlayerAttack_OnAnyPlayerAttack;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        HandleCompletionBar();
+    }
+
+    private void HandleCompletionBar()
+    {
+        if (completionBar.fillAmount >= 1 - LERP_STOP_THRESHOLD) return;
+        completionBar.fillAmount = Mathf.Lerp(completionBar.fillAmount, (float)attacksPerformed / attacksPerformedToMetTutorializationCondition, smoothFillFactor * Time.deltaTime);
+    }
+
+    #region Virtual Methods
     public override TutorializedAction GetTutorializedAction() => TutorializedAction.Attack;
 
     protected override bool CheckCondition()
     {
         if (!isDetectingCondition) return false;
-
-        if (PlayerAttackCounterManager.Instance.AttacksPerformed >= attacksPerformedToMetTutorializationCondition) return true;
+        if (attacksPerformed >= attacksPerformedToMetTutorializationCondition) return true;
         return false;
     }
+
+    protected override void OpenTutorializedAction()
+    {
+        completionBar.fillAmount = 0f;
+        attacksPerformed = 0;
+        base.OpenTutorializedAction();
+    }
+    #endregion
+
+    private void IncreaseAttacksPerformed(int quantity) => attacksPerformed += quantity;
+    public void ResetAttacksPerformed() => attacksPerformed = 0;
+
+    #region Subscriptions
+    private void PlayerAttack_OnAnyPlayerAttack(object sender, PlayerAttack.OnPlayerAttackEventArgs e)
+    {
+        if (!isDetectingCondition) return;
+        IncreaseAttacksPerformed(1);
+    }
+    #endregion
 }

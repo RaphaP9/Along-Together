@@ -38,7 +38,7 @@ public abstract class TutorializedActionUI : MonoBehaviour
         TutorialOpeningManager.OnTutorializedActionOpen -= TutorialOpeningManager_OnTutorializedActionOpen;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         HandleUpdateConditionMeeting();
     }

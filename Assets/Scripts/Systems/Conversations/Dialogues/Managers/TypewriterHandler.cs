@@ -23,6 +23,8 @@ public class TypewriterHandler : MonoBehaviour
 
     private const char PERIOD_CHARACTER = '.';
     private const char COMA_CHARACTER = ',';
+    private const char CLOSING_QUESTION_CHARACTER = '?';
+    private const char CLOSING_EXCLAMATION_CHARACTER = '!';
 
     //Runtime Filled Values
     private int currentVisibleCharacterIndex;
@@ -203,6 +205,8 @@ public class TypewriterHandler : MonoBehaviour
     {
         if (character == PERIOD_CHARACTER) return true;
         if (character == COMA_CHARACTER) return true;
+        if (character == CLOSING_QUESTION_CHARACTER) return true;
+        if (character == CLOSING_EXCLAMATION_CHARACTER) return true;
 
         return false;
     }

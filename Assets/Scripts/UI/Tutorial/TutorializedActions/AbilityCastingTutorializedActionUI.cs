@@ -19,6 +19,7 @@ public class AbilityCastingTutorializedActionUI : TutorializedActionUI
     }
 
     public override TutorializedAction GetTutorializedAction() => TutorializedAction.AbilityCasting;
+
     protected override bool CheckCondition()
     {
         if (!isDetectingCondition) return false;
