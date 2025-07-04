@@ -731,7 +731,7 @@ MonoBehaviour:
   dodgerComponents:
   - {fileID: 8682992959460049137}
   immunerComponents: []
-  invulnerableTimeAfterTakingDamage: 1.5
+  invulnerableTimeAfterTakingDamage: 0.75
   currentHealth: 0
   currentShield: 0
 --- !u!114 &4661234364419359008

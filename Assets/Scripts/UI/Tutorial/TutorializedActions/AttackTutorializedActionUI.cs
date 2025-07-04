@@ -52,6 +52,7 @@ public class AttackTutorializedActionUI : TutorializedActionUI
         string attackBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.Attack);
         tutorializedActionText.text = $"Puedes atacar usando <b>{attackBinding}</B>. Prueba realizar algunos ataques.";
     }
+
     private void IncreaseAttacksPerformed(int quantity) => attacksPerformed += quantity;
     public void ResetAttacksPerformed() => attacksPerformed = 0;
 

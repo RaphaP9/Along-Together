@@ -83,7 +83,7 @@ public class KamikazeEnemyBehaviourHandler : EnemyBehaviourHandler
 
     private void ExplodingLogic()
     {
-        enemyMovement.StopOnCurrentPosition();
+        //enemyMovement.StopOnCurrentPosition();
     }
 
     private void DeadLogic()

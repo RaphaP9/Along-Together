@@ -88,7 +88,7 @@ public class MeleeEnemyBehaviourHandler : EnemyBehaviourHandler
 
     private void AttackingPlayerLogic()
     {
-        enemyMovement.StopOnCurrentPosition();
+        //enemyMovement.StopOnCurrentPosition();
     }
 
     private void DeadLogic()

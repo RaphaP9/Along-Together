@@ -9235,6 +9235,7 @@ MonoBehaviour:
   animator: {fileID: 186128700}
   openTime: 0.25
   closeTime: 0.1
+  tutorializedActionText: {fileID: 1395840245}
 --- !u!1001 &186399942
 PrefabInstance:
   m_ObjectHideFlags: 0

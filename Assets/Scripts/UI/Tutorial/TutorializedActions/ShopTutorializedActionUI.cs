@@ -23,12 +23,15 @@ public class ShopTutorializedActionUI : TutorializedActionUI
 
     public override TutorializedAction GetTutorializedAction() => TutorializedAction.Shop;
 
+    #region Virtual Methods
     protected override bool CheckCondition()
     {
         if (!isDetectingCondition) return false;
         return eventConditionMet;
     }
+    #endregion
 
+    #region Subscriptions
     private void ShopOpeningManager_OnShopClose(object sender, EventArgs e)
     {
         eventConditionMet = true;
@@ -38,4 +41,5 @@ public class ShopTutorializedActionUI : TutorializedActionUI
     {
         eventConditionMet = true;
     }
+    #endregion
 }

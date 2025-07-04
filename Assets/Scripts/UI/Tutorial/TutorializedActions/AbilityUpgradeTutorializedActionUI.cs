@@ -21,6 +21,7 @@ public class AbilityUpgradeTutorializedActionUI : TutorializedActionUI
         AbilityUpgradeOpeningManager.OnAbilityUpgradeCloseImmediately -= AbilityUpgradeOpeningManager_OnAbilityUpgradeCloseImmediately;
     }
 
+    #region Virtual Methods
     public override TutorializedAction GetTutorializedAction() => TutorializedAction.AbilityUpgrade;
 
     protected override bool CheckCondition()
@@ -28,7 +29,9 @@ public class AbilityUpgradeTutorializedActionUI : TutorializedActionUI
         if (!isDetectingCondition) return false;
         return eventConditionMet;
     }
+    #endregion
 
+    #region Subscriptions
     private void AbilityUpgradeOpeningManager_OnAbilityUpgradeClose(object sender, EventArgs e)
     {
         eventConditionMet = true;
@@ -38,4 +41,5 @@ public class AbilityUpgradeTutorializedActionUI : TutorializedActionUI
     {
         eventConditionMet = true;
     }
+    #endregion
 }
