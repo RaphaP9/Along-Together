@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopObjectCardUI: {fileID: 647208895681278628}
-  purchaseButton: {fileID: 2504706163737021714}
+  purchaseButton: {fileID: 6713621468110997729}
 --- !u!114 &2619090163064674077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 3366145449228828942}
   - component: {fileID: 2765927317436903229}
   - component: {fileID: 8329277990918438696}
-  - component: {fileID: 2504706163737021714}
+  - component: {fileID: 6713621468110997729}
   - component: {fileID: 9135839319847998392}
   m_Layer: 5
   m_Name: CardUI
@@ -573,7 +573,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2504706163737021714
+--- !u!114 &6713621468110997729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -582,7 +582,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2039751762403951937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 04f9a16460dde78469f7d26b9de992b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:

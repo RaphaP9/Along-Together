@@ -38,14 +38,12 @@ public class ShopObjectCardPurchaseHandler : MonoBehaviour
         if (!inventoryObjectSO.CanPurchaseDueToInventory())
         {
             DenyPurchaseByInventory(inventoryObjectSO);
-            Debug.Log("NoInventory");
             return;
         }
 
         if (!inventoryObjectSO.CanPurchaseDueToGold())
         {
             DenyPurchaseByGold(inventoryObjectSO);
-            Debug.Log("NoGold");
             return;
         }
 
@@ -55,6 +53,8 @@ public class ShopObjectCardPurchaseHandler : MonoBehaviour
 
     private void Purchase(InventoryObjectSO inventoryObjectSO)
     {
+        DisablePurchaseButton();
+
         GoldManager.Instance.SpendGold(inventoryObjectSO.price);
 
         OnAnyShopObjectPurchase?.Invoke(this, new OnShopObjectPurchaseEventArgs { inventoryObjectSO = inventoryObjectSO });
@@ -78,6 +78,8 @@ public class ShopObjectCardPurchaseHandler : MonoBehaviour
         purchaseButton.onClick.RemoveAllListeners();
         purchaseButton.onClick.AddListener(() => HandlePurchase(inventoryObjectSO));
     }
+
+    private void DisablePurchaseButton() => purchaseButton.enabled = false;
 
     #region Subscriptions
     private void ShopObjectCardUI_OnInventoryObjectSet(object sender, ShopObjectCardUI.OnInventoryObjectEventArgs e)
