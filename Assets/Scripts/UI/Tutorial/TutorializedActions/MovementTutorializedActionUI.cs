@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MovementTutorializedActionUI : TutorializedActionUI
 {
     [Header("Specific Components")]
+    [SerializeField] private TextMeshProUGUI tutorializedActionText;
     [SerializeField] private Image completionBar;
 
     [Header("Specific Settings")]
@@ -25,12 +27,14 @@ public class MovementTutorializedActionUI : TutorializedActionUI
     {
         base.OnEnable();
         PlayerInstantiationHandler.OnPlayerInstantiation += PlayerInstantiationHandler_OnPlayerInstantiation;
+        CentralizedInputSystemManager.OnRebindingCompleted += CentralizedInputSystemManager_OnRebindingCompleted;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
         PlayerInstantiationHandler.OnPlayerInstantiation -= PlayerInstantiationHandler_OnPlayerInstantiation;
+        CentralizedInputSystemManager.OnRebindingCompleted -= CentralizedInputSystemManager_OnRebindingCompleted;
     }
 
     protected override void Update()
@@ -53,6 +57,16 @@ public class MovementTutorializedActionUI : TutorializedActionUI
         completionBar.fillAmount = Mathf.Lerp(completionBar.fillAmount, distanceCovered / distanceCoveredToMetTutorializationCondition, smoothFillFactor * Time.deltaTime);
     }
 
+    private void UpdateTutorializedActionText()
+    {
+        string upBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveUp);
+        string downBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveDown);
+        string leftBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveLeft);
+        string rightBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveRight);
+
+        tutorializedActionText.text = $"Puedes moverte usando las teclas <b>{upBinding}{leftBinding}{downBinding}{rightBinding}</b>. Prueba moverte un poco";
+    }
+
     #region Virtual Methods
     public override TutorializedAction GetTutorializedAction() => TutorializedAction.Movement;
 
@@ -67,15 +81,20 @@ public class MovementTutorializedActionUI : TutorializedActionUI
     {
         completionBar.fillAmount = 0f;
         distanceCovered = 0f;
+        UpdateTutorializedActionText();
         base.OpenTutorializedAction();
     }
-
     #endregion
 
     #region Subscriptions
     private void PlayerInstantiationHandler_OnPlayerInstantiation(object sender, PlayerInstantiationHandler.OnPlayerInstantiationEventArgs e)
     {
         playerMovement = e.playerTransform.GetComponentInChildren<PlayerMovement>();
+    }
+
+    private void CentralizedInputSystemManager_OnRebindingCompleted(object sender, CentralizedInputSystemManager.OnRebindingEventArgs e)
+    {
+        UpdateTutorializedActionText();
     }
     #endregion
 }

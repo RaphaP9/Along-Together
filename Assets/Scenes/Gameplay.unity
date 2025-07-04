@@ -24629,6 +24629,7 @@ MonoBehaviour:
   animator: {fileID: 516012590}
   openTime: 0.25
   closeTime: 0.1
+  tutorializedActionText: {fileID: 2030411869}
   completionBar: {fileID: 2074660666}
   attacksPerformedToMetTutorializationCondition: 10
   smoothFillFactor: 5
@@ -27927,7 +27928,7 @@ GameObject:
   - component: {fileID: 592974867}
   - component: {fileID: 592974866}
   m_Layer: 5
-  m_Name: CompletionImage
+  m_Name: CompletionBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69302,6 +69303,7 @@ MonoBehaviour:
   animator: {fileID: 1384869645}
   openTime: 0.25
   closeTime: 0.1
+  tutorializedActionText: {fileID: 1742365890}
   completionBar: {fileID: 592974866}
   distanceCoveredToMetTutorializationCondition: 20
   smoothFillFactor: 5
@@ -99051,8 +99053,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Puedes atacar usando el <b>Click Izquierdo</B>. Prueba realizar algunos
-    ataques.
+  m_text: Puedes atacar usando <b>Click Izquierdo</B>. Prueba realizar algunos ataques.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8e17d579edd12fd4cba7eb312edebc8b, type: 2}
   m_sharedMaterial: {fileID: 1454428316625905445, guid: 8e17d579edd12fd4cba7eb312edebc8b, type: 2}
@@ -101600,7 +101601,7 @@ GameObject:
   - component: {fileID: 2074660667}
   - component: {fileID: 2074660666}
   m_Layer: 5
-  m_Name: CompletionImage
+  m_Name: CompletionBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

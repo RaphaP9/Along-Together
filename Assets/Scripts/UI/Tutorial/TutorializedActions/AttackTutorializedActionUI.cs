@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class AttackTutorializedActionUI : TutorializedActionUI
 {
     [Header("Specific Components")]
+    [SerializeField] private TextMeshProUGUI tutorializedActionText;
     [SerializeField] private Image completionBar;
 
     [Header("Specific Settings")]
@@ -23,12 +25,14 @@ public class AttackTutorializedActionUI : TutorializedActionUI
     {
         base.OnEnable();
         PlayerAttack.OnAnyPlayerAttack += PlayerAttack_OnAnyPlayerAttack;
+        CentralizedInputSystemManager.OnRebindingCompleted += CentralizedInputSystemManager_OnRebindingCompleted;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
         PlayerAttack.OnAnyPlayerAttack -= PlayerAttack_OnAnyPlayerAttack;
+        CentralizedInputSystemManager.OnRebindingCompleted -= CentralizedInputSystemManager_OnRebindingCompleted;
     }
 
     protected override void Update()
@@ -42,6 +46,14 @@ public class AttackTutorializedActionUI : TutorializedActionUI
         if (completionBar.fillAmount >= 1 - LERP_STOP_THRESHOLD) return;
         completionBar.fillAmount = Mathf.Lerp(completionBar.fillAmount, (float)attacksPerformed / attacksPerformedToMetTutorializationCondition, smoothFillFactor * Time.deltaTime);
     }
+
+    private void UpdateTutorializedActionText()
+    {
+        string attackBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.Attack);
+        tutorializedActionText.text = $"Puedes atacar usando <b>{attackBinding}</B>. Prueba realizar algunos ataques.";
+    }
+    private void IncreaseAttacksPerformed(int quantity) => attacksPerformed += quantity;
+    public void ResetAttacksPerformed() => attacksPerformed = 0;
 
     #region Virtual Methods
     public override TutorializedAction GetTutorializedAction() => TutorializedAction.Attack;
@@ -57,18 +69,22 @@ public class AttackTutorializedActionUI : TutorializedActionUI
     {
         completionBar.fillAmount = 0f;
         attacksPerformed = 0;
+        UpdateTutorializedActionText();
         base.OpenTutorializedAction();
     }
     #endregion
 
-    private void IncreaseAttacksPerformed(int quantity) => attacksPerformed += quantity;
-    public void ResetAttacksPerformed() => attacksPerformed = 0;
 
     #region Subscriptions
     private void PlayerAttack_OnAnyPlayerAttack(object sender, PlayerAttack.OnPlayerAttackEventArgs e)
     {
         if (!isDetectingCondition) return;
         IncreaseAttacksPerformed(1);
+    }
+
+    private void CentralizedInputSystemManager_OnRebindingCompleted(object sender, CentralizedInputSystemManager.OnRebindingEventArgs e)
+    {
+        UpdateTutorializedActionText();
     }
     #endregion
 }

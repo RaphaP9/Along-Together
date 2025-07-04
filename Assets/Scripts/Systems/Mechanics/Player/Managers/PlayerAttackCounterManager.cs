@@ -37,6 +37,7 @@ public class PlayerAttackCounterManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void IncreaseAttacksPerformed(int quantity) => attacksPerformed += quantity;
     public void ResetAttacksPerformed() => attacksPerformed = 0;
 

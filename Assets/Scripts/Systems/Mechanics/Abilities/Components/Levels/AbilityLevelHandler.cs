@@ -28,6 +28,7 @@ public class AbilityLevelHandler : MonoBehaviour
     {
         public AbilitySO abilitySO;
         public AbilityLevel abilityLevel;
+        public Ability ability;
     }
 
     private void Start()
@@ -42,15 +43,15 @@ public class AbilityLevelHandler : MonoBehaviour
     public void InitializeAbilityLevel(AbilityLevel abilityLevel)
     {
         this.abilityLevel = abilityLevel;
-        OnAbilityLevelInitialized?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });     
-        OnAnyAbilityLevelInitialized?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });
+        OnAbilityLevelInitialized?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel, ability = abilityIdentifier.Ability });     
+        OnAnyAbilityLevelInitialized?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel, ability = abilityIdentifier.Ability });
     }
 
     public void SetAbilityLevel(AbilityLevel abilityLevel)
     {
         this.abilityLevel = abilityLevel;
-        OnAbilityLevelSet?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });
-        OnAnyAbilityLevelSet?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel });
+        OnAbilityLevelSet?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel, ability = abilityIdentifier.Ability });
+        OnAnyAbilityLevelSet?.Invoke(this, new OnAbilityLevelEventArgs { abilitySO = AbilitySO, abilityLevel = abilityLevel, ability = abilityIdentifier.Ability });
     }
     #endregion
 
