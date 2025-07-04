@@ -31,7 +31,7 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: -0.4
+    m_Value: 0
   contrast:
     m_OverrideState: 1
     m_Value: 15
@@ -106,9 +106,9 @@ MonoBehaviour:
   components:
   - {fileID: -8416025432171956931}
   - {fileID: -8754466153551230072}
-  - {fileID: 578854091666227816}
   - {fileID: -8926586023553677562}
---- !u!114 &578854091666227816
+  - {fileID: 4869730634068553936}
+--- !u!114 &4869730634068553936
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,13 +117,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 221518ef91623a7438a71fef23660601, type: 3}
-  m_Name: WhiteBalance
+  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
+  m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 1
-  temperature:
+  active: 0
+  mode:
     m_OverrideState: 1
+    m_Value: 1
+  gaussianStart:
+    m_OverrideState: 1
+    m_Value: 15.04
+  gaussianEnd:
+    m_OverrideState: 1
+    m_Value: 43.14
+  gaussianMaxRadius:
+    m_OverrideState: 1
+    m_Value: 1
+  highQualitySampling:
+    m_OverrideState: 0
     m_Value: 0
-  tint:
+  focusDistance:
+    m_OverrideState: 1
+    m_Value: 5
+  aperture:
+    m_OverrideState: 1
+    m_Value: 5
+  focalLength:
+    m_OverrideState: 1
+    m_Value: 50
+  bladeCount:
+    m_OverrideState: 1
+    m_Value: 5
+  bladeCurvature:
+    m_OverrideState: 1
+    m_Value: 1
+  bladeRotation:
     m_OverrideState: 1
     m_Value: 0

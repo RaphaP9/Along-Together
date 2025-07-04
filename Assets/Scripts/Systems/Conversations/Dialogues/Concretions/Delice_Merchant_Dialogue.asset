@@ -15,8 +15,9 @@ MonoBehaviour:
   id: 1
   dialogueSentences:
   - localID: 1
-    dialogueSpeakerSO: {fileID: 11400000, guid: a92f0bdce03b0a846ad4572db854db4a, type: 2}
-    sentenceText: Delice_Merchant_Dialogue1
+    dialogueSpeakerSO: {fileID: 11400000, guid: 947d6c583014ebb4187f04852fcb9e84, type: 2}
+    sentenceText: "\xBFLograste acabar con ellos? No sab\xEDa que las alas de Tessiptera
+      pod\xEDan resistir a la luz del sol siquiera. Buena esa, ni\xF1a."
     speakerSprite: {fileID: 0}
     dialogueBoxSprite: {fileID: 0}
     speakerBoxSprite: {fileID: 0}
@@ -24,8 +25,9 @@ MonoBehaviour:
     triggerSentenceTransition: 0
     audioClip: {fileID: 0}
   - localID: 2
-    dialogueSpeakerSO: {fileID: 11400000, guid: 947d6c583014ebb4187f04852fcb9e84, type: 2}
-    sentenceText: Delice_Merchant_Dialogue2
+    dialogueSpeakerSO: {fileID: 11400000, guid: a92f0bdce03b0a846ad4572db854db4a, type: 2}
+    sentenceText: "\xBFY t\xFA de donde saliste? \xA1Yo no soy ninguna ni\xF1a y
+      no me gusta que me esp\xEDen, as\xED que fuera de aqu\xED! "
     speakerSprite: {fileID: 0}
     dialogueBoxSprite: {fileID: 0}
     speakerBoxSprite: {fileID: 0}
@@ -33,8 +35,11 @@ MonoBehaviour:
     triggerSentenceTransition: 1
     audioClip: {fileID: 0}
   - localID: 3
-    dialogueSpeakerSO: {fileID: 11400000, guid: a92f0bdce03b0a846ad4572db854db4a, type: 2}
-    sentenceText: Delice_Merchant_Dialogue3
+    dialogueSpeakerSO: {fileID: 11400000, guid: 947d6c583014ebb4187f04852fcb9e84, type: 2}
+    sentenceText: "Vaya actitud... Solamente quiero ofrecerte un trato donde ambos
+      salimos ganando, t\xFA me consigues los restos de esos monstruos y yo te los
+      intercambio por estos artefactos que te servir\xE1n para seguir su traves\xEDa,
+      y de seguro te har\xE1n ver mejor que los dem\xE1s de tu especie."
     speakerSprite: {fileID: 0}
     dialogueBoxSprite: {fileID: 0}
     speakerBoxSprite: {fileID: 0}

@@ -26,6 +26,6 @@ public class ArenaParallaxHandler : MonoBehaviour
 
         if (playerOffsetFromCenter.magnitude > DISTANCE_THRESHOLD_TO_UPDATE) return;
        
-        transform.localPosition = new Vector3(playerOffsetFromCenter.x * displacementMultipliers.x, playerOffsetFromCenter.y * displacementMultipliers.y, 0f);
+        transform.localPosition = new Vector3(playerOffsetFromCenter.x * displacementMultipliers.x, playerOffsetFromCenter.y * displacementMultipliers.y, transform.position.z);
     }
 }
