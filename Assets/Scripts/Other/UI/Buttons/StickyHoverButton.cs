@@ -24,20 +24,14 @@ public class StickyHoverButton : Button
         isPointerInside = false;
 
         DoStateTransition(SelectionState.Normal, false);
-
-        // Delay deselection until after Unity finishes its UI cycle
-        if (EventSystem.current.currentSelectedGameObject == gameObject)
-        {
-            shouldDeselect = true;
-        }
+        ForceDeselection();
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
         base.OnPointerUp(eventData);
 
-        if (!interactable || EventSystem.current == null)
-            return;
+        if (!interactable || EventSystem.current == null) return;
 
         if (isPointerInside)
         {
@@ -46,13 +40,16 @@ public class StickyHoverButton : Button
         else
         {
             DoStateTransition(SelectionState.Normal, false);
-
-            // Delay deselection until after Unity finishes its UI cycle
-            if (EventSystem.current.currentSelectedGameObject == gameObject)
-            {
-                shouldDeselect = true;
-            }
+            ForceDeselection();
         }
+    }
+
+    private void ForceDeselection()
+    {
+        if (EventSystem.current.currentSelectedGameObject != gameObject) return;
+        
+        shouldDeselect = true;
+        
     }
 
     private void HandleDeselection()
