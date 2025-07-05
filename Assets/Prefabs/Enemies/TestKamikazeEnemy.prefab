@@ -667,12 +667,17 @@ MonoBehaviour:
   smoothVelocityFactor: 5
   smoothDirectionFactor: 5
   playerRelativeHandler: {fileID: 8642607771193940538}
-  avoidanceLayerMask:
+  _collider2D: {fileID: 4074255493446099348}
+  terrainLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  terrainAvoidanceDetectionRadius: 1.25
+  terrainAvoidanceWeight: 1
+  enemyAvoidanceLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  _collider2D: {fileID: 4074255493446099348}
-  avoidanceDetectionRadius: 0.5
-  avoidanceWeight: 0
+  enemyAvoidanceDetectionRadius: 0.5
+  enemyAvoidanceWeight: 0
 --- !u!114 &3257223475304700248
 MonoBehaviour:
   m_ObjectHideFlags: 0

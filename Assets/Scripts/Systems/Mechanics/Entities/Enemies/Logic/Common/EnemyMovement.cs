@@ -6,15 +6,21 @@ public class EnemyMovement : EntityMovement
 {
     [Header("Components")]
     [SerializeField] private PlayerRelativeHandler playerRelativeHandler;
+    [SerializeField] private Collider2D _collider2D;
+
+    [Header("Terrain Avoidance")]
+    [SerializeField] private LayerMask terrainLayerMask;
+    [SerializeField, Range(0f, 2f)] private float terrainAvoidanceDetectionRadius;
+    [SerializeField, Range(0f, 1f)] private float terrainAvoidanceWeight;
 
     [Header("Enemy Avoidance")]
-    [SerializeField] private LayerMask avoidanceLayerMask;
-    [SerializeField] private Collider2D _collider2D;
-    [SerializeField, Range (0f,2f)] private float avoidanceDetectionRadius;
-    [SerializeField, Range (0f,1f)] private float avoidanceWeight;
+    [SerializeField] private LayerMask enemyAvoidanceLayerMask;
+    [SerializeField, Range (0f,2f)] private float enemyAvoidanceDetectionRadius;
+    [SerializeField, Range (0f,1f)] private float enemyAvoidanceWeight;
 
     private const int MAX_AVOIDANCE_COUNT = 5;
-    private const float AVOID_THRESHOLD_DISTANCE = 0.25f;
+    private const float AVOID_ENEMY_THRESHOLD_DISTANCE = 0.1f;
+    private const float AVOID_TERRAIN_THRESHOLD_DISTANCE = 0.01f;
 
     public override void Stop()
     {
@@ -44,8 +50,9 @@ public class EnemyMovement : EntityMovement
     {
         if (!CanApplyMovement()) return;
 
-        Vector2 avoidanceDirection = CalculateAvoidanceVector(avoidanceDetectionRadius, avoidanceLayerMask, avoidanceWeight);
-        Vector2 finalDirection = (playerRelativeHandler.DirectionToPlayer + avoidanceDirection).normalized;
+        Vector2 enemyAvoidanceDirection = CalculateAvoidanceVector(enemyAvoidanceDetectionRadius, enemyAvoidanceLayerMask, enemyAvoidanceWeight);
+        Vector2 terrainAvoidanceDirection = CalculateTerrainRepulsionFromNearest(terrainAvoidanceDetectionRadius, terrainLayerMask, terrainAvoidanceWeight);
+        Vector2 finalDirection = (playerRelativeHandler.DirectionToPlayer + enemyAvoidanceDirection + terrainAvoidanceDirection).normalized;
 
         _rigidbody2D.velocity = Vector2.Lerp(_rigidbody2D.velocity, finalDirection * GetMovementSpeedValue(), Time.deltaTime * smoothVelocityFactor);
     }
@@ -69,7 +76,7 @@ public class EnemyMovement : EntityMovement
             Vector2 directionFromAvoidee = GeneralUtilities.SupressZComponent(transform.position - col.transform.position);
             float distance = directionFromAvoidee.magnitude;
 
-            if (distance > AVOID_THRESHOLD_DISTANCE)
+            if (distance > AVOID_ENEMY_THRESHOLD_DISTANCE)
             {
                 separation += directionFromAvoidee.normalized / distance;
                 validCount++;
@@ -78,5 +85,29 @@ public class EnemyMovement : EntityMovement
 
         if (validCount > 0) separation = separation.normalized * weight;
         return separation;
+    }
+
+    private Vector2 CalculateTerrainRepulsionFromNearest(float terrainAvoidanceDetectionRadius, LayerMask terrainLayerMask, float terrainAvoidanceWeight)
+    {
+        Collider2D[] terrainResults = new Collider2D[1]; //Only the first terrain detected
+        int count = Physics2D.OverlapCircleNonAlloc(transform.position, terrainAvoidanceDetectionRadius, terrainResults, terrainLayerMask);
+
+        if (count == 0) return Vector2.zero;
+
+        Collider2D nearestTerrain = terrainResults[0];
+        if (nearestTerrain == null) return Vector2.zero;
+
+        Vector2 selfPosition = transform.position;
+        Vector2 closestPoint = nearestTerrain.ClosestPoint(selfPosition);
+        Vector2 awayDirection = selfPosition - closestPoint;
+
+        float distance = awayDirection.magnitude;
+
+        if (distance > AVOID_TERRAIN_THRESHOLD_DISTANCE)
+        {
+            return awayDirection.normalized * (terrainAvoidanceWeight / distance);
+        }
+
+        return Vector2.zero;
     }
 }
