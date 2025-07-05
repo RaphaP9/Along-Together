@@ -53,11 +53,11 @@ TagManager:
   - name: Proyectiles
     uniqueID: 297191843
     locked: 0
-  - name: EnvironmentOver
-    uniqueID: 1232649101
-    locked: 0
   - name: VFX
     uniqueID: 2960658275
+    locked: 0
+  - name: EnvironmentOver
+    uniqueID: 1232649101
     locked: 0
   - name: FeedbackUI
     uniqueID: 1761373133
