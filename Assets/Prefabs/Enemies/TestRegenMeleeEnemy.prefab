@@ -890,6 +890,12 @@ MonoBehaviour:
   smoothVelocityFactor: 5
   smoothDirectionFactor: 5
   playerRelativeHandler: {fileID: 2524694192382131667}
+  avoidanceLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _collider2D: {fileID: 6837081020803590227}
+  avoidanceDetectionRadius: 0.5
+  avoidanceWeight: 0.5
 --- !u!114 &7521818973245002023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1273,7 +1279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1992252670139640445, guid: afe7ae44acfa0aa4e8cfbcb69cfdad3e, type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1992252670139640445, guid: afe7ae44acfa0aa4e8cfbcb69cfdad3e, type: 3}
       propertyPath: m_SortingLayerID
