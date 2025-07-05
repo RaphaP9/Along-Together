@@ -6,6 +6,7 @@ public class ArenaParallaxHandler : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Transform arenaCenterRefference;
+    [SerializeField] private Transform refferenceCameraTransform;
 
     [Header("Settings")]
     [SerializeField] private Vector2 displacementMultipliers;
@@ -19,13 +20,12 @@ public class ArenaParallaxHandler : MonoBehaviour
 
     private void HandleParallax()
     {
-        if (PlayerTransformRegister.Instance == null) return;
-        if (PlayerTransformRegister.Instance.PlayerTransform == null) return;
+        if (refferenceCameraTransform == null) return;
 
-        Vector2 playerOffsetFromCenter = GeneralUtilities.SupressZComponent(PlayerTransformRegister.Instance.PlayerTransform.position - arenaCenterRefference.position);
+        Vector2 cameraOffsetFromCenter = GeneralUtilities.SupressZComponent(refferenceCameraTransform.position - arenaCenterRefference.position);
 
-        if (playerOffsetFromCenter.magnitude > DISTANCE_THRESHOLD_TO_UPDATE) return;
+        if (cameraOffsetFromCenter.magnitude > DISTANCE_THRESHOLD_TO_UPDATE) return;
        
-        transform.localPosition = new Vector3(playerOffsetFromCenter.x * displacementMultipliers.x, playerOffsetFromCenter.y * displacementMultipliers.y, transform.position.z);
+        transform.localPosition = new Vector3(cameraOffsetFromCenter.x * displacementMultipliers.x, cameraOffsetFromCenter.y * displacementMultipliers.y, transform.position.z);
     }
 }
