@@ -30,4 +30,4 @@ MonoBehaviour:
   performanceTime: 0.5
   burstInterval: 0.05
   secondaryAttackInterval: 0.1
-  secondaryBurstAngleDeviation: 5
+  secondaryBurstAngleDeviation: 10
