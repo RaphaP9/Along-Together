@@ -98,4 +98,9 @@ public class Staccato : ActiveAbility, IFacingInterruption
     private void ClearAbilityGUID() => activeAbilityGUID = "";
 
     public float GetBurstInterval() => StaccatoSO.burstInterval;
+    public float GetBurstCount() => StaccatoSO.burstCount;
+
+    public float GetSecondaryAttackDamagePercentage() => StaccatoSO.secondaryAttackDamagePercentage;
+    public float GetSecondaryAttackInterval() => StaccatoSO.secondaryAttackInterval;
+    public float GetSecondaryBurstAngleDeviation() => StaccatoSO.secondaryBurstAngleDeviation;
 }

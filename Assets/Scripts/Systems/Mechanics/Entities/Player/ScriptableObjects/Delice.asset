@@ -30,10 +30,9 @@ MonoBehaviour:
   damageColor: {r: 1.5471698, g: 0.19704522, b: 0.19704522, a: 1}
   baseMovementSpeed: 5
   pushResistanceFactor: 2
+  attackDamagePercentage: 1
   baseHealthRegen: 0
   baseShieldRegen: 0
-  healColor: {r: 0.21314174, g: 0.7169812, b: 0.15895337, a: 1}
-  shieldColor: {r: 0, g: 0.22846766, b: 0.23584908, a: 1}
   baseCooldownReduction: 0
   objectsInventorySize: 15
   treatsInventorySize: 5

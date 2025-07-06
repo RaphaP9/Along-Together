@@ -6,6 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCharacterSO", menuName = "ScriptableObjects/Entities/Characters/Character(Default)")]
 public class CharacterSO : EntitySO, IHealSource, IShieldSource
 {
+    [Header("Attack Settings")]
+    [Range(0.5f, 2f)] public float attackDamagePercentage;
+
     [Header("Character Health Settings")]
     [Range(0, 10)] public int baseHealthRegen;
     [Range(0, 10)] public int baseShieldRegen;

@@ -784,8 +784,8 @@ MonoBehaviour:
   debug: 1
   characterIdentifier: {fileID: 1965199428449930878}
   attackTriggerType: 0
-  firePoint: {fileID: 6335867028995148016}
-  projectilePrefab: {fileID: 8073931636513284674, guid: 2d3a358fa169ae842bec906ece6900ab, type: 3}
+  mainFirePoint: {fileID: 6335867028995148016}
+  mainProjectilePrefab: {fileID: 8073931636513284674, guid: 2d3a358fa169ae842bec906ece6900ab, type: 3}
   directionerHandlerComponent: {fileID: 2672523740232767417}
   projectileDamageType: 0
   projectileAreaRadius: 0
@@ -794,8 +794,11 @@ MonoBehaviour:
     m_Bits: 4097
   projectileSpeed: 10
   projectileLifespan: 5
-  projectileDispersionAngle: 2
+  projectileDispersionAngle: 1
   staccato: {fileID: 7920790296143757481}
+  secondaryProjectilePrefab: {fileID: 8073931636513284674, guid: 44597aeee90fbd2408fadca2a122bf3f, type: 3}
+  secondaryFirePoint1: {fileID: 1043426529153767030}
+  secondaryFirePoint2: {fileID: 7933627810132366688}
 --- !u!114 &4256363878830921393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1531,6 +1534,37 @@ Transform:
   - {fileID: 1539104338402781237}
   m_Father: {fileID: 3051930482955565800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4402324521962528184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1043426529153767030}
+  m_Layer: 6
+  m_Name: SecondaryFirePoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1043426529153767030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402324521962528184}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6721708550121472256}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4495357658788424884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,6 +1705,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6335867028995148016}
+  - {fileID: 1043426529153767030}
+  - {fileID: 7933627810132366688}
   m_Father: {fileID: 5317297067384626538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5733256387100246634
@@ -2549,7 +2585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6335867028995148016}
   m_Layer: 6
-  m_Name: AttackPoint
+  m_Name: MainFirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2605,6 +2641,37 @@ Transform:
   - {fileID: 8691113849170376705}
   - {fileID: 8126987482274587312}
   m_Father: {fileID: 6380853313663446174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9172049249254969117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7933627810132366688}
+  m_Layer: 6
+  m_Name: SecondaryFirePoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7933627810132366688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172049249254969117}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6721708550121472256}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4723791527582912311
 PrefabInstance:

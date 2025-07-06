@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerProjectileAttack : PlayerAttack
 {
     [Header("Player Projectile Attack Components")]
-    [SerializeField] protected Transform firePoint;
-    [SerializeField] protected Transform projectilePrefab;
+    [SerializeField] protected Transform mainFirePoint;
+    [SerializeField] protected Transform mainProjectilePrefab;
 
     [Header("Interface Components")]
     [SerializeField] private Component directionerHandlerComponent;
@@ -32,15 +32,16 @@ public class PlayerProjectileAttack : PlayerAttack
 
     protected override void Attack()
     {
-        ShootProjectile(projectilePrefab);
+        ShootProjectile(mainProjectilePrefab, mainFirePoint, directionerHandler.GetDirection(), characterIdentifier.CharacterSO.attackDamagePercentage);
     }
 
-    protected void ShootProjectile(Transform projectilePrefab)
+    protected void ShootProjectile(Transform projectilePrefab, Transform firePoint, Vector2 shootDirection, float extraProjectileDamagePercentage = 1f)
     {
         bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value);
-        int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(entityAttackDamageStatResolver.Value, entityAttackCritDamageMultiplierStatResolver.Value) : entityAttackDamageStatResolver.Value;
+        int regularDamage = Mathf.CeilToInt(entityAttackDamageStatResolver.Value * characterIdentifier.CharacterSO.attackDamagePercentage * extraProjectileDamagePercentage);
 
-        Vector2 shootDirection = directionerHandler.GetDirection();
+        int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(regularDamage, entityAttackCritDamageMultiplierStatResolver.Value) : regularDamage;
+
         Vector2 processedShootDirection = MechanicsUtilities.DeviateShootDirection(shootDirection, projectileDispersionAngle);
 
         Vector2 position = firePoint.position;
