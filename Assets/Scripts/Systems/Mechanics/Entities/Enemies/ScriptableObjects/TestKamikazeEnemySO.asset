@@ -31,7 +31,7 @@ MonoBehaviour:
   baseMovementSpeed: 3
   pushResistanceFactor: 1.5
   goldDrop: 3
-  spawnDuration: 2.5
+  spawnDuration: 1.5
   cleanupTime: 3
   explosionDamage: 6
   explosionRadius: 3

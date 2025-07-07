@@ -33,7 +33,7 @@ MonoBehaviour:
   baseMovementSpeed: 2
   pushResistanceFactor: 1.5
   goldDrop: 2
-  spawnDuration: 2.5
+  spawnDuration: 1.5
   cleanupTime: 3
   tooCloseDistance: 3
   preferredDistance: 5
