@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6149127330792304348, guid: 75a31dfe252e85b46812d640384471ac, type: 3}
       propertyPath: m_Name
-      value: AbilityUpgradeUI1 Variant
+      value: AbilityUpgradeUI Variant1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

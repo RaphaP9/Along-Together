@@ -8,8 +8,8 @@ public class BootstrapSceneManager : MonoBehaviour
     public static BootstrapSceneManager Instance { get; private set; }
 
     [Header("Settings")]
-    [SerializeField] private float timeToLoadData;
-    [SerializeField] private float timeToWaitAfterLoad;
+    [SerializeField, Range(2f, 5f)] private float timeToLoadData;
+    [SerializeField, Range(2f, 5f)] private float timeToWaitAfterLoad;
     [Space]
     [SerializeField] private string nextScene;
     [SerializeField] private TransitionType nextSceneTransitionType;

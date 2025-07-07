@@ -32,7 +32,7 @@ MonoBehaviour:
       en este estado es inalcanzable por ataques y proyectiles. Durante el vuelo
       no puede atacar ni lanzar otras habilidades. Al aterrizar hace 7 puntos de
       da\xF1o a los enemigos cercanos, y los empuja ligeramente hacia atr\xE1s."
-    cardLevelDescription: "Al aterrizar, Delice empuja y da\xF1a a los enemigos cercanos"
+    cardLevelDescription: "Al aterrizar, Delice empuja y da\xF1a a los enemigos cercanos."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 3
     levelDescription: "Delice alza el vuelo durante 4 segundos, mientras se encuentra
