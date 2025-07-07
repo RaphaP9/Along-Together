@@ -24,7 +24,7 @@ MonoBehaviour:
   - numericStatType: 7
     numericStatModificationType: 1
     value: 0.25
-  duration: 1.5
+  duration: 2.25
   burstCount: 3
   secondaryAttackDamagePercentage: 0.5
   performanceTime: 0.5

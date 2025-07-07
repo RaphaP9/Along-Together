@@ -15,7 +15,7 @@ MonoBehaviour:
   abilityLevelInfos:
   - abilityLevel: 1
     levelDescription: "Delice obtiene una bonificaci\xF3n temporal del velocidad
-      de movimiento al usar alguna habilidad."
+      de movimiento al usar cualquier habilidad."
     cardLevelDescription: "Delice obtiene una bonificaci\xF3n temporal del velocidad
-      de movimiento al usar alguna habilidad."
+      de movimiento al usar cualquier habilidad."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}

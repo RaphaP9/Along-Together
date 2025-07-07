@@ -14,22 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityLevelInfos:
   - abilityLevel: 0
-    levelDescription: "Delice lanza una melod\xEDa que da\xF1a y ralentiza brevemente
-      a todos los enemigos en un cono frente a ella."
-    cardLevelDescription: "Delice lanza una melod\xEDa que da\xF1a y ralentiza brevemente
-      a todos los enemigos en un cono frente a ella."
+    levelDescription: "Delice disminuye el tempo de su melod\xEDa, ralentizando por
+      2 segundos a los enemigos en un \xE1rea frente a ella, y ocasion\xE1ndoles
+      8 puntos de da\xF1o."
+    cardLevelDescription: "Delice ralentiza y da\xF1a a los enemigos en un \xE1rea
+      frente a ella."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 1
-    levelDescription: "Delice lanza una melod\xEDa que da\xF1a y ralentiza brevemente
-      a todos los enemigos en un cono frente a ella."
-    cardLevelDescription: "Delice lanza una melod\xEDa que da\xF1a y ralentiza brevemente
-      a todos los enemigos en un cono frente a ella."
+    levelDescription: "Delice disminuye el tempo de su melod\xEDa, ralentizando por
+      2 segundos a los enemigos en un \xE1rea frente a ella, y ocasion\xE1ndoles
+      8 puntos de da\xF1o."
+    cardLevelDescription: "Delice ralentiza y da\xF1a a los enemigos en un \xE1rea
+      frente a ella."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 2
-    levelDescription: Ritardando Level2
-    cardLevelDescription: Ritardando Level2
+    levelDescription: "Delice disminuye el tempo de su melod\xEDa, ralentizando por
+      2 segundos a los enemigos en un \xE1rea frente a ella, y ocasion\xE1ndoles
+      8 puntos de da\xF1o, adem\xE1s de empujarlos ligeramente hacia atr\xE1s."
+    cardLevelDescription: "Los enemigos tambi\xE9n son empujados ligeramente hacia
+      atr\xE1s."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 3
-    levelDescription: Ritardando Level3
-    cardLevelDescription: Ritardando Level3
+    levelDescription: "Delice disminuye el tempo de su melod\xEDa, ralentizando por
+      2 segundos a los enemigos que se encuentren alrededor de ella, y ocasion\xE1ndoles
+      8 puntos de da\xF1o, adem\xE1s de empujarlos ligeramente hacia atr\xE1s."
+    cardLevelDescription: "El \xE1rea de efecto de la habilidad ahora afecta a todos
+      los enemigos alrededor de Delice."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}

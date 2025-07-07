@@ -6,7 +6,7 @@ using UnityEngine;
 public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInterruption
 {
     [Header("Specific Settings")]
-    [SerializeField] private LayerMask pushLayerMask;
+    [SerializeField] private LayerMask effectLayerMask;
 
     private LegatoSO LegatoSO => AbilitySO as LegatoSO;
 
@@ -107,7 +107,11 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
 
         if(AbilityLevel != AbilityLevel.Level1) //Level1 Does not Push
         {
-            MechanicsUtilities.PushAllEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(transform), LegatoSO.pushData, pushLayerMask);
+            PhysicPushData pushData = new PhysicPushData(LegatoSO.pushForce, LegatoSO.actionRadius);
+            DamageData damageData = new DamageData(LegatoSO.landDamage, false, LegatoSO, false, true, true, true);
+
+            MechanicsUtilities.PushAllEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(transform), pushData, effectLayerMask);
+            MechanicsUtilities.DealDamageInArea(GeneralUtilities.TransformPositionVector2(transform), LegatoSO.actionRadius, damageData, effectLayerMask);
         }
 
         OnAnyLegatoCompleted?.Invoke(this, EventArgs.Empty);

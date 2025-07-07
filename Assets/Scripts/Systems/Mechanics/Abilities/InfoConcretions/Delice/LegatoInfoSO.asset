@@ -14,24 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityLevelInfos:
   - abilityLevel: 0
-    levelDescription: Delice alza vuelo durante un periodo de tiempo. Al aterrizar
-      empuja a todos los enemigos adyacentes. Durante el vuelo, Delice esquiva todos
-      los ataques, pero no puede atacar ni lanzar habilidades.
-    cardLevelDescription: Delice alza vuelo y esquiva todos los ataques. Al aterrizar
-      empuja a los enemigos.
+    levelDescription: Delice alza el vuelo durante 4 segundos, mientras se encuentra
+      en este estado es inalcanzable por ataques y proyectiles. Durante el vuelo
+      no puede atacar ni lanzar otras habilidades.
+    cardLevelDescription: "Delice vuela, volvi\xE9ndose inalcanzable por ataques
+      y proyectiles. Durante el vuelo no puede atacar ni lanzar otras habilidades."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 1
-    levelDescription: Delice alza vuelo durante un periodo de tiempo. Al aterrizar
-      empuja a todos los enemigos adyacentes. Durante el vuelo, Delice esquiva todos
-      los ataques, pero no puede atacar ni lanzar habilidades.
-    cardLevelDescription: Delice alza vuelo y esquiva todos los ataques. Al aterrizar
-      empuja a los enemigos.
+    levelDescription: Delice alza el vuelo durante 4 segundos, mientras se encuentra
+      en este estado es inalcanzable por ataques y proyectiles. Durante el vuelo
+      no puede atacar ni lanzar otras habilidades.
+    cardLevelDescription: "Delice vuela, volvi\xE9ndose inalcanzable por ataques
+      y proyectiles. Durante el vuelo no puede atacar ni lanzar otras habilidades."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 2
-    levelDescription: Legato Level2
-    cardLevelDescription: Legato Level2
+    levelDescription: "Delice alza el vuelo durante 4 segundos, mientras se encuentra
+      en este estado es inalcanzable por ataques y proyectiles. Durante el vuelo
+      no puede atacar ni lanzar otras habilidades. Al aterrizar hace 7 puntos de
+      da\xF1o a los enemigos cercanos, y los empuja ligeramente hacia atr\xE1s."
+    cardLevelDescription: "Al aterrizar, Delice empuja y da\xF1a a los enemigos cercanos"
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 3
-    levelDescription: Legato Level3
-    cardLevelDescription: Legato Level3
+    levelDescription: "Delice alza el vuelo durante 4 segundos, mientras se encuentra
+      en este estado es inalcanzable por ataques y proyectiles. Durante el vuelo
+      no puede lanzar otras habilidades. Al aterrizar hace 7 puntos de da\xF1o a
+      los enemigos cercanos, y los empuja ligeramente hacia atr\xE1s."
+    cardLevelDescription: Delice puede disparar mientras se encuentra en vuelo.
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}

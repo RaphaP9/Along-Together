@@ -2533,7 +2533,7 @@ MonoBehaviour:
   - {fileID: 8682992959460049137}
   cooldownReductionStatResolver: {fileID: 3287368004166176090}
   abilityCooldownHandler: {fileID: 8114758222127837120}
-  pushLayerMask:
+  effectLayerMask:
     serializedVersion: 2
     m_Bits: 128
 --- !u!114 &8114758222127837120

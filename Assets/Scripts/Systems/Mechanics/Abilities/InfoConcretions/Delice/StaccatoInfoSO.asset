@@ -14,22 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityLevelInfos:
   - abilityLevel: 0
-    levelDescription: "Los ataques de Delice se vuelven r\xE1fagas durante un periodo
-      de tiempo. Durante este periodo, Delice aumenta su velocidad de ataque."
-    cardLevelDescription: "Los ataques de Delice se vuelven r\xE1fagas durante un
-      periodo de tiempo. Durante este periodo, Delice aumenta su velocidad de ataque."
+    levelDescription: "Delice ejecuta sus notas con Staccato, aumentando su velocidad
+      de ataque en un 25% y convirtiendo sus ataques en r\xE1fagas de 3 proyectiles
+      durante 3 segundos."
+    cardLevelDescription: "Delice aumenta su velocidad de ataque y sus ataques se
+      vuelven r\xE1fagas temporalmente."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 1
-    levelDescription: "Los ataques de Delice se vuelven r\xE1fagas durante un periodo
-      de tiempo. Durante este periodo, Delice aumenta su velocidad de ataque."
-    cardLevelDescription: "Los ataques de Delice se vuelven r\xE1fagas durante un
-      periodo de tiempo. Durante este periodo, Delice aumenta su velocidad de ataque."
+    levelDescription: "Delice ejecuta sus notas con Staccato, aumentando su velocidad
+      de ataque en un 25% y convirtiendo sus ataques en r\xE1fagas de 3 proyectiles
+      durante 3 segundos."
+    cardLevelDescription: "Delice aumenta su velocidad de ataque y sus ataques se
+      vuelven r\xE1fagas temporalmente."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 2
-    levelDescription: Staccato Level2
-    cardLevelDescription: Staccato Level2
+    levelDescription: "Delice ejecuta sus notas con Staccato, aumentando su velocidad
+      de ataque en un 25% y convirtiendo sus ataques en r\xE1fagas de 3 proyectiles
+      durante 3 segundos. De manera pasiva sus ataques disparan un proyectil secundario
+      con un 50% del da\xF1o base."
+    cardLevelDescription: "Los ataques de Delice ahora disparan un proyectil secundario
+      con un 50% del da\xF1o de base."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 3
-    levelDescription: Staccato Level3
-    cardLevelDescription: Staccato Level3
+    levelDescription: "Delice ejecuta sus notas con Staccato, aumentando su velocidad
+      de ataque en un 25% y convirtiendo sus ataques en r\xE1fagas de 3 proyectiles
+      durante 3 segundos, lanzando dos proyectiles secundarios en diagonal por cada
+      r\xE1faga. De manera pasiva sus ataques disparan un proyectil secundario con
+      un 50% del da\xF1o base."
+    cardLevelDescription: "Durante Staccato, se disparan dos proyectiles secundarios
+      en l\xEDnea diagonal por cada ataque de r\xE1faga."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
