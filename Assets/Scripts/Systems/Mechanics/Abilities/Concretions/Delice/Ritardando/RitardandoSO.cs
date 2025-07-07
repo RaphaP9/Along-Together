@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "RitardandoSO", menuName = "ScriptableObjects/Abilities/Delice/Ritardando")]
-public class RitardandoSO : ActiveAbilitySO, IDamageSource
+public class RitardandoSO : ActiveAbilitySO, IDamageSource, IPushSource
 {
     [Header("Specific Settings")]
     [Range(1, 20)] public int damage;
@@ -21,5 +21,11 @@ public class RitardandoSO : ActiveAbilitySO, IDamageSource
     public string GetDamageSourceDescription() => description;
     public string GetDamageSourceName() => abilityName;
     public Sprite GetDamageSourceSprite() => sprite;
+    #endregion
+
+    #region Push Source Methods
+    public string GetPushSourceName() => abilityName;
+    public string GetPushSourceDescription() => description;
+    public Sprite GetPushSourceSprite() => sprite;
     #endregion
 }

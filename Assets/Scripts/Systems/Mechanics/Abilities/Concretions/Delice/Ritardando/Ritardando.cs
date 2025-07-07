@@ -83,8 +83,8 @@ public class Ritardando : ActiveAbility, IFacingInterruption
 
         if (AbilityLevel == AbilityLevel.Level2) //Level 2 Pushes
         {
-            PhysicPushData pushData = new PhysicPushData(RitardandoSO.pushForce, coneAreaRadius);
-            MechanicsUtilities.PushEntitiesInAreasFromPoint(GeneralUtilities.TransformPositionVector2List(coneAreaTransforms), transform.position, pushData, effectLayerMask);
+            PhysicPushData pushData = new PhysicPushData(RitardandoSO.pushForce, RitardandoSO);
+            MechanicsUtilities.PushEntitiesInAreasFromPoint(transform.position, pushData, GeneralUtilities.TransformPositionVector2List(coneAreaTransforms), coneAreaRadius, effectLayerMask);
         }
 
         isPerforming = false;
@@ -107,8 +107,8 @@ public class Ritardando : ActiveAbility, IFacingInterruption
         MechanicsUtilities.DealDamageInArea(GeneralUtilities.TransformPositionVector2(circleAreaTransform), circleAreaRadius, damageData, effectLayerMask);
         MechanicsUtilities.TemporalSlowInArea(GeneralUtilities.TransformPositionVector2(circleAreaTransform), circleAreaRadius, RitardandoSO.tenporalSlowStatusEffect, effectLayerMask);
 
-        PhysicPushData pushData = new PhysicPushData(RitardandoSO.pushForce, circleAreaRadius);
-        MechanicsUtilities.PushAllEntitiesFromPoint(circleAreaTransform.position, pushData, effectLayerMask);
+        PhysicPushData pushData = new PhysicPushData(RitardandoSO.pushForce, RitardandoSO);
+        MechanicsUtilities.PushAllEntitiesFromPoint(circleAreaTransform.position, pushData, circleAreaRadius, effectLayerMask);
 
         isPerforming = false;
 

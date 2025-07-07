@@ -5,12 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class PhysicPushData 
 {
-    [Range(1f, 100f)] public float pushForce;
-    [Range(1f, 8f)] public float actionRadius;
+    public float pushForce;
+    public IPushSource pushSource;
 
-    public PhysicPushData(float pushForce, float actionRadius)
+    public PhysicPushData(float pushForce, IPushSource pushSource)
     {
         this.pushForce = pushForce;
-        this.actionRadius = actionRadius;
+        this.pushSource = pushSource;
     }
 }

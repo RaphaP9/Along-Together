@@ -5,7 +5,8 @@ using UnityEngine;
 public class TestEntityPush : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private PhysicPushData physicPushData;
+    [SerializeField] private float pushForce;
+    [SerializeField] private float actionRadius;
     [SerializeField] private LayerMask pushLayerMask;
     [Space]
     [SerializeField] private Transform playerTransform;
@@ -14,7 +15,8 @@ public class TestEntityPush : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            MechanicsUtilities.PushAllEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(playerTransform), physicPushData, pushLayerMask, new List<Transform> { playerTransform});
+            PhysicPushData pushData = new PhysicPushData(pushForce, null);
+            MechanicsUtilities.PushAllEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(playerTransform), pushData, pushLayerMask, actionRadius, new List<Transform> { playerTransform});
         }
     }
 }

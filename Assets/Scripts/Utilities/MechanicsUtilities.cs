@@ -287,9 +287,9 @@ public static class MechanicsUtilities
     #endregion
 
     #region PhysicPush
-    public static void PushAllEntitiesFromPoint(Vector2 originPoint, PhysicPushData pushData, LayerMask pushLayerMask)
+    public static void PushAllEntitiesFromPoint(Vector2 originPoint, PhysicPushData pushData, float actionRadius, LayerMask pushLayerMask)
     {
-        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInRange(originPoint, pushData.actionRadius, pushLayerMask);
+        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInRange(originPoint, actionRadius, pushLayerMask);
         List<EntityPhysicPush> entityPhysicPushes = new List<EntityPhysicPush>();
 
         foreach (Transform detectedTransform in detectedTransforms)
@@ -307,9 +307,9 @@ public static class MechanicsUtilities
         }
     }
 
-    public static void PushAllEntitiesFromPoint(Vector2 originPoint, PhysicPushData pushData, LayerMask pushLayerMask, List<Transform> exeptionTransforms)
+    public static void PushAllEntitiesFromPoint(Vector2 originPoint, PhysicPushData pushData, LayerMask pushLayerMask, float actionRadius, List<Transform> exeptionTransforms)
     {
-        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInRange(originPoint, pushData.actionRadius, pushLayerMask);
+        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInRange(originPoint, actionRadius, pushLayerMask);
 
         foreach (Transform exceptionTransform in exeptionTransforms)
         {
@@ -333,9 +333,9 @@ public static class MechanicsUtilities
         }
     }
 
-    public static void PushEntitiesInAreasFromPoint(List<Vector2> positions, Vector2 pushOrigin, PhysicPushData pushData, LayerMask pushLayerMask)
+    public static void PushEntitiesInAreasFromPoint(Vector2 pushOrigin, PhysicPushData pushData, List<Vector2> positions, float actionRadiusPerPosition, LayerMask pushLayerMask)
     {
-        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInMultipleRanges(positions, pushData.actionRadius, pushLayerMask);
+        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInMultipleRanges(positions, actionRadiusPerPosition, pushLayerMask);
         List<EntityPhysicPush> entityPhysicPushes = new List<EntityPhysicPush>();
 
         foreach (Transform detectedTransform in detectedTransforms)

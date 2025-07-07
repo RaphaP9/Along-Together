@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LegatoSO", menuName = "ScriptableObjects/Abilities/Delice/Legato")]
-public class LegatoSO : ActiveAbilitySO, IDamageSource
+public class LegatoSO : ActiveAbilitySO, IDamageSource, IPushSource
 {
     [Header("Specific Settings")]
     [Range(0f, 1f)] public float flyStartDuration;
@@ -22,5 +22,11 @@ public class LegatoSO : ActiveAbilitySO, IDamageSource
     public string GetDamageSourceDescription() => description;
     public string GetDamageSourceName() => abilityName;
     public Sprite GetDamageSourceSprite() => sprite;
+    #endregion
+
+    #region Push Source Methods
+    public string GetPushSourceName() => abilityName;
+    public string GetPushSourceDescription() => description;
+    public Sprite GetPushSourceSprite() => sprite;
     #endregion
 }

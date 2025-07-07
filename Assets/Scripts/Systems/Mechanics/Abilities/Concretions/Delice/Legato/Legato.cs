@@ -107,10 +107,10 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
 
         if(AbilityLevel != AbilityLevel.Level1) //Level1 Does not Push
         {
-            PhysicPushData pushData = new PhysicPushData(LegatoSO.pushForce, LegatoSO.actionRadius);
+            PhysicPushData pushData = new PhysicPushData(LegatoSO.pushForce, LegatoSO);
             DamageData damageData = new DamageData(LegatoSO.landDamage, false, LegatoSO, false, true, true, true);
 
-            MechanicsUtilities.PushAllEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(transform), pushData, effectLayerMask);
+            MechanicsUtilities.PushAllEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(transform), pushData, LegatoSO.actionRadius, effectLayerMask);
             MechanicsUtilities.DealDamageInArea(GeneralUtilities.TransformPositionVector2(transform), LegatoSO.actionRadius, damageData, effectLayerMask);
         }
 
