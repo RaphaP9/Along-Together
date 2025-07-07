@@ -347,9 +347,6 @@ public static class MechanicsUtilities
             entityPhysicPushes.Add(entityPhysicPush);
         }
 
-        Debug.Log(detectedTransforms.Count);
-        Debug.Log(positions.Count);
-
         foreach (EntityPhysicPush entityPhysicPush in entityPhysicPushes)
         {
             entityPhysicPush.PushEnemyFromPoint(pushOrigin, pushData);
@@ -360,6 +357,17 @@ public static class MechanicsUtilities
     #region StatusEffects
 
     #region Slow
+
+    public static void TemporalSlowInArea(Vector2 position, float areaRadius, TemporalSlowStatusEffect temporalSlowStatusEffect, LayerMask layermask)
+    {
+        List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInRange(position, areaRadius, layermask);
+
+        foreach (Transform detectedTransform in detectedTransforms)
+        {
+            TemporalSlowEntity(detectedTransform, temporalSlowStatusEffect);
+        }
+    }
+
     public static void TemporalSlowInAreas(List<Vector2> positions, float areaRadius, TemporalSlowStatusEffect temporalSlowStatusEffect, LayerMask layermask)
     {
         List<Transform> detectedTransforms = GeneralUtilities.DetectTransformsInMultipleRanges(positions, areaRadius, layermask);

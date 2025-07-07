@@ -16,11 +16,11 @@ public class Ritardando : ActiveAbility, IFacingInterruption
 
     private RitardandoSO RitardandoSO => AbilitySO as RitardandoSO;
 
-    public event EventHandler OnRitardandoPerformanceStart;
-    public event EventHandler OnRitardandoPerformanceEnd;
+    public event EventHandler<OnRitardandoEventArgs> OnRitardandoPerformanceStart;
+    public event EventHandler<OnRitardandoEventArgs> OnRitardandoPerformanceEnd;
 
-    public static event EventHandler OnAnyRitardandoPerformanceStart;
-    public static event EventHandler OnAnyRitardandoPerformanceEnd;
+    public static event EventHandler<OnRitardandoEventArgs> OnAnyRitardandoPerformanceStart;
+    public static event EventHandler<OnRitardandoEventArgs> OnAnyRitardandoPerformanceEnd;
 
     private bool isPerforming = false;
 
@@ -104,8 +104,8 @@ public class Ritardando : ActiveAbility, IFacingInterruption
 
         DamageData damageData = new DamageData(RitardandoSO.damage, false, RitardandoSO, false, true, true, true);
 
-        MechanicsUtilities.DealDamageInAreas(GeneralUtilities.TransformPositionVector2List(coneAreaTransforms), coneAreaRadius, damageData, effectLayerMask);
-        MechanicsUtilities.TemporalSlowInAreas(GeneralUtilities.TransformPositionVector2List(coneAreaTransforms), coneAreaRadius, RitardandoSO.tenporalSlowStatusEffect, effectLayerMask);
+        MechanicsUtilities.DealDamageInArea(GeneralUtilities.TransformPositionVector2(circleAreaTransform), circleAreaRadius, damageData, effectLayerMask);
+        MechanicsUtilities.TemporalSlowInArea(GeneralUtilities.TransformPositionVector2(circleAreaTransform), circleAreaRadius, RitardandoSO.tenporalSlowStatusEffect, effectLayerMask);
 
         PhysicPushData pushData = new PhysicPushData(RitardandoSO.pushForce, circleAreaRadius);
         MechanicsUtilities.PushAllEntitiesFromPoint(circleAreaTransform.position, pushData, effectLayerMask);

@@ -30,7 +30,13 @@ public class StageEventsDefiner : MonoBehaviour
     public bool OpenShopOnThisRound()
     {
         if (GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) return false; //No Shop On 1-1
-        if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(FIRST_STAGE, SECOND_ROUND)) return false; //No Shop on 1-2 (Ability Upgrade)
+
+        if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(FIRST_STAGE, SECOND_ROUND))  //No Shop on 1-2 (Ability Upgrade) unless can not Generate Ability Cards
+        {
+            if (!AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) return true;
+            else return false;
+        }
+
         if (GeneralStagesManager.Instance.CurrentRoundIsFirstFromCurrentStage()) //If X-1 and can generate cards, do not open shop
         {
             if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) return false;
@@ -43,7 +49,12 @@ public class StageEventsDefiner : MonoBehaviour
     {
         if (GeneralStagesManager.Instance.CurrentStageAndRoundAreFirsts()) return false; //No AbilityUpgrade On First 1-1
 
-        if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(FIRST_STAGE, SECOND_ROUND)) return true; //Ability Upgrade on 1-2
+        if (GeneralStagesManager.Instance.CurrentStageAndRoundAreValues(FIRST_STAGE, SECOND_ROUND))//Ability Upgrade on 1-2 unless can not Generate Ability Cards
+        {
+            if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) return true;
+            else return false;
+        }
+
         if (GeneralStagesManager.Instance.CurrentRoundIsFirstFromCurrentStage()) //If X-1 can generate cards, open Ability Upgrade
         {
             if (AbilityUpgradeCardsGenerator.Instance.CanGenerateNextLevelActiveAbilityVariantCards()) return true;
