@@ -8,8 +8,11 @@ public class Ritardando : ActiveAbility, IFacingInterruption
     [Header("Specific Settings")]
     [SerializeField] private LayerMask effectLayerMask; //For both damage & slow
     [Space]
-    [SerializeField] private List<Transform> areaTransforms;
-    [SerializeField, Range(0.5f, 1f)] private float areaRadius;
+    [SerializeField] private List<Transform> coneAreaTransforms;
+    [SerializeField, Range(0.5f, 1f)] private float coneAreaRadius;
+    [Space]
+    [SerializeField] private Transform circleAreaTransform;
+    [SerializeField, Range(0.5f, 4f)] private float circleAreaRadius;
 
     private RitardandoSO RitardandoSO => AbilitySO as RitardandoSO;
 
@@ -20,6 +23,11 @@ public class Ritardando : ActiveAbility, IFacingInterruption
     public static event EventHandler OnAnyRitardandoPerformanceEnd;
 
     private bool isPerforming = false;
+
+    public class OnRitardandoEventArgs: EventArgs
+    {
+        public AbilityLevel abilityLevel;
+    }
 
     #region Interface Methods
     public bool IsInterruptingFacing() => false; // isPerforming;
@@ -44,26 +52,67 @@ public class Ritardando : ActiveAbility, IFacingInterruption
 
     private void HandleRitardandoTrigger()
     {
-        StartCoroutine(RitardandoCoroutine());
+        switch (AbilityLevel)
+        {
+            case AbilityLevel.NotLearned:
+                break;
+            case AbilityLevel.Level1:
+            case AbilityLevel.Level2:
+                StartCoroutine(RitardandoConeCoroutine());
+                break;
+            case AbilityLevel.Level3:
+                StartCoroutine(RitardandoCircleCoroutine());
+                break;
+        }
+
     }
 
-    private IEnumerator RitardandoCoroutine()
+    private IEnumerator RitardandoConeCoroutine()
     {
         isPerforming = true;
 
-        OnAnyRitardandoPerformanceStart?.Invoke(this, EventArgs.Empty);
-        OnRitardandoPerformanceStart?.Invoke(this, EventArgs.Empty);
+        OnAnyRitardandoPerformanceStart?.Invoke(this, new OnRitardandoEventArgs { abilityLevel = AbilityLevel});
+        OnRitardandoPerformanceStart?.Invoke(this, new OnRitardandoEventArgs { abilityLevel = AbilityLevel });
 
         yield return new WaitForSeconds(RitardandoSO.performanceTime);
 
         DamageData damageData = new DamageData(RitardandoSO.damage, false, RitardandoSO, false, true, true, true);
 
-        MechanicsUtilities.DealDamageInAreas(GeneralUtilities.TransformPositionVector2List(areaTransforms), areaRadius, damageData, effectLayerMask);
-        MechanicsUtilities.TemporalSlowInAreas(GeneralUtilities.TransformPositionVector2List(areaTransforms), areaRadius, RitardandoSO.tenporalSlowStatusEffect, effectLayerMask);
+        MechanicsUtilities.DealDamageInAreas(GeneralUtilities.TransformPositionVector2List(coneAreaTransforms), coneAreaRadius, damageData, effectLayerMask); //Damage
+        MechanicsUtilities.TemporalSlowInAreas(GeneralUtilities.TransformPositionVector2List(coneAreaTransforms), coneAreaRadius, RitardandoSO.tenporalSlowStatusEffect, effectLayerMask);
+
+        if (AbilityLevel == AbilityLevel.Level2) //Level 2 Pushes
+        {
+            PhysicPushData pushData = new PhysicPushData(RitardandoSO.pushForce, coneAreaRadius);
+            MechanicsUtilities.PushEntitiesInAreasFromPoint(GeneralUtilities.TransformPositionVector2List(coneAreaTransforms), transform.position, pushData, effectLayerMask);
+        }
 
         isPerforming = false;
 
-        OnAnyRitardandoPerformanceEnd?.Invoke(this, EventArgs.Empty);
-        OnRitardandoPerformanceEnd?.Invoke(this, EventArgs.Empty);
+        OnAnyRitardandoPerformanceEnd?.Invoke(this, new OnRitardandoEventArgs { abilityLevel = AbilityLevel });
+        OnRitardandoPerformanceEnd?.Invoke(this, new OnRitardandoEventArgs { abilityLevel = AbilityLevel });
+    }
+
+    private IEnumerator RitardandoCircleCoroutine()
+    {
+        isPerforming = true;
+
+        OnAnyRitardandoPerformanceStart?.Invoke(this, new OnRitardandoEventArgs { abilityLevel = AbilityLevel });
+        OnRitardandoPerformanceStart?.Invoke(this, new OnRitardandoEventArgs { abilityLevel = AbilityLevel });
+
+        yield return new WaitForSeconds(RitardandoSO.performanceTime);
+
+        DamageData damageData = new DamageData(RitardandoSO.damage, false, RitardandoSO, false, true, true, true);
+
+        MechanicsUtilities.DealDamageInAreas(GeneralUtilities.TransformPositionVector2List(coneAreaTransforms), coneAreaRadius, damageData, effectLayerMask);
+        MechanicsUtilities.TemporalSlowInAreas(GeneralUtilities.TransformPositionVector2List(coneAreaTransforms), coneAreaRadius, RitardandoSO.tenporalSlowStatusEffect, effectLayerMask);
+
+        PhysicPushData pushData = new PhysicPushData(RitardandoSO.pushForce, circleAreaRadius);
+        MechanicsUtilities.PushAllEntitiesFromPoint(circleAreaTransform.position, pushData, effectLayerMask);
+
+        isPerforming = false;
+
+        OnAnyRitardandoPerformanceEnd?.Invoke(this, new OnRitardandoEventArgs { abilityLevel = AbilityLevel });
+        OnRitardandoPerformanceEnd?.Invoke(this, new OnRitardandoEventArgs { abilityLevel = AbilityLevel });
     }
 }

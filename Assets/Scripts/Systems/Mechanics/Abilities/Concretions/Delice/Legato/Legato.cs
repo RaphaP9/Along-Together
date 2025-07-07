@@ -97,7 +97,7 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
         isEnding = false;
         isCurrentlyActive = false;
 
-        MechanicsUtilities.PushEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(transform), LegatoSO.pushData, pushLayerMask);
+        MechanicsUtilities.PushAllEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(transform), LegatoSO.pushData, pushLayerMask);
 
         OnAnyLegatoCompleted?.Invoke(this, EventArgs.Empty);
         OnLegatoCompleted?.Invoke(this, EventArgs.Empty);

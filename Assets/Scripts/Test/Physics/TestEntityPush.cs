@@ -14,7 +14,7 @@ public class TestEntityPush : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            MechanicsUtilities.PushEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(playerTransform), physicPushData, pushLayerMask, new List<Transform> { playerTransform});
+            MechanicsUtilities.PushAllEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(playerTransform), physicPushData, pushLayerMask, new List<Transform> { playerTransform});
         }
     }
 }

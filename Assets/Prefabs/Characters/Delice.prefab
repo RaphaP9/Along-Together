@@ -150,7 +150,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.35
   m_Color: {r: 0.20291919, g: 0.659947, b: 0.754717, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 1fe7e7115fcf7923
@@ -193,7 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6301488533947270225}
   m_Layer: 6
-  m_Name: RitardandoPos2
+  m_Name: RitardandoConePos2
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -224,7 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6018386457086868603}
   m_Layer: 6
-  m_Name: RitardandoPos1
+  m_Name: RitardandoConePos1
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1101,7 +1101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33567154a7f94c74aa1c8653d6ad6b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ritardandoVFXPrefab: {fileID: 4369856226262510126, guid: 99f1fe2e9e982374881d645d97b76759, type: 3}
+  ritardandoConeVFXPrefab: {fileID: 4369856226262510126, guid: 99f1fe2e9e982374881d645d97b76759, type: 3}
   facingDirectioner: {fileID: 6248436503809636389}
   ritardando: {fileID: 2412851267031932804}
 --- !u!1 &2789317529658951925
@@ -1198,7 +1198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2483593855647320057}
   m_Layer: 6
-  m_Name: RitardandoPos5
+  m_Name: RitardandoConePos5
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1309,7 +1309,7 @@ MonoBehaviour:
   effectLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  areaTransforms:
+  coneAreaTransforms:
   - {fileID: 6018386457086868603}
   - {fileID: 6301488533947270225}
   - {fileID: 2667988105839119167}
@@ -1318,7 +1318,9 @@ MonoBehaviour:
   - {fileID: 7731186139114054584}
   - {fileID: 6739257056365707901}
   - {fileID: 2809850272236384030}
-  areaRadius: 1
+  coneAreaRadius: 1
+  circleAreaTransform: {fileID: 3565438764446560891}
+  circleAreaRadius: 3.5
 --- !u!114 &3134053531977257851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1342,7 +1344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6739257056365707901}
   m_Layer: 6
-  m_Name: RitardandoPos7
+  m_Name: RitardandoConePos7
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1677,7 +1679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2809850272236384030}
   m_Layer: 6
-  m_Name: RitardandoPos8
+  m_Name: RitardandoConePos8
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1958,6 +1960,37 @@ MonoBehaviour:
   - {fileID: 2412851267031932804}
   - {fileID: 8682992959460049137}
   playerStateHandler: {fileID: 2527459363889109172}
+--- !u!1 &6000689264728875004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3565438764446560891}
+  m_Layer: 6
+  m_Name: RitardandoCirclePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3565438764446560891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000689264728875004}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6248436503809636389}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6037700049842417909
 GameObject:
   m_ObjectHideFlags: 0
@@ -2075,7 +2108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7077925278160448707}
   m_Layer: 6
-  m_Name: RitardandoPositions
+  m_Name: RitardandoConePositions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2135,6 +2168,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7077925278160448707}
+  - {fileID: 3565438764446560891}
   m_Father: {fileID: 6380853313663446174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5807690871720614132
@@ -2160,7 +2194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2667988105839119167}
   m_Layer: 6
-  m_Name: RitardandoPos3
+  m_Name: RitardandoConePos3
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2613,7 +2647,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7731186139114054584}
   m_Layer: 6
-  m_Name: RitardandoPos6
+  m_Name: RitardandoConePos6
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2644,7 +2678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8630169012846010125}
   m_Layer: 6
-  m_Name: RitardandoPos4
+  m_Name: RitardandoConePos4
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

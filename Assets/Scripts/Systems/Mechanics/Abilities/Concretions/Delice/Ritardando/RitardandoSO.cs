@@ -12,6 +12,8 @@ public class RitardandoSO : ActiveAbilitySO, IDamageSource
     public TemporalSlowStatusEffect tenporalSlowStatusEffect;
     [Space]
     [Range(0f, 1f)] public float performanceTime;
+    [Space]
+    [Range(1f, 100f)] public float pushForce;
 
     #region Damage Source Methods
     public DamageSourceClassification GetDamageSourceClassification() => DamageSourceClassification.Character;

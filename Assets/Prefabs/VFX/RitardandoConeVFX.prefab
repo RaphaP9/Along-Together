@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4369856226262510126}
   - component: {fileID: 1266248922472822094}
   m_Layer: 6
-  m_Name: RitardandoVFX
+  m_Name: RitardandoConeVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
