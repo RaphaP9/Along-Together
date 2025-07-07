@@ -24,5 +24,5 @@ MonoBehaviour:
   flyDuration: 3
   flyEndDuration: 0.5
   pushData:
-    pushForce: 5
+    pushForce: 7
     actionRadius: 5

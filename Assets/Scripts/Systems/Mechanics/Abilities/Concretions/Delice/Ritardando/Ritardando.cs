@@ -12,7 +12,7 @@ public class Ritardando : ActiveAbility, IFacingInterruption
     [SerializeField, Range(0.5f, 1f)] private float coneAreaRadius;
     [Space]
     [SerializeField] private Transform circleAreaTransform;
-    [SerializeField, Range(0.5f, 4f)] private float circleAreaRadius;
+    [SerializeField, Range(0.5f, 5f)] private float circleAreaRadius;
 
     private RitardandoSO RitardandoSO => AbilitySO as RitardandoSO;
 

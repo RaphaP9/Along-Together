@@ -37,7 +37,15 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
     public bool IsInterruptingMovement() => false; // isStarting || isEnding;
     public bool StopMovementOnInterruption() => true;
     ////////////////////////////////////////////////////////////////////
-    public override bool IsInterruptingAttack() => isCurrentlyActive;
+    public override bool IsInterruptingAttack()
+    {
+        if(isStarting) return true;
+        if(isEnding) return true;
+
+        if (isCurrentlyActive && (AbilityLevel != AbilityLevel.Level3)) return true; //Level3 Does not interrupt Attack
+
+        return false;
+    }
     /////////////////////////////////////////////////////////////////////
     public override bool IsInterruptingAbility() => isCurrentlyActive;
     #endregion
@@ -97,7 +105,10 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
         isEnding = false;
         isCurrentlyActive = false;
 
-        MechanicsUtilities.PushAllEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(transform), LegatoSO.pushData, pushLayerMask);
+        if(AbilityLevel != AbilityLevel.Level1) //Level1 Does not Push
+        {
+            MechanicsUtilities.PushAllEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(transform), LegatoSO.pushData, pushLayerMask);
+        }
 
         OnAnyLegatoCompleted?.Invoke(this, EventArgs.Empty);
         OnLegatoCompleted?.Invoke(this, EventArgs.Empty);
