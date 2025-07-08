@@ -33,9 +33,13 @@ public class ScrollingCredits : MonoBehaviour
 
         while (!HasReachedLimit())
         {
-            bool skipping = GetSkipHold() && !backToMenuButtonHoverDetector.IsHovering;
+            bool stall = GetStallHold() && !backToMenuButtonHoverDetector.IsHovering;
 
-            float speed = skipping ? baseScrollSpeed * scrollSpeedMultiplier : baseScrollSpeed;
+            //if (stall) continue;
+
+            bool skip = GetSkipHold() && !backToMenuButtonHoverDetector.IsHovering;
+
+            float speed = skip ? baseScrollSpeed * scrollSpeedMultiplier : baseScrollSpeed;
             scrollTransform.anchoredPosition += new Vector2(0, speed * Time.deltaTime);
 
             yield return null;
@@ -47,5 +51,6 @@ public class ScrollingCredits : MonoBehaviour
     }
 
     private bool GetSkipHold() => Input.GetMouseButton(0);
+    private bool GetStallHold() => Input.GetMouseButton(1);
     private bool HasReachedLimit() => scrollTransform.anchoredPosition.y >= anchoredPositionLimit;
 }
