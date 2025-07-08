@@ -63,7 +63,7 @@ public class RebindingUIHandler : MonoBehaviour
     {
         foreach(RebindingUIGroup rebindingUIGroup in rebindingUIGroups)
         {
-            string bindingText = CentralizedInputSystemManager.Instance.GetBindingText(rebindingUIGroup.binding);
+            string bindingText = MappingUtilities.MapShortBindingName(CentralizedInputSystemManager.Instance.GetBindingText(rebindingUIGroup.binding));
             rebindingUIGroup.bindingText.text = bindingText;
         }
     }

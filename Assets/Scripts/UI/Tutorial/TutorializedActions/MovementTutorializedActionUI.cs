@@ -59,10 +59,10 @@ public class MovementTutorializedActionUI : TutorializedActionUI
 
     private void UpdateTutorializedActionText()
     {
-        string upBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveUp);
-        string downBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveDown);
-        string leftBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveLeft);
-        string rightBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveRight);
+        string upBinding = MappingUtilities.MapLongBindingName(CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveUp));
+        string downBinding = MappingUtilities.MapLongBindingName(CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveDown));
+        string leftBinding = MappingUtilities.MapLongBindingName(CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveLeft));
+        string rightBinding = MappingUtilities.MapLongBindingName(CentralizedInputSystemManager.Instance.GetBindingText(Binding.MoveRight));
 
         tutorializedActionText.text = $"Puedes moverte usando las teclas <b>{upBinding}{leftBinding}{downBinding}{rightBinding}</b>. Prueba moverte un poco";
     }

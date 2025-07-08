@@ -34,13 +34,13 @@ public class AbilityCastingTutorializedActionUI : TutorializedActionUI
         switch (lastAbilitySlotUpgraded)
         {
             case AbilitySlot.AbilityA:
-                abilityBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.AbilityA);
+                abilityBinding = MappingUtilities.MapLongBindingName(CentralizedInputSystemManager.Instance.GetBindingText(Binding.AbilityA));
                 break;
             case AbilitySlot.AbilityB:
-                abilityBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.AbilityB);
+                abilityBinding = MappingUtilities.MapLongBindingName(CentralizedInputSystemManager.Instance.GetBindingText(Binding.AbilityB));
                 break;
             case AbilitySlot.AbilityC:
-                abilityBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.AbilityC);
+                abilityBinding = MappingUtilities.MapLongBindingName(CentralizedInputSystemManager.Instance.GetBindingText(Binding.AbilityC));
                 break;
             default:
                 return;

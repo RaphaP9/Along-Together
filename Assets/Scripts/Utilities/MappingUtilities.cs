@@ -49,6 +49,14 @@ public static class MappingUtilities
     private const string ACTIVE_PASSIVE_ABILITY = "Habilidad Activa/Pasiva";
     #endregion
 
+    #region Binding Consts
+    private const string LMB_LONG_BINDING_NAME = "Click Izquierdo";
+    private const string RMB_LONG_BINDING_NAME = "Click Derecho";
+
+    private const string LMB_SHORT_BINDING_NAME = "Click Izq.";
+    private const string RMB_SHORT_BINDING_NAME = "Click Der.";
+    #endregion
+
     private const string PERCENTAGE_CHARACTER = "%";
     private const string PLUS_CHARACTER = "+";
 
@@ -327,7 +335,6 @@ public static class MappingUtilities
                 return GOLD_STAT;
         }
     }
-
     public static string MapAbilityLevel(AbilityLevel abilityLevel)
     {
         switch (abilityLevel)
@@ -344,7 +351,6 @@ public static class MappingUtilities
 
         }
     }
-
     public static string MapAbilityType(AbilityType abilityType)
     {
         switch (abilityType)
@@ -357,5 +363,31 @@ public static class MappingUtilities
             case AbilityType.ActivePassive:
                 return ACTIVE_PASSIVE_ABILITY;
         }
+    }
+
+    public static string MapLongBindingName(string bindingName)
+    {
+        switch (bindingName)
+        {
+            case "LMB":
+                return LMB_LONG_BINDING_NAME;
+            case "RMB":
+                return RMB_LONG_BINDING_NAME;
+        }
+
+        return bindingName;
+    }
+
+    public static string MapShortBindingName(string bindingName)
+    {
+        switch (bindingName)
+        {
+            case "LMB":
+                return LMB_SHORT_BINDING_NAME;
+            case "RMB":
+                return RMB_SHORT_BINDING_NAME;
+        }
+
+        return bindingName;
     }
 }

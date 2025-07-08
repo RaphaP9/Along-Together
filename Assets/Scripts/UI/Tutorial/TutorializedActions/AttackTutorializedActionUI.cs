@@ -49,7 +49,7 @@ public class AttackTutorializedActionUI : TutorializedActionUI
 
     private void UpdateTutorializedActionText()
     {
-        string attackBinding = CentralizedInputSystemManager.Instance.GetBindingText(Binding.Attack);
+        string attackBinding = MappingUtilities.MapLongBindingName(CentralizedInputSystemManager.Instance.GetBindingText(Binding.Attack));
         tutorializedActionText.text = $"Puedes atacar usando <b>{attackBinding}</B>. Prueba realizar algunos ataques.";
     }
 
