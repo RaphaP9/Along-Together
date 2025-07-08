@@ -1,0 +1,51 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ScrollingCredits : MonoBehaviour
+{
+    [Header("Components")]
+    [SerializeField] private RectTransform scrollTransform;
+    [SerializeField] private UIHoverDetector backToMenuButtonHoverDetector;
+
+    [Header("Settings")]
+    [SerializeField, Range(0f, 5f)] private float timeToStartScrolling;
+    [SerializeField, Range(0f, 5f)] private float timeToTransitionAfterScrollEnd;
+
+    [SerializeField] private float baseScrollSpeed = 20f;
+    [SerializeField] private float scrollSpeedMultiplier = 2f;
+    [SerializeField] private float anchoredPositionLimit = 0f;
+    [Space]
+    [SerializeField] private string endCreditsScene;
+    [SerializeField] private TransitionType endCreditsTransitionType;
+
+
+    private void Start()
+    {
+        StartCoroutine(ScrollCreditsCoroutine());
+    }
+
+    private IEnumerator ScrollCreditsCoroutine()
+    {
+        yield return new WaitForSeconds(timeToStartScrolling);
+
+        while (!HasReachedLimit())
+        {
+            bool skipping = GetSkipHold() && !backToMenuButtonHoverDetector.IsHovering;
+
+            float speed = skipping ? baseScrollSpeed * scrollSpeedMultiplier : baseScrollSpeed;
+            scrollTransform.anchoredPosition += new Vector2(0, speed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(timeToTransitionAfterScrollEnd);
+
+        ScenesManager.Instance.TransitionLoadTargetScene(endCreditsScene, endCreditsTransitionType);
+    }
+
+    private bool GetSkipHold() => Input.GetMouseButton(0);
+    private bool HasReachedLimit() => scrollTransform.anchoredPosition.y >= anchoredPositionLimit;
+}
