@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,11 +12,18 @@ public class TimedRoundCounterUI : MonoBehaviour
     [Header("UI Components")]
     [SerializeField] private TextMeshProUGUI timedRoundCounterText;
 
+    [Header("Settings")]
+    [SerializeField, Range (0, 15)] private int thresholdToTick;
+
     private const string SHOW_TRIGGER = "Show";
     private const string HIDE_TRIGGER = "Hide";
 
+    private const string TICK_TRIGGER = "Tick";
+
     private int previousCounter;
     private bool enableCounterUpdate;
+
+    public static event EventHandler OnTimedRoundCounterTick;
 
     private void OnEnable()
     {
@@ -49,19 +57,27 @@ public class TimedRoundCounterUI : MonoBehaviour
 
         SetCounterText(currentCounter);
 
+        if (currentCounter <= thresholdToTick) Tick();
+
         previousCounter = currentCounter;
     }
 
-    public void ShowUI()
+    private void ShowUI()
     {
         animator.ResetTrigger(HIDE_TRIGGER);
         animator.SetTrigger(SHOW_TRIGGER);
     }
 
-    public void HideUI()
+    private void HideUI()
     {
         animator.ResetTrigger(SHOW_TRIGGER);
         animator.SetTrigger(HIDE_TRIGGER);
+    }
+
+    private void Tick()
+    {
+        animator.SetTrigger(TICK_TRIGGER);
+        OnTimedRoundCounterTick?.Invoke(this, EventArgs.Empty);
     }
 
     private void ResetPreviousCounter() => previousCounter = 0;

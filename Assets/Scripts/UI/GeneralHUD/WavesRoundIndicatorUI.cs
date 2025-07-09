@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System;
 
 public class WavesRoundIndicatorUI : MonoBehaviour
 {
@@ -11,8 +12,18 @@ public class WavesRoundIndicatorUI : MonoBehaviour
     [Header("UI Components")]
     [SerializeField] private TextMeshProUGUI wavesRoundIndicatorText;
 
+    [Header("Settings")]
+    [SerializeField, Range(0f, 1f)] private float timeToTickOnWaveCompleted;
+
     private const string SHOW_TRIGGER = "Show";
     private const string HIDE_TRIGGER = "Hide";
+
+    private const string TICK_TRIGGER = "Tick";
+
+    private int currentWave;
+    private int totalWaves;
+
+    public static event EventHandler OnWavesRoundIndicatorTick;
 
     private void OnEnable()
     {
@@ -32,20 +43,32 @@ public class WavesRoundIndicatorUI : MonoBehaviour
         WavesRoundHandler.OnWavesRoundWaveCompleted -= WavesRoundHandler_OnWavesRoundWaveCompleted;
     }
 
-    public void ShowUI()
+    private void ShowUI()
     {
         animator.ResetTrigger(HIDE_TRIGGER);
         animator.SetTrigger(SHOW_TRIGGER);
     }
 
-    public void HideUI()
+    private void HideUI()
     {
         animator.ResetTrigger(SHOW_TRIGGER);
         animator.SetTrigger(HIDE_TRIGGER);
     }
 
-    private void SetWavesRoundIndicatorText(int currentWave, int totalWaves) => wavesRoundIndicatorText.text = $"{currentWave}/{totalWaves}";
+    private void Tick()
+    {
+        animator.SetTrigger(TICK_TRIGGER);
+        OnWavesRoundIndicatorTick?.Invoke(this, EventArgs.Empty);
+    }
 
+    private IEnumerator TickCoroutine()
+    {
+        yield return new WaitForSeconds(timeToTickOnWaveCompleted);
+        Tick();
+    }
+
+
+    private void SetWavesRoundIndicatorText(int currentWave, int totalWaves) => wavesRoundIndicatorText.text = $"{currentWave}/{totalWaves}";
 
     private void WavesRoundHandler_OnWavesRoundStart(object sender, WavesRoundHandler.OnWavesRoundEventArgs e)
     {
@@ -60,11 +83,14 @@ public class WavesRoundIndicatorUI : MonoBehaviour
     private void WavesRoundHandler_OnWavesRoundWaveStart(object sender, WavesRoundHandler.OnWavesRoundWaveEventArgs e)
     {
         SetWavesRoundIndicatorText(e.currentWave, e.totalWaves);
+
+        currentWave = e.currentWave;
+        totalWaves = e.totalWaves;
     }
 
     private void WavesRoundHandler_OnWavesRoundWaveCompleted(object sender, WavesRoundHandler.OnWavesRoundWaveEventArgs e)
     {
-        //
+        if (currentWave == totalWaves) return;
+        StartCoroutine(TickCoroutine());
     }
-
 }
