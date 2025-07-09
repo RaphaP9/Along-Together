@@ -14,8 +14,8 @@ public class ScrollingCredits : MonoBehaviour
     [SerializeField, Range(0f, 5f)] private float timeToStartScrolling;
     [SerializeField, Range(0f, 5f)] private float timeToTransitionAfterScrollEnd;
 
-    [SerializeField] private float baseScrollSpeed = 20f;
-    [SerializeField] private float scrollSpeedMultiplier = 2f;
+    [SerializeField, Range(20f,50f)] private float baseScrollSpeed = 20f;
+    [SerializeField, Range(2f, 15f)] private float scrollSpeedMultiplier = 2f;
     [SerializeField] private float anchoredPositionLimit = 0f;
     [Space]
     [SerializeField] private string endCreditsScene;
@@ -35,7 +35,11 @@ public class ScrollingCredits : MonoBehaviour
         {
             bool stall = GetStallHold() && !backToMenuButtonHoverDetector.IsHovering;
 
-            //if (stall) continue;
+            if (stall)
+            {
+                yield return null;
+                continue;
+            }
 
             bool skip = GetSkipHold() && !backToMenuButtonHoverDetector.IsHovering;
 
