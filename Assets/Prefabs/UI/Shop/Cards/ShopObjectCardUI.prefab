@@ -331,7 +331,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294960824
-  m_fontColor: {r: 0.72156864, g: 0.9019608, b: 1, a: 1}
+  m_fontColor: {r: 0.62352943, g: 1, b: 0.5882353, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priceText: {fileID: 660364003359366777}
-  affordableColor: {r: 0.72156864, g: 0.9019608, b: 1, a: 1}
+  affordableColor: {r: 0.62352943, g: 1, b: 0.5882353, a: 1}
   cantPurchaseColor: {r: 1, g: 0.42745098, b: 0.42745098, a: 1}
   currentPriceTag: 0
   shopObjectCardUI: {fileID: 647208895681278628}
