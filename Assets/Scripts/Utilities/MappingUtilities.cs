@@ -7,16 +7,16 @@ public static class MappingUtilities
 {
     #region Object Classification Consts 
     private const string COMMON_OBJECT_TEXT = "Objeto Común";
-    private const string UNCOMMON_OBJECT_TEXT = "Objeto Poco Común";
+    private const string UNCOMMON_OBJECT_TEXT = "Objeto Insólito";
     private const string RARE_OBJECT_TEXT = "Objeto Raro";
     private const string EPIC_OBJECT_TEXT = "Objeto Épico";
     private const string LEGENDARY_OBJECT_TEXT = "Objeto Legendario";
 
-    private const string COMMON_TREAT_TEXT = "Treat Común";
-    private const string UNCOMMON_TREAT_TEXT = "Treat Poco Común";
-    private const string RARE_TREAT_TEXT = "Treat Rara";
-    private const string EPIC_TREAT_TEXT = "Treat Épica";
-    private const string LEGENDARY_TREAT_TEXT = "Treat Legendaria";
+    private const string COMMON_TREAT_TEXT = "Efecto Común";
+    private const string UNCOMMON_TREAT_TEXT = "Efecto Insólito";
+    private const string RARE_TREAT_TEXT = "Efecto Raro";
+    private const string EPIC_TREAT_TEXT = "Efecto Épico";
+    private const string LEGENDARY_TREAT_TEXT = "Efecto Legendario";
     #endregion
 
     #region Numeric Stat Consts

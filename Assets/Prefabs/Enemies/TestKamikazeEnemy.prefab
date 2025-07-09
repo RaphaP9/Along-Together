@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 4612567573390295009}
   - component: {fileID: 3587964685154448748}
   - component: {fileID: 1106262027479427470}
+  - component: {fileID: 6078170537316941160}
   m_Layer: 7
   m_Name: Visual
   m_TagString: Untagged
@@ -184,6 +185,20 @@ MonoBehaviour:
   renderingRefference: {fileID: 4882927765344189426}
   UICanvases:
   - {fileID: 6867233554747087357}
+--- !u!114 &6078170537316941160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264724814189880305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab4151b5ad80ff48baa9667c3812b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityExplosion: {fileID: 8811045212219346871}
+  explosionVFXPrefab: {fileID: 5003656720879144264, guid: e997903280de67842be302f88c3ae5de, type: 3}
 --- !u!1 &3887083149585797501
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +524,6 @@ MonoBehaviour:
     m_Bits: 0
   currentPushData:
     pushForce: 1
-    actionRadius: 1
   currentPushDirection: {x: 0, y: 0}
 --- !u!1 &4993759363288360710
 GameObject:

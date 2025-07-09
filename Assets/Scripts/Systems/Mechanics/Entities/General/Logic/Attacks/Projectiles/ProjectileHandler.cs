@@ -26,11 +26,15 @@ public class ProjectileHandler : MonoBehaviour
     private IDamageSource damageSource;
     private Rigidbody2D _rigidbody2D;
 
-    public static event EventHandler<OnProjectileEventArgs> OnProjectileImpactTarget;
-    public static event EventHandler<OnProjectileEventArgs> OnProjectileImpactRegular;
-    public static event EventHandler<OnProjectileEventArgs> OnProjectileLifespanEnd;
+    public static event EventHandler<OnProjectileEventArgs> OnAnyProjectileImpactTarget;
+    public static event EventHandler<OnProjectileEventArgs> OnAnyProjectileImpactRegular;
+    public static event EventHandler<OnProjectileEventArgs> OnAnyProjectileLifespanEnd;
 
     public event EventHandler<OnProjectileEventArgs> OnProjectileSet;
+
+    public event EventHandler<OnProjectileEventArgs> OnProjectileImpactTarget;
+    public event EventHandler<OnProjectileEventArgs> OnProjectileImpactRegular;
+    public event EventHandler<OnProjectileEventArgs> OnProjectileLifespanEnd;
 
     private bool hasTriggeredImpact = false;
 
@@ -95,6 +99,7 @@ public class ProjectileHandler : MonoBehaviour
     private void ImpactProjectileTarget()
     {
         hasTriggeredImpact = true;
+        OnAnyProjectileImpactTarget?.Invoke(this, new OnProjectileEventArgs { id = id , damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask});
         OnProjectileImpactTarget?.Invoke(this, new OnProjectileEventArgs { id = id , damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask});
         Destroy(gameObject);
     }
@@ -102,12 +107,14 @@ public class ProjectileHandler : MonoBehaviour
     private void ImpactProjectileRegular()
     {
         hasTriggeredImpact = true;
+        OnAnyProjectileImpactRegular?.Invoke(this, new OnProjectileEventArgs { id = id, damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask });
         OnProjectileImpactRegular?.Invoke(this, new OnProjectileEventArgs { id = id, damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask });
         Destroy(gameObject);
     }
 
     private void EndLifespan()
     {
+        OnAnyProjectileLifespanEnd?.Invoke(this, new OnProjectileEventArgs { id = id, damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask });
         OnProjectileLifespanEnd?.Invoke(this, new OnProjectileEventArgs { id = id, damageSource = damageSource, direction = direction, damage = damage, isCrit = isCrit, speed = speed, lifespan = lifespan, damageType = damageType, areaRadius = areaRadius, targetLayerMask = targetLayerMask, impactLayerMask = impactLayerMask });
         Destroy(gameObject);
     }

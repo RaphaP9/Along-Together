@@ -299,6 +299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4438610197538586329}
   - component: {fileID: 6797995713973560439}
+  - component: {fileID: 5377020423659030592}
   m_Layer: 13
   m_Name: Visual
   m_TagString: Untagged
@@ -337,3 +338,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileHandler: {fileID: 6451573138883523255}
   visualTransform: {fileID: 4438610197538586329}
+--- !u!114 &5377020423659030592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9195111808960843506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1e0e042ab64dd4e9d6554586a2024f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileHandler: {fileID: 6451573138883523255}
+  impactVFXPrefab: {fileID: 5748087591250273871, guid: 6da86c90682c84143b1e1dfa3def7111, type: 3}
