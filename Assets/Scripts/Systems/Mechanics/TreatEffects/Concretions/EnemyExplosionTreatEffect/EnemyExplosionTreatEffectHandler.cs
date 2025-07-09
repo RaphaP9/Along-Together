@@ -13,6 +13,7 @@ public class EnemyExplosionTreatEffectHandler : TreatEffectHandler
     private EnemyExplosionTreatEffectSO EnemyExplosionTreatEffectSO => treatEffectSO as EnemyExplosionTreatEffectSO;
 
     public static event EventHandler<OnTreatExplosionEventArgs> OnTreatExplosion;
+    public event EventHandler<OnTreatExplosionEventArgs> OnThisTreatExplosion;
 
     public class OnTreatExplosionEventArgs : EventArgs
     {
@@ -57,6 +58,7 @@ public class EnemyExplosionTreatEffectHandler : TreatEffectHandler
         MechanicsUtilities.DealDamageInArea(position, EnemyExplosionTreatEffectSO.explosionRadius, damageData, explosionLayerMask);
 
         OnTreatExplosion?.Invoke(this, new OnTreatExplosionEventArgs { damage = damageData.damage, explosionRadius = EnemyExplosionTreatEffectSO.explosionRadius, position = position });
+        OnThisTreatExplosion?.Invoke(this, new OnTreatExplosionEventArgs { damage = damageData.damage, explosionRadius = EnemyExplosionTreatEffectSO.explosionRadius, position = position });
     }
 
     #region Subscriptions

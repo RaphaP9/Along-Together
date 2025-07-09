@@ -20,4 +20,4 @@ MonoBehaviour:
   explosionDamage: 6
   explosionRadius: 2
   damageColor: {r: 0.5283019, g: 0.05233179, b: 0.05233179, a: 1}
-  explosionProbability: 0.25
+  explosionProbability: 1
