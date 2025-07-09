@@ -20,6 +20,8 @@ public class CharacterBodyAnimationController : MonoBehaviour
     protected const string MOVEMENT_BLEND_TREE_NAME = "MovementBlendTree";
     protected const string DEATH_ANIMATION_NAME = "Death";
 
+    protected const string TAKE_DAMAGE_ANIMATION_NAME = "TakeDamage";
+
     protected bool isDead = false;
 
     protected virtual void OnEnable()
@@ -27,6 +29,7 @@ public class CharacterBodyAnimationController : MonoBehaviour
         GameManager.OnStateInitialized += GameManager_OnStateInitialized;
         GameManager.OnStateChanged += GameManager_OnStateChanged;
 
+        playerHealth.OnPlayerHealthTakeDamage += PlayerHealth_OnPlayerHealthTakeDamage;
         playerHealth.OnPlayerDeath += PlayerHealth_OnPlayerDeath;
     }
 
@@ -35,6 +38,7 @@ public class CharacterBodyAnimationController : MonoBehaviour
         GameManager.OnStateInitialized -= GameManager_OnStateInitialized;
         GameManager.OnStateChanged -= GameManager_OnStateChanged;
 
+        playerHealth.OnPlayerHealthTakeDamage -= PlayerHealth_OnPlayerHealthTakeDamage;
         playerHealth.OnPlayerDeath -= PlayerHealth_OnPlayerDeath;
     }
 
@@ -55,11 +59,11 @@ public class CharacterBodyAnimationController : MonoBehaviour
         animator.SetFloat(FACE_Y_FLOAT, facingDirectionHandler.CurrentFacingDirection.y);
     }
 
-    protected void PlayAnimation(string animationName, bool playEvenAfterDeath = false)
+    protected void PlayAnimation(string animationName, int layer = 0, bool playEvenAfterDeath = false)
     {
         if (isDead && !playEvenAfterDeath) return;
 
-        animator.Play(animationName);
+        animator.Play(animationName, layer);
     }
 
     #region Subscriptions
@@ -84,6 +88,11 @@ public class CharacterBodyAnimationController : MonoBehaviour
             PlayAnimation(MOVEMENT_BLEND_TREE_NAME);
             return;
         }
+    }
+
+    private void PlayerHealth_OnPlayerHealthTakeDamage(object sender, EntityHealth.OnEntityHealthTakeDamageEventArgs e)
+    {
+        PlayAnimation(TAKE_DAMAGE_ANIMATION_NAME,1);
     }
 
     private void PlayerHealth_OnPlayerDeath(object sender, System.EventArgs e)

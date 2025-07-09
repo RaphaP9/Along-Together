@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: EnemyExplosionTreat
   m_EditorClassIdentifier: 
   id: 2109
-  _name: EnemyExplosionTreat
+  _name: Efecto Explosivo
   objectRarity: 0
-  description: EnemyExplosionTreat
+  description: "Los enemigos tienen una probabilidad del 25% de explotar al morir,
+    realizando 6 puntos de da\xF1o a otros enemigos a su alrededor."
   sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
   price: 10
   sellPrice: 7
