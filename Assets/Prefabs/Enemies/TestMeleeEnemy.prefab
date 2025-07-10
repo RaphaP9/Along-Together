@@ -132,7 +132,6 @@ MonoBehaviour:
     m_Bits: 0
   currentPushData:
     pushForce: 1
-    actionRadius: 1
   currentPushDirection: {x: 0, y: 0}
 --- !u!1 &5370400386341315922
 GameObject:
@@ -1259,14 +1258,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.16071431
       objectReference: {fileID: 0}
-    - target: {fileID: 1486890155361709026, guid: c960c3c2b441ec042b6c79085df06552, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.051
-      objectReference: {fileID: 0}
-    - target: {fileID: 1486890155361709026, guid: c960c3c2b441ec042b6c79085df06552, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.09
-      objectReference: {fileID: 0}
     - target: {fileID: 4879463366630758437, guid: c960c3c2b441ec042b6c79085df06552, type: 3}
       propertyPath: enemyHealth
       value: 
@@ -1277,11 +1268,11 @@ PrefabInstance:
       objectReference: {fileID: 7521818973245002023}
     - target: {fileID: 5804734500027729284, guid: c960c3c2b441ec042b6c79085df06552, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.0528
       objectReference: {fileID: 0}
     - target: {fileID: 5804734500027729284, guid: c960c3c2b441ec042b6c79085df06552, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4
+      value: -0.4729
       objectReference: {fileID: 0}
     - target: {fileID: 5804734500027729284, guid: c960c3c2b441ec042b6c79085df06552, type: 3}
       propertyPath: m_LocalPosition.z
