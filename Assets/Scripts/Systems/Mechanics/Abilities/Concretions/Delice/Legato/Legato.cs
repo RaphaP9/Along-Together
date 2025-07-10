@@ -69,6 +69,8 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
         isCurrentlyActive = true;
         ResetTimer();
 
+        TemporalNumericStatModifierManager.Instance.AddStatModifiers(LegatoSO.refferencialGUID, LegatoSO);
+
         OnAnyLegatoStarting?.Invoke(this, EventArgs.Empty);
         OnLegatoStarting?.Invoke(this, EventArgs.Empty);
 
@@ -80,6 +82,7 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
 
         OnAnyLegatoStart?.Invoke(this, EventArgs.Empty);
         OnLegatoStart?.Invoke(this, EventArgs.Empty);
+
 
         while (LegatoTimer < GetDuration())
         {
@@ -106,6 +109,8 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
         }
 
         yield return new WaitForSeconds(LegatoSO.dodgeTimeAfterLand);
+
+        TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(LegatoSO.refferencialGUID);
 
         isCurrentlyActive = false;
 

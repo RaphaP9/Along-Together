@@ -28,3 +28,8 @@ MonoBehaviour:
   actionRadius: 4
   landDamage: 7
   pushForce: 5
+  refferencialGUID: GUID_Legato
+  numericEmbeddedStats:
+  - numericStatType: 10
+    numericStatModificationType: 1
+    value: 0.25
