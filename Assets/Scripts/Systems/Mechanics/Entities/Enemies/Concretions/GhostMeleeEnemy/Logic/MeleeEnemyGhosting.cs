@@ -98,6 +98,8 @@ public class MeleeEnemyGhosting : MonoBehaviour, IDodger
 
     private void EnemyHealth_OnEnemyHealthTakeDamage(object sender, EntityHealth.OnEntityHealthTakeDamageEventArgs e)
     {
+        if (isGhosted) return; //If take damage while ghosted, do not interrupt ghosting
+
         StopAllCoroutines();
         InterruptEnemyGhost();
         StartCoroutine(GhostEnemyAfterTimeCoroutine(timeToGhostAfterTakingDamage));

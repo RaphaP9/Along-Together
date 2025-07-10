@@ -12,9 +12,6 @@ public class WavesRoundIndicatorUI : MonoBehaviour
     [Header("UI Components")]
     [SerializeField] private TextMeshProUGUI wavesRoundIndicatorText;
 
-    [Header("Settings")]
-    [SerializeField, Range(0f, 1f)] private float timeToTickOnWaveCompleted;
-
     private const string SHOW_TRIGGER = "Show";
     private const string HIDE_TRIGGER = "Hide";
 
@@ -31,7 +28,6 @@ public class WavesRoundIndicatorUI : MonoBehaviour
         WavesRoundHandler.OnWavesRoundCompleted += WavesRoundHandler_OnWavesRoundCompleted;
 
         WavesRoundHandler.OnWavesRoundWaveStart += WavesRoundHandler_OnWavesRoundWaveStart;
-        WavesRoundHandler.OnWavesRoundWaveCompleted += WavesRoundHandler_OnWavesRoundWaveCompleted;
     }
 
     private void OnDisable()
@@ -40,7 +36,6 @@ public class WavesRoundIndicatorUI : MonoBehaviour
         WavesRoundHandler.OnWavesRoundCompleted -= WavesRoundHandler_OnWavesRoundCompleted;
 
         WavesRoundHandler.OnWavesRoundWaveStart -= WavesRoundHandler_OnWavesRoundWaveStart;
-        WavesRoundHandler.OnWavesRoundWaveCompleted -= WavesRoundHandler_OnWavesRoundWaveCompleted;
     }
 
     private void ShowUI()
@@ -59,12 +54,6 @@ public class WavesRoundIndicatorUI : MonoBehaviour
     {
         animator.SetTrigger(TICK_TRIGGER);
         OnWavesRoundIndicatorTick?.Invoke(this, EventArgs.Empty);
-    }
-
-    private IEnumerator TickCoroutine()
-    {
-        yield return new WaitForSeconds(timeToTickOnWaveCompleted);
-        Tick();
     }
 
 
@@ -86,11 +75,8 @@ public class WavesRoundIndicatorUI : MonoBehaviour
 
         currentWave = e.currentWave;
         totalWaves = e.totalWaves;
-    }
 
-    private void WavesRoundHandler_OnWavesRoundWaveCompleted(object sender, WavesRoundHandler.OnWavesRoundWaveEventArgs e)
-    {
-        if (currentWave == totalWaves) return;
-        StartCoroutine(TickCoroutine());
+        if (currentWave <= 1) return; //If first wave, do not tick
+        Tick();
     }
 }
