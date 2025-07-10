@@ -41,7 +41,7 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
     ////////////////////////////////////////////////////////////////////
     public override bool IsInterruptingAttack() => isStarting || isEnding;
     /////////////////////////////////////////////////////////////////////
-    public override bool IsInterruptingAbility() => false;
+    public override bool IsInterruptingAbility() => isStarting || isEnding;
     #endregion
 
     #region Logic Methods

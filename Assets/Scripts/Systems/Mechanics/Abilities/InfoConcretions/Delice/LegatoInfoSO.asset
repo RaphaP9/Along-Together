@@ -15,29 +15,28 @@ MonoBehaviour:
   abilityLevelInfos:
   - abilityLevel: 0
     levelDescription: Delice alza el vuelo durante 4 segundos, mientras se encuentra
-      en este estado es inalcanzable por ataques y proyectiles. Durante el vuelo
-      no puede atacar ni lanzar otras habilidades.
-    cardLevelDescription: "Delice vuela, volvi\xE9ndose inalcanzable por ataques
-      y proyectiles. Durante el vuelo no puede atacar ni lanzar otras habilidades."
+      en este estado es inalcanzable por ataques y proyectiles.
+    cardLevelDescription: Delice alza el vuelo durante 4 segundos, mientras se encuentra
+      en este estado es inalcanzable por ataques y proyectiles.
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 1
     levelDescription: Delice alza el vuelo durante 4 segundos, mientras se encuentra
-      en este estado es inalcanzable por ataques y proyectiles. Durante el vuelo
-      no puede atacar ni lanzar otras habilidades.
-    cardLevelDescription: "Delice vuela, volvi\xE9ndose inalcanzable por ataques
-      y proyectiles. Durante el vuelo no puede atacar ni lanzar otras habilidades."
+      en este estado es inalcanzable por ataques y proyectiles.
+    cardLevelDescription: Delice alza el vuelo durante 4 segundos, mientras se encuentra
+      en este estado es inalcanzable por ataques y proyectiles.
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 2
     levelDescription: "Delice alza el vuelo durante 4 segundos, mientras se encuentra
-      en este estado es inalcanzable por ataques y proyectiles. Durante el vuelo
-      no puede atacar ni lanzar otras habilidades. Al aterrizar hace 7 puntos de
-      da\xF1o a los enemigos cercanos, y los empuja ligeramente hacia atr\xE1s."
+      en este estado es inalcanzable por ataques y proyectiles. Al aterrizar hace
+      7 puntos de da\xF1o a los enemigos cercanos, y los empuja ligeramente hacia
+      atr\xE1s."
     cardLevelDescription: "Al aterrizar, Delice empuja y da\xF1a a los enemigos cercanos."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
   - abilityLevel: 3
     levelDescription: "Delice alza el vuelo durante 4 segundos, mientras se encuentra
-      en este estado es inalcanzable por ataques y proyectiles. Durante el vuelo
-      no puede lanzar otras habilidades. Al aterrizar hace 7 puntos de da\xF1o a
-      los enemigos cercanos, y los empuja ligeramente hacia atr\xE1s."
-    cardLevelDescription: Delice puede disparar mientras se encuentra en vuelo.
+      en este estado es inalcanzable por ataques y proyectiles. Al aterrizar hace
+      7 puntos de da\xF1o a los enemigos cercanos, y los empuja ligeramente hacia
+      atr\xE1s. Mientras Delice est\xE9 en vuelo, todos sus disparos son cr\xEDticos."
+    cardLevelDescription: "Mientras Delice est\xE9 en vuelo, todos sus disparos son
+      cr\xEDticos."
     cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
