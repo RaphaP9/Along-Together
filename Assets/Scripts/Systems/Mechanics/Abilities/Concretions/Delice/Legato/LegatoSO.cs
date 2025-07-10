@@ -9,6 +9,7 @@ public class LegatoSO : ActiveAbilitySO, IDamageSource, IPushSource
     [Range(0f, 1f)] public float flyStartDuration;
     [Range(1f, 5f)] public float flyDuration;
     [Range(0f, 1f)] public float flyEndDuration;
+    [Range(0f, 1f)] public float dodgeTimeAfterLand;
     [Space]
     [ColorUsage(true, true)] public Color damageColor;
     [Space]

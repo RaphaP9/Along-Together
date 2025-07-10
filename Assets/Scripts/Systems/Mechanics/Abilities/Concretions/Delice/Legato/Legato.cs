@@ -37,17 +37,9 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
     public bool IsInterruptingMovement() => false; // isStarting || isEnding;
     public bool StopMovementOnInterruption() => true;
     ////////////////////////////////////////////////////////////////////
-    public override bool IsInterruptingAttack()
-    {
-        if(isStarting) return true;
-        if(isEnding) return true;
-
-        if (isCurrentlyActive && (AbilityLevel != AbilityLevel.Level3)) return true; //Level3 Does not interrupt Attack
-
-        return false;
-    }
+    public override bool IsInterruptingAttack() => isStarting || isEnding;
     /////////////////////////////////////////////////////////////////////
-    public override bool IsInterruptingAbility() => isCurrentlyActive;
+    public override bool IsInterruptingAbility() => false;
     #endregion
 
     #region Logic Methods
@@ -103,7 +95,6 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
         yield return new WaitForSeconds(LegatoSO.flyEndDuration);
 
         isEnding = false;
-        isCurrentlyActive = false;
 
         if(AbilityLevel != AbilityLevel.Level1) //Level1 Does not Push
         {
@@ -113,6 +104,10 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
             MechanicsUtilities.PushAllEntitiesFromPoint(GeneralUtilities.TransformPositionVector2(transform), pushData, LegatoSO.actionRadius, effectLayerMask);
             MechanicsUtilities.DealDamageInArea(GeneralUtilities.TransformPositionVector2(transform), LegatoSO.actionRadius, damageData, effectLayerMask);
         }
+
+        yield return new WaitForSeconds(LegatoSO.dodgeTimeAfterLand);
+
+        isCurrentlyActive = false;
 
         OnAnyLegatoCompleted?.Invoke(this, EventArgs.Empty);
         OnLegatoCompleted?.Invoke(this, EventArgs.Empty);

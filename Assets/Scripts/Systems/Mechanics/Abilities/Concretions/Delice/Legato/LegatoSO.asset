@@ -23,6 +23,7 @@ MonoBehaviour:
   flyStartDuration: 0.5
   flyDuration: 3
   flyEndDuration: 0.5
+  dodgeTimeAfterLand: 0.5
   damageColor: {r: 1, g: 0.45882353, b: 0.7764706, a: 1}
   actionRadius: 4
   landDamage: 7

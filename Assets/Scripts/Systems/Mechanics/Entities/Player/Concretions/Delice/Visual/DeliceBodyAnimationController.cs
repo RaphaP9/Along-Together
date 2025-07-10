@@ -16,6 +16,8 @@ public class DeliceBodyAnimationController : CharacterBodyAnimationController
     private const string LEGATO_BLEND_TREE_NAME = "LegatoBlendTree";
     private const string LEGATO_OUT_ANIMATION_NAME = "LegatoOut";
 
+    private bool onLegato = false;
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -49,34 +51,44 @@ public class DeliceBodyAnimationController : CharacterBodyAnimationController
     #region Subscriptions
     private void Staccato_OnStaccatoPerformanceStart(object sender, System.EventArgs e)
     {
+        if (onLegato) return;
         PlayAnimation(STACCATO_PERFORMANCE_ANIMATION_NAME);
     }
+
     private void Staccato_OnStaccatoPerformanceEnd(object sender, System.EventArgs e)
     {
+        if (onLegato) return;
         PlayAnimation(MOVEMENT_BLEND_TREE_NAME);
     }
 
     private void Ritardando_OnRitardandoPerformanceStart(object sender, System.EventArgs e)
     {
+        if (onLegato) return;
         PlayAnimation(RITARDANDO_PERFORMANCE_ANIMATION_NAME);
     }
     private void Ritardando_OnRitardandoPerformanceEnd(object sender, System.EventArgs e)
     {
+        if (onLegato) return;
         PlayAnimation(MOVEMENT_BLEND_TREE_NAME);
     }
 
     private void Legato_OnLegatoStarting(object sender, System.EventArgs e)
     {
+        onLegato = true;
         PlayAnimation(LEGATO_IN_ANIMATION_NAME);
     }
+
     private void Legato_OnLegatoStart(object sender, System.EventArgs e)
     {
         PlayAnimation(LEGATO_BLEND_TREE_NAME);
     }
+
     private void Legato_OnLegatoEnding(object sender, System.EventArgs e)
     {
+        onLegato = false;
         PlayAnimation(LEGATO_OUT_ANIMATION_NAME);
     }
+
     private void Legato_OnLegatoCompleted(object sender, System.EventArgs e)
     {
         PlayAnimation(MOVEMENT_BLEND_TREE_NAME);
