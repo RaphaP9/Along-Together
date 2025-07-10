@@ -56,7 +56,6 @@ public class WavesRoundIndicatorUI : MonoBehaviour
         OnWavesRoundIndicatorTick?.Invoke(this, EventArgs.Empty);
     }
 
-
     private void SetWavesRoundIndicatorText(int currentWave, int totalWaves) => wavesRoundIndicatorText.text = $"{currentWave}/{totalWaves}";
 
     private void WavesRoundHandler_OnWavesRoundStart(object sender, WavesRoundHandler.OnWavesRoundEventArgs e)

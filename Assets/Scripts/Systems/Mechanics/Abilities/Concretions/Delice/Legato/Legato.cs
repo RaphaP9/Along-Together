@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInterruption
+public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInterruption, ICritOverrider
 {
     [Header("Specific Settings")]
     [SerializeField] private LayerMask effectLayerMask;
@@ -36,6 +36,8 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
     /////////////////////////////////////////////////////////////////////
     public bool IsInterruptingMovement() => false; // isStarting || isEnding;
     public bool StopMovementOnInterruption() => true;
+    /////////////////////////////////////////////////////////////////////
+    public bool IsOverridingCrit() => isCurrentlyActive && AbilityLevel == AbilityLevel.Level3;
     ////////////////////////////////////////////////////////////////////
     public override bool IsInterruptingAttack() => isStarting || isEnding;
     /////////////////////////////////////////////////////////////////////
@@ -99,7 +101,7 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
 
         isEnding = false;
 
-        if(AbilityLevel != AbilityLevel.Level1) //Level1 Does not Push
+        if(AbilityLevel != AbilityLevel.Level1) //Level1 Does not Push or deal damage
         {
             PhysicPushData pushData = new PhysicPushData(LegatoSO.pushForce, LegatoSO);
             DamageData damageData = new DamageData(LegatoSO.landDamage, false, LegatoSO, false, true, true, true);

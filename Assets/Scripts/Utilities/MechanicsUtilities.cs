@@ -74,8 +74,11 @@ public static class MechanicsUtilities
 
     #region Damage Evaluation & Processing
 
-    public static bool EvaluateCritAttack(float critChance)
+    public static bool EvaluateCritAttack(float critChance, bool overrideCrit = false, bool overrideNotCrit = false)
     {
+        if (overrideCrit) return true;
+        if (overrideNotCrit) return false;
+
         float randomNumber = Random.Range(0f, 1f);
 
         if (critChance >= randomNumber) return true;

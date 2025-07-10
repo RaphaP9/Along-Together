@@ -36,7 +36,7 @@ public class PlayerHitscanAttack : PlayerAttack
 
     protected override void Attack()
     {
-        bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value);
+        bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value, IsOverridingCrit());
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(entityAttackDamageStatResolver.Value, entityAttackCritDamageMultiplierStatResolver.Value) : entityAttackDamageStatResolver.Value;
 
         Vector2 direction = directionerHandler.GetDirection();

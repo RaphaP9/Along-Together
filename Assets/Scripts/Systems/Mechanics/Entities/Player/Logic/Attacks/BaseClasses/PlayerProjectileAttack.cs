@@ -37,7 +37,7 @@ public class PlayerProjectileAttack : PlayerAttack
 
     protected void ShootProjectile(Transform projectilePrefab, Transform firePoint, Vector2 shootDirection, float extraProjectileDamagePercentage = 1f)
     {
-        bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value);
+        bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value, IsOverridingCrit());
         int regularDamage = Mathf.CeilToInt(entityAttackDamageStatResolver.Value * characterIdentifier.CharacterSO.attackDamagePercentage * extraProjectileDamagePercentage);
 
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(regularDamage, entityAttackCritDamageMultiplierStatResolver.Value) : regularDamage;

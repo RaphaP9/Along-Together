@@ -16,6 +16,7 @@ public abstract class EntityAttack : MonoBehaviour
     [SerializeField] protected LayerMask attackLayermask;
     [Space]
     [SerializeField] protected List<Component> attackInterruptionComponents;
+    [SerializeField] protected List<Component> critOverriderComponents;
 
     [Header("Debug")]
     [SerializeField] protected bool debug;
@@ -24,6 +25,7 @@ public abstract class EntityAttack : MonoBehaviour
 
     protected float attackTimer = 0f;
     private List<IAttackInterruption> attackInterruptions;
+    private List<ICritOverrider> critOverriders;
 
     #region Events
     public event EventHandler<OnEntityAttackEventArgs> OnEntityAttack;
@@ -53,6 +55,7 @@ public abstract class EntityAttack : MonoBehaviour
     protected virtual void Awake()
     {
         attackInterruptions = GeneralUtilities.TryGetGenericsFromComponents<IAttackInterruption>(attackInterruptionComponents);
+        critOverriders = GeneralUtilities.TryGetGenericsFromComponents<ICritOverrider>(critOverriderComponents);
     }
 
     protected abstract void Attack();
@@ -72,12 +75,22 @@ public abstract class EntityAttack : MonoBehaviour
         if (!entityHealth.IsAlive()) return false;
         if (!HasValidAttackSpeed()) return false;
 
-        foreach (IAttackInterruption attackInterruptionAbility in attackInterruptions)
+        foreach (IAttackInterruption attackInterruption in attackInterruptions)
         {
-            if (attackInterruptionAbility.IsInterruptingAttack()) return false;
+            if (attackInterruption.IsInterruptingAttack()) return false;
         }
 
         return true;
+    }
+
+    protected virtual bool IsOverridingCrit()
+    {
+        foreach (ICritOverrider critOverrider in critOverriders)
+        {
+            if (critOverrider.IsOverridingCrit()) return true;
+        }
+
+        return false;
     }
 
     #region Virtual Event Methods

@@ -13,7 +13,7 @@ public class PlayerMeleeAttack : PlayerAttack
 
     protected override void Attack()
     {
-        bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value);
+        bool isCrit = MechanicsUtilities.EvaluateCritAttack(entityAttackCritChanceStatResolver.Value, IsOverridingCrit());
         int damage = isCrit ? MechanicsUtilities.CalculateCritDamage(entityAttackDamageStatResolver.Value, entityAttackCritDamageMultiplierStatResolver.Value) : entityAttackDamageStatResolver.Value;
 
         List<Vector2> positions = GeneralUtilities.TransformPositionVector2List(attackPoints);

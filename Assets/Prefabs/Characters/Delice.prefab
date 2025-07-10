@@ -896,6 +896,8 @@ MonoBehaviour:
   - {fileID: 7920790296143757481}
   - {fileID: 2412851267031932804}
   - {fileID: 8682992959460049137}
+  critOverriderComponents:
+  - {fileID: 8682992959460049137}
   debug: 1
   characterIdentifier: {fileID: 1965199428449930878}
   attackTriggerType: 0
