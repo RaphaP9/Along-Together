@@ -82,7 +82,13 @@ public class ShopObjectCardContentsHandler : MonoBehaviour
     {
         foreach (Transform child in numericStatsContainer)
         {
-            child.gameObject.SetActive(false);
+            if (child == numericStatUISample)
+            {
+                child.gameObject.SetActive(false);
+                continue;
+            }
+
+            Destroy(child.gameObject);
         }
     }
 

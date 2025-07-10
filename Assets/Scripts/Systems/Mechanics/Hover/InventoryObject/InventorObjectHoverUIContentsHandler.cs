@@ -129,6 +129,10 @@ public class InventorObjectHoverUIContentsHandler : MonoBehaviour
             numericStatsContainer.gameObject.SetActive(false);
             return;
         }
+        else
+        {
+            numericStatsContainer.gameObject.SetActive(true);
+        }
 
         foreach (NumericEmbeddedStat numericEmbeddedStat in inventoryObjectSO.GetNumericEmbeddedStats())
         {
@@ -156,7 +160,13 @@ public class InventorObjectHoverUIContentsHandler : MonoBehaviour
     {
         foreach (Transform child in numericStatsContainer)
         {
-            child.gameObject.SetActive(false);
+            if (child == numericStatUISample)
+            {
+                child.gameObject.SetActive(false);
+                continue;
+            }
+
+            Destroy(child.gameObject);
         }
     }
 

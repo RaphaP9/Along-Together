@@ -95,7 +95,7 @@ public class MusicManager : MonoBehaviour
                 break;
             case CREDITS_SCENE_NAME:
                 PlayMusic(musicPoolSO.creditsMusic);
-                Debug.Log("CredistMusicPlay");
+                Debug.Log("CreditsMusicPlay");
                 break;
             case START_CINEMATIC_SCENE_NAME:
             case END_CINEMATIC_SCENE_NAME:
