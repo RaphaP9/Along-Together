@@ -19,14 +19,14 @@ MonoBehaviour:
       8 puntos de da\xF1o."
     cardLevelDescription: "Delice ralentiza y da\xF1a a los enemigos en un \xE1rea
       frente a ella."
-    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: a2914d0d43e65b94cb3d4623c429b91c, type: 3}
   - abilityLevel: 1
     levelDescription: "Delice disminuye el tempo de su melod\xEDa, ralentizando por
       2 segundos a los enemigos en un \xE1rea frente a ella, y ocasion\xE1ndoles
       8 puntos de da\xF1o."
     cardLevelDescription: "Delice ralentiza y da\xF1a a los enemigos en un \xE1rea
       frente a ella."
-    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: a2914d0d43e65b94cb3d4623c429b91c, type: 3}
   - abilityLevel: 2
     levelDescription: "Delice disminuye el tempo de su melod\xEDa, ralentizando por
       2 segundos a los enemigos en un \xE1rea frente a ella, y ocasion\xE1ndoles
@@ -40,4 +40,4 @@ MonoBehaviour:
       8 puntos de da\xF1o, adem\xE1s de empujarlos ligeramente hacia atr\xE1s."
     cardLevelDescription: "El \xE1rea de efecto de la habilidad ahora afecta a todos
       los enemigos alrededor de Delice."
-    cardPrefab: {fileID: 7804676402468727170, guid: 2f0439a51febc604b9449406ec181610, type: 3}
+    cardPrefab: {fileID: 7804676402468727170, guid: 88dc4350ab82d864b813d5759de23d83, type: 3}
