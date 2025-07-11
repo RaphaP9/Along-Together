@@ -15,8 +15,8 @@ MonoBehaviour:
   id: 2502
   _name: El Nuevo Diente de Oro
   objectRarity: 4
-  description: "Las monedas tienen un 10% de probabilidades de ot\xF3rgate 1 de Da\xF1o
-    de Ataque. Este efecto es reiniciado al terminar la ronda."
+  description: "Cada esencia tienen un 10% de probabilidades de ot\xF3rgate 1 de
+    Da\xF1o de Ataque. Este efecto es reiniciado al terminar la ronda."
   sprite: {fileID: 21300000, guid: 2132a3674fa227642b073e755b883890, type: 3}
   price: 50
   sellPrice: 35

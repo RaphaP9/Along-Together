@@ -15,8 +15,8 @@ MonoBehaviour:
   id: 2204
   _name: "Favor del Cham\xE1n Avaricioso"
   objectRarity: 1
-  description: Las monedas tienen un 10% de probabilidades de curarte 1 punto de
-    vida.
+  description: Cada esencia recogida tiene un 10% de probabilidades de curarte 1
+    punto de vida.
   sprite: {fileID: 21300000, guid: 6463a7748b4402942ad34d7a6b7f111a, type: 3}
   price: 20
   sellPrice: 14

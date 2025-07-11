@@ -37,7 +37,7 @@ MonoBehaviour:
   - localID: 3
     dialogueSpeakerSO: {fileID: 11400000, guid: 947d6c583014ebb4187f04852fcb9e84, type: 2}
     sentenceText: "Vaya actitud... Solamente quiero ofrecerte un trato donde ambos
-      salimos ganando, t\xFA me consigues los restos de esos monstruos y yo te los
+      salimos ganando, t\xFA me consigues la esencia de esos monstruos y yo te la
       intercambio por estos artefactos que te servir\xE1n para seguir su traves\xEDa,
       y de seguro te har\xE1n ver mejor que los dem\xE1s de tu especie."
     speakerSprite: {fileID: 0}
