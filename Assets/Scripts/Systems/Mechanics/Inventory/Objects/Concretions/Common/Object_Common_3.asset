@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: Object_Common_3
   m_EditorClassIdentifier: 
   id: 1103
-  _name: Object_Common_3
+  _name: "Amuleto de Savia Fr\xE1gil"
   objectRarity: 0
-  description: Object_Common_3 Description
+  description: 
   sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
   price: 10
   sellPrice: 7
   numericEmbeddedStats:
-  - numericStatType: 4
+  - numericStatType: 0
     numericStatModificationType: 0
-    value: 1
+    value: 2
+  - numericStatType: 6
+    numericStatModificationType: 0
+    value: -1
   recommendedCharacters: []

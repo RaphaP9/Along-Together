@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: Object_Rare_4
   m_EditorClassIdentifier: 
   id: 1304
-  _name: Object_Rare_4
+  _name: Anillo del Eclipse Ardiente
   objectRarity: 2
-  description: Object_Rare_4 Description
+  description: 
   sprite: {fileID: 21300000, guid: e5c320c7479415741858c8d9d70441aa, type: 3}
   price: 30
   sellPrice: 21
   numericEmbeddedStats:
-  - numericStatType: 6
+  - numericStatType: 12
     numericStatModificationType: 0
-    value: 2
-  - numericStatType: 0
+    value: 0.05
+  - numericStatType: 9
     numericStatModificationType: 0
-    value: -2
+    value: 0.2
+  - numericStatType: 7
+    numericStatModificationType: 1
+    value: -0.025
   recommendedCharacters: []

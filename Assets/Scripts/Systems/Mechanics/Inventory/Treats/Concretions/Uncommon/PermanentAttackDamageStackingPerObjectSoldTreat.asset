@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 699723a33aa6d91428cbf19ad440a0ed, type: 3}
-  m_Name: ExecuteTreat
+  m_Name: PermanentAttackDamageStackingPerObjectSoldTreat
   m_EditorClassIdentifier: 
-  id: 2101
-  _name: ExecuteTreat
-  objectRarity: 0
-  description: ExecuteTreat
+  id: 2203
+  _name: PermanentAttackDamageStackingPerObjectSoldTreat
+  objectRarity: 1
+  description: Cada objeto vendido te otorga 5% de Velocidad de Ataque.
   sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
-  price: 10
-  sellPrice: 7
+  price: 20
+  sellPrice: 14
   numericEmbeddedStats: []
   recommendedCharacters: []

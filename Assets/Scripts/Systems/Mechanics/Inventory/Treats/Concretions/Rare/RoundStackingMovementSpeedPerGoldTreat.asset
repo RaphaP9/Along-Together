@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699723a33aa6d91428cbf19ad440a0ed, type: 3}
   m_Name: RoundStackingMovementSpeedPerGoldTreat
   m_EditorClassIdentifier: 
-  id: 2104
-  _name: RoundStackingMovementSpeedPerGoldTreat
-  objectRarity: 0
-  description: RoundStackingMovementSpeedPerGoldTreat
+  id: 2301
+  _name: Botas de Cuero Inestables
+  objectRarity: 2
+  description: Cada moneda recogida te otorga 1% de Velocidad de Movimiento. Este
+    efecto es reiniciado al terminar la ronda.
   sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
-  price: 10
-  sellPrice: 7
+  price: 30
+  sellPrice: 21
   numericEmbeddedStats: []
   recommendedCharacters: []

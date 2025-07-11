@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Object_Epic_2
   m_EditorClassIdentifier: 
   id: 1402
-  _name: Object_Epic_2
+  _name: "Zapatos del Tr\xE1nsito Infinito"
   objectRarity: 3
-  description: Object_Epic_2 Description
+  description: 
   sprite: {fileID: 21300000, guid: af33c4b35928bd344928a59cca80c2e1, type: 3}
   price: 40
   sellPrice: 28
   numericEmbeddedStats:
-  - numericStatType: 0
-    numericStatModificationType: 1
-    value: 0.2
   - numericStatType: 10
     numericStatModificationType: 1
     value: 0.2
+  - numericStatType: 12
+    numericStatModificationType: 0
+    value: 0.1
   recommendedCharacters: []

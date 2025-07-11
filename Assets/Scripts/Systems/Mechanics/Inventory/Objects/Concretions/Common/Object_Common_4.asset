@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Object_Common_4
   m_EditorClassIdentifier: 
   id: 1104
-  _name: Object_Common_4
+  _name: Concha de Lophusco Rota
   objectRarity: 0
-  description: Object_Common_4 Description
+  description: 
   sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
   price: 10
   sellPrice: 7
@@ -23,4 +23,7 @@ MonoBehaviour:
   - numericStatType: 2
     numericStatModificationType: 0
     value: 2
+  - numericStatType: 3
+    numericStatModificationType: 0
+    value: -0.025
   recommendedCharacters: []

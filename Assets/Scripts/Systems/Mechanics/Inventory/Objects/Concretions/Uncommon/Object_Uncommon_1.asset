@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Object_Uncommon_1
   m_EditorClassIdentifier: 
   id: 1201
-  _name: Object_Uncommon_1
+  _name: Grebas del Viento
   objectRarity: 1
-  description: Object_Uncommon_1 Description
+  description: 
   sprite: {fileID: 21300000, guid: 6463a7748b4402942ad34d7a6b7f111a, type: 3}
   price: 20
   sellPrice: 14
   numericEmbeddedStats:
-  - numericStatType: 0
+  - numericStatType: 7
+    numericStatModificationType: 1
+    value: 0.1
+  - numericStatType: 2
     numericStatModificationType: 0
-    value: 4
-  - numericStatType: 4
-    numericStatModificationType: 0
-    value: 1
+    value: -1
   recommendedCharacters: []

@@ -18,7 +18,8 @@ MonoBehaviour:
   sprite: {fileID: 0}
   description: RoundStackingDamagePerGoldTreatEffect
   refferencialGUID: GUID_RoundStackingDamagePerGoldTreatEffectSO
+  stackProbability: 0.1
   statPerStack:
     numericStatType: 6
-    numericStatModificationType: 1
-    value: 0.01
+    numericStatModificationType: 0
+    value: 1

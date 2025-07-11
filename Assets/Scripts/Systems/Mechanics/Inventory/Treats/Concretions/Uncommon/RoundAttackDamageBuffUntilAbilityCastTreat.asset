@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 699723a33aa6d91428cbf19ad440a0ed, type: 3}
-  m_Name: BonusDamageLowHealthTreat
+  m_Name: RoundAttackDamageBuffUntilAbilityCastTreat
   m_EditorClassIdentifier: 
-  id: 2102
-  _name: BonusDamageLowHeathTreat
-  objectRarity: 0
-  description: BonusDamageLowHeathTreat
+  id: 2201
+  _name: "Amuleto Fr\xE1gilmente Bendecido"
+  objectRarity: 1
+  description: "Al inicio de la ronda obtienes 20% de da\xF1o de ataque, que se desactiva
+    al usar cualquier habilidad. Se vuelve a activar al inicio de la siguiente ronda."
   sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
-  price: 10
-  sellPrice: 7
+  price: 20
+  sellPrice: 14
   numericEmbeddedStats: []
   recommendedCharacters: []

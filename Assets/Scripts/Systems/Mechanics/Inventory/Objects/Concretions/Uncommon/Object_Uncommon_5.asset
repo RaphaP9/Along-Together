@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Object_Uncommon_5
   m_EditorClassIdentifier: 
   id: 1205
-  _name: Object_Uncommon_5
+  _name: Susurro del Ocaso
   objectRarity: 1
-  description: Object_Uncommon_5 Description
+  description: 
   sprite: {fileID: 21300000, guid: 6463a7748b4402942ad34d7a6b7f111a, type: 3}
   price: 20
   sellPrice: 14
   numericEmbeddedStats:
-  - numericStatType: 7
+  - numericStatType: 12
     numericStatModificationType: 1
-    value: 0.07
+    value: 0.05
   - numericStatType: 4
     numericStatModificationType: 0
-    value: 1
+    value: -2
   recommendedCharacters: []

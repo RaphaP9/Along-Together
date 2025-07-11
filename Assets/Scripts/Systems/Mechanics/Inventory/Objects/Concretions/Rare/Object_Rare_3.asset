@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: Object_Rare_3
   m_EditorClassIdentifier: 
   id: 1303
-  _name: Object_Rare_3
+  _name: "Pin\xE1culo Letal"
   objectRarity: 2
-  description: Object_Rare_3 Description
+  description: 
   sprite: {fileID: 21300000, guid: e5c320c7479415741858c8d9d70441aa, type: 3}
   price: 30
   sellPrice: 21
   numericEmbeddedStats:
-  - numericStatType: 12
-    numericStatModificationType: 0
-    value: 0.1
   - numericStatType: 6
     numericStatModificationType: 0
-    value: -1
+    value: 1
+  - numericStatType: 8
+    numericStatModificationType: 0
+    value: 0.1
+  - numericStatType: 3
+    numericStatModificationType: 0
+    value: -0.025
   recommendedCharacters: []

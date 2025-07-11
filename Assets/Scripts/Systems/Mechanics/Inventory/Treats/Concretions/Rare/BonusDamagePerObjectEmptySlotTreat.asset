@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699723a33aa6d91428cbf19ad440a0ed, type: 3}
   m_Name: BonusDamagePerObjectEmptySlotTreat
   m_EditorClassIdentifier: 
-  id: 2108
-  _name: BonusDamagePerObjectEmptySlotTreat
+  id: 2303
+  _name: Bolsa del Rumai
   objectRarity: 0
-  description: BonusDamagePerObjectEmptySlotTreat
+  description: "Por cada ranura de objeto vac\xEDa que tengas en el inventario, obtienes
+    1 de Da\xF1o de Ataque."
   sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
-  price: 10
-  sellPrice: 7
+  price: 30
+  sellPrice: 21
   numericEmbeddedStats: []
   recommendedCharacters: []

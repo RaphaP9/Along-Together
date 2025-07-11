@@ -19,6 +19,6 @@ MonoBehaviour:
   description: PermanentAttackDamageStackingPerObjectSoldTreatEffect
   refferencialGUID: GUID_PermanentAttackDamageStackingPerObjectSoldTreatEffect
   statPerStack:
-    numericStatType: 6
-    numericStatModificationType: 0
-    value: 1
+    numericStatType: 7
+    numericStatModificationType: 1
+    value: 0.05

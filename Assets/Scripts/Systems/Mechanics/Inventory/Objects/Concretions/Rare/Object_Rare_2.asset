@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: Object_Rare_2
   m_EditorClassIdentifier: 
   id: 1302
-  _name: Object_Rare_2
+  _name: "P\xE9ndulo Fracturado"
   objectRarity: 2
-  description: Object_Rare_2 Description
+  description: 
   sprite: {fileID: 21300000, guid: e5c320c7479415741858c8d9d70441aa, type: 3}
   price: 30
   sellPrice: 21
   numericEmbeddedStats:
-  - numericStatType: 3
-    numericStatModificationType: 0
-    value: 0.15
   - numericStatType: 0
     numericStatModificationType: 0
-    value: -5
+    value: 2
+  - numericStatType: 12
+    numericStatModificationType: 0
+    value: 0.05
+  - numericStatType: 10
+    numericStatModificationType: 1
+    value: -0.05
   recommendedCharacters: []

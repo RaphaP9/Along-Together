@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Object_Epic_3
   m_EditorClassIdentifier: 
   id: 1403
-  _name: Object_Epic_3
+  _name: Daga del Espejismo Punzante
   objectRarity: 3
-  description: Object_Epic_3 Description
+  description: 
   sprite: {fileID: 21300000, guid: af33c4b35928bd344928a59cca80c2e1, type: 3}
   price: 40
   sellPrice: 28
   numericEmbeddedStats:
-  - numericStatType: 8
+  - numericStatType: 6
+    numericStatModificationType: 0
+    value: 1
+  - numericStatType: 3
     numericStatModificationType: 0
     value: 0.1
-  - numericStatType: 9
-    numericStatModificationType: 0
-    value: 0.25
   recommendedCharacters: []

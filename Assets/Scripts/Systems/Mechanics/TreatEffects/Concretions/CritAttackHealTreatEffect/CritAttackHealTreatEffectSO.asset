@@ -18,4 +18,4 @@ MonoBehaviour:
   sprite: {fileID: 0}
   description: CritAttackHealTreatEffect
   healPerCrit: 1
-  healProbability: 0.5
+  healProbability: 0.1

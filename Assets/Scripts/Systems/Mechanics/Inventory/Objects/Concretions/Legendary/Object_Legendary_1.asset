@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: Object_Legendary_1
   m_EditorClassIdentifier: 
   id: 1501
-  _name: Object_Legendary_1
+  _name: Corona del Ecplipse
   objectRarity: 4
-  description: Object_Legendary_1 Description
+  description: 
   sprite: {fileID: 21300000, guid: 2132a3674fa227642b073e755b883890, type: 3}
   price: 50
   sellPrice: 35
   numericEmbeddedStats:
-  - numericStatType: 0
-    numericStatModificationType: 0
-    value: 5
-  - numericStatType: 2
-    numericStatModificationType: 0
-    value: 3
   - numericStatType: 7
     numericStatModificationType: 1
+    value: 0.2
+  - numericStatType: 12
+    numericStatModificationType: 0
     value: 0.25
+  - numericStatType: 9
+    numericStatModificationType: 0
+    value: 0.5
   recommendedCharacters: []

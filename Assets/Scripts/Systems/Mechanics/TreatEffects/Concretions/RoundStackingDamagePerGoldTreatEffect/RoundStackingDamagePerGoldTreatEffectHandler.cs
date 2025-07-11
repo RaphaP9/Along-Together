@@ -34,6 +34,15 @@ public class RoundStackingDamagePerGoldTreatEffectHandler : RoundStackingTreatEf
 
     protected override string GetRefferencialGUID() => RoundStackingDamagePerGoldTreatEffectSO.refferencialGUID;
 
+    private void HandleStacking(int quantity)
+    {
+        bool probability = MechanicsUtilities.GetProbability(RoundStackingDamagePerGoldTreatEffectSO.stackProbability);
+
+        if (!probability) return;
+
+        AddStacks(quantity);
+    }
+
     protected override void AddStacks(int quantity)
     {
         base.AddStacks(quantity);
@@ -46,7 +55,7 @@ public class RoundStackingDamagePerGoldTreatEffectHandler : RoundStackingTreatEf
         if (!isCurrentlyActiveByInventoryObjects) return;
         if (!isMeetingCondition) return;
         if (!onRound) return;
-        AddStacks(1);
+        HandleStacking(1);
     }
     #endregion
 }

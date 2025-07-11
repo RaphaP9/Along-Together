@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 699723a33aa6d91428cbf19ad440a0ed, type: 3}
-  m_Name: GoldHealTreat
+  m_Name: CritAttackHealTreat
   m_EditorClassIdentifier: 
-  id: 2110
-  _name: GoldHealTreat
-  objectRarity: 0
-  description: GoldHealTreat
+  id: 2504
+  _name: "El Esp\xEDritu de Nasforetu"
+  objectRarity: 4
+  description: "Los ataques cr\xEDticos tienen un 10% de probabilidad de curar 1
+    punto de vida."
   sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
-  price: 10
-  sellPrice: 7
+  price: 50
+  sellPrice: 35
   numericEmbeddedStats: []
   recommendedCharacters: []
