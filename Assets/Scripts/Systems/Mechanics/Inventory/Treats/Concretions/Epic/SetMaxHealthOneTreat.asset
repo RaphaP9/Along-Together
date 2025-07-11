@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 699723a33aa6d91428cbf19ad440a0ed, type: 3}
-  m_Name: Treat_Epic_1
+  m_Name: SetMaxHealthOneTreat
   m_EditorClassIdentifier: 
   id: 2401
   _name: "Vals del \xDAltimo Latido"

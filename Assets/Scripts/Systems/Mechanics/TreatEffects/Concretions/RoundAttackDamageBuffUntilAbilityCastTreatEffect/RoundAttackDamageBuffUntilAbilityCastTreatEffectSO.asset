@@ -20,5 +20,5 @@ MonoBehaviour:
   refferencialGUID: GUID_RoundAttackDamageBuffUntilAbilityCastTreatEffect
   buffStat:
     numericStatType: 6
-    numericStatModificationType: 1
-    value: 1
+    numericStatModificationType: 0
+    value: 3

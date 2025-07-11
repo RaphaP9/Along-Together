@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2303
   _name: Bolsa del Rumai
-  objectRarity: 0
+  objectRarity: 2
   description: "Por cada ranura de objeto vac\xEDa que tengas en el inventario, obtienes
     1 de Da\xF1o de Ataque."
   sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
