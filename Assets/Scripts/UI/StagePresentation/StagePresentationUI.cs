@@ -41,10 +41,12 @@ public class StagePresentationUI : MonoBehaviour
     }
 
     private void SetStageNameText(string stageName) => stageNameText.text = stageName;  
+    private void SetStageNameColor(Color stageNameColor) => stageNameText.color = stageNameColor;
 
     private IEnumerator ShowStageNameCoroutine(StageSO stageSO)
     {
         SetStageNameText(stageSO.stageName);
+        SetStageNameColor(stageSO.stageNameColor);
 
         yield return new WaitForSeconds(timeToShowStageName);
 

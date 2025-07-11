@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Stage5
   m_EditorClassIdentifier: 
   stageName: Fase 5
+  stageNameColor: {r: 0.79961354, g: 1, b: 0.7971698, a: 1}
   roundGroups:
   - difficultyTier: 2
     rounds:
