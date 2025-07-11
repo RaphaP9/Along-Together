@@ -237,7 +237,7 @@ public static class MechanicsUtilities
     public static float ClampNumericStat(float baseValue, float minValue, float maxValue)
     {
         float clampedValue = baseValue > maxValue ? maxValue : baseValue;
-        clampedValue = baseValue < minValue ? minValue : baseValue;
+        clampedValue = clampedValue < minValue ? minValue : clampedValue;
 
         return clampedValue;
     }
