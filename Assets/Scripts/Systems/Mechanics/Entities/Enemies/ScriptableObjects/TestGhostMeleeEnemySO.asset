@@ -30,7 +30,7 @@ MonoBehaviour:
   damageColor: {r: 0.5660378, g: 0.040049836, b: 0.040049836, a: 1}
   baseMovementSpeed: 2.5
   pushResistanceFactor: 1.5
-  goldDrop: 1
+  goldDrop: 5
   spawnDuration: 1.5
   cleanupTime: 3
   attackDistance: 1
