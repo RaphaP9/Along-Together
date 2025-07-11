@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PermanentAttackDamageStackingPerObjectSoldTreat
   m_EditorClassIdentifier: 
   id: 2203
-  _name: PermanentAttackDamageStackingPerObjectSoldTreat
+  _name: Transmutador Roto del Economista
   objectRarity: 1
   description: Cada objeto vendido te otorga 5% de Velocidad de Ataque.
   sprite: {fileID: 21300000, guid: 6463a7748b4402942ad34d7a6b7f111a, type: 3}

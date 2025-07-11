@@ -15,8 +15,8 @@ MonoBehaviour:
   id: 2201
   _name: "Amuleto Fr\xE1gilmente Bendecido"
   objectRarity: 1
-  description: "Al inicio de la ronda obtienes 3 de Da\xF1o de Ataque, que se desactiva
-    al usar cualquier habilidad. Se vuelve a activar al inicio de la siguiente ronda."
+  description: "Al inicio de la ronda obtienes 3 de Da\xF1o de Ataque. Se desactiva
+    al usar cualquier habilidad y vuelve a activarse al inicio de la siguiente ronda."
   sprite: {fileID: 21300000, guid: 6463a7748b4402942ad34d7a6b7f111a, type: 3}
   price: 20
   sellPrice: 14
