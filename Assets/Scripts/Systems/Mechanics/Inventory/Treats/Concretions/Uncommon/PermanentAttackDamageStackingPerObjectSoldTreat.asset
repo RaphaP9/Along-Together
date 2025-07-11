@@ -16,7 +16,7 @@ MonoBehaviour:
   _name: PermanentAttackDamageStackingPerObjectSoldTreat
   objectRarity: 1
   description: Cada objeto vendido te otorga 5% de Velocidad de Ataque.
-  sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
+  sprite: {fileID: 21300000, guid: 6463a7748b4402942ad34d7a6b7f111a, type: 3}
   price: 20
   sellPrice: 14
   numericEmbeddedStats: []

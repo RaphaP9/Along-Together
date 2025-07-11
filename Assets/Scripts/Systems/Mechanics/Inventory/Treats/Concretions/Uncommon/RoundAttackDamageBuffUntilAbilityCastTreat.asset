@@ -17,7 +17,7 @@ MonoBehaviour:
   objectRarity: 1
   description: "Al inicio de la ronda obtienes 3 de Da\xF1o de Ataque, que se desactiva
     al usar cualquier habilidad. Se vuelve a activar al inicio de la siguiente ronda."
-  sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
+  sprite: {fileID: 21300000, guid: 6463a7748b4402942ad34d7a6b7f111a, type: 3}
   price: 20
   sellPrice: 14
   numericEmbeddedStats: []

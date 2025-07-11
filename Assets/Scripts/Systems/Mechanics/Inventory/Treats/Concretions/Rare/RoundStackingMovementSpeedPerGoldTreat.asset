@@ -17,7 +17,7 @@ MonoBehaviour:
   objectRarity: 2
   description: Cada moneda recogida te otorga 1% de Velocidad de Movimiento. Este
     efecto es reiniciado al terminar la ronda.
-  sprite: {fileID: 21300000, guid: 19026a324eac6c044b7873c7d3e103f4, type: 3}
+  sprite: {fileID: 21300000, guid: e5c320c7479415741858c8d9d70441aa, type: 3}
   price: 30
   sellPrice: 21
   numericEmbeddedStats: []
