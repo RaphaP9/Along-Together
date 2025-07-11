@@ -12,19 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee4922e87a5fb94ab07e11b117c659b, type: 3}
   m_Name: MusicPool
   m_EditorClassIdentifier: 
-  menuMusic: {fileID: 8300000, guid: 4fe3fb8d95626764aa6bb1b3468d1d27, type: 3}
-  optionsMusic: {fileID: 8300000, guid: 5d0bf120a9e04274286d40bbb9c29cc7, type: 3}
-  creditsMusic: {fileID: 8300000, guid: 4bd6b77f1cc1cfc42a25f285a53b163e, type: 3}
+  menuMusic: {fileID: 8300000, guid: 98ba347971ce3c44f92a9a12b8664a5a, type: 3}
+  creditsMusic: {fileID: 8300000, guid: dd8ad2dbff615f4488783044919484d6, type: 3}
   CharacterStagesMusicGroupList:
   - characterSO: {fileID: 11400000, guid: 093269bbc084cce44b95dcaf480a1d78, type: 2}
     stageAudioClipGroups:
     - stageNumber: 1
-      audioClip: {fileID: 8300000, guid: b7dd46b567662874fb4526306280e0ab, type: 3}
+      audioClip: {fileID: 8300000, guid: 1f0597d6c9c497c49802016860fb5d71, type: 3}
     - stageNumber: 2
-      audioClip: {fileID: 8300000, guid: 1dda29031376b844a84a451d48017f56, type: 3}
+      audioClip: {fileID: 8300000, guid: d493fff82fc678344a491ced3b87f737, type: 3}
     - stageNumber: 3
-      audioClip: {fileID: 8300000, guid: 4fe12831862a03649b6e79e87d384b40, type: 3}
+      audioClip: {fileID: 8300000, guid: b4504be630e567044951b27512369f66, type: 3}
     - stageNumber: 4
-      audioClip: {fileID: 8300000, guid: 3ffd2f16f6fb419419f72ff7143e77a4, type: 3}
-    - stageNumber: 5
-      audioClip: {fileID: 8300000, guid: cad2e269b5cd44a489e47f2ed60ffe50, type: 3}
+      audioClip: {fileID: 8300000, guid: c706eeb799a192d4fa8de98c1572976e, type: 3}

@@ -16,11 +16,8 @@ public class MusicManager : MonoBehaviour
     private AudioSource audioSource;
 
     private const string MENU_SCENE_NAME = "MainMenu";
-    private const string GAMEPLAY_SCENE_NAME = "Gameplay";
-    private const string OPTIONS_SCENE_NAME = "Options";
     private const string CREDITS_SCENE_NAME = "Credits";
-    private const string START_CINEMATIC_SCENE_NAME = "StartCinematic";
-    private const string END_CINEMATIC_SCENE_NAME = "EndCinematic";
+    private const string GAMEPLAY_SCENE_NAME = "Gameplay";
 
     private void OnEnable()
     {
@@ -89,16 +86,11 @@ public class MusicManager : MonoBehaviour
                 PlayMusic(musicPoolSO.menuMusic);
                 Debug.Log("MainMenuMusicPlay");
                 break;
-            case OPTIONS_SCENE_NAME:
-                PlayMusic(musicPoolSO.optionsMusic);
-                Debug.Log("OptionsMusicPlay");
-                break;
             case CREDITS_SCENE_NAME:
                 PlayMusic(musicPoolSO.creditsMusic);
                 Debug.Log("CreditsMusicPlay");
                 break;
-            case START_CINEMATIC_SCENE_NAME:
-            case END_CINEMATIC_SCENE_NAME:
+            default:
                 StopMusic();
                 Debug.Log("Music Stopped CinematicScene");
             break;
