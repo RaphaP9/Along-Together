@@ -18,7 +18,7 @@ public class EnemyMovement : EntityMovement
     [SerializeField, Range (0f,2f)] private float enemyAvoidanceDetectionRadius;
     [SerializeField, Range (0f,1f)] private float enemyAvoidanceWeight;
 
-    private const int MAX_AVOIDANCE_COUNT = 5;
+    private const int MAX_AVOIDANCE_COUNT = 10;
     private const float AVOID_ENEMY_THRESHOLD_DISTANCE = 0.1f;
     private const float AVOID_TERRAIN_THRESHOLD_DISTANCE = 0.01f;
 

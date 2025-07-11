@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundID: 2004
   RoundTier: 5
-  duration: 40
-  baseSpawnInterval: 2.5
+  duration: 45
+  baseSpawnInterval: 1.8
   proceduralRoundEnemyGroups:
   - enemySO: {fileID: 11400000, guid: 8a3ede3befcbc3c4dab36331a3e15506, type: 2}
-    weight: 10
+    weight: 8
   - enemySO: {fileID: 11400000, guid: 8a187a977c2394c4ca5bc25d399c13ab, type: 2}
     weight: 10

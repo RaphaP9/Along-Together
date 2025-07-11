@@ -15,9 +15,13 @@ MonoBehaviour:
   roundID: 3005
   RoundTier: 4
   duration: 45
-  baseSpawnInterval: 2
+  baseSpawnInterval: 1.7
   proceduralRoundEnemyGroups:
   - enemySO: {fileID: 11400000, guid: 8a3ede3befcbc3c4dab36331a3e15506, type: 2}
     weight: 10
+  - enemySO: {fileID: 11400000, guid: 8a187a977c2394c4ca5bc25d399c13ab, type: 2}
+    weight: 2
   - enemySO: {fileID: 11400000, guid: ce01e8c7d4cd50f4ba7940f2165c0800, type: 2}
-    weight: 10
+    weight: 6
+  - enemySO: {fileID: 11400000, guid: 93cac276040663d49a15bbb26aee3e71, type: 2}
+    weight: 6

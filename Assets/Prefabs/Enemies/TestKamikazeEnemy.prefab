@@ -774,7 +774,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   enemyAvoidanceDetectionRadius: 0.5
-  enemyAvoidanceWeight: 0
+  enemyAvoidanceWeight: 0.5
 --- !u!114 &3257223475304700248
 MonoBehaviour:
   m_ObjectHideFlags: 0
