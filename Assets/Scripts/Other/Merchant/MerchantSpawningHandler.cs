@@ -8,7 +8,7 @@ public class MerchantSpawningHandler : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private bool spawnMerchantOnInitialization;
     [Space]
-    [SerializeField, Range(2f, 7f)] private float minDistanceFromPlayerToSpawn;
+    [SerializeField, Range(1f, 7f)] private float minDistanceFromPlayerToSpawn;
     [SerializeField, Range(3f, 10f)] private float maxDistanceFromPlayerToSpawn;
     [Space]
     [SerializeField, Range(0f, 2f)] private float stateChangeTimeToSpawn;

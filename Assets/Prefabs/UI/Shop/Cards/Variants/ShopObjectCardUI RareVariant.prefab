@@ -38,15 +38,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 539689711107448646, guid: 3c221cee12cdb35498d253160444e951, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 234
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 539689711107448646, guid: 3c221cee12cdb35498d253160444e951, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 515
+      value: 511.712
       objectReference: {fileID: 0}
     - target: {fileID: 539689711107448646, guid: 3c221cee12cdb35498d253160444e951, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2
+      value: 8.356
+      objectReference: {fileID: 0}
+    - target: {fileID: 660364003359366777, guid: 3c221cee12cdb35498d253160444e951, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4288085919
       objectReference: {fileID: 0}
     - target: {fileID: 1747514880988364668, guid: 3c221cee12cdb35498d253160444e951, type: 3}
       propertyPath: m_Pivot.x
@@ -290,15 +294,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7999546734000839815, guid: 3c221cee12cdb35498d253160444e951, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 234
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 7999546734000839815, guid: 3c221cee12cdb35498d253160444e951, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 515
+      value: 511.712
       objectReference: {fileID: 0}
     - target: {fileID: 7999546734000839815, guid: 3c221cee12cdb35498d253160444e951, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2
+      value: 8.356
       objectReference: {fileID: 0}
     - target: {fileID: 7999546734000839815, guid: 3c221cee12cdb35498d253160444e951, type: 3}
       propertyPath: m_ConstrainProportionsScale

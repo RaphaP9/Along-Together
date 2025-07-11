@@ -10,7 +10,7 @@ public static class MechanicsUtilities
     private const int ARMOR_THRESHOLD_50_PERCENT = 10;
 
     private const float COOLDOWN_REDUCTION_50_PERCENT = 1f;
-    private const float ABILITY_COOLDOWN_MIN_VALUE = 0.5f;
+    private const float ABILITY_COOLDOWN_MIN_VALUE = 1f;
 
     private const int EXECUTE_DAMAGE = 999;
 
