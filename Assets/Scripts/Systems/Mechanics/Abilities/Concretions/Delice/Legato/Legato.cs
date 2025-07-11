@@ -23,12 +23,13 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
     public float LegatoTimer { get; private set; }
     public float Duration => GetDuration();
 
-    private bool isCurrentlyActive = false;
+    public bool IsCurrentlyActive { get; private set; } = false;
+
     private bool isStarting = false;
     private bool isEnding = false;
 
     #region Interface Methods
-    public bool IsDodging() => isCurrentlyActive;
+    public bool IsDodging() => IsCurrentlyActive;
     /////////////////////////////////////////////////////////////////////
     public bool IsInterruptingFacing() => isStarting || isEnding;
     public bool OverrideFacingDirection() => true;
@@ -37,7 +38,7 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
     public bool IsInterruptingMovement() => false; // isStarting || isEnding;
     public bool StopMovementOnInterruption() => true;
     /////////////////////////////////////////////////////////////////////
-    public bool IsOverridingCrit() => isCurrentlyActive && AbilityLevel == AbilityLevel.Level3;
+    public bool IsOverridingCrit() => IsCurrentlyActive && AbilityLevel == AbilityLevel.Level3;
     ////////////////////////////////////////////////////////////////////
     public override bool IsInterruptingAttack() => isStarting || isEnding;
     /////////////////////////////////////////////////////////////////////
@@ -57,18 +58,20 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
 
     private void HandleLegatoTrigger()
     {
-        if (isCurrentlyActive)
-        {
-            ResetTimer();
-            return;
-        }
-
         StartCoroutine(LegatoCoroutine());
+    }
+
+    public override bool CanCastAbility()
+    {
+        if (!base.CanCastAbility()) return false;
+        if (IsCurrentlyActive) return false;
+
+        return true;
     }
 
     private IEnumerator LegatoCoroutine()
     {
-        isCurrentlyActive = true;
+        IsCurrentlyActive = true;
         ResetTimer();
 
         TemporalNumericStatModifierManager.Instance.AddStatModifiers(LegatoSO.refferencialGUID, LegatoSO);
@@ -114,7 +117,7 @@ public class Legato : ActiveAbility, IDodger, IFacingInterruption, IMovementInte
 
         TemporalNumericStatModifierManager.Instance.RemoveStatModifiersByGUID(LegatoSO.refferencialGUID);
 
-        isCurrentlyActive = false;
+        IsCurrentlyActive = false;
 
         OnAnyLegatoCompleted?.Invoke(this, EventArgs.Empty);
         OnLegatoCompleted?.Invoke(this, EventArgs.Empty);
